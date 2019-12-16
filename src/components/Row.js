@@ -1,0 +1,22 @@
+import React from 'react'
+import {StyleSheet, View} from 'react-native'
+
+export default props => {
+    let customStyle = {}
+
+    if(props.bw) customStyle.justifyContent = 'space-between'
+    else if(props.ar) customStyle.justifyContent = 'space-around'
+
+    return (
+        <View style={[style.container,customStyle,props.style]}>
+            {props.children}
+        </View>
+    )
+}
+
+const style = StyleSheet.create({
+    container: {
+        flexDirection:'row',
+        alignItems:'center'
+    }
+})

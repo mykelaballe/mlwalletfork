@@ -1,0 +1,28 @@
+// A list of all actions in the system.
+import { createTypes } from 'reduxsauce'
+
+export default createTypes(` 
+  STARTUP
+
+  SET_IS_FIRST_TIME
+
+  LOGIN
+  LOGOUT
+
+  SET_USER
+  CLEAR_USER
+
+  NETWORK_SUCCESS
+  NETWORK_FAILURE
+
+  SET_ATTACHED_FILES
+  CLEAR_ATTACHED_FILES
+
+  SET_NOTIFICATIONS
+  CLEAR_NOTIFICATIONS
+
+  UPDATE_CART
+  ADD_TO_CART
+  REMOVE_FROM_CART
+  CLEAR_CART
+`)

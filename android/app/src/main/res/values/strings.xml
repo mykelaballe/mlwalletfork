@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ML Wallet</string>
+    <string name="reactNativeCodePush_androidDeploymentKey"></string>
+</resources>
