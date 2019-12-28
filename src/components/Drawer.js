@@ -4,13 +4,15 @@ import {connect} from 'react-redux'
 import {DrawerNavigatorItems} from 'react-navigation-drawer'
 import Actions from '../actions/Creators'
 import {Text} from './'
+import {Consts, Storage} from '../utils'
 
 const drawer_bg = require('../res/drawer_bg.png')
 const def_avatar = require('../res/avatar.jpg')
 
 class Drawer extends React.Component {
 
-    handleLogout = () => {
+    handleLogout = async () => {
+        await Storage.doSave(Consts.db.user)
         this.props.logout()
     }
 

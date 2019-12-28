@@ -12,4 +12,16 @@ export default {
 
         return res
     },
+
+    checkVersion: async () => {
+        return await Fetch.get('')
+    },
+
+    getKPRates: async () => {
+        return await Fetch.get('getwalletcharge')
+    },
+
+    getCashoutRates: async () => {
+
+    },
 }

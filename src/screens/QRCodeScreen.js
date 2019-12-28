@@ -54,7 +54,7 @@ class QRCodeScreen extends React.Component {
         const {navigate} = this.props.navigation
 
         return (
-            <ScrollView style={style.container}>
+            <ScrollView style={style.container} contentContainerStyle={style.contentContainer}>
 
                 {/*<Text center>{_('44')}</Text>*/}
 
@@ -67,7 +67,7 @@ class QRCodeScreen extends React.Component {
                 </View>
 
                 <Spacer />
-
+                
                 <Button t={_('31')} onPress={this.handleSubmit} />
 
                 <Spacer />
@@ -82,7 +82,10 @@ class QRCodeScreen extends React.Component {
 
 const style = StyleSheet.create({
     container: {
-        padding:Metrics.xl
+        padding:Metrics.xl,
+    },
+    contentContainer: {
+        alignItems:'center'
     },
     qrContainer: {
         width:QR_SIZE,

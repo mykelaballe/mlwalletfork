@@ -11,7 +11,7 @@ let storage = new Storage({
     }
 })
 
-storage.doSave = function(key, data, id = null) {
+storage.doSave = function(key, data = null, id = null) {
 	let obj = {
 		key,
 		data
