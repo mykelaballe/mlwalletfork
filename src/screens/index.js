@@ -1,3 +1,65 @@
+import AuthIndexScrn from './AuthIndex'
+import LoginScrn from './Login'
+import SignUpScrn from './SignUp'
+import ForgotPasswordScrn from './ForgotPassword'
+import TouchIDScrn from './TouchID'
+import HomeScrn from './Home'
+import MyAccountScrn from './MyAccount'
+import NotificationScrn from './Notification'
+import MoreScrn from './More'
+import RatesScrn from './Rates'
+import TransactionHistoryScrn from './TransactionHistory'
+import SendMoneyIndexScrn from './SendMoneyIndex'
+import ReceiveMoneyIndexScrn from './ReceiveMoneyIndex'
+
+//send wallet to wallet
+import SendWalletToWalletScrn from './SendWalletToWallet'
+import SavedWalletReceiversScrn from './SavedWalletReceivers'
+import ReceiverWalletProfileScrn from './ReceiverWalletProfile'
+import AddWalletReceiverScrn from './AddWalletReceiver'
+import UpdateWalletReceiverScrn from './UpdateWalletReceiver'
+
+//send kp
+import SendKPScrn from './SendKP'
+import SavedKPReceiversScrn from './SavedKPReceivers'
+import ReceiverKPProfileScrn from './ReceiverKPProfile'
+import AddKPReceiverScrn from './AddKPReceiver'
+import UpdateKPReceiverScrn from './UpdateKPReceiver'
+
+//bank transfer
+import SavedBankPartnersScrn from './SavedBankPartners'
+import SendBankTransferScrn from './SendBankTransfer'
+import AddBankPartnerScrn from './AddBankPartner'
+
+import ReceiveMoneyScrn from './ReceiveMoney'
+
+import WithdrawCashScrn from './WithdrawCash'
+
+import BuyLoadScrn from './BuyLoad'
+import LoadOptionsScrn from './LoadOptions'
+
+//pay bills
+import BillsCategoryScrn from './BillsCategory'
+import BillersScrn from './Billers'
+import FavoriteBillersScrn from './FavoriteBillers'
+import PayBillScrn from './PayBill'
+
+import PartnersScrn from './Partners'
+import MyContactsScrn from './MyContacts'
+import MyContactProfileScrn from './MyContactProfile'
+
+import TransactionReviewScrn from './TransactionReview'
+import TransactionReceiptScrn from './TransactionReceipt'
+import OTPConfirmationScrn from './OTPConfirmation'
+
+import ProfileScrn from './Profile'
+import EditProfileScrn from './EditProfile'
+import VerificationLevelsScrn from './VerificationLevels'
+import MyQRScrn from './MyQR'
+import LoginSecurityScrn from './LoginSecurity'
+import ChangePasswordScrn from './ChangePassword'
+
+//old
 import LoginScreen from './LoginScreen'
 import ForgotPasswordScreen from './ForgotPasswordScreen'
 
@@ -62,6 +124,64 @@ import ShopCheckoutCustomerInfoScreen from './ShopCheckoutCustomerInfoScreen'
 import ShopCheckoutPaymentScreen from './ShopCheckoutPaymentScreen'
 
 export {
+    AuthIndexScrn,
+    LoginScrn,
+    SignUpScrn,
+    ForgotPasswordScrn,
+    TouchIDScrn,
+    HomeScrn,
+    MyAccountScrn,
+    NotificationScrn,
+    MoreScrn,
+    RatesScrn,
+    TransactionHistoryScrn,
+    SendMoneyIndexScrn,
+    ReceiveMoneyIndexScrn,
+
+    SendWalletToWalletScrn,
+    SavedWalletReceiversScrn,
+    ReceiverWalletProfileScrn,
+    AddWalletReceiverScrn,
+    UpdateWalletReceiverScrn,
+
+    SendKPScrn,
+    SavedKPReceiversScrn,
+    ReceiverKPProfileScrn,
+    AddKPReceiverScrn,
+    UpdateKPReceiverScrn,
+
+    SavedBankPartnersScrn,
+    SendBankTransferScrn,
+    AddBankPartnerScrn,
+
+    ReceiveMoneyScrn,
+
+    WithdrawCashScrn,
+
+    BuyLoadScrn,
+    LoadOptionsScrn,
+
+    BillsCategoryScrn,
+    BillersScrn,
+    FavoriteBillersScrn,
+    PayBillScrn,
+
+    PartnersScrn,
+    MyContactsScrn,
+    MyContactProfileScrn,
+    
+    TransactionReviewScrn,
+    TransactionReceiptScrn,
+    OTPConfirmationScrn,
+
+    ProfileScrn,
+    EditProfileScrn,
+    VerificationLevelsScrn,
+    MyQRScrn,
+    LoginSecurityScrn,
+    ChangePasswordScrn,
+
+    //old
     LoginScreen,
     ForgotPasswordScreen,
 

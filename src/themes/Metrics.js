@@ -29,7 +29,12 @@ export default {
     },
 
     image: {
-        
+        xs:20,
+        sm:40,
+        rg:50,
+        md:70,
+        lg:90,
+        xl:110
     },
 
     elevation:2

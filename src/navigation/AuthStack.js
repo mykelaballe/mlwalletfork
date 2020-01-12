@@ -1,70 +1,48 @@
 import React from 'react'
 import {createStackNavigator} from 'react-navigation-stack'
-import {
-    LoginScreen,
-    ForgotPasswordScreen,
-
-    RegisterIndexScreen,
-    SignUpScreen,
-    RegisterSuccessScreen,
-
-    InformationScreen,
-    ContactUsScreen,
-    FAQScreen,
-    AboutScreen,
-    LocatorScreen,
-    QRCodeScreen,
-    RatesScreen,
-    SecurityQuestionsScreen,
-    TermsAndConditionsScreen,
-    ShopStoreListingScreen,
-    ShopViewStoreScreen,
-    ShopViewProductScreen,
-    ShopViewCartScreen,
-    ShopMyOrdersScreen,
-    ShopCheckoutOrderDetailsScreen,
-    ShopCheckoutCustomerInfoScreen,
-    ShopCheckoutPaymentScreen,
-} from '../screens'
-import SignUpStack from './SignUpStack'
-import RatesStack from './RatesStack'
+import * as Scrn from '../screens'
 import {Colors} from '../themes'
 
 export default createStackNavigator({
-    Login: LoginScreen,
-    ForgotPassword: ForgotPasswordScreen,
-
-    RegisterIndex: RegisterIndexScreen,
-    SignUp: {
-        screen: SignUpStack,
-        navigationOptions: {
-            title:'Register'
-        }
-    },
-    RegisterSuccess: RegisterSuccessScreen,
-    
-    Information: InformationScreen,
-    ContactUs: ContactUsScreen,
-    FAQ: FAQScreen,
-    About: AboutScreen,
-    Locator: LocatorScreen,
-    QRCode: QRCodeScreen,
-    Rates: {
-        screen:RatesStack,
+    AuthIndex: {
+        screen:Scrn.AuthIndexScrn,
         navigationOptions:{
-            title:'Rates'
+            header:null
         }
     },
-    SecurityQuestions: SecurityQuestionsScreen,
-    TermsAndConditions: TermsAndConditionsScreen,
-    ShopStoreListing: ShopStoreListingScreen,
-    ShopViewStore: ShopViewStoreScreen,
-    ShopViewProduct: ShopViewProductScreen,
-    ShopViewCart: ShopViewCartScreen,
-    ShopMyOrders: ShopMyOrdersScreen,
-    ShopCheckoutOrderDetails: ShopCheckoutOrderDetailsScreen,
-    ShopCheckoutCustomerInfo: ShopCheckoutCustomerInfoScreen,
-    ShopCheckoutPayment: ShopCheckoutPaymentScreen,
+    Login: {
+        screen:Scrn.LoginScrn,
+        navigationOptions:{
+            header:null
+        }
+    },
+    SignUp: {
+        screen:Scrn.SignUpScrn,
+        navigationOptions:{
+            headerStyle:{
+                backgroundColor:'transparent'
+            },
+            headerTintColor:Colors.brand
+        }
+    },
+    ForgotPassword: {
+        screen:Scrn.ForgotPasswordScrn,
+        navigationOptions:{
+            headerStyle:{
+                backgroundColor:'transparent'
+            },
+            headerTintColor:Colors.brand
+        }
+    },
+    TouchID: {
+        screen:Scrn.TouchIDScrn,
+        navigationOptions:{
+            headerStyle:{
+                backgroundColor:'transparent'
+            },
+            headerTintColor:Colors.brand
+        }
+    }
 },{
     defaultNavigationOptions: {
         headerStyle: {

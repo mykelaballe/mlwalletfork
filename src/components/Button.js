@@ -15,11 +15,12 @@ export default props => {
     else if(props.warning) customStyle.backgroundColor = Colors.warning
     else if(props.danger) customStyle.backgroundColor = Colors.danger
     else if(props.dark) customStyle.backgroundColor = Colors.dark
+    else if(props.light) customStyle.backgroundColor = Colors.light
     
     return (
         <Btn
             {...props}
-            mode='contained'
+            mode={props.mode || 'contained'}
             color={customStyle.backgroundColor}
             onPress={props.onPress}
         >

@@ -6,7 +6,7 @@ export default props => {
 
     let style = {
         fontSize:14,
-        color:Colors.dark
+        color:Colors.black
     }
 
     if(props.b) style.fontWeight = 'bold'

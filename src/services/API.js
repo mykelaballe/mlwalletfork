@@ -4,7 +4,17 @@ import Storage from '../utils/Storage'
 
 export default {
     login: async payload => {
-        let res = await Fetch.post('login', payload)
+        return {
+            id:1,
+            firstname:'John',
+            lastname:'Doe',
+            access_token:'123456'
+        }
+
+        /*let res = await Fetch.post('login', {
+            ...payload,
+            grant_type:'password'
+        })*/
 
         if(res.access_token) {
             await Storage.doSave(Consts.db.user, {...res})

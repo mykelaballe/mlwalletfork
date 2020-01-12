@@ -1,4 +1,5 @@
 import ActivityIndicator from './ActivityIndicator'
+import Avatar from './Avatar'
 import Balance from './Balance'
 import BrowseMediaModal from './BrowseMediaModal'
 import Bullet from './Bullet'
@@ -29,6 +30,7 @@ import TopBuffer from './TopBuffer'
 
 export {
     ActivityIndicator,
+    Avatar,
     Balance,
     BrowseMediaModal,
     Bullet,

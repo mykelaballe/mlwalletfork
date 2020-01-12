@@ -1,12 +1,14 @@
 import React from 'react'
+import {View} from 'react-native'
 import {createStackNavigator} from 'react-navigation-stack'
 import DrawerStack from './DrawerStack'
+import HomeStack from './HomeStack'
 import {Colors} from '../themes'
 import * as Scrn from '../screens'
 
 export default createStackNavigator({
     Home: {
-        screen: DrawerStack,
+        screen: HomeStack,//DrawerStack,
         navigationOptions: {
             header:null
         }
@@ -45,14 +47,70 @@ export default createStackNavigator({
     ShopCheckoutOrderDetails: Scrn.ShopCheckoutOrderDetailsScreen,
     ShopCheckoutCustomerInfo: Scrn.ShopCheckoutCustomerInfoScreen,
     ShopCheckoutPayment: Scrn.ShopCheckoutPaymentScreen,
+
+    SendMoneyIndex: Scrn.SendMoneyIndexScrn,
+    ReceiveMoneyIndex: Scrn.ReceiveMoneyIndexScrn,
+
+    SendWalletToWallet: Scrn.SendWalletToWalletScrn,
+    SavedWalletReceivers: Scrn.SavedWalletReceiversScrn,
+    ReceiverWalletProfile: Scrn.ReceiverWalletProfileScrn,
+    AddWalletReceiver: Scrn.AddWalletReceiverScrn,
+    UpdateWalletReceiver: Scrn.UpdateWalletReceiverScrn,
+
+    SendKP: Scrn.SendKPScrn,
+    SavedKPReceivers: Scrn.SavedKPReceiversScrn,
+    ReceiverKPProfile: Scrn.ReceiverKPProfileScrn,
+    AddKPReceiver: Scrn.AddKPReceiverScrn,
+    UpdateKPReceiver: Scrn.UpdateKPReceiverScrn,
+
+    SavedBankPartners: Scrn.SavedBankPartnersScrn,
+    SendBankTransfer: Scrn.SendBankTransferScrn,
+    AddBankPartner: Scrn.AddBankPartnerScrn,
+
+    ReceiveMoney: Scrn.ReceiveMoneyScrn,
+
+    WithdrawCash: Scrn.WithdrawCashScrn,
+
+    BuyLoad: Scrn.BuyLoadScrn,
+    LoadOptions: Scrn.LoadOptionsScrn,
+
+    BillsCategory: Scrn.BillsCategoryScrn,
+    Billers: Scrn.BillersScrn,
+    FavoriteBillers: Scrn.FavoriteBillersScrn,
+    PayBill: Scrn.PayBillScrn,
+
+    Partners: Scrn.PartnersScrn,
+    MyContacts: Scrn.MyContactsScrn,
+    MyContactProfile: Scrn.MyContactProfileScrn,
+
+    TransactionReview: Scrn.TransactionReviewScrn,
+    TransactionReceipt: Scrn.TransactionReceiptScrn,
+    OTPConfirmation: Scrn.OTPConfirmationScrn,
+    TransactionHistory: Scrn.TransactionHistoryScrn,
+    Rates: Scrn.RatesScrn,
+    Locator: Scrn.LocatorScreen,
+    FAQ: Scrn.FAQScreen,
+    ContactUs: Scrn.ContactUsScreen,
+    TermsAndConditions: Scrn.TermsAndConditionsScreen,
+
+    Profile: Scrn.ProfileScrn,
+    EditProfile: Scrn.EditProfileScrn,
+    VerificationLevels: Scrn.VerificationLevelsScrn,
+    MyQR: Scrn.MyQRScrn,
+    LoginSecurity: Scrn.LoginSecurityScrn,
+    ChangePassword: Scrn.ChangePasswordScrn,
 },{
     defaultNavigationOptions: {
         headerStyle: {
             backgroundColor:Colors.brand
         },
         headerTitleStyle: {
-            color:Colors.light
+            color:Colors.light,
+            fontWeight:'bold',
+            textAlign:'center',
+            flex:1
         },
-        headerTintColor:Colors.light
+        headerTintColor:Colors.light,
+        headerRight:<View />
     }
 })

@@ -8,6 +8,7 @@ export default props => (
         color={props.color || Colors.dark}
         uppercase={false}
         onPress={props.onPress}
+        {...props}
     >
         {props.t}
     </Button>
