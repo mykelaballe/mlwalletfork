@@ -1,16 +1,15 @@
 import React from 'react'
 import {StyleSheet, View, Image, InteractionManager} from 'react-native'
-import {Text, Card, Row, TopBuffer, Spacer, Button, ButtonText, ActivityIndicator, Lottie, ScrollView} from '../components'
+import {Text, Card, Row, TopBuffer, Spacer, Button, ButtonText, ActivityIndicator, ScrollView} from '../components'
 import {Colors, Metrics, Res} from '../themes'
 import {_, Say} from '../utils'
-import Icon from 'react-native-vector-icons/Ionicons'
 
 const QR_SIZE = 350
 
 class MyQR extends React.Component {
 
     static navigationOptions = {
-        title:_('41')
+        title:'My QR Code'
     }
 
     state = {
@@ -48,7 +47,6 @@ class MyQR extends React.Component {
         this.setState({processing:true},() => {
             setTimeout(() => {
                 this.setState({processing:false})
-                Say.ok('Done')
             },1500)
         })
     }
@@ -63,7 +61,7 @@ class MyQR extends React.Component {
 
                 <View style={style.qrContainer}>
                     {processing && <ActivityIndicator />}
-                    {!processing && <Lottie source={Res.animated.qr_code} loop={true} />}
+                    {!processing && <Image source={require('../res/qr.png')} resizeMode='contain' style={{width:350,height:350}} />}
                 </View>
 
                 <Spacer />
@@ -84,7 +82,7 @@ class MyQR extends React.Component {
 
                     <Spacer />
                     
-                    <Button t={_('31')} onPress={this.handleSubmit} loading={processing} />
+                    <Button t={'Generate QR Code'} onPress={this.handleSubmit} />
                 </View>
             </View>
         )
@@ -100,8 +98,8 @@ const style = StyleSheet.create({
         alignItems:'center'
     },
     qrContainer: {
-        width:QR_SIZE,
-        height:QR_SIZE,
+        //width:QR_SIZE,
+        //height:QR_SIZE,
         justifyContent:'center',
         alignItems:'center'
     }

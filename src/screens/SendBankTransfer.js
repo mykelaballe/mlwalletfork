@@ -1,85 +1,117 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager} from 'react-native'
-import {ScrollView, Text, Row, Spacer, Button, ButtonIcon, ButtonText, Ripple, TopBuffer, TextInput} from '../components'
-import {Colors, Metrics} from '../themes'
-import {_} from '../utils'
-import Icon from 'react-native-vector-icons/Ionicons'
+import {View, StyleSheet, InteractionManager, TouchableOpacity} from 'react-native'
+import {ScrollView, Text, Row, Spacer, Button, ButtonIcon, ButtonText, Ripple, TopBuffer, TextInput, HeaderRight} from '../components'
+import {Colors, Metrics, Res} from '../themes'
+import {_, Consts} from '../utils'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 class SendBankTransfer extends React.Component {
 
-    static navigationOptions = {
-        title:'Bank Transfer'
-    }
+    static navigationOptions = ({navigation}) => ({
+        title:Consts.tcn[navigation.state.params.type].short_desc,
+        headerRight:(
+            <HeaderRight>
+                <ButtonIcon
+                    icon={<Icon name='university' color={Colors.light} size={Metrics.icon.sm} />}
+                    onPress={() => navigation.navigate('SavedBankPartners')}
+                />
+            </HeaderRight>
+        )
+    })
 
     state = {
-        amount:'100',
-        fixed_charge:100,
-        convenience_fee:15
+        receiver:'BDO',
+        account_name:'John Smith',
+        account_number:'123456789',
+        amount:'',
+        fixed_charge:'',
+        convenience_fee:'',
+        total:''
     }
+
+    handleChangeAccountName = account_name => this.setState({account_name})
+
+    handleChangeAccountNumber = account_number => this.setState({account_number})
 
     handleChangeAmount = amount => this.setState({amount})
 
     handleSendMoney = async () => {
-        this.props.navigation.navigate('OTPConfirmation',{type:'bank'})
+        const {params} = this.props.navigation.state
+        this.props.navigation.navigate('TransactionReview',{
+            ...params,
+            ...this.state
+        })
     }
 
     render() {
 
-        const {bank} = this.props.navigation.state.params
-        const {amount, fixed_charge, convenience_fee} = this.state
+        const {type} = this.props.navigation.state.params
+        const {receiver, account_name, account_number, amount, fixed_charge, convenience_fee, total} = this.state
+        let ready = false
+
+        if(receiver && account_name && account_number && amount) ready = true
 
         return (
             <View style={style.container}>
 
-                <Text center b md>{bank.name}</Text>
+                <View>
 
-                <Spacer md />
+                    <Text center>{Consts.tcn[type].short_desc}</Text>
 
-                <Row bw>
-                    <Text b>Account Name</Text>
-                    <Text>John Doe</Text>
-                </Row>
+                    <Spacer />
 
-                <Spacer sm />
-
-                <Row bw>
-                    <Text b>Account No.</Text>
-                    <Text>1234567890</Text>
-                </Row>
-
-                <Row>
                     <TextInput
-                        style={style.input}
-                        label='Amount'
+                        disabled
+                        label='Bank Name'
+                        value={receiver}
+                    />
+
+                    <Spacer sm />
+
+                    <TextInput
+                        disabled
+                        label='Account Name'
+                        value={account_name}
+                        onChangeText={this.handleChangeAccountName}
+                    />
+
+                    <Spacer sm />
+
+                    <TextInput
+                        disabled
+                        label='Account Number'
+                        value={account_number}
+                        onChangeText={this.handleChangeAccountNumber}
+                        keyboardType='numeric'
+                    />
+
+                    <Spacer sm />
+
+                    <TextInput
+                        label='Amount (PHP)'
                         value={amount}
                         onChangeText={this.handleChangeAmount}
                         keyboardType='numeric'
                     />
-                </Row>
+                </View>
                 
                 <View style={style.footer}>
-                    <Row bw>
-                        <Text b>Fixed Charge</Text>
-                        <Text>PHP {fixed_charge.toFixed(2)}</Text>
-                    </Row>
+                    <Text mute>Fixed Charge</Text>
+                    <Text md>PHP 100.00</Text>
 
-                    <Spacer sm />
+                    <Spacer />
 
-                    <Row bw>
-                        <Text b>Convenience Fee</Text>
-                        <Text>PHP {convenience_fee.toFixed(2)}</Text>
-                    </Row>
+                    <Text mute>Convenience Fee</Text>
+                    <Text md>PHP 15.00</Text>
 
-                    <Spacer sm />
+                    <Spacer />
 
-                    <Row bw>
-                        <Text b>Total</Text>
-                        <Text>PHP {(parseInt(amount) + fixed_charge + convenience_fee).toFixed(2)}</Text>
-                    </Row>
+                    <Text mute>Total</Text>
+                    <Text md>PHP 25.00</Text>
 
                     <Spacer />
                     
-                    <Button t='Send Money' onPress={this.handleSendMoney} />
+                    <Button disabled={!ready} t={Consts.tcn[type].submit_text} onPress={this.handleSendMoney} />
                 </View>
             </View>
         )
@@ -89,14 +121,15 @@ class SendBankTransfer extends React.Component {
 const style = StyleSheet.create({
     container: {
         flex:1,
+        justifyContent:'space-between',
         padding:Metrics.lg
     },
-    input: {
-        flex:1
+    textarea: {
+        height:130
     },
     footer: {
-        flex:1,
-        justifyContent:'flex-end'
+        //flex:1,
+        //justifyContent:'flex-end'
     }
 })
 

@@ -1,54 +1,21 @@
 import React from 'react'
 import {View} from 'react-native'
 import {createStackNavigator} from 'react-navigation-stack'
-import DrawerStack from './DrawerStack'
 import HomeStack from './HomeStack'
 import {Colors} from '../themes'
 import * as Scrn from '../screens'
 
 export default createStackNavigator({
     Home: {
-        screen: HomeStack,//DrawerStack,
+        screen: HomeStack,
         navigationOptions: {
             header:null
         }
     },
-    ProfileIndex: Scrn.ProfileIndexScreen,
-    ChangeAccountInfo: Scrn.ChangeAccountInfoScreen,
-    ChangeEmail: Scrn.ChangeEmailScreen,
-    ChangeUsername: Scrn.ChangeUsernameScreen,
-    ChangePassword: Scrn.ChangePasswordScreen,
-    ChangePIN: Scrn.ChangePINScreen,
-    ChangeMobileNumber: Scrn.ChangeMobileNumberScreen,
-    ChangeSecurityQuestion: Scrn.ChangeSecurityQuestionScreen,
-    SecurityQuestions: Scrn.SecurityQuestionsScreen,
-    
-    SubmitKPTN: Scrn.SubmitKPTNScreen,
-    SubmitKPTNSender: Scrn.SubmitKPTNSenderScreen,
-    SubmitKPTNPartner: Scrn.SubmitKPTNPartnerScreen,
 
-    QRCode: Scrn.QRCodeScreen,
-
-    MyAccount: Scrn.MyAccountScreen,
-
-    AddReceiver: Scrn.AddReceiverScreen,
-
-    ELoad: Scrn.ELoadScreen,
-
-    Branches: Scrn.BranchesScreen,
-
-    Accounts: Scrn.AccountsScreen,
-
-    ShopStoreListing: Scrn.ShopStoreListingScreen,
-    ShopViewStore: Scrn.ShopViewStoreScreen,
-    ShopViewProduct: Scrn.ShopViewProductScreen,
-    ShopViewCart: Scrn.ShopViewCartScreen,
-    ShopMyOrders: Scrn.ShopMyOrdersScreen,
-    ShopCheckoutOrderDetails: Scrn.ShopCheckoutOrderDetailsScreen,
-    ShopCheckoutCustomerInfo: Scrn.ShopCheckoutCustomerInfoScreen,
-    ShopCheckoutPayment: Scrn.ShopCheckoutPaymentScreen,
-
+    SendMoneyOnBoarding: Scrn.SendMoneyOnBoardingScrn,
     SendMoneyIndex: Scrn.SendMoneyIndexScrn,
+    ReceiveMoneyOnBoarding: Scrn.ReceiveMoneyOnBoardingScrn,
     ReceiveMoneyIndex: Scrn.ReceiveMoneyIndexScrn,
 
     SendWalletToWallet: Scrn.SendWalletToWalletScrn,
@@ -66,16 +33,26 @@ export default createStackNavigator({
     SavedBankPartners: Scrn.SavedBankPartnersScrn,
     SendBankTransfer: Scrn.SendBankTransferScrn,
     AddBankPartner: Scrn.AddBankPartnerScrn,
+    UpdateBankPartner: Scrn.UpdateBankPartnerScrn,
+    BankPartnerProfile: Scrn.BankPartnerProfileScrn,
 
-    ReceiveMoney: Scrn.ReceiveMoneyScrn,
+    ReceiveMoneyDomestic: Scrn.ReceiveMoneyDomesticScrn,
+    ReceiveMoneyInternational: Scrn.ReceiveMoneyInternationalScrn,
 
+    WithdrawCashOnBoarding: Scrn.WithdrawCashOnBoardingScrn,
     WithdrawCash: Scrn.WithdrawCashScrn,
 
+    BuyLoadOnBoarding: Scrn.BuyLoadOnBoardingScrn,
     BuyLoad: Scrn.BuyLoadScrn,
+    SavedLoadReceivers: Scrn.SavedLoadReceiversScrn,
+    AddLoadReceiver: Scrn.AddLoadReceiverScrn,
     LoadOptions: Scrn.LoadOptionsScrn,
 
+    PayBillsOnBoarding: Scrn.PayBillsOnBoardingScrn,
     BillsCategory: Scrn.BillsCategoryScrn,
     Billers: Scrn.BillersScrn,
+    AddBillerFavorite: Scrn.AddBillerFavoriteScrn,
+    BillerProfile: Scrn.BillerProfileScrn,
     FavoriteBillers: Scrn.FavoriteBillersScrn,
     PayBill: Scrn.PayBillScrn,
 
@@ -83,13 +60,20 @@ export default createStackNavigator({
     MyContacts: Scrn.MyContactsScrn,
     MyContactProfile: Scrn.MyContactProfileScrn,
 
+    Currencies: Scrn.CurrenciesScrn,
+    Reminders: Scrn.RemindersScrn,
+    Countries: Scrn.CountriesScrn,
+    Provinces: Scrn.ProvincesScrn,
+    Cities: Scrn.CitiesScrn,
+
     TransactionReview: Scrn.TransactionReviewScrn,
     TransactionReceipt: Scrn.TransactionReceiptScrn,
     OTPConfirmation: Scrn.OTPConfirmationScrn,
     TransactionHistory: Scrn.TransactionHistoryScrn,
     Rates: Scrn.RatesScrn,
     Locator: Scrn.LocatorScreen,
-    FAQ: Scrn.FAQScreen,
+    FAQ: Scrn.FAQScrn,
+    PrivacyNotice: Scrn.PrivacyNoticeScrn,
     ContactUs: Scrn.ContactUsScreen,
     TermsAndConditions: Scrn.TermsAndConditionsScreen,
 
@@ -99,6 +83,8 @@ export default createStackNavigator({
     MyQR: Scrn.MyQRScrn,
     LoginSecurity: Scrn.LoginSecurityScrn,
     ChangePassword: Scrn.ChangePasswordScrn,
+
+    ComingSoon: Scrn.ComingSoonScrn,
 },{
     defaultNavigationOptions: {
         headerStyle: {
@@ -106,7 +92,6 @@ export default createStackNavigator({
         },
         headerTitleStyle: {
             color:Colors.light,
-            fontWeight:'bold',
             textAlign:'center',
             flex:1
         },

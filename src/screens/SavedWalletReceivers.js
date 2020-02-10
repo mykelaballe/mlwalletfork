@@ -1,6 +1,6 @@
 import React from 'react'
 import {View, StyleSheet, InteractionManager} from 'react-native'
-import {ScrollView, FlatList, Avatar, Text, Row, Button, Spacer, ButtonText, HR, Ripple, TopBuffer} from '../components'
+import {ScrollView, FlatList, Initial, Text, Row, Button, Spacer, ButtonText, HR, Ripple, TopBuffer} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_} from '../utils'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -10,11 +10,11 @@ const ItemUI = props => (
     <>
         <Ripple onPress={() => props.onPress(props.data)} style={style.item}>
             <Row>
-                <Avatar source={null} />
+                <Initial text={props.data.fullname} />
                 <Spacer h sm />
                 <View>
                     <Text b>{props.data.wallet_id}</Text>
-                    <Text>{props.data.firstname} {props.data.lastname}</Text>
+                    <Text>{props.data.fullname}</Text>
                 </View>
             </Row>
         </Ripple>
@@ -44,17 +44,11 @@ class SavedWalletReceivers extends React.Component {
             list = [
                 {
                     wallet_id:'1911-0000-3257-93',
-                    firstname:'Ashley',
-                    lastname:'Uy',
-                    nickname:'Ash',
-                    avatar:null
+                    fullname:'Ashley Uy',
                 },
                 {
                     wallet_id:'1911-0000-3157-89',
-                    firstname:'Lotlot',
-                    lastname:'Rubite',
-                    nickname:'lotlot',
-                    avatar:null
+                    fullname:'Lotlot Rubite'
                 }
             ]
         }
@@ -86,6 +80,7 @@ class SavedWalletReceivers extends React.Component {
                     placeholder='Search'
                     onChangeText={this.handleChangeSearch}
                     value={search}
+                    style={{backgroundColor:Colors.lightgray}}
                 />
 
                 <Spacer sm />

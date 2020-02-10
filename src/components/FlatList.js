@@ -1,7 +1,8 @@
 import React from 'react'
-import {ScrollView, StyleSheet, FlatList as List, RefreshControl} from 'react-native'
+import {ScrollView, View, StyleSheet, FlatList as List, RefreshControl, Image} from 'react-native'
 import {ActivityIndicator, Text} from './'
-import {Colors, Metrics} from '../themes'
+import {Colors, Metrics, Res} from '../themes'
+import Icon from 'react-native-vector-icons/AntDesign'
 
 export default class FlatList extends React.Component {
 
@@ -16,20 +17,31 @@ export default class FlatList extends React.Component {
 
         if(loading) return <ActivityIndicator />
 
-        if(useRefresh && data.length == 0) {
-            return (
-                <ScrollView
-                    contentContainerStyle={style.scrollContainer}
-                    refreshControl={<RefreshControl colors={[Colors.brand]} refreshing={refreshing} onRefresh={this.handleRefresh} />}
-                >
-                    {placeholder &&
-                    <>
-                        {placeholder.icon}
-                        <Text center lg>{placeholder.text}</Text>
-                    </>
-                    }
-                </ScrollView>
-            )
+        if(data.length == 0) {
+            let placeholderUI = null
+
+            if(placeholder) {
+                placeholderUI = (
+                    <View style={style.placeholderWrapper}>
+                        {placeholder.icon || <Image source={Res.placeholder.empty} resizeMode='contain' style={style.img} />}
+                        <Text center md mute>{placeholder.text}</Text>
+                    </View>
+                )
+            }
+
+            if(useRefresh) {
+                return (
+                    <ScrollView
+                        contentContainerStyle={style.scrollContainer}
+                        refreshControl={<RefreshControl colors={[Colors.brand]} refreshing={refreshing} onRefresh={this.handleRefresh} />}
+                    >
+                        {placeholderUI}
+                    </ScrollView>
+                )
+            }
+            else {
+                return placeholderUI
+            }
         }
 
         return (
@@ -49,5 +61,12 @@ const style = StyleSheet.create({
         flex:1,
         justifyContent:'center',
         alignItems:'center'
+    },
+    placeholderWrapper: {
+        alignItems:'center',
+        padding:Metrics.xl
+    },
+    img: {
+        width:100
     }
 })

@@ -2,10 +2,9 @@ import React from 'react'
 import {View, StyleSheet, InteractionManager, Dimensions} from 'react-native'
 import {connect} from 'react-redux'
 import Actions from '../actions/Creators'
-import {Text, Row, Spacer, FlatList, Ripple} from '../components'
-import {Colors, Metrics} from '../themes'
+import {Text, Row, Spacer, FlatList, Ripple, Icon} from '../components'
+import {Colors, Metrics, Res} from '../themes'
 import {_, Storage, Consts} from '../utils'
-import Icon from 'react-native-vector-icons/Ionicons'
 
 const {width} = Dimensions.get('window')
 const ITEM_WIDTH = (width / 3) - (Metrics.xl)
@@ -21,42 +20,42 @@ class More extends React.Component {
     state = {
         items:[
             {
-                icon:'calendar',
-                label:'Transanction History',
+                icon:'transaction_history',
+                label:'Transanctions',
                 onPress:() => this.handlePressTransactionHistory()
             },
             {
-                icon:'trending-up',
-                label:'Rates',
+                icon:'rates',
+                label:'Kwarta Padala Rates',
                 onPress:() => this.handlePressRates()
             },
             {
-                icon:'pin',
-                label:'Location',
+                icon:'branches',
+                label:'ML Branches',
                 onPress:() => this.handlePressLocation()
             },
             {
-                icon:'help-circle',
-                label:'Frequently Asked Questions',
+                icon:'faq',
+                label:'FAQs',
                 onPress:() => this.handlePressFAQ()
             },
             {
-                icon:'journal',
+                icon:'terms',
                 label:'Terms and Conditions',
                 onPress:() => this.handlePressTerms()
             },
             {
-                icon:'eye',
+                icon:'privacy',
                 label:'Privacy Notice',
                 onPress:() => this.handlePressPrivacy()
             },
             {
-                icon:'call',
+                icon:'contact_us',
                 label:'Contact Us',
                 onPress:() => this.handlePressContactUs()
             },
             {
-                icon:'log-out',
+                icon:'logout',
                 label:'Logout',
                 onPress:() => this.handlePressLogout()
             }
@@ -73,7 +72,7 @@ class More extends React.Component {
 
     handlePressTerms = () => this.props.navigation.navigate('TermsAndConditions')
 
-    handlePressPrivacy = () => {}
+    handlePressPrivacy = () => this.props.navigation.navigate('PrivacyNotice')
 
     handlePressContactUs = () => this.props.navigation.navigate('ContactUs')
 
@@ -84,7 +83,8 @@ class More extends React.Component {
 
     renderItems = ({item, index}) => (
         <Ripple style={style.item} onPress={item.onPress}>
-            <Icon name={`ios-${item.icon}`} size={Metrics.icon.md} color={Colors.black} />
+            <Icon name={item.icon} />
+            <Spacer sm />
             <Text center sm>{item.label}</Text>
         </Ripple>
     )

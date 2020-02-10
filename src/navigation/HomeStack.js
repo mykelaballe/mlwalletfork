@@ -3,8 +3,8 @@ import {View} from 'react-native'
 import {createStackNavigator} from 'react-navigation-stack'
 import {createMaterialTopTabNavigator, createBottomTabNavigator} from 'react-navigation-tabs'
 import * as Scrn from '../screens'
-import {Colors, Metrics} from '../themes'
-import Icon from 'react-native-vector-icons/Ionicons'
+import {Icon} from '../components'
+import {Colors, Metrics, Res} from '../themes'
 
 const defaultNavigationOptions = {
     headerStyle: {
@@ -13,8 +13,8 @@ const defaultNavigationOptions = {
     headerTitleStyle:{
         flex:1,
         color:Colors.light,
-        fontWeight:'bold',
-        textAlign:'center'
+        textAlign:'center',
+        fontFamily:'Lato'
     },
     headerTintColor:Colors.light,
     headerRight:<View />
@@ -28,8 +28,10 @@ export default createBottomTabNavigator({
             defaultNavigationOptions
         }),
         navigationOptions: {
+            tabBarLabel:'Home',
             tabBarIcon: ({focused}) => (
-                <Icon name='ios-home' color={focused ? Colors.brand : Colors.black} size={Metrics.icon.sm} />
+                //<Icon name='ios-home' color={focused ? Colors.brand : Colors.black} size={Metrics.icon.sm} />
+                <Icon name={focused ? 'home_active' : 'home'} size={20} />
             )
         }
     },
@@ -40,8 +42,9 @@ export default createBottomTabNavigator({
             defaultNavigationOptions
         }),
         navigationOptions: {
+            tabBarLabel:'My Account',
             tabBarIcon: ({focused}) => (
-                <Icon name='ios-person' color={focused ? Colors.brand : Colors.black} size={Metrics.icon.sm} />
+                <Icon name={focused ? 'user_active' : 'user'} size={20} />
             )
         }
     },
@@ -52,8 +55,9 @@ export default createBottomTabNavigator({
             defaultNavigationOptions
         }),
         navigationOptions: {
+            tabBarLabel:'Notifications',
             tabBarIcon: ({focused}) => (
-                <Icon name='ios-notifications' color={focused ? Colors.brand : Colors.black} size={Metrics.icon.sm} />
+                <Icon name='bell' size={20} />
             )
         }
     },
@@ -64,21 +68,18 @@ export default createBottomTabNavigator({
             defaultNavigationOptions
         }),
         navigationOptions: {
+            tabBarLabel:'More',
             tabBarIcon: ({focused}) => (
-                <Icon name='ios-menu' color={focused ? Colors.brand : Colors.black} size={Metrics.icon.sm} />
+                <Icon name='hamburger' size={20} />
             )
         }
     },
 },{
-    //tabBarPosition:'top',
     tabBarOptions: {
         inactiveTintColor:Colors.black,
         activeTintColor:Colors.brand,
         indicatorStyle: {
             backgroundColor:Colors.light
-        },
-        style: {
-            //backgroundColor:Colors.brand
         }
     }
 })

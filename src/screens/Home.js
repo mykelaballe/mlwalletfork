@@ -1,11 +1,11 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager, TouchableOpacity, Dimensions} from 'react-native'
+import {View, StyleSheet, InteractionManager, TouchableOpacity, Dimensions, Image} from 'react-native'
 import {connect} from 'react-redux'
 import {Actions} from '../actions'
-import {ScrollView, Text, Row, Spacer, TopBuffer, FlatList, Ripple} from '../components'
-import {Colors, Metrics} from '../themes'
+import {Text, Row, Spacer, FlatList, Ripple, Icon} from '../components'
+import {Colors, Metrics, Res} from '../themes'
 import {_} from '../utils'
-import Icon from 'react-native-vector-icons/Ionicons'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 const {width} = Dimensions.get('window')
 const ITEM_WIDTH = (width / 3) - (Metrics.xl)
@@ -15,44 +15,46 @@ class Home extends React.Component {
 
     static navigationOptions = {
         headerLeft:<View />,
-        title:'Home'
+        title:'ML Wallet'
     }
 
     state = {
-        balance:'',
+        balance:'910.50',
         services:[
             {
-                icon:'send',
+                icon:'send_money',
                 label:'Send Money',
                 onPress:() => this.handleGoToSendMoney()
             },
             {
-                icon:'cash',
+                icon:'receive_money',
                 label:'Receive Money',
                 onPress:() => this.handleGoToReceiveMoney()
             },
             {
-                icon:'cash',
+                icon:'withdraw_cash',
                 label:'Withdraw Cash',
                 onPress:() => this.handleGoToWithdrawCash()
             },
             {
-                icon:'card',
+                icon:'pay_bills',
                 label:'Pay Bills',
                 onPress:() => this.handleGoToPayBills()
             },
             {
-                icon:'phone-portrait',
+                icon:'buy_load',
                 label:'Buy Load',
                 onPress:() => this.handleGoToBuyLoad()
             },
             {
-                icon:'cart',
+                icon:'buy_items',
                 label:'Buy Items',
                 onPress:() => this.handleGoToBuyItems()
-            }
+            },
         ],
         show_balance:true,
+        verification_level:1,
+        promo:null,
         loading:true
     }
 
@@ -64,52 +66,61 @@ class Home extends React.Component {
 
     handleToggleBalance = () => this.setState(prevState => ({show_balance:!prevState.show_balance}))
 
-    handleGoToSendMoney = () => this.props.navigation.navigate('SendMoneyIndex')
+    handleGoToSendMoney = () => {
+        //this.props.navigation.navigate('SendMoneyIndex')
+        this.props.navigation.navigate('SendMoneyOnBoarding')
+    }
 
-    handleGoToReceiveMoney = () => this.props.navigation.navigate('ReceiveMoneyIndex')
+    handleGoToReceiveMoney = () => {
+        this.props.navigation.navigate('ReceiveMoneyOnBoarding')
+    }
 
-    handleGoToWithdrawCash = () => this.props.navigation.navigate('WithdrawCash')
+    handleGoToWithdrawCash = () => {
+        this.props.navigation.navigate('WithdrawCashOnBoarding')
+    }
 
-    handleGoToPayBills = () => this.props.navigation.navigate('BillsCategory')
+    handleGoToPayBills = () => {
+        this.props.navigation.navigate('PayBillsOnBoarding')
+    }
 
-    handleGoToBuyLoad = () => this.props.navigation.navigate('BuyLoad')
+    handleGoToBuyLoad = () => {
+        this.props.navigation.navigate('BuyLoadOnBoarding')
+    }
 
-    handleGoToBuyItems = () => this.props.navigation.navigate('')
+    handleGoToBuyItems = () => this.props.navigation.navigate('ComingSoon')
+
+    handleViewVerificationLevels = () => this.props.navigation.navigate('VerificationLevels')
 
     renderServices = ({item, index}) => (
         <Ripple onPress={item.onPress} style={style.item}>
-            <Icon name={`ios-${item.icon}`} size={Metrics.icon.md} color={Colors.black} />
+            <Icon name={item.icon} style={style.icon} />
+            <Spacer sm />
             <Text center sm>{item.label}</Text>
         </Ripple>
     )
 
     render() {
 
-        const {balance, services, show_balance, loading} = this.state
+        const {balance, services, show_balance, verification_level, promo, loading} = this.state
 
         return (
-            <View style={style.container}>
-                
-                <TopBuffer sm />
+            <>
+                <TouchableOpacity style={style.topBanner} onPress={this.handleViewVerificationLevels}>
+                    <Text center>You are semi-verified. Tap to learn more.</Text>
+                </TouchableOpacity>
 
-                <View style={{alignItems:'center'}}>
-                    <Text center mute>Available Balance</Text>
+                <View style={style.jumbo}>
+                    <Text center light md>Available Balance</Text>
                     <Row>
-                        <Text sm>Php</Text>
+                        <Text rg light>Php</Text>
+                        <Spacer h xs />
+                        <Text b h3 light>{show_balance ? balance : '****.**'}</Text>
                         <Spacer h sm />
-                        <Text b h3>{show_balance ? '910.50' : '****.**'}</Text>
-                        <Spacer h sm />
-                        <View style={{marginTop:Metrics.lg}}>
-                            <TouchableOpacity onPress={this.handleToggleBalance}>
-                                <Icon name={`ios-eye${show_balance ? '-off' : ''}`} size={Metrics.icon.rg} color={Colors.dark} />
-                            </TouchableOpacity>
-                        </View>
+                        <TouchableOpacity onPress={this.handleToggleBalance}>
+                            <Ionicons name={`ios-eye${show_balance ? '-off' : ''}`} size={Metrics.icon.rg} color={Colors.light} />
+                        </TouchableOpacity>
                     </Row>
                 </View>
-
-                <Spacer xl />
-
-                <Text center md>Select Services</Text>
 
                 <Spacer />
 
@@ -121,15 +132,23 @@ class Home extends React.Component {
 
                 <Spacer />
 
-                <View style={style.banner} />
-            </View>
+                <View style={style.footer}>
+                    <Image source={require('../res/promo_placeholder.png')} style={style.promo} />
+                </View>
+            </>
         )
     }
 }
 
 const style = StyleSheet.create({
-    container: {
-        padding:Metrics.rg
+    topBanner: {
+        backgroundColor:Colors.gray,
+        paddingVertical:Metrics.rg
+    },
+    jumbo: {
+        alignItems:'center',
+        backgroundColor:Colors.dark,
+        paddingVertical:Metrics.xl
     },
     item: {
         justifyContent:'center',
@@ -137,13 +156,18 @@ const style = StyleSheet.create({
         width:ITEM_WIDTH,
         height:ITEM_HEIGHT,
         padding:Metrics.sm,
-        marginHorizontal:Metrics.rg
+        marginHorizontal:Metrics.md
     },
-    banner: {
-        backgroundColor:Colors.mute,
-        borderRadius:Metrics.sm,
-        height:120,
-        marginHorizontal:Metrics.rg
+    icon: {
+        width:40,
+        height:40
+    },
+    footer: {
+        alignItems:'center',
+        paddingVertical:Metrics.md
+    },
+    promo: {
+        width
     }
 })
 

@@ -9,7 +9,7 @@ import MapView, {Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 class LocatorScreen extends React.Component {
 
     static navigationOptions = {
-        title:_('28')
+        title:'M Lhuillier Branches'
     }
 
     state = {

@@ -1,11 +1,11 @@
 import React from 'react'
 import {StyleSheet, View, Linking} from 'react-native'
-import {Text, Card, HR, Ripple, Spacer, Row, ScrollView} from '../components'
+import {Text, Card, HR, Ripple, Spacer, Row, ScrollView, Icon} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
-import Icon from 'react-native-vector-icons/Ionicons'
 import {Portal, Modal} from 'react-native-paper'
 import Comms from 'react-native-communications'
+import Ionicon from 'react-native-vector-icons/Ionicons'
 
 const RippleItem = props => (
     <Ripple onPress={() => props.onPress(props.value)} style={{...props.style}}>
@@ -16,7 +16,7 @@ const RippleItem = props => (
 class ContactUsScreen extends React.Component {
 
     static navigationOptions = {
-        title:_('23')
+        title:'Contact Us'
     }
 
     state = {
@@ -59,21 +59,21 @@ class ContactUsScreen extends React.Component {
                                 <Row ar>
                                     <RippleItem onPress={this.handleCall} value={contact} style={style.option}>
                                         <>
-                                            <Icon name='ios-call' color={Colors.brand} size={Metrics.icon.lg} />
+                                            <Ionicon name='ios-call' color={Colors.brand} size={Metrics.icon.lg} />
                                             <Spacer xs />
                                             <Text center md>Call</Text>
                                         </>
                                     </RippleItem>
                                     <RippleItem onPress={this.handleText} value={contact} style={style.option}>
                                         <>
-                                            <Icon name='ios-text' color={Colors.brand} size={Metrics.icon.lg} />
+                                            <Ionicon name='ios-text' color={Colors.brand} size={Metrics.icon.lg} />
                                             <Spacer xs />
                                             <Text center md>SMS</Text>
                                         </>
                                     </RippleItem>
                                     <RippleItem onPress={this.handleChat}value={contact} style={style.option}>
                                         <>
-                                            <Icon name='ios-chatbubbles' color={Colors.brand} size={Metrics.icon.lg} />
+                                            <Ionicon name='ios-chatbubbles' color={Colors.brand} size={Metrics.icon.lg} />
                                             <Spacer xs />
                                             <Text center md>Chat</Text>
                                         </>
@@ -84,44 +84,88 @@ class ContactUsScreen extends React.Component {
                     </Modal>
                 </Portal>
 
-                <Card>
-                    <Text b lg brand>{_('32')}</Text>
-                    <HR />
+                <Card style={style.card}>
+                    <Text b lg>Toll Free</Text>
+                    <Spacer sm />
                     <RippleItem onPress={this.handleCall} value={'1-800-1-0572-3252'} style={style.item}>
-                        <Row bw>
-                            <View>
-                                <Text b>{_('36')}:</Text>
-                                <Text>1-800-1-0572-3252</Text>
-                            </View>
-                            <Icon name='ios-arrow-forward' color={Colors.mute} />
-                        </Row>
-                    </RippleItem>
-
-                    <RippleItem onPress={this.handleCall} value={'1-800-1-0572-3252'} style={style.item}>
-                        <Row bw>
-                            <View>
-                                <Text b>{_('37')}:</Text>
-                                <Text>1-800-1-0572-3252</Text>
-                            </View>
-                            <Icon name='ios-arrow-forward' color={Colors.mute} />
+                        <Row>
+                            <Icon name='phone' style={{width:25,height:25}} />
+                            <Spacer h sm />
+                            <Text md>1-800-1-0572-3252</Text>
                         </Row>
                     </RippleItem>
                 </Card>
 
-                <Card>
+                <Card style={style.card}>
+                    <Text b lg>Visayas and Mindanao</Text>
+                    <Spacer sm />
+                    <RippleItem onPress={this.handleCall} value={'1-800-1-0572-3252'} style={style.item}>
+                        <Row>
+                            <Icon name='phone' style={{width:25,height:25}} />
+                            <Spacer h sm />
+                            <Text md>(02) 830-2011</Text>
+                        </Row>
+                    </RippleItem>
+
+                    <Spacer xs />
+
+                    <RippleItem onPress={this.handleCall} value={'1-800-1-0572-3252'} style={style.item}>
+                        <Row>
+                            <Icon name='phone' style={{width:25,height:25}} />
+                            <Spacer h sm />
+                            <Text md>(02) 830-2011</Text>
+                        </Row>
+                    </RippleItem>
+                </Card>
+
+                <Card style={style.card}>
+                    <Text b lg>USA</Text>
+                    <Spacer sm />
+                    <RippleItem onPress={this.handleCall} value={'1-800-1-0572-3252'} style={style.item}>
+                        <Row>
+                            <Icon name='phone' style={{width:25,height:25}} />
+                            <Spacer h sm />
+                            <Text md>1-877-688-4588</Text>
+                        </Row>
+                    </RippleItem>
+                </Card>
+
+                <Card style={style.card}>
+                    <Text b lg>Email</Text>
+                    <Spacer sm />
+                    <RippleItem onPress={this.handleEmail} value={'1-800-1-0572-3252'} style={style.item}>
+                        <Row>
+                            <Icon name='mail' style={{width:25,height:25}} />
+                            <Spacer h sm />
+                            <Text md>customercare@mlhuillier.com</Text>
+                        </Row>
+                    </RippleItem>
+                </Card>
+
+                <Card style={style.card}>
+                    <Text b lg>Facebook Page</Text>
+                    <Spacer sm />
+                    <RippleItem onPress={() => {}} value={'1-800-1-0572-3252'} style={style.item}>
+                        <Row>
+                            <Icon name='fb' style={{width:25,height:25}} />
+                            <Spacer h sm />
+                            <Text md>M Lhuillier Financial Services Inc.</Text>
+                        </Row>
+                    </RippleItem>
+                </Card>
+
+                {/*<Card>
                     <Text b lg brand>{_('33')}</Text>
                     <HR />
                     <RippleItem onPress={this.handleEmail} value={'customercare@mlhuillier1.com'} style={style.item}>
                         <Row bw>
                             <Text>customercare@mlhuillier1.com</Text>
-                            <Icon name='ios-arrow-forward' color={Colors.mute} />
                         </Row>
                     </RippleItem>
 
                     <RippleItem onPress={this.handleEmail} value={'mis.vismin@mlhuillier1.com'} style={style.item}>
                         <Row bw>
                             <Text>mis.vismin@mlhuillier1.com</Text>
-                            <Icon name='ios-arrow-forward' color={Colors.mute} />
                         </Row>
                     </RippleItem>
                 </Card>
@@ -135,13 +179,11 @@ class ContactUsScreen extends React.Component {
                     <RippleItem onPress={this.handleShowModal} value={'0947 999 0337'} style={style.item}>
                         <Row bw>
                             <Text>0947 999 0337</Text>
-                            <Icon name='ios-arrow-forward' color={Colors.mute} />
                         </Row>
                     </RippleItem>
                     <RippleItem onPress={this.handleShowModal} value={'0917 871 2973'} style={style.item}>
                         <Row bw>
                             <Text>0917 871 2973</Text>
-                            <Icon name='ios-arrow-forward' color={Colors.mute} />
                         </Row>
                     </RippleItem>
                     
@@ -151,18 +193,16 @@ class ContactUsScreen extends React.Component {
                     <RippleItem onPress={this.handleShowModal} value={'0947 999 2754'} style={style.item}>
                         <Row bw>
                             <Text>0947 999 2754</Text>
-                            <Icon name='ios-arrow-forward' color={Colors.mute} />
                         </Row>
                     </RippleItem>
                     <RippleItem onPress={this.handleShowModal} value={'0947 999 2755'} style={style.item}>
                         <Row bw>
                             <Text>0947 999 2755</Text>
-                            <Icon name='ios-arrow-forward' color={Colors.mute} />
                         </Row>
                     </RippleItem>
                 </Card>
 
-                <Spacer />
+                <Spacer />*/}
             </ScrollView>
         )
     }
@@ -171,8 +211,11 @@ class ContactUsScreen extends React.Component {
 const style = StyleSheet.create({
     container: {
         flex:1,
-        padding:Metrics.rg,
-        backgroundColor:Colors.gray
+        padding:Metrics.md,
+        backgroundColor:Colors.lightgray
+    },
+    card: {
+        padding:Metrics.md
     },
     item: {
         paddingVertical:Metrics.sm,

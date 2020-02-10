@@ -1,9 +1,8 @@
 import React from 'react'
 import {View, StyleSheet, InteractionManager, Dimensions} from 'react-native'
-import {Text, Row, Spacer, FlatList, Ripple, ButtonText} from '../components'
+import {Text, Row, Spacer, FlatList, Ripple, ButtonText, Icon} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_} from '../utils'
-import Icon from 'react-native-vector-icons/Ionicons'
 
 const {width} = Dimensions.get('window')
 const ITEM_WIDTH = (width / 3) - (Metrics.xl)
@@ -11,13 +10,13 @@ const ITEM_HEIGHT = 120
 
 const FavoriteUI = props => (
     <Ripple onPress={() => props.onPress(props.data)} style={style.pill}>
-        <Text center numberOfLines={1}>{props.data.name}</Text>
+        <Text center numberOfLines={1} light>{props.data.name}</Text>
     </Ripple>
 )
 
 const CategoryUI = props => (
     <Ripple style={style.item} onPress={() => props.onPress(props.data)}>
-        <Icon name={`ios-${props.data.icon}`} size={Metrics.icon.md} color={Colors.black} />
+        <Icon name={props.data.icon} style={{width:40}} />
         <Text center sm>{props.data.label}</Text>
     </Ripple>
 )
@@ -31,6 +30,7 @@ class BillsCategory extends React.Component {
     state = {
         favorites:[],
         categories:[],
+        showFavorites:false,
         loading:true
     }
 
@@ -48,57 +48,61 @@ class BillsCategory extends React.Component {
                     name:'Globe'
                 },
                 {
-                    name:'MCWD'
-                }
+                    name:'BDO'
+                },
             ]
 
             categories = [
                 {
-                    icon:'',
+                    icon:'airline',
+                    label:'Airline'
+                },
+                {
+                    icon:'electricity',
                     label:'Electricity'
                 },
                 {
-                    icon:'',
-                    label:'Cable/Internet'
+                    icon:'financing',
+                    label:'Financing'
                 },
                 {
-                    icon:'',
-                    label:'Water'
+                    icon:'foundation',
+                    label:'Foundations'
                 },
                 {
-                    icon:'',
-                    label:'Telcoms'
-                },
-                {
-                    icon:'',
-                    label:'Education'
-                },
-                {
-                    icon:'',
-                    label:'Real Estate'
-                },
-                {
-                    icon:'',
+                    icon:'insurance',
                     label:'Insurance'
                 },
                 {
-                    icon:'',
-                    label:'Credit Card'
+                    icon:'loan',
+                    label:'Loan'
                 },
                 {
-                    icon:'',
-                    label:'Travel'
+                    icon:'memorial',
+                    label:'Memorial'
                 },
                 {
-                    icon:'',
-                    label:'Charity'
+                    icon:'online_business',
+                    label:'Online Businesses'
                 },
                 {
-                    icon:'',
-                    label:'Government'
+                    icon:'school',
+                    label:'Schools'
                 },
                 {
-                    icon:'',
+                    icon:'telco',
+                    label:'Telcos'
+                },
+                {
+                    icon:'travel',
+                    label:'Travels'
+                },
+                {
+                    icon:'water',
+                    label:'Water'
+                },
+                {
+                    icon:'other',
                     label:'Others'
                 }
             ]
@@ -118,9 +122,9 @@ class BillsCategory extends React.Component {
 
     handleAddFavoriteBiller = () => this.props.navigation.navigate('Billers')
 
-    handleSelectFavorite = biller => this.props.navigation.navigate('PayBill',{biller})
+    handleSelectFavorite = biller => this.props.navigation.navigate('BillerProfile',{biller})
 
-    handleSeeMoreFavorites = () => this.props.navigation.navigate('FavoriteBillers')
+    handleToggleFavorites = () => this.setState(prevState => ({showFavorites:!prevState.showFavorites}))
 
     renderFavorites = ({item, index}) => <FavoriteUI data={item} onPress={this.handleSelectFavorite} />
 
@@ -128,14 +132,14 @@ class BillsCategory extends React.Component {
 
     render() {
 
-        const {favorites, categories, loading} = this.state
+        const {favorites, categories, showFavorites, loading} = this.state
 
         return (
             <>
-                <View style={{padding:Metrics.xl}}>
+                <View style={{padding:Metrics.lg}}>
                     <Row bw>
                         <Text b lg>Favorites</Text>
-                        <ButtonText icon='add' t='Add Biller' onPress={this.handleAddFavoriteBiller} />
+                        <ButtonText color={Colors.brand} icon='add' t='Add Biller' onPress={this.handleAddFavoriteBiller} />
                     </Row>
                     <FlatList
                         data={favorites}
@@ -147,7 +151,7 @@ class BillsCategory extends React.Component {
                     {favorites.length > 0 &&
                     <>
                         <Spacer />
-                        <ButtonText t='See More Favorites' onPress={this.handleSeeMoreFavorites} />
+                        <ButtonText color={Colors.brand} t={`${showFavorites ? 'Hide' : 'Show'} More Favorites`} onPress={this.handleToggleFavorites} />
                     </>
                     }
                 </View>
@@ -168,7 +172,7 @@ const style = StyleSheet.create({
         padding:Metrics.rg
     },
     pill: {
-        backgroundColor:Colors.gray,
+        backgroundColor:Colors.brandlight,
         marginHorizontal:Metrics.sm,
         padding:Metrics.rg,
         justifyContent:'center',

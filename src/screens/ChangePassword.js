@@ -1,16 +1,14 @@
 import React from 'react'
 import {StyleSheet, View, Image, KeyboardAvoidingView} from 'react-native'
-import {Text, Button, ButtonText, TextInput, Spacer, TopBuffer, Row} from '../components'
+import {Text, Button, ButtonText, TextInput, Spacer, TopBuffer, Row, Prompt} from '../components'
 import {Colors, Metrics, Res} from '../themes'
 import {_, Say} from '../utils'
 import Icon from 'react-native-vector-icons/Ionicons'
 
-const image_res = require('../res/password.png')
-
 class ChangePassword extends React.Component {
 
     static navigationOptions = {
-        title:_('53')
+        title:'Change Password'
     }
 
     state = {
@@ -19,7 +17,9 @@ class ChangePassword extends React.Component {
         confirm_password:'',
         show_old_password:false,
         show_new_password:false,
-        show_confirm_password:false
+        show_confirm_password:false,
+        showSuccessModal:false,
+        processing:false
     }
 
     handleSubmit = async () => {
@@ -53,59 +53,79 @@ class ChangePassword extends React.Component {
 
     handleToggleConfirmPassword = () => this.setState(prevState => ({show_confirm_password:!prevState.show_confirm_password}))
 
+    handleCloseModal = () => this.setState({showSuccessModal:false})
+
     render() {
 
-        const {old_password, new_password, confirm_password, show_old_password, show_new_password, show_confirm_password} = this.state
+        const {old_password, new_password, confirm_password, show_old_password, show_new_password, show_confirm_password, showSuccessModal, processing} = this.state
+        let ready = false
+
+        if(old_password && new_password && confirm_password) ready = true
 
         return (
             <KeyboardAvoidingView style={style.container}>
 
-                <TopBuffer sm />
+                <Prompt
+                    visible={showSuccessModal}
+                    title='Success'
+                    message={"You've successfully saved your new Password"}
+                    onDismiss={this.handleCloseModal}
+                />
 
-                {/*<View style={style.imageWrapper}>
-                    <Image source={image_res} style={style.image} resizeMode='contain' />
-                    <Spacer sm />
-                    <Text mute center>Lorem ipsum dolor sit amet, consectetur adipiscing elit</Text>
-                </View>*/}
+                <TextInput
+                    label={'Current Password'}
+                    value={old_password}
+                    onChangeText={this.handleChangeOldPassword}
+                    autoCapitalize='none'
+                    secureTextEntry={show_old_password ? false : true}
+                    rightContent={
+                        <ButtonText color={Colors.gray} t={show_old_password ? 'Hide' : 'Show'} onPress={this.handleToggleOldPassword} />
+                    }
+                />
+                <TextInput
+                    label={'New Password'}
+                    value={new_password}
+                    onChangeText={this.handleChangeNewPassword}
+                    autoCapitalize='none'
+                    secureTextEntry={show_new_password ? false : true}
+                    rightContent={
+                        <ButtonText color={Colors.gray} t={show_new_password ? 'Hide' : 'Show'} onPress={this.handleToggleNewPassword} />
+                    }
+                />
 
-                <Row bw>
-                    <TextInput
-                        style={style.input}
-                        label={'Current Password'}
-                        value={old_password}
-                        onChangeText={this.handleChangeOldPassword}
-                        autoCapitalize='none'
-                        secureTextEntry={show_old_password ? false : true}
-                    />
-                    <ButtonText t={show_old_password ? 'Hide' : 'Show'} onPress={this.handleToggleOldPassword} />
-                </Row>
-                
-                <Row bw>
-                    <TextInput
-                        style={style.input}
-                        label={'New Password'}
-                        value={new_password}
-                        onChangeText={this.handleChangeNewPassword}
-                        autoCapitalize='none'
-                        secureTextEntry={show_new_password ? false : true}
-                    />
-                    <ButtonText t={show_new_password ? 'Hide' : 'Show'} onPress={this.handleToggleNewPassword} />
-                </Row>
-                
-                <Row bw>
-                    <TextInput
-                        style={style.input}
-                        label={'Re-Type New Password'}
-                        value={confirm_password}
-                        onChangeText={this.handleChangeConfirmPassword}
-                        autoCapitalize='none'
-                        secureTextEntry={show_confirm_password ? false : true}
-                    />
-                    <ButtonText t={show_confirm_password ? 'Hide' : 'Show'} onPress={this.handleToggleConfirmPassword} />
-                </Row>
+                <View style={style.error}>
+                    <Row>
+                        <Icon name='ios-checkmark-circle' color={Colors.success} size={Metrics.icon.sm} />
+                        <Spacer h sm />
+                        <Text mute>Minimum of 8 characters in length</Text>
+                    </Row>
+                    <Spacer xs />
+                    <Row>
+                        <Icon name='ios-close-circle' color={Colors.brand} size={Metrics.icon.sm} />
+                        <Spacer h sm />
+                        <Text mute>At least one number</Text>
+                    </Row>
+                    <Spacer xs />
+                    <Row>
+                        <Icon name='ios-close-circle' color={Colors.brand} size={Metrics.icon.sm} />
+                        <Spacer h sm />
+                        <Text mute>At least one special character (!@#$%)</Text>
+                    </Row>
+                </View>
+
+                <TextInput
+                    label={'Re-Type New Password'}
+                    value={confirm_password}
+                    onChangeText={this.handleChangeConfirmPassword}
+                    autoCapitalize='none'
+                    secureTextEntry={show_confirm_password ? false : true}
+                    rightContent={
+                        <ButtonText color={Colors.gray} t={show_confirm_password ? 'Hide' : 'Show'} onPress={this.handleToggleConfirmPassword} />
+                    }
+                />
                 
                 <View style={style.footer}>
-                    <Button t={_('9')} onPress={this.handleSubmit} />
+                    <Button disabled={!ready} t={_('9')} onPress={this.handleSubmit} loading={processing} />
                 </View>
             </KeyboardAvoidingView>
         )
@@ -115,17 +135,10 @@ class ChangePassword extends React.Component {
 const style = StyleSheet.create({
     container: {
         flex:1,
-        padding:Metrics.xl
+        padding:Metrics.md
     },
-    imageWrapper: {
-        alignItems:'center'
-    },
-    image: {
-        width:250,
-        height:110
-    },
-    input: {
-        flex:1
+    error: {
+        marginVertical:Metrics.md
     },
     footer: {
         flex:1,

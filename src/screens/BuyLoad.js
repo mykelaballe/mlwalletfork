@@ -1,9 +1,8 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager} from 'react-native'
-import {ScrollView, Text, Row, Spacer, Button, ButtonIcon, ButtonText, Ripple, TopBuffer, TextInput} from '../components'
-import {Colors, Metrics} from '../themes'
-import {_} from '../utils'
-import Icon from 'react-native-vector-icons/Ionicons'
+import {View, StyleSheet, InteractionManager, TouchableOpacity} from 'react-native'
+import {ScrollView, Text, Row, Spacer, Button, ButtonIcon, ButtonText, Ripple, TopBuffer, TextInput, Icon} from '../components'
+import {Colors, Metrics, Res} from '../themes'
+import {_, Consts} from '../utils'
 
 class BuyLoad extends React.Component {
 
@@ -12,40 +11,60 @@ class BuyLoad extends React.Component {
     }
 
     state = {
-        mobile_no:''
+        type:Consts.tcn.bul.code,
+        mobile_no:'0912345678',
     }
 
-    handleBrowseContacts = () => this.props.navigation.navigate('MyContacts')
+    handleChangeMobileNo = mobile_no => this.setState({mobile_no})
 
-    handleChangeMobileNumber = mobile_no => this.setState({mobile_no})
+    handleSelectReceiver = () => this.props.navigation.navigate('SavedLoadReceivers')
 
-    handleProceed = async () => {
-        this.props.navigation.navigate('LoadOptions')
+    handleNext = async () => {
+        const {params} = this.props.navigation.state
+        this.props.navigation.navigate('LoadOptions',{
+            ...params,
+            ...this.state
+        })
     }
 
     render() {
 
         const {mobile_no} = this.state
+        let ready = false
+
+        if(mobile_no) ready = true
 
         return (
             <View style={style.container}>
 
-                <Row>
+                <View>
+                    <Spacer />
+                    
+                    <View style={{alignItems:'center'}}>
+                        <Icon name='buy_load' />
+                    </View>
+
+                    <Spacer md />
+
+                    <Text center mute>Enter the mobile number that you will load or select from your contact list.</Text>
+
+                    <Spacer />
+
                     <TextInput
-                        style={style.input}
                         label='Mobile Number'
                         value={mobile_no}
-                        onChangeText={this.handleChangeMobileNumber}
                         keyboardType='numeric'
+                        onChangeText={this.handleChangeMobileNo}
+                        rightContent={
+                            <TouchableOpacity onPress={this.handleSelectReceiver}>
+                                <Icon name='phonebook' style={{width:30,height:30}} />
+                            </TouchableOpacity>
+                        }
                     />
-                    <ButtonIcon
-                        icon={<Icon name='ios-person-add' size={Metrics.icon.sm} color={Colors.dark} />}
-                        onPress={this.handleBrowseContacts}
-                    />
-                </Row>
+                </View>
                 
                 <View style={style.footer}>
-                    <Button t='Proceed' onPress={this.handleProceed} />
+                    <Button disabled={!ready} t='Next' onPress={this.handleNext} />
                 </View>
             </View>
         )
@@ -55,14 +74,15 @@ class BuyLoad extends React.Component {
 const style = StyleSheet.create({
     container: {
         flex:1,
+        justifyContent:'space-between',
         padding:Metrics.lg
     },
-    input: {
-        flex:1
+    textarea: {
+        height:130
     },
     footer: {
-        flex:1,
-        justifyContent:'flex-end'
+        //flex:1,
+        //justifyContent:'flex-end'
     }
 })
 

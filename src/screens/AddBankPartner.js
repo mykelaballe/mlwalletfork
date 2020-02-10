@@ -1,112 +1,100 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager, TouchableOpacity} from 'react-native'
-import {SectionList, TextInput, Text, Row, Button, Spacer, ButtonText, HR, Ripple, TopBuffer} from '../components'
+import {View, StyleSheet, InteractionManager} from 'react-native'
+import {ScrollView, FlatList, TextInput, Text, Row, Button, Spacer, ButtonText, HR, Ripple, TopBuffer} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
 import Icon from 'react-native-vector-icons/Ionicons'
-import {Searchbar} from 'react-native-paper'
 
-class AddBankPartner extends React.Component {
+class AddKPReceiver extends React.Component {
 
     static navigationOptions = {
-        title:'Bank Partners'
+        title:'Add Bank'
     }
 
     state = {
-        list:[],
-        search:'',
-        loading:true
+        name:'',
+        account_name:'',
+        account_no:'',
+        processing:false
     }
 
-    componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
+    handleChangeName = name => this.setState({name})
 
-    getData = async () => {
-        let list = []
+    handleChangeAccountName = account_name => this.setState({account_name})
 
+    handleChangeAccountNo = account_no => this.setState({account_no})
+
+    handleSubmit = async () => {
         try {
-            list = [
-                {
-                    letter:'A',
-                    data:[
-                        {
-                            name:'Able Services',
-                        },
-                        {
-                            name:'ACF International'
-                        },
-                        {
-                            name:'Asia United Bank'
-                        }
-                    ]
-                },
-                {
-                    letter:'B',
-                    data:[
-                        {
-                            name:'Bank Albilad',
-                        },
-                        {
-                            name:'Bank of Commerce'
-                        },
-                        {
-                            name:'BC Remit'
-                        },
-                        {
-                            name:'BDO'
-                        },
-                        {
-                            name:'BIBO Global Inc.'
-                        }
-                    ]
-                },
-            ]
+            let {name, account_name, account_no, processing} = this.state
+
+            if(processing) return false
+
+            this.setState({processing:true})
+
+            name = name.trim()
+            account_name = account_name.trim()
+            account_no = account_no.trim()
+
+            if(name == '' || account_name == '' || account_no == '') Say.some(_('8'))
+            else {
+
+                let payload = {
+                    name,
+                    account_name,
+                    account_no
+                }
+    
+                //await API.addNewReceiver(payload)
+
+                this.props.navigation.pop()
+            }
+
+            this.setState({processing:false})
         }
         catch(err) {
-
+            this.setState({processing:false})
+            Say.err(_('18'))
         }
-
-        this.setState({
-            list,
-            loading:false
-        })
     }
-
-    handleSelect = () => this.props.navigation.pop()
-
-    handleChangeSearch = search => this.setState({search})
-
-    renderSectionHeader = ({section}) => (
-        <View style={style.itemHeader}>
-            <Text xl b>{section.letter}</Text>
-        </View>
-    )
-
-    renderItem = ({item, index}) => (
-        <Ripple onPress={this.handleSelect} style={style.item}>
-            <Text md>{item.name}</Text>
-        </Ripple>
-    )
 
     render() {
 
-        const {list, search, loading} = this.state
+        const {name, account_name, account_no, processing} = this.state
+        let ready = false
+
+        if(name && account_name && account_no) ready = true
 
         return (
             <View style={style.container}>
-                <Searchbar
-                    placeholder='Search'
-                    onChangeText={this.handleChangeSearch}
-                    value={search}
-                />
+                <Text center>Please ensure that all of the information inputted is correct.</Text>
 
                 <Spacer />
 
-                <SectionList
-                    sections={list}
-                    renderSectionHeader={this.renderSectionHeader}
-                    renderItem={this.renderItem}
-                    loading={loading}
+                <TextInput
+                    label='Bank Name'
+                    value={name}
+                    onChangeText={this.handleChangeName}
+                    autoCapitalize='words'
                 />
+
+                <TextInput
+                    label='Account Name'
+                    value={account_name}
+                    onChangeText={this.handleChangeAccountName}
+                    autoCapitalize='words'
+                />
+
+                <TextInput
+                    label='Account No.'
+                    value={account_no}
+                    onChangeText={this.handleChangeAccountNo}
+                    keyboardType='numeric'
+                />
+
+                <View style={style.footer}>
+                    <Button disabled={!ready} t='Save Bank' onPress={this.handleSubmit} loading={processing} />
+                </View>
             </View>
         )
     }
@@ -117,13 +105,10 @@ const style = StyleSheet.create({
         flex:1,
         padding:Metrics.lg
     },
-    itemHeader: {
-        ...StyleSheet.absoluteFill
-    },
-    item: {
-        marginLeft:50,
-        padding:Metrics.rg
+    footer: {
+        flex:1,
+        justifyContent:'flex-end'
     }
 })
 
-export default AddBankPartner
+export default AddKPReceiver

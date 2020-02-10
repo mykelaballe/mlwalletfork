@@ -1,11 +1,11 @@
 import React from 'react'
 import {View, StyleSheet, InteractionManager} from 'react-native'
-import {ScrollView, Text, Row, Spacer, ButtonText, Ripple, TopBuffer, FlatList} from '../components'
+import {Screen, Text, Row, Spacer, FlatList, Bullet} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_} from '../utils'
 import Icon from 'react-native-vector-icons/Ionicons'
 
-class VerificationLevels extends React.Component {
+class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Verification Levels'
@@ -86,21 +86,21 @@ class VerificationLevels extends React.Component {
     renderItem = ({item, index}) => (
         <Row ar style={style.item}>
             <View style={style.cell}>
-                <Text sm center>{item.feature}</Text>
+                <Text center>{item.feature}</Text>
             </View>
 
             <View style={style.cell}>
-                {typeof item.semi_verified.value === 'string' && <Text sm center>{item.semi_verified.value}</Text>}
-                {item.semi_verified.value === true && <Icon name='ios-checkmark' size={Metrics.icon.md} color={Colors.success} />}
-                {item.semi_verified.value === false && <Icon name='ios-close' size={Metrics.icon.md} color={Colors.danger} />}
-                {item.semi_verified.note && <Text center xs mute>{item.semi_verified.note}</Text>}
+                {typeof item.semi_verified.value === 'string' && <Text center>{item.semi_verified.value}</Text>}
+                {item.semi_verified.value === true && <Icon name='ios-checkmark' size={Metrics.icon.md} color={Colors.mute} />}
+                {item.semi_verified.value === false && <Icon name='ios-close' size={Metrics.icon.md} color={Colors.mute} />}
+                {item.semi_verified.note && <Text sm center mute>{item.semi_verified.note}</Text>}
             </View>
 
             <View style={style.cell}>
-                {typeof item.verified.value === 'string' && <Text sm center>{item.verified.value}</Text>}
-                {item.verified.value === true && <Icon name='ios-checkmark' size={Metrics.icon.md} color={Colors.success} />}
-                {item.verified.value === false && <Icon name='ios-close' size={Metrics.icon.md} color={Colors.danger} />}
-                {item.verified.note && <Text center xs mute>{item.verified.note}</Text>}
+                {typeof item.verified.value === 'string' && <Text center>{item.verified.value}</Text>}
+                {item.verified.value === true && <Icon name='ios-checkmark' size={Metrics.icon.md} color={Colors.mute} />}
+                {item.verified.value === false && <Icon name='ios-close' size={Metrics.icon.md} color={Colors.mute} />}
+                {item.verified.note && <Text sm center mute>{item.verified.note}</Text>}
             </View>
         </Row>
     )
@@ -110,9 +110,7 @@ class VerificationLevels extends React.Component {
         const {list, loading} = this.state
 
         return (
-            <View style={style.container}>
-                <TopBuffer sm />
-
+            <Screen ns>
                 <View style={style.statusContainer}>
                     <Text center b md>You are semi-verified</Text>
                     <Text center>Visit the nearest MLhuillier branch to be fully verified.</Text>
@@ -121,16 +119,18 @@ class VerificationLevels extends React.Component {
                 <Spacer md />
 
                 <Row ar style={style.tableHeader}>
-                    <View style={style.cell}>
+                    <View style={[style.cell,{alignItems:'flex-start'}]}>
                         <Text center b>FEATURES</Text>
                     </View>
 
                     <View style={style.cell}>
-                        <Text sm center>SEMI-VERIFIED</Text>
+                        <Icon name='ios-checkmark-circle' color={Colors.brand} size={Metrics.icon.sm} />
+                        <Text center>Semi-Verified</Text>
                     </View>
 
                     <View style={style.cell}>
-                        <Text sm center>VERIFIED</Text>
+                        <Bullet size={9} />
+                        <Text center>Verified</Text>
                     </View>
                 </Row>
 
@@ -139,23 +139,21 @@ class VerificationLevels extends React.Component {
                     renderItem={this.renderItem}
                     loading={loading}
                 />
-            </View>
+            </Screen>
         )
     }
 }
 
 const style = StyleSheet.create({
-    container: {
-        paddingHorizontal:Metrics.lg
-    },
     tableHeader: {
-        backgroundColor:Colors.gray,
+        backgroundColor:Colors.lightgray,
         padding:Metrics.lg
     },
     statusContainer: {
         borderWidth:StyleSheet.hairlineWidth,
-        borderColor:Colors.mute,
-        padding:Metrics.md
+        borderColor:Colors.brand,
+        padding:Metrics.md,
+        borderRadius:Metrics.sm
     },
     item: {
         paddingVertical:Metrics.rg
@@ -166,4 +164,4 @@ const style = StyleSheet.create({
     }
 })
 
-export default VerificationLevels
+export default Scrn

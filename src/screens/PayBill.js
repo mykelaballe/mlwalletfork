@@ -1,28 +1,21 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager} from 'react-native'
-import {ScrollView, Text, Row, Spacer, Button, ButtonIcon, ButtonText, Ripple, TopBuffer, TextInput} from '../components'
-import {Colors, Metrics} from '../themes'
-import {_} from '../utils'
-import Icon from 'react-native-vector-icons/Ionicons'
-import {Switch} from 'react-native-paper'
+import {View, StyleSheet, InteractionManager, TouchableOpacity} from 'react-native'
+import {ScrollView, Text, Row, Spacer, Button, ButtonIcon, ButtonText, Ripple, TopBuffer, TextInput, Icon} from '../components'
+import {Colors, Metrics, Res} from '../themes'
+import {_, Consts} from '../utils'
 
 class PayBill extends React.Component {
 
     static navigationOptions = {
-        title:'Pay Bills'
+        title:'Pay Bill'
     }
 
     state = {
-        account_number:'',
-        account_name:'',
         amount:'100',
         email:'',
-        add_to_favorites:false
+        add_to_favorites:false,
+        processing:false
     }
-
-    handleChangeAccountNumber = account_number => this.setState({account_number})
-
-    handleChangeAccountName = account_name => this.setState({account_name})
 
     handleChangeAmount = amount => this.setState({amount})
 
@@ -31,73 +24,68 @@ class PayBill extends React.Component {
     handleToggleAddToFavorites = () => this.setState(prevState => ({add_to_favorites:!prevState.add_to_favorites}))
 
     handlePay = async () => {
-        this.props.navigation.navigate('TransactionReview',{type:'bill'})
+        const {params} = this.props.navigation.state
+        this.props.navigation.navigate('TransactionReview',{
+            ...params,
+            ...this.state,
+            type:Consts.tcn.bpm.code,
+            status:'success'
+        })
     }
 
     render() {
 
-        const {biller} = this.props.navigation.state.params
-        const {account_number, account_name, amount, email, add_to_favorites} = this.state
+        const {type, biller} = this.props.navigation.state.params
+        const {amount, email} = this.state
+        let ready = false
+
+        if(amount) ready = true
 
         return (
             <View style={style.container}>
 
-                <Text center b md>{biller.name}</Text>
+                <View>
+                    <Text center b lg>{biller.name}</Text>
 
-                <Spacer md />
+                    <Spacer />
 
-                <Row>
                     <TextInput
-                        style={style.input}
+                        disabled
                         label='Account Number'
-                        value={account_number}
-                        onChangeText={this.handleChangeAccountNumber}
-                        keyboardType='numeric'
+                        value={'123456789'}
                     />
-                </Row>
 
-                <Row>
+                    <Spacer sm />
+
                     <TextInput
-                        style={style.input}
+                        disabled
                         label='Account Name'
-                        value={account_name}
-                        onChangeText={this.handleChangeAccountName}
+                        value={'John Smith'}
                     />
-                </Row>
 
-                <Row>
+                    <Spacer sm />
+
                     <TextInput
-                        style={style.input}
-                        label='Amount'
+                        label='Amount (PHP)'
                         value={amount}
                         onChangeText={this.handleChangeAmount}
                         keyboardType='numeric'
                     />
-                </Row>
 
-                <Row>
+                    <Spacer sm />
+
                     <TextInput
-                        style={style.input}
-                        label='Email Address (Optional)'
+                        label='Email address (Optional)'
                         value={email}
                         onChangeText={this.handleChangeEmail}
                         keyboardType='email-address'
                     />
-                </Row>
+                </View>
                 
                 <View style={style.footer}>
-                    <Row bw>
-                        <Text b>Add to Favorites</Text>
-                        <Switch value={add_to_favorites} onValueChange={this.handleToggleAddToFavorites} />
-                    </Row>
-
+                    <Text mute>Note: Service charge and Biller's Convenience fee may apply.</Text>
                     <Spacer />
-
-                    <Text center mute>Note: Service charge and Biller's Convenenience fee may apply</Text>
-
-                    <Spacer />
-                    
-                    <Button t='Pay' onPress={this.handlePay} />
+                    <Button disabled={!ready} t={Consts.tcn[type].submit_text} onPress={this.handlePay} />
                 </View>
             </View>
         )
@@ -107,14 +95,15 @@ class PayBill extends React.Component {
 const style = StyleSheet.create({
     container: {
         flex:1,
+        justifyContent:'space-between',
         padding:Metrics.lg
     },
-    input: {
-        flex:1
+    textarea: {
+        height:130
     },
     footer: {
-        flex:1,
-        justifyContent:'flex-end'
+        //flex:1,
+        //justifyContent:'flex-end'
     }
 })
 

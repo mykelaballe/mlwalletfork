@@ -3,6 +3,23 @@ import {createStackNavigator} from 'react-navigation-stack'
 import * as Scrn from '../screens'
 import {Colors} from '../themes'
 
+const noNavHeaderOptions = {
+    headerStyle:{
+        backgroundColor:'transparent'
+    },
+    headerTintColor:Colors.brand
+}
+
+const defaultNavigationOptions = {
+    headerStyle: {
+        backgroundColor:Colors.brand,
+    },
+    headerTitleStyle: {
+        color:Colors.light,
+    },
+    headerTintColor:Colors.light
+}
+
 export default createStackNavigator({
     AuthIndex: {
         screen:Scrn.AuthIndexScrn,
@@ -18,39 +35,38 @@ export default createStackNavigator({
     },
     SignUp: {
         screen:Scrn.SignUpScrn,
-        navigationOptions:{
-            headerStyle:{
-                backgroundColor:'transparent'
-            },
-            headerTintColor:Colors.brand
-        }
+        navigationOptions:noNavHeaderOptions
     },
+    SignUpStep1: Scrn.SignUpStep1Scrn,
+    SignUpStep2: Scrn.SignUpStep2Scrn,
+    SignUpStep3: Scrn.SignUpStep3Scrn,
+    SignUpStep4: Scrn.SignUpStep4Scrn,
+    SignUpReview: Scrn.SignUpReviewScrn,
+    SignUpVerificationMobile: Scrn.SignUpVerificationMobileScrn,
+    SignUpVerificationOTP: Scrn.SignUpVerificationOTPScrn,
+    SignUpSuccess: Scrn.SignUpSuccessScrn,
     ForgotPassword: {
         screen:Scrn.ForgotPasswordScrn,
-        navigationOptions:{
-            headerStyle:{
-                backgroundColor:'transparent'
-            },
-            headerTintColor:Colors.brand
-        }
+        navigationOptions:noNavHeaderOptions
+    },
+    SecurityQuestion: {
+        screen:Scrn.SecurityQuestionAuthScrn,
+        navigationOptions:noNavHeaderOptions
+    },
+    SendPassword: {
+        screen:Scrn.SendPasswordScrn,
+        navigationOptions:noNavHeaderOptions
     },
     TouchID: {
         screen:Scrn.TouchIDScrn,
-        navigationOptions:{
-            headerStyle:{
-                backgroundColor:'transparent'
-            },
-            headerTintColor:Colors.brand
-        }
-    }
+        navigationOptions:noNavHeaderOptions
+    },
+    Countries: Scrn.CountriesScrn,
+    Provinces: Scrn.ProvincesScrn,
+    Cities: Scrn.CitiesScrn,
+    SecurityQuestions: Scrn.SecurityQuestionsScrn,
+    TermsAndConditions: Scrn.TermsAndConditionsScreen,
+    Camera: Scrn.CameraScrn,
 },{
-    defaultNavigationOptions: {
-        headerStyle: {
-            backgroundColor:Colors.brand
-        },
-        headerTitleStyle: {
-            color:Colors.light
-        },
-        headerTintColor:Colors.light
-    }
+    defaultNavigationOptions
 })

@@ -1,38 +1,26 @@
 import React from 'react'
 import {View, StyleSheet, InteractionManager, Dimensions, TouchableOpacity} from 'react-native'
-import {FlatList, Text, Row, Spacer, HR, Button, ButtonIcon, ButtonText, Ripple, TopBuffer, TextInput} from '../components'
+import {FlatList, Text, Row, Spacer, HR, Button, ButtonIcon, ButtonText, Ripple, TopBuffer, TextInput, LoadPromo} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_} from '../utils'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 const {width} = Dimensions.get('window')
-const ITEM_WIDTH = (width / 3) - (Metrics.md)
+const ITEM_WIDTH = (width / 3) - (Metrics.lg * 2)
 
-const ItemRegularUI = props => (
-    <View style={style.itemRegular}>
-        <TouchableOpacity onPress={() => props.onPress(props.data)} style={style.itemInnerRegular}>
-            <Text center sm>PHP</Text>
-            <Text center lg b>{props.data}</Text>
-        </TouchableOpacity>
-    </View>
-)
+const ItemRegularUI = props => {
+    let bgColor = props.data.selected ? Colors.brand : Colors.light
+    let txtColor = props.data.selected ? Colors.light : Colors.dark
 
-const ItemPromoCodeUI = props => (
-    <TouchableOpacity onPress={() => props.onPress(props.data)}>
-        <Row style={style.itemPromoCode}>
-            <View style={style.circle}>
-                <Text center xs>PHP</Text>
-                <Text center lg b>{props.data.amount}</Text>
-            </View>
-            <Spacer h />
-            <View>
-                <Text>{props.data.label}</Text>
-                <Text sm mute>{props.data.details}</Text>
-            </View>
-        </Row>
-        <HR />
-    </TouchableOpacity>
-)
+    return (
+        <View style={style.itemRegular}>
+            <TouchableOpacity onPress={() => props.onPress(props.index)} style={[style.itemInnerRegular,{backgroundColor:bgColor}]}>
+                <Text center color={txtColor}>PHP</Text>
+                <Text center lg color={txtColor}>{props.data.amount}</Text>
+            </TouchableOpacity>
+        </View>
+    )
+}
 
 class LoadOptions extends React.Component {
 
@@ -42,31 +30,73 @@ class LoadOptions extends React.Component {
 
     state = {
         amount:'',
-        regulars:[10,20,30,50,100,150,300,500,1000],
+        regulars:[
+            {
+                amount:'10',
+                selected:false
+            },
+            {
+                amount:'20',
+                selected:false
+            },
+            {
+                amount:'30',
+                selected:false
+            },
+            {
+                amount:'50',
+                selected:false
+            },
+            {
+                amount:'100',
+                selected:false
+            },
+            {
+                amount:'150',
+                selected:false
+            },
+            {
+                amount:'300',
+                selected:false
+            },
+            {
+                amount:'500',
+                selected:false
+            },
+            {
+                amount:'1000',
+                selected:false
+            },
+        ],
         promo_codes:[
             {
                 label:'GoSURF10',
-                details:'50MB data. Valid for 2 days.',
+                short_desc:'For Globe Prepaid only.',
+                long_desc:'100MB data + 30MB for IG. Valid for 2 days',
                 amount:10
             },
             {
                 label:'GoSURF15',
-                details:'100MB data. Valid for 2 days.',
+                short_desc:'For Globe Prepaid only.',
+                long_desc:'100MB data + 30MB for IG. Valid for 2 days',
                 amount:15
             },
             {
                 label:'GoSAKTO70',
-                details:'1GB data + Unli texts to all networks.',
+                short_desc:'For Globe Prepaid only.',
+                long_desc:'100MB data + 30MB for IG. Valid for 2 days',
                 amount:70
             },
             {
                 label:'GoSURF50',
-                details:'1GB data + Unli texts to all networks.',
+                short_desc:'For Globe Prepaid only.',
+                long_desc:'100MB data + 30MB for IG. Valid for 2 days',
                 amount:50
             },
             {
                 label:'GoSAKTO90',
-                details:'2GB data + Unli texts to all networks.',
+                short_desc:'For Globe Prepaid only.',
+                long_desc:'100MB data + 30MB for IG. Valid for 2 days',
                 amount:90
             }
         ],
@@ -76,32 +106,62 @@ class LoadOptions extends React.Component {
     handleChangeAmount = amount => this.setState({amount})
 
     handleSubmit = async load => {
-        this.props.navigation.navigate('TransactionReview',{type:'buy_load',load})
+        const {navigate, state: {params}} = this.props.navigation
+        navigate('TransactionReview',{
+            ...params,
+            load,
+            ...this.state,
+            status:'success'
+        })
     }
 
     handleShowRegulars = () => this.setState({show_regulars:true})
 
     handleShowPromoCodes = () => this.setState({show_regulars:false})
 
-    handleSelectRegular = amount => this.handleSubmit(amount)
+    handleSelectRegular = index => {
+        let regulars = this.state.regulars.slice()
 
-    handleSelectPromoCode = load => this.handleSubmit(load)
+        regulars.map(r => r.selected = false)
+        regulars[index].selected = true
+
+        this.setState({
+            regulars,
+            amount:regulars[index].amount
+        })
+    }
+
+    handleSelectPromoCode = index => {
+        let promo_codes = this.state.promo_codes.slice()
+
+        promo_codes.map(r => r.collapsed = false)
+        promo_codes[index].collapsed = true
+
+        this.setState({
+            promo_codes,
+            amount:promo_codes[index].amount.toString()
+        })
+
+    }
 
     handleSubmitAmount = amount => this.handleSubmit(amount)
 
-    renderRegulars = ({item, index}) => <ItemRegularUI data={item} onPress={this.handleSelectRegular} />
+    renderRegulars = ({item, index}) => <ItemRegularUI index={index} data={item} onPress={this.handleSelectRegular} />
 
-    renderPromoCodes = ({item, index}) => <ItemPromoCodeUI data={item} onPress={this.handleSelectPromoCode} />
+    renderPromoCodes = ({item, index}) => <LoadPromo index={index} data={item} onPress={this.handleSelectPromoCode} />
 
     render() {
 
         const {amount, regulars, promo_codes, show_regulars} = this.state
+        let ready = false
+
+        if(amount) ready = true
 
         return (
             <View style={style.container}>
 
-                <Text b center lg>09123456789</Text>
-                <Text center md>Globe</Text>
+                <Text b center xl>09123456789</Text>
+                <Text center md b>Globe</Text>
 
                 <Spacer />
 
@@ -111,17 +171,21 @@ class LoadOptions extends React.Component {
                     <Button mode={!show_regulars ? '' : 'outlined'} style={{flex:1}} t='Promo Code' onPress={this.handleShowPromoCodes} />
                 </Row>
 
+                <Spacer />
+
                 {show_regulars &&
-                <>
+                <View style={{alignItems:'center'}}>
+                    <Text center mute md>Enter load amount value or choose the load amount below.</Text>
+
+                    <Spacer />
+
                     <TextInput
-                        label='Enter Load Amount'
-                        value={amount}
+                        label='Load Amount (PHP)'
+                        value={amount ? parseFloat(amount).toFixed(2) : ''}
                         onChangeText={this.handleChangeAmount}
                         keyboardType='numeric'
-                        onSubmitEditing={this.handleSubmit}
                     />
-                    <Spacer />
-                    <Text center>Enter load amount value or choose load amount below.</Text>
+
                     <Spacer />
                     
                     <FlatList
@@ -129,18 +193,20 @@ class LoadOptions extends React.Component {
                         renderItem={this.renderRegulars}
                         numColumns={3}
                     />
-                </>
+                </View>
                 }
 
                 {!show_regulars &&
                 <>
-                    <Spacer />
+                    <Spacer sm />
                     <FlatList
                         data={promo_codes}
                         renderItem={this.renderPromoCodes}
                     />
                 </>
                 }
+
+                <Button disabled={!ready} t='Next' onPress={this.handleSubmit} />
             </View>
         )
     }
@@ -157,7 +223,8 @@ const style = StyleSheet.create({
     itemRegular: {
         width:ITEM_WIDTH,
         height:ITEM_WIDTH,
-        alignItems:'center'
+        alignItems:'center',
+        marginHorizontal:Metrics.rg
     },
     itemInnerRegular: {
         width:75,
@@ -167,18 +234,6 @@ const style = StyleSheet.create({
         borderWidth:StyleSheet.hairlineWidth,
         borderColor:Colors.mute,
         borderRadius:75
-    },
-    itemPromoCode: {
-        paddingVertical:Metrics.rg
-    },
-    circle: {
-        width:60,
-        height:60,
-        alignItems:'center',
-        justifyContent:'center',
-        borderWidth:StyleSheet.hairlineWidth,
-        borderColor:Colors.mute,
-        borderRadius:60
     },
     footer: {
         flex:1,

@@ -5991,10 +5991,15 @@ react-native-action-button@2.8.5:
   dependencies:
     prop-types "^15.5.10"
 
-react-native-camera@3.8.0:
-  version "3.8.0"
-  resolved "https://registry.yarnpkg.com/react-native-camera/-/react-native-camera-3.8.0.tgz#c2e6aaa62dc84e07180c3ea29a5bfc4d24b188a7"
-  integrity sha512-8haG+GONkMaZPtGZcVy2gALn87vOZiPaWZ7I7V6H81WnVBy00Hcd9w1T8T1gdmxuVSFgV5gFKNjnYRc+xMe5pg==
+react-native-app-intro-slider@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-app-intro-slider/-/react-native-app-intro-slider-3.0.0.tgz#c3620b967503ce410b3d767252392bb6fb2edf97"
+  integrity sha512-2XXUYnSeMYZTLhdRYHSwv8mhoyuEaYxmQfXrWQInH1QvjsnJtKgvORI3bJuJN+tNPg3aut6JYYCNOFsI5of32A==
+
+react-native-camera@^3.17.0:
+  version "3.17.0"
+  resolved "https://registry.yarnpkg.com/react-native-camera/-/react-native-camera-3.17.0.tgz#41b12b74ac9e806e86a6efb2a19319b40323f196"
+  integrity sha512-Gd9E5XHrEScYPsugO4sYBYw+RnFg+M1kbjvsCE3B/pk+4Fk01tNY14RYoghYsimWWsQVgYNqOOJG5f1fQ3BUeg==
   dependencies:
     prop-types "^15.6.2"
 

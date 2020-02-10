@@ -1,96 +1,79 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager} from 'react-native'
-import {ScrollView, FlatList, TextInput, Text, Row, Button, Spacer, ButtonText, HR, Ripple, TopBuffer} from '../components'
+import {View} from 'react-native'
+import {connect} from 'react-redux'
+import Actions from '../actions/Creators'
+import {Screen, Text, Button, Spacer, TextInput, Row, Footer} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
-import Icon from 'react-native-vector-icons/Ionicons'
+import {API} from '../services'
 
-class UpdateWalletReceiver extends React.Component {
+class Scrn extends React.Component {
 
     static navigationOptions = {
-        title:'Update Receiver'
+        title:'Edit Receiver'
     }
 
     state = {
-        ...this.props.navigation.state.params.receiver,
+        wallet_id:this.props.navigation.state.params.receiver.wallet_id,
+        fullname:this.props.navigation.state.params.receiver.fullname,
         processing:false
     }
 
-    handleChangeWalletNo = wallet_no => this.setState({wallet_no})
+    handleChangeWalletNo = wallet_id => this.setState({wallet_id})
 
-    handleChangeNickname = nickname => this.setState({nickname})
+    handleChangeFullName = fullname => this.setState({fullname})
 
     handleSubmit = async () => {
+        let {wallet_id, fullname, processing} = this.state
+
+        if(processing) return false
+
         try {
-            let {wallet_id, nickname, processing} = this.state
-
-            if(processing) return false
-
-            this.setState({processing:true})
-
             wallet_id = wallet_id.trim()
-            nickname = nickname.trim()
+            fullname = fullname.trim()
 
-            if(wallet_id == '' || nickname == '') Say.some(_('8'))
+            if(wallet_id == '' || fullname == '') Say.some(_('8'))
             else {
-
-                let payload = {
-                    wallet_id,
-                    nickname
-                }
-    
-                //await API.updateReceiver(payload)
-
-                Say.ok('success')
-                this.props.navigation.pop()
+                Say.some('Receiver updated')
             }
-
-            this.setState({processing:false})
         }
         catch(err) {
-            this.setState({processing:false})
             Say.err(_('18'))
         }
     }
 
     render() {
 
-        const {wallet_id, nickname, processing} = this.state
+        const {wallet_id, fullname, processing} = this.state
+        let ready = false
+
+        if(wallet_id && fullname) ready = true
 
         return (
-            <View style={style.container}>
-                <TextInput
-                    label='Wallet No.'
-                    placeholder='Enter Wallet No.'
-                    value={wallet_id}
-                    onChangeText={this.handleChangeWalletNo}
-                    keyboardType='numeric'
-                />
+            <>
+                <Screen>
 
-                <TextInput
-                    label='Nickname'
-                    placeholder='Enter Nickname'
-                    value={nickname}
-                    onChangeText={this.handleChangeNickname}
-                />
+                    <TextInput
+                        label={'Wallet Account Number'}
+                        value={wallet_id}
+                        onChangeText={this.handleChangeWalletNo}
+                        keyboardType='numeric'
+                    />
 
-                <View style={style.footer}>
-                    <Button t='Update Receiver' onPress={this.handleSubmit} />
-                </View>
-            </View>
+                    <TextInput
+                        label={'Full Name'}
+                        value={fullname}
+                        onChangeText={this.handleChangeFullName}
+                        autoCapitalize='words'
+                    />
+                </Screen>
+            
+                <Footer>
+                    <Button disabled={!ready} t='Save Receiver' onPress={this.handleSubmit} loading={processing} />
+                </Footer>
+            </>
         )
     }
 }
 
-const style = StyleSheet.create({
-    container: {
-        flex:1,
-        padding:Metrics.lg
-    },
-    footer: {
-        flex:1,
-        justifyContent:'flex-end'
-    }
-})
-
-export default UpdateWalletReceiver
+export default Scrn

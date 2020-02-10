@@ -6,6 +6,7 @@ export default props => {
 
     if(props.bw) customStyle.justifyContent = 'space-between'
     else if(props.ar) customStyle.justifyContent = 'space-around'
+    else if(props.c) customStyle.justifyContent = 'center'
 
     return (
         <View style={[style.container,customStyle,props.style]}>

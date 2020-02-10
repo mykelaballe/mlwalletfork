@@ -1,9 +1,8 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager} from 'react-native'
-import {ScrollView, Text, Row, Spacer, Button, ButtonIcon, ButtonText, Ripple, TopBuffer, TextInput} from '../components'
-import {Colors, Metrics} from '../themes'
-import {_} from '../utils'
-import Icon from 'react-native-vector-icons/Ionicons'
+import {View, StyleSheet, InteractionManager, TouchableOpacity} from 'react-native'
+import {ScrollView, Text, Row, Spacer, Button, ButtonIcon, ButtonText, Ripple, TopBuffer, TextInput, Icon} from '../components'
+import {Colors, Metrics, Res} from '../themes'
+import {_, Consts} from '../utils'
 
 class SendWalletToWallet extends React.Component {
 
@@ -12,9 +11,12 @@ class SendWalletToWallet extends React.Component {
     }
 
     state = {
-        receiver_wallet_id:'',
+        wallet_account_number:'1911-0000-3257-91',
+        receiver:'John Smith',
         amount:'',
-        notes:''
+        notes:'',
+        charges:'',
+        total:''
     }
 
     handleChangeReceiverWalletID = receiver_wallet_id => this.setState({receiver_wallet_id})
@@ -26,66 +28,73 @@ class SendWalletToWallet extends React.Component {
     handleAddNewReceiver = () => this.props.navigation.navigate('SavedWalletReceivers')
 
     handleSendMoney = async () => {
-        this.props.navigation.navigate('TransactionReview',{type:'wallet'})
+        const {params} = this.props.navigation.state
+        this.props.navigation.navigate('TransactionReview',{
+            ...params,
+            ...this.state,
+            status:'success'
+        })
     }
 
     render() {
 
-        const {receiver_wallet_id, amount, notes} = this.state
+        const {type} = this.props.navigation.state.params
+        const {wallet_account_number, receiver, amount, notes, charges, total} = this.state
+        let ready = false
+
+        if(wallet_account_number && amount) ready = true
 
         return (
             <View style={style.container}>
 
-                <Text center>Send money to ML Wallet account</Text>
+                <View>
+                    <Text center>Send Money to an ML Wallet Account</Text>
 
-                <Row>
+                    <Spacer />
+
                     <TextInput
-                        style={style.input}
+                        disabled
                         label='Receiver'
-                        value={receiver_wallet_id}
-                        onChangeText={this.handleChangeReceiverWalletID}
+                        value={wallet_account_number}
+                        rightContent={
+                            <TouchableOpacity onPress={this.handleAddNewReceiver}>
+                                <Icon name='user_plus' size={20} />
+                            </TouchableOpacity>
+                        }
                     />
-                    <ButtonIcon
-                        icon={<Icon name='ios-person-add' size={Metrics.icon.sm} color={Colors.dark} />}
-                        onPress={this.handleAddNewReceiver}
-                    />
-                </Row>
 
-                <Row>
+                    <Spacer sm />
+
                     <TextInput
-                        style={style.input}
-                        label='Amount'
+                        label='Amount (PHP)'
                         value={amount}
                         onChangeText={this.handleChangeAmount}
                         keyboardType='numeric'
                     />
-                </Row>
 
-                <Row>
+                    <Spacer />
+
                     <TextInput
-                        style={style.input}
-                        label='Notes'
+                        style={style.textarea}
+                        label='Type an optional message to your receiver here'
                         value={notes}
                         onChangeText={this.handleChangeNotes}
+                        multiline
                     />
-                </Row>
+                </View>
                 
                 <View style={style.footer}>
-                    <Row bw>
-                        <Text b>Charges</Text>
-                        <Text>PHP 25.00</Text>
-                    </Row>
+                    <Text mute>Charges</Text>
+                    <Text md>PHP 25.00</Text>
 
-                    <Spacer sm />
+                    <Spacer />
 
-                    <Row bw>
-                        <Text b>Total</Text>
-                        <Text>PHP 25.00</Text>
-                    </Row>
+                    <Text mute>Total</Text>
+                    <Text md>PHP 25.00</Text>
 
                     <Spacer />
                     
-                    <Button t='Send Money' onPress={this.handleSendMoney} />
+                    <Button disabled={!ready} t={Consts.tcn[type].submit_text} onPress={this.handleSendMoney} />
                 </View>
             </View>
         )
@@ -95,14 +104,15 @@ class SendWalletToWallet extends React.Component {
 const style = StyleSheet.create({
     container: {
         flex:1,
+        justifyContent:'space-between',
         padding:Metrics.lg
     },
-    input: {
-        flex:1
+    textarea: {
+        height:130
     },
     footer: {
-        flex:1,
-        justifyContent:'flex-end'
+        //flex:1,
+        //justifyContent:'flex-end'
     }
 })
 

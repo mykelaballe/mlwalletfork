@@ -1,9 +1,8 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager} from 'react-native'
-import {ScrollView, Text, Row, Spacer, Button, ButtonIcon, ButtonText, Ripple, TopBuffer, TextInput} from '../components'
-import {Colors, Metrics} from '../themes'
-import {_} from '../utils'
-import Icon from 'react-native-vector-icons/Ionicons'
+import {View, StyleSheet, InteractionManager, TouchableOpacity} from 'react-native'
+import {ScrollView, Text, Row, Spacer, Button, ButtonIcon, ButtonText, Ripple, TopBuffer, TextInput, Icon} from '../components'
+import {Colors, Metrics, Res} from '../themes'
+import {_, Consts} from '../utils'
 
 class WithdrawCash extends React.Component {
 
@@ -12,52 +11,66 @@ class WithdrawCash extends React.Component {
     }
 
     state = {
-        amount:'0.00'
+        type:Consts.tcn.wdc.code,
+        amount:'',
+        charges:'',
+        total:''
     }
 
     handleChangeAmount = amount => this.setState({amount})
 
-    handleWithdraw = async () => {
-        this.props.navigation.navigate('OTPConfirmation',{type:'withdraw_cash'})
+    handleWithdraw = async () => { 
+        const {params} = this.props.navigation.state
+        this.props.navigation.navigate('TransactionReview',{
+            ...params,
+            ...this.state,
+            cancellable:true
+        })
     }
 
     render() {
 
-        const {amount} = this.state
+        const {type, amount, charges, total} = this.state
+        let ready = false
+
+        if(amount) ready = true
 
         return (
             <View style={style.container}>
 
-                <Text center>Enter amount to be withdrawn and show transaction number to the nearest ML branch to cash out.</Text>
+                <View>
+                    <Spacer />
+                    
+                    <View style={{alignItems:'center'}}>
+                        <Icon name='withdraw_cash' />
+                    </View>
 
-                <Spacer md />
+                    <Spacer md />
 
-                <Row>
+                    <Text center mute>Enter amount to be withdrawn and show transaction number to the nearest ML branch to cash out.</Text>
+
+                    <Spacer />
+
                     <TextInput
-                        style={style.input}
-                        label='Amount'
+                        label='Amount (PHP)'
                         value={amount}
                         onChangeText={this.handleChangeAmount}
                         keyboardType='numeric'
                     />
-                </Row>
+                </View>
                 
                 <View style={style.footer}>
-                    <Row bw>
-                        <Text b>Charges</Text>
-                        <Text>PHP 0.00</Text>
-                    </Row>
+                    <Text mute>Charges</Text>
+                    <Text md>PHP 25.00</Text>
 
-                    <Spacer sm />
+                    <Spacer />
 
-                    <Row bw>
-                        <Text b>Total</Text>
-                        <Text>PHP 0.00</Text>
-                    </Row>
+                    <Text mute>Total</Text>
+                    <Text md>PHP 25.00</Text>
 
                     <Spacer />
                     
-                    <Button t='Withdraw Cash' onPress={this.handleWithdraw} />
+                    <Button disabled={!ready} t={Consts.tcn[type].submit_text} onPress={this.handleWithdraw} />
                 </View>
             </View>
         )
@@ -67,14 +80,15 @@ class WithdrawCash extends React.Component {
 const style = StyleSheet.create({
     container: {
         flex:1,
+        justifyContent:'space-between',
         padding:Metrics.lg
     },
-    input: {
-        flex:1
+    textarea: {
+        height:130
     },
     footer: {
-        flex:1,
-        justifyContent:'flex-end'
+        //flex:1,
+        //justifyContent:'flex-end'
     }
 })
 

@@ -7,7 +7,7 @@ import {_, Say} from '../utils'
 class Rates extends React.Component {
 
     static navigationOptions = {
-        title:'Rates'
+        title:'Kwarta Padala Rates'
     }
 
     state = {

@@ -1,6 +1,6 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager, Switch} from 'react-native'
-import {ScrollView, Text, Row, Spacer, ButtonText, Ripple, TopBuffer} from '../components'
+import {View, StyleSheet, InteractionManager, TouchableOpacity} from 'react-native'
+import {ScrollView, Text, Row, Spacer, ButtonText, Ripple, TopBuffer, Switch, HR, Prompt} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_} from '../utils'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -12,32 +12,64 @@ class LoginSecurity extends React.Component {
     }
 
     state = {
-        touch_id:false
+        touch_id:false,
+        showSuccessModal:false,
+        successModalMsg:''
     }
 
     handlePressChangePassword = () => this.props.navigation.navigate('ChangePassword')
 
-    handleToggleTouchID = () => this.setState(prevState => ({touch_id:!prevState.touch_id}))
+    handleToggleTouchID = () => {
+        let {touch_id} = this.state
+        let successModalMsg = ''
+        
+        touch_id = !touch_id
+
+        if(touch_id) successModalMsg = "You've successfully activated your Touch ID"
+        else successModalMsg = "You've successfully deactivated your Touch ID"
+
+        this.setState({
+            touch_id,
+            showSuccessModal:true,
+            successModalMsg
+        })
+    }
+
+    handleCloseModal = () => this.setState({showSuccessModal:false})
 
     render() {
 
-        const {touch_id} = this.state
+        const {touch_id, showSuccessModal, successModalMsg} = this.state
 
         return (
             <View>
+
+                <Prompt
+                    visible={showSuccessModal}
+                    title='Success'
+                    message={successModalMsg}
+                    onDismiss={this.handleCloseModal}
+                />
+
                 <TopBuffer sm />
-                <Ripple onPress={this.handlePressChangePassword} style={style.item}>
+
+                <TouchableOpacity onPress={this.handlePressChangePassword} style={style.item}>
                     <Row bw>
-                        <Text md>Change Password</Text>
-                        <Icon name='ios-arrow-forward' size={Metrics.icon.sm} color={Colors.dark} />
+                        <View>
+                            <Text md mute>Change Password</Text>
+                        </View>
+                        <Icon name='ios-arrow-forward' size={Metrics.icon.sm} color={Colors.mute} />
                     </Row>
-                </Ripple>
-                <Ripple onPress={this.handleToggleTouchID} style={style.item}>
+                    <HR m={Metrics.rg} />
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={this.handleToggleTouchID} style={style.item}>
                     <Row bw>
-                        <Text md>Touch ID</Text>
+                        <Text md mute>Touch ID</Text>
                         <Switch value={touch_id} onValueChange={this.handleToggleTouchID} />
                     </Row>
-                </Ripple>
+                    <HR m={Metrics.rg} />
+                </TouchableOpacity>
             </View>
         )
     }
@@ -45,8 +77,7 @@ class LoginSecurity extends React.Component {
 
 const style = StyleSheet.create({
     item: {
-        paddingVertical:Metrics.rg,
-        paddingHorizontal:Metrics.xl
+        padding:Metrics.md
     }
 })
 

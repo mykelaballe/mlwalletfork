@@ -1,15 +1,52 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager} from 'react-native'
-import {ScrollView, Text, Row, Button, Spacer, ButtonText, HR, Ripple, TopBuffer} from '../components'
+import {View, StyleSheet, TouchableOpacity} from 'react-native'
+import {ScrollView, Text, Row, Button, Spacer, HR, TopBuffer, HeaderRight, Outline} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_} from '../utils'
 import Icon from 'react-native-vector-icons/Ionicons'
+import {Menu} from 'react-native-paper'
 
 class ReceiverKPProfile extends React.Component {
 
-    static navigationOptions = ({navigation}) => ({
-        title:navigation.state.params.receiver.name
-    })
+    static navigationOptions = ({navigation}) => {
+        const {params = {}} = navigation.state
+
+        return {
+            title:'Saved Receiver',
+            headerRight:(
+                <Menu
+                    visible={params.menuOpen}
+                    onDismiss={params.handleToggleMenu}
+                    anchor={
+                    <HeaderRight>
+                        <TouchableOpacity onPress={params.handleToggleMenu}>
+                            <Icon name='ios-more' color={Colors.light} size={Metrics.icon.rg} />
+                        </TouchableOpacity>
+                    </HeaderRight>
+                    }
+                >
+                    <Menu.Item onPress={params.handleEdit} title='Edit Receiver' />
+                    <Menu.Item onPress={() => {}} title="Delete Receiver" />
+                </Menu>
+            )
+        }
+    }
+
+    componentDidMount = () => {
+        this.props.navigation.setParams({
+            menuOpen:false,
+            handleToggleMenu:this.handleToggleMenu,
+            handleEdit:this.handleEdit
+        })
+    }
+
+    handleToggleMenu = () => {
+        let {menuOpen} = this.props.navigation.state.params
+
+        menuOpen = !menuOpen
+
+        this.props.navigation.setParams({menuOpen})
+    }
 
     handleDelete = () => {
 
@@ -18,6 +55,7 @@ class ReceiverKPProfile extends React.Component {
     handleEdit = () => {
         const {navigate, state} = this.props.navigation
         const {receiver} = state.params
+        this.handleToggleMenu()
         navigate('UpdateKPReceiver',{receiver})
     }
 
@@ -27,25 +65,24 @@ class ReceiverKPProfile extends React.Component {
 
     render() {
 
-        const {contact, name} = this.props.navigation.state.params.receiver
+        const {fullname, contact_no} = this.props.navigation.state.params.receiver
 
         return (
             <View style={style.container}>
-                <View style={{alignItems:'flex-end'}}>
-                    <ButtonText t='Delete Receiver' onPress={this.handleDelete} />
-                </View>
 
-                <Text mute sm>Full Name</Text>
-                <Text>{name}</Text>
+                <Outline>
+                    <Text mute sm>Full Legal Name</Text>
+                    <Text md>{fullname}</Text>
+                </Outline>
 
-                <Spacer />
+                <Spacer sm />
 
-                <Text mute sm>Contact No.</Text>
-                <Text>{contact}</Text>
+                <Outline>
+                    <Text mute sm>Contact No.</Text>
+                    <Text>{contact_no}</Text>
+                </Outline>
 
                 <View style={style.footer}>
-                    <ButtonText t='Edit Receiver' onPress={this.handleEdit} />
-                    <Spacer sm />
                     <Button t='Select Receiver' onPress={this.handleSelect} />
                 </View>
             </View>

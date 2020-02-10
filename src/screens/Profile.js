@@ -1,6 +1,6 @@
 import React from 'react'
 import {View, StyleSheet, InteractionManager, TouchableOpacity} from 'react-native'
-import {ScrollView, Text, Row, Spacer, HR, Avatar, TopBuffer, ButtonText} from '../components'
+import {ScrollView, Text, Row, Spacer, HR, Avatar, TopBuffer, ButtonText, Button, Outline} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_} from '../utils'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -15,6 +15,7 @@ class Profile extends React.Component {
 
     state = {
         avatar:'http://themes.themewaves.com/nuzi/wp-content/uploads/sites/4/2013/05/Team-Member-3.jpg',
+        username:'johnsmith',
         firstname:'John',
         lastname:'Doe',
         wallet_no:'1234-5678-90',
@@ -35,7 +36,7 @@ class Profile extends React.Component {
 
     render() {
 
-        const {avatar, firstname, lastname, wallet_no, address, mobile_no, email, source_income, birthday, gender, country, province, city, barangay, zip_code} = this.state
+        const {avatar, username, firstname, lastname, wallet_no, address, mobile_no, email, source_income, birthday, gender, country, province, city, barangay, zip_code} = this.state
 
         return (
             <ScrollView>
@@ -43,71 +44,81 @@ class Profile extends React.Component {
 
                 <View style={style.topContainer}>
                     <Avatar source={avatar} size={Metrics.image.lg} />
-                    <Text b lg center>{firstname} {lastname}</Text>
+                    <Text b lg center mute>{firstname} {lastname}</Text>
 
                     <Spacer />
 
-                    <ButtonText icon='edit' t='Edit Profile' onPress={this.handleEditProfile} />
+                    <Button mode='outlined' icon='edit' t='Edit Profile' onPress={this.handleEditProfile} />
                 </View>
 
-                <View style={style.item}>
-                    <Text mute>Mobile No.</Text>
+                <View style={{padding:Metrics.md}}>
+                <Outline>
+                    <Text sm mute>Username</Text>
+                    <Text>{username}</Text>
+                </Outline>
+
+                <Outline>
+                    <Text sm mute>Mobile No.</Text>
                     <Text>{mobile_no}</Text>
-                    <HR />
-                </View>
+                </Outline>
             
-                <View style={style.item}>
-                    <Text mute>Email address</Text>
+                <Outline>
+                    <Text sm mute>Email address</Text>
                     <Text>{email}</Text>
-                    <HR />
-                </View>
+                </Outline>
 
-                <View style={style.item}>
-                    <Text mute>Source of Income</Text>
+                <Outline>
+                    <Text sm mute>Source of Income</Text>
                     <Text>{source_income}</Text>
-                    <HR />
-                </View>
+                </Outline>
 
-                <View style={style.item}>
-                    <Text mute>Birthday</Text>
-                    <Text>{birthday}</Text>
-                    <HR />
-                </View>
+                <Outline>
+                    <Text md>Birthday</Text>
+                    <Row ar>
+                        <View>
+                            <Text sm mute>Month</Text>
+                            <Text md>{moment(birthday).format('MMMM')}</Text>
+                        </View>
+                        <View>
+                            <Text sm mute>Day</Text>
+                            <Text md>{moment(birthday).format('DD')}</Text>
+                        </View>
+                        <View>
+                            <Text sm mute>Year</Text>
+                            <Text md>{moment(birthday).format('YYYY')}</Text>
+                        </View>
+                    </Row>
+                </Outline>
 
-                <View style={style.item}>
-                    <Text mute>Gender</Text>
+                <Outline>
+                    <Text sm mute>Gender</Text>
                     <Text>{gender}</Text>
-                    <HR />
-                </View>
+                </Outline>
 
-                <View style={style.item}>
-                    <Text mute>Country</Text>
+                <Outline>
+                    <Text sm mute>Country</Text>
                     <Text>{country}</Text>
-                    <HR />
-                </View>
+                </Outline>
 
-                <View style={style.item}>
-                    <Text mute>Province</Text>
+                <Outline>
+                    <Text sm mute>Province</Text>
                     <Text>{province}</Text>
-                    <HR />
-                </View>
+                </Outline>
 
-                <View style={style.item}>
-                    <Text mute>City/Municipality</Text>
+                <Outline>
+                    <Text sm mute>City/Municipality</Text>
                     <Text>{city}</Text>
-                    <HR />
-                </View>
+                </Outline>
 
-                <View style={style.item}>
-                    <Text mute>Barangay/Street</Text>
+                <Outline>
+                    <Text sm mute>Barangay/Street</Text>
                     <Text>{barangay}</Text>
-                    <HR />
-                </View>
+                </Outline>
 
-                <View style={style.item}>
-                    <Text mute>Zip Code</Text>
+                <Outline>
+                    <Text sm mute>Zip Code</Text>
                     <Text>{zip_code}</Text>
-                    <HR />
+                </Outline>
                 </View>
             </ScrollView>
         )
@@ -117,10 +128,6 @@ class Profile extends React.Component {
 const style = StyleSheet.create({
     topContainer: {
         alignItems:'center'
-    },
-    item: {
-        paddingVertical:Metrics.rg,
-        paddingHorizontal:Metrics.lg
     }
 })
 

@@ -1,6 +1,6 @@
 import React from 'react'
-import {StyleSheet, View, ScrollView, FlatList} from 'react-native'
-import {Text, Card, HR} from '../components'
+import {StyleSheet, View} from 'react-native'
+import {FlatList, Text, Icon, Spacer} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_} from '../utils'
 import data from '../services/terms'
@@ -8,7 +8,7 @@ import data from '../services/terms'
 class TermsAndConditionsScreen extends React.Component {
 
     static navigationOptions = {
-        title:_('69')
+        title:'Terms and Conditions'
     }
 
     state = {
@@ -16,9 +16,9 @@ class TermsAndConditionsScreen extends React.Component {
     }
 
     renderItem = ({item, index}) => (
-        <Card>
-            <Text>{index + 1}. {item}</Text>
-        </Card>
+        <View style={style.item}>
+            <Text md>{index + 1}. {item}</Text>
+        </View>
     )
 
     render() {
@@ -26,16 +26,30 @@ class TermsAndConditionsScreen extends React.Component {
         const {list} = this.state
 
         return (
-            <View style={{flex:1,backgroundColor:Colors.gray}}>
+            <View style={style.container}>
+                <Spacer />
+
+                <View style={{alignItems:'center'}}>
+                    <Icon name='terms' size={70} />
+                </View>
+
                 <FlatList
                     data={list}
                     renderItem={this.renderItem}
-                    keyExtractor={(item, index) => index.toString()}
-                    style={{padding:Metrics.md}}
                 />
             </View>
         )
     }
 }
+
+const style = StyleSheet.create({
+    container: {
+        flex:1,
+        padding:Metrics.lg
+    },
+    item: {
+        marginVertical:Metrics.md
+    }
+})
 
 export default TermsAndConditionsScreen

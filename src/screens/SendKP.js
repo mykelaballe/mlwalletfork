@@ -1,14 +1,13 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager} from 'react-native'
-import {ScrollView, Text, Row, Spacer, HeaderRight, Button, ButtonIcon, ButtonText, Ripple, TopBuffer, TextInput} from '../components'
-import {Colors, Metrics} from '../themes'
-import {_} from '../utils'
-import Icon from 'react-native-vector-icons/Ionicons'
+import {View, StyleSheet, InteractionManager, TouchableOpacity} from 'react-native'
+import {ScrollView, Text, Row, Spacer, Button, ButtonIcon, ButtonText, Ripple, TopBuffer, TextInput, Icon, HeaderRight} from '../components'
+import {Colors, Metrics, Res} from '../themes'
+import {_, Consts} from '../utils'
 
 class SendKP extends React.Component {
 
     static navigationOptions = ({navigation}) => ({
-        title:'Kwarta Padala',
+        title:Consts.tcn[navigation.state.params.type].short_desc,
         headerRight:(
             <HeaderRight>
                 <ButtonText color={Colors.light} t='Rates' onPress={() => navigation.navigate('Rates')} />
@@ -17,80 +16,76 @@ class SendKP extends React.Component {
     })
 
     state = {
-        receiver_wallet_id:'',
+        receiver:'John Smith',
         amount:'',
-        notes:''
+        charges:'',
+        total:''
     }
 
-    handleChangeReceiverWalletID = receiver_wallet_id => this.setState({receiver_wallet_id})
-
     handleChangeAmount = amount => this.setState({amount})
-
-    handleChangeNotes = notes => this.setState({notes})
 
     handleAddNewReceiver = () => this.props.navigation.navigate('SavedKPReceivers')
 
     handleSendMoney = async () => {
-        this.props.navigation.navigate('TransactionReview',{type:'kp'})
+        const {params} = this.props.navigation.state
+        this.props.navigation.navigate('TransactionReview',{
+            ...params,
+            ...this.state,
+            statusMessage:'Your money is waiting to be claimed.',
+            cancellable:true
+        })
     }
 
     render() {
 
-        const {receiver_wallet_id, amount, notes} = this.state
+        const {type} = this.props.navigation.state.params
+        const {receiver, amount, charges, total} = this.state
+        let ready = false
+
+        if(receiver && amount) ready = true
 
         return (
             <View style={style.container}>
 
-                {/*<Text center>Send money to ML Wallet account</Text>*/}
+                <View>
 
-                <Row>
+                    <Text center>{Consts.tcn[type].short_desc}</Text>
+
+                    <Spacer />
+
                     <TextInput
-                        style={style.input}
+                        disabled
                         label='Receiver'
-                        value={receiver_wallet_id}
-                        onChangeText={this.handleChangeReceiverWalletID}
+                        value={receiver}
+                        rightContent={
+                            <TouchableOpacity onPress={this.handleAddNewReceiver}>
+                                <Icon name='user_plus' size={20} />
+                            </TouchableOpacity>
+                        }
                     />
-                    <ButtonIcon
-                        icon={<Icon name='ios-person-add' size={Metrics.icon.sm} color={Colors.dark} />}
-                        onPress={this.handleAddNewReceiver}
-                    />
-                </Row>
 
-                <Row>
+                    <Spacer sm />
+
                     <TextInput
-                        style={style.input}
-                        label='Amount'
+                        label='Amount (PHP)'
                         value={amount}
                         onChangeText={this.handleChangeAmount}
                         keyboardType='numeric'
                     />
-                </Row>
-
-                {/*<Row>
-                    <TextInput
-                        style={style.input}
-                        label='Notes'
-                        value={notes}
-                        onChangeText={this.handleChangeNotes}
-                    />
-                </Row>*/}
+                </View>
                 
                 <View style={style.footer}>
-                    <Row bw>
-                        <Text b>Charges</Text>
-                        <Text>PHP 25.00</Text>
-                    </Row>
+                    <Text mute>Charges</Text>
+                    <Text md>PHP 25.00</Text>
 
-                    <Spacer sm />
+                    <Spacer />
 
-                    <Row bw>
-                        <Text b>Total</Text>
-                        <Text>PHP 25.00</Text>
-                    </Row>
+                    <Text mute>Total</Text>
+                    <Text md>PHP 25.00</Text>
 
                     <Spacer />
                     
-                    <Button t='Send Money' onPress={this.handleSendMoney} />
+                    <Button disabled={!ready} t={Consts.tcn[type].submit_text} onPress={this.handleSendMoney} />
                 </View>
             </View>
         )
@@ -100,14 +95,15 @@ class SendKP extends React.Component {
 const style = StyleSheet.create({
     container: {
         flex:1,
+        justifyContent:'space-between',
         padding:Metrics.lg
     },
-    input: {
-        flex:1
+    textarea: {
+        height:130
     },
     footer: {
-        flex:1,
-        justifyContent:'flex-end'
+        //flex:1,
+        //justifyContent:'flex-end'
     }
 })
 

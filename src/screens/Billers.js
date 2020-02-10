@@ -2,14 +2,17 @@ import React from 'react'
 import {View, StyleSheet, InteractionManager, TouchableOpacity} from 'react-native'
 import {SectionList, TextInput, Text, Row, Button, Spacer, ButtonText, HR, Ripple, TopBuffer} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_, Say} from '../utils'
+import {_, Say, Consts} from '../utils'
 import Icon from 'react-native-vector-icons/Ionicons'
 import {Searchbar} from 'react-native-paper'
 
 const ItemUI = props => (
-    <Ripple onPress={() => props.onPress(props.data)} style={style.item}>
-        <Text md>{props.data.name}</Text>
-    </Ripple>
+    <>
+        <Ripple onPress={() => props.onPress(props.data)} style={style.item}>
+            <Text md>{props.data.name}</Text>
+        </Ripple>
+        <HR />
+    </>
 )
 
 class Billers extends React.Component {
@@ -79,17 +82,17 @@ class Billers extends React.Component {
 
     handleSelectBiller = biller => {
         const {state, navigate, pop} = this.props.navigation
-        const {category} = state.params
+        const {params = {}} = state
 
-        if(category) navigate('PayBill',{biller})
-        else pop()
+        if(params.category) navigate('PayBill',{type:Consts.tcn.bpm.code, biller})
+        else navigate('AddBillerFavorite',{biller})
     }
 
     handleChangeSearch = search => this.setState({search})
 
     renderSectionHeader = ({section}) => (
         <View style={style.itemHeader}>
-            <Text xl b>{section.letter}</Text>
+            <Text b>{section.letter}</Text>
         </View>
     )
 
@@ -102,7 +105,7 @@ class Billers extends React.Component {
         return (
             <View style={style.container}>
                 <Searchbar
-                    placeholder='Search'
+                    placeholder='Search Biller'
                     onChangeText={this.handleChangeSearch}
                     value={search}
                 />
@@ -126,10 +129,10 @@ const style = StyleSheet.create({
         padding:Metrics.lg
     },
     itemHeader: {
-        ...StyleSheet.absoluteFill
+        backgroundColor:Colors.lightgray,
+        padding:Metrics.rg,
     },
     item: {
-        marginLeft:50,
         padding:Metrics.rg
     }
 })

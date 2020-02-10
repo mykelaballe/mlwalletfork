@@ -9,7 +9,7 @@ import {Searchbar} from 'react-native-paper'
 class Partners extends React.Component {
 
     static navigationOptions = {
-        title:'Partners'
+        title:"Partner's Name"
     }
 
     state = {
@@ -77,14 +77,17 @@ class Partners extends React.Component {
 
     renderSectionHeader = ({section}) => (
         <View style={style.itemHeader}>
-            <Text xl b>{section.letter}</Text>
+            <Text mute>{section.letter}</Text>
         </View>
     )
 
     renderItem = ({item, index}) => (
-        <Ripple onPress={this.handleSelect} style={style.item}>
-            <Text md>{item.name}</Text>
-        </Ripple>
+        <>
+            <Ripple onPress={this.handleSelect} style={style.item}>
+                <Text md>{item.name}</Text>
+            </Ripple>
+            <HR />
+        </>
     )
 
     render() {
@@ -94,7 +97,7 @@ class Partners extends React.Component {
         return (
             <View style={style.container}>
                 <Searchbar
-                    placeholder='Search'
+                    placeholder="Search Partner's Name"
                     onChangeText={this.handleChangeSearch}
                     value={search}
                 />
@@ -118,10 +121,11 @@ const style = StyleSheet.create({
         padding:Metrics.lg
     },
     itemHeader: {
-        ...StyleSheet.absoluteFill
+        backgroundColor:Colors.lightgray,
+        padding:Metrics.rg,
+        //...StyleSheet.absoluteFill
     },
     item: {
-        marginLeft:50,
         padding:Metrics.rg
     }
 })

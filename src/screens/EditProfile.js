@@ -1,6 +1,6 @@
 import React from 'react'
 import {View, StyleSheet, InteractionManager, TouchableOpacity} from 'react-native'
-import {ScrollView, Text, Row, Spacer, HR, Avatar, TopBuffer, Button, TextInput} from '../components'
+import {ScrollView, Text, Row, Spacer, HR, Avatar, TopBuffer, Button, TextInput, Outline, Prompt} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_} from '../utils'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -15,6 +15,7 @@ class EditProfile extends React.Component {
 
     state = {
         avatar:'http://themes.themewaves.com/nuzi/wp-content/uploads/sites/4/2013/05/Team-Member-3.jpg',
+        username:'johnsmith',
         firstname:'John',
         lastname:'Doe',
         wallet_no:'1234-5678-90',
@@ -29,7 +30,8 @@ class EditProfile extends React.Component {
         city:'Talisay',
         barangay:'Dumlog',
         zip_code:'6045',
-        processing:false
+        processing:false,
+        showSuccessModal:false
     }
     
     handleChangeMobileNo = mobile_no => this.setState({mobile_no})
@@ -38,20 +40,18 @@ class EditProfile extends React.Component {
 
     handleChangeSourceIncome = source_income => this.setState({source_income})
 
-    handleChangeGender = gender => this.setState({gender})
+    handleChangeCountry = () => this.props.navigation.navigate('Countries')
 
-    handleChangeCountry = country => this.setState({country})
+    handleChangeProvince = () => this.props.navigation.navigate('Provinces',{country:this.state.country})
 
-    handleChangeProvince = province => this.setState({province})
-
-    handleChangeCity = city => this.setState({city})
+    handleChangeCity = () => this.props.navigation.navigate('Cities',{province:this.state.province})
 
     handleChangeBarangay = barangay => this.setState({barangay})
 
     handleChangeZipCode = zip_code => this.setState({zip_code})
 
     handleSave = async () => {
-        const {mobile_no, email, source_income, gender, processing} = this.state
+        let {mobile_no, email, source_income, processing} = this.state
 
         if(processing) return
 
@@ -63,21 +63,32 @@ class EditProfile extends React.Component {
             email = email.trim()
             source_income = source_income.trim()
 
-            this.setState({processing:false})
-            Say.ok('Success')
-            this.props.navigation.pop()
+            this.setState({
+                processing:false,
+                showSuccessModal:true
+            })
         }
         catch(err) {
             this.setState({processing:false})
         }
     }
 
+    handleCloseModal = () => this.setState({showSuccessModal:false})
+
     render() {
 
-        const {avatar, firstname, lastname, wallet_no, address, mobile_no, email, source_income, birthday, gender, country, province, city, barangay, zip_code} = this.state
+        const {avatar, username, firstname, lastname, wallet_no, address, mobile_no, email, source_income, birthday, gender, country, province, city, barangay, zip_code, processing, showSuccessModal} = this.state
 
         return (
             <ScrollView>
+                
+                <Prompt
+                    visible={showSuccessModal}
+                    title='Success'
+                    message="You've successfully saved your Profile details"
+                    onDismiss={this.handleCloseModal}
+                />
+
                 <TopBuffer sm />
 
                 <View style={style.topContainer}>
@@ -86,8 +97,12 @@ class EditProfile extends React.Component {
                 </View>
 
                 <View style={style.inputContainer}>
+                    <Outline>
+                        <Text sm gray>Username</Text>
+                        <Text gray>{username}</Text>
+                    </Outline>
+
                     <TextInput
-                        style={style.input}
                         value={mobile_no}
                         label='Mobile No.'
                         onChangeText={this.handleChangeMobileNo}
@@ -108,29 +123,49 @@ class EditProfile extends React.Component {
                         onChangeText={this.handleChangeSourceIncome}
                     />
 
-                    <TextInput
-                        value={gender}
-                        label='Gender'
-                        onChangeText={this.handleChangeGender}
-                    />
+                    <Outline>
+                        <Text md gray>Birthday</Text>
+                        <Row ar>
+                            <View>
+                                <Text sm gray>Month</Text>
+                                <Text md gray>{moment(birthday).format('MMMM')}</Text>
+                            </View>
+                            <View>
+                                <Text sm gray>Day</Text>
+                                <Text md gray>{moment(birthday).format('DD')}</Text>
+                            </View>
+                            <View>
+                                <Text sm gray>Year</Text>
+                                <Text md gray>{moment(birthday).format('YYYY')}</Text>
+                            </View>
+                        </Row>
+                    </Outline>
 
-                    <TextInput
-                        value={country}
-                        label='Country'
-                        onChangeText={this.handleChangeCountry}
-                    />
+                    <Outline>
+                        <Text sm gray>Gender</Text>
+                        <Text gray>{gender}</Text>
+                    </Outline>
 
-                    <TextInput
-                        value={province}
-                        label='Province'
-                        onChangeText={this.handleChangeProvince}
-                    />
+                    <TouchableOpacity onPress={this.handleChangeCountry}>
+                        <Outline>
+                            <Text sm mute>Country</Text>
+                            <Text>{country}</Text>
+                        </Outline>
+                    </TouchableOpacity>
 
-                    <TextInput
-                        value={city}
-                        label='City'
-                        onChangeText={this.handleChangeCity}
-                    />
+                    <TouchableOpacity onPress={this.handleChangeProvince}>
+                        <Outline>
+                            <Text sm mute>Province</Text>
+                            <Text>{province}</Text>
+                        </Outline>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity onPress={this.handleChangeCity}>
+                        <Outline>
+                            <Text sm mute>City/Municipality</Text>
+                            <Text>{city}</Text>
+                        </Outline>
+                    </TouchableOpacity>
 
                     <TextInput
                         value={barangay}
@@ -147,7 +182,7 @@ class EditProfile extends React.Component {
 
                     <Spacer />
 
-                    <Button t='Save' onPress={this.handleSave} />
+                    <Button t='Save' onPress={this.handleSave} loading={processing} />
                 </View>
             </ScrollView>
         )
@@ -159,11 +194,8 @@ const style = StyleSheet.create({
         alignItems:'center'
     },
     inputContainer: {
-        paddingHorizontal:Metrics.md
+        padding:Metrics.md
     },
-    input: {
-        marginBottom:Metrics.rg
-    }
 })
 
 export default EditProfile

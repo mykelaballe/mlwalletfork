@@ -5,7 +5,7 @@ import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
 import Icon from 'react-native-vector-icons/Ionicons'
 
-class AddWalletReceiver extends React.Component {
+class AddKPReceiver extends React.Component {
 
     static navigationOptions = {
         title:'Add New Receiver'
@@ -13,36 +13,35 @@ class AddWalletReceiver extends React.Component {
 
     state = {
         wallet_no:'',
-        nickname:'',
+        fullname:'',
         processing:false
     }
 
     handleChangeWalletNo = wallet_no => this.setState({wallet_no})
 
-    handleChangeNickname = nickname => this.setState({nickname})
+    handleChangeFullName = fullname => this.setState({fullname})
 
     handleSubmit = async () => {
         try {
-            let {wallet_no, nickname, processing} = this.state
+            let {wallet_no, fullname, processing} = this.state
 
             if(processing) return false
 
             this.setState({processing:true})
 
             wallet_no = wallet_no.trim()
-            nickname = nickname.trim()
+            fullname = fullname.trim()
 
-            if(wallet_no == '' || nickname == '') Say.some(_('8'))
+            if(wallet_no == '' || fullname == '') Say.some(_('8'))
             else {
 
                 let payload = {
                     wallet_no,
-                    nickname
+                    fullname
                 }
     
                 //await API.addNewReceiver(payload)
 
-                Say.ok('success')
                 this.props.navigation.pop()
             }
 
@@ -56,29 +55,33 @@ class AddWalletReceiver extends React.Component {
 
     render() {
 
-        const {wallet_no, nickname, processing} = this.state
+        const {wallet_no, fullname, processing} = this.state
+        let ready = false
+
+        if(wallet_no && fullname) ready = true
 
         return (
             <View style={style.container}>
-                <Text center>Make sure to input the correct wallet ID.</Text>
+                <Text center>Please ensure that the inputted wallet account number is correct.</Text>
+
+                <Spacer />
 
                 <TextInput
-                    label='Wallet No.'
-                    placeholder='Enter Wallet No.'
+                    label='Wallet Account Number'
                     value={wallet_no}
                     onChangeText={this.handleChangeWalletNo}
                     keyboardType='numeric'
                 />
 
                 <TextInput
-                    label='Nickname'
-                    placeholder='Enter Nickname'
-                    value={nickname}
-                    onChangeText={this.handleChangeNickname}
+                    label='Full Name'
+                    value={fullname}
+                    onChangeText={this.handleChangeFullName}
+                    autoCapitalize='words'
                 />
 
                 <View style={style.footer}>
-                    <Button t='Save Receiver' onPress={this.handleSubmit} />
+                    <Button disabled={!ready} t='Save Receiver' onPress={this.handleSubmit} loading={processing} />
                 </View>
             </View>
         )
@@ -96,4 +99,4 @@ const style = StyleSheet.create({
     }
 })
 
-export default AddWalletReceiver
+export default AddKPReceiver

@@ -1,16 +1,13 @@
 import React from 'react'
-import {View, StyleSheet, ImageBackground, Image, Dimensions} from 'react-native'
+import {View, StyleSheet, Image} from 'react-native'
 import {connect} from 'react-redux'
 import Actions from '../actions/Creators'
-import {ScrollView, Text, Button, ButtonText, Spacer, TextInput, Row} from '../components'
+import {Text, Button, ButtonText, Spacer, TextInput, Row, Icon, Screen, Footer} from '../components'
 import {Colors, Metrics, Res} from '../themes'
 import {_, Say} from '../utils'
 import {API} from '../services'
-import Icon from 'react-native-vector-icons/Ionicons'
 
-const {width} = Dimensions.get('window')
-
-class Login extends React.Component {
+class Scrn extends React.Component {
 
     state = {
         username:'',
@@ -62,6 +59,8 @@ class Login extends React.Component {
 
     handleChangePassword = password => this.setState({password})
 
+    handleFocusPassword = () => this.refs.password.focus()
+
     handleTogglePassword = () => this.setState(prevState => ({show_password:!prevState.show_password}))
 
     render() {
@@ -70,37 +69,42 @@ class Login extends React.Component {
 
         return (
             <>  
-                <View style={{height:300,alignItems:'center'}}>
-                    <Image source={require('../res/logo_mini.png')} resizeMode='contain' style={{width:300}} />
-                </View>
+                <Image source={require('../res/login_header.png')} resizeMode='cover' style={style.banner} />
+                
+                <Screen>
+                    <Spacer />
 
-                <View style={{flex:1,justifyContent:'space-around',paddingHorizontal:Metrics.xl}}>
                     <View>
-                        <Text center b md>Welcome back!</Text>
-                        <Text center mute sm>Please Log in to your account.</Text>
+                        <Text center b xl>Welcome back!</Text>
+                        <Text center mute md>Please Login to your account.</Text>
                     </View>
-                    
-                    <View>
+
+                    <Spacer />
+
+                    <View style={style.midContainer}>
                         <TextInput
+                            ref='username'
                             label={_('1')}
                             value={username}
                             onChangeText={this.handleChangeUsername}
+                            onSubmitEditing={this.handleFocusPassword}
                             autoCapitalize='none'
+                            returnKeyType='next'
                         />
 
                         <Spacer sm />
 
-                        <Row>
-                            <TextInput
-                                style={{flex:1}}
-                                label={_('2')}
-                                value={password}
-                                onChangeText={this.handleChangePassword}
-                                autoCapitalize='none'
-                                secureTextEntry={show_password ? false : true}
-                            />
-                            <ButtonText t={show_password ? 'Hide' : 'Show'} onPress={this.handleTogglePassword} />
-                        </Row>
+                        <TextInput
+                            ref='password'
+                            label={_('2')}
+                            value={password}
+                            onChangeText={this.handleChangePassword}
+                            autoCapitalize='none'
+                            secureTextEntry={show_password ? false : true}
+                            rightContent={
+                                <ButtonText color={Colors.gray} t={show_password ? 'Hide' : 'Show'} onPress={this.handleTogglePassword} />
+                            }
+                        />
 
                         <View style={{alignItems:'flex-end'}}>
                             <ButtonText t='Forgot Password?' onPress={this.handleGoToForgotPassword} />
@@ -108,29 +112,37 @@ class Login extends React.Component {
 
                         <Spacer />
 
-                        <Button t='Log in' onPress={this.handleLogin} loading={processing} />
+                        <Button t='Login' onPress={this.handleLogin} loading={processing} />
 
                         <Spacer />
 
-                        <Row style={{justifyContent:'center'}}>
+                        <Row c>
                             <Text>Don't have an account?</Text>
                             <ButtonText t='Register here' onPress={this.handleGoToSignUp} />
                         </Row>
                     </View>
-
-                    <Row style={{justifyContent:'center'}}>
-                        <Icon name='ios-finger-print' size={Metrics.icon.rg} color={Colors.mute} />
+                </Screen>
+                
+                <Footer>
+                    <Row c>
+                        <Icon name='fingerprint' size={Metrics.icon.rg} />
                         <ButtonText t='Log in with Touch ID' onPress={this.handleGoToTouchID} />
                     </Row>
-                    
-                </View>
+                </Footer>
             </>
         )
     }
 }
 
 const style = StyleSheet.create({
-
+    banner: {
+        width:undefined,
+        height:200
+    },
+    midContainer: {
+        flex:1,
+        justifyContent:'space-around'
+    }
 })
 
 mapDispatchToProps = dispatch => {
@@ -139,4 +151,4 @@ mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(Login)
+export default connect(null, mapDispatchToProps)(Scrn)

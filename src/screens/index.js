@@ -1,7 +1,17 @@
 import AuthIndexScrn from './AuthIndex'
 import LoginScrn from './Login'
 import SignUpScrn from './SignUp'
+import SignUpStep1Scrn from './SignUpStep1'
+import SignUpStep2Scrn from './SignUpStep2'
+import SignUpStep3Scrn from './SignUpStep3'
+import SignUpStep4Scrn from './SignUpStep4'
+import SignUpReviewScrn from './SignUpReview'
+import SignUpVerificationMobileScrn from './SignUpVerificationMobile'
+import SignUpVerificationOTPScrn from './SignUpVerificationOTP'
+import SignUpSuccessScrn from './SignUpSuccess'
 import ForgotPasswordScrn from './ForgotPassword'
+import SecurityQuestionAuthScrn from './SecurityQuestionAuth'
+import SendPasswordScrn from './SendPassword'
 import TouchIDScrn from './TouchID'
 import HomeScrn from './Home'
 import MyAccountScrn from './MyAccount'
@@ -11,6 +21,12 @@ import RatesScrn from './Rates'
 import TransactionHistoryScrn from './TransactionHistory'
 import SendMoneyIndexScrn from './SendMoneyIndex'
 import ReceiveMoneyIndexScrn from './ReceiveMoneyIndex'
+
+import SendMoneyOnBoardingScrn from './SendMoneyOnBoarding'
+import ReceiveMoneyOnBoardingScrn from './ReceiveMoneyOnBoarding'
+import WithdrawCashOnBoardingScrn from './WithdrawCashOnBoarding'
+import PayBillsOnBoardingScrn from './PayBillsOnBoarding'
+import BuyLoadOnBoardingScrn from './BuyLoadOnBoarding'
 
 //send wallet to wallet
 import SendWalletToWalletScrn from './SendWalletToWallet'
@@ -30,17 +46,25 @@ import UpdateKPReceiverScrn from './UpdateKPReceiver'
 import SavedBankPartnersScrn from './SavedBankPartners'
 import SendBankTransferScrn from './SendBankTransfer'
 import AddBankPartnerScrn from './AddBankPartner'
+import UpdateBankPartnerScrn from './UpdateBankPartner'
+import BankPartnerProfileScrn from './BankPartnerProfile'
 
-import ReceiveMoneyScrn from './ReceiveMoney'
+import ReceiveMoneyDomesticScrn from './ReceiveMoneyDomestic'
+import ReceiveMoneyInternationalScrn from './ReceiveMoneyInternational'
 
 import WithdrawCashScrn from './WithdrawCash'
 
+//buy load
 import BuyLoadScrn from './BuyLoad'
+import SavedLoadReceiversScrn from './SavedLoadReceivers'
+import AddLoadReceiverScrn from './AddLoadReceiver'
 import LoadOptionsScrn from './LoadOptions'
 
 //pay bills
 import BillsCategoryScrn from './BillsCategory'
 import BillersScrn from './Billers'
+import AddBillerFavoriteScrn from './AddBillerFavorite'
+import BillerProfileScrn from './BillerProfile'
 import FavoriteBillersScrn from './FavoriteBillers'
 import PayBillScrn from './PayBill'
 
@@ -52,6 +76,14 @@ import TransactionReviewScrn from './TransactionReview'
 import TransactionReceiptScrn from './TransactionReceipt'
 import OTPConfirmationScrn from './OTPConfirmation'
 
+import CurrenciesScrn from './Currencies'
+import RemindersScrn from './Reminders'
+import CountriesScrn from './Countries'
+import ProvincesScrn from './Provinces'
+import CitiesScrn from './Cities'
+import SecurityQuestionsScrn from './SecurityQuestions'
+import CameraScrn from './Camera'
+
 import ProfileScrn from './Profile'
 import EditProfileScrn from './EditProfile'
 import VerificationLevelsScrn from './VerificationLevels'
@@ -59,75 +91,29 @@ import MyQRScrn from './MyQR'
 import LoginSecurityScrn from './LoginSecurity'
 import ChangePasswordScrn from './ChangePassword'
 
-//old
-import LoginScreen from './LoginScreen'
-import ForgotPasswordScreen from './ForgotPasswordScreen'
+import ComingSoonScrn from './ComingSoon'
 
-import SignUpScreen from './SignUpScreen'
-import SignUpTab1Screen from './SignUpTab1Screen'
-import SignUpTab2Screen from './SignUpTab2Screen'
-import SignUpTab3Screen from './SignUpTab3Screen'
-import SignUpTab4Screen from './SignUpTab4Screen'
-import SignUpTab5Screen from './SignUpTab5Screen'
-
-import InformationScreen from './InformationScreen'
-import ContactUsScreen from './ContactUsScreen'
-import FAQScreen from './FAQScreen'
-import AboutScreen from './AboutScreen'
-
-import CashoutRatesScreen from './CashoutRatesScreen'
-import HomeScreen from './HomeScreen'
-import RatesScreen from './RatesScreen'
-import NotificationScreen from './NotificationScreen'
-import RewardScreen from './RewardScreen'
-import TouchIDScreen from './TouchIDScreen'
-import LocatorScreen from './LocatorScreen'
-import QRCodeScreen from './QRCodeScreen'
-
-import ProfileIndexScreen from './ProfileIndexScreen'
-import ChangeAccountInfoScreen from './ChangeAccountInfoScreen'
-import ChangeEmailScreen from './ChangeEmailScreen'
-import ChangeUsernameScreen from './ChangeUsernameScreen'
-import ChangePasswordScreen from './ChangePasswordScreen'
-import ChangePINScreen from './ChangePINScreen'
-import ChangeMobileNumberScreen from './ChangeMobileNumberScreen'
-import ChangeSecurityQuestionScreen from './ChangeSecurityQuestionScreen'
-import SecurityQuestionsScreen from './SecurityQuestionsScreen'
-
-import RegisterIndexScreen from './RegisterIndexScreen'
-import RegisterSuccessScreen from './RegisterSuccessScreen'
-
+import FAQScrn from './FAQ'
 import TermsAndConditionsScreen from './TermsAndConditionsScreen'
-
-import SubmitKPTNScreen from './SubmitKPTNScreen'
-import SubmitKPTNSenderScreen from './SubmitKPTNSenderScreen'
-import SubmitKPTNPartnerScreen from './SubmitKPTNPartnerScreen'
-
-import MyProfileScreen from './MyProfileScreen'
-import MyAccountScreen from './MyAccountScreen'
-
-import AddReceiverScreen from './AddReceiverScreen'
-
-import ELoadScreen from './ELoadScreen'
-
-import BranchesScreen from './BranchesScreen'
-
-import AccountsScreen from './AccountsScreen'
-
-import ShopStoreListingScreen from './ShopStoreListingScreen'
-import ShopViewStoreScreen from './ShopViewStoreScreen'
-import ShopViewProductScreen from './ShopViewProductScreen'
-import ShopViewCartScreen from './ShopViewCartScreen'
-import ShopMyOrdersScreen from './ShopMyOrdersScreen'
-import ShopCheckoutOrderDetailsScreen from './ShopCheckoutOrderDetailsScreen'
-import ShopCheckoutCustomerInfoScreen from './ShopCheckoutCustomerInfoScreen'
-import ShopCheckoutPaymentScreen from './ShopCheckoutPaymentScreen'
+import PrivacyNoticeScrn from './PrivacyNotice'
+import LocatorScreen from './LocatorScreen'
+import ContactUsScreen from './ContactUsScreen'
 
 export {
     AuthIndexScrn,
     LoginScrn,
     SignUpScrn,
+    SignUpStep1Scrn,
+    SignUpStep2Scrn,
+    SignUpStep3Scrn,
+    SignUpStep4Scrn,
+    SignUpReviewScrn,
+    SignUpVerificationMobileScrn,
+    SignUpVerificationOTPScrn,
+    SignUpSuccessScrn,
     ForgotPasswordScrn,
+    SecurityQuestionAuthScrn,
+    SendPasswordScrn,
     TouchIDScrn,
     HomeScrn,
     MyAccountScrn,
@@ -137,6 +123,12 @@ export {
     TransactionHistoryScrn,
     SendMoneyIndexScrn,
     ReceiveMoneyIndexScrn,
+
+    SendMoneyOnBoardingScrn,
+    ReceiveMoneyOnBoardingScrn,
+    WithdrawCashOnBoardingScrn,
+    PayBillsOnBoardingScrn,
+    BuyLoadOnBoardingScrn,
 
     SendWalletToWalletScrn,
     SavedWalletReceiversScrn,
@@ -153,16 +145,23 @@ export {
     SavedBankPartnersScrn,
     SendBankTransferScrn,
     AddBankPartnerScrn,
+    UpdateBankPartnerScrn,
+    BankPartnerProfileScrn,
 
-    ReceiveMoneyScrn,
+    ReceiveMoneyDomesticScrn,
+    ReceiveMoneyInternationalScrn,
 
     WithdrawCashScrn,
 
     BuyLoadScrn,
+    SavedLoadReceiversScrn,
+    AddLoadReceiverScrn,
     LoadOptionsScrn,
 
     BillsCategoryScrn,
     BillersScrn,
+    AddBillerFavoriteScrn,
+    BillerProfileScrn,
     FavoriteBillersScrn,
     PayBillScrn,
 
@@ -174,6 +173,14 @@ export {
     TransactionReceiptScrn,
     OTPConfirmationScrn,
 
+    CurrenciesScrn,
+    RemindersScrn,
+    CountriesScrn,
+    ProvincesScrn,
+    CitiesScrn,
+    SecurityQuestionsScrn,
+    CameraScrn,
+
     ProfileScrn,
     EditProfileScrn,
     VerificationLevelsScrn,
@@ -181,67 +188,11 @@ export {
     LoginSecurityScrn,
     ChangePasswordScrn,
 
-    //old
-    LoginScreen,
-    ForgotPasswordScreen,
+    ComingSoonScrn,
 
-    SignUpScreen,
-    SignUpTab1Screen,
-    SignUpTab2Screen,
-    SignUpTab3Screen,
-    SignUpTab4Screen,
-    SignUpTab5Screen,
-
-    InformationScreen,
-    ContactUsScreen,
-    FAQScreen,
-    AboutScreen,
-
-    CashoutRatesScreen,
-    HomeScreen,
-    RatesScreen,
-    NotificationScreen,
-    RewardScreen,
-    TouchIDScreen,
-    LocatorScreen,
-    QRCodeScreen,
-
-    ProfileIndexScreen,
-    ChangeAccountInfoScreen,
-    ChangeEmailScreen,
-    ChangeUsernameScreen,
-    ChangePasswordScreen,
-    ChangePINScreen,
-    ChangeMobileNumberScreen,
-    ChangeSecurityQuestionScreen,
-    SecurityQuestionsScreen,
-
-    RegisterIndexScreen,
-    RegisterSuccessScreen,
-
+    FAQScrn,
     TermsAndConditionsScreen,
-
-    SubmitKPTNScreen,
-    SubmitKPTNSenderScreen,
-    SubmitKPTNPartnerScreen,
-
-    MyProfileScreen,
-    MyAccountScreen,
-
-    AddReceiverScreen,
-
-    ELoadScreen,
-
-    BranchesScreen,
-
-    AccountsScreen,
-
-    ShopStoreListingScreen,
-    ShopViewStoreScreen,
-    ShopViewProductScreen,
-    ShopViewCartScreen,
-    ShopMyOrdersScreen,
-    ShopCheckoutOrderDetailsScreen,
-    ShopCheckoutCustomerInfoScreen,
-    ShopCheckoutPaymentScreen,
+    PrivacyNoticeScrn,
+    LocatorScreen,
+    ContactUsScreen,
 }

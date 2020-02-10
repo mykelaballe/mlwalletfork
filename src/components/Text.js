@@ -5,8 +5,8 @@ import {Colors, Metrics} from '../themes'
 export default props => {
 
     let style = {
-        fontSize:14,
-        color:Colors.black
+        fontSize:Metrics.font.rg,
+        color:Colors.dark
     }
 
     if(props.b) style.fontWeight = 'bold'
@@ -23,6 +23,7 @@ export default props => {
     else if(props.h1) style.fontSize = Metrics.font.h1
     else if(props.h2) style.fontSize = Metrics.font.h2
     else if(props.h3) style.fontSize = Metrics.font.h3
+    else if(props.size) style.fontSize = props.size
 
     //color
     if(props.mute) style.color = Colors.mute
@@ -32,6 +33,8 @@ export default props => {
     else if(props.warning) style.color = Colors.warning
     else if(props.danger) style.color = Colors.danger
     else if(props.light) style.color = Colors.light
+    else if(props.gray) style.color = Colors.gray
+    else if(props.color) style.color = props.color
 
     return (
         <Txt {...props} style={{...style,...props.style}}>

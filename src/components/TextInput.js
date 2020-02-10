@@ -1,40 +1,51 @@
 import React from 'react'
-import {StyleSheet} from 'react-native'
+import {View, StyleSheet} from 'react-native'
+import {Row, Text} from './'
 import {Colors, Metrics} from '../themes'
 import {TextInput as TxtInput} from 'react-native-paper'
 
-export default props => (
-    <TxtInput
-        {...props}
-        style={[{backgroundColor:'transparent',...props.style}]}
-        label={props.label}
-        value={props.value}
-        onChangeText={props.onChangeText}
-        autoCorrect={false}
-        underlineColor={Colors.brand}
-        theme={{
-            colors:{
-                primary:Colors.mute
+export default React.forwardRef((props, ref) => (
+    <>
+        <Row style={{
+            borderWidth:StyleSheet.hairlineWidth,
+            borderColor:Colors.lightgray,
+            borderRadius:Metrics.sm,
+            marginVertical:Metrics.sm
+        }}>
+            {props.leftContent &&
+            <View style={{paddingLeft:Metrics.md}}>
+                {props.leftContent}
+            </View>
             }
-        }}
-    />
-)
+            
+            <TxtInput
+                {...props}
+                ref={ref}
+                mode='flat'
+                style={[{
+                    flex:1,
+                    backgroundColor:'transparent',
+                    ...props.style
+                }]}
+                label={props.label}
+                value={props.value}
+                onChangeText={props.onChangeText}
+                autoCorrect={false}
+                underlineColor='transparent'
+                theme={{
+                    colors:{
+                        primary:Colors.mute
+                    }
+                }}
+            />
 
-/*export default props => (
-    <TxtInput
-        value={props.value}
-        onChangeText={props.onChangeText}
-        underlineColorAndroid='transparent'
-        autoCorrect={false}
-        style={[style.base,props.style]}
-        {...props}
-    />
-)*/
+            {props.rightContent &&
+            <View style={{paddingRight:Metrics.md}}>
+                {props.rightContent}
+            </View>
+            }
+        </Row>
 
-/*const style = StyleSheet.create({
-    base: {
-        borderBottomWidth:StyleSheet.hairlineWidth,
-        borderColor:Colors.brand,
-        marginBottom:Metrics.xs
-    }
-})*/
+        {(props.helpText !== '' && props.helpText) && <Text brand sm>{props.helpText}</Text>}
+    </>
+))

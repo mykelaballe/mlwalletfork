@@ -1,6 +1,6 @@
 import React from 'react'
 import {View, StyleSheet, InteractionManager} from 'react-native'
-import {ScrollView, FlatList, Avatar, Text, Row, Button, Spacer, ButtonText, HR, Ripple, TopBuffer} from '../components'
+import {ScrollView, FlatList, Initial, Text, Row, Button, Spacer, ButtonText, HR, Ripple, TopBuffer} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_} from '../utils'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -10,11 +10,11 @@ const ItemUI = props => (
     <>
         <Ripple onPress={() => props.onPress(props.data)} style={style.item}>
             <Row>
-                <Avatar source={null} />
+                <Initial text={props.data.fullname} />
                 <Spacer h sm />
                 <View>
-                    <Text b>{props.data.name}</Text>
-                    <Text>{props.data.contact}</Text>
+                    <Text b>{props.data.fullname}</Text>
+                    <Text>{props.data.contact_no}</Text>
                 </View>
             </Row>
         </Ripple>
@@ -43,14 +43,12 @@ class SavedKPReceivers extends React.Component {
         try {
             list = [
                 {
-                    name:'Ashley Uy',
-                    contact:'09123456789',
-                    avatar:null
+                    fullname:'Ashley Uy',
+                    contact_no:'0912345678'
                 },
                 {
-                    name:'Lotlot Rubite',
-                    contact:'09123456789',
-                    avatar:null
+                    fullname:'Lotlot Rubite',
+                    contact_no:'0912345678'
                 }
             ]
         }
@@ -82,6 +80,7 @@ class SavedKPReceivers extends React.Component {
                     placeholder='Search'
                     onChangeText={this.handleChangeSearch}
                     value={search}
+                    style={{backgroundColor:Colors.lightgray}}
                 />
 
                 <Spacer sm />

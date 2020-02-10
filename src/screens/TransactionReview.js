@@ -2,21 +2,17 @@ import React from 'react'
 import {View, StyleSheet, InteractionManager} from 'react-native'
 import {ScrollView, Text, Row, Button, Spacer, ButtonText, HR, Ripple, TopBuffer} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_} from '../utils'
+import {_, Consts} from '../utils'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 class TransactionReview extends React.Component {
 
-    static navigationOptions = ({navigation}) => {
-        const {type} = navigation.state.params
-        let title = 'Wallet To Wallet'
+    static navigationOptions = {
+        title:'Review Transaction'
+    }
 
-        if(type === 'kp') title = 'Kwarta Padala'
-        else if(type === 'bill') title = 'Pay Bills'
-
-        return {
-            title
-        }
+    state = {
+        amount:parseFloat(this.props.navigation.state.params.amount).toFixed(2)
     }
 
     handleConfirm = () => {
@@ -26,93 +22,185 @@ class TransactionReview extends React.Component {
 
     render() {
 
-        const {type, load} = this.props.navigation.state.params
+        const {type, wallet_account_number, receiver, biller, account_name, account_number, notes, load} = this.props.navigation.state.params
+        const {amount} = this.state
 
         return (
             <View style={style.container}>
-                <Text center>Review Transaction</Text>
-                <Text sm mute center>You are about to {type === 'buy_load' ? 'pay' : 'send'}</Text>
-                <Spacer sm />
-                <Text center lg>Php 100.00</Text>
+                {Consts.tcn[type].action === 'send' && <Text mute center>You are about to send</Text>}
+                {Consts.tcn[type].action === 'receive' && <Text mute center>You are about to receive</Text>}
+                {Consts.tcn[type].action === 'withdraw' && <Text mute center>You are about to withdraw</Text>}
+                {Consts.tcn[type].action === 'load' && <Text mute center>You are about to load</Text>}
+                
+                {!biller && <Text center xl b>PHP {amount}</Text>}
+                {biller && <Text center lg b>{biller.name}</Text>}
 
-                <Spacer />
+                <Spacer lg />
 
-                {type === 'wallet' &&
+                {type === Consts.tcn.stw.code &&
                 <>
-                    <Text mute sm>Wallet No.</Text>
-                    <Text>1911-0000-3257-91</Text>
+                    <Text mute sm>Wallet Account Number</Text>
+                    <Text md>{wallet_account_number}</Text>
 
                     <Spacer />
 
-                    <Text mute sm>Nickname</Text>
-                    <Text>Juan</Text>
+                    <Text mute sm>Receiver</Text>
+                    <Text md>{receiver}</Text>
 
                     <Spacer />
 
                     <Text mute sm>Amount</Text>
-                    <Text>PHP 100.00</Text>
+                    <Text md>PHP {amount}</Text>
 
                     <Spacer />
 
-                    <Text mute sm>Optional Message</Text>
-                    <Text>Payment</Text>
-                </>
-                }
-
-                {type === 'kp' &&
-                <>
-                    <Text mute sm>Full Name</Text>
-                    <Text>John Doe</Text>
+                    <Text mute sm>Notes</Text>
+                    <Text md>{notes}</Text>
 
                     <Spacer />
 
-                    <Text mute sm>Contact No.</Text>
-                    <Text>09123456789</Text>
+                    <Text mute sm>Charges</Text>
+                    <Text md>PHP 25.00</Text>
+
+                    <Spacer />
+
+                    <Text mute sm>Total</Text>
+                    <Text md>PHP 25.00</Text>
                 </>
                 }
 
-                {type === 'buy_load' &&
+                {type === Consts.tcn.skp.code &&
                 <>
-                    {load.label &&
-                    <>
-                        <Text mute sm>Promo Code</Text>
-                        <Text>{load.label}</Text>
-                        
-                        <Spacer />
-                    </>
-                    }
+                    <Text mute sm>Receiver</Text>
+                    <Text md>{receiver}</Text>
 
-                    <Text mute sm>Mobile No.</Text>
-                    <Text>09123456789</Text>
+                    <Spacer />
+
+                    <Text mute sm>Amount</Text>
+                    <Text md>PHP {amount}</Text>
+
+                    <Spacer />
+
+                    <Text mute sm>Charges</Text>
+                    <Text md>PHP 25.00</Text>
+
+                    <Spacer />
+
+                    <Text mute sm>Total</Text>
+                    <Text md>PHP 25.00</Text>
                 </>
                 }
 
-                {type === 'bill' &&
+                {type === Consts.tcn.stb.code &&
                 <>
-                    <Text mute sm>Account Number</Text>
-                    <Text>12346789</Text>
-                    
+                    <Text mute sm>Partner Bank</Text>
+                    <Text md>{receiver}</Text>
+
                     <Spacer />
 
                     <Text mute sm>Account Name</Text>
-                    <Text>Juan Dela Cruz</Text>
+                    <Text md>{account_name}</Text>
 
                     <Spacer />
 
-                    <Text mute sm>Service Charge</Text>
-                    <Text>Php 7.00</Text>
+                    <Text mute sm>Account No.</Text>
+                    <Text md>{account_number}</Text>
 
                     <Spacer />
 
-                    <Text mute sm>Convenence Fee</Text>
-                    <Text>Php 15.00</Text>
+                    <Text mute sm>Amount</Text>
+                    <Text md>PHP {amount}</Text>
+
+                    <Spacer />
+
+                    <Text mute sm>Fixed Charge</Text>
+                    <Text md>PHP 100.00</Text>
+
+                    <Spacer />
+
+                    <Text mute sm>Convenience Fee</Text>
+                    <Text md>PHP 15.00</Text>
+
+                    <Spacer />
+
+                    <Text mute sm>Total</Text>
+                    <Text md>PHP 215.00</Text>
+                </>
+                }
+
+                {type === Consts.tcn.wdc.code &&
+                <>
+                    <Text mute sm>Full Legal Name</Text>
+                    <Text md>John Smith</Text>
+
+                    <Spacer />
+
+                    <Text mute sm>Amount</Text>
+                    <Text md>PHP {amount}</Text>
+
+                    <Spacer />
+
+                    <Text mute sm>Charges</Text>
+                    <Text md>PHP 0.00</Text>
+
+                    <Spacer />
+
+                    <Text mute sm>Total</Text>
+                    <Text md>PHP 25.00</Text>
+                </>
+                }
+
+                {type === Consts.tcn.bpm.code &&
+                <>
+                    <Text mute sm>Account Number</Text>
+                    <Text md>123456789</Text>
+
+                    <Spacer />
+
+                    <Text mute sm>Account Name</Text>
+                    <Text md>John Smith</Text>
+
+                    <Spacer />
+
+                    <Text mute sm>Amount</Text>
+                    <Text md>PHP {amount}</Text>
+
+                    <Spacer />
+
+                    <Text mute sm>Fixed Charges</Text>
+                    <Text md>PHP 15.00</Text>
+
+                    <Spacer />
+
+                    <Text mute sm>Convenience Fee</Text>
+                    <Text md>PHP 7.00</Text>
+
+                    <Spacer />
+
+                    <Text mute sm>Total</Text>
+                    <Text md>PHP 25.00</Text>
+                </>
+                }
+
+                {type === Consts.tcn.bul.code &&
+                <>
+                    <Text mute sm>Mobile Number</Text>
+                    <Text md>09123456789</Text>
+
+                    <Spacer />
+
+                    <Text mute sm>Promo Code</Text>
+                    <Text md>Regular</Text>
+
+                    <Spacer />
+
+                    <Text mute sm>Amount</Text>
+                    <Text md>PHP 20.00</Text>
                 </>
                 }
 
                 <View style={style.footer}>
-                    <Text center>Please review the details before you proceed.</Text>
-                    <Spacer sm />
-                    <Button t='Confirm' onPress={this.handleConfirm} />
+                    <Button t='Next' onPress={this.handleConfirm} />
                 </View>
             </View>
         )

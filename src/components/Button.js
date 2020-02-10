@@ -9,6 +9,10 @@ export default props => {
         backgroundColor:Colors.brand
     }
 
+    let btnStyle = {
+        padding:Metrics.rg
+    }
+
     //color theme
     if(props.success) customStyle.backgroundColor = Colors.success
     else if(props.info) customStyle.backgroundColor = Colors.info
@@ -20,9 +24,18 @@ export default props => {
     return (
         <Btn
             {...props}
+            style={{
+                ...props.style,
+                borderWidth:props.disabled ? 0 : 1,
+                borderColor:customStyle.backgroundColor
+            }}
+            contentStyle={{
+                ...btnStyle
+            }}
             mode={props.mode || 'contained'}
             color={customStyle.backgroundColor}
             onPress={props.onPress}
+            uppercase={false}
         >
             {props.t}
         </Btn>

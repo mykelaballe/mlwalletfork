@@ -1,12 +1,9 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager, Dimensions} from 'react-native'
-import {ScrollView, Text, Row, Spacer, Ripple} from '../components'
+import {View, StyleSheet, InteractionManager} from 'react-native'
+import {ScrollView, Text, Row, Spacer, ButtonText, Ripple, TopBuffer} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_} from '../utils'
+import {_, Consts} from '../utils'
 import Icon from 'react-native-vector-icons/Ionicons'
-
-const {width} = Dimensions.get('window')
-const ITEM_WIDTH = (width / 2) - (Metrics.lg)
 
 class ReceiveMoneyIndex extends React.Component {
 
@@ -14,25 +11,30 @@ class ReceiveMoneyIndex extends React.Component {
         title:'Receive Money'
     }
 
-    handlePressDomestic = () => this.props.navigation.navigate('ReceiveMoney',{type:'domestic'})
+    handlePressDomestic = () => this.props.navigation.navigate('ReceiveMoneyDomestic',{type:Consts.tcn.rmd.code})
 
-    handlePressInternational = () => this.props.navigation.navigate('ReceiveMoney',{type:'international'})
+    handlePressInternational = () => this.props.navigation.navigate('ReceiveMoneyInternational',{type:Consts.tcn.rmi.code})
 
     render() {
 
         return (
             <View style={style.container}>
-                <Row ar>
-                    <Ripple style={style.item} onPress={this.handlePressDomestic}>
-                        <Icon name='ios-globe' size={Metrics.icon.lg} />
-                        <Text center>Domestic</Text>
-                    </Ripple>
-
-                    <Ripple style={style.item} onPress={this.handlePressInternational}>
-                        <Icon name='ios-globe' size={Metrics.icon.lg} />
-                        <Text center>International</Text>
-                    </Ripple>
-                </Row>
+                <Text mute center>Select Remittance</Text>
+                
+                <Spacer sm />
+                
+                <Ripple onPress={this.handlePressDomestic} style={style.item}>
+                    <Row bw>
+                        <Text md mute>Domestic</Text>
+                        <Icon name='ios-arrow-forward' size={Metrics.icon.sm} color={Colors.mute} />
+                    </Row>
+                </Ripple>
+                <Ripple onPress={this.handlePressInternational} style={style.item}>
+                    <Row bw>
+                        <Text md mute>International</Text>
+                        <Icon name='ios-arrow-forward' size={Metrics.icon.sm} color={Colors.mute} />
+                    </Row>
+                </Ripple>
             </View>
         )
     }
@@ -40,16 +42,15 @@ class ReceiveMoneyIndex extends React.Component {
 
 const style = StyleSheet.create({
     container: {
-        flex:1,
-        alignItems:'center',
-        justifyContent:'center',
-        paddingHorizontal:Metrics.lg
+        padding:Metrics.md
     },
     item: {
-        width:ITEM_WIDTH,
-        height:100,
-        justifyContent:'center',
-        alignItems:'center'
+        paddingVertical:Metrics.lg,
+        paddingHorizontal:Metrics.md,
+        marginVertical:Metrics.rg,
+        borderWidth:StyleSheet.hairlineWidth,
+        borderColor:Colors.mute,
+        borderRadius:Metrics.sm
     }
 })
 

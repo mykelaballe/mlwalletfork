@@ -1,51 +1,54 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager, Image, TouchableOpacity} from 'react-native'
-import {FlatList, TextInput, Text, Row, Button, Spacer, ButtonText, HR, Ripple, TopBuffer} from '../components'
+import {View, StyleSheet, InteractionManager} from 'react-native'
+import {ScrollView, FlatList, Initial, Text, Row, Button, Spacer, ButtonText, HR, Ripple, TopBuffer} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_, Say} from '../utils'
+import {_} from '../utils'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 const ItemUI = props => (
-    <TouchableOpacity style={style.item} onPress={() => props.onPress(props.data)}>
-        <Image source={{uri:props.data.logo}} style={style.logo} resizeMode='cover' />
-        <Spacer sm />
-        <Text center numberOfLines={2}>{props.data.name}</Text>
-    </TouchableOpacity>
+    <>
+        <Ripple onPress={() => props.onPress(props.data)} style={style.item}>
+            <Row>
+                <Initial text={props.data.name} />
+                <Spacer h sm />
+                <View>
+                    <Text b>{props.data.name}</Text>
+                    <Text>{props.data.account_no}</Text>
+                </View>
+            </Row>
+        </Ripple>
+
+        <HR m={Metrics.sm} />
+    </>
 )
 
 class SavedBankPartners extends React.Component {
 
     static navigationOptions = {
-        title:'Bank Transfer'
+        title:'Saved Bank Accounts'
     }
 
     state = {
-        banks:[],
+        list:[],
         loading:true
     }
 
     componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
 
     getData = async () => {
-        let banks = []
+        let list = []
 
         try {
-            banks = [
+            list = [
                 {
-                    logo:'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRALKMNvyXAUKgk2zDlwu2RyDXr9DsD-Q8e7Yc3H9YMxIDI913V',
-                    name:'Banco De Oro'
+                    name:'BDO',
+                    account_name:'John Smith',
+                    account_no:'1234567890'
                 },
                 {
-                    logo:'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQu7wXoFoi2TRxisL4Bp3nxYniFodZ-pITvSA3oqTd27KdnMkWB',
-                    name:'Bank of the Philippine Islands'
-                },
-                {
-                    logo:'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSggteIu6PSOYeBtSHAQ15_o4RS8osmEHWEtnPN1OMnavslahpT',
-                    name:'Landbank'
-                },
-                {
-                    logo:'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTaCxawMWju7MFNPyuYPeADb59zNl1EagGMwiR10j1bworwHJ9a',
-                    name:'China Bank'
+                    name:'Chinabank RTA',
+                    account_name:'John Smith',
+                    account_no:'1234567890'
                 }
             ]
         }
@@ -54,32 +57,28 @@ class SavedBankPartners extends React.Component {
         }
 
         this.setState({
-            banks,
+            list,
             loading:false
         })
     }
 
     handleAddNewBank = () => this.props.navigation.navigate('AddBankPartner')
 
-    handleSelectBank = bank => this.props.navigation.navigate('SendBankTransfer',{type:'bank',bank})
+    handleViewBank = bank => this.props.navigation.navigate('BankPartnerProfile',{bank})
 
-    renderBanks = ({item, index}) => <ItemUI data={item} onPress={this.handleSelectBank} />
+    renderItem = ({item, index}) => <ItemUI data={item} onPress={this.handleViewBank} />
 
     render() {
 
-        const {banks, loading} = this.state
+        const {list, search, loading} = this.state
 
         return (
             <View style={style.container}>
-                <Text md>My Saved Bank Accounts</Text>
-
-                <Spacer />
-
                 <FlatList
-                    data={banks}
-                    renderItem={this.renderBanks}
+                    data={list}
+                    renderItem={this.renderItem}
                     loading={loading}
-                    horizontal
+                    placeholder={{text:'No Saved Bank Accounts.\nAdd a new bank account to continue.'}}
                 />
 
                 <View style={style.footer}>
@@ -96,13 +95,7 @@ const style = StyleSheet.create({
         padding:Metrics.lg
     },
     item: {
-        marginHorizontal:Metrics.sm,
-        width:80,
-        height:80
-    },
-    logo: {
-        width:80,
-        height:80
+        padding:Metrics.rg
     },
     footer: {
         flex:1,

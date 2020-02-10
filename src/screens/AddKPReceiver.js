@@ -12,37 +12,36 @@ class AddKPReceiver extends React.Component {
     }
 
     state = {
-        name:'',
-        contact:'',
+        fullname:'',
+        contact_no:'',
         processing:false
     }
 
-    handleChangeName = name => this.setState({name})
+    handleChangeFullName = fullname => this.setState({fullname})
 
-    handleChangeContact = contact => this.setState({contact})
+    handleChangeContactNo = contact_no => this.setState({contact_no})
 
     handleSubmit = async () => {
         try {
-            let {name, contact, processing} = this.state
+            let {fullname, contact_no, processing} = this.state
 
             if(processing) return false
 
             this.setState({processing:true})
 
-            name = name.trim()
-            contact = contact.trim()
+            fullname = fullname.trim()
+            contact_no = contact_no.trim()
 
-            if(name == '' || contact == '') Say.some(_('8'))
+            if(fullname == '' || contact_no == '') Say.some(_('8'))
             else {
 
                 let payload = {
-                    name,
-                    contact
+                    fullname,
+                    contact_no
                 }
     
                 //await API.addNewReceiver(payload)
 
-                Say.ok('success')
                 this.props.navigation.pop()
             }
 
@@ -56,29 +55,33 @@ class AddKPReceiver extends React.Component {
 
     render() {
 
-        const {name, contact, processing} = this.state
+        const {contact_no, fullname, processing} = this.state
+        let ready = false
+
+        if(fullname && contact_no) ready = true
 
         return (
             <View style={style.container}>
                 <Text center>Please ensure that the name of the receiver is the same as it appears in their valid ID.</Text>
 
+                <Spacer />
+
                 <TextInput
-                    label='Full Name'
-                    placeholder='Enter Full Name'
-                    value={name}
-                    onChangeText={this.handleChangeName}
+                    label='Full Legal Name'
+                    value={fullname}
+                    onChangeText={this.handleChangeFullName}
+                    autoCapitalize='words'
                 />
 
                 <TextInput
                     label='Contact No.'
-                    placeholder='Enter Contact No.'
-                    value={contact}
-                    onChangeText={this.handleChangeContact}
+                    value={contact_no}
+                    onChangeText={this.handleChangeContactNo}
                     keyboardType='numeric'
                 />
 
                 <View style={style.footer}>
-                    <Button t='Save Receiver' onPress={this.handleSubmit} />
+                    <Button disabled={!ready} t='Save Receiver' onPress={this.handleSubmit} loading={processing} />
                 </View>
             </View>
         )

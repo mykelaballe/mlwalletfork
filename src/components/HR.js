@@ -6,7 +6,7 @@ export default props => (
     <View
         style={{
             borderWidth:StyleSheet.hairlineWidth,
-            borderColor:props.c || Colors.gray,
+            borderColor:props.c || Colors.lightgray,
             marginVertical:props.m || Metrics.xs
         }}
     />
