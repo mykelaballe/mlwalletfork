@@ -7,11 +7,8 @@ import Button from './Button'
 import ButtonIcon from './ButtonIcon'
 import ButtonText from './ButtonText'
 import Card from './Card'
-import Cart from './Cart'
 import CollapsibleItem from './CollapsibleItem'
 import DayPicker from './DayPicker'
-import Doodle from './Doodle'
-import Drawer from './Drawer'
 import DynamicStaticInput from './DynamicStaticInput'
 import FlatList from './FlatList'
 import Footer from './Footer'
@@ -57,11 +54,8 @@ export {
     ButtonIcon,
     ButtonText,
     Card,
-    Cart,
     CollapsibleItem,
     DayPicker,
-    Doodle, 
-    Drawer,
     DynamicStaticInput,
     FlatList,
     Footer,

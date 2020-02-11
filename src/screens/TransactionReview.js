@@ -200,6 +200,8 @@ class TransactionReview extends React.Component {
                 }
 
                 <View style={style.footer}>
+                    <Text center mute>Please review the details before you proceed.</Text>
+                    <Spacer sm />
                     <Button t='Next' onPress={this.handleConfirm} />
                 </View>
             </View>

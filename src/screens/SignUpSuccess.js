@@ -42,7 +42,7 @@ class Scrn extends React.Component {
                     <Spacer lg />
 
                     <Text b>Step 1</Text>
-                    <Text>Visit any M Mlhuillier branch.</Text>
+                    <Text>Visit any M Lhuillier branch.</Text>
 
                     <Spacer />
 

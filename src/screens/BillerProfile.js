@@ -133,16 +133,16 @@ class BillerProfile extends React.Component {
 
                     <Spacer sm />
 
-                    <TextInput
-                        disabled
-                        label='Remind Me Every'
-                        value={reminder}
-                        rightContent={
-                            <TouchableOpacity onPress={this.handleSelectReminder}>
+                    <TouchableOpacity onPress={this.handleSelectReminder}>
+                        <TextInput
+                            disabled
+                            label='Remind Me Every'
+                            value={reminder}
+                            rightContent={
                                 <Icon name='ios-arrow-forward' color={Colors.gray} size={Metrics.icon.sm} />
-                            </TouchableOpacity>
-                        }
-                    />
+                            }
+                        />
+                    </TouchableOpacity>
                 </View>
 
                 <Row bw>

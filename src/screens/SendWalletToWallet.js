@@ -76,7 +76,8 @@ class SendWalletToWallet extends React.Component {
 
                     <TextInput
                         style={style.textarea}
-                        label='Type an optional message to your receiver here'
+                        label='Notes'
+                        placeholder='Type an optional message to your receiver here'
                         value={notes}
                         onChangeText={this.handleChangeNotes}
                         multiline

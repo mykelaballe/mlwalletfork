@@ -105,7 +105,7 @@ class TransactionReceipt extends React.Component {
                             title='Success'
                             customMessage={
                                 <>
-                                    <Text mute md>You successfully sent money worth PHP {amount}</Text>
+                                    <Text mute md>You successfully sent money worth PHP {amount} to MLW-0011-718-2031-822-1211</Text>
                                     <Spacer lg />
                                     <Text mute>Your new balance is</Text>
                                     <Text xl b>Php {balance}</Text>
@@ -333,6 +333,20 @@ class TransactionReceipt extends React.Component {
 
                     {type === Consts.tcn.bpm.code &&
                     <>
+                        <Prompt
+                            visible={showSuccessModal}
+                            title='Success'
+                            customMessage={
+                                <>
+                                    <Text mute md>You successfully transferred money to bank. Expect 2-3 banking days for your new balance to reflect.</Text>
+                                    <Spacer lg />
+                                    <Text mute>Your new balance is</Text>
+                                    <Text xl b>Php {balance}</Text>
+                                </>
+                            }
+                            onDismiss={this.handleCloseModal}
+                        />
+
                         <Text sm mute>Biller</Text>
                         <Text>{biller.name}</Text>
 

@@ -66,6 +66,8 @@ class Scrn extends React.Component {
         let list = this.state.list.slice()
         let selected = []
 
+        list.map(l => l.selected = false)
+
         list[index].selected = !list[index].selected
 
         list.map(l => {

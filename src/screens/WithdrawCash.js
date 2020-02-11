@@ -42,12 +42,12 @@ class WithdrawCash extends React.Component {
                     <Spacer />
                     
                     <View style={{alignItems:'center'}}>
-                        <Icon name='withdraw_cash' />
+                        <Icon name='withdraw_cash' size={Metrics.icon.xl} />
                     </View>
 
                     <Spacer md />
 
-                    <Text center mute>Enter amount to be withdrawn and show transaction number to the nearest ML branch to cash out.</Text>
+                    <Text center mute>Enter amount to be withdrawn and show the transaction no. to the nearest M Lhuillier branch.</Text>
 
                     <Spacer />
 

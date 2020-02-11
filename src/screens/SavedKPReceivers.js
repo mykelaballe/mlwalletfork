@@ -26,7 +26,7 @@ const ItemUI = props => (
 class SavedKPReceivers extends React.Component {
 
     static navigationOptions = {
-        title:'Saved Receivers'
+        title:'Receiver'
     }
 
     state = {

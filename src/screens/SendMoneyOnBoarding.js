@@ -46,7 +46,7 @@ class SendMoneyOnBoarding extends React.Component {
 
   handleSlideChange = slide => this.setState({slide})
 
-  renderDoneButton = () => <Button t='Finish' onPress={this.handleDone} />
+  renderDoneButton = () => <Button t='Next' onPress={this.handleDone} />
 
   handleDone = () => this.props.navigation.replace('SendMoneyIndex')
 

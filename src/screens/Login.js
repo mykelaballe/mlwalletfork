@@ -76,7 +76,7 @@ class Scrn extends React.Component {
 
                     <View>
                         <Text center b xl>Welcome back!</Text>
-                        <Text center mute md>Please Login to your account.</Text>
+                        <Text center mute md>Please login to your account.</Text>
                     </View>
 
                     <Spacer />
@@ -126,7 +126,7 @@ class Scrn extends React.Component {
                 <Footer>
                     <Row c>
                         <Icon name='fingerprint' size={Metrics.icon.rg} />
-                        <ButtonText t='Log in with Touch ID' onPress={this.handleGoToTouchID} />
+                        <ButtonText t='Activate Touch ID' onPress={this.handleGoToTouchID} />
                     </Row>
                 </Footer>
             </>

@@ -6,6 +6,7 @@ import {Text, Row, Spacer, FlatList, Ripple, Icon} from '../components'
 import {Colors, Metrics, Res} from '../themes'
 import {_} from '../utils'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import Entypo from 'react-native-vector-icons/Entypo'
 
 const {width} = Dimensions.get('window')
 const ITEM_WIDTH = (width / 3) - (Metrics.xl)
@@ -75,17 +76,13 @@ class Home extends React.Component {
         this.props.navigation.navigate('ReceiveMoneyOnBoarding')
     }
 
-    handleGoToWithdrawCash = () => {
-        this.props.navigation.navigate('WithdrawCashOnBoarding')
-    }
+    handleGoToWithdrawCash = () => this.props.navigation.navigate('WithdrawCashOnBoarding')
 
     handleGoToPayBills = () => {
         this.props.navigation.navigate('PayBillsOnBoarding')
     }
 
-    handleGoToBuyLoad = () => {
-        this.props.navigation.navigate('BuyLoadOnBoarding')
-    }
+    handleGoToBuyLoad = () => this.props.navigation.navigate('BuyLoadOnBoarding')
 
     handleGoToBuyItems = () => this.props.navigation.navigate('ComingSoon')
 
@@ -117,7 +114,7 @@ class Home extends React.Component {
                         <Text b h3 light>{show_balance ? balance : '****.**'}</Text>
                         <Spacer h sm />
                         <TouchableOpacity onPress={this.handleToggleBalance}>
-                            <Ionicons name={`ios-eye${show_balance ? '-off' : ''}`} size={Metrics.icon.rg} color={Colors.light} />
+                            <Entypo name={`eye${!show_balance ? '-with-line' : ''}`} size={Metrics.icon.rg} color={Colors.light} />
                         </TouchableOpacity>
                     </Row>
                 </View>
@@ -133,7 +130,7 @@ class Home extends React.Component {
                 <Spacer />
 
                 <View style={style.footer}>
-                    <Image source={require('../res/promo_placeholder.png')} style={style.promo} />
+                    <Image source={require('../res/promo_placeholder.png')} style={style.promo} resizeMode='contain' />
                 </View>
             </>
         )
@@ -167,7 +164,8 @@ const style = StyleSheet.create({
         paddingVertical:Metrics.md
     },
     promo: {
-        width
+        width,
+        height:110
     }
 })
 
