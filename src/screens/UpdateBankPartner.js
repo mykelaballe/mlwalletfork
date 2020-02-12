@@ -26,6 +26,10 @@ class Scrn extends React.Component {
 
     handleChangeAccountNo = account_no => this.setState({account_no})
 
+    handleFocusAccountName = () => this.refs.account_name.focus()
+
+    handleFocusAccountNo = () => this.refs.account_no.focus()
+
     handleSubmit = async () => {
         try {
             let {name, account_name, account_no, processing} = this.state
@@ -70,22 +74,28 @@ class Scrn extends React.Component {
         return (
             <>
                 <Screen>
-
                     <TextInput
+                        ref='name'
                         label='Bank Name'
                         value={name}
                         onChangeText={this.handleChangeName}
+                        onSubmitEditing={this.handleFocusAccountName}
                         autoCapitalize='words'
+                        returnKeyType='next'
                     />
 
                     <TextInput
+                        ref='account_name'
                         label='Account Name'
                         value={account_name}
                         onChangeText={this.handleChangeAccountName}
+                        onSubmitEditing={this.handleFocusAccountNo}
                         autoCapitalize='words'
+                        returnKeyType='next'
                     />
 
                     <TextInput
+                        ref='account_no'
                         label='Account No.'
                         value={account_no}
                         onChangeText={this.handleChangeAccountNo}

@@ -1,6 +1,6 @@
 import React from 'react'
-import {View, StyleSheet, TouchableOpacity} from 'react-native'
-import {ScrollView, Text, Row, Button, Spacer, HR, TopBuffer, HeaderRight} from '../components'
+import {TouchableOpacity} from 'react-native'
+import {Screen, Footer, Button, StaticInput, HeaderRight} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_} from '../utils'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -68,54 +68,30 @@ class Scrn extends React.Component {
         const {name, account_name, account_no} = this.props.navigation.state.params.bank
 
         return (
-            <View style={style.container}>
+            <>
+                <Screen>
+                    <StaticInput
+                        label='Bank Name'
+                        value={name}
+                    />
 
-                <View style={style.a}>
-                    <Text mute sm>Bank Name</Text>
-                    <Text md>{name}</Text>
-                </View>
+                    <StaticInput
+                        label='Account Name'
+                        value={account_name}
+                    />
 
-                <Spacer sm />
+                    <StaticInput
+                        label='Account No.'
+                        value={account_no}
+                    />
+                </Screen>
 
-                <View style={style.a}>
-                    <Text mute sm>Account Name</Text>
-                    <Text>{account_name}</Text>
-                </View>
-
-                <Spacer sm />
-
-                <View style={style.a}>
-                    <Text mute sm>Account No.</Text>
-                    <Text md>{account_no}</Text>
-                </View>
-
-                <View style={style.footer}>
+                <Footer>
                     <Button t='Select Bank Account' onPress={this.handleSelect} />
-                </View>
-            </View>
+                </Footer>
+            </>
         )
     }
 }
-
-const style = StyleSheet.create({
-    container: {
-        flex:1,
-        padding:Metrics.lg
-    },
-    item: {
-        padding:Metrics.rg
-    },
-    a: {
-        padding:Metrics.md,
-        borderWidth:StyleSheet.hairlineWidth,
-        borderColor:Colors.mute,
-        borderRadius:Metrics.sm,
-        marginVertical:Metrics.sm
-    },
-    footer: {
-        flex:1,
-        justifyContent:'flex-end'
-    }
-})
 
 export default Scrn

@@ -1,11 +1,9 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager} from 'react-native'
-import {ScrollView, FlatList, TextInput, Text, Row, Button, Spacer, ButtonText, HR, Ripple, TopBuffer} from '../components'
-import {Colors, Metrics} from '../themes'
+import {View} from 'react-native'
+import {Screen, Footer, Headline, TextInput, Text, Button} from '../components'
 import {_, Say} from '../utils'
-import Icon from 'react-native-vector-icons/Ionicons'
 
-class AddKPReceiver extends React.Component {
+class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Add Bank'
@@ -23,6 +21,10 @@ class AddKPReceiver extends React.Component {
     handleChangeAccountName = account_name => this.setState({account_name})
 
     handleChangeAccountNo = account_no => this.setState({account_no})
+
+    handleFocusAccountName = () => this.refs.account_name.focus()
+
+    handleFocusAccountNo = () => this.refs.account_no.focus()
 
     handleSubmit = async () => {
         try {
@@ -66,49 +68,45 @@ class AddKPReceiver extends React.Component {
         if(name && account_name && account_no) ready = true
 
         return (
-            <View style={style.container}>
-                <Text center>Please ensure that all of the information inputted is correct.</Text>
+            <>
+                <Screen>
+                    <Headline subtext='Please ensure that all of the information inputted is correct.' />
 
-                <Spacer />
+                    <TextInput
+                        ref='name'
+                        label='Bank Name'
+                        value={name}
+                        onChangeText={this.handleChangeName}
+                        onSubmitEditing={this.handleFocusAccountName}
+                        autoCapitalize='words'
+                        returnKeyType='next'
+                    />
 
-                <TextInput
-                    label='Bank Name'
-                    value={name}
-                    onChangeText={this.handleChangeName}
-                    autoCapitalize='words'
-                />
+                    <TextInput
+                        ref='account_name'
+                        label='Account Name'
+                        value={account_name}
+                        onChangeText={this.handleChangeAccountName}
+                        onSubmitEditing={this.handleFocusAccountNo}
+                        autoCapitalize='words'
+                        returnKeyType='next'
+                    />
 
-                <TextInput
-                    label='Account Name'
-                    value={account_name}
-                    onChangeText={this.handleChangeAccountName}
-                    autoCapitalize='words'
-                />
+                    <TextInput
+                        ref='account_no'
+                        label='Account No.'
+                        value={account_no}
+                        onChangeText={this.handleChangeAccountNo}
+                        keyboardType='numeric'
+                    />
+                </Screen>
 
-                <TextInput
-                    label='Account No.'
-                    value={account_no}
-                    onChangeText={this.handleChangeAccountNo}
-                    keyboardType='numeric'
-                />
-
-                <View style={style.footer}>
+                <Footer>
                     <Button disabled={!ready} t='Save Bank' onPress={this.handleSubmit} loading={processing} />
-                </View>
-            </View>
+                </Footer>
+            </>
         )
     }
 }
 
-const style = StyleSheet.create({
-    container: {
-        flex:1,
-        padding:Metrics.lg
-    },
-    footer: {
-        flex:1,
-        justifyContent:'flex-end'
-    }
-})
-
-export default AddKPReceiver
+export default Scrn

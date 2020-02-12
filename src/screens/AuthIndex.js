@@ -13,6 +13,25 @@ export default class AuthIndex extends React.Component {
     render() {
 
         return (
+            <View style={style.imgBg}>
+
+                <View style={style.backdrop} />
+
+                <View style={{alignItems:'center'}}>
+                    <Image source={require('../res/logo_white.png')} style={style.logo} resizeMode='contain' />
+                </View>
+
+                <Text md light center>Withdraw, send cash and pay your bills anytime, from virtually anywhere!</Text>
+
+                <View>
+                    <Button light mode='outlined' contentStyle={style.btnContent} style={style.btn} t='Login' onPress={this.handleGoToLogin} />
+                    <Spacer />
+                    <Button light t='Create Account' mode='outlined' contentStyle={style.btnContent} style={style.btn} onPress={this.handleGoToSignUp} />
+                </View>
+            </View>
+        )
+
+        return (
             <ImageBackground source={require('../res/bg.png')} style={style.imgBg}>
 
                 <View style={style.backdrop} />
@@ -42,7 +61,7 @@ const style = StyleSheet.create({
     backdrop: {
         ...StyleSheet.absoluteFill,
         backgroundColor:Colors.brand,
-        opacity:.85
+        //opacity:.85
     },
     logo: {
         width:300

@@ -1,4 +1,5 @@
 import React from 'react'
+import {View} from 'react-native'
 import {createStackNavigator} from 'react-navigation-stack'
 import * as Scrn from '../screens'
 import {Colors} from '../themes'
@@ -15,9 +16,12 @@ const defaultNavigationOptions = {
         backgroundColor:Colors.brand,
     },
     headerTitleStyle: {
+        flex:1,
         color:Colors.light,
+        textAlign:'center'
     },
-    headerTintColor:Colors.light
+    headerTintColor:Colors.light,
+    headerRight:<View />
 }
 
 export default createStackNavigator({

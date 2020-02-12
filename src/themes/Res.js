@@ -8,6 +8,7 @@ export default {
         user:require('../res/icon/user.png'),
         user_active:require('../res/icon/user_active.png'),
         bell:require('../res/icon/bell.png'),
+        bell_active:require('../res/icon/bell_active.png'),
         hamburger:require('../res/icon/hamburger.png'),
 
         send_money:require('../res/icon/send_money.png'),

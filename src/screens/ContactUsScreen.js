@@ -118,7 +118,7 @@ class ContactUsScreen extends React.Component {
                     </RippleItem>
                 </Card>
 
-                <Card style={style.card}>
+                {/*<Card style={style.card}>
                     <Text b lg>USA</Text>
                     <Spacer sm />
                     <RippleItem onPress={this.handleCall} value={'1-800-1-0572-3252'} style={style.item}>
@@ -128,7 +128,7 @@ class ContactUsScreen extends React.Component {
                             <Text md>1-877-688-4588</Text>
                         </Row>
                     </RippleItem>
-                </Card>
+                </Card>*/}
 
                 <Card style={style.card}>
                     <Text b lg>Email</Text>

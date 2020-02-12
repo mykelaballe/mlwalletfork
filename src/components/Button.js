@@ -13,6 +13,16 @@ export default props => {
         padding:Metrics.rg
     }
 
+    let disabledStyle = {}, labelStyle = {}
+
+    if(props.disabled) {
+        disabledStyle.borderWidth = 0
+        disabledStyle.opacity = .6
+        disabledStyle.backgroundColor = Colors.brand
+
+        labelStyle.color = Colors.light
+    }
+
     //color theme
     if(props.success) customStyle.backgroundColor = Colors.success
     else if(props.info) customStyle.backgroundColor = Colors.info
@@ -26,8 +36,11 @@ export default props => {
             {...props}
             style={{
                 ...props.style,
-                borderWidth:props.disabled ? 0 : 1,
-                borderColor:customStyle.backgroundColor
+                borderColor:customStyle.backgroundColor,
+                ...disabledStyle
+            }}
+            labelStyle={{
+                ...labelStyle
             }}
             contentStyle={{
                 ...btnStyle

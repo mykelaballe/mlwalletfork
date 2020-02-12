@@ -25,6 +25,8 @@ class PrivacyNotice extends React.Component {
 
         const {list} = this.state
 
+        return null
+
         return (
             <View style={style.container}>
                 <View style={{alignItems:'center'}}>

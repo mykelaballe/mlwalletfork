@@ -4,8 +4,8 @@ export default {
 		app: 'AppDB',
 		user: 'UserDB'
 	},
-	user_max_age:80,
-	user_min_age:10,
+	user_max_age:100,
+	user_min_age:18,
 	//transaction
 	tcn: {
 		stw: {

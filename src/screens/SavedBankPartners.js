@@ -1,9 +1,8 @@
 import React from 'react'
 import {View, StyleSheet, InteractionManager} from 'react-native'
-import {ScrollView, FlatList, Initial, Text, Row, Button, Spacer, ButtonText, HR, Ripple, TopBuffer} from '../components'
-import {Colors, Metrics} from '../themes'
+import {Screen, Footer, FlatList, Initial, Text, Row, Button, Spacer, HR, Ripple} from '../components'
+import {Metrics} from '../themes'
 import {_} from '../utils'
-import Icon from 'react-native-vector-icons/Ionicons'
 
 const ItemUI = props => (
     <>
@@ -22,7 +21,7 @@ const ItemUI = props => (
     </>
 )
 
-class SavedBankPartners extends React.Component {
+class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Saved Bank Accounts'
@@ -73,34 +72,28 @@ class SavedBankPartners extends React.Component {
         const {list, search, loading} = this.state
 
         return (
-            <View style={style.container}>
-                <FlatList
-                    data={list}
-                    renderItem={this.renderItem}
-                    loading={loading}
-                    placeholder={{text:'No Saved Bank Accounts.\nAdd a new bank account to continue.'}}
-                />
+            <>
+                <Screen ns>
+                    <FlatList
+                        data={list}
+                        renderItem={this.renderItem}
+                        loading={loading}
+                        placeholder={{text:'No Saved Bank Accounts.\nAdd a new bank account to continue.'}}
+                    />
+                </Screen>
 
-                <View style={style.footer}>
+                <Footer>
                     <Button t='Add New Bank Account' onPress={this.handleAddNewBank} />
-                </View>
-            </View>
+                </Footer>
+            </>
         )
     }
 }
 
 const style = StyleSheet.create({
-    container: {
-        flex:1,
-        padding:Metrics.lg
-    },
     item: {
         padding:Metrics.rg
-    },
-    footer: {
-        flex:1,
-        justifyContent:'flex-end'
     }
 })
 
-export default SavedBankPartners
+export default Scrn

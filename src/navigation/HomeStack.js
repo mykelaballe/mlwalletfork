@@ -57,7 +57,7 @@ export default createBottomTabNavigator({
         navigationOptions: {
             tabBarLabel:'Notifications',
             tabBarIcon: ({focused}) => (
-                <Icon name='bell' size={20} />
+                <Icon name={focused ? 'bell_active' : 'bell'} size={20} />
             )
         }
     },

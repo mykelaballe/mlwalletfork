@@ -1,10 +1,10 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager, TouchableOpacity} from 'react-native'
-import {ScrollView, Text, Row, Spacer, Button, ButtonIcon, ButtonText, Ripple, TopBuffer, TextInput, Icon} from '../components'
-import {Colors, Metrics, Res} from '../themes'
+import {View, StyleSheet, TouchableOpacity} from 'react-native'
+import {Screen, Footer, Headline, Text, Spacer, Button, TextInput, Icon} from '../components'
+import {Metrics, Res} from '../themes'
 import {_, Consts} from '../utils'
 
-class BuyLoad extends React.Component {
+class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Buy Load'
@@ -35,20 +35,15 @@ class BuyLoad extends React.Component {
         if(mobile_no) ready = true
 
         return (
-            <View style={style.container}>
-
-                <View>
-                    <Spacer />
-                    
+            <>
+                <Screen>
                     <View style={{alignItems:'center'}}>
-                        <Icon name='buy_load' />
+                        <Icon name='buy_load' size={Metrics.icon.xl} />
                     </View>
 
                     <Spacer md />
 
-                    <Text center mute>Enter the mobile number that you will load or select from your contact list.</Text>
-
-                    <Spacer />
+                    <Headline subtext='Enter the mobile number that you will load or select from your contact list.' />
 
                     <TextInput
                         label='Mobile Number'
@@ -61,29 +56,20 @@ class BuyLoad extends React.Component {
                             </TouchableOpacity>
                         }
                     />
-                </View>
-                
-                <View style={style.footer}>
+                </Screen>
+
+                <Footer>
                     <Button disabled={!ready} t='Next' onPress={this.handleNext} />
-                </View>
-            </View>
+                </Footer>
+            </>
         )
     }
 }
 
 const style = StyleSheet.create({
-    container: {
-        flex:1,
-        justifyContent:'space-between',
-        padding:Metrics.lg
-    },
     textarea: {
         height:130
-    },
-    footer: {
-        //flex:1,
-        //justifyContent:'flex-end'
     }
 })
 
-export default BuyLoad
+export default Scrn
