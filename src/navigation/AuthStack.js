@@ -6,7 +6,8 @@ import {Colors} from '../themes'
 
 const noNavHeaderOptions = {
     headerStyle:{
-        backgroundColor:'transparent'
+        backgroundColor:Colors.light,
+        elevation:0
     },
     headerTintColor:Colors.brand
 }
