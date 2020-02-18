@@ -1,8 +1,8 @@
 import React from 'react'
-import {View, StyleSheet} from 'react-native'
+import {StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
 import Actions from '../actions/Creators'
-import {Screen, Footer, Headline, Text, Button, ButtonText, Spacer, TextInputFlat, Row, SignUpStepsTracker} from '../components'
+import {Screen, Footer, Headline, Button, ButtonText, Spacer, TextInputFlat, Row, SignUpStepsTracker} from '../components'
 import {Metrics} from '../themes'
 import {_, Say} from '../utils'
 import {API} from '../services'
@@ -14,12 +14,12 @@ class Scrn extends React.Component {
     }
 
     state = {
-        digit1:'1',
-        digit2:'2',
-        digit3:'3',
-        digit4:'4',
-        digit5:'5',
-        digit6:'6',
+        digit1:'',
+        digit2:'',
+        digit3:'',
+        digit4:'',
+        digit5:'',
+        digit6:'',
         processing:false,
         reprocessing:false
     }
@@ -159,7 +159,6 @@ const style = StyleSheet.create({
     input: {
         marginHorizontal:Metrics.xs,
         textAlign:'center',
-        alignItems:'center',
         fontWeight:'bold'
     }
 })

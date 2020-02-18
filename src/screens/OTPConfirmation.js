@@ -1,23 +1,22 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager} from 'react-native'
-import {ScrollView, Text, Row, Button, Spacer, ButtonText, HR, Ripple, TopBuffer, TextInputFlat} from '../components'
-import {Colors, Metrics} from '../themes'
+import {StyleSheet} from 'react-native'
+import {Screen, Footer, Headline, Row, Button, Spacer, ButtonText, TextInputFlat} from '../components'
+import {Metrics} from '../themes'
 import {_, Consts} from '../utils'
-import Icon from 'react-native-vector-icons/Ionicons'
 
-class OTPConfirmation extends React.Component {
+class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Verification'
     }
 
     state = {
-        digit1:'1',
-        digit2:'2',
-        digit3:'3',
-        digit4:'4',
-        digit5:'5',
-        digit6:'6',
+        digit1:'',
+        digit2:'',
+        digit3:'',
+        digit4:'',
+        digit5:'',
+        digit6:'',
         processing:false,
         reprocessing:false
     }
@@ -71,116 +70,103 @@ class OTPConfirmation extends React.Component {
         }
 
         return (
-            <View style={style.container}>
-
-                <Text center b xl>One Time Pin</Text>
-
-                <Spacer />
-
-                <View style={{paddingHorizontal:Metrics.xl * 2}}>
-                    <Text mute center>Enter the 6-digit code sent to your mobile number.</Text>
-                </View>
-
-                <Spacer />
-
-                <Row ar style={{paddingHorizontal:Metrics.lg}}>
-                    <TextInputFlat
-                        ref='digit1'
-                        style={style.input}
-                        value={digit1}
-                        onChangeText={this.handleChangeDigit1}
-                        onSubmitEditing={this.handleFocusDigit2}
-                        keyboardType='numeric'
-                        maxLength={1}
-                        returnKeyType='next'
+            <>
+                <Screen>
+                    <Headline
+                        title='One Time Pin'
+                        subtext='Enter the 6-digit code sent to your mobile number.'
                     />
 
-                    <TextInputFlat
-                        ref='digit2'
-                        style={style.input}
-                        value={digit2}
-                        onChangeText={this.handleChangeDigit2}
-                        onSubmitEditing={this.handleFocusDigit3}
-                        keyboardType='numeric'
-                        maxLength={1}
-                        returnKeyType='next'
-                    />
+                    <Row ar style={{paddingHorizontal:Metrics.lg}}>
+                        <TextInputFlat
+                            ref='digit1'
+                            style={style.input}
+                            value={digit1}
+                            onChangeText={this.handleChangeDigit1}
+                            onSubmitEditing={this.handleFocusDigit2}
+                            keyboardType='numeric'
+                            maxLength={1}
+                            returnKeyType='next'
+                        />
 
-                    <TextInputFlat
-                        ref='digit3'
-                        style={style.input}
-                        value={digit3}
-                        onChangeText={this.handleChangeDigit3}
-                        onSubmitEditing={this.handleFocusDigit4}
-                        keyboardType='numeric'
-                        maxLength={1}
-                        returnKeyType='next'
-                    />
+                        <TextInputFlat
+                            ref='digit2'
+                            style={style.input}
+                            value={digit2}
+                            onChangeText={this.handleChangeDigit2}
+                            onSubmitEditing={this.handleFocusDigit3}
+                            keyboardType='numeric'
+                            maxLength={1}
+                            returnKeyType='next'
+                        />
 
-                    <TextInputFlat
-                        ref='digit4'
-                        style={style.input}
-                        value={digit4}
-                        onChangeText={this.handleChangeDigit4}
-                        onSubmitEditing={this.handleFocusDigit5}
-                        keyboardType='numeric'
-                        maxLength={1}
-                        returnKeyType='next'
-                    />
+                        <TextInputFlat
+                            ref='digit3'
+                            style={style.input}
+                            value={digit3}
+                            onChangeText={this.handleChangeDigit3}
+                            onSubmitEditing={this.handleFocusDigit4}
+                            keyboardType='numeric'
+                            maxLength={1}
+                            returnKeyType='next'
+                        />
 
-                    <TextInputFlat
-                        ref='digit5'
-                        style={style.input}
-                        value={digit5}
-                        onChangeText={this.handleChangeDigit5}
-                        onSubmitEditing={this.handleFocusDigit6}
-                        keyboardType='numeric'
-                        maxLength={1}
-                        returnKeyType='next'
-                    />
+                        <TextInputFlat
+                            ref='digit4'
+                            style={style.input}
+                            value={digit4}
+                            onChangeText={this.handleChangeDigit4}
+                            onSubmitEditing={this.handleFocusDigit5}
+                            keyboardType='numeric'
+                            maxLength={1}
+                            returnKeyType='next'
+                        />
 
-                    <TextInputFlat
-                        ref='digit6'
-                        style={style.input}
-                        value={digit6}
-                        onChangeText={this.handleChangeDigit6}
-                        keyboardType='numeric'
-                        maxLength={1}
-                    />
-                </Row>
+                        <TextInputFlat
+                            ref='digit5'
+                            style={style.input}
+                            value={digit5}
+                            onChangeText={this.handleChangeDigit5}
+                            onSubmitEditing={this.handleFocusDigit6}
+                            keyboardType='numeric'
+                            maxLength={1}
+                            returnKeyType='next'
+                        />
 
-                <Spacer lg />
+                        <TextInputFlat
+                            ref='digit6'
+                            style={style.input}
+                            value={digit6}
+                            onChangeText={this.handleChangeDigit6}
+                            keyboardType='numeric'
+                            maxLength={1}
+                        />
+                    </Row>
 
-                <ButtonText t='Resend Verification Code' onPress={this.handleResendOTP} loading={reprocessing} />
+                    <Spacer lg />
 
-                <View style={style.footer}>
+                    <ButtonText t='Resend Verification Code' onPress={this.handleResendOTP} loading={reprocessing} />
+                </Screen>
+
+                <Footer>
                     <Button
                         disabled={!ready}
                         t={Consts.tcn[type] ? Consts.tcn[type].otp : 'Submit'}
                         onPress={this.handleSubmit}
                         loading={processing}
                     />
-                </View>
-            </View>
+                </Footer>
+            </>
         )
     }
 }
 
 const style = StyleSheet.create({
-    container: {
-        flex:1,
-        padding:Metrics.lg
-    },
     input: {
         marginHorizontal:Metrics.xs,
         textAlign:'center',
-        alignItems:'center',
         fontWeight:'bold'
-    },
-    footer: {
-        flex:1,
-        justifyContent:'flex-end'
     }
 })
 
-export default OTPConfirmation
+export default Scrn

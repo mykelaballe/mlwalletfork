@@ -135,7 +135,7 @@ class TransactionHistory extends React.Component {
         return (
             <Provider>
                 <View style={style.toolbar}>
-                    <ButtonText icon='filter-list' t='Filters' onPress={this.handleToggleFilters} />
+                    <ButtonText icon='filter-variant' t='Filters' onPress={this.handleToggleFilters} />
                 </View>
 
                 <HR />

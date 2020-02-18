@@ -139,7 +139,7 @@ class BillsCategory extends React.Component {
                 <View style={{padding:Metrics.lg}}>
                     <Row bw>
                         <Text b lg>Favorites</Text>
-                        <ButtonText color={Colors.brand} icon='add' t='Add Biller' onPress={this.handleAddFavoriteBiller} />
+                        <ButtonText color={Colors.brand} icon='plus' t='Add Biller' onPress={this.handleAddFavoriteBiller} />
                     </Row>
                     <FlatList
                         data={favorites}

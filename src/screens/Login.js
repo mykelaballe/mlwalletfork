@@ -66,6 +66,9 @@ class Scrn extends React.Component {
     render() {
 
         const {username, password, show_password, processing} = this.state
+        let ready = false
+
+        if(username && password) ready = true
 
         return (
             <>  
@@ -112,7 +115,7 @@ class Scrn extends React.Component {
 
                         <Spacer />
 
-                        <Button t='Login' onPress={this.handleLogin} loading={processing} />
+                        <Button disabled={!ready} t='Login' onPress={this.handleLogin} loading={processing} />
 
                         <Spacer />
 

@@ -70,7 +70,7 @@ class MyQR extends React.Component {
                     <Row bw>
                         <ButtonText
                             t={'Save to Device'}
-                            icon='arrow-downward'
+                            icon='download'
                             onPress={this.handleSave}
                         />
                         <ButtonText
