@@ -2,11 +2,9 @@ import React from 'react'
 import {View, StyleSheet, InteractionManager, TouchableOpacity, Dimensions, Image} from 'react-native'
 import {connect} from 'react-redux'
 import {Actions} from '../actions'
-import {Text, Row, Spacer, FlatList, Ripple, Icon} from '../components'
+import {Text, Row, Spacer, FlatList, Ripple, Icon, Balance} from '../components'
 import {Colors, Metrics, Res} from '../themes'
 import {_} from '../utils'
-import Ionicons from 'react-native-vector-icons/Ionicons'
-import Entypo from 'react-native-vector-icons/Entypo'
 
 const {width} = Dimensions.get('window')
 const ITEM_WIDTH = (width / 3) - (Metrics.xl)
@@ -20,7 +18,6 @@ class Home extends React.Component {
     }
 
     state = {
-        balance:'910.50',
         services:[
             {
                 icon:'send_money',
@@ -65,8 +62,6 @@ class Home extends React.Component {
 
     }
 
-    handleToggleBalance = () => this.setState(prevState => ({show_balance:!prevState.show_balance}))
-
     handleGoToSendMoney = () => {
         //this.props.navigation.navigate('SendMoneyIndex')
         this.props.navigation.navigate('SendMoneyOnBoarding')
@@ -98,7 +93,7 @@ class Home extends React.Component {
 
     render() {
 
-        const {balance, services, show_balance, verification_level, promo, loading} = this.state
+        const {services, verification_level, promo, loading} = this.state
 
         return (
             <>
@@ -106,18 +101,7 @@ class Home extends React.Component {
                     <Text center>You are semi-verified. Tap to learn more.</Text>
                 </TouchableOpacity>
 
-                <View style={style.jumbo}>
-                    <Text center light md>Available Balance</Text>
-                    <Row>
-                        <Text rg light>Php</Text>
-                        <Spacer h xs />
-                        <Text b h3 light>{show_balance ? balance : '****.**'}</Text>
-                        <Spacer h sm />
-                        <TouchableOpacity onPress={this.handleToggleBalance}>
-                            <Entypo name={`eye${!show_balance ? '-with-line' : ''}`} size={Metrics.icon.rg} color={Colors.light} />
-                        </TouchableOpacity>
-                    </Row>
-                </View>
+                <Balance />
 
                 <Spacer />
 
@@ -141,11 +125,6 @@ const style = StyleSheet.create({
     topBanner: {
         backgroundColor:Colors.gray,
         paddingVertical:Metrics.rg
-    },
-    jumbo: {
-        alignItems:'center',
-        backgroundColor:Colors.dark,
-        paddingVertical:Metrics.xl
     },
     item: {
         justifyContent:'center',

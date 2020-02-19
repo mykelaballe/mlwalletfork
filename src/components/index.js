@@ -1,7 +1,6 @@
 import ActivityIndicator from './ActivityIndicator'
 import Avatar from './Avatar'
 import Balance from './Balance'
-import BrowseMediaModal from './BrowseMediaModal'
 import Bullet from './Bullet'
 import Button from './Button'
 import ButtonIcon from './ButtonIcon'
@@ -19,9 +18,7 @@ import HR from './HR'
 import Icon from './Icon'
 import Initial from './Initial'
 import ListItem from './ListItem'
-import Loader from './Loader'
 import LoadPromo from './LoadPromo'
-import Lottie from './Lottie'
 import Modal from './Modal'
 import MonthPicker from './MonthPicker'
 import Outline from './Outline'
@@ -48,7 +45,6 @@ export {
     ActivityIndicator,
     Avatar,
     Balance,
-    BrowseMediaModal,
     Bullet,
     Button,
     ButtonIcon,
@@ -66,9 +62,7 @@ export {
     Icon,
     Initial,
     ListItem,
-    Loader,
     LoadPromo,
-    Lottie,
     Modal,
     MonthPicker,
     Outline,

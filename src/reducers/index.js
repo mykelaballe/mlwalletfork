@@ -4,7 +4,6 @@ import AuthReducer from './AuthReducer'
 import FileReducer from './FileReducer'
 import NetworkReducer from './NetworkReducer'
 import NotificationReducer from './NotificationReducer'
-import ShopReducer from './ShopReducer'
 import UserReducer from './UserReducer'
 
 export default combineReducers({
@@ -13,8 +12,7 @@ export default combineReducers({
     user: UserReducer,
     file: FileReducer,
     network: NetworkReducer,
-    notification: NotificationReducer,
-    shop: ShopReducer
+    notification: NotificationReducer
 })
 
 export const persistentStoreBlacklist = []

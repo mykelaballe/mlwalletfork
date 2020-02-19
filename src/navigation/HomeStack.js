@@ -1,10 +1,10 @@
 import React from 'react'
 import {View} from 'react-native'
 import {createStackNavigator} from 'react-navigation-stack'
-import {createMaterialTopTabNavigator, createBottomTabNavigator} from 'react-navigation-tabs'
+import {createBottomTabNavigator} from 'react-navigation-tabs'
 import * as Scrn from '../screens'
 import {Icon} from '../components'
-import {Colors, Metrics, Res} from '../themes'
+import {Colors} from '../themes'
 
 const defaultNavigationOptions = {
     headerStyle: {
@@ -30,7 +30,6 @@ export default createBottomTabNavigator({
         navigationOptions: {
             tabBarLabel:'Home',
             tabBarIcon: ({focused}) => (
-                //<Icon name='ios-home' color={focused ? Colors.brand : Colors.black} size={Metrics.icon.sm} />
                 <Icon name={focused ? 'home_active' : 'home'} size={20} />
             )
         }

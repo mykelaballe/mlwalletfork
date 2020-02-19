@@ -52,21 +52,6 @@ import Types from './Types'
 
  const clearNotifications = () => ({ type: Types.CLEAR_NOTIFICATIONS })
 
- /*----------------------------------------------------------------------
- SHOP
- ----------------------------------------------------------------------*/
-
- const updateCart = items => ({ type: Types.UPDATE_CART, items })
-
- const addToCart = item => ({ type: Types.ADD_TO_CART, item })
-
- const removeFromCart = index => ({ type: Types.REMOVE_FROM_CART, index })
-
- const clearCart = () => ({ type: Types.CLEAR_CART })
-
-/**
- Makes available all the action creators we've created.
- */
 export default {
   startup,
 
@@ -86,9 +71,4 @@ export default {
 
   setNotifications,
   clearNotifications,
-
-  updateCart,
-  addToCart,
-  removeFromCart,
-  clearCart,
 }

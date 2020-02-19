@@ -1,5 +1,4 @@
-// A list of all actions in the system.
-import { createTypes } from 'reduxsauce'
+import {createTypes} from 'reduxsauce'
 
 export default createTypes(` 
   STARTUP
@@ -20,9 +19,4 @@ export default createTypes(`
 
   SET_NOTIFICATIONS
   CLEAR_NOTIFICATIONS
-
-  UPDATE_CART
-  ADD_TO_CART
-  REMOVE_FROM_CART
-  CLEAR_CART
 `)
