@@ -25,6 +25,27 @@ PODS:
     - DoubleConversion
     - glog
   - glog (0.3.5)
+  - Google-Maps-iOS-Utils (2.1.0):
+    - Google-Maps-iOS-Utils/Clustering (= 2.1.0)
+    - Google-Maps-iOS-Utils/Geometry (= 2.1.0)
+    - Google-Maps-iOS-Utils/Heatmap (= 2.1.0)
+    - Google-Maps-iOS-Utils/QuadTree (= 2.1.0)
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/Clustering (2.1.0):
+    - Google-Maps-iOS-Utils/QuadTree
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/Geometry (2.1.0):
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/Heatmap (2.1.0):
+    - Google-Maps-iOS-Utils/QuadTree
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/QuadTree (2.1.0):
+    - GoogleMaps
+  - GoogleMaps (3.2.0):
+    - GoogleMaps/Maps (= 3.2.0)
+  - GoogleMaps/Base (3.2.0)
+  - GoogleMaps/Maps (3.2.0):
+    - GoogleMaps/Base
   - JWT (3.0.0-beta.12):
     - Base64 (~> 1.1.2)
   - libwebp (1.1.0):
@@ -211,6 +232,10 @@ PODS:
     - React
   - react-native-fingerprint-scanner (3.0.2):
     - React
+  - react-native-google-maps (0.26.1):
+    - Google-Maps-iOS-Utils (= 2.1.0)
+    - GoogleMaps (= 3.2.0)
+    - React
   - react-native-maps (0.26.1):
     - React
   - react-native-netinfo (4.4.0):
@@ -290,6 +315,8 @@ DEPENDENCIES:
   - FBReactNativeSpec (from `../node_modules/react-native/Libraries/FBReactNativeSpec`)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
+  - Google-Maps-iOS-Utils
+  - GoogleMaps
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTRestart (from `../node_modules/react-native-restart/ios`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
@@ -304,6 +331,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-camera (from `../node_modules/react-native-camera`)
   - react-native-fingerprint-scanner (from `../node_modules/react-native-fingerprint-scanner`)
+  - react-native-google-maps (from `../node_modules/react-native-maps`)
   - react-native-maps (from `../node_modules/react-native-maps`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
@@ -331,14 +359,17 @@ DEPENDENCIES:
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - SSZipArchive
   trunk:
     - Base64
     - boost-for-react-native
+    - Google-Maps-iOS-Utils
+    - GoogleMaps
     - JWT
     - libwebp
     - SDWebImage
     - SDWebImageWebPCoder
-    - SSZipArchive
 
 EXTERNAL SOURCES:
   CodePush:
@@ -377,6 +408,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-camera"
   react-native-fingerprint-scanner:
     :path: "../node_modules/react-native-fingerprint-scanner"
+  react-native-google-maps:
+    :path: "../node_modules/react-native-maps"
   react-native-maps:
     :path: "../node_modules/react-native-maps"
   react-native-netinfo:
@@ -435,6 +468,8 @@ SPEC CHECKSUMS:
   FBReactNativeSpec: 5a764c60abdc3336a213e5310c40b74741f32839
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
+  Google-Maps-iOS-Utils: c32891ff472eaaa1fca032beedafa1a013af7875
+  GoogleMaps: 5046d7edfe381c1a0b20fdaf293915a375c3122b
   JWT: 9b5c05abbcc1a0e69c3c91e1655b3387fc7e581d
   libwebp: 946cb3063cea9236285f7e9a8505d806d30e07f3
   RCTRequired: c639d59ed389cfb1f1203f65c2ea946d8ec586e2
@@ -449,6 +484,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 111d7d342b07a904c400592e02a2b958f1098b60
   react-native-camera: c549d50495c989688ef1819dab49441c7dc7c17d
   react-native-fingerprint-scanner: 388acb4969b681a3f63fbec0c4b740d2b775a1dc
+  react-native-google-maps: 2e2e697dab576abd5809d78cd74e775865b62bf7
   react-native-maps: 6e499eee4eabf422ba8b6f94e993cc768bf35153
   react-native-netinfo: 6bb847e64f45a2d69c6173741111cfd95c669301
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
@@ -477,6 +513,6 @@ SPEC CHECKSUMS:
   TouchID: ba4c656d849cceabc2e4eef722dea5e55959ecf4
   Yoga: 14927e37bd25376d216b150ab2a561773d57911f
 
-PODFILE CHECKSUM: df77cd4fa5f1bc9d9ae8f7bdd00d785f25b77600
+PODFILE CHECKSUM: dbd0e7e6ae553670a71800b48f6eb345f49bced4
 
 COCOAPODS: 1.8.0.beta.1
