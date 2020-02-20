@@ -10,8 +10,8 @@ import {API} from '../services'
 class Scrn extends React.Component {
 
     state = {
-        username:'',
-        password:'',
+        username:'jadedev',
+        password:'123456',
         show_password:false,
         processing:false
     }
@@ -29,13 +29,19 @@ class Scrn extends React.Component {
 
             let payload = {
                 username,
-                password
+                password,
+                latitude:'1',
+                longitude:'1',
+                deviceid:1.1,
+                location:'adasd',
+                devicetype:'dasd',
+                version:8
             }
 
             if(username == '' || password == '') Say.some('Complete all fields')
             else {
                 let res = await API.login(payload)
-                if(res.error) Say.some(res.error_description)
+                if(res.error) Say.some(res.error)
                 else {
                     this.props.login()
                 }
@@ -44,6 +50,7 @@ class Scrn extends React.Component {
             this.setState({processing:false})
         }
         catch(err) {
+            //alert(err)
             this.setState({processing:false})
             Say.err('Something went wrong')
         }

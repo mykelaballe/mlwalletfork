@@ -1,5 +1,5 @@
 export default {
-	baseURL: 'http://192.168.19.30/',
+	baseURL: 'http://192.168.19.30/api/',
 	db:{
 		app: 'AppDB',
 		user: 'UserDB'
