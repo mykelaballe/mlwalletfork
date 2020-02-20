@@ -10,9 +10,10 @@ export default props => (
 
 const style = StyleSheet.create({
     container: {
-        minHeight:60,
+        //minHeight:60,
         justifyContent:'center',
-        padding:Metrics.rg,
+        paddingHorizontal:Metrics.rg,
+        paddingVertical:Metrics.lg,
         borderWidth:StyleSheet.hairlineWidth,
         borderColor:Colors.lightgray,
         borderRadius:Metrics.sm,

@@ -6,7 +6,6 @@ export default {
 	},
 	user_max_age:100,
 	user_min_age:18,
-	//transaction
 	tcn: {
 		stw: {
 			code:'stw',
