@@ -20,11 +20,11 @@ export default {
         return await Fetch.get('')
     },
 
-    getKPRates: async () => {
-        return await Fetch.get('getwalletcharge')
+    getRates: async () => {
+        return await Fetch.get('getchargevalues')
     },
 
-    getCashoutRates: async () => {
-
+    getNotifications: async params => {
+        return await Fetch.get(`getnotificationlist?walletno=${params.walletno}`)
     },
 }

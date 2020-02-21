@@ -1,10 +1,12 @@
 import React from 'react'
 import {View, StyleSheet, InteractionManager} from 'react-native'
+import {connect} from 'react-redux'
 import {FlatList, Avatar, Text, Row, Spacer, HR} from '../components'
-import {Colors, Metrics} from '../themes'
-import {_} from '../utils'
+import {Metrics} from '../themes'
+import {_, Say} from '../utils'
+import {API} from '../services'
 
-class Notification extends React.Component {
+class Scrn extends React.Component {
 
     static navigationOptions = {
         headerLeft:<View />,
@@ -13,39 +15,31 @@ class Notification extends React.Component {
 
     state = {
         list:[],
-        loading:true
+        loading:true,
+        refreshing:false
     }
 
     componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
 
     getData = async () => {
+        const {walletno} = this.props.user
         let list = []
 
         try {
-            list = [
-                {
-                    description:'You received a payment of PHP200.00 from Ashley',
-                    date:'02:58PM'
-                },
-                {
-                    description:'You received a payment of PHP100.00 from Ashley',
-                    date:'Yesterday'
-                },
-                {
-                    description:'Congratulations! You are now fully verified',
-                    date:'January 10, 2020'
-                }
-            ]
+            list = await API.getNotifications({walletno})
         }
         catch(err) {
-
+            Say.err(_('500'))
         }
 
         this.setState({
             list,
-            loading:false
+            loading:false,
+            refreshing:false
         })
     }
+
+    handleRefresh = () => this.setState({refreshing:true},this.getData)
 
     renderItem = ({item}) => (
         <>
@@ -53,7 +47,7 @@ class Notification extends React.Component {
                 <Avatar source={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToFBuZc9tvkOlcKAIKFA_D3PCLFc9w0X6wyH_ED8LD3lXNEnib&s'} />
                 <Spacer h />
                 <View style={{flex:1}}>
-                    <Text md>{item.description}</Text>
+                    <Text md>{item.message}</Text>
                     <Text sm mute>{item.date}</Text>
                 </View>
             </Row>
@@ -64,13 +58,15 @@ class Notification extends React.Component {
 
     render() {
 
-        const {list, loading} = this.state
+        const {list, loading, refreshing} = this.state
 
         return (
             <FlatList
                 data={list}
                 renderItem={this.renderItem}
                 loading={loading}
+                refreshing={refreshing}
+                onRefresh={this.handleRefresh}
             />
         )
     }
@@ -82,4 +78,8 @@ const style = StyleSheet.create({
     }
 })
 
-export default Notification
+mapStateToProps = state => ({
+    user: state.user.data
+})
+
+export default connect(mapStateToProps)(Scrn)

@@ -1,5 +1,6 @@
 import React from 'react'
 import {StyleSheet, View, TouchableOpacity} from 'react-native'
+import {connect} from 'react-redux'
 import {Row, Text, Spacer} from './'
 import {Colors, Metrics} from '../themes'
 import Icon from 'react-native-vector-icons/Entypo'
@@ -7,7 +8,7 @@ import Icon from 'react-native-vector-icons/Entypo'
 class Balance extends React.Component {
 
     state = {
-        balance:'910.50',
+        balance: this.props.user.balance,
         show: false
     }
 
@@ -42,4 +43,8 @@ const style = StyleSheet.create({
     },
 })
 
-export default Balance
+mapStateToProps = state => ({
+    user: state.user.data
+})
+
+export default connect(mapStateToProps)(Balance)

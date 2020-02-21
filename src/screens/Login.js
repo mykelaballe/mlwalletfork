@@ -10,8 +10,8 @@ import {API} from '../services'
 class Scrn extends React.Component {
 
     state = {
-        username:'jadedev',
-        password:'123456',
+        username:'',
+        password:'',
         show_password:false,
         processing:false
     }
@@ -38,11 +38,19 @@ class Scrn extends React.Component {
                 version:8
             }
 
-            if(username == '' || password == '') Say.some('Complete all fields')
+            if(username == '' || password == '') Say.some(_('8'))
             else {
                 let res = await API.login(payload)
-                if(res.error) Say.some(res.error)
+                const {error} = res
+                
+                if(error) {
+
+                    if(error === 'invalid_grant') Say.some(_('72'))
+                    else if(error === 'version_outofdate') return
+                    //else if(error === '') return
+                }
                 else {
+                    this.props.setUser(res)
                     this.props.login()
                 }
             }
@@ -50,9 +58,8 @@ class Scrn extends React.Component {
             this.setState({processing:false})
         }
         catch(err) {
-            //alert(err)
             this.setState({processing:false})
-            Say.err('Something went wrong')
+            Say.err(_('500'))
         }
     }
 
@@ -85,8 +92,8 @@ class Scrn extends React.Component {
                     <Spacer />
 
                     <View>
-                        <Text center b xl>Welcome back!</Text>
-                        <Text center mute md>Please login to your account.</Text>
+                        <Text center b xl>{_('54')}</Text>
+                        <Text center mute md>{_('55')}</Text>
                     </View>
 
                     <Spacer />
@@ -112,23 +119,23 @@ class Scrn extends React.Component {
                             autoCapitalize='none'
                             secureTextEntry={show_password ? false : true}
                             rightContent={
-                                <ButtonText color={Colors.gray} t={show_password ? 'Hide' : 'Show'} onPress={this.handleTogglePassword} />
+                                <ButtonText color={Colors.gray} t={show_password ? _('47') : _('48')} onPress={this.handleTogglePassword} />
                             }
                         />
 
                         <View style={{alignItems:'flex-end'}}>
-                            <ButtonText t='Forgot Password?' onPress={this.handleGoToForgotPassword} />
+                            <ButtonText t={`${_('4')}?`} onPress={this.handleGoToForgotPassword} />
                         </View>
 
                         <Spacer />
 
-                        <Button disabled={!ready} t='Login' onPress={this.handleLogin} loading={processing} />
+                        <Button disabled={!ready} t={_('5')} onPress={this.handleLogin} loading={processing} />
 
                         <Spacer />
 
                         <Row c>
-                            <Text>Don't have an account?</Text>
-                            <ButtonText t='Register here' onPress={this.handleGoToSignUp} />
+                            <Text>{_('7')}</Text>
+                            <ButtonText t={_('3')} onPress={this.handleGoToSignUp} />
                         </Row>
                     </View>
                 </Screen>
@@ -136,7 +143,7 @@ class Scrn extends React.Component {
                 <Footer>
                     <Row c>
                         <Icon name='fingerprint' size={Metrics.icon.rg} />
-                        <ButtonText t='Activate Touch ID' onPress={this.handleGoToTouchID} />
+                        <ButtonText t={_('45')} onPress={this.handleGoToTouchID} />
                     </Row>
                 </Footer>
             </>
@@ -157,7 +164,8 @@ const style = StyleSheet.create({
 
 mapDispatchToProps = dispatch => {
     return {
-        login:() => dispatch(Actions.login())
+        login:() => dispatch(Actions.login()),
+        setUser:user => dispatch(Actions.setUser(user))
     }
 }
 

@@ -1,11 +1,11 @@
 export default {
-	baseURL: 'http://192.168.19.30/api/',
+	baseURL:'http://192.168.19.30/api/',
 	db:{
-		app: 'AppDB',
-		user: 'UserDB'
+		app:'AppDB',
+		user:'UserDB'
 	},
 	user_max_age:100,
-	user_min_age:18,
+	user_min_age:16,
 	tcn: {
 		stw: {
 			code:'stw',

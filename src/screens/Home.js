@@ -1,9 +1,8 @@
 import React from 'react'
 import {View, StyleSheet, InteractionManager, TouchableOpacity, Dimensions, Image} from 'react-native'
 import {connect} from 'react-redux'
-import {Actions} from '../actions'
-import {Text, Row, Spacer, FlatList, Ripple, Icon, Balance} from '../components'
-import {Colors, Metrics, Res} from '../themes'
+import {Text, Spacer, FlatList, Ripple, Icon, Balance} from '../components'
+import {Colors, Metrics} from '../themes'
 import {_} from '../utils'
 
 const {width} = Dimensions.get('window')
