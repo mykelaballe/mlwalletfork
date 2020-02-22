@@ -1,13 +1,17 @@
 import React from 'react'
 import {View, StyleSheet} from 'react-native'
 import {Button, Text, Spacer, Icon} from '../components'
-import {Colors, Metrics, Res} from '../themes'
+import {Colors, Metrics} from '../themes'
 import AppIntroSlider from 'react-native-app-intro-slider'
 
 class ReceiveMoneyOnBoarding extends React.Component {
 
   static navigationOptions = {
-    header:null
+    headerStyle:{
+      backgroundColor:Colors.light,
+      elevation:0
+    },
+    headerTintColor:Colors.brand
   }
 
   state = {

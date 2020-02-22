@@ -44,7 +44,6 @@ class Scrn extends React.Component {
                 const {error} = res
                 
                 if(error) {
-
                     if(error === 'invalid_grant') Say.some(_('72'))
                     else if(error === 'version_outofdate') return
                     //else if(error === '') return

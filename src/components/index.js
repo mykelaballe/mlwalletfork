@@ -26,6 +26,7 @@ import Pill from './Pill'
 import Placeholder from './Placeholder'
 import Prompt from './Prompt'
 import Radio from './Radio'
+import Responder from './Responder'
 import Ripple from './Ripple'
 import Row from './Row'
 import Screen from './Screen'
@@ -70,6 +71,7 @@ export {
     Placeholder,
     Prompt,
     Radio,
+    Responder,
     Ripple,
     Row,
     Screen,

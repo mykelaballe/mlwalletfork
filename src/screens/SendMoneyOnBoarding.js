@@ -1,13 +1,17 @@
 import React from 'react'
 import {View, StyleSheet} from 'react-native'
 import {Button, Text, Spacer, Icon} from '../components'
-import {Colors, Metrics, Res} from '../themes'
+import {Colors, Metrics} from '../themes'
 import AppIntroSlider from 'react-native-app-intro-slider'
 
-class SendMoneyOnBoarding extends React.Component {
+export default class Scrn extends React.Component {
 
   static navigationOptions = {
-    header:null
+    headerStyle:{
+      backgroundColor:Colors.light,
+      elevation:0
+    },
+    headerTintColor:Colors.brand
   }
 
   state = {
@@ -95,5 +99,3 @@ const style = StyleSheet.create({
     backgroundColor:Colors.brand
   }
 })
-
-export default SendMoneyOnBoarding

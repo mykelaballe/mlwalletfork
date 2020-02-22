@@ -76,10 +76,7 @@ class More extends React.Component {
 
     handlePressContactUs = () => this.props.navigation.navigate('ContactUs')
 
-    handlePressLogout = async () => {
-        await Storage.doSave(Consts.db.user)
-        this.props.logout()
-    }
+    handlePressLogout = async () => this.props.logout()
 
     renderItems = ({item, index}) => (
         <Ripple style={style.item} onPress={item.onPress}>

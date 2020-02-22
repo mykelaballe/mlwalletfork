@@ -6,6 +6,7 @@ export default {
 	},
 	user_max_age:100,
 	user_min_age:16,
+	allowed_idle_time:120000,//seconds
 	tcn: {
 		stw: {
 			code:'stw',

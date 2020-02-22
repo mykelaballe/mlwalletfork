@@ -4,6 +4,13 @@ import Storage from '../utils/Storage'
 
 export default {
     login: async payload => {
+        return {
+            fname:'John',
+            mname:'F',
+            lname:'Smith',
+            walletno:'123456789',
+            balance:'1000'
+        }
         let res = await Fetch.post('login', {
             ...payload,
             grant_type:'password'

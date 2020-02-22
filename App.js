@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import Actions from './src/actions/Creators'
 import Navigation from './src/navigation'
 import {Colors} from './src/themes'
+import {Responder} from './src/components'
 import {Consts, Storage} from './src/utils'
 import NetInfo from '@react-native-community/netinfo'
 import SplashScreen from 'react-native-splash-screen'
@@ -67,18 +68,18 @@ class App extends React.Component {
   }
 
   checkUser = async () => {
+    const {setUser, login, logout, setIsFirstTime} = this.props
     let appData = await Storage.doLoad(Consts.db.app)
 
-    if(appData) {
-      this.props.setIsFirstTime(appData.isFirstTime)
-    }
+    if(appData) setIsFirstTime(appData.isFirstTime)
 
     let userData = await Storage.doLoad(Consts.db.user)
 
     if(userData) {
-      this.props.setUser(userData)
-      this.props.login()
+      setUser(userData)
+      login()
     }
+    else logout()
 
     this.setState({loading:false})
   }
@@ -106,14 +107,14 @@ class App extends React.Component {
 
     return (
       <Provider>
-        <View style={{flex:1}}>
+        <Responder>
           {!loading &&
           <>
             <StatusBar backgroundColor={Colors.brand} />
             <Navigation />
           </>
           }
-        </View>
+        </Responder>
       </Provider>
     )
   }
@@ -122,7 +123,8 @@ class App extends React.Component {
 mapStateToProps = state => {
   return {
     isFirstTime: state.app.isFirstTime,
-    isConnected: state.network.isConnected
+    isConnected: state.network.isConnected,
+    isLoggedIn: state.auth.isLoggedIn
   }
 }
 
@@ -130,6 +132,7 @@ mapDispatchToProps = dispatch => {
   return {
     setIsFirstTime: isFirstTime => dispatch(Actions.setIsFirstTime(isFirstTime)),
     login: () => dispatch(Actions.login()),
+    logout: () => dispatch(Actions.logout()),
     setUser: user => dispatch(Actions.setUser(user)),
     networkSuccess: () => dispatch(Actions.networkSuccess()),
     networkFailure: () => dispatch(Actions.networkFailure())
