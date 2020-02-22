@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Text, Button, ButtonText, Spacer, TextInput, Row, Icon, Screen, Footer} from '../components'
 import {Colors, Metrics, Res} from '../themes'
-import {_, Say} from '../utils'
+import {_, Say, Consts} from '../utils'
 import {API} from '../services'
 import TouchID from 'react-native-touch-id'
 
@@ -41,10 +41,10 @@ class Scrn extends React.Component {
                 password,
                 latitude:'1',
                 longitude:'1',
-                deviceid:1.1,
-                location:'adasd',
-                devicetype:'dasd',
-                version:8
+                deviceid:Consts.deviceId,
+                location:'Philippines',
+                devicetype:Consts.deviceType,
+                version:Consts.appVersion
             }
 
             if(username == '' || password == '') Say.some(_('8'))

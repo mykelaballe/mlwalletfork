@@ -1,12 +1,18 @@
+import DeviceInfo from 'react-native-device-info'
+
 export default {
 	baseURL:'http://192.168.19.30/api/',
+	deviceId:DeviceInfo.getDeviceId(),
+	deviceType:null,//DeviceInfo.getDeviceType().then(deviceType => deviceType),
+	appName:DeviceInfo.getApplicationName(),
+	appVersion:DeviceInfo.getVersion(),
 	db:{
 		app:'AppDB',
 		user:'UserDB'
 	},
 	user_max_age:100,
 	user_min_age:16,
-	allowed_idle_time:30000,//seconds
+	allowed_idle_time:30000,//in milliseconds
 	tcn: {
 		stw: {
 			code:'stw',

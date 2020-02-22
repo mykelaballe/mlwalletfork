@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import Actions from '../actions/Creators'
 import {Screen, Headline, Text, Button, ButtonText, Spacer, TextInput, Row, Footer} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_, Say} from '../utils'
+import {_, Say, Consts} from '../utils'
 import {API} from '../services'
 import Icon from 'react-native-vector-icons/Ionicons'
 
@@ -65,7 +65,7 @@ class Scrn extends React.Component {
                     
                     <Headline
                         title='Register'
-                        subtext='Register and avail of ML Wallet App services today'
+                        subtext={`Register and avail of ${Consts.appName} App services today`}
                     />
 
                     <TextInput
