@@ -1,76 +1,55 @@
 import React from 'react'
-import {View} from 'react-native'
 import {createStackNavigator} from 'react-navigation-stack'
 import {createBottomTabNavigator} from 'react-navigation-tabs'
 import * as Scrn from '../screens'
 import {Icon} from '../components'
-import {Colors} from '../themes'
+import {AppStyles, Colors} from '../themes'
 
-const defaultNavigationOptions = {
-    headerStyle: {
-        backgroundColor:Colors.brand
-    },
-    headerTitleStyle:{
-        flex:1,
-        color:Colors.light,
-        textAlign:'center',
-        fontFamily:'Lato'
-    },
-    headerTintColor:Colors.light,
-    headerRight:<View />
-}
+const ICON_SIZE = 20
 
 export default createBottomTabNavigator({
     Home: {
         screen:createStackNavigator({
             Home: Scrn.HomeScrn
         },{
-            defaultNavigationOptions
+            defaultNavigationOptions:AppStyles.defaultNavigationOptions
         }),
         navigationOptions: {
             tabBarLabel:'Home',
-            tabBarIcon: ({focused}) => (
-                <Icon name={focused ? 'home_active' : 'home'} size={20} />
-            )
+            tabBarIcon: ({focused}) => <Icon name={focused ? 'home_active' : 'home'} size={ICON_SIZE} />
         }
     },
     MyAccount: {
         screen:createStackNavigator({
             MyAccount: Scrn.MyAccountScrn
         },{
-            defaultNavigationOptions
+            defaultNavigationOptions:AppStyles.defaultNavigationOptions
         }),
         navigationOptions: {
             tabBarLabel:'My Account',
-            tabBarIcon: ({focused}) => (
-                <Icon name={focused ? 'user_active' : 'user'} size={20} />
-            )
+            tabBarIcon: ({focused}) => <Icon name={focused ? 'user_active' : 'user'} size={ICON_SIZE} />
         }
     },
     Notification: {
         screen:createStackNavigator({
             Notification: Scrn.NotificationScrn
         },{
-            defaultNavigationOptions
+            defaultNavigationOptions:AppStyles.defaultNavigationOptions
         }),
         navigationOptions: {
             tabBarLabel:'Notifications',
-            tabBarIcon: ({focused}) => (
-                <Icon name={focused ? 'bell_active' : 'bell'} size={20} />
-            )
+            tabBarIcon: ({focused}) => <Icon name={focused ? 'bell_active' : 'bell'} size={ICON_SIZE} />
         }
     },
     More: {
         screen:createStackNavigator({
             More: Scrn.MoreScrn
         },{
-            defaultNavigationOptions
+            defaultNavigationOptions:AppStyles.defaultNavigationOptions
         }),
         navigationOptions: {
             tabBarLabel:'More',
-            tabBarIcon: ({focused}) => (
-                <Icon name='hamburger' size={20} />
-            )
+            tabBarIcon: () => <Icon name='hamburger' size={ICON_SIZE} />
         }
     },
 },{

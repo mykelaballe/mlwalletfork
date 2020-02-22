@@ -1,8 +1,6 @@
-import React from 'react'
-import {View} from 'react-native'
 import {createStackNavigator} from 'react-navigation-stack'
 import HomeStack from './HomeStack'
-import {Colors} from '../themes'
+import {AppStyles} from '../themes'
 import * as Scrn from '../screens'
 
 export default createStackNavigator({
@@ -86,16 +84,5 @@ export default createStackNavigator({
 
     ComingSoon: Scrn.ComingSoonScrn,
 },{
-    defaultNavigationOptions: {
-        headerStyle: {
-            backgroundColor:Colors.brand
-        },
-        headerTitleStyle: {
-            color:Colors.light,
-            textAlign:'center',
-            flex:1
-        },
-        headerTintColor:Colors.light,
-        headerRight:<View />
-    }
+    defaultNavigationOptions: AppStyles.defaultNavigationOptions
 })
