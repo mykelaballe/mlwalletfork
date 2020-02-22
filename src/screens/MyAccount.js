@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, StyleSheet, TouchableOpacity} from 'react-native'
+import {View, StyleSheet, TouchableOpacity, Alert} from 'react-native'
 import {ScrollView, Text, Row, Spacer, HR, Avatar, TopBuffer, Button, Prompt} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_} from '../utils'
@@ -22,6 +22,13 @@ class Scrn extends React.Component {
         email:'johndoe@gmail.com',
         verification_level:1,
         showWarning:false
+    }
+
+    componentDidMount = () => {
+        Alert.alert(
+            'Attention!',
+            "This is sensitive personal information.\nPlease be careful in sharing these for your account's security"
+        )
     }
 
     handleGoToVerificationLevels = () => this.props.navigation.navigate('VerificationLevels')

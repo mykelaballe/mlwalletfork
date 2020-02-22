@@ -4,6 +4,7 @@ export default createTypes(`
   STARTUP
 
   SET_IS_FIRST_TIME
+  SET_IS_USING_TOUCH_ID
 
   LOGIN
   LOGOUT

@@ -1,11 +1,20 @@
 import React from 'react'
-import {View, StyleSheet, Image} from 'react-native'
+import {View, StyleSheet, Image, ImageBackground} from 'react-native'
 import {connect} from 'react-redux'
-import Actions from '../actions/Creators'
+import {Creators} from '../actions'
 import {Text, Button, ButtonText, Spacer, TextInput, Row, Icon, Screen, Footer} from '../components'
 import {Colors, Metrics, Res} from '../themes'
 import {_, Say} from '../utils'
 import {API} from '../services'
+import TouchID from 'react-native-touch-id'
+
+//config is optional to be passed in on Android
+const touchIDConfig = {
+    title: 'Fingerprint Login', // Android
+    imageColor: Colors.dark, // Android,
+    imageErrorColor: Colors.danger, //Android
+    fallbackLabel: "Show Passcode" // iOS (if empty, then label is hidden)
+}
 
 class Scrn extends React.Component {
 
@@ -62,7 +71,22 @@ class Scrn extends React.Component {
         }
     }
 
-    handleGoToTouchID = () => this.props.navigation.navigate('TouchID')
+    handleTouchID = () => {
+        const {login, isUsingTouchID} = this.props
+
+        if(isUsingTouchID) {
+            TouchID.authenticate('Place your finger on the fingerprint scanner to verify your identity', touchIDConfig)
+            .then(success => {
+                login()
+            })
+            .catch(err => {
+                alert(err)
+            })
+        }
+        else {
+            this.props.navigation.navigate('TouchID')
+        }
+    }
 
     handleGoToForgotPassword = () => this.props.navigation.navigate('ForgotPassword')
 
@@ -78,6 +102,7 @@ class Scrn extends React.Component {
 
     render() {
 
+        const {isUsingTouchID} = this.props
         const {username, password, show_password, processing} = this.state
         let ready = false
 
@@ -85,7 +110,9 @@ class Scrn extends React.Component {
 
         return (
             <>  
-                <Image source={require('../res/login_header.png')} resizeMode='cover' style={style.banner} />
+                <ImageBackground source={require('../res/login_header.png')} resizeMode='cover' style={style.banner}>
+                    <Image source={require('../res/logo_white.png')} resizeMode='contain' style={{width:undefined,height:60}} />
+                </ImageBackground>
                 
                 <Screen>
                     <Spacer />
@@ -142,7 +169,7 @@ class Scrn extends React.Component {
                 <Footer>
                     <Row c>
                         <Icon name='fingerprint' size={Metrics.icon.rg} />
-                        <ButtonText t={_('45')} onPress={this.handleGoToTouchID} />
+                        <ButtonText t={isUsingTouchID ? _('46') : _('45')} onPress={this.handleTouchID} />
                     </Row>
                 </Footer>
             </>
@@ -153,7 +180,8 @@ class Scrn extends React.Component {
 const style = StyleSheet.create({
     banner: {
         width:undefined,
-        height:200
+        height:200,
+        justifyContent:'center'
     },
     midContainer: {
         flex:1,
@@ -161,11 +189,13 @@ const style = StyleSheet.create({
     }
 })
 
-mapDispatchToProps = dispatch => {
-    return {
-        login:() => dispatch(Actions.login()),
-        setUser:user => dispatch(Actions.setUser(user))
-    }
-}
+const mapStateToProps = state => ({
+    isUsingTouchID: state.app.isUsingTouchID
+})
 
-export default connect(null, mapDispatchToProps)(Scrn)
+const mapDispatchToProps = dispatch => ({
+    login:() => dispatch(Creators.login()),
+    setUser:user => dispatch(Creators.setUser(user))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

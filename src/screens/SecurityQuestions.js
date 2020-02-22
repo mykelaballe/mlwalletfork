@@ -4,6 +4,8 @@ import {FlatList, Text, Ripple, HR} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_} from '../utils'
 
+import questions from '../services/security_questions'
+
 class Scrn extends React.Component {
 
     static navigationOptions = {
@@ -21,47 +23,7 @@ class Scrn extends React.Component {
         let list = []
 
         try {
-            list = [
-                {
-                    question:"What is your mother's maiden name?"
-                },
-                {
-                    question:"In what city did you live on your third grade?"
-                },
-                {
-                    question:"What is your nickname?"
-                },
-                {
-                    question:"In what city did you meet your spouse?"
-                },
-                {
-                    question:"What is your favorite restaurant?"
-                },
-                {
-                    question:"Who was your childhood bestfriend?"
-                },
-                {
-                    question:"What was the name of your first pet?"
-                },
-                {
-                    question:"Who is your favorite teacher?"
-                },
-                {
-                    question:"Who is your favorite teacher?"
-                },
-                {
-                    question:"In what city your father was born?"
-                },
-                {
-                    question:"What was your first teacher's name?"
-                },
-                {
-                    question:"What was your first phone number?"
-                },
-                {
-                    question:"What is your oldest sibling's nickname?"
-                }
-            ]
+            list = questions
         }
         catch(err) {
 
@@ -80,7 +42,7 @@ class Scrn extends React.Component {
     renderItem = ({item, index}) => (
         <>
             <Ripple onPress={() => this.handleSelect(item)} style={style.item}>
-                <Text>{item.question}</Text>
+                <Text md>{item}</Text>
             </Ripple>
 
             <HR />

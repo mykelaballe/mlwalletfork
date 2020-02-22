@@ -6,6 +6,7 @@ import {Screen, Headline, Text, Button, ButtonText, Spacer, TextInput, Row, Foot
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
 import {API} from '../services'
+import Icon from 'react-native-vector-icons/Ionicons'
 
 class Scrn extends React.Component {
 
@@ -64,7 +65,7 @@ class Scrn extends React.Component {
                     
                     <Headline
                         title='Register'
-                        subtext='Create an account to avail of the services ML Wallet app has to offer'
+                        subtext='Register and avail of ML Wallet App services today'
                     />
 
                     <TextInput
@@ -76,6 +77,20 @@ class Scrn extends React.Component {
                         autoCapitalize='none'
                         returnKeyType='next'
                     />
+
+                    <View style={style.error}>
+                        <Row>
+                            <Icon name='ios-checkmark-circle' color={Colors.success} size={Metrics.icon.sm} />
+                            <Spacer h sm />
+                            <Text mute>Minimum of 8 characters in length</Text>
+                        </Row>
+                        <Spacer xs />
+                        <Row>
+                            <Icon name='ios-close-circle' color={Colors.brand} size={Metrics.icon.sm} />
+                            <Spacer h sm />
+                            <Text mute>Combination of letters and numbers</Text>
+                        </Row>
+                    </View>
 
                     <TextInput
                         ref='password'
@@ -91,7 +106,7 @@ class Scrn extends React.Component {
                         }
                     />
 
-                    {/*<View style={style.error}>
+                    <View style={style.error}>
                         <Row>
                             <Icon name='ios-checkmark-circle' color={Colors.success} size={Metrics.icon.sm} />
                             <Spacer h sm />
@@ -109,7 +124,7 @@ class Scrn extends React.Component {
                             <Spacer h sm />
                             <Text mute>At least one special character (!@#$%)</Text>
                         </Row>
-                    </View>*/}
+                    </View>
 
                     <TextInput
                         ref='confirm_password'

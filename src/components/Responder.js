@@ -44,11 +44,11 @@ class Responder extends React.Component {
   showPrompt = () => {
     if(this.props.isLoggedIn) {
         Storage.doSave(Consts.db.user)
-        this.setState({showPrompt:true})
+        this.setState({showPrompt:true},() => this.props.logout())
     }
   }
 
-  handleDismiss = () => this.setState({showPrompt:false},() => this.props.logout())
+  handleDismiss = () => this.setState({showPrompt:false})
 
   render() {
 

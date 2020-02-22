@@ -49,7 +49,7 @@ class AddKPReceiver extends React.Component {
         }
         catch(err) {
             this.setState({processing:false})
-            Say.err(_('18'))
+            Say.err(_('500'))
         }
     }
 
@@ -62,7 +62,7 @@ class AddKPReceiver extends React.Component {
 
         return (
             <View style={style.container}>
-                <Text center>Please ensure that the inputted wallet account number is correct.</Text>
+                <Text center>Please ensure that the ML Wallet account number entered is correct.</Text>
 
                 <Spacer />
 

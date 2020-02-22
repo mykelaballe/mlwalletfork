@@ -6,6 +6,7 @@ import Button from './Button'
 import ButtonIcon from './ButtonIcon'
 import ButtonText from './ButtonText'
 import Card from './Card'
+import Checkbox from './Checkbox'
 import CollapsibleItem from './CollapsibleItem'
 import DayPicker from './DayPicker'
 import DynamicStaticInput from './DynamicStaticInput'
@@ -51,6 +52,7 @@ export {
     ButtonIcon,
     ButtonText,
     Card,
+    Checkbox,
     CollapsibleItem,
     DayPicker,
     DynamicStaticInput,

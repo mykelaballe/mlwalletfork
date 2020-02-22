@@ -36,9 +36,9 @@ export default class Scrn extends React.Component {
                     <Spacer />
                     <Button light t={_('18')} mode='outlined' contentStyle={style.btnContent} style={style.btn} onPress={this.handleGoToSignUp} />
 
-                    <Button t='Cebuano' onPress={() => this.handleChangeLang('ceb')} />
+                    {/*<Button t='Cebuano' onPress={() => this.handleChangeLang('ceb')} />
                     <Button t='Tagalog' onPress={() => this.handleChangeLang('tgl')} />
-                    <Button t='English' onPress={() => this.handleChangeLang('en')} />
+                    <Button t='English' onPress={() => this.handleChangeLang('en')} />*/}
                 </View>
             </View>
         )

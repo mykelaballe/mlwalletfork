@@ -48,7 +48,7 @@ class Scrn extends React.Component {
                 <Screen>
                     <SignUpStepsTracker step={5} />
 
-                    <Headline subtext='Enter your mobile number so we can send you the verification code' />
+                    <Headline subtext='Please enter your mobile number for the verification code.' />
 
                     <TextInput
                         label={'Mobile No.'}

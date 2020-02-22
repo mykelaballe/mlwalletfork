@@ -20,7 +20,7 @@ class PayBillsOnBoarding extends React.Component {
       {
         key: 'one',
         title: 'Pay Bills',
-        text: 'Quick and convenient way of paying bills.'
+        text: 'Pay your bills fast through the ML Wallet App.'
       }
     ]
   }

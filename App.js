@@ -79,7 +79,7 @@ class App extends React.Component {
       setUser(userData)
       login()
     }
-    else logout()
+    //else logout()
 
     this.setState({loading:false})
   }

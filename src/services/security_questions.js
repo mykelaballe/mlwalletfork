@@ -1,12 +1,12 @@
 export default [
-    "In what city did you meet your spouse / significant other?",
-    "What is the name of your favorite childhood friend?",
-    "What street did you live on, in the third grade?",
-    "What is your oldest sibling's birthday month and year?",
-    "What is the middle name of your youngest child?",
-    "What is your oldest sibling's middle name?",
-    "What school did you attend for sixth grade?",
-    "What is your oldest cousin's first and last name?",
-    "What was the name of your first stuffed animal?",
-    "In what city or town did your mother and father meet?"
+    "In what city did you meet your partner/spouse?",
+    "What was the name of your first pet?",
+    "What is your childhood nickname?",
+    "What was the first live concert you attended?",
+    "What elementary school did you attend in Grade 6?",
+    "What year did you graduate from high school?",
+    "Where were you when you had your first kiss?",
+    "What is the name of your childhood bestfriend?",
+    "In what city does your older brother or sister live?",
+    "What was the name of the person who first broke your heart?"
 ]

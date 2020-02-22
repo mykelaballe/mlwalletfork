@@ -1,6 +1,6 @@
 import React from 'react'
 import {StyleSheet, View, Linking} from 'react-native'
-import {Text, Card, HR, Ripple, Spacer, Row, ScrollView, Icon} from '../components'
+import {Text, Card, Ripple, Spacer, Row, ScrollView, Icon} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
 import {Portal, Modal} from 'react-native-paper'
@@ -13,7 +13,7 @@ const RippleItem = props => (
     </Ripple>
 )
 
-class ContactUsScreen extends React.Component {
+class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Contact Us'
@@ -89,7 +89,7 @@ class ContactUsScreen extends React.Component {
                     <Spacer sm />
                     <RippleItem onPress={this.handleCall} value={'1-800-1-0572-3252'} style={style.item}>
                         <Row>
-                            <Icon name='phone' style={{width:25,height:25}} />
+                            <Icon name='phone' style={style.icon} />
                             <Spacer h sm />
                             <Text md>1-800-1-0572-3252</Text>
                         </Row>
@@ -97,45 +97,47 @@ class ContactUsScreen extends React.Component {
                 </Card>
 
                 <Card style={style.card}>
-                    <Text b lg>Visayas and Mindanao</Text>
+                    <Text b lg>Trunk Line</Text>
+
                     <Spacer sm />
-                    <RippleItem onPress={this.handleCall} value={'1-800-1-0572-3252'} style={style.item}>
-                        <Row>
-                            <Icon name='phone' style={{width:25,height:25}} />
-                            <Spacer h sm />
-                            <Text md>(02) 830-2011</Text>
-                        </Row>
-                    </RippleItem>
-
-                    <Spacer xs />
 
                     <RippleItem onPress={this.handleCall} value={'1-800-1-0572-3252'} style={style.item}>
                         <Row>
-                            <Icon name='phone' style={{width:25,height:25}} />
+                            <Icon name='phone' style={style.icon} />
                             <Spacer h sm />
-                            <Text md>(02) 830-2011</Text>
+                            <Text md>(032) 260-9290</Text>
                         </Row>
                     </RippleItem>
                 </Card>
 
-                {/*<Card style={style.card}>
-                    <Text b lg>USA</Text>
+                <Card style={style.card}>
+                    <Text b lg>Mobile No.</Text>
+
                     <Spacer sm />
+
                     <RippleItem onPress={this.handleCall} value={'1-800-1-0572-3252'} style={style.item}>
                         <Row>
-                            <Icon name='phone' style={{width:25,height:25}} />
+                            <Icon name='phone' style={style.icon} />
                             <Spacer h sm />
-                            <Text md>1-877-688-4588</Text>
+                            <Text md>Smart: 0947-999-0337</Text>
                         </Row>
                     </RippleItem>
-                </Card>*/}
+
+                    <RippleItem onPress={this.handleCall} value={'1-800-1-0572-3252'} style={style.item}>
+                        <Row>
+                            <Icon name='phone' style={style.icon} />
+                            <Spacer h sm />
+                            <Text md>Globe: 0917-871-2973</Text>
+                        </Row>
+                    </RippleItem>
+                </Card>
 
                 <Card style={style.card}>
                     <Text b lg>Email</Text>
                     <Spacer sm />
                     <RippleItem onPress={this.handleEmail} value={'1-800-1-0572-3252'} style={style.item}>
                         <Row>
-                            <Icon name='mail' style={{width:25,height:25}} />
+                            <Icon name='mail' style={style.icon} />
                             <Spacer h sm />
                             <Text md>customercare@mlhuillier.com</Text>
                         </Row>
@@ -145,64 +147,14 @@ class ContactUsScreen extends React.Component {
                 <Card style={style.card}>
                     <Text b lg>Facebook Page</Text>
                     <Spacer sm />
-                    <RippleItem onPress={() => {}} value={'1-800-1-0572-3252'} style={style.item}>
+                    <View style={style.item}>
                         <Row>
-                            <Icon name='fb' style={{width:25,height:25}} />
+                            <Icon name='fb' style={style.icon} />
                             <Spacer h sm />
                             <Text md>M Lhuillier Financial Services Inc.</Text>
                         </Row>
-                    </RippleItem>
-                </Card>
-
-                {/*<Card>
-                    <Text b lg brand>{_('33')}</Text>
-                    <HR />
-                    <RippleItem onPress={this.handleEmail} value={'customercare@mlhuillier1.com'} style={style.item}>
-                        <Row bw>
-                            <Text>customercare@mlhuillier1.com</Text>
-                        </Row>
-                    </RippleItem>
-
-                    <RippleItem onPress={this.handleEmail} value={'mis.vismin@mlhuillier1.com'} style={style.item}>
-                        <Row bw>
-                            <Text>mis.vismin@mlhuillier1.com</Text>
-                        </Row>
-                    </RippleItem>
-                </Card>
-
-                <Card>
-                    <Text b lg brand>{_('32')}, {_('34')} & {_('35')}</Text>
-                    <HR />
-                    <View style={style.item}>
-                        <Text b>{_('38')}:</Text>
                     </View>
-                    <RippleItem onPress={this.handleShowModal} value={'0947 999 0337'} style={style.item}>
-                        <Row bw>
-                            <Text>0947 999 0337</Text>
-                        </Row>
-                    </RippleItem>
-                    <RippleItem onPress={this.handleShowModal} value={'0917 871 2973'} style={style.item}>
-                        <Row bw>
-                            <Text>0917 871 2973</Text>
-                        </Row>
-                    </RippleItem>
-                    
-                    <View style={style.item}>
-                        <Text b>{_('39')}:</Text>
-                    </View>
-                    <RippleItem onPress={this.handleShowModal} value={'0947 999 2754'} style={style.item}>
-                        <Row bw>
-                            <Text>0947 999 2754</Text>
-                        </Row>
-                    </RippleItem>
-                    <RippleItem onPress={this.handleShowModal} value={'0947 999 2755'} style={style.item}>
-                        <Row bw>
-                            <Text>0947 999 2755</Text>
-                        </Row>
-                    </RippleItem>
                 </Card>
-
-                <Spacer />*/}
             </ScrollView>
         )
     }
@@ -228,7 +180,11 @@ const style = StyleSheet.create({
     modalInnerContainer: {
         alignItems:'center',
         justifyContent:'center'
+    },
+    icon: {
+        width:25,
+        height:25
     }
 })
 
-export default ContactUsScreen
+export default Scrn

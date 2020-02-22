@@ -83,7 +83,7 @@ class PayBill extends React.Component {
                 </View>
                 
                 <View style={style.footer}>
-                    <Text mute>Note: Service charge and Biller's Convenience fee may apply.</Text>
+                    <Text mute>Note: Fees and charges may apply.</Text>
                     <Spacer />
                     <Button disabled={!ready} t={Consts.tcn[type].submit_text} onPress={this.handlePay} />
                 </View>

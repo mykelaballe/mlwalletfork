@@ -2,11 +2,11 @@ import React from 'react'
 import {View, TouchableOpacity} from 'react-native'
 import {connect} from 'react-redux'
 import Actions from '../actions/Creators'
-import {Screen, Footer, Headline, Text, Button, Spacer, Row, DynamicStaticInput, StaticInput, SignUpStepsTracker, Radio, MonthPicker, DayPicker, YearPicker} from '../components'
+import {Screen, Footer, Headline, Text, Button, Spacer, Row, Checkbox, DynamicStaticInput, StaticInput, SignUpStepsTracker, Radio, MonthPicker, DayPicker, YearPicker} from '../components'
 import {Colors} from '../themes'
 import {_, Say} from '../utils'
 import {API} from '../services'
-import {Provider, RadioButton, Checkbox} from 'react-native-paper'
+import {Provider, RadioButton} from 'react-native-paper'
 
 const moment = require('moment')
 
@@ -302,7 +302,7 @@ class Scrn extends React.Component {
                     <Spacer />
 
                     <Row>
-                        <Checkbox color={Colors.brand} status={agree ? 'checked' : 'unchecked'} onPress={this.handleToggleTerms} />
+                        <Checkbox status={agree} onPress={this.handleToggleTerms} />
                         
                         <Spacer h xs />
                         

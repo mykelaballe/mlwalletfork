@@ -20,7 +20,7 @@ class WithdrawCashOnBoarding extends React.Component {
       {
         key: 'one',
         title: 'Withdraw Cash',
-        text: 'Convenient way of withdrawing your cash from any M Lhuillier branch.'
+        text: 'Withdraw cash for free from your ML Wallet account from any M Lhuillier branch nationwide.'
       }
     ]
   }

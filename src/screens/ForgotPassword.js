@@ -31,7 +31,7 @@ export default class Scrn extends React.Component {
         }
         catch(err) {
             this.setState({processing:false})
-            Say.err('Something went wrong')
+            Say.err(_('500'))
         }
     }
 
@@ -44,7 +44,7 @@ export default class Scrn extends React.Component {
                 <Screen>
                     <Headline
                         title='Forgot Password'
-                        subtext='Input the number you used to register to ML Wallet to reset your password'
+                        subtext='To reset your password, please enter your registered Username.'
                     />
 
                     <TextInput
@@ -56,7 +56,7 @@ export default class Scrn extends React.Component {
                 </Screen>
 
                 <Footer>
-                    <Button disabled={!username} t='Next' onPress={this.handleNext} loading={processing} />
+                    <Button disabled={!username} t={_('62')} onPress={this.handleNext} loading={processing} />
                 </Footer>
             </>
         )

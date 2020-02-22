@@ -2,10 +2,12 @@ import React from 'react'
 import {Screen, Footer, Headline, Text, Button, ButtonText, Spacer, TextInput} from '../components'
 import {_, Say} from '../utils'
 import {API} from '../services'
+import questions from '../services/security_questions'
 
 export default class Scrn extends React.Component {
 
     state = {
+        question:questions[parseInt(Math.random() * questions.length)],
         answer:'',
         processing:false,
         error:''
@@ -41,14 +43,14 @@ export default class Scrn extends React.Component {
 
     render() {
 
-        const {answer, processing, error} = this.state
+        const {question, answer, processing, error} = this.state
 
         return (
             <>
                 <Screen>
                     <Headline
                         title='Security Question'
-                        subtext="What is your mother's maiden name?"
+                        subtext={question}
                     />
 
                     <TextInput

@@ -20,7 +20,7 @@ class PayBillsOnBoarding extends React.Component {
       {
         key: 'one',
         title: 'Buy Load',
-        text: 'Buy load anywhere and anytime through the ML Wallet App.'
+        text: 'Buy prepaid mobile load anytime, anywhere through the ML Wallet App.'
       }
     ]
   }

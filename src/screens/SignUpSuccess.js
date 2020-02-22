@@ -26,37 +26,23 @@ class Scrn extends React.Component {
                         <Image source={Res.trophy} style={{width:120,height:120}} resizeMode='contain' />
                     </View>
 
-                    <Headline title='Congratulations!' />
+                    <Headline title='Congratulations, Juana!' />
                     
-                    <Text center>You are now registered.</Text>
-                    <Text center>This is your ML wallet ID number</Text>
-
-                    <Spacer sm />
-
-                    <Text center md b>1911-000-32519-34</Text>
-
-                    <Spacer sm />
-
-                    <Text center>For you to enjoy all ML Wallet services, please perform the next steps:</Text>
-
-                    <Spacer lg />
-
-                    <Text b>Step 1</Text>
-                    <Text>Visit any M Lhuillier branch.</Text>
+                    <Text center>You are now registered as a</Text>
+                    <Text center b>Semi-Verified User.</Text>
 
                     <Spacer />
 
-                    <Text b>Step 2</Text>
-                    <Text>Present your ML Wallet ID number to the branch personnel.</Text>
+                    <Text center>Please remember your</Text>
+                    <Text center>ML Wallet Account number</Text>
 
-                    <Spacer />
+                    <Spacer sm />
 
-                    <Text b>Step 3</Text>
-                    <Text>Present your ML Wallet ID number to the branch personnel.</Text>
+                    <Text center b>1911-0000-2519-34</Text>
                 </Screen>
             
                 <Footer>
-                    <Button t='Go to Login' onPress={this.handleGoToLogin} />
+                    <Button t='Start using the ML Wallet App!' onPress={this.handleGoToLogin} />
                 </Footer>
             </>
         )

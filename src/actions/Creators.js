@@ -12,6 +12,8 @@ import Types from './Types'
  
  const setIsFirstTime = isFirstTime => ({ type: Types.SET_IS_FIRST_TIME, isFirstTime })
 
+ const setIsUsingTouchID = isUsingTouchID => ({ type: Types.SET_IS_USING_TOUCH_ID, isUsingTouchID })
+
  /*----------------------------------------------------------------------
  AUTHENTICATION
  ----------------------------------------------------------------------*/
@@ -56,6 +58,7 @@ export default {
   startup,
 
   setIsFirstTime,
+  setIsUsingTouchID,
 
   login,
   logout,

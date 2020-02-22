@@ -63,7 +63,7 @@ class Scrn extends React.Component {
                     <SignUpStepsTracker step={4} />
 
                     <Headline
-                        subtext='Choose security questions below. These questions will help us verify your identity if you need to reset your password'
+                        subtext='To help us verify your identity in case you forget your password, please choose a security question below.'
                     />
 
                     <StaticInput

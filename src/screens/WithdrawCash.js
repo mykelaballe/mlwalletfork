@@ -47,7 +47,7 @@ class WithdrawCash extends React.Component {
 
                     <Spacer md />
 
-                    <Text center mute>Enter amount to be withdrawn and show the transaction no. to the nearest M Lhuillier branch.</Text>
+                    <Text center mute>Enter amount to be withdrawn.</Text>
 
                     <Spacer />
 

@@ -13,7 +13,7 @@ class ReceiveMoneyInternational extends React.Component {
 
     state = {
         transaction_no:'',
-        currency:'United States Dollar (USD)',
+        currency:'PHP',
         amount:'',
         partner:'Bank of Commerce',
         sender:''

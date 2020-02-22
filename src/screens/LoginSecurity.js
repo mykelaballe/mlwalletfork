@@ -1,18 +1,19 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager, TouchableOpacity} from 'react-native'
-import {ScrollView, Text, Row, Spacer, ButtonText, Ripple, TopBuffer, Switch, HR, Prompt} from '../components'
+import {View, StyleSheet, TouchableOpacity} from 'react-native'
+import {connect} from 'react-redux'
+import {Creators} from '../actions'
+import {Text, Row, TopBuffer, Switch, HR, Prompt} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_} from '../utils'
 import Icon from 'react-native-vector-icons/Ionicons'
 
-class LoginSecurity extends React.Component {
+class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Login and Security'
     }
 
     state = {
-        touch_id:false,
         showSuccessModal:false,
         successModalMsg:''
     }
@@ -20,16 +21,19 @@ class LoginSecurity extends React.Component {
     handlePressChangePassword = () => this.props.navigation.navigate('ChangePassword')
 
     handleToggleTouchID = () => {
-        let {touch_id} = this.state
+        let {isUsingTouchID, setIsUsingTouchID} = this.props
         let successModalMsg = ''
-        
-        touch_id = !touch_id
 
-        if(touch_id) successModalMsg = "You've successfully activated your Touch ID"
-        else successModalMsg = "You've successfully deactivated your Touch ID"
+        if(isUsingTouchID) {
+            setIsUsingTouchID(false)
+            successModalMsg = "You've successfully activated your Touch ID"
+        }
+        else {
+            setIsUsingTouchID(true)
+            successModalMsg = "You've successfully deactivated your Touch ID"
+        }
 
         this.setState({
-            touch_id,
             showSuccessModal:true,
             successModalMsg
         })
@@ -39,7 +43,8 @@ class LoginSecurity extends React.Component {
 
     render() {
 
-        const {touch_id, showSuccessModal, successModalMsg} = this.state
+        const {isUsingTouchID} = this.props
+        const {showSuccessModal, successModalMsg} = this.state
 
         return (
             <View>
@@ -66,7 +71,7 @@ class LoginSecurity extends React.Component {
                 <TouchableOpacity onPress={this.handleToggleTouchID} style={style.item}>
                     <Row bw>
                         <Text md mute>Touch ID</Text>
-                        <Switch value={touch_id} onValueChange={this.handleToggleTouchID} />
+                        <Switch value={isUsingTouchID} onValueChange={this.handleToggleTouchID} />
                     </Row>
                     <HR m={Metrics.rg} />
                 </TouchableOpacity>
@@ -81,4 +86,12 @@ const style = StyleSheet.create({
     }
 })
 
-export default LoginSecurity
+const mapStateToProps = state => ({
+    isUsingTouchID: state.app.isUsingTouchID
+})
+
+const mapDispatchToProps = dispatch => ({
+    setIsUsingTouchID:isUsingTouchID =>dispatch(Creators.setIsUsingTouchID(isUsingTouchID))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

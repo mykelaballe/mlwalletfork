@@ -30,7 +30,7 @@ export default class Scrn extends React.Component {
       {
         key: 'three',
         title: 'Bank Transfer',
-        text: 'Transferring money from one bank account to another made easy.'
+        text: 'Transferring money from your ML Wallet to banks made easy.'
       }
     ]
   }

@@ -1,25 +1,24 @@
 import React from 'react'
 import {View} from 'react-native'
+import {connect} from 'react-redux'
+import {Creators} from '../actions'
 import {Screen, Footer, Headline, Text, Button, Icon, Prompt} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
 import {API} from '../services'
 
-export default class Scrn extends React.Component {
+class Scrn extends React.Component {
 
     state = {
-        activated:false,
         showSuccessModal:false
     }
 
     handleActivate = async () => {
-        this.setState({
-            activated:true,
-            showSuccessModal:true
-        })
+        this.props.setIsUsingTouchID(true)
+        this.setState({showSuccessModal:true})
     }
 
-    handleDeactivate = async () => this.setState({activated:false})
+    handleDeactivate = async () => this.props.setIsUsingTouchID(false)
     
     handleGoToLogin = () => {
         this.handleCloseModal()
@@ -30,13 +29,14 @@ export default class Scrn extends React.Component {
 
     render() {
 
-        const {activated, showSuccessModal} = this.state
+        const {isUsingTouchID} = this.props
+        const {showSuccessModal} = this.state
         let title = 'Touch ID Activated'
         let subtext = 'Use your Touch ID to log in to ML Wallet without typing your username and password.'
 
-        if(!activated) {
+        if(!isUsingTouchID) {
             title = 'Activate Touch ID'
-            subtext = 'Use your Touch ID to enable ML Wallet instead of typing your username and password.'
+            subtext = 'Scan your fingerprint for faster log-ins.'
         }
 
         return (
@@ -62,10 +62,20 @@ export default class Scrn extends React.Component {
                 </Screen>
 
                 <Footer>
-                    {!activated && <Button t='Activate' onPress={this.handleActivate} />}
-                    {activated && <Button t='Deactivate' mode='outlined' style={{borderColor:Colors.brand}} onPress={this.handleDeactivate} />}
+                    {!isUsingTouchID && <Button t='Activate' onPress={this.handleActivate} />}
+                    {isUsingTouchID && <Button t='Deactivate' mode='outlined' style={{borderColor:Colors.brand}} onPress={this.handleDeactivate} />}
                 </Footer>
             </>
         )
     }
 }
+
+const mapStateToProps = state => ({
+    isUsingTouchID: state.app.isUsingTouchID
+})
+
+const mapDispatchToProps = dispatch => ({
+    setIsUsingTouchID:isUsingTouchID => dispatch(Creators.setIsUsingTouchID(isUsingTouchID))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

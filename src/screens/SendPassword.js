@@ -1,37 +1,42 @@
 import React from 'react'
-import {Screen, Footer, Headline, Button, Spacer, Prompt, Radio} from '../components'
+import {Screen, Footer, Headline, Button, Spacer, Row, Prompt, Checkbox, Text} from '../components'
 import {_, Say} from '../utils'
 import {API} from '../services'
-import {RadioButton} from 'react-native-paper'
 
 export default class Scrn extends React.Component {
 
     state = {
-        option:'email',
+        email:false,
+        sms:false,
         processing:false,
         showSuccessModal:false
     }
 
-    handleSelectOption = option => this.setState({option})
+    handleToggleEmail = () => this.setState(prevState => ({email:!prevState.email}))
+
+    handleToggleSMS = () => this.setState(prevState => ({sms:!prevState.sms}))
 
     handleProceed = async () => {
         try {
-            let {option, processing} = this.state
+            let {email, sms, processing} = this.state
 
             if(processing) return
 
             this.setState({processing:true})
 
             let payload = {
-                option
+                email,
+                sms
             }
 
-            this.setState({showSuccessModal:true})
-
-            this.setState({processing:false})
+            this.setState({
+                showSuccessModal:true,
+                processing:false
+            })
         }
         catch(err) {
             this.setState({processing:false})
+            Say.err(_('500'))
         }
     }
 
@@ -43,7 +48,10 @@ export default class Scrn extends React.Component {
 
     render() {
 
-        const {option, processing, showSuccessModal} = this.state
+        const {email, sms, processing, showSuccessModal} = this.state
+        let ready = false
+
+        if(email || sms) ready = true
 
         return (
             <>
@@ -59,18 +67,16 @@ export default class Scrn extends React.Component {
 
                     <Headline
                         title='Send Password'
-                        subtext='Choose where you would want to send your temporary password.'
+                        subtext='We are about to send a temporary password. Please choose among the options below:'
                     />
-
-                    <RadioButton.Group onValueChange={this.handleSelectOption} value={option}>
-                        <Radio value='email' label='Email' />
-                        <Spacer />
-                        <Radio value='sms' label='SMS' />
-                    </RadioButton.Group>
+                    
+                    <Checkbox status={email} onPress={this.handleToggleEmail} label='Email' />
+                    <Spacer />
+                    <Checkbox status={sms} onPress={this.handleToggleSMS} label='SMS' />
                 </Screen>
 
                 <Footer>
-                    <Button t='OK' onPress={this.handleProceed} loading={processing} />
+                    <Button disabled={!ready} t='OK' onPress={this.handleProceed} loading={processing} />
                 </Footer>
             </>
         )
