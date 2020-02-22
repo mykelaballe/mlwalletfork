@@ -1,4 +1,5 @@
 import ActivityIndicator from './ActivityIndicator'
+import AppIntro from './AppIntro'
 import Avatar from './Avatar'
 import Balance from './Balance'
 import Bullet from './Bullet'
@@ -45,6 +46,7 @@ import YearPicker from './YearPicker'
 
 export {
     ActivityIndicator,
+    AppIntro,
     Avatar,
     Balance,
     Bullet,

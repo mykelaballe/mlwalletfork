@@ -2,28 +2,7 @@ import React from 'react'
 import {View} from 'react-native'
 import {createStackNavigator} from 'react-navigation-stack'
 import * as Scrn from '../screens'
-import {Colors} from '../themes'
-
-const noNavHeaderOptions = {
-    headerStyle:{
-        backgroundColor:Colors.light,
-        elevation:0
-    },
-    headerTintColor:Colors.brand
-}
-
-const defaultNavigationOptions = {
-    headerStyle: {
-        backgroundColor:Colors.brand,
-    },
-    headerTitleStyle: {
-        flex:1,
-        color:Colors.light,
-        textAlign:'center'
-    },
-    headerTintColor:Colors.light,
-    headerRight:<View />
-}
+import {AppStyles} from '../themes'
 
 export default createStackNavigator({
     AuthIndex: {
@@ -40,7 +19,7 @@ export default createStackNavigator({
     },
     SignUp: {
         screen:Scrn.SignUpScrn,
-        navigationOptions:noNavHeaderOptions
+        navigationOptions:AppStyles.noHeaderNavigationOptions
     },
     SignUpStep1: Scrn.SignUpStep1Scrn,
     SignUpStep2: Scrn.SignUpStep2Scrn,
@@ -52,19 +31,19 @@ export default createStackNavigator({
     SignUpSuccess: Scrn.SignUpSuccessScrn,
     ForgotPassword: {
         screen:Scrn.ForgotPasswordScrn,
-        navigationOptions:noNavHeaderOptions
+        navigationOptions:AppStyles.noHeaderNavigationOptions
     },
     SecurityQuestion: {
         screen:Scrn.SecurityQuestionAuthScrn,
-        navigationOptions:noNavHeaderOptions
+        navigationOptions:AppStyles.noHeaderNavigationOptions
     },
     SendPassword: {
         screen:Scrn.SendPasswordScrn,
-        navigationOptions:noNavHeaderOptions
+        navigationOptions:AppStyles.noHeaderNavigationOptions
     },
     TouchID: {
         screen:Scrn.TouchIDScrn,
-        navigationOptions:noNavHeaderOptions
+        navigationOptions:AppStyles.noHeaderNavigationOptions
     },
     Countries: Scrn.CountriesScrn,
     Provinces: Scrn.ProvincesScrn,
@@ -73,5 +52,5 @@ export default createStackNavigator({
     TermsAndConditions: Scrn.TermsAndConditionsScreen,
     Camera: Scrn.CameraScrn,
 },{
-    defaultNavigationOptions
+    ...AppStyles.defaultNavigationOptions
 })

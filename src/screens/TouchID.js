@@ -75,7 +75,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    setIsUsingTouchID:isUsingTouchID => dispatch(Creators.setIsUsingTouchID(isUsingTouchID))
+    setIsUsingTouchID:isUsing => dispatch(Creators.setIsUsingTouchID(isUsing))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

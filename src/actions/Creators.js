@@ -12,7 +12,17 @@ import Types from './Types'
  
  const setIsFirstTime = isFirstTime => ({ type: Types.SET_IS_FIRST_TIME, isFirstTime })
 
- const setIsUsingTouchID = isUsingTouchID => ({ type: Types.SET_IS_USING_TOUCH_ID, isUsingTouchID })
+ const setIsUsingTouchID = isUsing => ({ type: Types.SET_IS_USING_TOUCH_ID, isUsing })
+
+ const setHasSeenSendMoneyOnboarding = hasSeen => ({ type: Types.SET_HAS_SEEN_SENDMONEY_ONBOARDING, hasSeen })
+
+ const setHasSeenReceiveMoneyOnboarding = hasSeen => ({ type: Types.SET_HAS_SEEN_RECEIVEMONEY_ONBOARDING, hasSeen })
+
+ const setHasSeenWithdrawCashOnboarding = hasSeen => ({ type: Types.SET_HAS_SEEN_WITHDRAWCASH_ONBOARDING, hasSeen })
+
+ const setHasSeenPayBillsOnboarding = hasSeen => ({ type: Types.SET_HAS_SEEN_PAYBILLS_ONBOARDING, hasSeen })
+
+ const setHasSeenBuyLoadOnboarding = hasSeen => ({ type: Types.SET_HAS_SEEN_BUYLOAD_ONBOARDING, hasSeen })
 
  /*----------------------------------------------------------------------
  AUTHENTICATION
@@ -59,6 +69,11 @@ export default {
 
   setIsFirstTime,
   setIsUsingTouchID,
+  setHasSeenSendMoneyOnboarding,
+  setHasSeenReceiveMoneyOnboarding,
+  setHasSeenWithdrawCashOnboarding,
+  setHasSeenPayBillsOnboarding,
+  setHasSeenBuyLoadOnboarding,
 
   login,
   logout,

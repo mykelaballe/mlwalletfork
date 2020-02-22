@@ -1,6 +1,7 @@
 import React from 'react'
 import {View, StyleSheet, InteractionManager, TouchableOpacity, Dimensions, Image} from 'react-native'
 import {connect} from 'react-redux'
+import {Creators} from '../actions'
 import {Text, Spacer, FlatList, Ripple, Icon, Balance} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_} from '../utils'
@@ -9,7 +10,7 @@ const {width} = Dimensions.get('window')
 const ITEM_WIDTH = (width / 3) - (Metrics.xl)
 const ITEM_HEIGHT = 130
 
-class Home extends React.Component {
+class Scrn extends React.Component {
 
     static navigationOptions = {
         headerLeft:<View />,
@@ -62,21 +63,34 @@ class Home extends React.Component {
     }
 
     handleGoToSendMoney = () => {
-        //this.props.navigation.navigate('SendMoneyIndex')
-        this.props.navigation.navigate('SendMoneyOnBoarding')
+        const {navigation: {navigate}, hasSeenSendMoneyOnboarding} = this.props
+        if(hasSeenSendMoneyOnboarding) navigate('SendMoneyIndex')
+        else navigate('SendMoneyOnBoarding')
     }
 
     handleGoToReceiveMoney = () => {
-        this.props.navigation.navigate('ReceiveMoneyOnBoarding')
+        const {navigation: {navigate}, hasSeenReceiveMoneyOnboarding} = this.props
+        if(hasSeenReceiveMoneyOnboarding) navigate('ReceiveMoneyIndex')
+        else navigate('ReceiveMoneyOnBoarding')
     }
 
-    handleGoToWithdrawCash = () => this.props.navigation.navigate('WithdrawCashOnBoarding')
+    handleGoToWithdrawCash = () => {
+        const {navigation: {navigate}, hasSeenWithdrawCashOnboarding} = this.props
+        if(hasSeenWithdrawCashOnboarding) navigate('WithdrawCash')
+        else navigate('WithdrawCashOnBoarding')
+    }
 
     handleGoToPayBills = () => {
-        this.props.navigation.navigate('PayBillsOnBoarding')
+        const {navigation: {navigate}, hasSeenPayBillsOnboarding} = this.props
+        if(hasSeenPayBillsOnboarding) navigate('BillsCategory')
+        else navigate('PayBillsOnBoarding')
     }
 
-    handleGoToBuyLoad = () => this.props.navigation.navigate('BuyLoadOnBoarding')
+    handleGoToBuyLoad = () => {
+        const {navigation: {navigate}, hasSeenBuyLoadOnboarding} = this.props
+        if(hasSeenBuyLoadOnboarding) navigate('BuyLoad')
+        else navigate('BuyLoadOnBoarding')
+    }
 
     handleGoToBuyItems = () => this.props.navigation.navigate('ComingSoon')
 
@@ -147,16 +161,12 @@ const style = StyleSheet.create({
     }
 })
 
-mapStateToProps = state => {
-    return {
+const mapStateToProps = state => ({
+    hasSeenSendMoneyOnboarding: state.app.hasSeenSendMoneyOnboarding,
+    hasSeenReceiveMoneyOnboarding: state.app.hasSeenReceiveMoneyOnboarding,
+    hasSeenWithdrawCashOnboarding: state.app.hasSeenWithdrawCashOnboarding,
+    hasSeenPayBillsOnboarding: state.app.hasSeenPayBillsOnboarding,
+    hasSeenBuyLoadOnboarding: state.app.hasSeenBuyLoadOnboarding
+})
 
-    }
-}
-
-mapDispatchToProps = dispatch => {
-    return {
-
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default connect(mapStateToProps)(Scrn)

@@ -80,7 +80,7 @@ class Scrn extends React.Component {
                 login()
             })
             .catch(err => {
-                alert(err)
+                //alert(err.code)
             })
         }
         else {
