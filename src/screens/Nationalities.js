@@ -1,13 +1,13 @@
 import React from 'react'
 import {View, StyleSheet, InteractionManager} from 'react-native'
-import {SectionList, Text, Spacer, HR, Ripple, SearchInput} from '../components'
+import {FlatList, Text, Spacer, HR, Ripple, SearchInput} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
 
 class Scrn extends React.Component {
 
     static navigationOptions = {
-        title:'Select a Province'
+        title:'Select a Nationality'
     }
 
     state = {
@@ -23,43 +23,14 @@ class Scrn extends React.Component {
 
         try {
             list = [
-                {
-                    letter:'A',
-                    data:[
-                        {
-                            name:'Abra',
-                        },
-                        {
-                            name:'Apayao'
-                        },
-                    ]
-                },
-                {
-                    letter:'C',
-                    data:[
-                        {
-                            name:'Cagayan',
-                        },
-                        {
-                            name:'Camarines Norte'
-                        },
-                        {
-                            name:'Camarines Sur'
-                        },
-                        {
-                            name:'Camiguin'
-                        },
-                        {
-                            name:'Capiz'
-                        },
-                        {
-                            name:'Catanduanes'
-                        },
-                        {
-                            name:'Cebu'
-                        }
-                    ]
-                },
+                {name:'Filipino'},
+                {name:'American'},
+                {name:'German'},
+                {name:'Russian'},
+                {name:'French'},
+                {name:'Japanese'},
+                {name:'Chinese'},
+                {name:'Korean'},
             ]
         }
         catch(err) {
@@ -75,12 +46,6 @@ class Scrn extends React.Component {
     handleSelect = () => this.props.navigation.pop()
 
     handleChangeSearch = search => this.setState({search})
-
-    renderSectionHeader = ({section}) => (
-        <View style={style.itemHeader}>
-            <Text mute>{section.letter}</Text>
-        </View>
-    )
 
     renderItem = ({item, index}) => (
         <>
@@ -98,16 +63,15 @@ class Scrn extends React.Component {
         return (
             <View style={style.container}>
                 <SearchInput
-                    placeholder='Search Province'
+                    placeholder='Search Nationality'
                     onChangeText={this.handleChangeSearch}
                     value={search}
                 />
 
                 <Spacer />
 
-                <SectionList
-                    sections={list}
-                    renderSectionHeader={this.renderSectionHeader}
+                <FlatList
+                    data={list}
                     renderItem={this.renderItem}
                     loading={loading}
                 />

@@ -1,10 +1,8 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager, TouchableOpacity} from 'react-native'
-import {SectionList, TextInput, Text, Row, Button, Spacer, ButtonText, HR, Ripple, TopBuffer} from '../components'
+import {View, StyleSheet, InteractionManager} from 'react-native'
+import {SectionList, Text, Spacer, HR, Ripple, SearchInput} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say, Consts} from '../utils'
-import Icon from 'react-native-vector-icons/Ionicons'
-import {Searchbar} from 'react-native-paper'
 
 const ItemUI = props => (
     <>
@@ -15,7 +13,7 @@ const ItemUI = props => (
     </>
 )
 
-class Billers extends React.Component {
+class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Billers'
@@ -104,7 +102,7 @@ class Billers extends React.Component {
 
         return (
             <View style={style.container}>
-                <Searchbar
+                <SearchInput
                     placeholder='Search Biller'
                     onChangeText={this.handleChangeSearch}
                     value={search}
@@ -137,4 +135,4 @@ const style = StyleSheet.create({
     }
 })
 
-export default Billers
+export default Scrn

@@ -21,9 +21,7 @@ export default props => {
                 <Row>
                     {checkboxUI}
     
-                    <Spacer h xs />
-    
-                    <Text md mute>{props.label}</Text>
+                    <Text md mute style={props.labelStyle}>{props.label}</Text>
                 </Row>
             </TouchableOpacity>
         )

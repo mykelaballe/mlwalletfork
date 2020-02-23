@@ -1,19 +1,17 @@
 import React from 'react'
 import {View, StyleSheet, InteractionManager} from 'react-native'
-import {ScrollView, FlatList, Initial, Text, Row, Button, Spacer, ButtonText, HR, Ripple, TopBuffer} from '../components'
-import {Colors, Metrics} from '../themes'
+import {Screen, Footer, FlatList, Initial, Text, Row, Button, Spacer, HR, Ripple, SearchInput} from '../components'
+import {Metrics} from '../themes'
 import {_} from '../utils'
-import Icon from 'react-native-vector-icons/Ionicons'
-import {Searchbar} from 'react-native-paper'
 
 const ItemUI = props => (
     <>
         <Ripple onPress={() => props.onPress(props.data)} style={style.item}>
             <Row>
-                <Initial text={props.data.fullname} />
+                <Initial text={props.data.firstname} />
                 <Spacer h sm />
                 <View>
-                    <Text b>{props.data.fullname}</Text>
+                    <Text b>{props.data.firstname} {props.data.lastname}</Text>
                     <Text>{props.data.contact_no}</Text>
                 </View>
             </Row>
@@ -23,10 +21,10 @@ const ItemUI = props => (
     </>
 )
 
-class SavedKPReceivers extends React.Component {
+class Scrn extends React.Component {
 
     static navigationOptions = {
-        title:'Receiver'
+        title:_('84')
     }
 
     state = {
@@ -43,11 +41,15 @@ class SavedKPReceivers extends React.Component {
         try {
             list = [
                 {
-                    fullname:'Ashley Uy',
+                    firstname:'Ashley',
+                    lastname:'Uy',
+                    middlename:'',
                     contact_no:'0912345678'
                 },
                 {
-                    fullname:'Lotlot Rubite',
+                    firstname:'Lotlot',
+                    lastname:'Rubite',
+                    middlename:'',
                     contact_no:'0912345678'
                 }
             ]
@@ -75,42 +77,34 @@ class SavedKPReceivers extends React.Component {
         const {list, search, loading} = this.state
 
         return (
-            <View style={style.container}>
-                <Searchbar
-                    placeholder='Search'
-                    onChangeText={this.handleChangeSearch}
-                    value={search}
-                    style={{backgroundColor:Colors.lightgray}}
-                />
+            <>
+                <Screen ns>
+                    <SearchInput
+                        onChangeText={this.handleChangeSearch}
+                        value={search}
+                    />
 
-                <Spacer sm />
+                    <Spacer sm />
 
-                <FlatList
-                    data={list}
-                    renderItem={this.renderItem}
-                    loading={loading}
-                />
+                    <FlatList
+                        data={list}
+                        renderItem={this.renderItem}
+                        loading={loading}
+                    />
+                </Screen>
 
-                <View style={style.footer}>
-                    <Button t='Add New Receiver' onPress={this.handleAddNewReceiver} />
-                </View>
-            </View>
+                <Footer>
+                    <Button t={_('80')} onPress={this.handleAddNewReceiver} />
+                </Footer>
+            </>
         )
     }
 }
 
 const style = StyleSheet.create({
-    container: {
-        flex:1,
-        padding:Metrics.lg
-    },
     item: {
         padding:Metrics.rg
-    },
-    footer: {
-        flex:1,
-        justifyContent:'flex-end'
     }
 })
 
-export default SavedKPReceivers
+export default Scrn

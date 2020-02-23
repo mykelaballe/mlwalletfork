@@ -24,15 +24,18 @@ import LoadPromo from './LoadPromo'
 import Modal from './Modal'
 import MonthPicker from './MonthPicker'
 import Outline from './Outline'
+import Picker from './Picker'
 import Pill from './Pill'
 import Placeholder from './Placeholder'
 import Prompt from './Prompt'
+import Provider from './Provider'
 import Radio from './Radio'
 import Responder from './Responder'
 import Ripple from './Ripple'
 import Row from './Row'
 import Screen from './Screen'
 import ScrollView from './ScrollView'
+import SearchInput from './SearchInput'
 import SectionList from './SectionList'
 import SignUpStepsTracker from './SignUpStepsTracker'
 import Spacer from './Spacer'
@@ -71,15 +74,18 @@ export {
     Modal,
     MonthPicker,
     Outline,
+    Picker,
     Pill,
     Placeholder,
     Prompt,
+    Provider,
     Radio,
     Responder,
     Ripple,
     Row,
     Screen,
     ScrollView,
+    SearchInput,
     SectionList,
     SignUpStepsTracker,
     Spacer,

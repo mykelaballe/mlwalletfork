@@ -1,7 +1,7 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager, TouchableOpacity} from 'react-native'
-import {ScrollView, Text, Row, Spacer, Button, ButtonIcon, ButtonText, Ripple, TopBuffer, TextInput, Icon, HeaderRight} from '../components'
-import {Colors, Metrics, Res} from '../themes'
+import {View, StyleSheet, TouchableOpacity} from 'react-native'
+import {Headline, Text, Spacer, Button, ButtonText, TextInput, Icon, HeaderRight} from '../components'
+import {Colors, Metrics} from '../themes'
 import {_, Consts} from '../utils'
 
 class SendKP extends React.Component {
@@ -49,20 +49,16 @@ class SendKP extends React.Component {
 
                 <View>
 
-                    <Text center>{Consts.tcn[type].short_desc}</Text>
+                    <Headline subtext={Consts.tcn[type].short_desc} />
 
-                    <Spacer />
-
-                    <TextInput
-                        disabled
-                        label='Receiver'
-                        value={receiver}
-                        rightContent={
-                            <TouchableOpacity onPress={this.handleAddNewReceiver}>
-                                <Icon name='user_plus' size={20} />
-                            </TouchableOpacity>
-                        }
-                    />
+                    <TouchableOpacity onPress={this.handleAddNewReceiver}>
+                        <TextInput
+                            disabled
+                            label='Receiver'
+                            value={receiver}
+                            rightContent={<Icon name='user_plus' size={20} />}
+                        />
+                    </TouchableOpacity>
 
                     <Spacer sm />
 

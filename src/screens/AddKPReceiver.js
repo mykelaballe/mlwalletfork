@@ -1,42 +1,93 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager} from 'react-native'
-import {ScrollView, FlatList, TextInput, Text, Row, Button, Spacer, ButtonText, HR, Ripple, TopBuffer} from '../components'
-import {Colors, Metrics} from '../themes'
+import {Screen, Footer, Headline, TextInput, Button, Checkbox, Picker} from '../components'
+import {Metrics} from '../themes'
 import {_, Say} from '../utils'
-import Icon from 'react-native-vector-icons/Ionicons'
 
-class AddKPReceiver extends React.Component {
+class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Add New Receiver'
     }
 
     state = {
-        fullname:'',
+        firstname:'',
+        middlename:'',
+        has_middlename:true,
+        lastname:'',
+        suffix:'',
+        other_suffix:'',
+        has_suffix:true,
+        suffix_options:[
+            {label:'Jr.'},
+            {label:'Sr.'},
+            {label:'I'},
+            {label:'II'},
+            {label:'III'},
+            {label:'IV'},
+            {label:'V'},
+            {label:'Others'}
+        ],
         contact_no:'',
         processing:false
     }
 
-    handleChangeFullName = fullname => this.setState({fullname})
+    handleChangeFirstName = firstname => this.setState({firstname})
+
+    handleChangeMiddleName = middlename => this.setState({middlename})
+
+    handleToggleHasMiddlename = () => {
+        this.setState(prevState => ({
+            middlename:prevState.has_middlename ? _('50') : '',
+            has_middlename:!prevState.has_middlename
+        }))
+    }
+
+    handleChangeLastName = lastname => this.setState({lastname})
+
+    handleChangeSuffix = (option = {}) => this.setState({suffix:option.label})
+
+    handleChangeSuffixOthers = other_suffix => this.setState({other_suffix})
+
+    handleToggleHasSuffix = () => {
+        this.setState(prevState => ({
+            suffix:prevState.has_suffix ? _('51') : '',
+            has_suffix:!prevState.has_suffix
+        }))
+    }
 
     handleChangeContactNo = contact_no => this.setState({contact_no})
 
+    handleFocusMiddleName = () => this.state.has_middlename ? this.refs.middlename.focus() : this.refs.lastname.focus()
+
+    handleFocusLastName = () => this.refs.lastname.focus()
+
+    handleFocusContactNo = () => this.refs.contact_no.focus()
+
     handleSubmit = async () => {
         try {
-            let {fullname, contact_no, processing} = this.state
+            let {firstname, middlename, lastname, suffix, other_suffix, contact_no, processing} = this.state
 
             if(processing) return false
 
             this.setState({processing:true})
 
-            fullname = fullname.trim()
+            firstname = firstname.trim()
+            middlename = middlename.trim()
+            lastname = lastname.trim()
             contact_no = contact_no.trim()
+            suffix = suffix.trim()
+            other_suffix = other_suffix.trim()
 
-            if(fullname == '' || contact_no == '') Say.some(_('8'))
+            suffix = other_suffix || suffix
+
+            if(!firstname || !middlename || !lastname || !suffix || !contact_no) Say.some(_('8'))
             else {
 
                 let payload = {
-                    fullname,
+                    firstname,
+                    middlename,
+                    lastname,
+                    suffix,
                     contact_no
                 }
     
@@ -55,48 +106,91 @@ class AddKPReceiver extends React.Component {
 
     render() {
 
-        const {contact_no, fullname, processing} = this.state
+        const {firstname, middlename, has_middlename, lastname, suffix, other_suffix, has_suffix, suffix_options, contact_no, processing} = this.state
         let ready = false
 
-        if(fullname && contact_no) ready = true
+        if(firstname && middlename && lastname && suffix && contact_no) ready = true
 
         return (
-            <View style={style.container}>
-                <Text center>Please ensure that the name of the receiver is the same as it appears in their valid ID.</Text>
+            <>
+                <Screen>
+                    <Headline subtext='Please ensure that the name of the receiver is the same as it appears in their valid ID.' />
 
-                <Spacer />
+                    <TextInput
+                        label='First Name'
+                        value={firstname}
+                        onChangeText={this.handleChangeFirstName}
+                        onSubmitEditing={this.handleFocusMiddleName}
+                        autoCapitalize='words'
+                        returnKeyType='next'
+                    />
 
-                <TextInput
-                    label='Full Legal Name'
-                    value={fullname}
-                    onChangeText={this.handleChangeFullName}
-                    autoCapitalize='words'
-                />
+                    <TextInput
+                        ref='middlename'
+                        editable={has_middlename}
+                        label='Middle Name'
+                        value={middlename}
+                        onChangeText={this.handleChangeMiddleName}
+                        onSubmitEditing={this.handleFocusLastName}
+                        autoCapitalize='words'
+                        returnKeyType='next'
+                    />
 
-                <TextInput
-                    label='Contact No.'
-                    value={contact_no}
-                    onChangeText={this.handleChangeContactNo}
-                    keyboardType='numeric'
-                />
+                    <Checkbox
+                        status={!has_middlename}
+                        onPress={this.handleToggleHasMiddlename}
+                        label="I prefer not to indicate my receiver's middle name"
+                        labelStyle={{fontSize:Metrics.font.sm}}
+                    />
 
-                <View style={style.footer}>
-                    <Button disabled={!ready} t='Save Receiver' onPress={this.handleSubmit} loading={processing} />
-                </View>
-            </View>
+                    <TextInput
+                        ref='lastname'
+                        label='Last Name'
+                        value={lastname}
+                        onChangeText={this.handleChangeLastName}
+                        onSubmitEditing={this.handleFocusContactNo}
+                        autoCapitalize='words'
+                        returnKeyType='next'
+                    />
+
+                    <Picker
+                        editable={has_suffix}
+                        selected={suffix}
+                        items={suffix_options}
+                        placeholder='Suffix'
+                        onChoose={this.handleChangeSuffix}
+                    />
+
+                    {suffix === 'Others' &&
+                    <TextInput
+                        label={'Enter custom suffix'}
+                        value={other_suffix}
+                        onChangeText={this.handleChangeSuffixOthers}
+                    />
+                    }
+
+                    <Checkbox
+                        status={!has_suffix}
+                        onPress={this.handleToggleHasSuffix}
+                        label="Not applicable"
+                        labelStyle={{fontSize:Metrics.font.sm}}
+                    />
+
+                    <TextInput
+                        ref='contact_no'
+                        label='Contact No.'
+                        value={contact_no}
+                        onChangeText={this.handleChangeContactNo}
+                        keyboardType='numeric'
+                    />
+                </Screen>
+
+                <Footer>
+                    <Button disabled={!ready} t={_('83')} onPress={this.handleSubmit} loading={processing} />
+                </Footer>
+            </>
         )
     }
 }
 
-const style = StyleSheet.create({
-    container: {
-        flex:1,
-        padding:Metrics.lg
-    },
-    footer: {
-        flex:1,
-        justifyContent:'flex-end'
-    }
-})
-
-export default AddKPReceiver
+export default Scrn

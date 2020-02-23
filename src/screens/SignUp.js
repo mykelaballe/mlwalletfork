@@ -44,7 +44,7 @@ class Scrn extends React.Component {
             if(username == '' || password == '') Say.some(_('8'))
             else if(password != confirm_password) Say.some(`${_('2')} ${_('50')}`)
             else {
-                this.props.navigation.replace('SignUpStep1')
+                this.props.navigation.navigate('SignUpStep1')
             }
         }
         catch(err) {

@@ -1,12 +1,10 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager, TouchableOpacity} from 'react-native'
-import {SectionList, TextInput, Text, Row, Button, Spacer, ButtonText, HR, Ripple, TopBuffer} from '../components'
+import {View, StyleSheet, InteractionManager} from 'react-native'
+import {SectionList, Text, Spacer, HR, Ripple, SearchInput} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
-import Icon from 'react-native-vector-icons/Ionicons'
-import {Searchbar} from 'react-native-paper'
 
-class Partners extends React.Component {
+class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Select a City/Municipality'
@@ -136,7 +134,7 @@ class Partners extends React.Component {
 
         return (
             <View style={style.container}>
-                <Searchbar
+                <SearchInput
                     placeholder='Search City/Municipality'
                     onChangeText={this.handleChangeSearch}
                     value={search}
@@ -163,11 +161,10 @@ const style = StyleSheet.create({
     itemHeader: {
         backgroundColor:Colors.lightgray,
         padding:Metrics.rg,
-        //...StyleSheet.absoluteFill
     },
     item: {
         padding:Metrics.rg
     }
 })
 
-export default Partners
+export default Scrn

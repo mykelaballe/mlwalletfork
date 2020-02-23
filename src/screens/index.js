@@ -80,6 +80,7 @@ import CurrenciesScrn from './Currencies'
 import RemindersScrn from './Reminders'
 import CountriesScrn from './Countries'
 import ProvincesScrn from './Provinces'
+import NationalitiesScrn from './Nationalities'
 import CitiesScrn from './Cities'
 import SecurityQuestionsScrn from './SecurityQuestions'
 import CameraScrn from './Camera'
@@ -178,6 +179,7 @@ export {
     CountriesScrn,
     ProvincesScrn,
     CitiesScrn,
+    NationalitiesScrn,
     SecurityQuestionsScrn,
     CameraScrn,
 

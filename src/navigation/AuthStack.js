@@ -40,9 +40,10 @@ export default createStackNavigator({
     Countries: Scrn.CountriesScrn,
     Provinces: Scrn.ProvincesScrn,
     Cities: Scrn.CitiesScrn,
+    Nationalities: Scrn.NationalitiesScrn,
     SecurityQuestions: Scrn.SecurityQuestionsScrn,
     TermsAndConditions: Scrn.TermsAndConditionsScreen,
     Camera: Scrn.CameraScrn,
 },{
-    ...AppStyles.defaultNavigationOptions
+    defaultNavigationOptions:AppStyles.defaultNavigationOptions
 })

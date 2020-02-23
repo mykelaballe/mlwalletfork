@@ -142,158 +142,175 @@ class Scrn extends React.Component {
 
                     <Headline subtext='Make sure all the details are correct.' />
 
-                    <DynamicStaticInput
-                        editable={editable}
-                        label='First Name'
-                        value={firstname}
-                        autoCapitalize='words'
-                        onChangeText={this.handleChangeFirstname}
-                        onSubmitEditing={this.handleFocusMiddlename}
-                        returnKeyType='next'
-                    />
+                    {!editable &&
+                    <>
+                        <Text center md>{firstname} {middlename} {lastname}</Text>
+                        <Text center md>January 20, 1980</Text>
+                        <Text center md>{gender}</Text>
+                        <Text center md>{email}</Text>
+                        <Text center md>{nationality}</Text>
+                        <Text center md>{source_of_income}</Text>
+                        <Text center md>{barangay}, {city}, {province}, {country}</Text>
+                        <Text center md>{zip_code}</Text>
+                    </>
+                    }
 
-                    <DynamicStaticInput
-                        ref='middlename'
-                        editable={editable}
-                        label='Middle Name'
-                        value={middlename}
-                        autoCapitalize='words'
-                        onChangeText={this.handleChangeMiddlename}
-                        onSubmitEditing={this.handleFocusLastname}
-                        returnKeyType='next'
-                    />
+                    {editable &&
+                    <>
+                        <DynamicStaticInput
+                            editable={editable}
+                            label='First Name'
+                            value={firstname}
+                            autoCapitalize='words'
+                            onChangeText={this.handleChangeFirstname}
+                            onSubmitEditing={this.handleFocusMiddlename}
+                            returnKeyType='next'
+                        />
 
-                    <DynamicStaticInput
-                        ref='lastname'
-                        editable={editable}
-                        label='Last Name'
-                        value={lastname}
-                        autoCapitalize='words'
-                        onChangeText={this.handleChangeLastname}
-                        onSubmitEditing={this.handleFocusEmail}
-                        returnKeyType='next'
-                    />
+                        <DynamicStaticInput
+                            ref='middlename'
+                            editable={editable}
+                            label='Middle Name'
+                            value={middlename}
+                            autoCapitalize='words'
+                            onChangeText={this.handleChangeMiddlename}
+                            onSubmitEditing={this.handleFocusLastname}
+                            returnKeyType='next'
+                        />
 
-                    <Spacer sm />
+                        <DynamicStaticInput
+                            ref='lastname'
+                            editable={editable}
+                            label='Last Name'
+                            value={lastname}
+                            autoCapitalize='words'
+                            onChangeText={this.handleChangeLastname}
+                            onSubmitEditing={this.handleFocusEmail}
+                            returnKeyType='next'
+                        />
 
-                    <Text md mute>Birthday</Text>
-                    <Spacer xs />
-                    <Row bw>
+                        <Spacer sm />
+
+                        <Text md mute>Birthday</Text>
+                        <Spacer xs />
+                        <Row bw>
+                            <StaticInput
+                                editable={editable}
+                                label='Month'
+                                value={bday_month ? moment(bday_month,'M').format('MMM') : null}
+                                onPress={this.handleChangeMonth}
+                                style={{flex:2}}
+                            />
+                            <Spacer h xs/>
+                            <StaticInput
+                                editable={editable}
+                                label='Day'
+                                value={bday_day}
+                                onPress={this.handleChangeDay}
+                                style={{flex:1}}
+                            />
+                            <Spacer h xs/>
+                            <StaticInput
+                                editable={editable}
+                                label='Year'
+                                value={bday_year}
+                                onPress={this.handleChangeYear}
+                                style={{flex:1}}
+                            />
+                        </Row>
+
+                        <Spacer />
+
+                        <Text md mute>Gender</Text>
+                        <RadioButton.Group onValueChange={this.handleSelectGender} value={gender}>
+                            <Row>
+                                <Radio value='male' label='Male' />
+                                <Spacer h lg />
+                                <Radio value='female' label='Female' />
+                            </Row>
+                        </RadioButton.Group>
+
+                        <Spacer sm />
+
+                        <DynamicStaticInput
+                            ref='email'
+                            editable={editable}
+                            label={'Email address (optional)'}
+                            value={email}
+                            onChangeText={this.handleChangeEmail}
+                            onSubmitEditing={this.handleFocusNationality}
+                            autoCapitalize='none'
+                            keyboardType='email-address'
+                            returnKeyType='next'
+                        />
+
+                        <DynamicStaticInput
+                            ref='nationality'
+                            editable={editable}
+                            label={'Nationality'}
+                            value={nationality}
+                            onChangeText={this.handleChangeNationality}
+                            onSubmitEditing={this.handleFocusSourceOfIncome}
+                            autoCapitalize='words'
+                            returnKeyType='next'
+                        />
+
+                        <DynamicStaticInput
+                            ref='source_of_income'
+                            editable={editable}
+                            label={'Source of Income'}
+                            value={source_of_income}
+                            onChangeText={this.handleChangeSourceOfIncome}
+                            onSubmitEditing={this.handleFocusBarangay}
+                            autoCapitalize='words'
+                            returnKeyType='next'
+                        />
+
                         <StaticInput
                             editable={editable}
-                            label='Month'
-                            value={bday_month ? moment(bday_month,'M').format('MMM') : null}
-                            onPress={this.handleChangeMonth}
+                            label='Country'
+                            value={country}
+                            onPress={this.handleSelectCountry}
                             style={{flex:2}}
                         />
-                        <Spacer h xs/>
+
                         <StaticInput
                             editable={editable}
-                            label='Day'
-                            value={bday_day}
-                            onPress={this.handleChangeDay}
-                            style={{flex:1}}
+                            label='Province'
+                            value={province}
+                            onPress={this.handleSelectProvince}
+                            style={{flex:2}}
                         />
-                        <Spacer h xs/>
+
                         <StaticInput
                             editable={editable}
-                            label='Year'
-                            value={bday_year}
-                            onPress={this.handleChangeYear}
-                            style={{flex:1}}
+                            label='City'
+                            value={city}
+                            onPress={this.handleSelectCity}
+                            style={{flex:2}}
                         />
-                    </Row>
 
-                    <Spacer />
+                        <DynamicStaticInput
+                            ref='barangay'
+                            editable={editable}
+                            label={'Barangay/Street'}
+                            value={barangay}
+                            onChangeText={this.handleChangeBarangay}
+                            onSubmitEditing={this.handleFocusZipCode}
+                            autoCapitalize='words'
+                            returnKeyType='next'
+                        />
 
-                    <Text md mute>Gender</Text>
-                    <RadioButton.Group onValueChange={this.handleSelectGender} value={gender}>
-                        <Row>
-                            <Radio value='male' label='Male' />
-                            <Spacer h lg />
-                            <Radio value='female' label='Female' />
-                        </Row>
-                    </RadioButton.Group>
-
-                    <Spacer sm />
-
-                    <DynamicStaticInput
-                        ref='email'
-                        editable={editable}
-                        label={'Email address (optional)'}
-                        value={email}
-                        onChangeText={this.handleChangeEmail}
-                        onSubmitEditing={this.handleFocusNationality}
-                        autoCapitalize='none'
-                        keyboardType='email-address'
-                        returnKeyType='next'
-                    />
-
-                    <DynamicStaticInput
-                        ref='nationality'
-                        editable={editable}
-                        label={'Nationality'}
-                        value={nationality}
-                        onChangeText={this.handleChangeNationality}
-                        onSubmitEditing={this.handleFocusSourceOfIncome}
-                        autoCapitalize='words'
-                        returnKeyType='next'
-                    />
-
-                    <DynamicStaticInput
-                        ref='source_of_income'
-                        editable={editable}
-                        label={'Source of Income'}
-                        value={source_of_income}
-                        onChangeText={this.handleChangeSourceOfIncome}
-                        onSubmitEditing={this.handleFocusBarangay}
-                        autoCapitalize='words'
-                        returnKeyType='next'
-                    />
-
-                    <StaticInput
-                        editable={editable}
-                        label='Country'
-                        value={country}
-                        onPress={this.handleSelectCountry}
-                        style={{flex:2}}
-                    />
-
-                    <StaticInput
-                        editable={editable}
-                        label='Province'
-                        value={province}
-                        onPress={this.handleSelectProvince}
-                        style={{flex:2}}
-                    />
-
-                    <StaticInput
-                        editable={editable}
-                        label='City'
-                        value={city}
-                        onPress={this.handleSelectCity}
-                        style={{flex:2}}
-                    />
-
-                    <DynamicStaticInput
-                        ref='barangay'
-                        editable={editable}
-                        label={'Barangay/Street'}
-                        value={barangay}
-                        onChangeText={this.handleChangeBarangay}
-                        onSubmitEditing={this.handleFocusZipCode}
-                        autoCapitalize='words'
-                        returnKeyType='next'
-                    />
-
-                    <DynamicStaticInput
-                        ref='zip_code'
-                        editable={editable}
-                        label={'Zip Code'}
-                        value={zip_code}
-                        onChangeText={this.handleChangeZipCode}
-                        keyboardType='numeric'
-                    />
+                        <DynamicStaticInput
+                            ref='zip_code'
+                            editable={editable}
+                            label={'Zip Code'}
+                            value={zip_code}
+                            onChangeText={this.handleChangeZipCode}
+                            keyboardType='numeric'
+                        />
+                    </>
+                    }
                 </Screen>
             
                 <Footer>

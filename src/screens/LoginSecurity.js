@@ -26,11 +26,11 @@ class Scrn extends React.Component {
 
         if(isUsingTouchID) {
             setIsUsingTouchID(false)
-            successModalMsg = "You've successfully activated your Touch ID"
+            successModalMsg = "You've successfully deactivated your Touch ID"
         }
         else {
             setIsUsingTouchID(true)
-            successModalMsg = "You've successfully deactivated your Touch ID"
+            successModalMsg = "You've successfully activated your Touch ID"
         }
 
         this.setState({

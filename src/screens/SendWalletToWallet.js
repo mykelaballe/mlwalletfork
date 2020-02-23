@@ -1,10 +1,10 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager, TouchableOpacity} from 'react-native'
-import {ScrollView, Text, Row, Spacer, Button, ButtonIcon, ButtonText, Ripple, TopBuffer, TextInput, Icon} from '../components'
-import {Colors, Metrics, Res} from '../themes'
+import {View, StyleSheet, TouchableOpacity} from 'react-native'
+import {Headline, Text, Spacer, Button, TextInput, Icon} from '../components'
+import {Metrics} from '../themes'
 import {_, Consts} from '../utils'
 
-class SendWalletToWallet extends React.Component {
+class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Wallet to Wallet'
@@ -48,20 +48,16 @@ class SendWalletToWallet extends React.Component {
             <View style={style.container}>
 
                 <View>
-                    <Text center>Send Money to an ML Wallet Account</Text>
+                    <Headline subtext='Send Money to an ML Wallet Account' />
 
-                    <Spacer />
-
-                    <TextInput
-                        disabled
-                        label='Receiver'
-                        value={wallet_account_number}
-                        rightContent={
-                            <TouchableOpacity onPress={this.handleAddNewReceiver}>
-                                <Icon name='user_plus' size={20} />
-                            </TouchableOpacity>
-                        }
-                    />
+                    <TouchableOpacity onPress={this.handleAddNewReceiver}>
+                        <TextInput
+                            disabled
+                            label='Receiver'
+                            value={wallet_account_number}
+                            rightContent={<Icon name='user_plus' size={20} />}
+                        />
+                    </TouchableOpacity>
 
                     <Spacer sm />
 
@@ -112,9 +108,8 @@ const style = StyleSheet.create({
         height:130
     },
     footer: {
-        //flex:1,
-        //justifyContent:'flex-end'
+
     }
 })
 
-export default SendWalletToWallet
+export default Scrn

@@ -5,7 +5,7 @@ import {Colors, Metrics} from '../themes'
 import {_, Consts} from '../utils'
 import Icon from 'react-native-vector-icons/Ionicons'
 
-class TransactionReview extends React.Component {
+class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Review Transaction'
@@ -71,8 +71,35 @@ class TransactionReview extends React.Component {
 
                 {type === Consts.tcn.skp.code &&
                 <>
-                    <Text mute sm>Receiver</Text>
-                    <Text md>{receiver}</Text>
+                    <Row>
+                        <View style={{flex:1}}>
+                            <Text mute sm>First Name</Text>
+                            <Text md>John</Text>
+                        </View>
+
+                        <Spacer h xl />
+
+                        <View style={{flex:1}}>
+                            <Text mute sm>Middle Name</Text>
+                            <Text md>WAIVED</Text>
+                        </View>
+                    </Row>
+
+                    <Spacer />
+
+                    <Row>
+                        <View style={{flex:1}}>
+                            <Text mute sm>Last Name</Text>
+                            <Text md>Smith</Text>
+                        </View>
+
+                        <Spacer h xl />
+
+                        <View style={{flex:1}}>
+                            <Text mute sm>Suffix</Text>
+                            <Text md>NONE</Text>
+                        </View>
+                    </Row>
 
                     <Spacer />
 
@@ -223,4 +250,4 @@ const style = StyleSheet.create({
     }
 })
 
-export default TransactionReview
+export default Scrn

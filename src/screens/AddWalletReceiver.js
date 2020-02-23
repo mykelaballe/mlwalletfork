@@ -1,51 +1,74 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager} from 'react-native'
-import {ScrollView, FlatList, TextInput, Text, Row, Button, Spacer, ButtonText, HR, Ripple, TopBuffer} from '../components'
-import {Colors, Metrics} from '../themes'
+import {View} from 'react-native'
+import {Screen, Footer, Headline, TextInput, Text, Button, Spacer, Avatar, Row} from '../components'
+import {Metrics} from '../themes'
 import {_, Say} from '../utils'
-import Icon from 'react-native-vector-icons/Ionicons'
 
-class AddKPReceiver extends React.Component {
+class Scrn extends React.Component {
 
     static navigationOptions = {
-        title:'Add New Receiver'
+        title:_('80')
     }
 
     state = {
+        avatar:null,
         wallet_no:'',
-        fullname:'',
-        processing:false
+        firstname:'',
+        lastname:'',
+        mobile_no:'',
+        processing:false,
+        found:false
     }
 
     handleChangeWalletNo = wallet_no => this.setState({wallet_no})
 
-    handleChangeFullName = fullname => this.setState({fullname})
+    handleChangeFirstName = firstname => this.setState({firstname})
 
-    handleSubmit = async () => {
+    handleChangeLastName = lastname => this.setState({lastname})
+
+    handleChangeMobileNo = mobile_no => this.setState({mobile_no})
+
+    handleFocusFirstName = () => this.refs.firstname.focus()
+
+    handleFocusLastName = () => this.refs.lastname.focus()
+
+    handleFocusMobileNo = () => this.refs.mobile_no.focus()
+
+    handleSearch = async () => {
         try {
-            let {wallet_no, fullname, processing} = this.state
+            let {wallet_no, firstname, lastname, mobile_no, processing, found} = this.state
 
             if(processing) return false
 
             this.setState({processing:true})
 
+            if(found) this.addReceiver()
+
             wallet_no = wallet_no.trim()
-            fullname = fullname.trim()
+            firstname = firstname.trim()
+            lastname = lastname.trim()
+            mobile_no = mobile_no.trim()
 
-            if(wallet_no == '' || fullname == '') Say.some(_('8'))
-            else {
-
+            if((wallet_no && firstname && lastname) || mobile_no) {
                 let payload = {
                     wallet_no,
-                    fullname
+                    firstname,
+                    lastname,
+                    mobile_no
                 }
+
+                found = true
     
                 //await API.addNewReceiver(payload)
-
-                this.props.navigation.pop()
+            }
+            else {
+                Say.some(_('8'))
             }
 
-            this.setState({processing:false})
+            this.setState({
+                processing:false,
+                found
+            })
         }
         catch(err) {
             this.setState({processing:false})
@@ -53,50 +76,76 @@ class AddKPReceiver extends React.Component {
         }
     }
 
+    addReceiver = () => {
+        this.props.navigation.pop()
+    }
+
     render() {
 
-        const {wallet_no, fullname, processing} = this.state
+        const {wallet_no, firstname, lastname, mobile_no, processing, found} = this.state
         let ready = false
 
-        if(wallet_no && fullname) ready = true
+        if((wallet_no && firstname && lastname) || mobile_no) ready = true
 
         return (
-            <View style={style.container}>
-                <Text center>Please ensure that the ML Wallet account number entered is correct.</Text>
+            <>
+                <Screen>
+                    <Headline subtext='Please ensure that the ML Wallet account number entered is correct' />
 
-                <Spacer />
+                    <View style={{alignItems:'center'}}>
+                        <Avatar source={null} size={Metrics.image.lg} />
 
-                <TextInput
-                    label='Wallet Account Number'
-                    value={wallet_no}
-                    onChangeText={this.handleChangeWalletNo}
-                    keyboardType='numeric'
-                />
+                        <Spacer />
 
-                <TextInput
-                    label='Full Name'
-                    value={fullname}
-                    onChangeText={this.handleChangeFullName}
-                    autoCapitalize='words'
-                />
+                        <TextInput
+                            label='Wallet Account Number'
+                            value={wallet_no}
+                            onChangeText={this.handleChangeWalletNo}
+                            onSubmitEditing={this.handleFocusFirstName}
+                            keyboardType='numeric'
+                            returnKeyType='next'
+                        />
 
-                <View style={style.footer}>
-                    <Button disabled={!ready} t='Save Receiver' onPress={this.handleSubmit} loading={processing} />
-                </View>
-            </View>
+                        <TextInput
+                            ref='firstname'
+                            label='First Name'
+                            value={firstname}
+                            onChangeText={this.handleChangeFirstName}
+                            onSubmitEditing={this.handleFocusLastName}
+                            autoCapitalize='words'
+                            returnKeyType='next'
+                        />
+
+                        <Spacer h xs />
+
+                        <TextInput
+                            ref='lastname'
+                            label='Last Name'
+                            value={lastname}
+                            onChangeText={this.handleChangeLastName}
+                            onSubmitEditing={this.handleFocusMobileNo}
+                            autoCapitalize='words'
+                            returnKeyType='next'
+                        />
+
+                        <Text center>or</Text>
+
+                        <TextInput
+                            ref='mobile_no'
+                            label='Registered mobile number'
+                            value={mobile_no}
+                            onChangeText={this.handleChangeMobileNo}
+                            keyboardType='numeric'
+                        />
+                    </View>
+                </Screen>
+
+                <Footer>
+                    <Button disabled={!ready} t={found ? 'Save Receiver' : 'Search Receiver'} onPress={this.handleSearch} loading={processing} />
+                </Footer>
+            </>
         )
     }
 }
 
-const style = StyleSheet.create({
-    container: {
-        flex:1,
-        padding:Metrics.lg
-    },
-    footer: {
-        flex:1,
-        justifyContent:'flex-end'
-    }
-})
-
-export default AddKPReceiver
+export default Scrn

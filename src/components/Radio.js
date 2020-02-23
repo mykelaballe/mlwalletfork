@@ -5,7 +5,7 @@ import {RadioButton} from 'react-native-paper'
 
 export default props => (
     <Row>
-        <RadioButton value={props.value} color={Colors.brand} />
+        <RadioButton.Android value={props.value} color={Colors.brand} />
         <Text md mute>{props.label}</Text>
     </Row>
 )
