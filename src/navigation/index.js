@@ -1,10 +1,11 @@
 import React from 'react'
 import {createAppContainer} from 'react-navigation'
 import {connect} from 'react-redux'
-import Actions from '../actions/Creators'
+import AppIntroStack from './AppIntroStack'
 import AuthStack from './AuthStack'
 import MainStack from './MainStack'
 
+const AppIntroContainer = createAppContainer(AppIntroStack)
 const AuthAppContainer = createAppContainer(AuthStack)
 const MainAppContainer = createAppContainer(MainStack)
 
@@ -12,17 +13,18 @@ class Navigation extends React.Component {
 
     render() {
 
-        const {isLoggedIn} = this.props
+        const {isFirstTime, isLoggedIn} = this.props
+
+        if(isFirstTime) return <AppIntroContainer />
 
         if(isLoggedIn) return <MainAppContainer />
         return <AuthAppContainer />
     }
 }
 
-mapStateToProps = state => {
-    return {
-        isLoggedIn: state.auth.isLoggedIn
-    }
-}
+const mapStateToProps = state => ({
+    isFirstTime: state.app.isFirstTime,
+    isLoggedIn: state.auth.isLoggedIn
+})
 
 export default connect(mapStateToProps)(Navigation)

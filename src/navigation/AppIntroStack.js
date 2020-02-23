@@ -3,6 +3,12 @@ import * as Scrn from '../screens'
 import {AppStyles} from '../themes'
 
 export default createStackNavigator({
+    AuthIndex: {
+        screen:Scrn.AuthIndexScrn,
+        navigationOptions:{
+            header:null
+        }
+    },
     Login: {
         screen:Scrn.LoginScrn,
         navigationOptions:{
@@ -21,22 +27,6 @@ export default createStackNavigator({
     SignUpVerificationMobile: Scrn.SignUpVerificationMobileScrn,
     SignUpVerificationOTP: Scrn.SignUpVerificationOTPScrn,
     SignUpSuccess: Scrn.SignUpSuccessScrn,
-    ForgotPassword: {
-        screen:Scrn.ForgotPasswordScrn,
-        navigationOptions:AppStyles.noHeaderNavigationOptions
-    },
-    SecurityQuestion: {
-        screen:Scrn.SecurityQuestionAuthScrn,
-        navigationOptions:AppStyles.noHeaderNavigationOptions
-    },
-    SendPassword: {
-        screen:Scrn.SendPasswordScrn,
-        navigationOptions:AppStyles.noHeaderNavigationOptions
-    },
-    TouchID: {
-        screen:Scrn.TouchIDScrn,
-        navigationOptions:AppStyles.noHeaderNavigationOptions
-    },
     Countries: Scrn.CountriesScrn,
     Provinces: Scrn.ProvincesScrn,
     Cities: Scrn.CitiesScrn,

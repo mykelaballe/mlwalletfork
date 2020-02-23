@@ -7,6 +7,12 @@ import RNRestart from 'react-native-restart'
 
 export default class Scrn extends React.Component {
 
+    componentDidMount = async () => {
+        let db = await Storage.doLoad(Consts.db.app)
+        db.isFirstTime = false
+        await Storage.doSave(Consts.db.app,db)
+    }
+
     handleChangeLang = async lang => {
         let db = await Storage.doLoad(Consts.db.app)
         db.lang = lang
