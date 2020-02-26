@@ -1,11 +1,11 @@
 import React from 'react'
-import {StyleSheet, View, ScrollView} from 'react-native'
+import {View, StyleSheet} from 'react-native'
 import {SectionList, Text, Spacer, Button, CollapsibleItem, SearchInput} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_} from '../utils'
 import data from '../services/faq'
 
-class FAQ extends React.Component {
+export default class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Frequently Asked Questions'
@@ -20,14 +20,18 @@ class FAQ extends React.Component {
 
     handleContact = () => this.props.navigation.navigate('ContactUs')
 
-    renderSectionHeader = ({section: {title}}) => <Text b md>{title}</Text>
+    renderSectionHeader = ({section: {title}}) => (
+        <View style={style.sectionHeader}>
+            <Text b md>{title}</Text>
+        </View>
+    )
 
     renderSectionFooter = () => <Spacer />
 
     renderItem = ({item}) => (
         <CollapsibleItem
             style={style.item}
-            topContent={<Text md>{item.question}</Text>}
+            topContent={<Text b md>{item.question}</Text>}
             bottomContent={
             <>
                 <Spacer />
@@ -72,6 +76,10 @@ const style = StyleSheet.create({
         flex:1,
         padding:Metrics.md
     },
+    sectionHeader: {
+        backgroundColor:Colors.lightgray,
+        padding:Metrics.rg
+    },
     item: {
         borderWidth:StyleSheet.hairlineWidth,
         borderColor:Colors.gray,
@@ -80,5 +88,3 @@ const style = StyleSheet.create({
         marginVertical:Metrics.rg
     }
 })
-
-export default FAQ
