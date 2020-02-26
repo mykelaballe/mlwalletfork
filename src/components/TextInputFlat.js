@@ -16,6 +16,7 @@ export default React.forwardRef((props, ref) => (
         onChangeText={props.onChangeText}
         autoCorrect={false}
         underlineColor={Colors.brand}
+        selectionColor={Colors.brand}
         theme={{
             colors:{
                 primary:Colors.mute

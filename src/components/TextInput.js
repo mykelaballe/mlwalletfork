@@ -10,7 +10,9 @@ export default React.forwardRef((props, ref) => (
             borderWidth:StyleSheet.hairlineWidth,
             borderColor:Colors.lightgray,
             borderRadius:Metrics.sm,
-            marginVertical:Metrics.sm
+            marginVertical:Metrics.sm,
+            //height:props.multiline ? undefined : 63,
+            overflow:'hidden'
         }}>
             {props.leftContent &&
             <View style={{paddingLeft:Metrics.md}}>
@@ -25,6 +27,7 @@ export default React.forwardRef((props, ref) => (
                 style={[{
                     flex:1,
                     backgroundColor:'transparent',
+                    height:props.multiline ? 130 : undefined,
                     ...props.style
                 }]}
                 label={props.label}
@@ -32,6 +35,7 @@ export default React.forwardRef((props, ref) => (
                 onChangeText={props.onChangeText}
                 autoCorrect={false}
                 underlineColor='transparent'
+                selectionColor={Colors.brand}
                 theme={{
                     colors:{
                         primary:Colors.mute

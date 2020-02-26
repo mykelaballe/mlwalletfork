@@ -17,9 +17,15 @@ export default class DayPicker extends React.Component {
 	}
 
 	componentDidMount = () => {
+		const {initialValue} = this.props
 		let list = []
 		
-		for(let i=1; i<=31; i++) list.push({label:i})
+		for(let i=1; i<=31; i++) {
+			list.push({
+				label:i,
+				selected:initialValue && initialValue == i ? true : false
+			})
+		}
 
 		this.setState({list})
 	}

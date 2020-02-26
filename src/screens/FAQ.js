@@ -1,10 +1,9 @@
 import React from 'react'
 import {StyleSheet, View, ScrollView} from 'react-native'
-import {SectionList, Text, Spacer, Button, CollapsibleItem} from '../components'
+import {SectionList, Text, Spacer, Button, CollapsibleItem, SearchInput} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_} from '../utils'
 import data from '../services/faq'
-import {Searchbar} from 'react-native-paper'
 
 class FAQ extends React.Component {
 
@@ -32,7 +31,7 @@ class FAQ extends React.Component {
             bottomContent={
             <>
                 <Spacer />
-                <Text md>{item.answer}</Text>
+                {typeof item.answer === 'string' ? <Text>{item.answer}</Text> : item.answer}
             </>
             }
         />
@@ -44,11 +43,9 @@ class FAQ extends React.Component {
 
         return (
             <View style={style.container}>
-                <Searchbar
-                    placeholder='Search'
+                <SearchInput
                     onChangeText={this.handleChangeSearch}
                     value={search}
-                    style={{backgroundColor:Colors.lightgray}}
                 />
 
                 <Spacer />

@@ -31,7 +31,7 @@ class Scrn extends React.Component {
         zip_code:'6045'
     }
 
-    handleEditProfile = () => this.props.navigation.navigate('EditProfile')
+    handleEditProfile = () => this.props.navigation.navigate('EditProfileIndex')
 
     render() {
 

@@ -1,7 +1,6 @@
 import React from 'react'
-import {View, StyleSheet, TouchableOpacity} from 'react-native'
-import {Headline, Text, Spacer, Button, TextInput, Icon} from '../components'
-import {Metrics} from '../themes'
+import {TouchableOpacity} from 'react-native'
+import {Screen, Footer, Headline, Text, Spacer, Button, TextInput, Icon} from '../components'
 import {_, Consts} from '../utils'
 
 class Scrn extends React.Component {
@@ -11,12 +10,23 @@ class Scrn extends React.Component {
     }
 
     state = {
-        wallet_account_number:'1911-0000-3257-91',
-        receiver:'John Smith',
+        wallet_account_number:'',
+        receiver:'',
         amount:'',
         notes:'',
         charges:'',
         total:''
+    }
+
+    componentDidUpdate = (prevProps, prevState) => {
+        const {params = {}} = this.props.navigation.state
+        if(params.receiver && params.receiver.wallet_account_number !== prevState.wallet_account_number) {
+            this.props.navigation.setParams({receiver:null})
+            this.setState({
+                wallet_account_number:params.receiver.wallet_account_number,
+                fullname:params.receiver.fullname
+            })
+        }
     }
 
     handleChangeReceiverWalletID = receiver_wallet_id => this.setState({receiver_wallet_id})
@@ -45,9 +55,8 @@ class Scrn extends React.Component {
         if(wallet_account_number && amount) ready = true
 
         return (
-            <View style={style.container}>
-
-                <View>
+            <>
+                <Screen>
                     <Headline subtext='Send Money to an ML Wallet Account' />
 
                     <TouchableOpacity onPress={this.handleAddNewReceiver}>
@@ -59,7 +68,7 @@ class Scrn extends React.Component {
                         />
                     </TouchableOpacity>
 
-                    <Spacer sm />
+                    <Spacer />
 
                     <TextInput
                         label='Amount (PHP)'
@@ -71,16 +80,15 @@ class Scrn extends React.Component {
                     <Spacer />
 
                     <TextInput
-                        style={style.textarea}
                         label='Notes'
                         placeholder='Type an optional message to your receiver here'
                         value={notes}
                         onChangeText={this.handleChangeNotes}
                         multiline
                     />
-                </View>
-                
-                <View style={style.footer}>
+                </Screen>
+
+                <Footer>
                     <Text mute>Charges</Text>
                     <Text md>PHP 25.00</Text>
 
@@ -92,24 +100,10 @@ class Scrn extends React.Component {
                     <Spacer />
                     
                     <Button disabled={!ready} t={Consts.tcn[type].submit_text} onPress={this.handleSendMoney} />
-                </View>
-            </View>
+                </Footer>
+            </>
         )
     }
 }
-
-const style = StyleSheet.create({
-    container: {
-        flex:1,
-        justifyContent:'space-between',
-        padding:Metrics.lg
-    },
-    textarea: {
-        height:130
-    },
-    footer: {
-
-    }
-})
 
 export default Scrn

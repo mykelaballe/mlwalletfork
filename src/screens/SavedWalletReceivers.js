@@ -11,7 +11,7 @@ const ItemUI = props => (
                 <Initial text={props.data.fullname} />
                 <Spacer h sm />
                 <View>
-                    <Text b>{props.data.wallet_id}</Text>
+                    <Text b>{props.data.wallet_account_number}</Text>
                     <Text>{props.data.fullname}</Text>
                 </View>
             </Row>
@@ -41,11 +41,11 @@ class Scrn extends React.Component {
         try {
             list = [
                 {
-                    wallet_id:'1911-0000-3257-93',
+                    wallet_account_number:'1911-0000-3257-93',
                     fullname:'Ashley Uy',
                 },
                 {
-                    wallet_id:'1911-0000-3157-89',
+                    wallet_account_number:'1911-0000-3157-89',
                     fullname:'Lotlot Rubite'
                 }
             ]

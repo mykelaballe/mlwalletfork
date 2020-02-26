@@ -1,12 +1,12 @@
 import React from 'react'
-import {View, StyleSheet, TouchableOpacity} from 'react-native'
-import {ScrollView, Text, Row, Button, Spacer, HR, TopBuffer, HeaderRight, Outline} from '../components'
+import {TouchableOpacity} from 'react-native'
+import {Screen, Footer, Text, Button, Spacer, HeaderRight, Outline} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_} from '../utils'
 import Icon from 'react-native-vector-icons/Ionicons'
 import {Menu} from 'react-native-paper'
 
-class ReceiverWalletProfile extends React.Component {
+class Scrn extends React.Component {
 
     static navigationOptions = ({navigation}) => {
         const {params = {}} = navigation.state
@@ -25,7 +25,6 @@ class ReceiverWalletProfile extends React.Component {
                     </HeaderRight>
                     }
                 >
-                    <Menu.Item onPress={params.handleEdit} title='Edit Receiver' />
                     <Menu.Item onPress={() => {}} title="Delete Receiver" />
                 </Menu>
             )
@@ -60,48 +59,36 @@ class ReceiverWalletProfile extends React.Component {
     }
 
     handleSelect = () => {
-        this.props.navigation.navigate('SendWalletToWallet')
+        const {navigation: {navigate, state: {params: {receiver}}}} = this.props
+        navigate('SendWalletToWallet',{receiver})
     }
 
     render() {
 
-        const {wallet_id, fullname} = this.props.navigation.state.params.receiver
+        const {wallet_account_number, fullname} = this.props.navigation.state.params.receiver
 
         return (
-            <View style={style.container}>
+            <>
+                <Screen>
+                    <Outline>
+                        <Text mute sm>Wallet Account Number</Text>
+                        <Text md>{wallet_account_number}</Text>
+                    </Outline>
 
-                <Outline>
-                    <Text mute sm>Wallet Account Number</Text>
-                    <Text md>{wallet_id}</Text>
-                </Outline>
+                    <Spacer sm />
 
-                <Spacer sm />
+                    <Outline>
+                        <Text mute sm>Full Name</Text>
+                        <Text>{fullname}</Text>
+                    </Outline>
+                </Screen>
 
-                <Outline>
-                    <Text mute sm>Full Name</Text>
-                    <Text>{fullname}</Text>
-                </Outline>
-
-                <View style={style.footer}>
-                    <Button t='Select Receiver' onPress={this.handleSelect} />
-                </View>
-            </View>
+                <Footer>
+                    <Button t={_('82')} onPress={this.handleSelect} />
+                </Footer>
+            </>
         )
     }
 }
 
-const style = StyleSheet.create({
-    container: {
-        flex:1,
-        padding:Metrics.lg
-    },
-    item: {
-        padding:Metrics.rg
-    },
-    footer: {
-        flex:1,
-        justifyContent:'flex-end'
-    }
-})
-
-export default ReceiverWalletProfile
+export default Scrn

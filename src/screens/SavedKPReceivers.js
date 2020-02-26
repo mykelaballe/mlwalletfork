@@ -44,13 +44,22 @@ class Scrn extends React.Component {
                     firstname:'Ashley',
                     lastname:'Uy',
                     middlename:'',
-                    contact_no:'0912345678'
+                    contact_no:'0912345678',
+                    suffix:''
                 },
                 {
                     firstname:'Lotlot',
                     lastname:'Rubite',
                     middlename:'',
-                    contact_no:'0912345678'
+                    contact_no:'0912345678',
+                    suffix:''
+                },
+                {
+                    firstname:'John',
+                    lastname:'Paul',
+                    middlename:'Logal',
+                    contact_no:'09155345678',
+                    suffix:'Jr'
                 }
             ]
         }

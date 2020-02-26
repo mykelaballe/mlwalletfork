@@ -63,6 +63,7 @@ export default createStackNavigator({
     Countries: Scrn.CountriesScrn,
     Provinces: Scrn.ProvincesScrn,
     Cities: Scrn.CitiesScrn,
+    Nationalities: Scrn.NationalitiesScrn,
 
     TransactionReview: Scrn.TransactionReviewScrn,
     TransactionReceipt: Scrn.TransactionReceiptScrn,
@@ -76,6 +77,13 @@ export default createStackNavigator({
     TermsAndConditions: Scrn.TermsAndConditionsScreen,
 
     Profile: Scrn.ProfileScrn,
+    EditProfileIndex: Scrn.EditProfileIndexScrn,
+    EditMyNameIndex: Scrn.EditMyNameIndexScrn,
+    EditMyName: Scrn.EditMyNameScrn,
+    EditMyBirthdayIndex: Scrn.EditMyBirthdayIndexScrn,
+    EditMyBirthday: Scrn.EditMyBirthdayScrn,
+    EditMyGender: Scrn.EditMyGenderScrn,
+    EditMyOtherDetails: Scrn.EditMyOtherDetailsScrn,
     EditProfile: Scrn.EditProfileScrn,
     VerificationLevels: Scrn.VerificationLevelsScrn,
     MyQR: Scrn.MyQRScrn,

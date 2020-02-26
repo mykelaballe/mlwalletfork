@@ -39,7 +39,7 @@ class Scrn extends React.Component {
         gender:'male',
         email:'',
         nationality:'Filipino',
-        source_of_incode:'',
+        source_of_income:'',
         showMonthPicker:false,
         showDayPicker:false,
         showYearPicker:false,

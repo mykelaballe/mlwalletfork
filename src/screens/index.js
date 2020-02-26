@@ -86,6 +86,13 @@ import SecurityQuestionsScrn from './SecurityQuestions'
 import CameraScrn from './Camera'
 
 import ProfileScrn from './Profile'
+import EditProfileIndexScrn from './EditProfileIndex'
+import EditMyNameIndexScrn from './EditMyNameIndex'
+import EditMyNameScrn from './EditMyName'
+import EditMyBirthdayIndexScrn from './EditMyBirthdayIndex'
+import EditMyBirthdayScrn from './EditMyBirthday'
+import EditMyGenderScrn from './EditMyGender'
+import EditMyOtherDetailsScrn from './EditMyOtherDetails'
 import EditProfileScrn from './EditProfile'
 import VerificationLevelsScrn from './VerificationLevels'
 import MyQRScrn from './MyQR'
@@ -184,6 +191,13 @@ export {
     CameraScrn,
 
     ProfileScrn,
+    EditProfileIndexScrn,
+    EditMyNameIndexScrn,
+    EditMyNameScrn,
+    EditMyBirthdayIndexScrn,
+    EditMyBirthdayScrn,
+    EditMyGenderScrn,
+    EditMyOtherDetailsScrn,
     EditProfileScrn,
     VerificationLevelsScrn,
     MyQRScrn,

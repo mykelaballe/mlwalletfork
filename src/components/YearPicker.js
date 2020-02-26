@@ -24,9 +24,15 @@ export default class YearPicker extends React.Component {
 	}
 
 	componentDidMount = () => {
+		const {initialValue} = this.props
 		let list = []
 		
-		for(let i=MIN_YEAR; i<=MAX_YEAR; i++) list.push({label:i})
+		for(let i=MIN_YEAR; i<=MAX_YEAR; i++) {
+			list.push({
+				label:i,
+				selected:initialValue && initialValue == i ? true : false
+			})
+		}
 
 		this.setState({list})
 	}

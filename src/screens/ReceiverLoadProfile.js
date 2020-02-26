@@ -1,34 +1,14 @@
 import React from 'react'
-import {View, StyleSheet, TouchableOpacity} from 'react-native'
-import {ScrollView, Text, Row, Button, Spacer, HR, TopBuffer, HeaderRight, Outline} from '../components'
-import {Colors, Metrics} from '../themes'
+import {Screen, Footer, Text, Button, Spacer, Outline} from '../components'
 import {_} from '../utils'
-import Icon from 'react-native-vector-icons/Ionicons'
-import {Menu} from 'react-native-paper'
 
-class ReceiverKPProfile extends React.Component {
+class Scrn extends React.Component {
 
     static navigationOptions = ({navigation}) => {
         const {params = {}} = navigation.state
 
         return {
-            title:'Saved Receiver',
-            /*headerRight:(
-                <Menu
-                    visible={params.menuOpen}
-                    onDismiss={params.handleToggleMenu}
-                    anchor={
-                    <HeaderRight>
-                        <TouchableOpacity onPress={params.handleToggleMenu}>
-                            <Icon name='ios-more' color={Colors.light} size={Metrics.icon.rg} />
-                        </TouchableOpacity>
-                    </HeaderRight>
-                    }
-                >
-                    <Menu.Item onPress={params.handleEdit} title='Edit Receiver' />
-                    <Menu.Item onPress={() => {}} title="Delete Receiver" />
-                </Menu>
-            )*/
+            title:'Saved Receiver'
         }
     }
 
@@ -68,40 +48,27 @@ class ReceiverKPProfile extends React.Component {
         const {fullname, contact_no} = this.props.navigation.state.params.receiver
 
         return (
-            <View style={style.container}>
+            <>
+                <Screen>
+                    <Outline>
+                        <Text mute sm>Full Legal Name</Text>
+                        <Text md>{fullname}</Text>
+                    </Outline>
 
-                <Outline>
-                    <Text mute sm>Full Legal Name</Text>
-                    <Text md>{fullname}</Text>
-                </Outline>
+                    <Spacer sm />
 
-                <Spacer sm />
+                    <Outline>
+                        <Text mute sm>Contact No.</Text>
+                        <Text>{contact_no}</Text>
+                    </Outline>
+                </Screen>
 
-                <Outline>
-                    <Text mute sm>Contact No.</Text>
-                    <Text>{contact_no}</Text>
-                </Outline>
-
-                <View style={style.footer}>
-                    <Button t='Select Receiver' onPress={this.handleSelect} />
-                </View>
-            </View>
+                <Footer>
+                    <Button t={_('82')} onPress={this.handleSelect} />
+                </Footer>
+            </>
         )
     }
 }
 
-const style = StyleSheet.create({
-    container: {
-        flex:1,
-        padding:Metrics.lg
-    },
-    item: {
-        padding:Metrics.rg
-    },
-    footer: {
-        flex:1,
-        justifyContent:'flex-end'
-    }
-})
-
-export default ReceiverKPProfile
+export default Scrn

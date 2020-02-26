@@ -8,6 +8,17 @@ export default {
             fname:'John',
             mname:'F',
             lname:'Smith',
+            suffix:'',
+            birthdate:'1980-01-01',
+            gender:'male',
+            email:'johnsmit@gmail.com',
+            nationality:'Filipino',
+            source_of_income:'Business',
+            country:'Philippines',
+            province:'Cebu',
+            city:'Cebu City',
+            barangay:'Basak',
+            zip_code:'6000',
             walletno:'123456789',
             balance:'1000'
         }

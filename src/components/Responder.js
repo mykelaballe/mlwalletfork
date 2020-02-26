@@ -1,5 +1,5 @@
 import React from 'react'
-import {PanResponder, View, StyleSheet} from 'react-native'
+import {PanResponder, View} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Prompt} from './'

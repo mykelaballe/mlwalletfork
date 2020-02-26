@@ -1,23 +1,23 @@
 import React from 'react'
-import {Screen, Footer, Headline, TextInput, Button, Checkbox, Picker} from '../components'
+import {connect} from 'react-redux'
+import {Screen, Footer, Headline, TextInput, Button, Checkbox, Picker, Prompt} from '../components'
 import {Metrics} from '../themes'
 import {_, Say} from '../utils'
 
 class Scrn extends React.Component {
 
     static navigationOptions = {
-        title:'Edit Receiver'
+        title:'Edit My Name'
     }
 
     state = {
-        id:this.props.navigation.state.params.receiver.id,
-        firstname:this.props.navigation.state.params.receiver.firstname,
-        middlename:this.props.navigation.state.params.receiver.middlename || _('50'),
-        has_middlename:this.props.navigation.state.params.receiver.middlename ? true : false,
-        lastname:this.props.navigation.state.params.receiver.lastname,
-        suffix:this.props.navigation.state.params.receiver.suffix || _('51'),
+        fname:this.props.user.fname,
+        mname:this.props.user.mname || _('50'),
+        has_middlename:this.props.user.mname ? true : false,
+        lname:this.props.user.lname,
+        suffix:this.props.user.suffix || _('51'),
         other_suffix:'',
-        has_suffix:this.props.navigation.state.params.receiver.suffix ? true : false,
+        has_suffix:this.props.user.suffix ? true : false,
         suffix_options:[
             {label:'Jr.'},
             {label:'Sr.'},
@@ -28,22 +28,22 @@ class Scrn extends React.Component {
             {label:'V'},
             {label:'Others'}
         ],
-        contact_no:this.props.navigation.state.params.receiver.contact_no,
-        processing:false
+        processing:false,
+        showSuccessModal:false
     }
 
-    handleChangeFirstName = firstname => this.setState({firstname})
+    handleChangeFirstName = fname => this.setState({fname})
 
-    handleChangeMiddleName = middlename => this.setState({middlename})
+    handleChangeMiddleName = mname => this.setState({mname})
 
     handleToggleHasMiddlename = () => {
         this.setState(prevState => ({
-            middlename:prevState.has_middlename ? _('50') : '',
+            mname:prevState.has_middlename ? _('50') : '',
             has_middlename:!prevState.has_middlename
         }))
     }
 
-    handleChangeLastName = lastname => this.setState({lastname})
+    handleChangeLastName = lname => this.setState({lname})
 
     handleChangeSuffix = (option = {}) => this.setState({suffix:option.label})
 
@@ -56,70 +56,76 @@ class Scrn extends React.Component {
         }))
     }
 
-    handleChangeContactNo = contact_no => this.setState({contact_no})
+    handleFocusMiddleName = () => this.state.has_middlename ? this.refs.mname.focus() : this.refs.lname.focus()
 
-    handleFocusMiddleName = () => this.state.has_middlename ? this.refs.middlename.focus() : this.refs.lastname.focus()
-
-    handleFocusLastName = () => this.refs.lastname.focus()
-
-    handleFocusContactNo = () => this.refs.contact_no.focus()
+    handleFocusLastName = () => this.refs.lname.focus()
 
     handleSubmit = async () => {
         try {
-            let {firstname, middlename, lastname, suffix, other_suffix, contact_no, processing} = this.state
+            let {fname, mname, lname, suffix, other_suffix, processing} = this.state
 
             if(processing) return false
 
             this.setState({processing:true})
 
-            firstname = firstname.trim()
-            middlename = middlename.trim()
-            lastname = lastname.trim()
-            contact_no = contact_no.trim()
+            fname = fname.trim()
+            mname = mname.trim()
+            lname = lname.trim()
             suffix = suffix.trim()
             other_suffix = other_suffix.trim()
 
             suffix = other_suffix || suffix
 
-            if(!firstname || !middlename || !lastname || !suffix || !contact_no) Say.some(_('8'))
+            if(!fname || !mname || !lname || !suffix) Say.some(_('8'))
             else {
 
                 let payload = {
-                    firstname,
-                    middlename,
-                    lastname,
-                    suffix,
-                    contact_no
+                    fname,
+                    mname,
+                    lname,
+                    suffix
                 }
     
                 //await API.addNewReceiver(payload)
 
-                this.props.navigation.pop()
+                this.setState({
+                    processing:false,
+                    showSuccessModal:true
+                })
             }
 
             this.setState({processing:false})
         }
         catch(err) {
             this.setState({processing:false})
-            Say.err(_('18'))
+            Say.err(_('500'))
         }
     }
 
+    handleCloseModal = () => this.setState({showSuccessModal:false})
+
     render() {
 
-        const {firstname, middlename, has_middlename, lastname, suffix, other_suffix, has_suffix, suffix_options, contact_no, processing} = this.state
+        const {fname, mname, has_middlename, lname, suffix, other_suffix, has_suffix, suffix_options, processing, showSuccessModal} = this.state
         let ready = false
 
-        if(firstname && middlename && lastname && suffix && contact_no) ready = true
+        if(fname && mname && lname && suffix) ready = true
 
         return (
             <>
+                <Prompt
+                    visible={showSuccessModal}
+                    title='Success'
+                    message='Your request to change your name has been sent for approval. We will get back to you soon!'
+                    onDismiss={this.handleCloseModal}
+                />
+                
                 <Screen>
-                    <Headline subtext='Please ensure that the name of the receiver is the same as it appears in their valid ID.' />
+                    <Headline subtext='Please make sure to enter all the correct details' />
 
                     <TextInput
                         label='First Name'
-                        value={firstname}
+                        value={fname}
                         onChangeText={this.handleChangeFirstName}
                         onSubmitEditing={this.handleFocusMiddleName}
                         autoCapitalize='words'
@@ -127,10 +133,10 @@ class Scrn extends React.Component {
                     />
 
                     <TextInput
-                        ref='middlename'
+                        ref='mname'
                         editable={has_middlename}
                         label='Middle Name'
-                        value={middlename}
+                        value={mname}
                         onChangeText={this.handleChangeMiddleName}
                         onSubmitEditing={this.handleFocusLastName}
                         autoCapitalize='words'
@@ -145,13 +151,12 @@ class Scrn extends React.Component {
                     />
 
                     <TextInput
-                        ref='lastname'
+                        ref='lname'
                         label='Last Name'
-                        value={lastname}
+                        value={lname}
                         onChangeText={this.handleChangeLastName}
                         onSubmitEditing={this.handleFocusContactNo}
                         autoCapitalize='words'
-                        returnKeyType='next'
                     />
 
                     <Picker
@@ -176,22 +181,18 @@ class Scrn extends React.Component {
                         label="Not applicable"
                         labelStyle={{fontSize:Metrics.font.sm}}
                     />
-
-                    <TextInput
-                        ref='contact_no'
-                        label='Contact No.'
-                        value={contact_no}
-                        onChangeText={this.handleChangeContactNo}
-                        keyboardType='numeric'
-                    />
                 </Screen>
 
                 <Footer>
-                    <Button disabled={!ready} t={_('83')} onPress={this.handleSubmit} loading={processing} />
+                    <Button disabled={!ready} t={'Save Changes'} onPress={this.handleSubmit} loading={processing} />
                 </Footer>
             </>
         )
     }
 }
 
-export default Scrn
+const mapStateToProps = state => ({
+    user: state.user.data
+})
+
+export default connect(mapStateToProps)(Scrn)

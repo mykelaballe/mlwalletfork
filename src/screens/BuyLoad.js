@@ -1,7 +1,7 @@
 import React from 'react'
 import {View, StyleSheet, TouchableOpacity} from 'react-native'
-import {Screen, Footer, Headline, Text, Spacer, Button, TextInput, Icon} from '../components'
-import {Metrics, Res} from '../themes'
+import {Screen, Footer, Headline, Spacer, Button, TextInput, Icon} from '../components'
+import {Metrics} from '../themes'
 import {_, Consts} from '../utils'
 
 class Scrn extends React.Component {
@@ -12,10 +12,18 @@ class Scrn extends React.Component {
 
     state = {
         type:Consts.tcn.bul.code,
-        mobile_no:'0912345678',
+        contact_no:'',
     }
 
-    handleChangeMobileNo = mobile_no => this.setState({mobile_no})
+    componentDidUpdate = (prevProps, prevState) => {
+        const {params = {}} = this.props.navigation.state
+        if(params.receiver && params.receiver.contact_no !== prevState.contact_no) {
+            this.props.navigation.setParams({receiver:null})
+            this.setState({contact_no:params.receiver.contact_no})
+        }
+    }
+
+    handleChangeContactNo = contact_no => this.setState({contact_no})
 
     handleSelectReceiver = () => this.props.navigation.navigate('SavedLoadReceivers')
 
@@ -29,10 +37,10 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {mobile_no} = this.state
+        const {contact_no} = this.state
         let ready = false
 
-        if(mobile_no) ready = true
+        if(contact_no) ready = true
 
         return (
             <>
@@ -47,9 +55,9 @@ class Scrn extends React.Component {
 
                     <TextInput
                         label='Mobile Number'
-                        value={mobile_no}
+                        value={contact_no}
                         keyboardType='numeric'
-                        onChangeText={this.handleChangeMobileNo}
+                        onChangeText={this.handleChangeContactNo}
                         rightContent={
                             <TouchableOpacity onPress={this.handleSelectReceiver}>
                                 <Icon name='phonebook' style={{width:30,height:30}} />
@@ -59,7 +67,7 @@ class Scrn extends React.Component {
                 </Screen>
 
                 <Footer>
-                    <Button disabled={!ready} t='Next' onPress={this.handleNext} />
+                    <Button disabled={!ready} t={_('62')} onPress={this.handleNext} />
                 </Footer>
             </>
         )

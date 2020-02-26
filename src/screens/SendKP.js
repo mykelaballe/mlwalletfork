@@ -4,7 +4,7 @@ import {Headline, Text, Spacer, Button, ButtonText, TextInput, Icon, HeaderRight
 import {Colors, Metrics} from '../themes'
 import {_, Consts} from '../utils'
 
-class SendKP extends React.Component {
+class Scrn extends React.Component {
 
     static navigationOptions = ({navigation}) => ({
         title:Consts.tcn[navigation.state.params.type].short_desc,
@@ -16,10 +16,18 @@ class SendKP extends React.Component {
     })
 
     state = {
-        receiver:'John Smith',
+        receiver:null,
         amount:'',
         charges:'',
         total:''
+    }
+
+    componentDidUpdate = (prevProps, prevState) => {
+        const {params = {}} = this.props.navigation.state
+        if(params.receiver && params.receiver !== prevState.receiver) {
+            this.props.navigation.setParams({receiver:null})
+            this.setState({receiver:params.receiver})
+        }
     }
 
     handleChangeAmount = amount => this.setState({amount})
@@ -55,7 +63,7 @@ class SendKP extends React.Component {
                         <TextInput
                             disabled
                             label='Receiver'
-                            value={receiver}
+                            value={receiver && `${receiver.firstname} ${receiver.middlename} ${receiver.lastname} ${receiver.suffix}`}
                             rightContent={<Icon name='user_plus' size={20} />}
                         />
                     </TouchableOpacity>
@@ -98,9 +106,8 @@ const style = StyleSheet.create({
         height:130
     },
     footer: {
-        //flex:1,
-        //justifyContent:'flex-end'
+
     }
 })
 
-export default SendKP
+export default Scrn

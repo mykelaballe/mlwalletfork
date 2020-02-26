@@ -5,7 +5,7 @@ import {Metrics} from '../themes'
 
 export default props => (
     <KeyboardAvoidingView style={style.container}>
-        {props.ns ? props.children : <ScrollView>{props.children}</ScrollView>}
+        {props.ns ? props.children : <ScrollView keyboardShouldPersistTaps='handled'>{props.children}</ScrollView>}
     </KeyboardAvoidingView>
 )
 

@@ -28,17 +28,17 @@ class Scrn extends React.Component {
 
                     <Headline title='Congratulations, Juana!' />
                     
-                    <Text center>You are now registered as a</Text>
-                    <Text center b>Semi-Verified User.</Text>
+                    <Text center md>You are now registered as a</Text>
+                    <Text center b md>Semi-Verified User.</Text>
 
                     <Spacer />
 
-                    <Text center>Please remember your</Text>
-                    <Text center>ML Wallet Account number</Text>
+                    <Text center md>Please remember your</Text>
+                    <Text center md>ML Wallet Account number</Text>
 
                     <Spacer sm />
 
-                    <Text center b>1911-0000-2519-34</Text>
+                    <Text center b lg>1911-0000-2519-34</Text>
                 </Screen>
             
                 <Footer>

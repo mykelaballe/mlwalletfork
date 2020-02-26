@@ -1,10 +1,10 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager, TouchableOpacity} from 'react-native'
-import {ScrollView, Text, Row, Spacer, Button, ButtonIcon, ButtonText, Ripple, TopBuffer, TextInput, Icon} from '../components'
-import {Colors, Metrics, Res} from '../themes'
+import {View, StyleSheet} from 'react-native'
+import {Text, Spacer, Button, TextInput, Icon} from '../components'
+import {Metrics} from '../themes'
 import {_, Consts} from '../utils'
 
-class WithdrawCash extends React.Component {
+class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Withdraw Cash'
@@ -87,9 +87,8 @@ const style = StyleSheet.create({
         height:130
     },
     footer: {
-        //flex:1,
-        //justifyContent:'flex-end'
+
     }
 })
 
-export default WithdrawCash
+export default Scrn

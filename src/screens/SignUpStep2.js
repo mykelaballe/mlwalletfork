@@ -1,8 +1,7 @@
 import React from 'react'
-import {View} from 'react-native'
 import {connect} from 'react-redux'
 import Actions from '../actions/Creators'
-import {Screen, Text, Button, Spacer, TextInput, Footer, StaticInput, SignUpStepsTracker} from '../components'
+import {Screen, Button, TextInput, Footer, StaticInput, SignUpStepsTracker} from '../components'
 import {_, Say} from '../utils'
 import {API} from '../services'
 
@@ -105,7 +104,7 @@ class Scrn extends React.Component {
                 </Screen>
             
                 <Footer>
-                    <Button disabled={!ready} t='Next' onPress={this.handleSubmit} loading={processing} />
+                    <Button disabled={!ready} t={_('62')} onPress={this.handleSubmit} loading={processing} />
                 </Footer>
             </>
         )

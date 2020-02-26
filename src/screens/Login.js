@@ -164,14 +164,14 @@ class Scrn extends React.Component {
                             <ButtonText t={_('3')} onPress={this.handleGoToSignUp} />
                         </Row>
                     </View>
-                </Screen>
-                
-                <Footer>
+
+                    <Spacer />
+
                     <Row c>
                         <Icon name='fingerprint' size={Metrics.icon.rg} />
                         <ButtonText t={isUsingTouchID ? _('46') : _('45')} onPress={this.handleTouchID} />
                     </Row>
-                </Footer>
+                </Screen>
             </>
         )
     }

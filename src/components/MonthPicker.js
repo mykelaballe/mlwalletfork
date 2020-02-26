@@ -29,6 +29,21 @@ export default class MonthPicker extends React.Component {
 		]
 	}
 
+	componentDidMount = () => {
+		const {initialValue} = this.props
+		let list = this.state.list.slice()
+
+		if(initialValue) {
+			list.map((l, i) => {
+				if(i == (initialValue - 1)) {
+					l.selected = true
+				}
+			})
+		}
+
+		this.setState({list})
+	}
+
 	handleSelect = index => {
 		const {onSelect, onDismiss} = this.props
 		let list = this.state.list.slice()
