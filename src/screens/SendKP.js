@@ -1,7 +1,7 @@
 import React from 'react'
-import {View, StyleSheet, TouchableOpacity} from 'react-native'
-import {Headline, Text, Spacer, Button, ButtonText, TextInput, Icon, HeaderRight} from '../components'
-import {Colors, Metrics} from '../themes'
+import {TouchableOpacity} from 'react-native'
+import {Screen, Footer, Headline, Text, Spacer, Button, ButtonText, TextInput, Icon, HeaderRight} from '../components'
+import {Colors} from '../themes'
 import {_, Consts} from '../utils'
 
 class Scrn extends React.Component {
@@ -53,9 +53,9 @@ class Scrn extends React.Component {
         if(receiver && amount) ready = true
 
         return (
-            <View style={style.container}>
+            <>
 
-                <View>
+                <Screen>
 
                     <Headline subtext={Consts.tcn[type].short_desc} />
 
@@ -76,9 +76,9 @@ class Scrn extends React.Component {
                         onChangeText={this.handleChangeAmount}
                         keyboardType='numeric'
                     />
-                </View>
+                </Screen>
                 
-                <View style={style.footer}>
+                <Footer>
                     <Text mute>Charges</Text>
                     <Text md>PHP 25.00</Text>
 
@@ -90,24 +90,10 @@ class Scrn extends React.Component {
                     <Spacer />
                     
                     <Button disabled={!ready} t={Consts.tcn[type].submit_text} onPress={this.handleSendMoney} />
-                </View>
-            </View>
+                </Footer>
+            </>
         )
     }
 }
-
-const style = StyleSheet.create({
-    container: {
-        flex:1,
-        justifyContent:'space-between',
-        padding:Metrics.lg
-    },
-    textarea: {
-        height:130
-    },
-    footer: {
-
-    }
-})
 
 export default Scrn

@@ -1,11 +1,10 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager, TouchableOpacity} from 'react-native'
-import {ScrollView, Text, Row, Spacer, Button, ButtonIcon, ButtonText, Ripple, TopBuffer, TextInput, HeaderRight} from '../components'
-import {Colors, Metrics, Res} from '../themes'
+import {Screen, Footer, Headline, Text, Spacer, Button, ButtonIcon, TextInput, HeaderRight} from '../components'
+import {Colors, Metrics} from '../themes'
 import {_, Consts} from '../utils'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
-class SendBankTransfer extends React.Component {
+class Scrn extends React.Component {
 
     static navigationOptions = ({navigation}) => ({
         title:Consts.tcn[navigation.state.params.type].short_desc,
@@ -52,13 +51,10 @@ class SendBankTransfer extends React.Component {
         if(receiver && account_name && account_number && amount) ready = true
 
         return (
-            <View style={style.container}>
+            <>
+                <Screen>
 
-                <View>
-
-                    <Text center>{Consts.tcn[type].short_desc}</Text>
-
-                    <Spacer />
+                    <Headline subtext={Consts.tcn[type].short_desc} />
 
                     <TextInput
                         disabled
@@ -93,9 +89,9 @@ class SendBankTransfer extends React.Component {
                         onChangeText={this.handleChangeAmount}
                         keyboardType='numeric'
                     />
-                </View>
+                </Screen>
                 
-                <View style={style.footer}>
+                <Footer>
                     <Text mute>Fixed Charge</Text>
                     <Text md>PHP 100.00</Text>
 
@@ -112,25 +108,10 @@ class SendBankTransfer extends React.Component {
                     <Spacer />
                     
                     <Button disabled={!ready} t={Consts.tcn[type].submit_text} onPress={this.handleSendMoney} />
-                </View>
-            </View>
+                </Footer>
+            </>
         )
     }
 }
 
-const style = StyleSheet.create({
-    container: {
-        flex:1,
-        justifyContent:'space-between',
-        padding:Metrics.lg
-    },
-    textarea: {
-        height:130
-    },
-    footer: {
-        //flex:1,
-        //justifyContent:'flex-end'
-    }
-})
-
-export default SendBankTransfer
+export default Scrn

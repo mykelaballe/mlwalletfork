@@ -1,6 +1,6 @@
 import React from 'react'
-import {View, StyleSheet} from 'react-native'
-import {Text, Spacer, Button, TextInput, Icon} from '../components'
+import {View} from 'react-native'
+import {Screen, Footer, Headline, Text, Spacer, Button, TextInput, Icon} from '../components'
 import {Metrics} from '../themes'
 import {_, Consts} from '../utils'
 
@@ -36,20 +36,16 @@ class Scrn extends React.Component {
         if(amount) ready = true
 
         return (
-            <View style={style.container}>
+            <>
+                <Screen>
 
-                <View>
-                    <Spacer />
-                    
                     <View style={{alignItems:'center'}}>
                         <Icon name='withdraw_cash' size={Metrics.icon.xl} />
                     </View>
 
                     <Spacer md />
 
-                    <Text center mute>Enter amount to be withdrawn.</Text>
-
-                    <Spacer />
+                    <Headline subtext='Enter amount to be withdrawn.' />
 
                     <TextInput
                         label='Amount (PHP)'
@@ -57,9 +53,9 @@ class Scrn extends React.Component {
                         onChangeText={this.handleChangeAmount}
                         keyboardType='numeric'
                     />
-                </View>
+                </Screen>
                 
-                <View style={style.footer}>
+                <Footer>
                     <Text mute>Charges</Text>
                     <Text md>PHP 25.00</Text>
 
@@ -71,24 +67,10 @@ class Scrn extends React.Component {
                     <Spacer />
                     
                     <Button disabled={!ready} t={Consts.tcn[type].submit_text} onPress={this.handleWithdraw} />
-                </View>
-            </View>
+                </Footer>
+            </>
         )
     }
 }
-
-const style = StyleSheet.create({
-    container: {
-        flex:1,
-        justifyContent:'space-between',
-        padding:Metrics.lg
-    },
-    textarea: {
-        height:130
-    },
-    footer: {
-
-    }
-})
 
 export default Scrn

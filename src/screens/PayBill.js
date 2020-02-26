@@ -1,10 +1,8 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager, TouchableOpacity} from 'react-native'
-import {ScrollView, Text, Row, Spacer, Button, ButtonIcon, ButtonText, Ripple, TopBuffer, TextInput, Icon} from '../components'
-import {Colors, Metrics, Res} from '../themes'
+import {Screen, Footer, Headline, Text, Spacer, Button, TextInput} from '../components'
 import {_, Consts} from '../utils'
 
-class PayBill extends React.Component {
+class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Pay Bill'
@@ -42,12 +40,9 @@ class PayBill extends React.Component {
         if(amount) ready = true
 
         return (
-            <View style={style.container}>
-
-                <View>
-                    <Text center b lg>{biller.name}</Text>
-
-                    <Spacer />
+            <>
+                <Screen>
+                    <Headline title={biller.name} />
 
                     <TextInput
                         disabled
@@ -80,31 +75,16 @@ class PayBill extends React.Component {
                         onChangeText={this.handleChangeEmail}
                         keyboardType='email-address'
                     />
-                </View>
+                </Screen>
                 
-                <View style={style.footer}>
+                <Footer>
                     <Text mute>Note: Fees and charges may apply.</Text>
                     <Spacer />
                     <Button disabled={!ready} t={Consts.tcn[type].submit_text} onPress={this.handlePay} />
-                </View>
-            </View>
+                </Footer>
+            </>
         )
     }
 }
 
-const style = StyleSheet.create({
-    container: {
-        flex:1,
-        justifyContent:'space-between',
-        padding:Metrics.lg
-    },
-    textarea: {
-        height:130
-    },
-    footer: {
-        //flex:1,
-        //justifyContent:'flex-end'
-    }
-})
-
-export default PayBill
+export default Scrn

@@ -1,11 +1,11 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager, TouchableOpacity} from 'react-native'
-import {ScrollView, Text, Row, Spacer, Button, ButtonIcon, ButtonText, Ripple, TopBuffer, TextInput, Prompt, Switch} from '../components'
-import {Colors, Metrics, Res} from '../themes'
+import {TouchableOpacity} from 'react-native'
+import {Screen, Footer, Headline, Text, Row, Spacer, Button, TextInput, Prompt, Switch} from '../components'
+import {Colors, Metrics} from '../themes'
 import {_, Consts, Say} from '../utils'
 import Icon from 'react-native-vector-icons/Ionicons'
 
-class BillerProfile extends React.Component {
+class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Pay Bill'
@@ -93,8 +93,7 @@ class BillerProfile extends React.Component {
         if(account_no && account_name) ready = true
 
         return (
-            <View style={style.container}>
-
+            <>
                 <Prompt
                     visible={showSuccessModal}
                     title='Success'
@@ -102,10 +101,8 @@ class BillerProfile extends React.Component {
                     onDismiss={this.handleCloseModal}
                 />
 
-                <View>
-                    <Text center b lg>{biller.name}</Text>
-
-                    <Spacer />
+                <Screen>
+                    <Headline title={biller.name} />
 
                     <TextInput
                         label='Account Number'
@@ -143,36 +140,23 @@ class BillerProfile extends React.Component {
                             }
                         />
                     </TouchableOpacity>
-                </View>
 
-                <Row bw>
-                    <Text mute md>{add_to_favorites ? 'Remove from Favorites' : 'Add to Favorites'}</Text>
-                    <Switch value={add_to_favorites} onValueChange={this.handleToggleAddToFavorites} />
-                </Row>
+                    <Spacer sm />
+
+                    <Row bw>
+                        <Text mute md>{add_to_favorites ? 'Remove from Favorites' : 'Add to Favorites'}</Text>
+                        <Switch value={add_to_favorites} onValueChange={this.handleToggleAddToFavorites} />
+                    </Row>
+                </Screen>
                 
-                <View style={style.footer}>
+                <Footer>
                     <Button disabled={!ready} mode='outlined' t='Update' onPress={this.handleUpdate} />
                     <Spacer sm />
                     <Button t='Pay' onPress={this.handlePay} />
-                </View>
-            </View>
+                </Footer>
+            </>
         )
     }
 }
 
-const style = StyleSheet.create({
-    container: {
-        flex:1,
-        justifyContent:'space-between',
-        padding:Metrics.lg
-    },
-    textarea: {
-        height:130
-    },
-    footer: {
-        //flex:1,
-        //justifyContent:'flex-end'
-    }
-})
-
-export default BillerProfile
+export default Scrn

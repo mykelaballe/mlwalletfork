@@ -1,10 +1,8 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager, TouchableOpacity} from 'react-native'
-import {ScrollView, Text, Row, Spacer, Button, ButtonIcon, ButtonText, Ripple, TopBuffer, TextInput, Icon, HeaderRight} from '../components'
-import {Colors, Metrics, Res} from '../themes'
+import {Screen, Footer, Text, Spacer, Button, TextInput} from '../components'
 import {_, Consts} from '../utils'
 
-class ReceiveMoneyDomestic extends React.Component {
+class Scrn extends React.Component {
 
     static navigationOptions = ({navigation}) => ({
         title:Consts.tcn[navigation.state.params.type].short_desc
@@ -40,10 +38,8 @@ class ReceiveMoneyDomestic extends React.Component {
         if(transaction_no && amount && sender) ready = true
 
         return (
-            <View style={style.container}>
-
-                <View>
-
+            <>
+                <Screen>
                     <TextInput
                         label='Transaction No.'
                         value={transaction_no}
@@ -68,31 +64,16 @@ class ReceiveMoneyDomestic extends React.Component {
                         onChangeText={this.handleChangeSender}
                         autoCapitalize='words'
                     />
-                </View>
+                </Screen>
                 
-                <View style={style.footer}>
+                <Footer>
                     <Text center>Make sure to enter the correct Transaction No. Five attempts will block your account for 24 hrs.</Text>
                     <Spacer sm />
                     <Button disabled={!ready} t={Consts.tcn[type].submit_text} onPress={this.handleSubmit} />
-                </View>
-            </View>
+                </Footer>
+            </>
         )
     }
 }
 
-const style = StyleSheet.create({
-    container: {
-        flex:1,
-        justifyContent:'space-between',
-        padding:Metrics.lg
-    },
-    textarea: {
-        height:130
-    },
-    footer: {
-        //flex:1,
-        //justifyContent:'flex-end'
-    }
-})
-
-export default ReceiveMoneyDomestic
+export default Scrn
