@@ -1,8 +1,10 @@
 import React from 'react'
 import {View, StyleSheet, InteractionManager} from 'react-native'
+import {connect} from 'react-redux'
 import {Screen, Footer, FlatList, Initial, Text, Row, Button, Spacer, HR, Ripple, SearchInput} from '../components'
 import {Metrics} from '../themes'
-import {_} from '../utils'
+import {_, Say} from '../utils'
+import {API} from '../services'
 
 const ItemUI = props => (
     <>
@@ -36,35 +38,14 @@ class Scrn extends React.Component {
     componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
 
     getData = async () => {
+        const {wallet_no} = this.props.user
         let list = []
 
         try {
-            list = [
-                {
-                    firstname:'Ashley',
-                    lastname:'Uy',
-                    middlename:'',
-                    contact_no:'0912345678',
-                    suffix:''
-                },
-                {
-                    firstname:'Lotlot',
-                    lastname:'Rubite',
-                    middlename:'',
-                    contact_no:'0912345678',
-                    suffix:''
-                },
-                {
-                    firstname:'John',
-                    lastname:'Paul',
-                    middlename:'Logal',
-                    contact_no:'09155345678',
-                    suffix:'Jr'
-                }
-            ]
+            list = await API.getKPReceivers({wallet_no})
         }
         catch(err) {
-
+            Say.err(_('500'))
         }
 
         this.setState({
@@ -116,4 +97,8 @@ const style = StyleSheet.create({
     }
 })
 
-export default Scrn
+const mapStateToProps = state => ({
+    user: state.user.data
+})
+
+export default connect(mapStateToProps)(Scrn)

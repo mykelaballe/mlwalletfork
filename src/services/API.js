@@ -34,12 +34,64 @@ export default {
         return res
     },
 
+    register: async payload => {
+
+    },
+
+    forgotPassword: async payload => {
+
+    },
+
     checkVersion: async () => {
+        return await Fetch.get('')
+    },
+
+    getWalletReceivers: async payload => {
+        return await Fetch.get(`wallettowallet/receiverlist?walletNo=${payload.wallet_no}`)
+    },
+
+    searchWalletReceiver: async payload => {
+        return await Fetch.post('')
+    },
+
+    addWalletReceiver: async payload => {
+        return await Fetch.post('wallettowallet/addreceiver',payload)
+    },
+
+    deleteWalletReceiver: async payload => {
+        return await Fetch.delete('')
+    },
+
+    getKPReceivers: async payload => {
+        return await Fetch.get(`sendoutmobile/KPListReceivers?walletno=${payload.wallet_no}`)
+    },
+
+    addKPReceiver: async payload => {
+        return await Fetch.post('')
+    },
+
+    deleteKPReceiver: async payload => {
+        return await Fetch.delete('')
+    },
+
+    getBankPartners: async () => {
+        return await Fetch.get('')
+    },
+
+    getBillers: async () => {
+        return await Fetch.get('')
+    },
+
+    getLoadPromoCodes: async () => {
         return await Fetch.get('')
     },
 
     getRates: async () => {
         return await Fetch.get('getchargevalues')
+    },
+
+    getBranches: async () => {
+        return await Fetch.get('')
     },
 
     getNotifications: async params => {

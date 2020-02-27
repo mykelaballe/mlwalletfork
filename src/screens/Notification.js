@@ -6,6 +6,8 @@ import {Metrics} from '../themes'
 import {_, Say} from '../utils'
 import {API} from '../services'
 
+const moment = require('moment')
+
 class Scrn extends React.Component {
 
     static navigationOptions = {
@@ -48,7 +50,7 @@ class Scrn extends React.Component {
                 <Spacer h />
                 <View style={{flex:1}}>
                     <Text md>{item.message}</Text>
-                    <Text sm mute>{item.date}</Text>
+                    <Text sm mute>{moment(item.date).format('D MMM YYYY h:ma')}</Text>
                 </View>
             </Row>
             

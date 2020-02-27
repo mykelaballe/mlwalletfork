@@ -1,8 +1,10 @@
 import React from 'react'
 import {View, StyleSheet, InteractionManager} from 'react-native'
+import {connect} from 'react-redux'
 import {Screen, Footer, FlatList, Initial, Text, Row, Button, Spacer, HR, Ripple, SearchInput} from '../components'
-import {Colors, Metrics} from '../themes'
-import {_} from '../utils'
+import {Metrics} from '../themes'
+import {_, Say} from '../utils'
+import {API} from '../services'
 
 const ItemUI = props => (
     <>
@@ -11,7 +13,7 @@ const ItemUI = props => (
                 <Initial text={props.data.fullname} />
                 <Spacer h sm />
                 <View>
-                    <Text b>{props.data.wallet_account_number}</Text>
+                    <Text b>{props.data.walletno}</Text>
                     <Text>{props.data.fullname}</Text>
                 </View>
             </Row>
@@ -36,22 +38,14 @@ class Scrn extends React.Component {
     componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
 
     getData = async () => {
+        const {wallet_no} = this.props.user
         let list = []
 
         try {
-            list = [
-                {
-                    wallet_account_number:'1911-0000-3257-93',
-                    fullname:'Ashley Uy',
-                },
-                {
-                    wallet_account_number:'1911-0000-3157-89',
-                    fullname:'Lotlot Rubite'
-                }
-            ]
+            list = await API.getWalletReceivers({wallet_no})
         }
         catch(err) {
-
+            Say.err(_('500'))
         }
 
         this.setState({
@@ -103,4 +97,8 @@ const style = StyleSheet.create({
     }
 })
 
-export default Scrn
+const mapStateToProps = state => ({
+    user: state.user.data
+})
+
+export default connect(mapStateToProps)(Scrn)

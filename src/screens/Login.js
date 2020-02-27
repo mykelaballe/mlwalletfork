@@ -53,9 +53,17 @@ class Scrn extends React.Component {
                 const {error} = res
                 
                 if(error) {
-                    if(error === 'invalid_grant') Say.some(_('72'))
+                    if(error === 'invalid_grant' || error === 'username_notexists' || error === 'wrong_password') {
+                        Say.some(_('72'))
+                    }
+                    else if(error === '1attempt_left') return
+                    else if(error === '2attempt_left') return
+                    else if(error === 'reach_maximum_attempts') return
+                    else if(error === 'block_account_1day') return
+                    else if(error === 'block_account') return
                     else if(error === 'version_outofdate') return
-                    //else if(error === '') return
+                    else if(error === 'registered_anotherdevice') return
+                    else if(error === 'server_error') return
                 }
                 else {
                     this.props.setUser(res)
