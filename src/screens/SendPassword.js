@@ -1,5 +1,5 @@
 import React from 'react'
-import {Screen, Footer, Headline, Button, Spacer, Row, Prompt, Checkbox, Text} from '../components'
+import {Screen, Footer, Headline, Button, Spacer, Prompt, Checkbox} from '../components'
 import {_, Say} from '../utils'
 import {API} from '../services'
 

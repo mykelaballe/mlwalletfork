@@ -1,16 +1,27 @@
 import React from 'react'
-import {Screen, Footer, Headline, Text, Button, ButtonText, Spacer, TextInput} from '../components'
+import {Screen, Footer, Headline, Button, ButtonText, Spacer, TextInput} from '../components'
 import {_, Say} from '../utils'
 import {API} from '../services'
-import questions from '../services/security_questions'
+
+import registered_questions from '../services/registered_security_questions'
+import personal_questions from '../services/personal_security_questions'
+import transactional_questions from '../services/transactional_security_questions'
 
 export default class Scrn extends React.Component {
 
     state = {
-        question:questions[parseInt(Math.random() * questions.length)],
+        question:this.randomizeQuestion(),
         answer:'',
         processing:false,
         error:''
+    }
+
+    componentDidMount = () => {
+        //const {} = this.props.navigation.state.params
+    }
+
+    randomizeQuestion = () => {
+        return registered_questions[parseInt(Math.random() * registered_questions.length)]
     }
 
     handleChangeAnswer = answer => this.setState({answer})

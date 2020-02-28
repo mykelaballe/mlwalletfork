@@ -46,6 +46,10 @@ export default {
         return await Fetch.get('')
     },
 
+    validateUsername: async username => {
+        return await Fetch.post('',{username})
+    },
+
     getWalletReceivers: async payload => {
         return await Fetch.get(`wallettowallet/receiverlist?walletNo=${payload.wallet_no}`)
     },

@@ -4,7 +4,9 @@ import {FlatList, Text, Ripple, HR} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_} from '../utils'
 
-import questions from '../services/security_questions'
+import registered_questions from '../services/registered_security_questions'
+import personal_questions from '../services/personal_security_questions'
+import transactional_questions from '../services/transactional_security_questions'
 
 class Scrn extends React.Component {
 
@@ -20,10 +22,13 @@ class Scrn extends React.Component {
     componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
 
     getData = async () => {
+        const {type} = this.props.navigation.state.params
         let list = []
 
         try {
-            list = questions
+            if(type === 'personal') list = personal_questions
+            else if(type === 'transactional') list = transactional_questions
+            else list = registered_questions
         }
         catch(err) {
 
