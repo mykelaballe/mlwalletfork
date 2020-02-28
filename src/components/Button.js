@@ -1,5 +1,5 @@
 import React from 'react'
-import {StyleSheet, View} from 'react-native'
+import {StyleSheet} from 'react-native'
 import {Button as Btn} from 'react-native-paper'
 import {Colors, Metrics} from '../themes'
 
@@ -45,6 +45,7 @@ export default props => {
             contentStyle={{
                 ...btnStyle
             }}
+            disabled={props.loading}
             mode={props.mode || 'contained'}
             color={customStyle.backgroundColor}
             onPress={props.onPress}

@@ -11,6 +11,7 @@ import Checkbox from './Checkbox'
 import CollapsibleItem from './CollapsibleItem'
 import DayPicker from './DayPicker'
 import DynamicStaticInput from './DynamicStaticInput'
+import Errors from './Errors'
 import FlatList from './FlatList'
 import Footer from './Footer'
 import Hamburger from './Hamburger'
@@ -61,6 +62,7 @@ export {
     CollapsibleItem,
     DayPicker,
     DynamicStaticInput,
+    Errors,
     FlatList,
     Footer,
     Hamburger,

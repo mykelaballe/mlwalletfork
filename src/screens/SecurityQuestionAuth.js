@@ -10,25 +10,52 @@ import transactional_questions from '../services/transactional_security_question
 export default class Scrn extends React.Component {
 
     state = {
-        question:this.randomizeQuestion(),
+        type:'',
+        questions:[],
+        question:'',
         answer:'',
         processing:false,
         error:''
     }
 
     componentDidMount = () => {
-        //const {} = this.props.navigation.state.params
+        const {params = {}} = this.props.navigation.state
+        let type = 'registered'
+        let questions = registered_questions
+        let question = ''
+
+        if(params.questionType) type = params.questionType
+
+        if(type === 'personal') questions = personal_questions
+        else if(type === 'transactional') questions = transactional_questions
+
+        question = this.randomizeQuestion(questions)
+
+        this.setState({
+            type,
+            questions,
+            question
+        })
     }
 
-    randomizeQuestion = () => {
-        return registered_questions[parseInt(Math.random() * registered_questions.length)]
+    componentDidUpdate = (prevProps, prevState) => {
+        const {params = {}} = this.props.navigation.state
+        if(params.question && params.question !== prevState.question) {
+            this.props.navigation.setParams({question:''})
+            this.setState({
+                question:params.question
+            })
+        }
     }
+
+    randomizeQuestion = questions => questions[parseInt(Math.random() * questions.length)]
 
     handleChangeAnswer = answer => this.setState({answer})
 
     handleNext = async () => {
         try {
-            let {answer, processing} = this.state
+            const {walletno} = this.props.navigation.state.params
+            let {question, answer, processing} = this.state
 
             if(processing) return
 
@@ -38,8 +65,14 @@ export default class Scrn extends React.Component {
 
             if(answer == '') Say.some('Enter your answer')
             else {
+                let payload = {
+                    walletno,
+                    question,
+                    answer
+                }
+
                 if(answer == 'wrong') this.setState({error:'Incorrect Answer'})
-                else this.props.navigation.navigate('SendPassword')
+                else this.props.navigation.navigate('SendPassword',{...payload})
             }
 
             this.setState({processing:false})
@@ -50,7 +83,10 @@ export default class Scrn extends React.Component {
         }
     }
 
-    handleChangeQuestion = () => this.props.navigation.navigate('SecurityQuestions')
+    handleChangeQuestion = () => this.props.navigation.navigate('SecurityQuestions',{
+        sourceRoute:this.props.navigation.state.routeName,
+        type:this.state.type
+    })
 
     render() {
 
@@ -78,7 +114,7 @@ export default class Scrn extends React.Component {
                 </Screen>
 
                 <Footer>
-                    <Button disabled={!answer} t='Next' onPress={this.handleNext} loading={processing} />
+                    <Button disabled={!answer} t={_('62')} onPress={this.handleNext} loading={processing} />
                 </Footer>
             </>
         )

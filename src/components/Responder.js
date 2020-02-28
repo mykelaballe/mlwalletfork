@@ -33,7 +33,7 @@ class Responder extends React.Component {
   }
 
   startTimer() {
-    this.timer = setTimeout(() => this.showPrompt(),Consts.allowed_idle_time)
+    //this.timer = setTimeout(() => this.showPrompt(),Consts.allowed_idle_time)
   }
 
   resetTimer(){

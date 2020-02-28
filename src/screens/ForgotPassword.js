@@ -24,7 +24,11 @@ export default class Scrn extends React.Component {
 
             if(username == '') Say.some('Enter your username')
             else {
-                this.props.navigation.navigate('SecurityQuestion')
+                let res = {
+                    username,
+                    walletno:'12345'
+                }
+                this.props.navigation.navigate('SecurityQuestion',{...res})
             }
 
             this.setState({processing:false})

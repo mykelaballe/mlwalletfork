@@ -10,7 +10,7 @@ export default props => (
         </>
         }
         
-        {(props.subtext && props.subtext != '') && <Text md center mute>{props.subtext}</Text>}
+        {props.subtext !== '' && <Text md center mute>{props.subtext}</Text>}
 
         <Spacer />
     </>

@@ -2,7 +2,6 @@ import React from 'react'
 import {ScrollView, View, StyleSheet, FlatList as List, RefreshControl, Image} from 'react-native'
 import {ActivityIndicator, Text} from './'
 import {Colors, Metrics, Res} from '../themes'
-import Icon from 'react-native-vector-icons/AntDesign'
 
 export default class FlatList extends React.Component {
 

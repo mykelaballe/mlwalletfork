@@ -18,6 +18,7 @@ export default class Scrn extends React.Component {
 
     handleProceed = async () => {
         try {
+            const {walletno} = this.props.navigation.state.params
             let {email, sms, processing} = this.state
 
             if(processing) return
@@ -25,6 +26,7 @@ export default class Scrn extends React.Component {
             this.setState({processing:true})
 
             let payload = {
+                walletno,
                 email,
                 sms
             }
@@ -60,7 +62,7 @@ export default class Scrn extends React.Component {
                     <Prompt
                         visible={showSuccessModal}
                         title='Success'
-                        message='A temporary password has been sent to your e-mail. Change your password within 24 hours so it will not expire.'
+                        message='A temporary password has been sent. Change your password within 24 hours so it will not expire.'
                         onDismiss={this.handleCloseModal}
                         OkBtnLabel='Back to Login'
                     />

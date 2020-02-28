@@ -1,7 +1,7 @@
 import React from 'react'
 import {ScrollView, StyleSheet, SectionList as List, RefreshControl} from 'react-native'
 import {ActivityIndicator, Text} from './'
-import {Colors, Metrics} from '../themes'
+import {Colors} from '../themes'
 
 export default class SectionList extends React.Component {
 

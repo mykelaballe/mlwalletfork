@@ -1,6 +1,6 @@
 import React from 'react'
 import {View, StyleSheet} from 'react-native'
-import {Metrics, Colors} from '../themes'
+import {Colors} from '../themes'
 import {Text} from './'
 
 const SIZE = 50

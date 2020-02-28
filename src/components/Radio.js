@@ -1,5 +1,5 @@
 import React from 'react'
-import {Row, Text, Spacer} from './'
+import {Row, Text} from './'
 import {Colors} from '../themes'
 import {RadioButton} from 'react-native-paper'
 

@@ -1,12 +1,10 @@
 import React from 'react'
-import {View, StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
 import Actions from '../actions/Creators'
-import {Screen, Headline, Text, Button, ButtonText, Spacer, TextInput, Row, Footer} from '../components'
-import {Colors, Metrics} from '../themes'
-import {_, Say, Consts} from '../utils'
+import {Screen, Headline, Button, ButtonText, TextInput, Footer, Errors} from '../components'
+import {Colors} from '../themes'
+import {_, Say, Consts, Func} from '../utils'
 import {API} from '../services'
-import Icon from 'react-native-vector-icons/Ionicons'
 
 class Scrn extends React.Component {
 
@@ -14,6 +12,8 @@ class Scrn extends React.Component {
         username:'',
         password:'',
         confirm_password:'',
+        username_errors:[],
+        password_errors:[],
         processing:false
     }
 
@@ -33,28 +33,63 @@ class Scrn extends React.Component {
 
     handleSubmit = async () => {
         let {username, password, confirm_password, processing} = this.state
+        let username_errors = [], password_errors = []
 
         if(processing) return false
 
         try {
+            this.setState({processing:true})
+
             username = username.trim()
             password = password.trim()
             confirm_password = confirm_password.trim()
 
-            if(username == '' || password == '') Say.some(_('8'))
-            else if(password != confirm_password) Say.some(`${_('2')} ${_('50')}`)
+            if(!username || !password) Say.some(_('8'))
+            else if(password != confirm_password) Say.some('Password does not match')
             else {
-                this.props.navigation.navigate('SignUpStep1')
+
+                let usernameValidation = Func.validate(username, {
+                    minLength:8,
+                    alphaNum:true
+                })
+
+                let passwordValidation = Func.validate(password, {
+                    minLength:8,
+                    hasNum:true,
+                    hasSpecialChar:true
+                })
+
+                username_errors = usernameValidation.errors
+                password_errors = passwordValidation.errors
+                
+                if(usernameValidation.ok && passwordValidation.ok) {
+                    //let res = await API.validateUsername(username)
+                    let res = {
+                        error:false
+                    }
+
+                    if(res.error) Say.some('Username already taken')
+                    else {
+                        this.props.navigation.navigate('SignUpStep1')
+                    }
+                }
             }
+
+            this.setState({
+                username_errors,
+                password_errors,
+                processing:false
+            })
         }
         catch(err) {
-            Say.err(_('18'))
+            this.setState({processing:false})
+            Say.err(_('500'))
         }
     }
 
     render() {
 
-        const {username, password, confirm_password, show_password, show_confirm_password, processing} = this.state
+        const {username, password, confirm_password, show_password, show_confirm_password, username_errors, password_errors, processing} = this.state
         let ready = false
 
         if(username && password && confirm_password) ready = true
@@ -70,7 +105,7 @@ class Scrn extends React.Component {
 
                     <TextInput
                         ref='username'
-                        label={'Username'}
+                        label={_('1')}
                         value={username}
                         onChangeText={this.handleChangeUsername}
                         onSubmitEditing={this.handleFocusPassword}
@@ -78,23 +113,11 @@ class Scrn extends React.Component {
                         returnKeyType='next'
                     />
 
-                    <View style={style.error}>
-                        <Row>
-                            <Icon name='ios-checkmark-circle' color={Colors.success} size={Metrics.icon.sm} />
-                            <Spacer h sm />
-                            <Text mute>Minimum of 8 characters in length</Text>
-                        </Row>
-                        <Spacer xs />
-                        <Row>
-                            <Icon name='ios-close-circle' color={Colors.brand} size={Metrics.icon.sm} />
-                            <Spacer h sm />
-                            <Text mute>Combination of letters and numbers</Text>
-                        </Row>
-                    </View>
+                    <Errors errors={username_errors} />
 
                     <TextInput
                         ref='password'
-                        label={'Password'}
+                        label={_('2')}
                         value={password}
                         onChangeText={this.handleChangePassword}
                         onSubmitEditing={this.handleFocusConfirmPassword}
@@ -102,29 +125,11 @@ class Scrn extends React.Component {
                         autoCapitalize='none'
                         returnKeyType='next'
                         rightContent={
-                            <ButtonText color={Colors.gray} t={show_password ? 'Hide' : 'Show'} onPress={this.handleTogglePassword} />
+                            <ButtonText color={Colors.gray} t={show_password ? _('47') : _('48')} onPress={this.handleTogglePassword} />
                         }
                     />
 
-                    <View style={style.error}>
-                        <Row>
-                            <Icon name='ios-checkmark-circle' color={Colors.success} size={Metrics.icon.sm} />
-                            <Spacer h sm />
-                            <Text mute>Minimum of 8 characters in length</Text>
-                        </Row>
-                        <Spacer xs />
-                        <Row>
-                            <Icon name='ios-close-circle' color={Colors.brand} size={Metrics.icon.sm} />
-                            <Spacer h sm />
-                            <Text mute>At least one number</Text>
-                        </Row>
-                        <Spacer xs />
-                        <Row>
-                            <Icon name='ios-close-circle' color={Colors.brand} size={Metrics.icon.sm} />
-                            <Spacer h sm />
-                            <Text mute>At least one special character (!@#$%)</Text>
-                        </Row>
-                    </View>
+                    <Errors errors={password_errors} />
 
                     <TextInput
                         ref='confirm_password'
@@ -134,7 +139,7 @@ class Scrn extends React.Component {
                         secureTextEntry={show_confirm_password ? false : true}
                         autoCapitalize='none'
                         rightContent={
-                            <ButtonText color={Colors.gray} t={show_confirm_password ? 'Hide' : 'Show'} onPress={this.handleToggleConfirmPassword} />
+                            <ButtonText color={Colors.gray} t={show_confirm_password ? _('47') : _('48')} onPress={this.handleToggleConfirmPassword} />
                         }
                     />
                 </Screen>
@@ -146,11 +151,5 @@ class Scrn extends React.Component {
         )
     }
 }
-
-const style = StyleSheet.create({
-    error: {
-        marginVertical:Metrics.md
-    }
-})
 
 export default Scrn

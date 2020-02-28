@@ -1,6 +1,6 @@
 import React from 'react'
 import {TouchableOpacity} from 'react-native'
-import {Text, Row, Spacer} from './'
+import {Text, Row} from './'
 import {Colors} from '../themes'
 import {Checkbox} from 'react-native-paper'
 

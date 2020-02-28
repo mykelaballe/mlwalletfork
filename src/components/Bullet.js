@@ -1,6 +1,6 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import {Metrics, Colors} from '../themes'
+import {Metrics} from '../themes'
 
 const SIZE = 2
 

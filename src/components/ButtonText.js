@@ -1,6 +1,6 @@
 import React from 'react'
 import {Button} from 'react-native-paper'
-import {Colors, Metrics} from '../themes'
+import {Colors} from '../themes'
 
 export default props => (
     <Button

@@ -1,7 +1,7 @@
 import React from 'react'
 import {View, StyleSheet, TouchableOpacity} from 'react-native'
-import {Colors, Metrics, Res} from '../themes'
-import {Text, Spacer, Row, HR} from './'
+import {Colors, Metrics} from '../themes'
+import {Spacer, Row} from './'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 class CollapsibleItem extends React.Component {

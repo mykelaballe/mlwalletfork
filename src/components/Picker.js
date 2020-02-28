@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, StyleSheet, TouchableOpacity, Dimensions} from 'react-native'
+import {StyleSheet, TouchableOpacity, Dimensions} from 'react-native'
 import {Text, ButtonText, Row} from './'
 import {Colors, Metrics} from '../themes'
 import {Menu} from 'react-native-paper'
