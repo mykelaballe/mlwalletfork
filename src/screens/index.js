@@ -75,6 +75,7 @@ import MyContactProfileScrn from './MyContactProfile'
 import TransactionReviewScrn from './TransactionReview'
 import TransactionReceiptScrn from './TransactionReceipt'
 import OTPConfirmationScrn from './OTPConfirmation'
+import TransactionQRScrn from './TransactionQR'
 
 import CurrenciesScrn from './Currencies'
 import RemindersScrn from './Reminders'
@@ -180,6 +181,7 @@ export {
     TransactionReviewScrn,
     TransactionReceiptScrn,
     OTPConfirmationScrn,
+    TransactionQRScrn,
 
     CurrenciesScrn,
     RemindersScrn,

@@ -16,8 +16,13 @@ class Scrn extends React.Component {
     })
 
     state = {
-        receiver:null,
-        amount:'',
+        receiver:{
+            firstname:'Jane',
+            middlename:'WAIVED',
+            lastname:'Smith',
+            suffix:'NONE'
+        },
+        amount:'1000',
         charges:'',
         total:''
     }
@@ -38,8 +43,9 @@ class Scrn extends React.Component {
         const {params} = this.props.navigation.state
         this.props.navigation.navigate('TransactionReview',{
             ...params,
-            ...this.state,
-            statusMessage:'Your money is waiting to be claimed.',
+            transaction: {
+                ...this.state
+            },
             cancellable:true
         })
     }
@@ -54,7 +60,6 @@ class Scrn extends React.Component {
 
         return (
             <>
-
                 <Screen>
 
                     <Headline subtext={Consts.tcn[type].short_desc} />

@@ -46,6 +46,7 @@ import Text from './Text'
 import TextInput from './TextInput'
 import TextInputFlat from './TextInputFlat'
 import TopBuffer from './TopBuffer'
+import View from './View'
 import YearPicker from './YearPicker'
 
 export {
@@ -97,5 +98,6 @@ export {
     TextInput,
     TextInputFlat,
     TopBuffer,
+    View,
     YearPicker,
 }

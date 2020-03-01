@@ -1,11 +1,9 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager} from 'react-native'
-import {ScrollView, Text, Row, Button, Spacer, ButtonText, HR, Ripple, TopBuffer} from '../components'
-import {Colors, Metrics} from '../themes'
+import {Screen, Footer, Text, Button, Spacer} from '../components'
+import {SendWalletToWallet, SendKP, SendBankTransfer, WithdrawCash, PayBill, BuyLoad} from '../components/transaction_review'
 import {_, Consts} from '../utils'
-import Icon from 'react-native-vector-icons/Ionicons'
 
-class Scrn extends React.Component {
+export default class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Review Transaction'
@@ -15,239 +13,32 @@ class Scrn extends React.Component {
         amount:parseFloat(this.props.navigation.state.params.amount).toFixed(2)
     }
 
-    handleConfirm = () => {
+    handleNext = () => {
         const {navigate, state} = this.props.navigation
         navigate('OTPConfirmation',{...state.params})
     }
 
     render() {
 
-        const {type, wallet_account_number, receiver, biller, account_name, account_number, notes, load} = this.props.navigation.state.params
-        const {amount} = this.state
+        const {type, transaction} = this.props.navigation.state.params
 
         return (
-            <View style={style.container}>
-                {Consts.tcn[type].action === 'send' && <Text mute center>You are about to send</Text>}
-                {Consts.tcn[type].action === 'receive' && <Text mute center>You are about to receive</Text>}
-                {Consts.tcn[type].action === 'withdraw' && <Text mute center>You are about to withdraw</Text>}
-                {Consts.tcn[type].action === 'load' && <Text mute center>You are about to load</Text>}
-                
-                {!biller && <Text center xl b>PHP {amount}</Text>}
-                {biller && <Text center lg b>{biller.name}</Text>}
+            <>
+                <Screen>
+                    {type === Consts.tcn.stw.code && <SendWalletToWallet data={transaction} />}
+                    {type === Consts.tcn.skp.code && <SendKP data={transaction} />}
+                    {type === Consts.tcn.stb.code && <SendBankTransfer data={transaction} />}
+                    {type === Consts.tcn.wdc.code && <WithdrawCash data={transaction} />}
+                    {type === Consts.tcn.bpm.code && <PayBill data={transaction} />}
+                    {type === Consts.tcn.bul.code && <BuyLoad data={transaction} />}
+                </Screen>
 
-                <Spacer lg />
-
-                {type === Consts.tcn.stw.code &&
-                <>
-                    <Text mute sm>Wallet Account Number</Text>
-                    <Text md>{wallet_account_number}</Text>
-
-                    <Spacer />
-
-                    <Text mute sm>Receiver</Text>
-                    <Text md>{receiver}</Text>
-
-                    <Spacer />
-
-                    <Text mute sm>Amount</Text>
-                    <Text md>PHP {amount}</Text>
-
-                    <Spacer />
-
-                    <Text mute sm>Notes</Text>
-                    <Text md>{notes}</Text>
-
-                    <Spacer />
-
-                    <Text mute sm>Charges</Text>
-                    <Text md>PHP 25.00</Text>
-
-                    <Spacer />
-
-                    <Text mute sm>Total</Text>
-                    <Text md>PHP 25.00</Text>
-                </>
-                }
-
-                {type === Consts.tcn.skp.code &&
-                <>
-                    <Row>
-                        <View style={{flex:1}}>
-                            <Text mute sm>First Name</Text>
-                            <Text md>John</Text>
-                        </View>
-
-                        <Spacer h xl />
-
-                        <View style={{flex:1}}>
-                            <Text mute sm>Middle Name</Text>
-                            <Text md>WAIVED</Text>
-                        </View>
-                    </Row>
-
-                    <Spacer />
-
-                    <Row>
-                        <View style={{flex:1}}>
-                            <Text mute sm>Last Name</Text>
-                            <Text md>Smith</Text>
-                        </View>
-
-                        <Spacer h xl />
-
-                        <View style={{flex:1}}>
-                            <Text mute sm>Suffix</Text>
-                            <Text md>NONE</Text>
-                        </View>
-                    </Row>
-
-                    <Spacer />
-
-                    <Text mute sm>Amount</Text>
-                    <Text md>PHP {amount}</Text>
-
-                    <Spacer />
-
-                    <Text mute sm>Charges</Text>
-                    <Text md>PHP 25.00</Text>
-
-                    <Spacer />
-
-                    <Text mute sm>Total</Text>
-                    <Text md>PHP 25.00</Text>
-                </>
-                }
-
-                {type === Consts.tcn.stb.code &&
-                <>
-                    <Text mute sm>Partner Bank</Text>
-                    <Text md>{receiver}</Text>
-
-                    <Spacer />
-
-                    <Text mute sm>Account Name</Text>
-                    <Text md>{account_name}</Text>
-
-                    <Spacer />
-
-                    <Text mute sm>Account No.</Text>
-                    <Text md>{account_number}</Text>
-
-                    <Spacer />
-
-                    <Text mute sm>Amount</Text>
-                    <Text md>PHP {amount}</Text>
-
-                    <Spacer />
-
-                    <Text mute sm>Fixed Charge</Text>
-                    <Text md>PHP 100.00</Text>
-
-                    <Spacer />
-
-                    <Text mute sm>Convenience Fee</Text>
-                    <Text md>PHP 15.00</Text>
-
-                    <Spacer />
-
-                    <Text mute sm>Total</Text>
-                    <Text md>PHP 215.00</Text>
-                </>
-                }
-
-                {type === Consts.tcn.wdc.code &&
-                <>
-                    <Text mute sm>Full Legal Name</Text>
-                    <Text md>John Smith</Text>
-
-                    <Spacer />
-
-                    <Text mute sm>Amount</Text>
-                    <Text md>PHP {amount}</Text>
-
-                    <Spacer />
-
-                    <Text mute sm>Charges</Text>
-                    <Text md>PHP 0.00</Text>
-
-                    <Spacer />
-
-                    <Text mute sm>Total</Text>
-                    <Text md>PHP 25.00</Text>
-                </>
-                }
-
-                {type === Consts.tcn.bpm.code &&
-                <>
-                    <Text mute sm>Account Number</Text>
-                    <Text md>123456789</Text>
-
-                    <Spacer />
-
-                    <Text mute sm>Account Name</Text>
-                    <Text md>John Smith</Text>
-
-                    <Spacer />
-
-                    <Text mute sm>Amount</Text>
-                    <Text md>PHP {amount}</Text>
-
-                    <Spacer />
-
-                    <Text mute sm>Fixed Charges</Text>
-                    <Text md>PHP 15.00</Text>
-
-                    <Spacer />
-
-                    <Text mute sm>Convenience Fee</Text>
-                    <Text md>PHP 7.00</Text>
-
-                    <Spacer />
-
-                    <Text mute sm>Total</Text>
-                    <Text md>PHP 25.00</Text>
-                </>
-                }
-
-                {type === Consts.tcn.bul.code &&
-                <>
-                    <Text mute sm>Mobile Number</Text>
-                    <Text md>09123456789</Text>
-
-                    <Spacer />
-
-                    <Text mute sm>Promo Code</Text>
-                    <Text md>Regular</Text>
-
-                    <Spacer />
-
-                    <Text mute sm>Amount</Text>
-                    <Text md>PHP 20.00</Text>
-                </>
-                }
-
-                <View style={style.footer}>
+                <Footer>
                     <Text center mute>Please review the details before you proceed.</Text>
                     <Spacer sm />
-                    <Button t='Next' onPress={this.handleConfirm} />
-                </View>
-            </View>
+                    <Button t={_('62')} onPress={this.handleNext} />
+                </Footer>
+            </>
         )
     }
 }
-
-const style = StyleSheet.create({
-    container: {
-        flex:1,
-        padding:Metrics.lg
-    },
-    item: {
-        padding:Metrics.rg
-    },
-    footer: {
-        flex:1,
-        justifyContent:'flex-end'
-    }
-})
-
-export default Scrn

@@ -25,7 +25,9 @@ class Scrn extends React.Component {
         const {params} = this.props.navigation.state
         this.props.navigation.navigate('TransactionReview',{
             ...params,
-            ...this.state,
+            transaction: {
+                ...this.state
+            },
             type:Consts.tcn.bpm.code,
             status:'success'
         })

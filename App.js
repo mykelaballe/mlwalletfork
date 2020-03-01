@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, StyleSheet, StatusBar, Platform, PermissionsAndroid} from 'react-native'
+import {StatusBar, Platform, PermissionsAndroid} from 'react-native'
 import {connect} from 'react-redux'
 import Actions from './src/actions/Creators'
 import Navigation from './src/navigation'

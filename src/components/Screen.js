@@ -1,18 +1,18 @@
 import React from 'react'
-import {StyleSheet, KeyboardAvoidingView} from 'react-native'
+import {KeyboardAvoidingView} from 'react-native'
 import {ScrollView} from './'
 import {Metrics} from '../themes'
 
-export default props => (
-    <KeyboardAvoidingView style={style.container}>
-        {props.ns ? props.children : <ScrollView keyboardShouldPersistTaps='handled'>{props.children}</ScrollView>}
-    </KeyboardAvoidingView>
-)
-
-const style = StyleSheet.create({
-    container: {
+export default props => {
+    let style = {
         flex:1,
-        paddingTop:Metrics.lg,
-        paddingHorizontal:Metrics.lg
+        paddingTop:props.compact ? 0 : Metrics.lg,
+        paddingHorizontal:props.compact ? 0 : Metrics.lg
     }
-})
+
+    return (
+        <KeyboardAvoidingView style={style}>
+            {props.ns ? props.children : <ScrollView keyboardShouldPersistTaps='handled'>{props.children}</ScrollView>}
+        </KeyboardAvoidingView>
+    )
+}

@@ -110,7 +110,9 @@ class LoadOptions extends React.Component {
         navigate('TransactionReview',{
             ...params,
             load,
-            ...this.state,
+            transaction: {
+                ...this.state
+            },
             status:'success'
         })
     }

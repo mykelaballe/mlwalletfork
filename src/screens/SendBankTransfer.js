@@ -22,7 +22,7 @@ class Scrn extends React.Component {
         receiver:'BDO',
         account_name:'John Smith',
         account_number:'123456789',
-        amount:'',
+        amount:'1000',
         fixed_charge:'',
         convenience_fee:'',
         total:''
@@ -38,7 +38,9 @@ class Scrn extends React.Component {
         const {params} = this.props.navigation.state
         this.props.navigation.navigate('TransactionReview',{
             ...params,
-            ...this.state
+            transaction: {
+                ...this.state
+            }
         })
     }
 

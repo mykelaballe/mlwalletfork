@@ -1,21 +1,26 @@
 import React from 'react'
 import {View, StyleSheet, InteractionManager, TouchableOpacity} from 'react-native'
-import {Provider, FlatList, Text, Row, HeaderRight, HR, Spacer, ButtonText, StaticInput, Picker, MonthPicker, DayPicker, YearPicker} from '../components'
+import {Provider, FlatList, Text, Row, HeaderRight, HR, Spacer, ButtonText, ButtonIcon, StaticInput, Picker, MonthPicker, DayPicker, YearPicker} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Consts, Say} from '../utils'
+import {API} from '../services'
 import Icon from 'react-native-vector-icons/AntDesign'
+//import RNHTMLtoPDF from 'react-native-html-to-pdf'
 
 const moment = require('moment')
 
 class Scrn extends React.Component {
 
-    static navigationOptions = {
-        title:'Transactions',
-        headerRight: (
-            <HeaderRight>
-                <Icon name='download' color={Colors.light} size={Metrics.icon.sm} />
-            </HeaderRight>
-        )
+    static navigationOptions = ({navigation}) => {
+        const {params = {}} = navigation.state
+        return {
+            title:'Transactions',
+            headerRight: (
+                <HeaderRight>
+                    <ButtonIcon icon={<Icon name='download' color={Colors.light} size={Metrics.icon.sm} />} onPress={params.downloadHistory} />
+                </HeaderRight>
+            )
+        }
     }
 
     state = {
@@ -86,45 +91,30 @@ class Scrn extends React.Component {
         loading:true
     }
 
-    componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
+    componentDidMount = () => {
+        this.props.navigation.setParams({downloadHistory:this.handleDownload})
+        InteractionManager.runAfterInteractions(this.getData)
+    }
+
+    handleDownload = async () => {
+        let file = await RNHTMLtoPDF.convert({
+            html: "<img src='' />",
+            fileName: 'ML WALLET PDF',
+            directory: 'Documents'
+        })
+
+        Say.some(file.filePath)
+    }
+    
 
     getData = async () => {
         let list = []
 
         try {
-            list = [
-                {
-                    code:'wdc',
-                    label:'Withdraw Cash',
-                    amount:1000,
-                    date:'2020-02-04',
-                    status:'pending'
-                },
-                {
-                    code:'bul',
-                    label:'Buy Load',
-                    amount:100,
-                    date:'2020-02-01',
-                    status:'success'
-                },
-                {
-                    code:'skp',
-                    label:'Kwarta Padala',
-                    amount:1000,
-                    date:'2020-01-29',
-                    status:'cancelled'
-                },
-                {
-                    code:'rmd',
-                    label:'Receive Money',
-                    amount:3000,
-                    date:'2020-01-12',
-                    status:'success'
-                },
-            ]
+            //list = await API.getNotifications()
         }
         catch(err) {
-            Say.err('Something went wrong')
+            Say.err(_('500'))
         }
 
         this.setState({

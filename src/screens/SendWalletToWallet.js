@@ -10,9 +10,9 @@ class Scrn extends React.Component {
     }
 
     state = {
-        wallet_account_number:'',
-        receiver:'',
-        amount:'',
+        wallet_account_number:'123456789',
+        receiver:'Jane Smith',
+        amount:'1000',
         notes:'',
         charges:'',
         total:''
@@ -41,7 +41,9 @@ class Scrn extends React.Component {
         const {params} = this.props.navigation.state
         this.props.navigation.navigate('TransactionReview',{
             ...params,
-            ...this.state,
+            transaction: {
+                ...this.state
+            },
             status:'success'
         })
     }

@@ -11,12 +11,12 @@ class Scrn extends React.Component {
     }
 
     state = {
-        digit1:'',
-        digit2:'',
-        digit3:'',
-        digit4:'',
-        digit5:'',
-        digit6:'',
+        digit1:'1',
+        digit2:'1',
+        digit3:'1',
+        digit4:'1',
+        digit5:'1',
+        digit6:'1',
         processing:false,
         reprocessing:false
     }
@@ -64,9 +64,9 @@ class Scrn extends React.Component {
 
     handleSubmit = () => {
         try {
-            const {navigate, state} = this.props.navigation
+            const {replace, state} = this.props.navigation
             this.setState({processing:true})
-            navigate('TransactionReceipt',{...state.params})
+            replace('TransactionReceipt',{...state.params})
             this.setState({processing:false})
         }
         catch(err) {

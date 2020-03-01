@@ -54,7 +54,7 @@ class Scrn extends React.Component {
                         value:'PHP 10,000 Monthly'
                     },
                     verified:{
-                        value:'PHP 200,000',
+                        value:'PHP 40,000',
                         note:'per day transaction'
                     },
                     sme:{

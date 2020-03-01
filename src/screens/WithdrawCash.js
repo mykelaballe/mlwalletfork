@@ -12,18 +12,21 @@ class Scrn extends React.Component {
 
     state = {
         type:Consts.tcn.wdc.code,
-        amount:'',
+        amount:'1000',
         charges:'',
         total:''
     }
 
     handleChangeAmount = amount => this.setState({amount})
 
-    handleWithdraw = async () => { 
+    handleWithdraw = async () => {
         const {params} = this.props.navigation.state
         this.props.navigation.navigate('TransactionReview',{
+            type:this.state.type,
             ...params,
-            ...this.state,
+            transaction: {
+                ...this.state
+            },
             cancellable:true
         })
     }
@@ -45,7 +48,7 @@ class Scrn extends React.Component {
 
                     <Spacer md />
 
-                    <Headline subtext='Enter amount to be withdrawn.' />
+                    <Headline subtext='Enter amount to be withdrawn' />
 
                     <TextInput
                         label='Amount (PHP)'

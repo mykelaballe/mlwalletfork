@@ -21,7 +21,7 @@ const CategoryUI = props => (
     </Ripple>
 )
 
-class BillsCategory extends React.Component {
+class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Pay Bills'
@@ -188,4 +188,4 @@ const style = StyleSheet.create({
     }
 })
 
-export default BillsCategory
+export default Scrn

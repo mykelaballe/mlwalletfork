@@ -9,9 +9,9 @@ class Scrn extends React.Component {
     })
 
     state = {
-        transaction_no:'',
-        amount:'',
-        sender:''
+        transaction_no:'123435345',
+        amount:'100',
+        sender:'John Smith'
     }
 
     handleChangeTransactionNo = transaction_no => this.setState({transaction_no})
