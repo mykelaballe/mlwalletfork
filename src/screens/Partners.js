@@ -4,6 +4,15 @@ import {SectionList, Text, Spacer, HR, Ripple, SearchInput} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
 
+const ItemUI = props => (
+    <>
+        <Ripple onPress={() => props.onPress(props.data)} style={style.item}>
+            <Text md>{props.data.name}</Text>
+        </Ripple>
+        <HR />
+    </>
+)
+
 class Scrn extends React.Component {
 
     static navigationOptions = {
@@ -27,12 +36,15 @@ class Scrn extends React.Component {
                     letter:'A',
                     data:[
                         {
+                            id:1,
                             name:'Able Services',
                         },
                         {
+                            id:2,
                             name:'ACF International'
                         },
                         {
+                            id:3,
                             name:'Asia United Bank'
                         }
                     ]
@@ -41,18 +53,23 @@ class Scrn extends React.Component {
                     letter:'B',
                     data:[
                         {
+                            id:4,
                             name:'Bank Albilad',
                         },
                         {
+                            id:5,
                             name:'Bank of Commerce'
                         },
                         {
+                            id:6,
                             name:'BC Remit'
                         },
                         {
+                            id:7,
                             name:'BDO'
                         },
                         {
+                            id:8,
                             name:'BIBO Global Inc.'
                         }
                     ]
@@ -60,7 +77,7 @@ class Scrn extends React.Component {
             ]
         }
         catch(err) {
-
+            Say.err(_('500'))
         }
 
         this.setState({
@@ -69,7 +86,7 @@ class Scrn extends React.Component {
         })
     }
 
-    handleSelect = () => this.props.navigation.pop()
+    handleSelect = partner => this.props.navigation.navigate('ReceiveMoneyInternational',{partner})
 
     handleChangeSearch = search => this.setState({search})
 
@@ -79,14 +96,7 @@ class Scrn extends React.Component {
         </View>
     )
 
-    renderItem = ({item, index}) => (
-        <>
-            <Ripple onPress={this.handleSelect} style={style.item}>
-                <Text md>{item.name}</Text>
-            </Ripple>
-            <HR />
-        </>
-    )
+    renderItem = ({item, index}) => <ItemUI index={index} data={item} onPress={this.handleSelect} />
 
     render() {
 

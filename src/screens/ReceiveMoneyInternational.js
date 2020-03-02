@@ -2,7 +2,8 @@ import React from 'react'
 import {TouchableOpacity} from 'react-native'
 import {Screen, Footer, Text, Spacer, Button, TextInput} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_, Consts} from '../utils'
+import {_, Consts, Say} from '../utils'
+import {API} from '../services'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 class Scrn extends React.Component {
@@ -12,11 +13,26 @@ class Scrn extends React.Component {
     })
 
     state = {
-        transaction_no:'121324234',
+        transaction_no:'',
         currency:'PHP',
-        amount:'100',
-        partner:'Bank of Commerce',
-        sender:'John Smith'
+        amount:'',
+        partner:null,
+        sender:'',
+        processing:false
+    }
+
+    componentDidUpdate = (prevProps, prevState) => {
+        const {params = {}} = this.props.navigation.state
+
+        if(params.currency && params.currency.abbr !== prevState.currency) {
+            this.props.navigation.setParams({currency:null})
+            this.setState({currency:params.currency.abbr})
+        }
+
+        if(params.partner && params.partner !== prevState.partner) {
+            this.props.navigation.setParams({partner:null})
+            this.setState({partner:params.partner})
+        }
     }
 
     handleChangeTransactionNo = transaction_no => this.setState({transaction_no})
@@ -29,21 +45,56 @@ class Scrn extends React.Component {
 
     handleChangeSender = sender => this.setState({sender})
 
+    handleFocusAmount = () => this.refs.amount.focus()
+
+    handleFocusSender = () => this.refs.sender.focus()
+
     handleSubmit = async () => {
         const {params} = this.props.navigation.state
-        this.props.navigation.navigate('TransactionReceipt',{
-            ...params,
-            transaction: {
-                ...this.state
-            },
-            status:'success'
-        })
+        let {transaction_no, currency, amount, partner, sender, processing} = this.state
+
+        if(processing) return false
+        
+        try {
+            transaction_no = transaction_no.trim()
+            amount = amount.trim()
+            sender = sender.trim()
+
+            if(!transaction_no || !currency || !amount || !partner || !sender) Say.some(_('8'))
+            else {
+                let payload = {
+                    transaction_no,
+                    currency,
+                    amount,
+                    partner:partner.id,
+                    sender
+                }
+
+                let res = await API.receiveMoneyInternational(payload)
+
+                if(res.error) Say.some('error')
+                else {
+                    this.props.navigation.navigate('TransactionReceipt',{
+                        ...params,
+                        transaction: {
+                            ...this.state
+                        },
+                        status:'success'
+                    })
+                }
+            }
+        }
+        catch(err) {
+            Say.err(_('500'))
+        }
+
+        this.setState({processing:false})
     }
 
     render() {
 
         const {type} = this.props.navigation.state.params
-        const {transaction_no, currency, amount, partner, sender} = this.state
+        const {transaction_no, currency, amount, partner, sender, processing} = this.state
         let ready = false
 
         if(transaction_no && currency && amount && partner && sender) ready = true
@@ -52,10 +103,13 @@ class Scrn extends React.Component {
             <>
                 <Screen>
                     <TextInput
+                        ref='transaction_no'
                         label='Transaction No.'
                         value={transaction_no}
                         onChangeText={this.handleChangeTransactionNo}
+                        onSubmitEditing={this.handleFocusAmount}
                         autoCapitalize='characters'
+                        returnKeyType='next'
                     />
 
                     <Spacer sm />
@@ -72,10 +126,13 @@ class Scrn extends React.Component {
                     <Spacer sm />
 
                     <TextInput
-                        label='Amount (PHP)'
+                        ref='amount'
+                        label={`Amount (${currency})`}
                         value={amount}
                         onChangeText={this.handleChangeAmount}
+                        onSubmitEditing={this.handleFocusSender}
                         keyboardType='numeric'
+                        returnKeyType='next'
                     />
 
                     <Spacer sm />
@@ -84,7 +141,7 @@ class Scrn extends React.Component {
                         <TextInput
                             disabled
                             label="Partner's Name"
-                            value={partner}
+                            value={partner && partner.name}
                             rightContent={<Icon name='ios-list' color={Colors.gray} size={Metrics.icon.rg} />}
                         />
                     </TouchableOpacity>
@@ -92,6 +149,7 @@ class Scrn extends React.Component {
                     <Spacer sm />
 
                     <TextInput
+                        ref='sender'
                         label="Sender's Name"
                         value={sender}
                         onChangeText={this.handleChangeSender}
@@ -102,7 +160,7 @@ class Scrn extends React.Component {
                 <Footer>
                     <Text center>Make sure to enter the correct Transaction No. Five attempts will block your account for 24 hrs.</Text>
                     <Spacer sm />
-                    <Button disabled={!ready} t={Consts.tcn[type].submit_text} onPress={this.handleSubmit} />
+                    <Button disabled={!ready} t={Consts.tcn[type].submit_text} onPress={this.handleSubmit} loading={processing} />
                 </Footer>
             </>
         )

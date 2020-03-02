@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {Row, Text, Spacer} from './'
 import {Colors, Metrics} from '../themes'
 import Icon from 'react-native-vector-icons/Entypo'
+import { Func } from '../utils'
 
 class Balance extends React.Component {
 
@@ -24,7 +25,7 @@ class Balance extends React.Component {
                 <Row>
                     <Text rg light>Php</Text>
                     <Spacer h xs />
-                    <Text b h3 light>{show ? balance : '****.**'}</Text>
+                    <Text b h3 light>{show ? Func.formatToCurrency(balance) : '****.**'}</Text>
                     <Spacer h sm />
                     <TouchableOpacity onPress={this.handleToggle}>
                         <Icon name={`eye${!show ? '-with-line' : ''}`} size={Metrics.icon.rg} color={Colors.light} />

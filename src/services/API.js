@@ -25,7 +25,8 @@ export default {
             zip_code:'6000',
             mobile_no:'0912345678',
             walletno:'123456789',
-            balance:'1000'
+            balance:'1000',
+            level:0
         }
         let res = await Fetch.post('login', {
             ...payload,
@@ -80,6 +81,20 @@ export default {
     ...BankTransfer,
 
     withdrawCash: async payload => {
+        return {
+            error:false
+        }
+        return await Fetch.post('',payload)
+    },
+
+    receiveMoneyDomestic: async payload => {
+        return {
+            error:false
+        }
+        return await Fetch.post('',payload)
+    },
+
+    receiveMoneyInternational: async payload => {
         return {
             error:false
         }

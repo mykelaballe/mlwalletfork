@@ -68,7 +68,7 @@ class Currencies extends React.Component {
         })
     }
 
-    handleSelect = () => this.props.navigation.navigate('ReceiveMoneyInternational')
+    handleSelect = currency => this.props.navigation.navigate('ReceiveMoneyInternational',{currency})
 
     renderItem = ({item, index}) => <ItemUI data={item} onPress={this.handleSelect} />
 

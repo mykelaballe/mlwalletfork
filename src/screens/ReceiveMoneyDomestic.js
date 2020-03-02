@@ -1,6 +1,7 @@
 import React from 'react'
 import {Screen, Footer, Text, Spacer, Button, TextInput} from '../components'
-import {_, Consts} from '../utils'
+import {_, Consts, Say} from '../utils'
+import {API} from '../services'
 
 class Scrn extends React.Component {
 
@@ -11,7 +12,8 @@ class Scrn extends React.Component {
     state = {
         transaction_no:'',
         amount:'',
-        sender:''
+        sender:'',
+        processing:false
     }
 
     handleChangeTransactionNo = transaction_no => this.setState({transaction_no})
@@ -26,19 +28,48 @@ class Scrn extends React.Component {
 
     handleSubmit = async () => {
         const {params} = this.props.navigation.state
-        this.props.navigation.navigate('TransactionReceipt',{
-            ...params,
-            transaction: {
-                ...this.state
-            },
-            status:'success'
-        })
+        let {transaction_no, amount, sender, processing} = this.state
+
+        if(processing) return false
+        
+        try {
+            transaction_no = transaction_no.trim()
+            amount = amount.trim()
+            sender = sender.trim()
+
+            if(!transaction_no || !amount || !sender) Say.some(_('8'))
+            else {
+                let payload = {
+                    transaction_no,
+                    amount,
+                    sender
+                }
+
+                let res = await API.receiveMoneyDomestic(payload)
+
+                if(res.error) Say.some('error')
+                else {
+                    this.props.navigation.navigate('TransactionReceipt',{
+                        ...params,
+                        transaction: {
+                            ...this.state
+                        },
+                        status:'success'
+                    })
+                }
+            }
+        }
+        catch(err) {
+            Say.err(_('500'))
+        }
+
+        this.setState({processing:false})
     }
 
     render() {
 
         const {type} = this.props.navigation.state.params
-        const {transaction_no, amount, sender} = this.state
+        const {transaction_no, amount, sender, processing} = this.state
         let ready = false
 
         if(transaction_no && amount && sender) ready = true
@@ -82,7 +113,7 @@ class Scrn extends React.Component {
                 <Footer>
                     <Text center>Make sure to enter the correct Transaction No. Five attempts will block your account for 24 hrs.</Text>
                     <Spacer sm />
-                    <Button disabled={!ready} t={Consts.tcn[type].submit_text} onPress={this.handleSubmit} />
+                    <Button disabled={!ready} t={Consts.tcn[type].submit_text} onPress={this.handleSubmit} loading={processing} />
                 </Footer>
             </>
         )

@@ -3,7 +3,7 @@ import {withNavigation} from 'react-navigation'
 import {Header} from './'
 import {Screen, Footer, View, Text, Spacer, Prompt, Button} from '../'
 import {Metrics} from '../../themes'
-import {Consts} from '../../utils'
+import {Consts, Func} from '../../utils'
 
 const moment = require('moment')
 
@@ -19,7 +19,7 @@ class ReceiveMoneyInternational extends React.Component {
 
     render() {
 
-        const {_from, tcn, timestamp} = this.props.data
+        const {_from, tcn, timestamp, transaction_no, currency, amount, partner, sender, } = this.props.data
         const {showSuccessModal} = this.state
 
         return (
@@ -29,7 +29,7 @@ class ReceiveMoneyInternational extends React.Component {
                     title='Success'
                     customMessage={
                         <>
-                            <Text mute md>You have successfully received Php 1000 from John Smith.</Text>
+                            <Text mute md>You have successfully received {currency} {Func.formatToCurrency(amount)} from {sender}.</Text>
                             <Spacer lg />
                             <Text mute>Your new balance is</Text>
                             <Text xl b>Php 1000</Text>
@@ -46,17 +46,17 @@ class ReceiveMoneyInternational extends React.Component {
 
                     <View style={{padding:Metrics.lg}}>
                         <Text sm mute>Sender</Text>
-                        <Text>John Smith</Text>
+                        <Text>{sender}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Partner</Text>
-                        <Text>BDO</Text>
+                        <Text>{partner.name}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Amount</Text>
-                        <Text>PHP 1000</Text>
+                        <Text>{currency} {Func.formatToCurrency(amount)}</Text>
 
                         <Spacer />
 

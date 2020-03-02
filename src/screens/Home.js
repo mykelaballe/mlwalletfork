@@ -1,10 +1,9 @@
 import React from 'react'
 import {View, StyleSheet, InteractionManager, TouchableOpacity, Dimensions, Image} from 'react-native'
 import {connect} from 'react-redux'
-import {Creators} from '../actions'
 import {Text, Spacer, FlatList, Ripple, Icon, Balance} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_} from '../utils'
+import {_, Say} from '../utils'
 
 const {width} = Dimensions.get('window')
 const ITEM_WIDTH = (width / 3) - (Metrics.xl)
@@ -51,7 +50,6 @@ class Scrn extends React.Component {
             },
         ],
         show_balance:true,
-        verification_level:1,
         promo:null,
         loading:true
     }
@@ -106,13 +104,16 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {services, verification_level, promo, loading} = this.state
+        const {level} = this.props.user
+        const {services, promo, loading} = this.state
 
         return (
             <>
+                {level === 0 &&
                 <TouchableOpacity style={style.topBanner} onPress={this.handleViewVerificationLevels}>
                     <Text center>You are semi-verified. Tap to learn more.</Text>
                 </TouchableOpacity>
+                }
 
                 <Balance />
 
@@ -162,6 +163,7 @@ const style = StyleSheet.create({
 })
 
 const mapStateToProps = state => ({
+    user: state.user.data,
     hasSeenSendMoneyOnboarding: state.app.hasSeenSendMoneyOnboarding,
     hasSeenReceiveMoneyOnboarding: state.app.hasSeenReceiveMoneyOnboarding,
     hasSeenWithdrawCashOnboarding: state.app.hasSeenWithdrawCashOnboarding,
