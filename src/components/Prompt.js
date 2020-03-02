@@ -9,9 +9,9 @@ export default props => {
 	if(props.type === 'yes_no') {
 		btns = (
 			<Row bw>
-				<Button mode='outlined' style={style.btn} t='No' onPress={props.onDismiss} />
+				<Button mode='outlined' style={style.btn} t={props.noBtnLabel || 'No'} onPress={props.onDismiss} />
 				<Spacer h xs />
-				<Button style={style.btn} t='Yes' onPress={props.onConfirm} />
+				<Button style={style.btn} t={props.yesBtnLabel || 'Yes'} onPress={props.onConfirm} />
 			</Row>
 		)
 	}

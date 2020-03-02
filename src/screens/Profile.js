@@ -1,5 +1,6 @@
 import React from 'react'
 import {View, StyleSheet} from 'react-native'
+import {connect} from 'react-redux'
 import {ScrollView, Text, Row, Spacer, Avatar, TopBuffer, Button, Outline} from '../components'
 import {Metrics} from '../themes'
 import {_} from '../utils'
@@ -15,27 +16,14 @@ class Scrn extends React.Component {
     state = {
         avatar:'http://themes.themewaves.com/nuzi/wp-content/uploads/sites/4/2013/05/Team-Member-3.jpg',
         username:'johnsmith',
-        firstname:'John',
-        lastname:'Doe',
-        wallet_no:'1234-5678-90',
-        address:'Talisay City, Cebu',
-        mobile_no:'0912345678',
-        email:'johndoe@gmail.com',
-        source_income:'Salary',
-        birthday:'1980-01-01',
-        gender:'Male',
-        country:'Philippines',
-        province:'Cebu',
-        city:'Talisay',
-        barangay:'Dumlog',
-        zip_code:'6045'
     }
 
     handleEditProfile = () => this.props.navigation.navigate('EditProfileIndex')
 
     render() {
 
-        const {avatar, username, firstname, lastname, wallet_no, address, mobile_no, email, source_income, birthday, gender, country, province, city, barangay, zip_code} = this.state
+        const {fname, mname, lname, suffix, mobile_no, email, source_of_income, birthdate, gender, nationality, country, province, city, barangay, zip_code} = this.props.user
+        const {avatar, username} = this.state
 
         return (
             <>
@@ -44,7 +32,7 @@ class Scrn extends React.Component {
 
                     <View style={style.topContainer}>
                         <Avatar source={avatar} size={Metrics.image.lg} />
-                        <Text b lg center mute>{firstname} {lastname}</Text>
+                        <Text b lg center mute>{fname} {lname}</Text>
 
                         <Spacer />
 
@@ -69,7 +57,7 @@ class Scrn extends React.Component {
 
                     <Outline>
                         <Text sm mute>Source of Income</Text>
-                        <Text>{source_income}</Text>
+                        <Text>{source_of_income}</Text>
                     </Outline>
 
                     <Outline>
@@ -77,15 +65,15 @@ class Scrn extends React.Component {
                         <Row ar>
                             <View>
                                 <Text sm mute>Month</Text>
-                                <Text md>{moment(birthday).format('MMMM')}</Text>
+                                <Text md>{moment(birthdate).format('MMMM')}</Text>
                             </View>
                             <View>
                                 <Text sm mute>Day</Text>
-                                <Text md>{moment(birthday).format('DD')}</Text>
+                                <Text md>{moment(birthdate).format('DD')}</Text>
                             </View>
                             <View>
                                 <Text sm mute>Year</Text>
-                                <Text md>{moment(birthday).format('YYYY')}</Text>
+                                <Text md>{moment(birthdate).format('YYYY')}</Text>
                             </View>
                         </Row>
                     </Outline>
@@ -93,6 +81,11 @@ class Scrn extends React.Component {
                     <Outline>
                         <Text sm mute>Gender</Text>
                         <Text>{gender}</Text>
+                    </Outline>
+
+                    <Outline>
+                        <Text sm mute>Nationality</Text>
+                        <Text>{nationality}</Text>
                     </Outline>
 
                     <Outline>
@@ -132,4 +125,8 @@ const style = StyleSheet.create({
     }
 })
 
-export default Scrn
+const mapStateToProps = state => ({
+    user: state.user.data
+})
+
+export default connect(mapStateToProps)(Scrn)

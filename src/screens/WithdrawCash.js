@@ -1,8 +1,9 @@
 import React from 'react'
 import {View} from 'react-native'
+import {connect} from 'react-redux'
 import {Screen, Footer, Headline, Text, Spacer, Button, TextInput, Icon} from '../components'
 import {Metrics} from '../themes'
-import {_, Consts} from '../utils'
+import {_, Consts, Func} from '../utils'
 
 class Scrn extends React.Component {
 
@@ -12,12 +13,17 @@ class Scrn extends React.Component {
 
     state = {
         type:Consts.tcn.wdc.code,
-        amount:'1000',
+        amount:'',
         charges:'',
         total:''
     }
 
-    handleChangeAmount = amount => this.setState({amount})
+    handleChangeAmount = amount => {
+        this.setState({
+            amount,
+            total:Func.compute(this.state.charges, amount)
+        })
+    }
 
     handleWithdraw = async () => {
         const {params} = this.props.navigation.state
@@ -25,6 +31,7 @@ class Scrn extends React.Component {
             type:this.state.type,
             ...params,
             transaction: {
+                user:this.props.user,
                 ...this.state
             },
             cancellable:true
@@ -41,7 +48,6 @@ class Scrn extends React.Component {
         return (
             <>
                 <Screen>
-
                     <View style={{alignItems:'center'}}>
                         <Icon name='withdraw_cash' size={Metrics.icon.xl} />
                     </View>
@@ -60,12 +66,12 @@ class Scrn extends React.Component {
                 
                 <Footer>
                     <Text mute>Charges</Text>
-                    <Text md>PHP 25.00</Text>
+                    <Text md>PHP {Func.formatToCurrency(charges)}</Text>
 
                     <Spacer />
 
                     <Text mute>Total</Text>
-                    <Text md>PHP 25.00</Text>
+                    <Text md>PHP {Func.formatToCurrency(total)}</Text>
 
                     <Spacer />
                     
@@ -76,4 +82,8 @@ class Scrn extends React.Component {
     }
 }
 
-export default Scrn
+const mapStateToProps = state => ({
+    user: state.user.data
+})
+
+export default connect(mapStateToProps)(Scrn)

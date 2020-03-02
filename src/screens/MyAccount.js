@@ -1,5 +1,6 @@
 import React from 'react'
 import {View, StyleSheet, TouchableOpacity, Alert} from 'react-native'
+import {connect} from 'react-redux'
 import {ScrollView, Text, Row, Spacer, HR, Avatar, TopBuffer, Button, Prompt} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_} from '../utils'
@@ -13,13 +14,7 @@ class Scrn extends React.Component {
     }
 
     state = {
-        avatar:'http://themes.themewaves.com/nuzi/wp-content/uploads/sites/4/2013/05/Team-Member-3.jpg',
-        firstname:'John',
-        lastname:'Doe',
-        wallet_no:'1234-5678-90',
-        address:'Talisay City, Cebu',
-        mobile_no:'0912345678',
-        email:'johndoe@gmail.com',
+        avatar:null,
         verification_level:1,
         showWarning:false
     }
@@ -43,16 +38,17 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {avatar, firstname, lastname, wallet_no, address, mobile_no, email, verification_level, showWarning} = this.state
+        const {walletno, fname, mname, lname, suffix, email, country, province, city, barangay, mobile_no} = this.props.user
+        const {avatar, verification_level, showWarning} = this.state
 
         return (
             <>
-                <Prompt
+                {/*<Prompt
                     visible={showWarning}
                     title='Account Safety'
                     message='Warning message here'
                     onDismiss={this.handleCloseModal}
-                />
+                />*/}
 
                 <ScrollView>
 
@@ -61,9 +57,9 @@ class Scrn extends React.Component {
                     <View style={style.topContainer}>
                         <Avatar source={avatar} size={Metrics.image.lg} />
 
-                        <Text b lg center mute>{firstname} {lastname}</Text>
-                        <Text center mute>Wallet Account No: {wallet_no}</Text>
-                        <Text center mute>{address}</Text>
+                        <Text b lg center mute>{fname} {lname}</Text>
+                        <Text center mute>Wallet Account No: {walletno}</Text>
+                        <Text center mute>{barangay}, {city}, {province}, {country}</Text>
                         <Text center mute>{mobile_no}</Text>
                         <Text center mute>{email}</Text>
 
@@ -122,4 +118,8 @@ const style = StyleSheet.create({
     }
 })
 
-export default Scrn
+const mapStateToProps = state => ({
+    user: state.user.data
+})
+
+export default connect(mapStateToProps)(Scrn)

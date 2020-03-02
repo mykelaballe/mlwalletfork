@@ -1,8 +1,9 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import {Screen, Footer, Text, Button, ButtonText, TextInput, Spacer, Row, Prompt} from '../components'
+import {Screen, Footer, Text, Button, ButtonText, TextInput, Spacer, Row, Prompt, Errors} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_, Say} from '../utils'
+import {_, Say, Func} from '../utils'
+import {API} from '../services'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 class Scrn extends React.Component {
@@ -19,6 +20,7 @@ class Scrn extends React.Component {
         show_new_password:false,
         show_confirm_password:false,
         showSuccessModal:false,
+        errors:[],
         processing:false
     }
 
@@ -39,9 +41,13 @@ class Scrn extends React.Component {
     handleFocusConfirmPassword = () => this.refs.confirm_password.focus()
 
     handleSubmit = async () => {
-        let {old_password, new_password, confirm_password} = this.state
+        let {old_password, new_password, confirm_password, errors, processing} = this.state
+
+        if(processing) return false
 
         try {
+            this.setState({processing:true})
+
             old_password = old_password.trim()
             new_password = new_password.trim()
             confirm_password = confirm_password.trim()
@@ -49,21 +55,46 @@ class Scrn extends React.Component {
             if(old_password == '' || new_password == '' || confirm_password == '') Say.some(_('8'))
             else if(new_password != confirm_password) Say.warn('Passwords do not match')
             else {
-                this.setState({
-                    showSuccessModal:true
+                let validation = Func.validate(new_password, {
+                    minLength:8,
+                    hasNum:true,
+                    hasSpecialChar:true
                 })
+
+                errors = validation.errors
+
+                if(validation.ok) {
+                    let payload = {
+                        old_password,
+                        new_password
+                    }
+
+                    //let res = await API.changePassword(payload)
+                    let res = {
+                        error:false
+                    }
+
+                    if(res.error) Say.some('Invalid password')
+                    else {
+                        this.setState({showSuccessModal:true})
+                    }
+                }
+
+                this.setState({errors})
             }
         }
         catch(err) {
             Say.err(_('18'))
         }
+
+        this.setState({processing:false})
     }
 
     handleCloseModal = () => this.setState({showSuccessModal:false})
 
     render() {
 
-        const {old_password, new_password, confirm_password, show_old_password, show_new_password, show_confirm_password, showSuccessModal, processing} = this.state
+        const {old_password, new_password, confirm_password, show_old_password, show_new_password, show_confirm_password, showSuccessModal, errors, processing} = this.state
         let ready = false
 
         if(old_password && new_password && confirm_password) ready = true
@@ -105,25 +136,7 @@ class Scrn extends React.Component {
                         }
                     />
 
-                    <View style={style.error}>
-                        <Row>
-                            <Icon name='ios-checkmark-circle' color={Colors.success} size={Metrics.icon.sm} />
-                            <Spacer h sm />
-                            <Text mute>Minimum of 8 characters in length</Text>
-                        </Row>
-                        <Spacer xs />
-                        <Row>
-                            <Icon name='ios-close-circle' color={Colors.brand} size={Metrics.icon.sm} />
-                            <Spacer h sm />
-                            <Text mute>At least one number</Text>
-                        </Row>
-                        <Spacer xs />
-                        <Row>
-                            <Icon name='ios-close-circle' color={Colors.brand} size={Metrics.icon.sm} />
-                            <Spacer h sm />
-                            <Text mute>At least one special character (!@#$%)</Text>
-                        </Row>
-                    </View>
+                    <Errors errors={errors} />
 
                     <TextInput
                         ref='confirm_password'
@@ -145,11 +158,5 @@ class Scrn extends React.Component {
         )
     }
 }
-
-const style = StyleSheet.create({
-    error: {
-        marginVertical:Metrics.md
-    }
-})
 
 export default Scrn

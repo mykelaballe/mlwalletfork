@@ -2,6 +2,10 @@ import Consts from '../utils/Consts'
 import Fetch from '../utils/Fetch'
 import Storage from '../utils/Storage'
 
+import WalletToWallet from './endpoints/WalletToWallet'
+import KP from './endpoints/KP'
+import BankTransfer from './endpoints/BankTransfer'
+
 export default {
     login: async payload => {
         return {
@@ -11,7 +15,7 @@ export default {
             suffix:'',
             birthdate:'1980-01-01',
             gender:'male',
-            email:'johnsmit@gmail.com',
+            email:'johnsmith@gmail.com',
             nationality:'Filipino',
             source_of_income:'Business',
             country:'Philippines',
@@ -19,6 +23,7 @@ export default {
             city:'Cebu City',
             barangay:'Basak',
             zip_code:'6000',
+            mobile_no:'0912345678',
             walletno:'123456789',
             balance:'1000'
         }
@@ -35,11 +40,17 @@ export default {
     },
 
     register: async payload => {
-
+        return {
+            error:false
+        }
+        return Fetch.post('',payload)
     },
 
     forgotPassword: async payload => {
-
+        return {
+            error:false
+        }
+        return Fetch.post('',payload)
     },
 
     checkVersion: async () => {
@@ -50,36 +61,29 @@ export default {
         return await Fetch.post('',{username})
     },
 
-    getWalletReceivers: async payload => {
-        return await Fetch.get(`wallettowallet/receiverlist?walletNo=${payload.wallet_no}`)
+    requestOTP: async payload => {
+        return {
+            error:false
+        }
+        return Fetch.post('',payload)
     },
 
-    searchWalletReceiver: async payload => {
-        return await Fetch.post('')
+    validateOTP: async payload => {
+        return {
+            error:false
+        }
+        return Fetch.post('',payload)
     },
 
-    addWalletReceiver: async payload => {
-        return await Fetch.post('wallettowallet/addreceiver',payload)
-    },
+    ...WalletToWallet,
+    ...KP,
+    ...BankTransfer,
 
-    deleteWalletReceiver: async payload => {
-        return await Fetch.delete('')
-    },
-
-    getKPReceivers: async payload => {
-        return await Fetch.get(`sendoutmobile/KPListReceivers?walletno=${payload.wallet_no}`)
-    },
-
-    addKPReceiver: async payload => {
-        return await Fetch.post('')
-    },
-
-    deleteKPReceiver: async payload => {
-        return await Fetch.delete('')
-    },
-
-    getBankPartners: async () => {
-        return await Fetch.get('')
+    withdrawCash: async payload => {
+        return {
+            error:false
+        }
+        return await Fetch.post('',payload)
     },
 
     getBillers: async () => {

@@ -59,6 +59,23 @@ const hasSpecialChar = value => {
     return regex.test(value)
 }
 
+function compute() {
+    let total = 0
+
+    for(i = 0; i < arguments.length; i++) {
+        total += parseFloat(formatToCurrency(arguments[i]))
+      }
+
+    return formatToCurrency(total)
+}
+
+const formatToCurrency = value => {
+    value = parseFloat(value).toFixed(2)
+    return isNaN(value) ? '0.00' : value
+}
+
 export default {
-    validate
+    validate,
+    compute,
+    formatToCurrency
 }

@@ -1,8 +1,9 @@
 import React from 'react'
 import {TouchableOpacity} from 'react-native'
-import {Screen, Footer, Button, StaticInput, HeaderRight} from '../components'
+import {Screen, Footer, Button, StaticInput, HeaderRight, Prompt} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_} from '../utils'
+import {_, Say} from '../utils'
+import {API} from '../services'
 import Icon from 'react-native-vector-icons/Ionicons'
 import {Menu} from 'react-native-paper'
 
@@ -26,17 +27,22 @@ class Scrn extends React.Component {
                     }
                 >
                     <Menu.Item onPress={params.handleEdit} title='Edit Bank Account' />
-                    <Menu.Item onPress={() => {}} title="Delete Bank Account" />
+                    <Menu.Item onPress={params.handleDelete} title="Delete Bank Account" />
                 </Menu>
             )
         }
+    }
+
+    state = {
+        showDeleteModal:false
     }
 
     componentDidMount = () => {
         this.props.navigation.setParams({
             menuOpen:false,
             handleToggleMenu:this.handleToggleMenu,
-            handleEdit:this.handleEdit
+            handleEdit:this.handleEdit,
+            handleDelete:this.handleDelete
         })
     }
 
@@ -48,10 +54,6 @@ class Scrn extends React.Component {
         this.props.navigation.setParams({menuOpen})
     }
 
-    handleDelete = () => {
-
-    }
-
     handleEdit = () => {
         const {navigate, state} = this.props.navigation
         const {bank} = state.params
@@ -59,16 +61,48 @@ class Scrn extends React.Component {
         navigate('UpdateBankPartner',{bank})
     }
 
-    handleSelect = () => {
-        this.props.navigation.navigate('SendBankTransfer')
+    handleDelete = () => {
+        this.handleToggleMenu()
+        this.setState({showDeleteModal:true})
     }
+
+    handleConfirmDelete = () => {
+        const {index, bank} = this.props.navigation.state.params
+        this.handleCloseModal()
+        try {
+            API.deleteBankPartner({
+                id:bank.id
+            })
+            this.props.navigation.navigate('SavedBankPartners',{removeAtIndex:index})
+        }
+        catch(err) {
+            Say.err(_('500'))
+        }
+    }
+
+    handleSelect = () => {
+        const {navigation: {navigate, state: {params: {bank}}}} = this.props
+        this.props.navigation.navigate('SendBankTransfer',{bank})
+    }
+
+    handleCloseModal = () => this.setState({showDeleteModal:false})
 
     render() {
 
         const {name, account_name, account_no} = this.props.navigation.state.params.bank
+        const {showDeleteModal} = this.state
 
         return (
             <>
+                <Prompt
+                    visible={showDeleteModal}
+                    title='Are you sure?'
+                    message='You are about to delete a bank partner. This action cannot be undone'
+                    type='delete'
+                    onConfirm={this.handleConfirmDelete}
+                    onDismiss={this.handleCloseModal}
+                />
+
                 <Screen>
                     <StaticInput
                         label='Bank Name'

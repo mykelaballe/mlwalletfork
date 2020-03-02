@@ -7,7 +7,7 @@ export default props => {
 		width = props.size ? props.size : wh,
 		height = props.size ? props.size : wh,
 		borderRadius = 0,
-		source = Res.logo_mini
+		source = Res.default_avatar
 	
 	if(props.source) source = {uri:props.source}
 

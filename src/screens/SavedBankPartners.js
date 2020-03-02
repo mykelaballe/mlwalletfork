@@ -2,11 +2,12 @@ import React from 'react'
 import {View, StyleSheet, InteractionManager} from 'react-native'
 import {Screen, Footer, FlatList, Initial, Text, Row, Button, Spacer, HR, Ripple} from '../components'
 import {Metrics} from '../themes'
-import {_} from '../utils'
+import {_, Say} from '../utils'
+import {API} from '../services'
 
 const ItemUI = props => (
     <>
-        <Ripple onPress={() => props.onPress(props.data)} style={style.item}>
+        <Ripple onPress={() => props.onPress(props.index)} style={style.item}>
             <Row>
                 <Initial text={props.data.name} />
                 <Spacer h sm />
@@ -38,21 +39,10 @@ class Scrn extends React.Component {
         let list = []
 
         try {
-            list = [
-                {
-                    name:'BDO',
-                    account_name:'John Smith',
-                    account_no:'1234567890'
-                },
-                {
-                    name:'Chinabank RTA',
-                    account_name:'John Smith',
-                    account_no:'1234567890'
-                }
-            ]
+            list = await API.getBankPartners()
         }
         catch(err) {
-
+            Say.err(_('500'))
         }
 
         this.setState({
@@ -63,9 +53,12 @@ class Scrn extends React.Component {
 
     handleAddNewBank = () => this.props.navigation.navigate('AddBankPartner')
 
-    handleViewBank = bank => this.props.navigation.navigate('BankPartnerProfile',{bank})
+    handleViewBank = index => {
+        const {list} = this.state
+        this.props.navigation.navigate('BankPartnerProfile',{index, bank:list[index]})
+    }
 
-    renderItem = ({item, index}) => <ItemUI data={item} onPress={this.handleViewBank} />
+    renderItem = ({item, index}) => <ItemUI index={index} data={item} onPress={this.handleViewBank} />
 
     render() {
 

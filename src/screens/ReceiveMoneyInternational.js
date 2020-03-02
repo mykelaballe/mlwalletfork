@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, StyleSheet, TouchableOpacity} from 'react-native'
+import {TouchableOpacity} from 'react-native'
 import {Screen, Footer, Text, Spacer, Button, TextInput} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Consts} from '../utils'
@@ -33,7 +33,9 @@ class Scrn extends React.Component {
         const {params} = this.props.navigation.state
         this.props.navigation.navigate('TransactionReceipt',{
             ...params,
-            ...this.state,
+            transaction: {
+                ...this.state
+            },
             status:'success'
         })
     }
@@ -58,16 +60,14 @@ class Scrn extends React.Component {
 
                     <Spacer sm />
 
-                    <TextInput
-                        disabled
-                        label='Currency'
-                        value={currency}
-                        rightContent={
-                            <TouchableOpacity onPress={this.handleChooseCurrency}>
-                                <Icon name='ios-arrow-forward' color={Colors.gray} size={Metrics.icon.sm} />
-                            </TouchableOpacity>
-                        }
-                    />
+                    <TouchableOpacity onPress={this.handleChooseCurrency}>
+                        <TextInput
+                            disabled
+                            label='Currency'
+                            value={currency}
+                            rightContent={<Icon name='ios-arrow-forward' color={Colors.gray} size={Metrics.icon.sm} />}
+                        />
+                    </TouchableOpacity>
 
                     <Spacer sm />
 
@@ -80,16 +80,14 @@ class Scrn extends React.Component {
 
                     <Spacer sm />
 
-                    <TextInput
-                        disabled
-                        label="Partner's Name"
-                        value={partner}
-                        rightContent={
-                            <TouchableOpacity onPress={this.handleChoosePartner}>
-                                <Icon name='ios-list' color={Colors.gray} size={Metrics.icon.rg} />
-                            </TouchableOpacity>
-                        }
-                    />
+                    <TouchableOpacity onPress={this.handleChoosePartner}>
+                        <TextInput
+                            disabled
+                            label="Partner's Name"
+                            value={partner}
+                            rightContent={<Icon name='ios-list' color={Colors.gray} size={Metrics.icon.rg} />}
+                        />
+                    </TouchableOpacity>
 
                     <Spacer sm />
 

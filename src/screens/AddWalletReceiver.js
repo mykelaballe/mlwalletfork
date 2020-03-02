@@ -3,6 +3,7 @@ import {View} from 'react-native'
 import {Screen, Footer, Headline, TextInput, Text, Button, Spacer, Avatar, Row} from '../components'
 import {Metrics} from '../themes'
 import {_, Say} from '../utils'
+import {API} from '../services'
 
 class Scrn extends React.Component {
 
@@ -12,7 +13,7 @@ class Scrn extends React.Component {
 
     state = {
         avatar:null,
-        wallet_no:'',
+        walletno:'',
         firstname:'',
         lastname:'',
         mobile_no:'',
@@ -20,7 +21,7 @@ class Scrn extends React.Component {
         found:false
     }
 
-    handleChangeWalletNo = wallet_no => this.setState({wallet_no})
+    handleChangeWalletNo = walletno => this.setState({walletno})
 
     handleChangeFirstName = firstname => this.setState({firstname})
 
@@ -36,30 +37,35 @@ class Scrn extends React.Component {
 
     handleSearch = async () => {
         try {
-            let {wallet_no, firstname, lastname, mobile_no, processing, found} = this.state
+            let {walletno, firstname, lastname, mobile_no, processing, found} = this.state
 
             if(processing) return false
 
             this.setState({processing:true})
 
-            if(found) this.addReceiver()
+            if(found) {
+                this.addReceiver()
+                return false
+            }
 
-            wallet_no = wallet_no.trim()
+            walletno = walletno.trim()
             firstname = firstname.trim()
             lastname = lastname.trim()
             mobile_no = mobile_no.trim()
 
-            if((wallet_no && firstname && lastname) || mobile_no) {
+            if(walletno && ((firstname && lastname) || mobile_no)) {
                 let payload = {
-                    wallet_no,
+                    walletno,
                     firstname,
                     lastname,
                     mobile_no
                 }
-
-                found = true
     
-                //await API.addNewReceiver(payload)
+                let res = await API.searchWalletReceiver(payload)
+                
+                if(!res.error) {
+                    found = true
+                }
             }
             else {
                 Say.some(_('8'))
@@ -76,16 +82,24 @@ class Scrn extends React.Component {
         }
     }
 
-    addReceiver = () => {
-        this.props.navigation.pop()
+    addReceiver = async () => {
+        try {
+            const {walletno} = this.state
+            let res = await API.addWalletReceiver({walletno})
+            if(!res.error) this.props.navigation.pop()
+        }
+        catch(err) {
+            this.setState({processing:false})
+            Say.err(_('500'))
+        }
     }
 
     render() {
 
-        const {wallet_no, firstname, lastname, mobile_no, processing, found} = this.state
+        const {walletno, firstname, lastname, mobile_no, processing, found} = this.state
         let ready = false
 
-        if((wallet_no && firstname && lastname) || mobile_no) ready = true
+        if(walletno && ((firstname && lastname) || mobile_no)) ready = true
 
         return (
             <>
@@ -99,12 +113,14 @@ class Scrn extends React.Component {
 
                         <TextInput
                             label='Wallet Account Number'
-                            value={wallet_no}
+                            value={walletno}
                             onChangeText={this.handleChangeWalletNo}
                             onSubmitEditing={this.handleFocusFirstName}
                             keyboardType='numeric'
                             returnKeyType='next'
                         />
+
+                        <Spacer />
 
                         <TextInput
                             ref='firstname'

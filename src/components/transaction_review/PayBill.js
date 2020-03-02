@@ -25,7 +25,7 @@ export default props => {
 
             <Spacer />
 
-            <Text mute sm>Fixed Charges</Text>
+            <Text mute sm>Fixed Charge</Text>
             <Text md>PHP 15.00</Text>
 
             <Spacer />

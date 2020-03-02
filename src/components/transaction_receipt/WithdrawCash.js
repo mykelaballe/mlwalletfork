@@ -3,7 +3,7 @@ import {withNavigation} from 'react-navigation'
 import {Header} from './'
 import {Screen, Footer, Text, Spacer, Prompt, Button, View} from '../'
 import {Metrics} from '../../themes'
-import {Consts} from '../../utils'
+import {Consts, Func} from '../../utils'
 
 const moment = require('moment')
 
@@ -46,7 +46,7 @@ class WithdrawCash extends React.Component {
 
     render() {
 
-        const {_from, tcn, timestamp} = this.props.data
+        const {_from, tcn, timestamp, user, amount, charges, total} = this.props.data
         const {status, cancellable, showSuccessModal, showCancelModal, showOkModal} = this.state
 
         return (
@@ -90,12 +90,12 @@ class WithdrawCash extends React.Component {
 
                     <View style={{padding:Metrics.lg}}>
                         <Text sm mute>Full Legal Name</Text>
-                        <Text>John Smith</Text>
+                        <Text>{user.fname} {user.lname}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Amount</Text>
-                        <Text>PHP 1000</Text>
+                        <Text>PHP {Func.formatToCurrency(amount)}</Text>
 
                         <Spacer />
 

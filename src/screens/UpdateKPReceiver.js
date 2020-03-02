@@ -2,6 +2,7 @@ import React from 'react'
 import {Screen, Footer, Headline, TextInput, Button, Checkbox, Picker} from '../components'
 import {Metrics} from '../themes'
 import {_, Say} from '../utils'
+import {API} from '../services'
 
 class Scrn extends React.Component {
 

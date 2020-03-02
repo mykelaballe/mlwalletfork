@@ -1,8 +1,9 @@
 import React from 'react'
 import {TouchableOpacity} from 'react-native'
-import {Screen, Footer, Text, Button, Spacer, HeaderRight, Outline} from '../components'
+import {Screen, Footer, Text, Button, Spacer, HeaderRight, Outline, Prompt} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_} from '../utils'
+import {_, Say} from '../utils'
+import {API} from '../services'
 import Icon from 'react-native-vector-icons/Ionicons'
 import {Menu} from 'react-native-paper'
 
@@ -25,17 +26,22 @@ class Scrn extends React.Component {
                     </HeaderRight>
                     }
                 >
-                    <Menu.Item onPress={() => {}} title="Delete Receiver" />
+                    <Menu.Item onPress={params.handleDelete} title="Delete Receiver" />
                 </Menu>
             )
         }
+    }
+
+    state = {
+        showDeleteModal:false
     }
 
     componentDidMount = () => {
         this.props.navigation.setParams({
             menuOpen:false,
             handleToggleMenu:this.handleToggleMenu,
-            handleEdit:this.handleEdit
+            handleEdit:this.handleEdit,
+            handleDelete:this.handleDelete
         })
     }
 
@@ -48,7 +54,22 @@ class Scrn extends React.Component {
     }
 
     handleDelete = () => {
+        this.handleToggleMenu()
+        this.setState({showDeleteModal:true})
+    }
 
+    handleConfirmDelete = () => {
+        const {index, receiver} = this.props.navigation.state.params
+        this.handleCloseModal()
+        try {
+            API.deleteWalletReceiver({
+                walletno:receiver.walletno
+            })
+            this.props.navigation.navigate('SavedWalletReceivers',{removeAtIndex:index})
+        }
+        catch(err) {
+            Say.err(_('500'))
+        }
     }
 
     handleEdit = () => {
@@ -63,16 +84,28 @@ class Scrn extends React.Component {
         navigate('SendWalletToWallet',{receiver})
     }
 
+    handleCloseModal = () => this.setState({showDeleteModal:false})
+
     render() {
 
-        const {wallet_account_number, fullname} = this.props.navigation.state.params.receiver
+        const {walletno, fullname} = this.props.navigation.state.params.receiver
+        const {showDeleteModal} = this.state
 
         return (
             <>
+                <Prompt
+                    visible={showDeleteModal}
+                    title='Are you sure?'
+                    message='You are about to delete a receiver. This action cannot be undone'
+                    type='delete'
+                    onConfirm={this.handleConfirmDelete}
+                    onDismiss={this.handleCloseModal}
+                />
+
                 <Screen>
                     <Outline>
                         <Text mute sm>Wallet Account Number</Text>
-                        <Text md>{wallet_account_number}</Text>
+                        <Text md>{walletno}</Text>
                     </Outline>
 
                     <Spacer sm />

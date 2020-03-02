@@ -3,7 +3,7 @@ import {withNavigation} from 'react-navigation'
 import {Header} from './'
 import {Screen, Footer, View, Text, Spacer, Prompt, Button} from '../'
 import {Metrics} from '../../themes'
-import {Consts} from '../../utils'
+import {Consts, Func} from '../../utils'
 
 const moment = require('moment')
 
@@ -19,7 +19,7 @@ class SendWalletToWallet extends React.Component {
 
     render() {
 
-        const {_from, tcn, timestamp} = this.props.data
+        const {_from, tcn, timestamp, walletno, receiver, amount, notes, charges, total} = this.props.data
         const {showSuccessModal} = this.state
 
         return (
@@ -29,7 +29,7 @@ class SendWalletToWallet extends React.Component {
                     title='Success'
                     customMessage={
                         <>
-                            <Text mute md>You successfully sent money worth PHP 1000 to MLW-0011-718-2031-822-1211</Text>
+                            <Text mute md>You successfully sent money worth PHP {amount} to {walletno}</Text>
                             <Spacer lg />
                             <Text mute>Your new balance is</Text>
                             <Text xl b>Php 1000</Text>
@@ -45,32 +45,32 @@ class SendWalletToWallet extends React.Component {
 
                     <View style={{padding:Metrics.lg}}>
                         <Text sm mute>Wallet Account Number</Text>
-                        <Text>121321</Text>
+                        <Text>{walletno}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Receiver</Text>
-                        <Text>John Smith</Text>
+                        <Text>{receiver}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Amount</Text>
-                        <Text>PHP 1000</Text>
+                        <Text>PHP {Func.formatToCurrency(amount)}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Notes</Text>
-                        <Text>some notes here</Text>
+                        <Text>{notes}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Charges</Text>
-                        <Text>PHP 25.00</Text>
+                        <Text>PHP {Func.formatToCurrency(charges)}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Total</Text>
-                        <Text>PHP 25.00</Text>
+                        <Text>PHP {Func.formatToCurrency(total)}</Text>
 
                         <Spacer />
 

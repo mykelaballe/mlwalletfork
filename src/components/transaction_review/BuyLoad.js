@@ -17,7 +17,7 @@ export default props => {
 
             <Spacer />
 
-            <Text mute sm>Promo Code</Text>
+            <Text mute sm>Promo</Text>
             <Text md>Regular</Text>
 
             <Spacer />

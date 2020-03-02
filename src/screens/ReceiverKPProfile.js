@@ -1,8 +1,9 @@
 import React from 'react'
 import {TouchableOpacity} from 'react-native'
-import {Screen, Footer, Text, Row, Button, Spacer, HeaderRight, Outline} from '../components'
+import {Screen, Footer, Text, Row, Button, Spacer, HeaderRight, Outline, Prompt} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_} from '../utils'
+import {_, Say} from '../utils'
+import {API} from '../services'
 import Icon from 'react-native-vector-icons/Ionicons'
 import {Menu} from 'react-native-paper'
 
@@ -26,26 +27,22 @@ class Scrn extends React.Component {
                     }
                 >
                     <Menu.Item onPress={params.handleEdit} title='Edit Receiver' />
-                    <Menu.Item onPress={() => {}} title="Delete Receiver" />
+                    <Menu.Item onPress={params.handleDelete} title="Delete Receiver" />
                 </Menu>
             )
         }
     }
 
     state = {
-        id:this.props.navigation.state.params.receiver.id,
-        firstname:this.props.navigation.state.params.receiver.firstname,
-        middlename:this.props.navigation.state.params.receiver.middlename || _('50'),
-        lastname:this.props.navigation.state.params.receiver.lastname,
-        suffix:this.props.navigation.state.params.receiver.suffix || _('51'),
-        contact_no:this.props.navigation.state.params.receiver.contact_no
+        showDeleteModal:false
     }
 
     componentDidMount = () => {
         this.props.navigation.setParams({
             menuOpen:false,
             handleToggleMenu:this.handleToggleMenu,
-            handleEdit:this.handleEdit
+            handleEdit:this.handleEdit,
+            handleDelete:this.handleDelete
         })
     }
 
@@ -58,7 +55,22 @@ class Scrn extends React.Component {
     }
 
     handleDelete = () => {
+        this.handleToggleMenu()
+        this.setState({showDeleteModal:true})
+    }
 
+    handleConfirmDelete = () => {
+        const {index, receiver} = this.props.navigation.state.params
+        this.handleCloseModal()
+        try {
+            API.deleteKPReceiver({
+                id:receiver.id
+            })
+            this.props.navigation.navigate('SavedKPReceivers',{removeAtIndex:index})
+        }
+        catch(err) {
+            Say.err(_('500'))
+        }
     }
 
     handleEdit = () => {
@@ -69,16 +81,30 @@ class Scrn extends React.Component {
     }
 
     handleSelect = () => {
-        const {navigation: {navigate, state: {params: {receiver}}}} = this.props
+        let {navigation: {navigate, state: {params: {receiver}}}} = this.props
+        receiver.middlename = receiver.middlename || 'WAIVED'
+        receiver.suffix = receiver.suffix || 'NONE'
         navigate('SendKP',{receiver})
     }
 
+    handleCloseModal = () => this.setState({showDeleteModal:false})
+
     render() {
 
-        const {firstname, middlename, lastname, suffix, contact_no} = this.state
+        const {firstname, middlename, lastname, suffix, contact_no} = this.props.navigation.state.params.receiver
+        const {showDeleteModal} = this.state
 
         return (
             <>
+                <Prompt
+                    visible={showDeleteModal}
+                    title='Are you sure?'
+                    message='You are about to delete a receiver. This action cannot be undone'
+                    type='delete'
+                    onConfirm={this.handleConfirmDelete}
+                    onDismiss={this.handleCloseModal}
+                />
+
                 <Screen>
                     <Outline>
                         <Text mute sm>First Name</Text>
@@ -89,7 +115,7 @@ class Scrn extends React.Component {
 
                     <Outline>
                         <Text mute sm>Middle Name</Text>
-                        <Text md>{middlename}</Text>
+                        <Text md>{middlename || _('50')}</Text>
                     </Outline>
 
                     <Spacer sm />
@@ -103,7 +129,7 @@ class Scrn extends React.Component {
 
                     <Outline>
                         <Text mute sm>Suffix</Text>
-                        <Text md>{suffix}</Text>
+                        <Text md>{suffix || _('51')}</Text>
                     </Outline>
 
                     <Spacer sm />

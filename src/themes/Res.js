@@ -1,6 +1,7 @@
 export default {
     logo_mini:require('../res/logo_mini.png'),
     app_icon:require('../res/app_icon.png'),
+    default_avatar:require('../res/default_avatar.png'),
 
     icon: {
         home:require('../res/icon/home.png'),

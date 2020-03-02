@@ -1,9 +1,9 @@
 import React from 'react'
 import {withNavigation} from 'react-navigation'
 import {Header} from './'
-import {Screen, Footer, Text, Spacer, Prompt, Button, View} from '../'
+import {Screen, Footer, Text, Spacer, Prompt, Button, View, Row} from '../'
 import {Metrics} from '../../themes'
-import {Consts} from '../../utils'
+import {Consts, Func} from '../../utils'
 
 const moment = require('moment')
 
@@ -46,7 +46,7 @@ class SendKP extends React.Component {
 
     render() {
 
-        const {_from, tcn, timestamp} = this.props.data
+        const {_from, tcn, timestamp, receiver, amount, charges, total} = this.props.data
         const {status, statusMessage, cancellable, showSuccessModal, showCancelModal, showOkModal} = this.state
 
         return (
@@ -56,7 +56,7 @@ class SendKP extends React.Component {
                     title='Success'
                     customMessage={
                         <>
-                            <Text mute md>Share the transaction number to John Smith to complete this transaction.</Text>
+                            <Text mute md>Share the transaction number to {receiver.firstname} {receiver.middlename} {receiver.lastname} {receiver.suffix} to complete this transaction.</Text>
                             <Spacer lg />
                             <Text mute>Your new balance is</Text>
                             <Text xl b>Php 1000</Text>
@@ -90,23 +90,50 @@ class SendKP extends React.Component {
                     />
 
                     <View style={{padding:Metrics.lg}}>
-                        <Text sm mute>Full Legal Name</Text>
-                        <Text>John Smith</Text>
+                        <Row>
+                            <View style={{flex:1}}>
+                                <Text mute sm>First Name</Text>
+                                <Text md>{receiver.firstname}</Text>
+                            </View>
+
+                            <Spacer h xl />
+
+                            <View style={{flex:1}}>
+                                <Text mute sm>Middle Name</Text>
+                                <Text md>{receiver.middlename}</Text>
+                            </View>
+                        </Row>
+
+                        <Spacer />
+
+                        <Row>
+                            <View style={{flex:1}}>
+                                <Text mute sm>Last Name</Text>
+                                <Text md>{receiver.lastname}</Text>
+                            </View>
+
+                            <Spacer h xl />
+
+                            <View style={{flex:1}}>
+                                <Text mute sm>Suffix</Text>
+                                <Text md>{receiver.suffix}</Text>
+                            </View>
+                        </Row>
 
                         <Spacer />
 
                         <Text sm mute>Amount</Text>
-                        <Text>PHP 1000</Text>
+                        <Text>PHP {Func.formatToCurrency(amount)}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Charges</Text>
-                        <Text>PHP 25.00</Text>
+                        <Text>PHP {Func.formatToCurrency(charges)}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Total</Text>
-                        <Text>PHP 25.00</Text>
+                        <Text>PHP {Func.formatToCurrency(total)}</Text>
 
                         <Spacer />
 

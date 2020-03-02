@@ -1,7 +1,7 @@
 import React from 'react'
 import {Screen, Footer, Headline, Text, Spacer, Button, ButtonIcon, TextInput, HeaderRight} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_, Consts} from '../utils'
+import {_, Consts, Func} from '../utils'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 class Scrn extends React.Component {
@@ -19,20 +19,38 @@ class Scrn extends React.Component {
     })
 
     state = {
-        receiver:'BDO',
-        account_name:'John Smith',
-        account_number:'123456789',
-        amount:'1000',
-        fixed_charge:'',
-        convenience_fee:'',
+        bank:'',
+        account_name:'',
+        account_number:'',
+        amount:'',
+        fixed_charge:'100',
+        convenience_fee:'15',
         total:''
+    }
+
+    componentDidUpdate = (prevProps, prevState) => {
+        const {params = {}} = this.props.navigation.state
+        if(params.bank && params.bank.name !== prevState.bank) {
+            this.props.navigation.setParams({bank:null})
+            this.setState({
+                bank:params.bank.name,
+                account_name:params.bank.account_name,
+                account_number:params.bank.account_no
+            })
+        }
     }
 
     handleChangeAccountName = account_name => this.setState({account_name})
 
     handleChangeAccountNumber = account_number => this.setState({account_number})
 
-    handleChangeAmount = amount => this.setState({amount})
+    handleChangeAmount = amount => {
+        const {fixed_charge, convenience_fee} = this.state
+        this.setState({
+            amount,
+            total:Func.compute(fixed_charge, convenience_fee, amount)
+        })
+    }
 
     handleSendMoney = async () => {
         const {params} = this.props.navigation.state
@@ -47,10 +65,10 @@ class Scrn extends React.Component {
     render() {
 
         const {type} = this.props.navigation.state.params
-        const {receiver, account_name, account_number, amount, fixed_charge, convenience_fee, total} = this.state
+        const {bank, account_name, account_number, amount, fixed_charge, convenience_fee, total} = this.state
         let ready = false
 
-        if(receiver && account_name && account_number && amount) ready = true
+        if(bank && account_name && account_number && amount) ready = true
 
         return (
             <>
@@ -61,7 +79,7 @@ class Scrn extends React.Component {
                     <TextInput
                         disabled
                         label='Bank Name'
-                        value={receiver}
+                        value={bank}
                     />
 
                     <Spacer sm />
@@ -95,17 +113,17 @@ class Scrn extends React.Component {
                 
                 <Footer>
                     <Text mute>Fixed Charge</Text>
-                    <Text md>PHP 100.00</Text>
+                    <Text md>PHP {Func.formatToCurrency(fixed_charge)}</Text>
 
                     <Spacer />
 
                     <Text mute>Convenience Fee</Text>
-                    <Text md>PHP 15.00</Text>
+                    <Text md>PHP {Func.formatToCurrency(convenience_fee)}</Text>
 
                     <Spacer />
 
                     <Text mute>Total</Text>
-                    <Text md>PHP 25.00</Text>
+                    <Text md>PHP {Func.formatToCurrency(total)}</Text>
 
                     <Spacer />
                     

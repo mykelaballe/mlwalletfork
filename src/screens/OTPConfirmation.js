@@ -1,8 +1,10 @@
 import React from 'react'
 import {StyleSheet} from 'react-native'
+import {connect} from 'react-redux'
 import {Screen, Footer, Headline, Row, Button, Spacer, ButtonText, TextInputFlat} from '../components'
 import {Metrics} from '../themes'
-import {_, Consts} from '../utils'
+import {_, Consts, Say} from '../utils'
+import {API} from '../services'
 
 class Scrn extends React.Component {
 
@@ -11,12 +13,12 @@ class Scrn extends React.Component {
     }
 
     state = {
-        digit1:'1',
-        digit2:'1',
-        digit3:'1',
-        digit4:'1',
-        digit5:'1',
-        digit6:'1',
+        digit1:'',
+        digit2:'',
+        digit3:'',
+        digit4:'',
+        digit5:'',
+        digit6:'',
         processing:false,
         reprocessing:false
     }
@@ -49,7 +51,28 @@ class Scrn extends React.Component {
     handleChangeDigit6 = digit6 => this.setState({digit6})
 
     handleResendOTP = async () => {
-        this.setState({reprocessing:true})
+        const {walletno} = this.props.user
+        const {processing, reprocessing} = this.state
+
+        if(processing || reprocessing) return false
+
+        try {
+            this.setState({reprocessing:true})
+
+            let res = await API.requestOTP({
+                walletno
+            })
+
+            if(res.error) Say.some('error')
+            else {
+                Say.some('OTP request sent')
+            }
+        }
+        catch(err) {
+            Say.err(_('500'))
+        }
+
+        this.setState({reprocessing:false})
     }
 
     handleFocusDigit2 = () => this.refs.digit2.focus()
@@ -62,16 +85,61 @@ class Scrn extends React.Component {
 
     handleFocusDigit6 = () => this.refs.digit6.focus()
 
-    handleSubmit = () => {
+    handleSubmit = async () => {
+        const {walletno} = this.props.user
+        const {replace, state, processing} = this.props.navigation
+        const {type, transaction} = this.props.navigation.state.params
+        
+        const {digit1, digit2, digit3, digit4, digit5, digit6} = this.state
+
+        let otp = `${digit1}${digit2}${digit3}${digit4}${digit5}${digit6}`
+
+        if(processing) return false
+
         try {
-            const {replace, state} = this.props.navigation
             this.setState({processing:true})
-            replace('TransactionReceipt',{...state.params})
-            this.setState({processing:false})
+
+            if(otp.length >= 6) {
+                let otpRes = await API.validateOTP({
+                    walletno,
+                    otp
+                })
+    
+                if(otpRes.error) Say.some('Error')
+                else {
+                    let res = {}
+                    
+                    if(type == Consts.tcn.stw.code) await API.sendWalletToWallet({
+
+                    })
+                    else if(type == Consts.tcn.skp.code) await API.sendKP({
+
+                    })
+                    else if(type == Consts.tcn.stb.code) await API.sendBankTransfer({
+
+                    })
+                    else if(type == Consts.tcn.wdc.code) await API.withdrawCash({
+
+                    })
+                    else if(type == Consts.tcn.bpm.code) await API.payBill({
+
+                    })
+                    else if(type == Consts.tcn.bul.code) await API.buyLoad({
+
+                    })
+
+                    if(res.error) Say.some('error')
+                    else {
+                        replace('TransactionReceipt',{...state.params})
+                    }
+                }
+            }
         }
         catch(err) {
-
+            Say.err(_('500'))
         }
+
+        this.setState({processing:false})
     }
 
     render() {
@@ -190,4 +258,8 @@ const style = StyleSheet.create({
     }
 })
 
-export default Scrn
+const mapStateToProps = state => ({
+    user: state.user.data
+})
+
+export default connect(mapStateToProps)(Scrn)

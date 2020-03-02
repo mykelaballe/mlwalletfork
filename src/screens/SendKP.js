@@ -2,7 +2,7 @@ import React from 'react'
 import {TouchableOpacity} from 'react-native'
 import {Screen, Footer, Headline, Text, Spacer, Button, ButtonText, TextInput, Icon, HeaderRight} from '../components'
 import {Colors} from '../themes'
-import {_, Consts} from '../utils'
+import {_, Consts, Func} from '../utils'
 
 class Scrn extends React.Component {
 
@@ -16,14 +16,15 @@ class Scrn extends React.Component {
     })
 
     state = {
-        receiver:{
-            firstname:'Jane',
-            middlename:'WAIVED',
-            lastname:'Smith',
-            suffix:'NONE'
-        },
-        amount:'1000',
-        charges:'',
+        receiver:null,
+        /*receiver:{
+            firstname:'',
+            middlename:'',
+            lastname:'',
+            suffix:''
+        },*/
+        amount:'',
+        charges:'25',
         total:''
     }
 
@@ -35,7 +36,12 @@ class Scrn extends React.Component {
         }
     }
 
-    handleChangeAmount = amount => this.setState({amount})
+    handleChangeAmount = amount => {
+        this.setState({
+            amount,
+            total:Func.compute(this.state.charges, amount)
+        })
+    }
 
     handleAddNewReceiver = () => this.props.navigation.navigate('SavedKPReceivers')
 
@@ -85,12 +91,12 @@ class Scrn extends React.Component {
                 
                 <Footer>
                     <Text mute>Charges</Text>
-                    <Text md>PHP 25.00</Text>
+                    <Text md>PHP {Func.formatToCurrency(charges)}</Text>
 
                     <Spacer />
 
                     <Text mute>Total</Text>
-                    <Text md>PHP 25.00</Text>
+                    <Text md>PHP {Func.formatToCurrency(total)}</Text>
 
                     <Spacer />
                     

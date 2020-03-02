@@ -45,7 +45,7 @@ export default props => {
             contentStyle={{
                 ...btnStyle
             }}
-            disabled={props.loading}
+            disabled={props.loading || props.disabled}
             mode={props.mode || 'contained'}
             color={customStyle.backgroundColor}
             onPress={props.onPress}

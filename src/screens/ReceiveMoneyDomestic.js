@@ -9,9 +9,9 @@ class Scrn extends React.Component {
     })
 
     state = {
-        transaction_no:'123435345',
-        amount:'100',
-        sender:'John Smith'
+        transaction_no:'',
+        amount:'',
+        sender:''
     }
 
     handleChangeTransactionNo = transaction_no => this.setState({transaction_no})
@@ -20,11 +20,17 @@ class Scrn extends React.Component {
 
     handleChangeSender = sender => this.setState({sender})
 
+    handleFocusAmount = () => this.refs.amount.focus()
+
+    handleFocusSender = () => this.refs.sender.focus()
+
     handleSubmit = async () => {
         const {params} = this.props.navigation.state
         this.props.navigation.navigate('TransactionReceipt',{
             ...params,
-            ...this.state,
+            transaction: {
+                ...this.state
+            },
             status:'success'
         })
     }
@@ -41,24 +47,31 @@ class Scrn extends React.Component {
             <>
                 <Screen>
                     <TextInput
+                        ref='transaction_no'
                         label='Transaction No.'
                         value={transaction_no}
                         onChangeText={this.handleChangeTransactionNo}
+                        onSubmitEditing={this.handleFocusAmount}
                         autoCapitalize='characters'
+                        returnKeyType='next'
                     />
 
                     <Spacer sm />
 
                     <TextInput
+                        ref='amount'
                         label='Amount (PHP)'
                         value={amount}
                         onChangeText={this.handleChangeAmount}
+                        onSubmitEditing={this.handleFocusSender}
                         keyboardType='numeric'
+                        returnKeyType='next'
                     />
 
                     <Spacer sm />
 
                     <TextInput
+                        ref='sender'
                         label="Sender's Name"
                         value={sender}
                         onChangeText={this.handleChangeSender}

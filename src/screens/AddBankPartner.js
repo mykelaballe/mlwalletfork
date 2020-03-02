@@ -1,7 +1,7 @@
 import React from 'react'
-import {View} from 'react-native'
 import {Screen, Footer, Headline, TextInput, Text, Button} from '../components'
 import {_, Say} from '../utils'
+import {API} from '../services'
 
 class Scrn extends React.Component {
 
@@ -47,17 +47,19 @@ class Scrn extends React.Component {
                     account_no
                 }
     
-                //await API.addNewReceiver(payload)
+                let res = await API.addBankPartner(payload)
 
-                this.props.navigation.pop()
+                if(res.error) Say.some('error')
+                else {
+                    this.props.navigation.pop()
+                }
             }
-
-            this.setState({processing:false})
         }
         catch(err) {
-            this.setState({processing:false})
             Say.err(_('18'))
         }
+
+        this.setState({processing:false})
     }
 
     render() {

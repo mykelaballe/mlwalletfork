@@ -1,7 +1,7 @@
 import React from 'react'
 import {TouchableOpacity} from 'react-native'
 import {Screen, Footer, Headline, Text, Spacer, Button, TextInput, Icon} from '../components'
-import {_, Consts} from '../utils'
+import {_, Consts, Func} from '../utils'
 
 class Scrn extends React.Component {
 
@@ -10,30 +10,37 @@ class Scrn extends React.Component {
     }
 
     state = {
-        wallet_account_number:'123456789',
-        receiver:'Jane Smith',
-        amount:'1000',
+        walletno:'',
+        receiver:'',
+        amount:'',
         notes:'',
-        charges:'',
+        charges:'25',
         total:''
     }
 
     componentDidUpdate = (prevProps, prevState) => {
         const {params = {}} = this.props.navigation.state
-        if(params.receiver && params.receiver.wallet_account_number !== prevState.wallet_account_number) {
+        if(params.receiver && params.receiver.walletno !== prevState.walletno) {
             this.props.navigation.setParams({receiver:null})
             this.setState({
-                wallet_account_number:params.receiver.wallet_account_number,
-                fullname:params.receiver.fullname
+                walletno:params.receiver.walletno,
+                receiver:params.receiver.fullname
             })
         }
     }
 
     handleChangeReceiverWalletID = receiver_wallet_id => this.setState({receiver_wallet_id})
 
-    handleChangeAmount = amount => this.setState({amount})
+    handleChangeAmount = amount => {
+        this.setState({
+            amount,
+            total:Func.compute(this.state.charges, amount)
+        })
+    }
 
     handleChangeNotes = notes => this.setState({notes})
+
+    handleFocusNotes = () => this.refs.notes.focus()
 
     handleAddNewReceiver = () => this.props.navigation.navigate('SavedWalletReceivers')
 
@@ -51,10 +58,10 @@ class Scrn extends React.Component {
     render() {
 
         const {type} = this.props.navigation.state.params
-        const {wallet_account_number, receiver, amount, notes, charges, total} = this.state
+        const {walletno, receiver, amount, notes, charges, total} = this.state
         let ready = false
 
-        if(wallet_account_number && amount) ready = true
+        if(walletno && amount) ready = true
 
         return (
             <>
@@ -65,7 +72,7 @@ class Scrn extends React.Component {
                         <TextInput
                             disabled
                             label='Receiver'
-                            value={wallet_account_number}
+                            value={walletno}
                             rightContent={<Icon name='user_plus' size={20} />}
                         />
                     </TouchableOpacity>
@@ -73,15 +80,19 @@ class Scrn extends React.Component {
                     <Spacer />
 
                     <TextInput
+                        ref='amount'
                         label='Amount (PHP)'
                         value={amount}
                         onChangeText={this.handleChangeAmount}
+                        onSubmitEditing={this.handleFocusNotes}
                         keyboardType='numeric'
+                        returnKeyType='next'
                     />
 
                     <Spacer />
 
                     <TextInput
+                        ref='notes'
                         label='Notes'
                         placeholder='Type an optional message to your receiver here'
                         value={notes}
@@ -92,12 +103,12 @@ class Scrn extends React.Component {
 
                 <Footer>
                     <Text mute>Charges</Text>
-                    <Text md>PHP 25.00</Text>
+                    <Text md>PHP {Func.formatToCurrency(charges)}</Text>
 
                     <Spacer />
 
                     <Text mute>Total</Text>
-                    <Text md>PHP 25.00</Text>
+                    <Text md>PHP {Func.formatToCurrency(total)}</Text>
 
                     <Spacer />
                     

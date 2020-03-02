@@ -9,10 +9,6 @@ export default class Scrn extends React.Component {
         title:'Review Transaction'
     }
 
-    state = {
-        amount:parseFloat(this.props.navigation.state.params.amount).toFixed(2)
-    }
-
     handleNext = () => {
         const {navigate, state} = this.props.navigation
         navigate('OTPConfirmation',{...state.params})
