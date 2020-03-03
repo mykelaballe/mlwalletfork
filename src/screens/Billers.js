@@ -3,6 +3,7 @@ import {View, StyleSheet, InteractionManager} from 'react-native'
 import {SectionList, Text, Spacer, HR, Ripple, SearchInput} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say, Consts} from '../utils'
+import {API} from '../services'
 
 const ItemUI = props => (
     <>
@@ -31,45 +32,10 @@ class Scrn extends React.Component {
         let list = []
 
         try {
-            list = [
-                {
-                    letter:'A',
-                    data:[
-                        {
-                            name:'A2M Global Distribution Inc.',
-                        },
-                        {
-                            name:'ABOEX Travel and Tours'
-                        },
-                        {
-                            name:'AT Service Limited'
-                        }
-                    ]
-                },
-                {
-                    letter:'B',
-                    data:[
-                        {
-                            name:'BDMPC',
-                        },
-                        {
-                            name:'BIGSTART Travel and VISA Assistance'
-                        },
-                        {
-                            name:'Bohol Lights Inc.'
-                        },
-                        {
-                            name:'BPI'
-                        },
-                        {
-                            name:'Buenavista CATV Inc.'
-                        }
-                    ]
-                },
-            ]
+            list = await API.getBillers()
         }
         catch(err) {
-
+            Say.err(_('500'))
         }
 
         this.setState({

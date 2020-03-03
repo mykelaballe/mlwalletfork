@@ -6,6 +6,7 @@ import WalletToWallet from './endpoints/WalletToWallet'
 import KP from './endpoints/KP'
 import BankTransfer from './endpoints/BankTransfer'
 import ReceiveMoney from './endpoints/ReceiveMoney'
+import Bills from './endpoints/Bills'
 import ELoad from './endpoints/ELoad'
 
 export default {
@@ -82,6 +83,7 @@ export default {
     ...KP,
     ...BankTransfer,
     ...ReceiveMoney,
+    ...Bills,
     ...ELoad,
 
     withdrawCash: async payload => {
@@ -89,10 +91,6 @@ export default {
             error:false
         }
         return await Fetch.post('',payload)
-    },
-
-    getBillers: async () => {
-        return await Fetch.get('')
     },
 
     getRates: async () => {

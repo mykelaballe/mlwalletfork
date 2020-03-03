@@ -82,16 +82,12 @@ class Scrn extends React.Component {
                         value={bank}
                     />
 
-                    <Spacer sm />
-
                     <TextInput
                         disabled
                         label='Account Name'
                         value={account_name}
                         onChangeText={this.handleChangeAccountName}
                     />
-
-                    <Spacer sm />
 
                     <TextInput
                         disabled
@@ -100,8 +96,6 @@ class Scrn extends React.Component {
                         onChangeText={this.handleChangeAccountNumber}
                         keyboardType='numeric'
                     />
-
-                    <Spacer sm />
 
                     <TextInput
                         label='Amount (PHP)'

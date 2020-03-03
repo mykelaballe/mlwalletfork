@@ -3,6 +3,7 @@ import {TouchableOpacity} from 'react-native'
 import {Screen, Footer, Headline, Text, Row, Spacer, Button, TextInput, Prompt, Switch} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Consts, Say} from '../utils'
+import {API} from '../services'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 class Scrn extends React.Component {
@@ -12,11 +13,11 @@ class Scrn extends React.Component {
     }
 
     state = {
-        account_no:'123456789',
-        account_name:'John Smith',
-        email:'',
+        account_no:this.props.navigation.state.params.biller.account_no,
+        account_name:this.props.navigation.state.params.biller.account_name,
+        email:this.props.navigation.state.params.biller.email,
         reminder:"Don't Remind Me",
-        add_to_favorites:false,
+        add_to_favorites:this.props.navigation.state.params.biller.add_to_favorites,
         processing:false,
         showSuccessModal:false,
         modalMessage:''
@@ -28,23 +29,40 @@ class Scrn extends React.Component {
 
     handleChangeEmail = email => this.setState({email})
 
+    handleFocusAccountName = () => this.refs.account_name.focus()
+
+    handleFocusEmail = () => this.refs.email.focus()
+
     handleSelectReminder = () => this.props.navigation.navigate('Reminders')
 
-    handleToggleAddToFavorites = () => {
+    handleToggleAddToFavorites = async () => {
+        const {id} = this.props.navigation.state.params.biller
         const {add_to_favorites} = this.state
         let modalMessage = ''
 
-        if(add_to_favorites) modalMessage = "You've successfully removed a Biller from Favorites"
-        else modalMessage = "You've successfully added a Biller to Favorites"
-
-        this.setState({
-            add_to_favorites:!add_to_favorites,
-            modalMessage,
-            showSuccessModal:true
-        })
+        try {
+            if(add_to_favorites) {
+                let res = await API.removeFavoriteBiller({id})
+                modalMessage = "You've successfully removed a Biller from Favorites"
+            }
+            else {
+                let res = await API.addFavoriteBiller({id})
+                modalMessage = "You've successfully added a Biller to Favorites"
+            }
+    
+            this.setState({
+                add_to_favorites:!add_to_favorites,
+                modalMessage,
+                showSuccessModal:true
+            })
+        }
+        catch(err) {
+            Say.err(_('500'))
+        }
     }
 
     handleUpdate = async () => {
+        const {id} = this.props.navigation.state.params.biller
         let {account_no, account_name, email, reminder, processing} = this.state
 
         if(processing) return false
@@ -58,31 +76,44 @@ class Scrn extends React.Component {
 
             if(account_no === '' || account_name === '') Say.some(_('8'))
             else {
+                let res = await API.updateFavoriteBiller({
+                    id,
+                    account_no,
+                    account_name,
+                    email
+                })
+
                 this.setState({
                     showSuccessModal:true,
                     modalMessage:"You've successfully updated Biller details."
                 })
             }
-
-            this.setState({processing:false})
         }
         catch(err) {
-            this.setState({processing:false})
-            Say.err(_('18'))
+            Say.err(_('500'))
         }
+
+        this.setState({processing:false})
     }
 
     handlePay = () => {
-        const {navigate, state: {params: {biller}}} = this.props.navigation
+        const {navigate} = this.props.navigation
+        const {biller} = this.props.navigation.state.params
+        const {account_no, account_name, email, add_to_favorites} = this.state
+
         navigate('PayBill',{
             type:Consts.tcn.bpm.code,
-            biller
+            biller: {
+                ...biller,
+                account_no,
+                account_name,
+                email,
+                add_to_favorites
+            }
         })
     }
 
-    handleCloseModal = () => {
-        this.setState({showSuccessModal:false})
-    }
+    handleCloseModal = () => this.setState({showSuccessModal:false})
 
     render() {
 
@@ -105,32 +136,35 @@ class Scrn extends React.Component {
                     <Headline title={biller.name} />
 
                     <TextInput
+                        ref='account_no'
                         label='Account Number'
                         value={account_no}
                         onChangeText={this.handleChangeAccountNo}
+                        onSubmitEditing={this.handleFocusAccountName}
+                        autoCapitalize='none'
+                        returnKeyType='next'
                     />
 
-                    <Spacer sm />
-
                     <TextInput
+                        ref='account_name'
                         label='Account Name'
                         value={account_name}
                         onChangeText={this.handleChangeAccountName}
+                        onSubmitEditing={this.handleFocusEmail}
                         autoCapitalize='words'
+                        returnKeyType='next'
                     />
 
-                    <Spacer sm />
-
                     <TextInput
+                        ref='email'
                         label='Email address (Optional)'
                         value={email}
                         onChangeText={this.handleChangeEmail}
                         keyboardType='email-address'
+                        autoCapitalize='none'
                     />
 
-                    <Spacer sm />
-
-                    <TouchableOpacity onPress={this.handleSelectReminder}>
+                    {/*<TouchableOpacity onPress={this.handleSelectReminder}>
                         <TextInput
                             disabled
                             label='Remind Me Every'
@@ -139,7 +173,7 @@ class Scrn extends React.Component {
                                 <Icon name='ios-arrow-forward' color={Colors.gray} size={Metrics.icon.sm} />
                             }
                         />
-                    </TouchableOpacity>
+                    </TouchableOpacity>*/}
 
                     <Spacer sm />
 
@@ -150,9 +184,9 @@ class Scrn extends React.Component {
                 </Screen>
                 
                 <Footer>
-                    <Button disabled={!ready} mode='outlined' t='Update' onPress={this.handleUpdate} />
+                    <Button disabled={!ready} mode='outlined' t='Update' onPress={this.handleUpdate} loading={processing} />
                     <Spacer sm />
-                    <Button t='Pay' onPress={this.handlePay} />
+                    <Button disabled={!ready} t='Pay' onPress={this.handlePay} />
                 </Footer>
             </>
         )

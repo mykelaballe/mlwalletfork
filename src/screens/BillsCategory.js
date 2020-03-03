@@ -2,7 +2,8 @@ import React from 'react'
 import {View, StyleSheet, InteractionManager, Dimensions} from 'react-native'
 import {Text, Row, Spacer, FlatList, Ripple, ButtonText, Icon} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_} from '../utils'
+import {_, Say} from '../utils'
+import {API} from '../services'
 
 const {width} = Dimensions.get('window')
 const ITEM_WIDTH = (width / 3) - (Metrics.xl)
@@ -29,7 +30,60 @@ class Scrn extends React.Component {
 
     state = {
         favorites:[],
-        categories:[],
+        categories:[
+            {
+                icon:'airline',
+                label:'Airline'
+            },
+            {
+                icon:'electricity',
+                label:'Electricity'
+            },
+            {
+                icon:'financing',
+                label:'Financing'
+            },
+            {
+                icon:'foundation',
+                label:'Foundations'
+            },
+            {
+                icon:'insurance',
+                label:'Insurance'
+            },
+            {
+                icon:'loan',
+                label:'Loan'
+            },
+            {
+                icon:'memorial',
+                label:'Memorial'
+            },
+            {
+                icon:'online_business',
+                label:'Online Businesses'
+            },
+            {
+                icon:'school',
+                label:'Schools'
+            },
+            {
+                icon:'telco',
+                label:'Telcos'
+            },
+            {
+                icon:'travel',
+                label:'Travels'
+            },
+            {
+                icon:'water',
+                label:'Water'
+            },
+            {
+                icon:'other',
+                label:'Others'
+            }
+        ],
         showFavorites:false,
         loading:true
     }
@@ -37,83 +91,17 @@ class Scrn extends React.Component {
     componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
 
     getData = async () => {
-        let favorites = [], categories = []
+        let favorites = []
 
         try {
-            favorites = [
-                {
-                    name:'Veco'
-                },
-                {
-                    name:'Globe'
-                },
-                {
-                    name:'BDO'
-                },
-            ]
-
-            categories = [
-                {
-                    icon:'airline',
-                    label:'Airline'
-                },
-                {
-                    icon:'electricity',
-                    label:'Electricity'
-                },
-                {
-                    icon:'financing',
-                    label:'Financing'
-                },
-                {
-                    icon:'foundation',
-                    label:'Foundations'
-                },
-                {
-                    icon:'insurance',
-                    label:'Insurance'
-                },
-                {
-                    icon:'loan',
-                    label:'Loan'
-                },
-                {
-                    icon:'memorial',
-                    label:'Memorial'
-                },
-                {
-                    icon:'online_business',
-                    label:'Online Businesses'
-                },
-                {
-                    icon:'school',
-                    label:'Schools'
-                },
-                {
-                    icon:'telco',
-                    label:'Telcos'
-                },
-                {
-                    icon:'travel',
-                    label:'Travels'
-                },
-                {
-                    icon:'water',
-                    label:'Water'
-                },
-                {
-                    icon:'other',
-                    label:'Others'
-                }
-            ]
+            favorites = await API.getFavoriteBillers()
         }
         catch(err) {
-
+            Say.err(_('500'))
         }
 
         this.setState({
             favorites,
-            categories,
             loading:false
         })
     }

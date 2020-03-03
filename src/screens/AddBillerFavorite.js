@@ -1,11 +1,12 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager, TouchableOpacity} from 'react-native'
-import {ScrollView, Text, Row, Spacer, Button, ButtonIcon, ButtonText, Ripple, TopBuffer, TextInput, Prompt} from '../components'
-import {Colors, Metrics, Res} from '../themes'
-import {_, Consts, Say} from '../utils'
+import {TouchableOpacity} from 'react-native'
+import {Screen, Footer, Headline, Button, TextInput, Prompt} from '../components'
+import {Colors, Metrics} from '../themes'
+import {_, Say} from '../utils'
+import {API} from '../services'
 import Icon from 'react-native-vector-icons/Ionicons'
 
-class AddBillerFavorite extends React.Component {
+class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Add Biller'
@@ -26,9 +27,14 @@ class AddBillerFavorite extends React.Component {
 
     handleChangeEmail = email => this.setState({email})
 
+    handleFocusAccountName = () => this.refs.account_name.focus()
+
+    handleFocusEmail = () => this.refs.email.focus()
+
     handleSelectReminder = () => this.props.navigation.navigate('Reminders')
 
-    handleSave = async () => {
+    handleSubmit = async () => {
+        const {id} = this.props.navigation.state.params.biller
         let {account_no, account_name, email, reminder, processing} = this.state
 
         if(processing) return false
@@ -40,17 +46,24 @@ class AddBillerFavorite extends React.Component {
             account_name = account_name.trim()
             email = email.trim()
 
-            if(account_no === '' || account_name === '') Say.some(_('8'))
+            if(!account_no || !account_name) Say.some(_('8'))
             else {
-                this.setState({showSuccessModal:true})
-            }
+                let payload = {
+                    id
+                }
 
-            this.setState({processing:false})
+                let res = await API.addFavoriteBiller(payload)
+                
+                if(!res.error) {
+                    this.setState({showSuccessModal:true})
+                }
+            }
         }
         catch(err) {
-            this.setState({processing:false})
-            Say.err(_('18'))
+            Say.err(_('500'))
         }
+
+        this.setState({processing:false})
     }
 
     handleCloseModal = () => {
@@ -66,7 +79,7 @@ class AddBillerFavorite extends React.Component {
         if(account_no && account_name && reminder) ready = true
 
         return (
-            <View style={style.container}>
+            <>
 
                 <Prompt
                     visible={showSuccessModal}
@@ -75,70 +88,54 @@ class AddBillerFavorite extends React.Component {
                     onDismiss={this.handleCloseModal}
                 />
 
-                <View>
-                    <Text center b lg>{biller.name}</Text>
-
-                    <Spacer />
+                <Screen>
+                    <Headline title={biller.name} />
 
                     <TextInput
+                        ref='account_no'
                         label='Account Number'
                         value={account_no}
                         onChangeText={this.handleChangeAccountNo}
+                        onSubmitEditing={this.handleFocusAccountName}
+                        autoCapitalize='none'
+                        returnKeyType='next'
                     />
 
-                    <Spacer sm />
-
                     <TextInput
+                        ref='account_name'
                         label='Account Name'
                         value={account_name}
                         onChangeText={this.handleChangeAccountName}
+                        onSubmitEditing={this.handleFocusEmail}
                         autoCapitalize='words'
+                        returnKeyType='next'
                     />
 
-                    <Spacer sm />
-
                     <TextInput
+                        ref='email'
                         label='Email address (Optional)'
                         value={email}
                         onChangeText={this.handleChangeEmail}
                         keyboardType='email-address'
+                        autoCapitalize='none'
                     />
 
-                    <Spacer sm />
-
-                    <TextInput
-                        disabled
-                        label='Remind Me Every'
-                        value={reminder}
-                        rightContent={
-                            <TouchableOpacity onPress={this.handleSelectReminder}>
-                                <Icon name='ios-arrow-forward' color={Colors.gray} size={Metrics.icon.sm} />
-                            </TouchableOpacity>
-                        }
-                    />
-                </View>
+                    {/*<TouchableOpacity onPress={this.handleSelectReminder}>
+                        <TextInput
+                            disabled
+                            label='Remind Me Every'
+                            value={reminder}
+                            rightContent={<Icon name='ios-arrow-forward' color={Colors.gray} size={Metrics.icon.sm} />}
+                        />
+                    </TouchableOpacity>*/}
+                </Screen>
                 
-                <View style={style.footer}>
-                    <Button disabled={!ready} t='Save' onPress={this.handleSave} />
-                </View>
-            </View>
+                <Footer>
+                    <Button disabled={!ready} t='Save' onPress={this.handleSubmit} loading={processing} />
+                </Footer>
+            </>
         )
     }
 }
 
-const style = StyleSheet.create({
-    container: {
-        flex:1,
-        justifyContent:'space-between',
-        padding:Metrics.lg
-    },
-    textarea: {
-        height:130
-    },
-    footer: {
-        //flex:1,
-        //justifyContent:'flex-end'
-    }
-})
-
-export default AddBillerFavorite
+export default Scrn

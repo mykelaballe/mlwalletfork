@@ -79,8 +79,6 @@ class Scrn extends React.Component {
                         />
                     </TouchableOpacity>
 
-                    <Spacer sm />
-
                     <TextInput
                         label='Amount (PHP)'
                         value={amount}

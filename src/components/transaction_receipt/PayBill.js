@@ -3,7 +3,7 @@ import {withNavigation} from 'react-navigation'
 import {Header} from './'
 import {Screen, Footer, View, Text, Spacer, Prompt, Button} from '../'
 import {Metrics} from '../../themes'
-import {Consts} from '../../utils'
+import {Consts, Func} from '../../utils'
 
 const moment = require('moment')
 
@@ -19,7 +19,7 @@ class PayBill extends React.Component {
 
     render() {
 
-        const {_from, tcn, timestamp} = this.props.data
+        const {_from, tcn, timestamp, biller, account_no, account_name, amount, email, fixed_charge, convenience_fee, total} = this.props.data
         const {showSuccessModal} = this.state
 
         return (
@@ -46,37 +46,37 @@ class PayBill extends React.Component {
 
                     <View style={{padding:Metrics.lg}}>
                         <Text sm mute>Biller</Text>
-                        <Text>Philam Life</Text>
+                        <Text>{biller.name}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Account No.</Text>
-                        <Text>123456789</Text>
+                        <Text>{account_no}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Account Name</Text>
-                        <Text>John Smith</Text>
+                        <Text>{account_name}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Amount</Text>
-                        <Text>PHP 1000</Text>
+                        <Text>PHP {Func.formatToCurrency(amount)}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Fixed Charge</Text>
-                        <Text>PHP 15.00</Text>
+                        <Text>PHP {Func.formatToCurrency(fixed_charge)}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Convenience Fee</Text>
-                        <Text>PHP 7.00</Text>
+                        <Text>PHP {Func.formatToCurrency(convenience_fee)}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Total Amount</Text>
-                        <Text>PHP 30.00</Text>
+                        <Text>PHP {Func.formatToCurrency(total)}</Text>
 
                         <Spacer />
 

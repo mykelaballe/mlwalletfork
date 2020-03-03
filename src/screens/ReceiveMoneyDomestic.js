@@ -87,8 +87,6 @@ class Scrn extends React.Component {
                         returnKeyType='next'
                     />
 
-                    <Spacer sm />
-
                     <TextInput
                         ref='amount'
                         label='Amount (PHP)'
@@ -98,8 +96,6 @@ class Scrn extends React.Component {
                         keyboardType='numeric'
                         returnKeyType='next'
                     />
-
-                    <Spacer sm />
 
                     <TextInput
                         ref='sender'

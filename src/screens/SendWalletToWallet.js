@@ -77,8 +77,6 @@ class Scrn extends React.Component {
                         />
                     </TouchableOpacity>
 
-                    <Spacer />
-
                     <TextInput
                         ref='amount'
                         label='Amount (PHP)'
@@ -88,8 +86,6 @@ class Scrn extends React.Component {
                         keyboardType='numeric'
                         returnKeyType='next'
                     />
-
-                    <Spacer />
 
                     <TextInput
                         ref='notes'

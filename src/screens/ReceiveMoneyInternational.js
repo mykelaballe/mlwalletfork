@@ -112,8 +112,6 @@ class Scrn extends React.Component {
                         returnKeyType='next'
                     />
 
-                    <Spacer sm />
-
                     <TouchableOpacity onPress={this.handleChooseCurrency}>
                         <TextInput
                             disabled
@@ -122,8 +120,6 @@ class Scrn extends React.Component {
                             rightContent={<Icon name='ios-arrow-forward' color={Colors.gray} size={Metrics.icon.sm} />}
                         />
                     </TouchableOpacity>
-
-                    <Spacer sm />
 
                     <TextInput
                         ref='amount'
@@ -135,8 +131,6 @@ class Scrn extends React.Component {
                         returnKeyType='next'
                     />
 
-                    <Spacer sm />
-
                     <TouchableOpacity onPress={this.handleChoosePartner}>
                         <TextInput
                             disabled
@@ -145,8 +139,6 @@ class Scrn extends React.Component {
                             rightContent={<Icon name='ios-list' color={Colors.gray} size={Metrics.icon.rg} />}
                         />
                     </TouchableOpacity>
-
-                    <Spacer sm />
 
                     <TextInput
                         ref='sender'
