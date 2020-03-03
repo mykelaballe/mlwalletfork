@@ -29,7 +29,8 @@ export default {
             mobile_no:'0912345678',
             walletno:'123456789',
             balance:'1000',
-            level:0
+            level:0,
+            error:payload.username == 'newphone' ? 'registered_anotherdevice' : null
         }
         let res = await Fetch.post('login', {
             ...payload,
@@ -62,6 +63,10 @@ export default {
     },
 
     validateUsername: async username => {
+        return {
+            username,
+            walletno:'12345',
+        }
         return await Fetch.post('',{username})
     },
 

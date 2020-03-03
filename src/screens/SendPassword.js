@@ -31,15 +31,18 @@ export default class Scrn extends React.Component {
                 sms
             }
 
-            this.setState({
-                showSuccessModal:true,
-                processing:false
-            })
+            let res = await API.forgotPassword(payload)
+
+            if(res.error) Say.some('An error has occurred')
+            else {
+                this.setState({showSuccessModal:true})
+            }
         }
         catch(err) {
-            this.setState({processing:false})
             Say.err(_('500'))
         }
+
+        this.setState({processing:false})
     }
 
     handleCloseModal = () => {

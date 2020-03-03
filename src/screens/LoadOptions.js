@@ -124,7 +124,7 @@ class LoadOptions extends React.Component {
             regulars,
             promo_codes,
             promo_code:'',
-            amount:regulars[index].amount
+            amount:Func.formatToCurrency(regulars[index].amount)
         })
     }
 
@@ -141,12 +141,16 @@ class LoadOptions extends React.Component {
             regulars,
             promo_codes,
             promo_code:promo_codes[index].label,
-            amount:promo_codes[index].amount.toString()
+            amount:Func.formatToCurrency(promo_codes[index].amount)
         })
 
     }
 
-    handleSubmitAmount = amount => this.handleSubmit(amount)
+    handleSubmitAmount = () => {
+        this.setState(prevState => ({
+            amount:Func.formatToCurrency(prevState.amount)
+        }))
+    }
 
     renderRegulars = ({item, index}) => <ItemRegularUI index={index} data={item} onPress={this.handleSelectRegular} />
 
@@ -184,8 +188,9 @@ class LoadOptions extends React.Component {
 
                     <TextInput
                         label='Load Amount (PHP)'
-                        value={amount ? Func.formatToCurrency(amount) : ''}
+                        value={amount}
                         onChangeText={this.handleChangeAmount}
+                        onSubmitEditing={this.handleSubmitAmount}
                         keyboardType='numeric'
                     />
 

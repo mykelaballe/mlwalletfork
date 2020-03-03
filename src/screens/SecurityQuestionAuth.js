@@ -6,6 +6,7 @@ import {API} from '../services'
 import registered_questions from '../services/registered_security_questions'
 import personal_questions from '../services/personal_security_questions'
 import transactional_questions from '../services/transactional_security_questions'
+import { isAirplaneModeSync } from 'react-native-device-info'
 
 export default class Scrn extends React.Component {
 
@@ -25,6 +26,7 @@ export default class Scrn extends React.Component {
         let question = ''
 
         if(params.questionType) type = params.questionType
+        if(params.steps && params.steps.length > 0) type = params.steps[0]
 
         if(type === 'personal') questions = personal_questions
         else if(type === 'transactional') questions = transactional_questions
@@ -54,7 +56,7 @@ export default class Scrn extends React.Component {
 
     handleNext = async () => {
         try {
-            const {walletno} = this.props.navigation.state.params
+            const {params = {}} = this.props.navigation.state
             let {question, answer, processing} = this.state
 
             if(processing) return
@@ -66,13 +68,32 @@ export default class Scrn extends React.Component {
             if(answer == '') Say.some('Enter your answer')
             else {
                 let payload = {
-                    walletno,
+                    walletno:params.walletno,
                     question,
                     answer
                 }
 
                 if(answer == 'wrong') this.setState({error:'Incorrect Answer'})
-                else this.props.navigation.navigate('SendPassword',{...payload})
+                else {
+                    if(params.steps) {
+
+                        let steps = params.steps
+                        steps.shift()
+
+                        if(params.steps.length > 0) {
+                            this.props.navigation.replace('SecurityQuestion',{
+                                ...params,
+                                steps
+                            })
+                        }
+                        else {
+                            this.props.navigation.navigate('Login')
+                        }
+                    }
+                    else {
+                        this.props.navigation.navigate('SendPassword',{...payload})
+                    }
+                }
             }
 
             this.setState({processing:false})

@@ -24,19 +24,19 @@ export default class Scrn extends React.Component {
 
             if(username == '') Say.some('Enter your username')
             else {
-                let res = {
-                    username,
-                    walletno:'12345'
-                }
-                this.props.navigation.navigate('SecurityQuestion',{...res})
-            }
+                let res = await API.validateUsername(username)
 
-            this.setState({processing:false})
+                if(res.error) Say.some('Invalid username')
+                else {
+                    this.props.navigation.navigate('SecurityQuestion',{...res})
+                }
+            }
         }
         catch(err) {
-            this.setState({processing:false})
             Say.err(_('500'))
         }
+
+        this.setState({processing:false})
     }
 
     render() {

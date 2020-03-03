@@ -2,8 +2,8 @@ import React from 'react'
 import {View, StyleSheet, Image, ImageBackground} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Text, Button, ButtonText, Spacer, TextInput, Row, Icon, Screen, Footer} from '../components'
-import {Colors, Metrics, Res} from '../themes'
+import {Text, Button, ButtonText, Spacer, TextInput, Row, Icon, Screen, Prompt} from '../components'
+import {Colors, Metrics} from '../themes'
 import {_, Say, Consts} from '../utils'
 import {API} from '../services'
 import TouchID from 'react-native-touch-id'
@@ -22,6 +22,7 @@ class Scrn extends React.Component {
         username:'',
         password:'',
         show_password:false,
+        showNewDeviceModal:false,
         processing:false
     }
 
@@ -62,7 +63,9 @@ class Scrn extends React.Component {
                     else if(error === 'block_account_1day') return
                     else if(error === 'block_account') return
                     else if(error === 'version_outofdate') return
-                    else if(error === 'registered_anotherdevice') return
+                    else if(error === 'registered_anotherdevice') {
+                        this.setState({showNewDeviceModal:true})
+                    }
                     else if(error === 'server_error') return
                 }
                 else {
@@ -70,13 +73,12 @@ class Scrn extends React.Component {
                     this.props.login()
                 }
             }
-
-            this.setState({processing:false})
         }
         catch(err) {
-            this.setState({processing:false})
             Say.err(_('500'))
         }
+
+        this.setState({processing:false})
     }
 
     handleTouchID = () => {
@@ -108,16 +110,45 @@ class Scrn extends React.Component {
 
     handleTogglePassword = () => this.setState(prevState => ({show_password:!prevState.show_password}))
 
+    handleRegisterNewDevice = () => {
+        this.setState({showNewDeviceModal:false},() => {
+            this.props.navigation.navigate('SecurityQuestion',{
+                steps:[
+                    'registered',
+                    'personal',
+                    'transactional'
+                ]
+            })
+        })
+    }
+
+    handleCloseModal = () => {
+        this.setState({
+            showNewDeviceModal:false
+        })
+    }
+
     render() {
 
         const {isUsingTouchID} = this.props
-        const {username, password, show_password, processing} = this.state
+        const {username, password, show_password, showNewDeviceModal, processing} = this.state
         let ready = false
 
         if(username && password) ready = true
 
         return (
             <>  
+                <Prompt
+                    visible={showNewDeviceModal}
+                    type='yes_no'
+                    title='New Device'
+                    message='Oh no! You can only access your ML Wallet account in one device. To transfer your ML Wallet account to this device, click OK'
+                    yesBtnLabel='OK'
+                    noBtnLabel='CANCEL'
+                    onDismiss={this.handleCloseModal}
+                    onConfirm={this.handleRegisterNewDevice}
+                />
+
                 <ImageBackground source={require('../res/login_header.png')} resizeMode='cover' style={style.banner}>
                     <Image source={require('../res/logo_white.png')} resizeMode='contain' style={{width:undefined,height:60}} />
                 </ImageBackground>
