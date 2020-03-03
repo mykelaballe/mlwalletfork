@@ -3,6 +3,7 @@ import {View, StyleSheet, TouchableOpacity} from 'react-native'
 import {Screen, Footer, Headline, Spacer, Button, TextInput, Icon} from '../components'
 import {Metrics} from '../themes'
 import {_, Consts} from '../utils'
+import {API} from '../services'
 
 class Scrn extends React.Component {
 

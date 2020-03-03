@@ -5,7 +5,7 @@ export default {
         return {
             error:false
         }
-        return Fetch.post('',payload)
+        return await Fetch.post('',payload)
     },
 
     getWalletReceivers: async payload => {

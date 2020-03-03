@@ -1,8 +1,10 @@
 import React from 'react'
 import {View, StyleSheet, InteractionManager} from 'react-native'
+import {connect} from 'react-redux'
 import {Screen, Footer, FlatList, Initial, Text, Row, Button, Spacer, HR, Ripple, SearchInput} from '../components'
 import {Metrics} from '../themes'
-import {_} from '../utils'
+import {_, Say} from '../utils'
+import {API} from '../services'
 
 const ItemUI = props => (
     <>
@@ -39,19 +41,10 @@ class Scrn extends React.Component {
         let list = []
 
         try {
-            list = [
-                {
-                    contact_no:'09123456789',
-                    fullname:'Ashley Uy',
-                },
-                {
-                    contact_no:'0955398234',
-                    fullname:'Lotlot Rubite'
-                }
-            ]
+            list = await API.getELoadReceivers()
         }
         catch(err) {
-
+            Say.err(_('500'))
         }
 
         this.setState({
@@ -103,4 +96,8 @@ const style = StyleSheet.create({
     }
 })
 
-export default Scrn
+const mapStateToProps = state => ({
+    user: state.user.data
+})
+
+export default connect(mapStateToProps)(Scrn)

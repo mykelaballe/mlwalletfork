@@ -3,7 +3,7 @@ import {withNavigation} from 'react-navigation'
 import {Header} from './'
 import {Screen, Footer, View, Text, Spacer, Prompt, Button} from '../'
 import {Metrics} from '../../themes'
-import {Consts} from '../../utils'
+import {Consts, Func} from '../../utils'
 
 const moment = require('moment')
 
@@ -19,7 +19,7 @@ class BuyLoad extends React.Component {
 
     render() {
 
-        const {_from, tcn, timestamp} = this.props.data
+        const {_from, tcn, timestamp, contact_no, amount, promo_code} = this.props.data
         const {showSuccessModal} = this.state
 
         return (
@@ -29,7 +29,7 @@ class BuyLoad extends React.Component {
                     title='Success'
                     customMessage={
                         <>
-                            <Text mute md>You successfully sent load worth PHP 10.00 to 0912345678</Text>
+                            <Text mute md>You successfully sent load worth PHP {Func.formatToCurrency(amount)} to {contact_no}</Text>
                             <Spacer lg />
                             <Text mute>Your new balance is</Text>
                             <Text xl b>Php 1000</Text>
@@ -46,17 +46,22 @@ class BuyLoad extends React.Component {
 
                     <View style={{padding:Metrics.lg}}>
                         <Text sm mute>Mobile Number</Text>
-                        <Text>0912345678</Text>
+                        <Text>{contact_no}</Text>
 
-                        <Spacer />
+                        
+                        {promo_code != '' &&
+                        <>
+                            <Spacer />
 
-                        <Text sm mute>Promo Code</Text>
-                        <Text>GoSURF10</Text>
+                            <Text sm mute>Promo Code</Text>
+                            <Text>{promo_code}</Text>
+                        </>
+                        }
 
                         <Spacer />
 
                         <Text sm mute>Amount</Text>
-                        <Text>PHP 10.00</Text>
+                        <Text>PHP {Func.formatToCurrency(amount)}</Text>
 
                         <Spacer />
 

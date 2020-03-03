@@ -5,6 +5,8 @@ import Storage from '../utils/Storage'
 import WalletToWallet from './endpoints/WalletToWallet'
 import KP from './endpoints/KP'
 import BankTransfer from './endpoints/BankTransfer'
+import ReceiveMoney from './endpoints/ReceiveMoney'
+import ELoad from './endpoints/ELoad'
 
 export default {
     login: async payload => {
@@ -79,6 +81,8 @@ export default {
     ...WalletToWallet,
     ...KP,
     ...BankTransfer,
+    ...ReceiveMoney,
+    ...ELoad,
 
     withdrawCash: async payload => {
         return {
@@ -87,25 +91,7 @@ export default {
         return await Fetch.post('',payload)
     },
 
-    receiveMoneyDomestic: async payload => {
-        return {
-            error:false
-        }
-        return await Fetch.post('',payload)
-    },
-
-    receiveMoneyInternational: async payload => {
-        return {
-            error:false
-        }
-        return await Fetch.post('',payload)
-    },
-
     getBillers: async () => {
-        return await Fetch.get('')
-    },
-
-    getLoadPromoCodes: async () => {
         return await Fetch.get('')
     },
 

@@ -1,9 +1,9 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager, Dimensions, TouchableOpacity} from 'react-native'
-import {FlatList, Text, Row, Spacer, HR, Button, ButtonIcon, ButtonText, Ripple, TopBuffer, TextInput, LoadPromo} from '../components'
+import {View, StyleSheet, Dimensions, TouchableOpacity} from 'react-native'
+import {FlatList, Text, Row, Spacer, Button, TextInput, LoadPromo} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_} from '../utils'
-import Icon from 'react-native-vector-icons/Ionicons'
+import {_, Func} from '../utils'
+import {API} from '../services'
 
 const {width} = Dimensions.get('window')
 const ITEM_WIDTH = (width / 3) - (Metrics.lg * 2)
@@ -30,6 +30,7 @@ class LoadOptions extends React.Component {
 
     state = {
         amount:'',
+        promo_code:'',
         regulars:[
             {
                 amount:'10',
@@ -68,39 +69,27 @@ class LoadOptions extends React.Component {
                 selected:false
             },
         ],
-        promo_codes:[
-            {
-                label:'GoSURF10',
-                short_desc:'For Globe Prepaid only.',
-                long_desc:'100MB data + 30MB for IG. Valid for 2 days',
-                amount:10
-            },
-            {
-                label:'GoSURF15',
-                short_desc:'For Globe Prepaid only.',
-                long_desc:'100MB data + 30MB for IG. Valid for 2 days',
-                amount:15
-            },
-            {
-                label:'GoSAKTO70',
-                short_desc:'For Globe Prepaid only.',
-                long_desc:'100MB data + 30MB for IG. Valid for 2 days',
-                amount:70
-            },
-            {
-                label:'GoSURF50',
-                short_desc:'For Globe Prepaid only.',
-                long_desc:'100MB data + 30MB for IG. Valid for 2 days',
-                amount:50
-            },
-            {
-                label:'GoSAKTO90',
-                short_desc:'For Globe Prepaid only.',
-                long_desc:'100MB data + 30MB for IG. Valid for 2 days',
-                amount:90
-            }
-        ],
-        show_regulars:true
+        promo_codes:[],
+        show_regulars:true,
+        loading:true
+    }
+
+    componentDidMount = () => this.getData()
+
+    getData = async () => {
+        let promo_codes = []
+
+        try {
+            promo_codes = await API.getLoadPromoCodes()
+        }
+        catch(err) {
+
+        }
+
+        this.setState({
+            promo_codes,
+            loading:false
+        })
     }
 
     handleChangeAmount = amount => this.setState({amount})
@@ -111,7 +100,8 @@ class LoadOptions extends React.Component {
             ...params,
             load,
             transaction: {
-                ...this.state
+                ...this.state,
+                contact_no:params.contact_no
             },
             status:'success'
         })
@@ -123,24 +113,34 @@ class LoadOptions extends React.Component {
 
     handleSelectRegular = index => {
         let regulars = this.state.regulars.slice()
+        let promo_codes = this.state.promo_codes.slice()
+
+        promo_codes.map(r => r.collapsed = false)
 
         regulars.map(r => r.selected = false)
         regulars[index].selected = true
 
         this.setState({
             regulars,
+            promo_codes,
+            promo_code:'',
             amount:regulars[index].amount
         })
     }
 
     handleSelectPromoCode = index => {
+        let regulars = this.state.regulars.slice()
         let promo_codes = this.state.promo_codes.slice()
+
+        regulars.map(r => r.selected = false)
 
         promo_codes.map(r => r.collapsed = false)
         promo_codes[index].collapsed = true
 
         this.setState({
+            regulars,
             promo_codes,
+            promo_code:promo_codes[index].label,
             amount:promo_codes[index].amount.toString()
         })
 
@@ -154,7 +154,8 @@ class LoadOptions extends React.Component {
 
     render() {
 
-        const {amount, regulars, promo_codes, show_regulars} = this.state
+        const {contact_no} = this.props.navigation.state.params
+        const {amount, regulars, promo_codes, show_regulars, loading} = this.state
         let ready = false
 
         if(amount) ready = true
@@ -162,8 +163,8 @@ class LoadOptions extends React.Component {
         return (
             <View style={style.container}>
 
-                <Text b center xl>09123456789</Text>
-                <Text center md b>Globe</Text>
+                <Text b center xl>{contact_no}</Text>
+                {/*<Text center md b>Globe</Text>*/}
 
                 <Spacer />
 
@@ -183,7 +184,7 @@ class LoadOptions extends React.Component {
 
                     <TextInput
                         label='Load Amount (PHP)'
-                        value={amount ? parseFloat(amount).toFixed(2) : ''}
+                        value={amount ? Func.formatToCurrency(amount) : ''}
                         onChangeText={this.handleChangeAmount}
                         keyboardType='numeric'
                     />
@@ -204,11 +205,12 @@ class LoadOptions extends React.Component {
                     <FlatList
                         data={promo_codes}
                         renderItem={this.renderPromoCodes}
+                        loading={loading}
                     />
                 </>
                 }
 
-                <Button disabled={!ready} t='Next' onPress={this.handleSubmit} />
+                <Button disabled={!ready} t={_('62')} onPress={this.handleSubmit} />
             </View>
         )
     }
