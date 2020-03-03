@@ -12,13 +12,19 @@ class Scrn extends React.Component {
     }
 
     state = {
-        country:'Philippines',
+        house:'',
+        street:'',
         province:'Cebu',
-        city:'Talisay',
         barangay:'',
+        city:'Talisay',
         zip_code:'',
+        country:'Philippines',
         processing:false
     }
+
+    handleChangeHouse = house => this.setState({house})
+
+    handleChangeStreet = street => this.setState({street})
 
     handleSelectCountry = () => this.props.navigation.navigate('Countries')
 
@@ -30,30 +36,36 @@ class Scrn extends React.Component {
 
     handleChangeZipCode = zip_code => this.setState({zip_code})
 
+    handleFocusStreet = () => this.refs.street.focus()
+
+    handleFocusBarangay = () => this.refs.barangay.focus()
+
     handleFocusZipCode = () => this.refs.zip_code.focus()
 
     handleSubmit = async () => {
-        let {country, province, city, barangay, zip_code, processing} = this.state
+        let {house, street, country, province, city, barangay, zip_code, processing} = this.state
 
         if(processing) return false
 
         try {
+            house = house.trim()
+            street = street.trim()
             barangay = barangay.trim()
             zip_code = zip_code.trim()
 
-            if(country == '' || province == '' || city == '' || barangay == '' || zip_code == '') Say.some(_('8'))
+            if(!country || !province || !city || !barangay || !zip_code) Say.some(_('8'))
             else {
                 this.props.navigation.navigate('SignUpStep3')
             }
         }
         catch(err) {
-            Say.err(_('18'))
+            Say.err(_('500'))
         }
     }
 
     render() {
 
-        const {country, province, city, barangay, zip_code, processing} = this.state
+        const {house, street, country, province, city, barangay, zip_code, processing} = this.state
         let ready = false
 
         if(country && province && city && barangay && zip_code) {
@@ -66,16 +78,39 @@ class Scrn extends React.Component {
 
                     <SignUpStepsTracker step={2} />
 
-                    <StaticInput
-                        label='Country'
-                        value={country}
-                        onPress={this.handleSelectCountry}
+                    <TextInput
+                        ref='house'
+                        label={'House/Unit/Floor #, Bldg Name, Block or Lot #'}
+                        value={house}
+                        onChangeText={this.handleChangeHouse}
+                        onSubmitEditing={this.handleFocusStreet}
+                        autoCapitalize='none'
+                        returnKeyType='next'
+                    />
+
+                    <TextInput
+                        ref='street'
+                        label={'Street'}
+                        value={street}
+                        onChangeText={this.handleChangeStreet}
+                        onSubmitEditing={this.handleFocusBarangay}
+                        returnKeyType='next'
                     />
 
                     <StaticInput
                         label='Province'
                         value={province}
                         onPress={this.handleSelectProvince}
+                    />
+
+                    <TextInput
+                        ref='barangay'
+                        label={'Barangay'}
+                        value={barangay}
+                        onChangeText={this.handleChangeBarangay}
+                        onSubmitEditing={this.handleFocusZipCode}
+                        autoCapitalize='words'
+                        returnKeyType='next'
                     />
 
                     <StaticInput
@@ -85,20 +120,17 @@ class Scrn extends React.Component {
                     />
 
                     <TextInput
-                        label={'Barangay/Street'}
-                        value={barangay}
-                        onChangeText={this.handleChangeBarangay}
-                        onSubmitEditing={this.handleFocusZipCode}
-                        autoCapitalize='words'
-                        returnKeyType='next'
-                    />
-
-                    <TextInput
                         ref='zip_code'
                         label={'Zip Code'}
                         value={zip_code}
                         onChangeText={this.handleChangeZipCode}
                         keyboardType='numeric'
+                    />
+
+                    <StaticInput
+                        label='Country'
+                        value={country}
+                        onPress={this.handleSelectCountry}
                     />
 
                 </Screen>

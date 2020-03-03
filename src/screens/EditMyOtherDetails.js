@@ -72,7 +72,7 @@ class Scrn extends React.Component {
                     zip_code
                 }
     
-                //await API.addNewReceiver(payload)
+                //let res = await API.addNewReceiver(payload)
 
                 this.setState({
                     processing:false,
