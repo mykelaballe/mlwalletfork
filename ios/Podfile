@@ -40,6 +40,7 @@ target 'mlwallet' do
   pod 'react-native-google-maps', :path => '../node_modules/react-native-maps'
   pod 'GoogleMaps'
   pod 'Google-Maps-iOS-Utils'
+  pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
   target 'mlwalletTests' do
     inherit! :search_paths
