@@ -4,7 +4,16 @@ import {SectionList, Text, Spacer, HR, Ripple, SearchInput} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
 
-class Scrn extends React.Component {
+const ItemUI = props => (
+    <>
+        <Ripple onPress={() => props.onPress(props.data.name)} style={style.item}>
+            <Text md>{props.data.name}</Text>
+        </Ripple>
+        <HR />
+    </>
+)
+
+export default class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Select a Country'
@@ -63,7 +72,7 @@ class Scrn extends React.Component {
             ]
         }
         catch(err) {
-
+            Say.err(_('500'))
         }
 
         this.setState({
@@ -72,7 +81,10 @@ class Scrn extends React.Component {
         })
     }
 
-    handleSelect = () => this.props.navigation.pop()
+    handleSelect = country => {
+        const {sourceRoute} = this.props.navigation.state.params
+        this.props.navigation.navigate(sourceRoute,{country})
+    }
 
     handleChangeSearch = search => this.setState({search})
 
@@ -82,14 +94,7 @@ class Scrn extends React.Component {
         </View>
     )
 
-    renderItem = ({item, index}) => (
-        <>
-            <Ripple onPress={this.handleSelect} style={style.item}>
-                <Text md>{item.name}</Text>
-            </Ripple>
-            <HR />
-        </>
-    )
+    renderItem = ({item, index}) => <ItemUI data={item} onPress={this.handleSelect} />
 
     render() {
 
@@ -129,5 +134,3 @@ const style = StyleSheet.create({
         padding:Metrics.rg
     }
 })
-
-export default Scrn

@@ -16,7 +16,7 @@ const ItemUI = props => (
 export default class Scrn extends React.Component {
 
     static navigationOptions = {
-        title:'Select a Nationality'
+        title:'Select Source of Income'
     }
 
     state = {
@@ -32,14 +32,8 @@ export default class Scrn extends React.Component {
 
         try {
             list = [
-                {name:'Filipino'},
-                {name:'American'},
-                {name:'German'},
-                {name:'Russian'},
-                {name:'French'},
-                {name:'Japanese'},
-                {name:'Chinese'},
-                {name:'Korean'},
+                {name:'Business'},
+                {name:'Job'},
             ]
         }
         catch(err) {
@@ -52,9 +46,9 @@ export default class Scrn extends React.Component {
         })
     }
 
-    handleSelect = nationality => {
+    handleSelect = source_of_income => {
         const {sourceRoute} = this.props.navigation.state.params
-        this.props.navigation.navigate(sourceRoute,{nationality})
+        this.props.navigation.navigate(sourceRoute,{source_of_income})
     }
 
     handleChangeSearch = search => this.setState({search})
@@ -67,13 +61,13 @@ export default class Scrn extends React.Component {
 
         return (
             <View style={style.container}>
-                <SearchInput
+                {/*<SearchInput
                     placeholder='Search Nationality'
                     onChangeText={this.handleChangeSearch}
                     value={search}
                 />
 
-                <Spacer />
+                <Spacer />*/}
 
                 <FlatList
                     data={list}

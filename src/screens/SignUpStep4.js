@@ -1,7 +1,5 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import Actions from '../actions/Creators'
-import {Screen, Footer, Headline, Text, Button, Spacer, TextInput, StaticInput, SignUpStepsTracker} from '../components'
+import {Screen, Footer, Headline, Button, TextInput, StaticInput, SignUpStepsTracker} from '../components'
 import {_, Say} from '../utils'
 
 class Scrn extends React.Component {
@@ -11,16 +9,37 @@ class Scrn extends React.Component {
     }
 
     state = {
-        question1:'What is your nickname?',
-        question2:'Who is your favorite teacher?',
-        question3:'What was your first phone number?',
+        question1:'',
+        question2:'',
+        question3:'',
         answer1:'',
         answer2:'',
         answer3:'',
         processing:false
     }
 
-    handleSelectQuestion = () => this.props.navigation.navigate('SecurityQuestions')
+    componentDidUpdate = (prevProps, prevState) => {
+        const {params = {}} = this.props.navigation.state
+        if(params.question && params.question !== prevState[params._for]) {
+            this.props.navigation.setParams({[params._for]:null})
+            this.setState({[params._for]:params.question})
+        }
+    }
+
+    handleSelectQuestion1 = () => {
+        const {state, navigate} = this.props.navigation
+        navigate('SecurityQuestions',{sourceRoute:state.routeName, _for:'question1'})
+    }
+
+    handleSelectQuestion2 = () => {
+        const {state, navigate} = this.props.navigation
+        navigate('SecurityQuestions',{sourceRoute:state.routeName, _for:'question2'})
+    }
+
+    handleSelectQuestion3 = () => {
+        const {state, navigate} = this.props.navigation
+        navigate('SecurityQuestions',{sourceRoute:state.routeName, _for:'question3'})
+    }
 
     handleChangeAnswer1 = answer1 => this.setState({answer1})
 
@@ -29,22 +48,28 @@ class Scrn extends React.Component {
     handleChangeAnswer3 = answer3 => this.setState({answer3})
 
     handleSubmit = async () => {
-        let {question1, question2, question3, answer1, answer2, answer3, processing} = this.state
-
-        if(processing) return false
+        let {question1, question2, question3, answer1, answer2, answer3} = this.state
 
         try {
             answer1 = answer1.trim()
             answer2 = answer2.trim()
             answer3 = answer3.trim()
 
-            if(question1 == '' || question2 == '' || question3 =='' || answer1 == '' || answer2 == '' || answer3 == '') Say.some(_('8'))
+            if(!question1 || !question2 || !question3 || !answer1 || !answer2 || !answer3) Say.some(_('8'))
             else {
-                this.props.navigation.navigate('SignUpReview')
+                this.props.navigation.navigate('SignUpReview',{
+                    ...this.props.navigation.state.params,
+                    question1,
+                    answer1,
+                    question2,
+                    answer2,
+                    question3,
+                    answer3
+                })
             }
         }
         catch(err) {
-            Say.err(_('18'))
+            Say.err(_('500'))
         }
     }
 
@@ -69,7 +94,7 @@ class Scrn extends React.Component {
                     <StaticInput
                         label={'Security Question 1'}
                         value={question1}
-                        onPress={this.handleSelectQuestion}
+                        onPress={this.handleSelectQuestion1}
                     />
 
                     <TextInput
@@ -81,7 +106,7 @@ class Scrn extends React.Component {
                     <StaticInput
                         label={'Security Question 2'}
                         value={question2}
-                        onPress={this.handleSelectQuestion}
+                        onPress={this.handleSelectQuestion2}
                     />
 
                     <TextInput
@@ -93,7 +118,7 @@ class Scrn extends React.Component {
                     <StaticInput
                         label={'Security Question 3'}
                         value={question3}
-                        onPress={this.handleSelectQuestion}
+                        onPress={this.handleSelectQuestion3}
                     />
 
                     <TextInput

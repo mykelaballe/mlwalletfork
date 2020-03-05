@@ -1,8 +1,6 @@
 import React from 'react'
 import {StyleSheet, TouchableOpacity} from 'react-native'
-import {connect} from 'react-redux'
-import Actions from '../actions/Creators'
-import {Screen, Headline, Footer, FlatList, Text, Button, Spacer, Row, HR, SignUpStepsTracker} from '../components'
+import {Screen, Headline, Footer, FlatList, Text, Button, HR, SignUpStepsTracker} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
 import {API} from '../services'
@@ -17,7 +15,7 @@ const ItemUI = props => (
     </>
 )
 
-class Scrn extends React.Component {
+export default class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Identification'
@@ -58,40 +56,43 @@ class Scrn extends React.Component {
                 name:"Senior Citizen's ID"
             }
         ],
-        selected:[],
+        ids:[],
         processing:false
     }
 
     handleSelect = index => {
         let list = this.state.list.slice()
-        let selected = []
+        let ids = []
 
         list.map(l => l.selected = false)
 
         list[index].selected = !list[index].selected
 
         list.map(l => {
-            if(l.selected) selected.push(l.id)
+            if(l.selected) ids.push(l.name)
         })
 
-        this.props.navigation.navigate('Camera')
+        //this.props.navigation.navigate('Camera',{sourceRoute:this.props.navigation.state.routeName})
 
         this.setState({
             list,
-            selected
+            ids
         })
     }
 
     handleSubmit = async () => {
-        let {selected, processing} = this.state
-
-        if(processing) return false
+        let {ids} = this.state
 
         try {
-            this.props.navigation.navigate('SignUpStep4')
+            if(ids.length > 0) {
+                this.props.navigation.navigate('SignUpStep4',{
+                    ...this.props.navigation.state.params,
+                    ids
+                })
+            }
         }
         catch(err) {
-            Say.err(_('18'))
+            Say.err(_('500'))
         }
     }
 
@@ -99,10 +100,10 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {list, selected, processing} = this.state
+        const {list, ids, processing} = this.state
         let ready = false
 
-        if(selected.length > 0) ready = true
+        if(ids.length > 0) ready = true
 
         return (
             <>
@@ -120,7 +121,7 @@ class Scrn extends React.Component {
                 </Screen>
             
                 <Footer>
-                    <Button disabled={!ready} t='Next' onPress={this.handleSubmit} loading={processing} />
+                    <Button disabled={!ready} t={_('62')} onPress={this.handleSubmit} loading={processing} />
                 </Footer>
             </>
         )
@@ -133,5 +134,3 @@ const style = StyleSheet.create({
         paddingHorizontal:Metrics.rg
     }
 })
-
-export default Scrn

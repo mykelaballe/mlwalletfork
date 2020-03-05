@@ -14,7 +14,7 @@ class Scrn extends React.Component {
     slides:[
       {
         key: 'one',
-        title: 'Buy Load',
+        title: 'Buy eLoad',
         text: 'Buy prepaid mobile load anytime, anywhere through the ML Wallet App.'
       }
     ]

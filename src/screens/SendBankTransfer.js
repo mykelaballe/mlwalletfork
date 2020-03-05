@@ -1,5 +1,5 @@
 import React from 'react'
-import {Screen, Footer, Headline, Text, Spacer, Button, ButtonIcon, TextInput, HeaderRight} from '../components'
+import {Screen, Footer, Headline, Text, Spacer, Button, ButtonText, ButtonIcon, TextInput, HeaderRight, View} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Consts, Func} from '../utils'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -8,14 +8,14 @@ class Scrn extends React.Component {
 
     static navigationOptions = ({navigation}) => ({
         title:Consts.tcn[navigation.state.params.type].short_desc,
-        headerRight:(
+        /*headerRight:(
             <HeaderRight>
                 <ButtonIcon
                     icon={<Icon name='university' color={Colors.light} size={Metrics.icon.sm} />}
                     onPress={() => navigation.navigate('SavedBankPartners')}
                 />
             </HeaderRight>
-        )
+        )*/
     })
 
     state = {
@@ -52,6 +52,8 @@ class Scrn extends React.Component {
         })
     }
 
+    handleSelectPartner = () => this.props.navigation.navigate('SavedBankPartners')
+
     handleSendMoney = async () => {
         const {params} = this.props.navigation.state
         this.props.navigation.navigate('TransactionReview',{
@@ -74,7 +76,11 @@ class Scrn extends React.Component {
             <>
                 <Screen>
 
-                    <Headline subtext={Consts.tcn[type].short_desc} />
+                    {/*<Headline subtext={Consts.tcn[type].short_desc} />*/}
+
+                    <View style={{alignItems:'flex-end'}}>
+                        <ButtonText color={Colors.brand} icon='plus' t='Add Bank Partner' onPress={this.handleSelectPartner} />
+                    </View>
 
                     <TextInput
                         disabled

@@ -40,7 +40,7 @@ class Scrn extends React.Component {
             },
             {
                 icon:'buy_load',
-                label:'Buy Load',
+                label:'Buy eLoad',
                 onPress:() => this.handleGoToBuyLoad()
             },
             {

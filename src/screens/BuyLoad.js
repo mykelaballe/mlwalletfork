@@ -8,7 +8,7 @@ import {API} from '../services'
 class Scrn extends React.Component {
 
     static navigationOptions = {
-        title:'Buy Load'
+        title:'Buy eLoad'
     }
 
     state = {

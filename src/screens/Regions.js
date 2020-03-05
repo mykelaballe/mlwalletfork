@@ -16,7 +16,7 @@ const ItemUI = props => (
 export default class Scrn extends React.Component {
 
     static navigationOptions = {
-        title:'Select a Nationality'
+        title:'Select a Region'
     }
 
     state = {
@@ -32,14 +32,13 @@ export default class Scrn extends React.Component {
 
         try {
             list = [
-                {name:'Filipino'},
-                {name:'American'},
-                {name:'German'},
-                {name:'Russian'},
-                {name:'French'},
-                {name:'Japanese'},
-                {name:'Chinese'},
-                {name:'Korean'},
+                {name:'Region 1'},
+                {name:'Region 2'},
+                {name:'Region 3'},
+                {name:'Region 4'},
+                {name:'Region 5'},
+                {name:'Region 6'},
+                {name:'Region 7'}
             ]
         }
         catch(err) {
@@ -52,9 +51,9 @@ export default class Scrn extends React.Component {
         })
     }
 
-    handleSelect = nationality => {
+    handleSelect = region => {
         const {sourceRoute} = this.props.navigation.state.params
-        this.props.navigation.navigate(sourceRoute,{nationality})
+        this.props.navigation.navigate(sourceRoute,{region})
     }
 
     handleChangeSearch = search => this.setState({search})
@@ -67,13 +66,13 @@ export default class Scrn extends React.Component {
 
         return (
             <View style={style.container}>
-                <SearchInput
+                {/*<SearchInput
                     placeholder='Search Nationality'
                     onChangeText={this.handleChangeSearch}
                     value={search}
                 />
 
-                <Spacer />
+                <Spacer />*/}
 
                 <FlatList
                     data={list}

@@ -8,7 +8,7 @@ import registered_questions from '../services/registered_security_questions'
 import personal_questions from '../services/personal_security_questions'
 import transactional_questions from '../services/transactional_security_questions'
 
-class Scrn extends React.Component {
+export default class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Select a Security Question'
@@ -40,8 +40,8 @@ class Scrn extends React.Component {
     }
 
     handleSelect = question => {
-        const {sourceRoute} = this.props.navigation.state.params
-        this.props.navigation.navigate(sourceRoute,{question})
+        const {sourceRoute, _for} = this.props.navigation.state.params
+        this.props.navigation.navigate(sourceRoute,{question, _for})
     }
 
     renderItem = ({item, index}) => (
@@ -74,5 +74,3 @@ const style = StyleSheet.create({
         paddingVertical:Metrics.rg
     }
 })
-
-export default Scrn

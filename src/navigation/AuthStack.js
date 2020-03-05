@@ -41,6 +41,8 @@ export default createStackNavigator({
     Provinces: Scrn.ProvincesScrn,
     Cities: Scrn.CitiesScrn,
     Nationalities: Scrn.NationalitiesScrn,
+    SourceOfIncome: Scrn.SourceOfIncomeScrn,
+    Regions: Scrn.RegionsScrn,
     SecurityQuestions: Scrn.SecurityQuestionsScrn,
     TermsAndConditions: Scrn.TermsAndConditionsScreen,
     Camera: Scrn.CameraScrn,

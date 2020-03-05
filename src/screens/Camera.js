@@ -14,7 +14,7 @@ const {width} = Dimensions.get('window')
 class Scrn extends React.Component {
 
     static navigationOptions = {
-        title:'Capture Live Photo',
+        title:'Camera',
         headerStyle:{
             backgroundColor:Colors.dark
         }

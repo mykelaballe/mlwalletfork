@@ -17,7 +17,7 @@ export default {
             lname:'Smith',
             suffix:'',
             birthdate:'1980-01-01',
-            gender:'male',
+            gender:'Male',
             email:'johnsmith@gmail.com',
             nationality:'Filipino',
             source_of_income:'Business',
@@ -46,6 +46,7 @@ export default {
 
     register: async payload => {
         return {
+            walletno:'14874',
             error:false
         }
         return Fetch.post('',payload)
@@ -64,6 +65,7 @@ export default {
 
     validateUsername: async username => {
         return {
+            error:false,
             username,
             walletno:'12345',
         }

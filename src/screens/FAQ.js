@@ -1,9 +1,15 @@
 import React from 'react'
-import {View, StyleSheet} from 'react-native'
+import {View, StyleSheet, TouchableOpacity} from 'react-native'
 import {SectionList, Text, Spacer, Button, CollapsibleItem, SearchInput} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_} from '../utils'
 import data from '../services/faq'
+
+const HeaderItemUI = props => (
+    <TouchableOpacity style={style.sectionHeader} onPress={() => props.onPress(props.index)}>
+        <Text b md>{props.title}</Text>
+    </TouchableOpacity>
+)
 
 export default class Scrn extends React.Component {
 
@@ -20,26 +26,32 @@ export default class Scrn extends React.Component {
 
     handleContact = () => this.props.navigation.navigate('ContactUs')
 
-    renderSectionHeader = ({section: {title}}) => (
-        <View style={style.sectionHeader}>
-            <Text b md>{title}</Text>
-        </View>
-    )
+    handleToggleHeader = index => {
+        let list = this.state.list.slice()
+        list[index].collapsed = !list[index].collapsed
+        this.setState({list})
+    }
+
+    renderSectionHeader = ({section: {index, title}}) => <HeaderItemUI index={index} title={title} onPress={this.handleToggleHeader} />
 
     renderSectionFooter = () => <Spacer />
 
-    renderItem = ({item}) => (
-        <CollapsibleItem
-            style={style.item}
-            topContent={<Text b md>{item.question}</Text>}
-            bottomContent={
-            <>
-                <Spacer />
-                {typeof item.answer === 'string' ? <Text>{item.answer}</Text> : item.answer}
-            </>
-            }
-        />
-    )
+    renderItem = ({item, index, section}) => {
+        if(!section.collapsed) return null
+
+        return (
+            <CollapsibleItem
+                style={style.item}
+                topContent={<Text b md>{item.question}</Text>}
+                bottomContent={
+                <>
+                    <Spacer />
+                    {typeof item.answer === 'string' ? <Text>{item.answer}</Text> : item.answer}
+                </>
+                }
+            />
+        )
+    }
 
     render() {
 

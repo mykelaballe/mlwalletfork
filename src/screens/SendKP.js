@@ -1,6 +1,6 @@
 import React from 'react'
 import {TouchableOpacity} from 'react-native'
-import {Screen, Footer, Headline, Text, Spacer, Button, ButtonText, TextInput, Icon, HeaderRight} from '../components'
+import {Screen, Footer, Headline, Text, Spacer, Button, ButtonText, TextInput, Icon, HeaderRight, View} from '../components'
 import {Colors} from '../themes'
 import {_, Consts, Func} from '../utils'
 
@@ -68,16 +68,19 @@ class Scrn extends React.Component {
             <>
                 <Screen>
 
-                    <Headline subtext={Consts.tcn[type].short_desc} />
+                    {/*<Headline subtext={Consts.tcn[type].short_desc} />*/}
+                    <View style={{alignItems:'flex-end'}}>
+                        <ButtonText color={Colors.brand} icon='plus' t='Add Receiver' onPress={this.handleAddNewReceiver} />
+                    </View>
 
-                    <TouchableOpacity onPress={this.handleAddNewReceiver}>
+                    {/*<TouchableOpacity onPress={this.handleAddNewReceiver}>*/}
                         <TextInput
                             disabled
                             label='Receiver'
                             value={receiver && `${receiver.firstname} ${receiver.middlename} ${receiver.lastname} ${receiver.suffix}`}
                             rightContent={<Icon name='user_plus' size={20} />}
                         />
-                    </TouchableOpacity>
+                    {/*</TouchableOpacity>*/}
 
                     <TextInput
                         label='Amount (PHP)'

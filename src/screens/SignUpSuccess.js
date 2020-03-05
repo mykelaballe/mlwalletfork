@@ -1,12 +1,8 @@
 import React from 'react'
 import {View, Image} from 'react-native'
-import {connect} from 'react-redux'
-import Actions from '../actions/Creators'
-import {Screen, Footer, Headline, Text, Button, Spacer, Row} from '../components'
-import {Colors, Metrics, Res} from '../themes'
-import {_, Say} from '../utils'
-import {API} from '../services'
-import Icon from 'react-native-vector-icons/Ionicons'
+import {Screen, Footer, Headline, Text, Button, Spacer} from '../components'
+import {_} from '../utils'
+import {Res} from '../themes'
 
 class Scrn extends React.Component {
 
@@ -18,6 +14,8 @@ class Scrn extends React.Component {
 
     render() {
 
+        const {walletno, firstname} = this.props.navigation.state.params
+
         return (
             <>
                 <Screen>
@@ -26,7 +24,7 @@ class Scrn extends React.Component {
                         <Image source={Res.trophy} style={{width:120,height:120}} resizeMode='contain' />
                     </View>
 
-                    <Headline title='Congratulations, Juana!' />
+                    <Headline title={`Congratulations, ${firstname}!`} />
                     
                     <Text center md>You are now registered as a</Text>
                     <Text center b md>Semi-Verified User.</Text>
@@ -38,7 +36,7 @@ class Scrn extends React.Component {
 
                     <Spacer sm />
 
-                    <Text center b lg>1911-0000-2519-34</Text>
+                    <Text center b lg>{walletno}</Text>
                 </Screen>
             
                 <Footer>

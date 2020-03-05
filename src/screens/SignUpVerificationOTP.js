@@ -1,7 +1,5 @@
 import React from 'react'
 import {StyleSheet} from 'react-native'
-import {connect} from 'react-redux'
-import Actions from '../actions/Creators'
 import {Screen, Footer, Headline, Button, ButtonText, Spacer, TextInputFlat, Row, SignUpStepsTracker} from '../components'
 import {Metrics} from '../themes'
 import {_, Say} from '../utils'
@@ -21,6 +19,7 @@ class Scrn extends React.Component {
         digit5:'',
         digit6:'',
         processing:false,
+        has_requested:false,
         reprocessing:false
     }
 
@@ -63,18 +62,76 @@ class Scrn extends React.Component {
 
     handleFocusDigit6 = () => this.refs.digit6.focus()
 
-    handleSubmit = () => {
+    handleRequest = () => this.setState({processing:true},this.submit)
+
+    handleRequestAgain = () => this.setState({reprocessing:true},this.submit)
+
+    submit = async () => {
+        const {username, password, firstname, middlename, lastname, suffix, birthday, email, nationality, source_of_income, house, street, country, province, city, barangay, zip_code, ids, question1, answer1, question2, answer2, question3, answer3, mobile_no} = this.props.navigation.state.params
+        const {digit1, digit2, digit3, digit4, digit5, digit6, processing, reprocessing} = this.state
+
         try {
-            this.props.navigation.navigate('SignUpSuccess')
+            let otp = `${digit1}${digit2}${digit3}${digit4}${digit5}${digit6}`
+
+            if(!otp) Say.some(_('8'))
+            else {
+                let otpRes = await API.requestOTP({otp})
+
+                if(!otpRes.error) {
+
+                    let payload = {
+                        username,
+                        password,
+                        firstname,
+                        middlename,
+                        lastname,
+                        suffix,
+                        birthday,
+                        email,
+                        nationality,
+                        source_of_income,
+                        house,
+                        street,
+                        country,
+                        province,
+                        city,
+                        barangay,
+                        zip_code,
+                        ids,
+                        question1,
+                        answer1,
+                        question2,
+                        answer2,
+                        question3,
+                        answer3,
+                        mobile_no
+                    }
+
+                    let res = await API.register(payload)
+
+                    if(!res.error) {
+                        this.props.navigation.navigate('SignUpSuccess',{
+                            ...payload,
+                            ...res
+                        })
+                    }
+                }
+            }
         }
         catch(err) {
-
+            Say.err(_('500'))
         }
+
+        this.setState({
+            processing:false,
+            has_requested:true,
+            reprocessing:false
+        })
     }
 
     render() {
 
-        const {digit1, digit2, digit3, digit4, digit5, digit6, processing, reprocessing} = this.state
+        const {digit1, digit2, digit3, digit4, digit5, digit6, processing, has_requested, reprocessing} = this.state
         let ready = false
 
         if(`${digit1}${digit2}${digit3}${digit4}${digit5}${digit6}`.length >= 6) {
@@ -165,11 +222,13 @@ class Scrn extends React.Component {
 
                     <Spacer lg />
 
-                    <ButtonText t='Resend Verification Code' onPress={this.handleResendOTP} loading={reprocessing} />
+                    {has_requested &&
+                    <ButtonText disabled={!ready} t='Resend Verification Code' onPress={this.handleRequestAgain} loading={reprocessing} />
+                    }
                 </Screen>
             
                 <Footer>
-                    <Button disabled={!ready} t='Next' onPress={this.handleSubmit} loading={processing} />
+                    <Button disabled={!ready} t={_('62')} onPress={this.handleRequest} loading={processing} />
                 </Footer>
             </>
         )

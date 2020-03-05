@@ -133,6 +133,7 @@ const answer18 = (
 
 export default [
     {
+        index:0,
         title:'ABOUT',
         data:[
             {
@@ -146,6 +147,7 @@ export default [
         ]
     },
     {
+        index:1,
         title:'REGISTRATION',
         data:[
             {
@@ -155,6 +157,7 @@ export default [
         ]
     },
     {
+        index:2,
         title:'VERIFICATION',
         data:[
             {
@@ -168,6 +171,7 @@ export default [
         ]
     },
     {
+        index:3,
         title:'TRANSACTIONS',
         data:[
             {
@@ -185,6 +189,7 @@ export default [
         ]
     },
     {
+        index:4,
         title:'SECURITY',
         data:[
             {
@@ -198,6 +203,7 @@ export default [
         ]
     },
     {
+        index:5,
         title:'ACCESSIBILITY',
         data:[
             {
@@ -215,6 +221,7 @@ export default [
         ]
     },
     {
+        index:6,
         title:'TROUBLESHOOTING',
         data:[
             {

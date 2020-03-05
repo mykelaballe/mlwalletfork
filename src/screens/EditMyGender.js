@@ -66,9 +66,9 @@ class Scrn extends React.Component {
                     <Text md mute>Gender</Text>
                     <RadioButton.Group onValueChange={this.handleSelectGender} value={gender}>
                         <Row>
-                            <Radio value='male' label={_('43')} />
+                            <Radio value='Male' label={_('43')} />
                             <Spacer h lg />
-                            <Radio value='female' label={_('44')} />
+                            <Radio value='Female' label={_('44')} />
                         </Row>
                     </RadioButton.Group>
                 </Screen>

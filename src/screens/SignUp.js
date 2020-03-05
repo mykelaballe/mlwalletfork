@@ -1,6 +1,4 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import Actions from '../actions/Creators'
 import {Screen, Headline, Button, ButtonText, TextInput, Footer, Errors} from '../components'
 import {Colors} from '../themes'
 import {_, Say, Consts, Func} from '../utils'
@@ -63,28 +61,28 @@ class Scrn extends React.Component {
                 password_errors = passwordValidation.errors
                 
                 if(usernameValidation.ok && passwordValidation.ok) {
-                    //let res = await API.validateUsername(username)
-                    let res = {
-                        error:false
-                    }
+                    let res = await API.validateUsername(username)
 
                     if(res.error) Say.some('Username already taken')
                     else {
-                        this.props.navigation.navigate('SignUpStep1')
+                        this.props.navigation.navigate('SignUpStep1',{
+                            username,
+                            password
+                        })
                     }
                 }
             }
 
             this.setState({
                 username_errors,
-                password_errors,
-                processing:false
+                password_errors
             })
         }
         catch(err) {
-            this.setState({processing:false})
             Say.err(_('500'))
         }
+
+        this.setState({processing:false})
     }
 
     render() {

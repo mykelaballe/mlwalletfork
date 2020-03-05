@@ -1,11 +1,8 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import Actions from '../actions/Creators'
 import {Provider, Screen, Headline, Text, Checkbox, Button, Spacer, TextInput, Row, Footer, Radio, DynamicStaticInput, StaticInput, SignUpStepsTracker, Picker, MonthPicker, DayPicker, YearPicker} from '../components'
 import {_, Say} from '../utils'
-import {API} from '../services'
 import {RadioButton} from 'react-native-paper'
-import { Metrics } from '../themes'
+import {Metrics} from '../themes'
 
 const moment = require('moment')
 
@@ -20,9 +17,9 @@ class Scrn extends React.Component {
         middlename:'',
         has_middlename:true,
         lastname:'',
-        suffix:'',
+        suffix:'NONE',
         other_suffix:'',
-        has_suffix:true,
+        has_suffix:false,
         suffix_options:[
             {label:'Jr.'},
             {label:'Sr.'},
@@ -33,10 +30,10 @@ class Scrn extends React.Component {
             {label:'V'},
             {label:'Others'}
         ],
-        bday_month:null,
-        bday_day:null,
-        bday_year:null,
-        gender:'male',
+        bday_month:'',
+        bday_day:'',
+        bday_year:'',
+        gender:'Male',
         email:'',
         nationality:'Filipino',
         source_of_income:'',
@@ -44,6 +41,19 @@ class Scrn extends React.Component {
         showDayPicker:false,
         showYearPicker:false,
         processing:false
+    }
+
+    componentDidUpdate = (prevProps, prevState) => {
+        const {params = {}} = this.props.navigation.state
+        if(params.nationality && params.nationality !== prevState.nationality) {
+            this.props.navigation.setParams({nationality:null})
+            this.setState({nationality:params.nationality})
+        }
+
+        if(params.source_of_income && params.source_of_income !== prevState.source_of_income) {
+            this.props.navigation.setParams({source_of_income:null})
+            this.setState({source_of_income:params.source_of_income})
+        }
     }
 
     handleChangeFirstname = firstname => this.setState({firstname})
@@ -88,9 +98,17 @@ class Scrn extends React.Component {
 
     handleChangeNationality = nationality => this.setState({nationality})
 
-    handleSelectNationality = () => this.props.navigation.navigate('Nationalities')
+    handleSelectNationality = () => {
+        const {state, navigate} = this.props.navigation
+        navigate('Nationalities',{sourceRoute:state.routeName})
+    }
 
-    handleChangeSourceOfIncome = source_of_income => this.setState({source_of_income})
+    handleSelectSourceOfIncome = () => {
+        const {state, navigate} = this.props.navigation
+        navigate('SourceOfIncome',{sourceRoute:state.routeName})
+    }
+
+    //handleChangeSourceOfIncome = source_of_income => this.setState({source_of_income})
 
     handleFocusMiddlename = () => this.state.has_middlename ? this.refs.middlename.focus() : this.refs.lastname.focus()
 
@@ -102,10 +120,14 @@ class Scrn extends React.Component {
 
     handleFocusSourceOfIncome = () => this.refs.source_of_income.focus()
 
-    handleSubmit = async () => {
-        let {firstname, middlename, lastname, suffix, other_suffix, bday_month, bday_day, bday_year, gender, email, nationality, source_of_income, processing} = this.state
+    handleSelectMonth = bday_month => this.setState({bday_month})
 
-        if(processing) return false
+    handleSelectDay = bday_day => this.setState({bday_day})
+
+    handleSelectYear = bday_year => this.setState({bday_year})
+
+    handleSubmit = async () => {
+        let {firstname, middlename, has_middlename, lastname, suffix, other_suffix, has_suffix, suffix_options, bday_month, bday_day, bday_year, gender, email, nationality, source_of_income} = this.state
 
         try {
             firstname = firstname.trim()
@@ -119,21 +141,32 @@ class Scrn extends React.Component {
 
             suffix = other_suffix || suffix
 
-            if(firstname == '' || middlename == '' || lastname == '' || suffix == '' || nationality == '' || source_of_income == '') Say.some(_('8'))
+            if(!firstname || !middlename || !lastname || !suffix || !source_of_income) Say.some(_('8'))
             else {
-                this.props.navigation.navigate('SignUpStep2')
+                this.props.navigation.navigate('SignUpStep2',{
+                    ...this.props.navigation.state.params,
+                    firstname,
+                    middlename,
+                    has_middlename,
+                    lastname,
+                    gender,
+                    email,
+                    nationality,
+                    source_of_income,
+                    suffix,
+                    other_suffix,
+                    has_suffix,
+                    suffix_options,
+                    bday_day,
+                    bday_month,
+                    bday_year
+                })
             }
         }
         catch(err) {
-            Say.err(_('18'))
+            Say.err(_('500'))
         }
     }
-
-    handleSelectMonth = bday_month => this.setState({bday_month})
-
-    handleSelectDay = bday_day => this.setState({bday_day})
-
-    handleSelectYear = bday_year => this.setState({bday_year})
 
     render() {
 
@@ -245,9 +278,9 @@ class Scrn extends React.Component {
                     <Text md mute>Gender</Text>
                     <RadioButton.Group onValueChange={this.handleSelectGender} value={gender}>
                         <Row>
-                            <Radio value='male' label={_('43')} />
+                            <Radio value='Male' label={_('43')} />
                             <Spacer h lg />
-                            <Radio value='female' label={_('44')} />
+                            <Radio value='Female' label={_('44')} />
                         </Row>
                     </RadioButton.Group>
 
@@ -258,21 +291,9 @@ class Scrn extends React.Component {
                         label={'Email address (optional)'}
                         value={email}
                         onChangeText={this.handleChangeEmail}
-                        onSubmitEditing={this.handleFocusSourceOfIncome}
                         autoCapitalize='none'
                         keyboardType='email-address'
-                        returnKeyType='next'
                     />
-
-                    {/*<TextInput
-                        ref='nationality'
-                        label={'Nationality'}
-                        value={nationality}
-                        onChangeText={this.handleChangeNationality}
-                        onSubmitEditing={this.handleFocusSourceOfIncome}
-                        autoCapitalize='words'
-                        returnKeyType='next'
-                    />*/}
 
                     <StaticInput
                         label='Nationality'
@@ -280,12 +301,10 @@ class Scrn extends React.Component {
                         onPress={this.handleSelectNationality}
                     />
 
-                    <TextInput
-                        ref='source_of_income'
-                        label={'Source of Income'}
+                    <StaticInput
+                        label='Source of Income'
                         value={source_of_income}
-                        onChangeText={this.handleChangeSourceOfIncome}
-                        autoCapitalize='words'
+                        onPress={this.handleSelectSourceOfIncome}
                     />
 
                 </Screen>

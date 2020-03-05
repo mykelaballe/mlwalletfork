@@ -73,9 +73,9 @@ export default {
 		bul: {
 			code:'bul',
 			action:'load',
-			short_desc:'Buy Load',
-			long_desc:'Buy Load',
-			submit_text:'Buy Load',
+			short_desc:'Buy eLoad',
+			long_desc:'Buy eLoad',
+			submit_text:'Buy eLoad',
 			otp:'Verify'
 		}
 	}

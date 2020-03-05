@@ -1,7 +1,8 @@
 import React from 'react'
 import {TouchableOpacity} from 'react-native'
-import {Screen, Footer, Headline, Text, Spacer, Button, TextInput, Icon} from '../components'
+import {Screen, Footer, Headline, Text, Spacer, Button, ButtonText, TextInput, Icon, View} from '../components'
 import {_, Consts, Func} from '../utils'
+import {Colors} from '../themes'
 
 class Scrn extends React.Component {
 
@@ -66,16 +67,19 @@ class Scrn extends React.Component {
         return (
             <>
                 <Screen>
-                    <Headline subtext='Send Money to an ML Wallet Account' />
+                    {/*<Headline subtext='Send Money to an ML Wallet Account' />*/}
+                    <View style={{alignItems:'flex-end'}}>
+                        <ButtonText color={Colors.brand} icon='plus' t='Add Receiver' onPress={this.handleAddNewReceiver} />
+                    </View>
 
-                    <TouchableOpacity onPress={this.handleAddNewReceiver}>
+                    {/*<TouchableOpacity onPress={this.handleAddNewReceiver}>*/}
                         <TextInput
                             disabled
                             label='Receiver'
                             value={walletno}
                             rightContent={<Icon name='user_plus' size={20} />}
                         />
-                    </TouchableOpacity>
+                    {/*</TouchableOpacity>*/}
 
                     <TextInput
                         ref='amount'

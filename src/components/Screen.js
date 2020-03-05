@@ -1,6 +1,6 @@
 import React from 'react'
 import {KeyboardAvoidingView} from 'react-native'
-import {ScrollView} from './'
+import {ScrollView, View} from './'
 import {Metrics} from '../themes'
 
 export default props => {
