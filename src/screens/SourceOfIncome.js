@@ -32,8 +32,18 @@ export default class Scrn extends React.Component {
 
         try {
             list = [
+                {name:'Salary/Wage/Page'},
+                {name:'Commission'},
+                {name:'Pension'},
+                {name:'Allowance'},
+                {name:'Remittance Abroad'},
+                {name:'Gift'},
                 {name:'Business'},
-                {name:'Job'},
+                {name:'Rentals'},
+                {name:'Loan Proceeds'},
+                {name:'Interest from Deposits'},
+                {name:'Sale of Property'},
+                {name:'Goverment aid'},
             ]
         }
         catch(err) {
