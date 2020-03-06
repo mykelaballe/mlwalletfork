@@ -86,7 +86,7 @@ class Scrn extends React.Component {
     handleFocusDigit6 = () => this.refs.digit6.focus()
 
     handleSubmit = async () => {
-        const {walletno} = this.props.user
+        const {walletno, mobile_no} = this.props.user
         const {replace, state, processing} = this.props.navigation
         const {type, transaction} = this.props.navigation.state.params
         
@@ -101,11 +101,11 @@ class Scrn extends React.Component {
 
             if(otp.length >= 6) {
                 let otpRes = await API.validateOTP({
-                    walletno,
-                    otp
+                    _mobile_no:mobile_no,
+                    _pin:otp
                 })
     
-                if(otpRes.error) Say.some('Error')
+                if(otpRes.error) Say.some(otpRes.message)
                 else {
                     let res = {}
                     

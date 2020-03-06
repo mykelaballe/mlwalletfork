@@ -1,4 +1,5 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import {Screen, Footer, Headline, TextInput, Button, Checkbox, Picker} from '../components'
 import {Metrics} from '../themes'
 import {_, Say} from '../utils'
@@ -66,6 +67,7 @@ class Scrn extends React.Component {
 
     handleSubmit = async () => {
         try {
+            const {walletno} = this.props.user
             let {firstname, middlename, lastname, suffix, other_suffix, contact_no, processing} = this.state
 
             if(processing) return false
@@ -85,23 +87,24 @@ class Scrn extends React.Component {
             else {
 
                 let payload = {
-                    firstname,
-                    middlename,
-                    lastname,
-                    suffix,
-                    contact_no
+                    walletno,
+                    Fname:firstname,
+                    Mname:middlename,
+                    Lname:lastname,
+                    Suffix:suffix,
+                    ContactNo:contact_no
                 }
     
                 let res = await API.addKPReceiver(payload)
 
-                if(res.error) Say.some('error')
-                else {
+                if(res.walletno) {
+                    Say.some('Successfully added KP receiver')
                     this.props.navigation.pop()
                 }
             }
         }
         catch(err) {
-            Say.err(_('18'))
+            Say.err(_('500'))
         }
 
         this.setState({processing:false})
@@ -196,4 +199,8 @@ class Scrn extends React.Component {
     }
 }
 
-export default Scrn
+const mapStateToProps = state => ({
+    user: state.user.data
+})
+
+export default connect(mapStateToProps)(Scrn)

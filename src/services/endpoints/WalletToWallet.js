@@ -9,49 +9,31 @@ export default {
     },
 
     getWalletReceivers: async payload => {
-        return [
-            {
-                fullname:'Bren Deverick',
-                walletno:'3304827485'
-            },
-            {
-                fullname:'Zeke Gavrielli',
-                walletno:'8443756429'
-            },
-            {
-                fullname:'Janet Godden',
-                walletno:'1032947299'
-            },
-            {
-                fullname:'Connor Beaty',
-                walletno:'2132104822'
-            },
-            {
-                fullname:'Shaine Laviss',
-                walletno:'4773921031'
-            }
-        ]
-        return await Fetch.get(`wallettowallet/receiverlist?walletNo=${payload.wallet_no}`)
+        let res = await Fetch.get(`wallettowallet/receiverlist?walletNo=${payload.walletno}`)
+        return res.recieverlists || []
     },
 
     searchWalletReceiver: async payload => {
-        return {
-            error:false
-        }
-        return await Fetch.post('')
+        let params = [
+            `walletno=${payload.walletno}`
+        ]
+
+        if(payload.firstname) params.push(`firstname=${payload.firstname}`)
+        if(payload.lastname) params.push(`lastname=${payload.lastname}`)
+        if(payload.mobile_no) params.push(`mobileNum=${payload.mobile_no}`)
+
+        let endpoint = payload.mobile_no ? 'searchreceiver/mobilenumber' : 'searchreceiver'
+
+        let res = await Fetch.get(`wallettowallet/${endpoint}?${params.join('&')}`)
+
+        return res.respcode === 1 ? res : null
     },
 
     addWalletReceiver: async payload => {
-        return {
-            error:false
-        }
         return await Fetch.post('wallettowallet/addreceiver',payload)
     },
 
     deleteWalletReceiver: async payload => {
-        return {
-            error:false
-        }
-        return await Fetch.delete('')
+        return await Fetch.delete(`wallettowallet/deletereceiver?receiverNo=${payload.walletno}`)
     }
 }

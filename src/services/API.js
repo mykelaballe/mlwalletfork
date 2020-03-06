@@ -26,8 +26,8 @@ export default {
             city:'Cebu City',
             barangay:'Basak',
             zip_code:'6000',
-            mobile_no:'0912345678',
-            walletno:'123456789',
+            mobile_no:'09326118146',
+            walletno:'14040000000020',
             balance:'1000',
             level:0,
             error:payload.username == 'newphone' ? 'registered_anotherdevice' : null
@@ -53,37 +53,38 @@ export default {
     },
 
     forgotPassword: async payload => {
-        return {
-            error:false
-        }
-        return Fetch.post('',payload)
+        return Fetch.put('forgotPassword',payload)
     },
 
     checkVersion: async () => {
         return await Fetch.get('')
     },
 
+    updateDevice: async payload => {
+        return await Fetch.put('updateDevice',{
+            username:payload.username,
+            device_id:Consts.deviceId
+        })
+    },
+
     validateUsername: async username => {
-        return {
-            error:false,
-            username,
-            walletno:'12345',
-        }
-        return await Fetch.post('',{username})
+        return await Fetch.post('validateUsername',{username})
+    },
+
+    validateSecurityQuestion: async payload => {
+        return await Fetch.post('validateSecurityQuestion',payload)
     },
 
     requestOTP: async payload => {
-        return {
-            error:false
-        }
-        return Fetch.post('',payload)
+        return Fetch.post('sendOTP',payload)
     },
 
     validateOTP: async payload => {
-        return {
-            error:false
-        }
-        return Fetch.post('',payload)
+        return Fetch.post('validateOTP',payload)
+    },
+
+    changePassword: async payload => {
+        return await Fetch.put('changePassword',payload)
     },
 
     ...WalletToWallet,
@@ -109,6 +110,7 @@ export default {
     },
 
     getNotifications: async params => {
-        return await Fetch.get(`getnotificationlist?walletno=${params.walletno}`)
+        let res = await Fetch.get(`getnotificationlist?walletno=${params.walletno}&start=${params.start}`)
+        return res.data.notificationList || []
     },
 }

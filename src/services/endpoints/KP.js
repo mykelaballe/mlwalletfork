@@ -9,49 +9,18 @@ export default {
     },
 
     getKPReceivers: async payload => {
-        return [
-            {
-                firstname:'Bren',
-                lastname:'Deverick',
-                contact_no:'09534343462'
-            },
-            {
-                firstname:'Zeke',
-                lastname:'Gavrielli',
-                contact_no:'09238452201'
-            },
-            {
-                firstname:'Janet',
-                lastname:'Godden',
-                contact_no:'09322109584'
-            },
-            {
-                firstname:'Connor',
-                lastname:'Beaty',
-                contact_no:'09112301913'
-            }
-        ]
-        return await Fetch.get(`sendoutmobile/KPListReceivers?walletno=${payload.wallet_no}`)
+        return await Fetch.get(`kp/kplistreceivers?walletno=${payload.walletno}`)
     },
 
     addKPReceiver: async payload => {
-        return {
-            errors:false
-        }
-        return await Fetch.post('')
+        return await Fetch.post('kp/addkwartapadalareceiver',payload)
     },
 
     updateKPReceiver: async payload => {
-        return {
-            errors:false
-        }
-        return await Fetch.put('')
+        return await Fetch.put('kp/updateKwartaPadalaReceiver',payload)
     },
 
     deleteKPReceiver: async payload => {
-        return {
-            errors:false
-        }
-        return await Fetch.delete('')
+        return await Fetch.delete('kp/deleteKwartaPadalaReceiver',payload)
     }
 }

@@ -18,17 +18,22 @@ class Scrn extends React.Component {
     state = {
         list:[],
         loading:true,
-        refreshing:false
+        refreshing:false,
+        start:0
     }
 
     componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
 
     getData = async () => {
         const {walletno} = this.props.user
+        const {start} = this.state
         let list = []
 
         try {
-            list = await API.getNotifications({walletno})
+            list = await API.getNotifications({
+                walletno,
+                start
+            })
         }
         catch(err) {
             Say.err(_('500'))

@@ -1,10 +1,9 @@
 import React from 'react'
-import {StyleSheet, View} from 'react-native'
-import {Screen, Footer, Text, Button, ButtonText, TextInput, Spacer, Row, Prompt, Errors} from '../components'
-import {Colors, Metrics} from '../themes'
+import {connect} from 'react-redux'
+import {Screen, Footer, Button, ButtonText, TextInput, Prompt, Errors} from '../components'
+import {Colors} from '../themes'
 import {_, Say, Func} from '../utils'
 import {API} from '../services'
-import Icon from 'react-native-vector-icons/Ionicons'
 
 class Scrn extends React.Component {
 
@@ -41,6 +40,7 @@ class Scrn extends React.Component {
     handleFocusConfirmPassword = () => this.refs.confirm_password.focus()
 
     handleSubmit = async () => {
+        const {walletno} = this.props.user
         let {old_password, new_password, confirm_password, errors, processing} = this.state
 
         if(processing) return false
@@ -65,18 +65,22 @@ class Scrn extends React.Component {
 
                 if(validation.ok) {
                     let payload = {
-                        old_password,
+                        wallet_no:walletno,
+                        current_password:old_password,
                         new_password
                     }
 
-                    //let res = await API.changePassword(payload)
-                    let res = {
-                        error:false
-                    }
+                    let res = await API.changePassword(payload)
 
-                    if(res.error) Say.some('Invalid password')
+                    if(res.error) Say.some(res.message)
                     else {
-                        this.setState({showSuccessModal:true})
+                        errors = []
+                        this.setState({
+                            old_password:'',
+                            new_password:'',
+                            confirm_password:'',
+                            showSuccessModal:true,
+                        })
                     }
                 }
 
@@ -159,4 +163,8 @@ class Scrn extends React.Component {
     }
 }
 
-export default Scrn
+const mapStateToProps = state => ({
+    user:state.user.data
+})
+
+export default connect(mapStateToProps)(Scrn)

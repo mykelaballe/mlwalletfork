@@ -67,6 +67,7 @@ class Scrn extends React.Component {
 
     handleSubmit = async () => {
         try {
+            const {receiverno} = this.props.navigation.state.params.receiver
             let {firstname, middlename, lastname, suffix, other_suffix, contact_no, processing} = this.state
 
             if(processing) return false
@@ -86,16 +87,19 @@ class Scrn extends React.Component {
             else {
 
                 let payload = {
-                    firstname,
-                    middlename,
-                    lastname,
-                    suffix,
-                    contact_no
+                    receiverNumVal:receiverno,
+                    Fname:firstname,
+                    Mname:middlename,
+                    Lname:lastname,
+                    Suffix:suffix,
+                    ContactNo:contact_no
                 }
     
-                //await API.addNewReceiver(payload)
+                let res = await API.updateKPReceiver(payload)
 
-                this.props.navigation.pop()
+                if(!res.error) {
+                    Say.some('KP receiver updated!')
+                }
             }
 
             this.setState({processing:false})

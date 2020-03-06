@@ -26,9 +26,9 @@ export default class Scrn extends React.Component {
             else {
                 let res = await API.validateUsername(username)
 
-                if(res.error) Say.some('Invalid username')
+                if(res.error) Say.some(res.message)
                 else {
-                    this.props.navigation.navigate('SecurityQuestion',{...res})
+                    this.props.navigation.navigate('SecurityQuestion',{...res.data})
                 }
             }
         }

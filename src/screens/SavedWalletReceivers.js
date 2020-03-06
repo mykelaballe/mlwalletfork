@@ -38,11 +38,11 @@ class Scrn extends React.Component {
     componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
 
     getData = async () => {
-        const {wallet_no} = this.props.user
+        const {walletno} = this.props.user
         let list = []
 
         try {
-            list = await API.getWalletReceivers({wallet_no})
+            list = await API.getWalletReceivers({walletno})
         }
         catch(err) {
             Say.err(_('500'))

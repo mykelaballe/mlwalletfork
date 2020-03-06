@@ -14,7 +14,7 @@ const ItemUI = props => (
                 <Spacer h sm />
                 <View>
                     <Text b>{props.data.firstname} {props.data.lastname}</Text>
-                    <Text>{props.data.contact_no}</Text>
+                    <Text>{props.data.ContactNo}</Text>
                 </View>
             </Row>
         </Ripple>
@@ -38,11 +38,11 @@ class Scrn extends React.Component {
     componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
 
     getData = async () => {
-        const {wallet_no} = this.props.user
+        const {walletno} = this.props.user
         let list = []
 
         try {
-            list = await API.getKPReceivers({wallet_no})
+            list = await API.getKPReceivers({walletno})
         }
         catch(err) {
             Say.err(_('500'))

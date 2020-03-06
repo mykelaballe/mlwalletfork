@@ -54,7 +54,7 @@ class Scrn extends React.Component {
                 const {error} = res
                 
                 if(error) {
-                    if(error === 'invalid_grant' || error === 'username_notexists' || error === 'wrong_password') {
+                    /*if(error === 'invalid_grant' || error === 'username_notexists' || error === 'wrong_password') {
                         Say.some(_('72'))
                     }
                     else if(error === '1attempt_left') return
@@ -62,11 +62,11 @@ class Scrn extends React.Component {
                     else if(error === 'reach_maximum_attempts') return
                     else if(error === 'block_account_1day') return
                     else if(error === 'block_account') return
-                    else if(error === 'version_outofdate') return
-                    else if(error === 'registered_anotherdevice') {
+                    else if(error === 'version_outofdate') return*/
+                    if(error === 'registered_anotherdevice') {
                         this.setState({showNewDeviceModal:true})
                     }
-                    else if(error === 'server_error') return
+                    //else if(error === 'server_error') return
                 }
                 else {
                     this.props.setUser(res)
@@ -113,10 +113,12 @@ class Scrn extends React.Component {
     handleRegisterNewDevice = () => {
         this.setState({showNewDeviceModal:false},() => {
             this.props.navigation.navigate('SecurityQuestion',{
+                purpose:'updateDevice',
+                username:this.state.username,
                 steps:[
                     'registered',
-                    'personal',
-                    'transactional'
+                    //'personal',
+                    //'transactional'
                 ]
             })
         })

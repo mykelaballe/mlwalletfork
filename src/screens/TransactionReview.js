@@ -1,22 +1,42 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import {Screen, Footer, Text, Button, Spacer} from '../components'
 import {SendWalletToWallet, SendKP, SendBankTransfer, WithdrawCash, PayBill, BuyLoad} from '../components/transaction_review'
-import {_, Consts} from '../utils'
+import {_, Consts, Say} from '../utils'
+import {API} from '../services'
 
-export default class Scrn extends React.Component {
+class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Review Transaction'
     }
 
-    handleNext = () => {
+    state = {
+        processing:false
+    }
+
+    handleNext = async () => {
         const {navigate, state} = this.props.navigation
-        navigate('OTPConfirmation',{...state.params})
+        try {
+            this.setState({processing:true})
+            
+            let res = await API.requestOTP({
+                _walletno:this.props.user.walletno
+            })
+    
+            if(!res.error) navigate('OTPConfirmation',{...state.params})
+        }
+        catch(err) {
+            Say.err(_('500'))
+        }
+        
+        this.setState({processing:false})
     }
 
     render() {
 
         const {type, transaction} = this.props.navigation.state.params
+        const {processing} = this.state
 
         return (
             <>
@@ -32,9 +52,15 @@ export default class Scrn extends React.Component {
                 <Footer>
                     <Text center mute>Please review the details before you proceed.</Text>
                     <Spacer sm />
-                    <Button t={_('62')} onPress={this.handleNext} />
+                    <Button t={_('62')} onPress={this.handleNext} loading={processing} />
                 </Footer>
             </>
         )
     }
 }
+
+const mapStateToProps = state => ({
+    user: state.user.data
+})
+
+export default connect(mapStateToProps)(Scrn)

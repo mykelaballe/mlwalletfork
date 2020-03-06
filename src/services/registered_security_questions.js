@@ -1,7 +1,7 @@
 export default [
     "In what city did you meet your partner/spouse?",
     "What was the name of your first pet?",
-    "What is your childhood nickname?",
+    "What was your childhood nickname?",
     "What was the first live concert you attended?",
     "What elementary school did you attend in Grade 6?",
     "What year did you graduate from high school?",

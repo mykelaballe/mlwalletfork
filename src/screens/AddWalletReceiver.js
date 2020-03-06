@@ -1,5 +1,6 @@
 import React from 'react'
 import {View} from 'react-native'
+import {connect} from 'react-redux'
 import {Screen, Footer, Headline, TextInput, Text, Button, Spacer, Avatar, Row} from '../components'
 import {Metrics} from '../themes'
 import {_, Say} from '../utils'
@@ -63,35 +64,51 @@ class Scrn extends React.Component {
     
                 let res = await API.searchWalletReceiver(payload)
                 
-                if(!res.error) {
-                    found = true
+                if(res) {
+                    Say.some('Search successful')
+
+                    this.setState({
+                        found:true,
+                        walletno:res.walletno,
+                        firstname:res.firstName,
+                        lastname:res.lastName
+                    })
+                }
+                else {
+                    Say.some('Receiver does not exist')
                 }
             }
             else {
                 Say.some(_('8'))
             }
-
-            this.setState({
-                processing:false,
-                found
-            })
         }
         catch(err) {
-            this.setState({processing:false})
             Say.err(_('500'))
         }
+
+        this.setState({processing:false})
     }
 
     addReceiver = async () => {
         try {
             const {walletno} = this.state
-            let res = await API.addWalletReceiver({walletno})
-            if(!res.error) this.props.navigation.pop()
+            let res = await API.addWalletReceiver({
+                senderwalletno:this.props.user.walletno,
+                receiverwalletno:walletno
+            })
+            if(res.respcode === 1) {
+                Say.some('Receiver added successfully')
+                this.props.navigation.pop()
+            }
+            else {
+                Say.some(res.respmessage)
+            }
         }
         catch(err) {
-            this.setState({processing:false})
             Say.err(_('500'))
         }
+
+        this.setState({processing:false})
     }
 
     render() {
@@ -164,4 +181,8 @@ class Scrn extends React.Component {
     }
 }
 
-export default Scrn
+const mapStateToProps = state => ({
+    user: state.user.data
+})
+
+export default connect(mapStateToProps)(Scrn)

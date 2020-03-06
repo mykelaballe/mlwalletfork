@@ -50,7 +50,7 @@ export default {
     return response.data
   },
 
-  delete: async url => {
+  delete: async (url, data = null) => {
 
     let user = await Storage.doLoad(Consts.db.user)
     if(user) {
@@ -62,7 +62,8 @@ export default {
     let response = await axios({
       method: 'delete',
       url,
-      headers
+      headers,
+      data: qs.stringify(data)
     })
 
     return response.data

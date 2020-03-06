@@ -6,7 +6,6 @@ import {API} from '../services'
 import registered_questions from '../services/registered_security_questions'
 import personal_questions from '../services/personal_security_questions'
 import transactional_questions from '../services/transactional_security_questions'
-import { isAirplaneModeSync } from 'react-native-device-info'
 
 export default class Scrn extends React.Component {
 
@@ -68,12 +67,14 @@ export default class Scrn extends React.Component {
             if(answer == '') Say.some('Enter your answer')
             else {
                 let payload = {
-                    walletno:params.walletno,
+                    wallet_no:params.walletno,
                     question,
                     answer
                 }
 
-                if(answer == 'wrong') this.setState({error:'Incorrect Answer'})
+                let securityRes = await API.validateSecurityQuestion(payload)
+
+                if(securityRes.error) Say.some('Invalid security question and answer')
                 else {
                     if(params.steps) {
 
@@ -87,7 +88,16 @@ export default class Scrn extends React.Component {
                             })
                         }
                         else {
-                            this.props.navigation.navigate('Login')
+                            if(params.purpose && params.purpose == 'updateDevice') {
+                                let updateDeviceRes = await API.updateDevice({
+                                    username:'jadedev'//params.username
+                                })
+                                
+                                if(!updateDeviceRes.error) {
+                                    Say.some('New device successfully registered')
+                                    this.props.navigation.navigate('Login')
+                                }
+                            }
                         }
                     }
                     else {

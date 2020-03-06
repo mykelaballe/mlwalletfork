@@ -6,6 +6,7 @@ import {_, Say} from '../utils'
 import {API} from '../services'
 import Icon from 'react-native-vector-icons/Ionicons'
 import {Menu} from 'react-native-paper'
+import {connect} from 'react-redux'
 
 class Scrn extends React.Component {
 
@@ -60,11 +61,13 @@ class Scrn extends React.Component {
     }
 
     handleConfirmDelete = () => {
+        const {walletno} = this.props.user
         const {index, receiver} = this.props.navigation.state.params
         this.handleCloseModal()
         try {
             API.deleteKPReceiver({
-                id:receiver.id
+                walletno,
+                receiverNumVal:receiver.receiverno
             })
             this.props.navigation.navigate('SavedKPReceivers',{removeAtIndex:index})
         }
@@ -91,7 +94,7 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {firstname, middlename, lastname, suffix, contact_no} = this.props.navigation.state.params.receiver
+        const {firstname, middlename, lastname, suffix, ContactNo} = this.props.navigation.state.params.receiver
         const {showDeleteModal} = this.state
 
         return (
@@ -136,7 +139,7 @@ class Scrn extends React.Component {
 
                     <Outline>
                         <Text mute sm>Contact No.</Text>
-                        <Text>{contact_no}</Text>
+                        <Text>{ContactNo}</Text>
                     </Outline>
                 </Screen>
 
@@ -148,4 +151,8 @@ class Scrn extends React.Component {
     }
 }
 
-export default Scrn
+const mapStateToProps = state => ({
+    user:state.user.data
+})
+
+export default connect(mapStateToProps)(Scrn)

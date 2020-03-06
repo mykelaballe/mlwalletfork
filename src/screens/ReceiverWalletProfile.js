@@ -63,7 +63,7 @@ class Scrn extends React.Component {
         this.handleCloseModal()
         try {
             API.deleteWalletReceiver({
-                walletno:receiver.walletno
+                walletno:receiver.receiverno
             })
             this.props.navigation.navigate('SavedWalletReceivers',{removeAtIndex:index})
         }

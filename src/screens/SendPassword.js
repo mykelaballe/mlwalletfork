@@ -18,22 +18,26 @@ export default class Scrn extends React.Component {
 
     handleProceed = async () => {
         try {
-            const {walletno} = this.props.navigation.state.params
+            const {wallet_no} = this.props.navigation.state.params
             let {email, sms, processing} = this.state
 
             if(processing) return
 
             this.setState({processing:true})
 
+            let flag_num = 0
+
+            if(email) flag_num += 1
+            if(sms) flag_num += 2
+
             let payload = {
-                walletno,
-                email,
-                sms
+                wallet_num:wallet_no,
+                flag_num
             }
 
             let res = await API.forgotPassword(payload)
 
-            if(res.error) Say.some('An error has occurred')
+            if(res.error) Say.some('Wallet number does not exist')
             else {
                 this.setState({showSuccessModal:true})
             }
