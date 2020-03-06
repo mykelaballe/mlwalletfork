@@ -90,7 +90,7 @@ export default class Scrn extends React.Component {
                         else {
                             if(params.purpose && params.purpose == 'updateDevice') {
                                 let updateDeviceRes = await API.updateDevice({
-                                    username:'jadedev'//params.username
+                                    username:params.username
                                 })
                                 
                                 if(!updateDeviceRes.error) {
@@ -105,13 +105,12 @@ export default class Scrn extends React.Component {
                     }
                 }
             }
-
-            this.setState({processing:false})
         }
         catch(err) {
-            this.setState({processing:false})
-            Say.err('Something went wrong')
+            Say.err(_('500'))
         }
+
+        this.setState({processing:false})
     }
 
     handleChangeQuestion = () => this.props.navigation.navigate('SecurityQuestions',{

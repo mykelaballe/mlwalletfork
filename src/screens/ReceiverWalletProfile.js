@@ -1,5 +1,7 @@
 import React from 'react'
 import {TouchableOpacity} from 'react-native'
+import {connect} from 'react-redux'
+import {Creators} from '../actions'
 import {Screen, Footer, Text, Button, Spacer, HeaderRight, Outline, Prompt} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
@@ -62,10 +64,12 @@ class Scrn extends React.Component {
         const {index, receiver} = this.props.navigation.state.params
         this.handleCloseModal()
         try {
+            this.props.deleteReceiver(index)
             API.deleteWalletReceiver({
                 walletno:receiver.receiverno
             })
-            this.props.navigation.navigate('SavedWalletReceivers',{removeAtIndex:index})
+            this.props.navigation.navigate('SavedWalletReceivers')
+            Say.some('Receiver successfully deleted')
         }
         catch(err) {
             Say.err(_('500'))
@@ -124,4 +128,8 @@ class Scrn extends React.Component {
     }
 }
 
-export default Scrn
+const mapDispatchToProps = dispatch => ({
+    deleteReceiver:deletedIndex => dispatch(Creators.deleteWalletReceiver(deletedIndex))
+})
+
+export default connect(null, mapDispatchToProps)(Scrn)

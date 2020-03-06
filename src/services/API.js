@@ -9,9 +9,12 @@ import ReceiveMoney from './endpoints/ReceiveMoney'
 import Bills from './endpoints/Bills'
 import ELoad from './endpoints/ELoad'
 
+import OTP from './endpoints/OTP'
+import User from './endpoints/User'
+
 export default {
     login: async payload => {
-        return {
+        /*return {
             fname:'John',
             mname:'F',
             lname:'Smith',
@@ -25,19 +28,21 @@ export default {
             province:'Cebu',
             city:'Cebu City',
             barangay:'Basak',
+            street:'',
+            house:'',
             zip_code:'6000',
             mobile_no:'09326118146',
             walletno:'14040000000020',
             balance:'1000',
             level:0,
             error:payload.username == 'newphone' ? 'registered_anotherdevice' : null
-        }
+        }*/
         let res = await Fetch.post('login', {
             ...payload,
             grant_type:'password'
         })
 
-        if(res.access_token) {
+        if(res.token) {
             await Storage.doSave(Consts.db.user, {...res})
         }
 
@@ -52,40 +57,15 @@ export default {
         return Fetch.post('',payload)
     },
 
-    forgotPassword: async payload => {
-        return Fetch.put('forgotPassword',payload)
-    },
+    forgotPassword: async payload => await Fetch.put('forgotPassword',payload),
 
-    checkVersion: async () => {
-        return await Fetch.get('')
-    },
+    checkVersion: async () => await Fetch.get(''),
 
-    updateDevice: async payload => {
-        return await Fetch.put('updateDevice',{
-            username:payload.username,
-            device_id:Consts.deviceId
-        })
-    },
+    updateDevice: async payload => await Fetch.put('updateDevice',{username:payload.username, device_id:Consts.deviceId}),
 
-    validateUsername: async username => {
-        return await Fetch.post('validateUsername',{username})
-    },
+    validateUsername: async username => await Fetch.post('validateUsername',{username}),
 
-    validateSecurityQuestion: async payload => {
-        return await Fetch.post('validateSecurityQuestion',payload)
-    },
-
-    requestOTP: async payload => {
-        return Fetch.post('sendOTP',payload)
-    },
-
-    validateOTP: async payload => {
-        return Fetch.post('validateOTP',payload)
-    },
-
-    changePassword: async payload => {
-        return await Fetch.put('changePassword',payload)
-    },
+    validateSecurityQuestion: async payload => await Fetch.post('validateSecurityQuestion',payload),
 
     ...WalletToWallet,
     ...KP,
@@ -94,6 +74,11 @@ export default {
     ...Bills,
     ...ELoad,
 
+    ...OTP,
+    ...User,
+
+    checkBalance: async () => await Fetch.get('checkBalance'),
+
     withdrawCash: async payload => {
         return {
             error:false
@@ -101,13 +86,9 @@ export default {
         return await Fetch.post('',payload)
     },
 
-    getRates: async () => {
-        return await Fetch.get('getchargevalues')
-    },
+    getRates: async () => await Fetch.get('getchargevalues'),
 
-    getBranches: async () => {
-        return await Fetch.get('')
-    },
+    getBranches: async () => await Fetch.get(''),
 
     getNotifications: async params => {
         let res = await Fetch.get(`getnotificationlist?walletno=${params.walletno}&start=${params.start}`)

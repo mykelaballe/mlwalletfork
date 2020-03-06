@@ -23,7 +23,7 @@ export default class FlatList extends React.Component {
                 placeholderUI = (
                     <View style={style.placeholderWrapper}>
                         {placeholder.icon || <Image source={Res.placeholder.empty} resizeMode='contain' style={style.img} />}
-                        <Text center md mute>{placeholder.text}</Text>
+                        <Text center md mute>{placeholder.text || 'No Data'}</Text>
                     </View>
                 )
             }

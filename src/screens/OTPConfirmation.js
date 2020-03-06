@@ -20,6 +20,7 @@ class Scrn extends React.Component {
         digit5:'',
         digit6:'',
         processing:false,
+        has_requested:false,
         reprocessing:false
     }
 
@@ -85,19 +86,22 @@ class Scrn extends React.Component {
 
     handleFocusDigit6 = () => this.refs.digit6.focus()
 
-    handleSubmit = async () => {
+    handleRequest = () => this.setState({processing:true},this.submit)
+
+    handleRequestAgain = () => this.setState({reprocessing:true},this.submit)
+
+    submit = async () => {
         const {walletno, mobile_no} = this.props.user
-        const {replace, state, processing} = this.props.navigation
+        const {replace, state, processing, reprocessing} = this.props.navigation
         const {type, transaction} = this.props.navigation.state.params
         
         const {digit1, digit2, digit3, digit4, digit5, digit6} = this.state
 
         let otp = `${digit1}${digit2}${digit3}${digit4}${digit5}${digit6}`
 
-        if(processing) return false
+        if(processing || reprocessing) return false
 
         try {
-            this.setState({processing:true})
 
             if(otp.length >= 6) {
                 let otpRes = await API.validateOTP({
@@ -139,13 +143,17 @@ class Scrn extends React.Component {
             Say.err(_('500'))
         }
 
-        this.setState({processing:false})
+        this.setState({
+            processing:false,
+            has_requested:true,
+            reprocessing:false
+        })
     }
 
     render() {
 
         const {type} = this.props.navigation.state.params
-        const {digit1, digit2, digit3, digit4, digit5, digit6, processing, reprocessing} = this.state
+        const {digit1, digit2, digit3, digit4, digit5, digit6, processing, has_requested, reprocessing} = this.state
         let ready = false
 
         if(`${digit1}${digit2}${digit3}${digit4}${digit5}${digit6}`.length >= 6) {
@@ -234,14 +242,16 @@ class Scrn extends React.Component {
 
                     <Spacer lg />
 
-                    <ButtonText t='Resend Verification Code' onPress={this.handleResendOTP} loading={reprocessing} />
+                    {has_requested &&
+                    <ButtonText t='Resend Verification Code' onPress={this.handleRequestAgain} loading={reprocessing} />
+                    }
                 </Screen>
 
                 <Footer>
                     <Button
                         disabled={!ready}
                         t={Consts.tcn[type] ? Consts.tcn[type].otp : 'Submit'}
-                        onPress={this.handleSubmit}
+                        onPress={this.handleRequest}
                         loading={processing}
                     />
                 </Footer>

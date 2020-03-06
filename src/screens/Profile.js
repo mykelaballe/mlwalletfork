@@ -14,7 +14,7 @@ class Scrn extends React.Component {
     }
 
     state = {
-        avatar:'http://themes.themewaves.com/nuzi/wp-content/uploads/sites/4/2013/05/Team-Member-3.jpg',
+        avatar:null,
         username:'johnsmith',
     }
 

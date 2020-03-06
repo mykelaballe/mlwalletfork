@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Creators} from '../actions'
 import {Screen, Footer, Headline, TextInput, Button, Checkbox, Picker} from '../components'
 import {Metrics} from '../themes'
 import {_, Say} from '../utils'
@@ -98,6 +99,7 @@ class Scrn extends React.Component {
                 let res = await API.addKPReceiver(payload)
 
                 if(res.walletno) {
+                    this.props.addReceiver(res)
                     Say.some('Successfully added KP receiver')
                     this.props.navigation.pop()
                 }
@@ -203,4 +205,8 @@ const mapStateToProps = state => ({
     user: state.user.data
 })
 
-export default connect(mapStateToProps)(Scrn)
+const mapDispatchToProps = dispatch => ({
+    addReceiver:newReceiver => dispatch(Creators.addKPReceiver(newReceiver))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

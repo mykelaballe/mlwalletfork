@@ -8,19 +8,11 @@ export default {
         return await Fetch.post('',payload)
     },
 
-    getKPReceivers: async payload => {
-        return await Fetch.get(`kp/kplistreceivers?walletno=${payload.walletno}`)
-    },
+    getKPReceivers: async payload => await Fetch.get(`kp/kplistreceivers?walletno=${payload.walletno}`),
 
-    addKPReceiver: async payload => {
-        return await Fetch.post('kp/addkwartapadalareceiver',payload)
-    },
+    addKPReceiver: async payload => await Fetch.post('kp/addkwartapadalareceiver',payload),
 
-    updateKPReceiver: async payload => {
-        return await Fetch.put('kp/updateKwartaPadalaReceiver',payload)
-    },
+    updateKPReceiver: async payload => await Fetch.put('kp/updateKwartaPadalaReceiver',payload),
 
-    deleteKPReceiver: async payload => {
-        return await Fetch.delete('kp/deleteKwartaPadalaReceiver',payload)
-    }
+    deleteKPReceiver: async payload => await Fetch.delete('kp/deleteKwartaPadalaReceiver',payload),
 }

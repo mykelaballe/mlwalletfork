@@ -1,6 +1,7 @@
 import React from 'react'
 import {View, StyleSheet, InteractionManager} from 'react-native'
 import {connect} from 'react-redux'
+import {Creators} from '../actions'
 import {Screen, Footer, FlatList, Initial, Text, Row, Button, Spacer, HR, Ripple, SearchInput} from '../components'
 import {Metrics} from '../themes'
 import {_, Say} from '../utils'
@@ -32,10 +33,28 @@ class Scrn extends React.Component {
     state = {
         list:[],
         search:'',
-        loading:true
+        loading:true,
+        refreshing:false
     }
 
     componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
+
+    componentDidUpdate = (prevProps, prevState) => {
+        const {newReceiver, deletedIndex, addReceiver, deleteReceiver} = this.props
+        if(newReceiver) {
+            addReceiver(null)
+            let list = prevState.list.slice()
+            list.push(newReceiver)
+            this.setState({list})
+        }
+
+        if(deletedIndex !== null) {
+            deleteReceiver(null)
+            let list = this.state.list.slice()
+            list.splice(deletedIndex,1)
+            this.setState({list})
+        }
+    }
 
     getData = async () => {
         const {walletno} = this.props.user
@@ -50,7 +69,8 @@ class Scrn extends React.Component {
 
         this.setState({
             list,
-            loading:false
+            loading:false,
+            refreshing:false
         })
     }
 
@@ -63,11 +83,13 @@ class Scrn extends React.Component {
 
     handleChangeSearch = search => this.setState({search})
 
+    handleRefresh = () => this.setState({refreshing:true},this.getData)
+
     renderItem = ({item, index}) => <ItemUI index={index} data={item} onPress={this.handleViewReceiver} />
 
     render() {
 
-        const {list, search, loading} = this.state
+        const {list, search, loading, refreshing} = this.state
 
         return (
             <>
@@ -83,6 +105,9 @@ class Scrn extends React.Component {
                         data={list}
                         renderItem={this.renderItem}
                         loading={loading}
+                        refreshing={refreshing}
+                        onRefresh={this.handleRefresh}
+                        placeholder={{}}
                     />
                 </Screen>
 
@@ -101,7 +126,13 @@ const style = StyleSheet.create({
 })
 
 const mapStateToProps = state => ({
-    user: state.user.data
+    user: state.user.data,
+    ...state.walletToWallet
 })
 
-export default connect(mapStateToProps)(Scrn)
+const mapDispatchToProps = dispatch => ({
+    addReceiver:newReceiver => dispatch(Creators.addWalletReceiver(newReceiver)),
+    deleteReceiver:deletedIndex => dispatch(Creators.deleteWalletReceiver(deletedIndex))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

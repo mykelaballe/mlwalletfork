@@ -25,7 +25,7 @@ class Balance extends React.Component {
                 <Row>
                     <Text rg light>Php</Text>
                     <Spacer h xs />
-                    <Text b h3 light>{show ? Func.formatToCurrency(balance) : '****.**'}</Text>
+                    <Text b h3 light>{show ? Func.formatToCurrency(balance) : '******.**'}</Text>
                     <Spacer h sm />
                     <TouchableOpacity onPress={this.handleToggle}>
                         <Icon name={`eye${!show ? '-with-line' : ''}`} size={Metrics.icon.rg} color={Colors.light} />

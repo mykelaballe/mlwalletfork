@@ -1,8 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Creators} from '../actions'
 import {Screen, Footer, Headline, StaticInput, TextInput, Button, Checkbox, Picker, Prompt} from '../components'
-import {Metrics} from '../themes'
 import {_, Say} from '../utils'
+import {API} from '../services'
 
 class Scrn extends React.Component {
 
@@ -23,17 +24,45 @@ class Scrn extends React.Component {
         showSuccessModal:false
     }
 
+    componentDidUpdate = (prevProps, prevState) => {
+        const {params = {}} = this.props.navigation.state
+        if(params.nationality && params.nationality !== prevState.nationality) {
+            this.props.navigation.setParams({nationality:null})
+            this.setState({nationality:params.nationality})
+        }
+
+        if(params.country && params.country !== prevState.country) {
+            this.props.navigation.setParams({country:null})
+            this.setState({country:params.country})
+        }
+
+        if(params.region && params.region !== prevState.region) {
+            this.props.navigation.setParams({region:null})
+            this.setState({region:params.region})
+        }
+
+        if(params.province && params.province !== prevState.province) {
+            this.props.navigation.setParams({province:null})
+            this.setState({province:params.province})
+        }
+
+        if(params.city && params.city !== prevState.city) {
+            this.props.navigation.setParams({city:null})
+            this.setState({city:params.city})
+        }
+    }
+
     handleChangeEmail = email => this.setState({email})
 
-    handleSelectNationality = () => this.props.navigation.navigate('Nationalities')
+    handleSelectNationality = () => this.props.navigation.navigate('Nationalities',{sourceRoute:this.props.navigation.state.routeName})
 
     handleChangeSourceOfIncome = source_of_income => this.setState({source_of_income})
 
-    handleSelectCountry = () => this.props.navigation.navigate('Countries')
+    handleSelectCountry = () => this.props.navigation.navigate('Countries',{sourceRoute:this.props.navigation.state.routeName})
 
-    handleSelectProvince = () => this.props.navigation.navigate('Provinces',{country:this.state.country})
+    handleSelectProvince = () => this.props.navigation.navigate('Provinces',{country:this.state.country,sourceRoute:this.props.navigation.state.routeName})
 
-    handleSelectCity = () => this.props.navigation.navigate('Cities',{province:this.state.province})
+    handleSelectCity = () => this.props.navigation.navigate('Cities',{province:this.state.province,sourceRoute:this.props.navigation.state.routeName})
 
     handleChangeBarangay = barangay => this.setState({barangay})
 
@@ -47,6 +76,7 @@ class Scrn extends React.Component {
 
     handleSubmit = async () => {
         try {
+            const {walletno, mobile_no, suffix, street} = this.props.user
             let {email, nationality, source_of_income, country, province, city, barangay, zip_code, processing} = this.state
 
             if(processing) return false
@@ -62,30 +92,43 @@ class Scrn extends React.Component {
             else {
 
                 let payload = {
-                    email,
+                    walletno,
+                    emailadd:email,
                     nationality,
-                    source_of_income,
+                    sourceofincome:source_of_income,
                     country,
                     province,
                     city,
                     barangay,
-                    zip_code
+                    zipcode:zip_code,
+                    street,
+                    mobileno:mobile_no,
+                    suffix
                 }
     
-                //let res = await API.addNewReceiver(payload)
+                let res = await API.updateProfile(payload)
 
-                this.setState({
-                    processing:false,
-                    showSuccessModal:true
-                })
+                if(!res.error) {
+                    this.props.setUser({
+                        ...this.props.user,
+                        email,
+                        nationality,
+                        source_of_income,
+                        country,
+                        province,
+                        city,
+                        barangay,
+                        zip_code
+                    })
+                    this.setState({showSuccessModal:true})
+                }
             }
-
-            this.setState({processing:false})
         }
         catch(err) {
-            this.setState({processing:false})
             Say.err(_('500'))
         }
+
+        this.setState({processing:false})
     }
 
     handleCloseModal = () => this.setState({showSuccessModal:false})
@@ -185,4 +228,8 @@ const mapStateToProps = state => ({
     user: state.user.data
 })
 
-export default connect(mapStateToProps)(Scrn)
+const mapDispatchToProps = dispatch => ({
+    setUser:user => dispatch(Creators.setUser(user))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

@@ -1,12 +1,13 @@
 import React from 'react'
 import {TouchableOpacity} from 'react-native'
+import {connect} from 'react-redux'
+import {Creators} from '../actions'
 import {Screen, Footer, Text, Row, Button, Spacer, HeaderRight, Outline, Prompt} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
 import {API} from '../services'
 import Icon from 'react-native-vector-icons/Ionicons'
 import {Menu} from 'react-native-paper'
-import {connect} from 'react-redux'
 
 class Scrn extends React.Component {
 
@@ -47,6 +48,18 @@ class Scrn extends React.Component {
         })
     }
 
+    componentDidUpdate = (prevProps, prevState) => {
+        const {newProp} = this.props
+        if(newProp) {
+            this.props.navigation.setParams({
+                receiver:{
+                    ...this.props.navigation.state.params.receiver,
+                    ...newProp
+                }
+            })
+        }
+    }
+
     handleToggleMenu = () => {
         let {menuOpen} = this.props.navigation.state.params
 
@@ -65,11 +78,13 @@ class Scrn extends React.Component {
         const {index, receiver} = this.props.navigation.state.params
         this.handleCloseModal()
         try {
+            this.props.deleteReceiver(index)
             API.deleteKPReceiver({
                 walletno,
                 receiverNumVal:receiver.receiverno
             })
             this.props.navigation.navigate('SavedKPReceivers',{removeAtIndex:index})
+            Say.some('Receiver successfully deleted')
         }
         catch(err) {
             Say.err(_('500'))
@@ -78,9 +93,9 @@ class Scrn extends React.Component {
 
     handleEdit = () => {
         const {navigate, state} = this.props.navigation
-        const {receiver} = state.params
+        const {index, receiver} = state.params
         this.handleToggleMenu()
-        navigate('UpdateKPReceiver',{receiver})
+        navigate('UpdateKPReceiver',{index, receiver})
     }
 
     handleSelect = () => {
@@ -152,7 +167,12 @@ class Scrn extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    user:state.user.data
+    user:state.user.data,
+    ...state.kp
 })
 
-export default connect(mapStateToProps)(Scrn)
+const mapDispatchToProps = dispatch => ({
+    deleteReceiver:deletedIndex => dispatch(Creators.deleteKPReceiver(deletedIndex))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

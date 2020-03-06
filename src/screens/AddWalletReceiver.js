@@ -1,6 +1,7 @@
 import React from 'react'
 import {View} from 'react-native'
 import {connect} from 'react-redux'
+import {Creators} from '../actions'
 import {Screen, Footer, Headline, TextInput, Text, Button, Spacer, Avatar, Row} from '../components'
 import {Metrics} from '../themes'
 import {_, Say} from '../utils'
@@ -97,8 +98,9 @@ class Scrn extends React.Component {
                 receiverwalletno:walletno
             })
             if(res.respcode === 1) {
+                this.props.addReceiver(res)
                 Say.some('Receiver added successfully')
-                this.props.navigation.pop()
+                this.props.navigation.navigate('SavedWalletReceivers')
             }
             else {
                 Say.some(res.respmessage)
@@ -185,4 +187,8 @@ const mapStateToProps = state => ({
     user: state.user.data
 })
 
-export default connect(mapStateToProps)(Scrn)
+const mapDispatchToProps = dispatch => ({
+    addReceiver:newReceiver => dispatch(Creators.addWalletReceiver(newReceiver))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

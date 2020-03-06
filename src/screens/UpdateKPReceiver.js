@@ -1,4 +1,6 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import {Creators} from '../actions'
 import {Screen, Footer, Headline, TextInput, Button, Checkbox, Picker} from '../components'
 import {Metrics} from '../themes'
 import {_, Say} from '../utils'
@@ -29,7 +31,7 @@ class Scrn extends React.Component {
             {label:'V'},
             {label:'Others'}
         ],
-        contact_no:this.props.navigation.state.params.receiver.contact_no,
+        contact_no:this.props.navigation.state.params.receiver.ContactNo,
         processing:false
     }
 
@@ -67,7 +69,7 @@ class Scrn extends React.Component {
 
     handleSubmit = async () => {
         try {
-            const {receiverno} = this.props.navigation.state.params.receiver
+            const {index, receiver} = this.props.navigation.state.params
             let {firstname, middlename, lastname, suffix, other_suffix, contact_no, processing} = this.state
 
             if(processing) return false
@@ -87,7 +89,7 @@ class Scrn extends React.Component {
             else {
 
                 let payload = {
-                    receiverNumVal:receiverno,
+                    receiverNumVal:receiver.receiverno,
                     Fname:firstname,
                     Mname:middlename,
                     Lname:lastname,
@@ -98,16 +100,22 @@ class Scrn extends React.Component {
                 let res = await API.updateKPReceiver(payload)
 
                 if(!res.error) {
+                    this.props.updateReceiver(index, {
+                        firstname,
+                        middlename,
+                        lastname,
+                        suffix,
+                        ContactNo:contact_no
+                    })
                     Say.some('KP receiver updated!')
                 }
             }
-
-            this.setState({processing:false})
         }
         catch(err) {
-            this.setState({processing:false})
-            Say.err(_('18'))
+            Say.err(_('500'))
         }
+
+        this.setState({processing:false})
     }
 
     render() {
@@ -199,4 +207,8 @@ class Scrn extends React.Component {
     }
 }
 
-export default Scrn
+const mapDispatchToProps = dispatch => ({
+    updateReceiver:(receiverIndex, newProp) => dispatch(Creators.updateKPReceiver(receiverIndex, newProp))
+})
+
+export default connect(null, mapDispatchToProps)(Scrn)

@@ -29,11 +29,7 @@ export default {
         return res.respcode === 1 ? res : null
     },
 
-    addWalletReceiver: async payload => {
-        return await Fetch.post('wallettowallet/addreceiver',payload)
-    },
+    addWalletReceiver: async payload => await Fetch.post('wallettowallet/addreceiver',payload),
 
-    deleteWalletReceiver: async payload => {
-        return await Fetch.delete(`wallettowallet/deletereceiver?receiverNo=${payload.walletno}`)
-    }
+    deleteWalletReceiver: async payload => await Fetch.delete(`wallettowallet/deletereceiver?receiverNo=${payload.walletno}`)
 }

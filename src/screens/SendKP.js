@@ -17,12 +17,6 @@ class Scrn extends React.Component {
 
     state = {
         receiver:null,
-        /*receiver:{
-            firstname:'',
-            middlename:'',
-            lastname:'',
-            suffix:''
-        },*/
         amount:'',
         charges:'25',
         total:''
