@@ -87,10 +87,8 @@ export default {
     checkBalance: async () => await Fetch.get('checkBalance'),
 
     withdrawCash: async payload => {
-        return {
-            error:false
-        }
-        return await Fetch.post('',payload)
+        return {error:false}
+        return await Fetch.post('withdrawcash/validate',payload)
     },
 
     getRates: async () => await Fetch.get('getchargevalues'),

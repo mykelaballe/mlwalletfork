@@ -1,7 +1,7 @@
 import React from 'react'
 import {View, Dimensions} from 'react-native'
 import {connect} from 'react-redux'
-import {Screen, Footer, Spacer, Button, Text} from '../components'
+import {Screen, Footer, Headline, Spacer, Button, Text} from '../components'
 import {_, Say} from '../utils'
 import {Metrics} from '../themes'
 import {API} from '../services'
@@ -60,18 +60,12 @@ class Scrn extends React.Component {
         return (
             <>
                 <Screen>
-                    <View style={{alignItems:'center',paddingTop:Metrics.lg}}>
-                        <QRCode value={data} size={QR_SIZE} onError={this.handleOnError} />
-                    </View>
+                    <Headline subtext='To deposit money to your account, go to the nearest M Lhuillier branch.' />
                     
                 </Screen>
 
                 <Footer>
                     <Text center>For faster transaction present this QR Code to the branch teller</Text>
-
-                    <Spacer />
-                        
-                    <Button t={'Generate QR Code'} onPress={this.handleGenerate} loading={processing} />
                 </Footer>
             </>
         )

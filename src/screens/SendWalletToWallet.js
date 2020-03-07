@@ -1,14 +1,19 @@
 import React from 'react'
 import {TouchableOpacity} from 'react-native'
-import {Screen, Footer, Headline, Text, Spacer, Button, ButtonText, TextInput, Icon, View} from '../components'
+import {Screen, Footer, Headline, Text, Spacer, Button, ButtonText, TextInput, Icon, View, HeaderRight} from '../components'
 import {_, Consts, Func} from '../utils'
 import {Colors} from '../themes'
 
 class Scrn extends React.Component {
 
-    static navigationOptions = {
-        title:'Wallet to Wallet'
-    }
+    static navigationOptions = ({navigation}) => ({
+        title:'Wallet to Wallet',
+        headerRight:(
+            <HeaderRight>
+                <ButtonText color={Colors.light} t='Rates' onPress={() => navigation.navigate('Rates')} />
+            </HeaderRight>
+        )
+    })
 
     state = {
         walletno:'',

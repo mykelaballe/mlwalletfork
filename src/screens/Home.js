@@ -20,17 +20,17 @@ class Scrn extends React.Component {
         services:[
             {
                 icon:'send_money',
-                label:'Send Money',
+                label:'Send\nMoney',
                 onPress:() => this.handleGoToSendMoney()
             },
             {
                 icon:'receive_money',
-                label:'Receive Money',
+                label:'Receive\nMoney',
                 onPress:() => this.handleGoToReceiveMoney()
             },
             {
                 icon:'withdraw_cash',
-                label:'Withdraw Cash',
+                label:'Withdraw\bCash',
                 onPress:() => this.handleGoToWithdrawCash()
             },
             {

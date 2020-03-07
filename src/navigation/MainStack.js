@@ -11,6 +11,10 @@ export default createStackNavigator({
         }
     },
 
+    DepositMoneyIndex: Scrn.DepositMoneyIndexScrn,
+    DepositMoney: Scrn.DepositMoneyScrn,
+    DepositMoneyForm: Scrn.DepositMoneyFormScrn,
+
     SendMoneyOnBoarding: Scrn.SendMoneyOnBoardingScrn,
     SendMoneyIndex: Scrn.SendMoneyIndexScrn,
     ReceiveMoneyOnBoarding: Scrn.ReceiveMoneyOnBoardingScrn,
@@ -64,6 +68,7 @@ export default createStackNavigator({
     Provinces: Scrn.ProvincesScrn,
     Cities: Scrn.CitiesScrn,
     Nationalities: Scrn.NationalitiesScrn,
+    SourceOfIncome: Scrn.SourceOfIncomeScrn,
 
     TransactionReview: Scrn.TransactionReviewScrn,
     TransactionReceipt: Scrn.TransactionReceiptScrn,

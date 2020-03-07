@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Screen, Footer, Headline, StaticInput, TextInput, Button, Checkbox, Picker, Prompt} from '../components'
+import {Screen, Footer, Headline, StaticInput, TextInput, Button, Prompt} from '../components'
 import {_, Say} from '../utils'
 import {API} from '../services'
 
@@ -31,24 +31,29 @@ class Scrn extends React.Component {
             this.setState({nationality:params.nationality})
         }
 
-        if(params.country && params.country !== prevState.country) {
+        else if(params.country && params.country !== prevState.country) {
             this.props.navigation.setParams({country:null})
             this.setState({country:params.country})
         }
 
-        if(params.region && params.region !== prevState.region) {
+        else if(params.region && params.region !== prevState.region) {
             this.props.navigation.setParams({region:null})
             this.setState({region:params.region})
         }
 
-        if(params.province && params.province !== prevState.province) {
+        else if(params.province && params.province !== prevState.province) {
             this.props.navigation.setParams({province:null})
             this.setState({province:params.province})
         }
 
-        if(params.city && params.city !== prevState.city) {
+        else if(params.city && params.city !== prevState.city) {
             this.props.navigation.setParams({city:null})
             this.setState({city:params.city})
+        }
+
+        else if(params.source_of_income && params.source_of_income !== prevState.source_of_income) {
+            this.props.navigation.setParams({source_of_income:null})
+            this.setState({source_of_income:params.source_of_income})
         }
     }
 
@@ -68,7 +73,10 @@ class Scrn extends React.Component {
 
     handleChangeZipCode = zip_code => this.setState({zip_code})
 
-    handleFocusSourceOfIncome = () => this.refs.source_of_income.focus()
+    handleSelectSourceOfIncome = () => {
+        const {state, navigate} = this.props.navigation
+        navigate('SourceOfIncome',{sourceRoute:state.routeName})
+    }
 
     handleFocusBarangay = () => this.refs.barangay.focus()
 
@@ -169,14 +177,10 @@ class Scrn extends React.Component {
                         onPress={this.handleSelectNationality}
                     />
 
-                    <TextInput
-                        ref='source_of_income'
-                        label={'Source of Income'}
+                    <StaticInput
+                        label='Source of Income'
                         value={source_of_income}
-                        onChangeText={this.handleChangeSourceOfIncome}
-                        onSubmitEditing={this.handleFocusBarangay}
-                        autoCapitalize='words'
-                        returnKeyType='next'
+                        onPress={this.handleSelectSourceOfIncome}
                     />
 
                     <StaticInput

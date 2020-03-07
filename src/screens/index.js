@@ -28,6 +28,11 @@ import WithdrawCashOnBoardingScrn from './WithdrawCashOnBoarding'
 import PayBillsOnBoardingScrn from './PayBillsOnBoarding'
 import BuyLoadOnBoardingScrn from './BuyLoadOnBoarding'
 
+//deposit money
+import DepositMoneyIndexScrn from './DepositMoneyIndex'
+import DepositMoneyScrn from './DepositMoney'
+import DepositMoneyFormScrn from './DepositMoneyForm'
+
 //send wallet to wallet
 import SendWalletToWalletScrn from './SendWalletToWallet'
 import SavedWalletReceiversScrn from './SavedWalletReceivers'
@@ -140,6 +145,10 @@ export {
     WithdrawCashOnBoardingScrn,
     PayBillsOnBoardingScrn,
     BuyLoadOnBoardingScrn,
+
+    DepositMoneyIndexScrn,
+    DepositMoneyScrn,
+    DepositMoneyFormScrn,
 
     SendWalletToWalletScrn,
     SavedWalletReceiversScrn,
