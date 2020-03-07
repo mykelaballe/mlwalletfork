@@ -19,6 +19,7 @@ const touchIDConfig = {
 class Scrn extends React.Component {
 
     state = {
+        walletno:null,
         username:'',
         password:'',
         show_password:false,
@@ -42,16 +43,16 @@ class Scrn extends React.Component {
                 password,
                 latitude:'1',
                 longitude:'1',
-                deviceid:Consts.deviceId,
+                deviceId:Consts.deviceId,
                 location:'Philippines',
                 devicetype:Consts.deviceType,
-                version:Consts.appVersion
+                version:8//Consts.appVersion
             }
 
             if(username == '' || password == '') Say.some(_('8'))
             else {
                 let res = await API.login(payload)
-                const {error} = res
+                const {error,error_description} = res
                 
                 if(error) {
                     /*if(error === 'invalid_grant' || error === 'username_notexists' || error === 'wrong_password') {
@@ -61,10 +62,13 @@ class Scrn extends React.Component {
                     else if(error === '2attempt_left') return
                     else if(error === 'reach_maximum_attempts') return
                     else if(error === 'block_account_1day') return
-                    else if(error === 'block_account') return
-                    else if(error === 'version_outofdate') return*/
+                    else if(error === 'block_account') return*/
+                    //if(error === 'version_outofdate') Say.some()
                     if(error === 'registered_anotherdevice') {
-                        this.setState({showNewDeviceModal:true})
+                        this.setState({
+                            walletno:error_description,
+                            showNewDeviceModal:true
+                        })
                     }
                     //else if(error === 'server_error') return
                 }
@@ -90,7 +94,7 @@ class Scrn extends React.Component {
                 login()
             })
             .catch(err => {
-                alert(err.details.message)
+                if(err) alert(err)
             })
         }
         else {
@@ -114,6 +118,7 @@ class Scrn extends React.Component {
         this.setState({showNewDeviceModal:false},() => {
             this.props.navigation.navigate('SecurityQuestion',{
                 purpose:'updateDevice',
+                walletno:this.state.walletno,
                 username:this.state.username,
                 steps:[
                     'registered',

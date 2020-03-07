@@ -42,7 +42,7 @@ export default {
             grant_type:'password'
         })
 
-        if(res.token) {
+        if(res.access_token) {
             await Storage.doSave(Consts.db.user, {...res})
         }
 
@@ -61,7 +61,7 @@ export default {
 
     checkVersion: async () => await Fetch.get(''),
 
-    updateDevice: async payload => await Fetch.put('updateDevice',{username:payload.username, device_id:Consts.deviceId}),
+    updateDevice: async payload => await Fetch.put('updateDevice',{username:payload.username, deviceid:Consts.deviceId}),
 
     validateUsername: async username => await Fetch.post('validateUsername',{username}),
 

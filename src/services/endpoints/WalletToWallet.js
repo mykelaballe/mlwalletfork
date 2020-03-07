@@ -15,7 +15,7 @@ export default {
 
     searchWalletReceiver: async payload => {
         let params = [
-            `walletno=${payload.walletno}`
+            `${payload.mobile_no ? 'walletnum' : 'walletno'}=${payload.walletno}`
         ]
 
         if(payload.firstname) params.push(`firstname=${payload.firstname}`)
@@ -26,7 +26,7 @@ export default {
 
         let res = await Fetch.get(`wallettowallet/${endpoint}?${params.join('&')}`)
 
-        return res.respcode === 1 ? res : null
+        return res
     },
 
     addWalletReceiver: async payload => await Fetch.post('wallettowallet/addreceiver',payload),
