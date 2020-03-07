@@ -55,16 +55,16 @@ class Scrn extends React.Component {
                 const {error,error_description} = res
                 
                 if(error) {
-                    /*if(error === 'invalid_grant' || error === 'username_notexists' || error === 'wrong_password') {
+                    if(error === 'invalid_grant' || error === 'username_notexists' || error === 'wrong_password') {
                         Say.some(_('72'))
                     }
-                    else if(error === '1attempt_left') return
+                    /*else if(error === '1attempt_left') return
                     else if(error === '2attempt_left') return
                     else if(error === 'reach_maximum_attempts') return
                     else if(error === 'block_account_1day') return
                     else if(error === 'block_account') return*/
                     //if(error === 'version_outofdate') Say.some()
-                    if(error === 'registered_anotherdevice') {
+                    else if(error === 'registered_anotherdevice') {
                         this.setState({
                             walletno:error_description,
                             showNewDeviceModal:true

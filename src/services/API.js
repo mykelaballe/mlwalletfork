@@ -43,6 +43,13 @@ export default {
         })
 
         if(res.access_token) {
+            res = {
+                ...res,
+                mobile_no:res.mobileno,
+                email:res.emailaddress,
+                zip_code:res.zipcode,
+                source_of_income:res.sourceofincome,
+            }
             await Storage.doSave(Consts.db.user, {...res})
         }
 

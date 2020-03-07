@@ -15,10 +15,10 @@ class Scrn extends React.Component {
 
     state = {
         avatar:null,
-        walletno:'14030000000004',
+        walletno:'',
         firstname:'',
         lastname:'',
-        mobile_no:'098774563210',
+        mobile_no:'',
         processing:false,
         found:false
     }
@@ -98,8 +98,9 @@ class Scrn extends React.Component {
                 senderwalletno:this.props.user.walletno,
                 receiverwalletno:walletno
             })
-            if(res.respcode === 1) {
+            if(!res.error) {
                 this.props.addReceiver({
+                    receiverno:res.data,
                     walletno,
                     fullname:`${firstname} ${lastname}`
                 })
@@ -107,10 +108,11 @@ class Scrn extends React.Component {
                 this.props.navigation.navigate('SavedWalletReceivers')
             }
             else {
-                Say.some(res.respmessage)
+                Say.some(res.message)
             }
         }
         catch(err) {
+            alert(err)
             Say.err(_('500'))
         }
 

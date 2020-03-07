@@ -242,9 +242,9 @@ class Scrn extends React.Component {
 
                     <Spacer lg />
 
-                    {has_requested &&
+                    {/*has_requested &&
                     <ButtonText t='Resend Verification Code' onPress={this.handleRequestAgain} loading={reprocessing} />
-                    }
+                    */}
                 </Screen>
 
                 <Footer>

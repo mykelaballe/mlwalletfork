@@ -51,8 +51,8 @@ class Scrn extends React.Component {
     renderItem = ({item}) => (
         <>
             <Row style={style.item}>
-                <Avatar source={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToFBuZc9tvkOlcKAIKFA_D3PCLFc9w0X6wyH_ED8LD3lXNEnib&s'} />
-                <Spacer h />
+                {/*<Avatar source={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToFBuZc9tvkOlcKAIKFA_D3PCLFc9w0X6wyH_ED8LD3lXNEnib&s'} />
+                <Spacer h />*/}
                 <View style={{flex:1}}>
                     <Text md>{item.message}</Text>
                     <Text sm mute>{moment(item.date).format('D MMM YYYY h:ma')}</Text>

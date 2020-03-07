@@ -97,6 +97,9 @@ export default class Scrn extends React.Component {
                                     Say.some('New device successfully registered')
                                     this.props.navigation.navigate('Login')
                                 }
+                                else {
+                                    Say.some('Error registering new device')
+                                }
                             }
                         }
                     }
