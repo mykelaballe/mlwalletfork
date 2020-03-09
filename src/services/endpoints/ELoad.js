@@ -8,19 +8,17 @@ export default {
         return await Fetch.post('',payload)
     },
 
-    getELoadReceivers: async payload => {
-        return [
-            {
-                contact_no:'09123456789',
-                fullname:'Ashley Uy',
-            },
-            {
-                contact_no:'0955398234',
-                fullname:'Lotlot Rubite'
-            }
-        ]
-        return await Fetch.get('',payload)
+    getELoadReceivers: async walletno => {
+        let res = await Fetch.post(`getLoadReciever`,{
+            _walletno:walletno
+        })
+
+        alert(res.message + '\n' + res.data.length + '\n' + walletno)
+
+        return res.data || []
     },
+
+    addELoadReceiver: async payload => await Fetch.post('addLoadReciever',payload),
 
     getLoadPromoCodes: async () => {
         return [

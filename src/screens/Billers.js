@@ -8,7 +8,7 @@ import {API} from '../services'
 const ItemUI = props => (
     <>
         <Ripple onPress={() => props.onPress(props.data)} style={style.item}>
-            <Text md>{props.data.name}</Text>
+            <Text md>{props.data.bill_partner_name}</Text>
         </Ripple>
         <HR />
     </>
@@ -23,16 +23,18 @@ class Scrn extends React.Component {
     state = {
         list:[],
         search:'',
-        loading:true
+        loading:true,
+        refreshing:false
     }
 
     componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
 
     getData = async () => {
+        const {category} = this.props.navigation.state.params
         let list = []
 
         try {
-            list = await API.getBillers()
+            list = await API.getBillers(category.value)
         }
         catch(err) {
             Say.err(_('500'))
@@ -40,7 +42,8 @@ class Scrn extends React.Component {
 
         this.setState({
             list,
-            loading:false
+            loading:false,
+            refreshing:false
         })
     }
 
@@ -60,11 +63,13 @@ class Scrn extends React.Component {
         </View>
     )
 
+    handleRefresh = () => this.setState({refreshing:true},this.getData)
+
     renderItem = ({item, index}) => <ItemUI data={item} onPress={this.handleSelectBiller} />
 
     render() {
 
-        const {list, search, loading} = this.state
+        const {list, search, loading, refreshing} = this.state
 
         return (
             <View style={style.container}>
@@ -81,6 +86,9 @@ class Scrn extends React.Component {
                     renderSectionHeader={this.renderSectionHeader}
                     renderItem={this.renderItem}
                     loading={loading}
+                    refreshing={refreshing}
+                    onRefresh={this.handleRefresh}
+                    placeholder={{text:'No Billers found'}}
                 />
             </View>
         )

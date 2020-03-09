@@ -1,9 +1,10 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager} from 'react-native'
-import {ScrollView, FlatList, TextInput, Text, Row, Button, Spacer, ButtonText, HR, Ripple, TopBuffer} from '../components'
-import {Colors, Metrics} from '../themes'
+import {View, StyleSheet} from 'react-native'
+import {connect} from 'react-redux'
+import {TextInput, Button} from '../components'
+import {Metrics} from '../themes'
 import {_, Say} from '../utils'
-import Icon from 'react-native-vector-icons/Ionicons'
+import {API} from '../services'
 
 class AddLoadReceiver extends React.Component {
 
@@ -23,6 +24,7 @@ class AddLoadReceiver extends React.Component {
 
     handleSubmit = async () => {
         try {
+            const {walletno} = this.props.user
             let {fullname, contact_no, processing} = this.state
 
             if(processing) return false
@@ -32,25 +34,30 @@ class AddLoadReceiver extends React.Component {
             fullname = fullname.trim()
             contact_no = contact_no.trim()
 
-            if(fullname == '' || contact_no == '') Say.some(_('8'))
+            if(!fullname || !contact_no) Say.some(_('8'))
             else {
 
+                alert(walletno + '\n' + fullname + '\n' + contact_no)
+
                 let payload = {
-                    fullname,
-                    contact_no
+                    _walletno:walletno,
+                    _fullname:fullname,
+                    _mobileno:contact_no
                 }
     
-                //await API.addNewReceiver(payload)
+                let res = await API.addELoadReceiver(payload)
+
+                alert(res.message)
 
                 this.props.navigation.pop()
             }
-
-            this.setState({processing:false})
         }
         catch(err) {
-            this.setState({processing:false})
-            Say.err(_('18'))
+            alert(err)
+            Say.err(_('500'))
         }
+
+        this.setState({processing:false})
     }
 
     render() {
@@ -95,4 +102,8 @@ const style = StyleSheet.create({
     }
 })
 
-export default AddLoadReceiver
+const mapStateToProps = state => ({
+    user: state.user.data
+})
+
+export default connect(mapStateToProps)(AddLoadReceiver)

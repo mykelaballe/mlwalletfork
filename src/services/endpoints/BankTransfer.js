@@ -8,50 +8,16 @@ export default {
         return await Fetch.post('',payload)
     },
 
-    getBankPartners: async () => {
-        return [
-            {
-                name:'Banco De Oro',
-                account_name:'Banco De Oro',
-                account_no:'234235562'
-            },
-            {
-                name:'China Bank',
-                account_name:'China Bank',
-                account_no:'866535435'
-            },
-            {
-                name:'Land Bank of the Philippines',
-                account_name:'Land Bank of the Philippines',
-                account_no:'343470068'
-            },
-            {
-                name:'Bank of the Philippine Islands',
-                account_name:'Bank of the Philippine Islands',
-                account_no:'113343546'
-            }
-        ]
-        return await Fetch.get('')
+    getBankPartners: async walletno => {
+        let res = await Fetch.get(`bankAccount/all?walletno=${walletno}`)
+        return res.data || []
     },
 
-    addBankPartner: async payload => {
-        return {
-            error:false
-        }
-        return await Fetch.post('',payload)
-    },
+    addBankPartner: async payload => await Fetch.post('bankAccount/add',payload),
 
     updateBankPartner: async payload => {
-        return {
-            error:false
-        }
-        return await Fetch.put('',payload)
+        return await Fetch.put('bankAccount/edit',payload)
     },
 
-    deleteBankPartner: async payload => {
-        return {
-            error:false
-        }
-        return await Fetch.delete('')
-    }
+    deleteBankPartner: async payload => await Fetch.delete('bankAccount/delete',payload)
 }

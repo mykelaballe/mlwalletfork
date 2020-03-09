@@ -12,13 +12,13 @@ class Scrn extends React.Component {
     }
 
     state = {
-        name:this.props.navigation.state.params.bank.name,
-        account_name:this.props.navigation.state.params.bank.account_name,
-        account_no:this.props.navigation.state.params.bank.account_no,
+        bankname:this.props.navigation.state.params.bank.bankname,
+        account_name:this.props.navigation.state.params.bank.old_account_name,
+        account_no:this.props.navigation.state.params.bank.old_account_no,
         processing:false
     }
 
-    handleChangeName = name => this.setState({name})
+    handleChangeName = bankname => this.setState({bankname})
 
     handleChangeAccountName = account_name => this.setState({account_name})
 
@@ -30,35 +30,42 @@ class Scrn extends React.Component {
 
     handleSubmit = async () => {
         try {
-            let {name, account_name, account_no, processing} = this.state
+            const {walletno} = this.props.user
+            const {old_partnersid, old_account_no, old_account_name} = this.props.navigation.state.params.bank
+            let {bankname, account_name, account_no, processing} = this.state
 
             if(processing) return false
 
             this.setState({processing:true})
 
-            name = name.trim()
+            bankname = bankname.trim()
             account_name = account_name.trim()
             account_no = account_no.trim()
 
-            if(name == '' || account_name == '' || account_no == '') Say.some(_('8'))
+            if(!bankname || !account_name || !account_no) Say.some(_('8'))
             else {
 
                 let payload = {
-                    name,
+                    walletno,
+                    bankname,
                     account_name,
-                    account_no
+                    account_no,
+                    old_partnersid,
+                    old_account_no,
+                    old_account_name
                 }
     
                 let res = await API.updateBankPartner(payload)
 
-                if(res.error) Say.some('error')
+                if(res.error) Say.some(res.message)
                 else {
+                    Say.some('Bank Partner successfully updated')
                     this.props.navigation.pop()
                 }
             }
         }
         catch(err) {
-            Say.err(_('18'))
+            Say.err(_('500'))
         }
 
         this.setState({processing:false})
@@ -66,18 +73,18 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {name, account_name, account_no, processing} = this.state
+        const {bankname, account_name, account_no, processing} = this.state
         let ready = false
 
-        if(name && account_name && account_no) ready = true
+        if(bankname && account_name && account_no) ready = true
 
         return (
             <>
                 <Screen>
                     <TextInput
-                        ref='name'
+                        ref='bankname'
                         label='Bank Name'
-                        value={name}
+                        value={bankname}
                         onChangeText={this.handleChangeName}
                         onSubmitEditing={this.handleFocusAccountName}
                         autoCapitalize='words'
@@ -111,4 +118,8 @@ class Scrn extends React.Component {
     }
 }
 
-export default Scrn
+const mapStateToProps = state => ({
+    user: state.user.data
+})
+
+export default connect(mapStateToProps)(Scrn)

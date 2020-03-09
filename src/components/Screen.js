@@ -1,7 +1,8 @@
 import React from 'react'
-import {KeyboardAvoidingView} from 'react-native'
+import {KeyboardAvoidingView, View} from 'react-native'
 import {ScrollView} from './'
 import {Metrics} from '../themes'
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 
 export default props => {
     let style = {
@@ -12,16 +13,23 @@ export default props => {
 
     if(props.ns) {
         return (
-            <KeyboardAvoidingView style={style}>
+            <View style={style}>
                 {props.children}
-            </KeyboardAvoidingView>
+            </View>
         )
     }
 
     return (
-        <ScrollView keyboardShouldPersistTaps='handled'>
-            <KeyboardAvoidingView style={style}>
+        <KeyboardAwareScrollView style={style}>
                 {props.children}
+        </KeyboardAwareScrollView>
+    )
+
+    return (
+        <ScrollView keyboardShouldPersistTaps='handled'>
+            <KeyboardAvoidingView style={style} behavior='padding'>
+                {props.children}
+                <View style={{height:10}} />
             </KeyboardAvoidingView>
         </ScrollView>
     )

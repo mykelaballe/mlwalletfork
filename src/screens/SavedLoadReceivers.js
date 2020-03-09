@@ -32,24 +32,28 @@ class Scrn extends React.Component {
     state = {
         list:[],
         search:'',
-        loading:true
+        loading:true,
+        refreshing:false
     }
 
     componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
 
     getData = async () => {
+        const {walletno} = this.props.user
         let list = []
 
         try {
-            list = await API.getELoadReceivers()
+            list = await API.getELoadReceivers(walletno)
         }
         catch(err) {
+            alert(err)
             Say.err(_('500'))
         }
 
         this.setState({
             list,
-            loading:false
+            loading:false,
+            refreshing:false
         })
     }
 
@@ -59,11 +63,13 @@ class Scrn extends React.Component {
 
     handleChangeSearch = search => this.setState({search})
 
+    handleRefresh = () => this.setState({refreshing:true},this.getData)
+
     renderItem = ({item}) => <ItemUI data={item} onPress={this.handleViewReceiver} />
 
     render() {
 
-        const {list, search, loading} = this.state
+        const {list, search, loading, refreshing} = this.state
 
         return (
             <>
@@ -79,6 +85,9 @@ class Scrn extends React.Component {
                         data={list}
                         renderItem={this.renderItem}
                         loading={loading}
+                        refreshing={refreshing}
+                        onRefresh={this.handleRefresh}
+                        placeholder={{text:'No Receivers found'}}
                     />
                 </Screen>
 

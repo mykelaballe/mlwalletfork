@@ -1,5 +1,6 @@
 import React from 'react'
-import {Screen, Footer, Headline, TextInput, Text, Button} from '../components'
+import {Screen, Footer, Headline, TextInput, Button} from '../components'
+import {connect} from 'react-redux'
 import {_, Say} from '../utils'
 import {API} from '../services'
 
@@ -28,6 +29,7 @@ class Scrn extends React.Component {
 
     handleSubmit = async () => {
         try {
+            const {walletno} = this.props.user
             let {name, account_name, account_no, processing} = this.state
 
             if(processing) return false
@@ -38,25 +40,27 @@ class Scrn extends React.Component {
             account_name = account_name.trim()
             account_no = account_no.trim()
 
-            if(name == '' || account_name == '' || account_no == '') Say.some(_('8'))
+            if(!name || !account_name || !account_no) Say.some(_('8'))
             else {
 
                 let payload = {
-                    name,
+                    walletno,
+                    bankname:name,
                     account_name,
                     account_no
                 }
     
                 let res = await API.addBankPartner(payload)
 
-                if(res.error) Say.some('error')
+                if(res.error) Say.some(res.message)
                 else {
+                    Say.some('Bank Partner successfully added')
                     this.props.navigation.pop()
                 }
             }
         }
         catch(err) {
-            Say.err(_('18'))
+            Say.err(_('500'))
         }
 
         this.setState({processing:false})
@@ -111,4 +115,8 @@ class Scrn extends React.Component {
     }
 }
 
-export default Scrn
+const mapStateToProps = state => ({
+    user: state.user.data
+})
+
+export default connect(mapStateToProps)(Scrn)

@@ -3,7 +3,8 @@ import {View} from 'react-native'
 import {connect} from 'react-redux'
 import {Screen, Footer, Headline, Text, Spacer, Button, TextInput, Icon} from '../components'
 import {Metrics} from '../themes'
-import {_, Consts, Func} from '../utils'
+import {_, Consts, Func, Say} from '../utils'
+import {API} from '../services'
 
 class Scrn extends React.Component {
 
@@ -15,7 +16,8 @@ class Scrn extends React.Component {
         type:Consts.tcn.wdc.code,
         amount:'',
         charges:'',
-        total:''
+        total:'',
+        processing:false
     }
 
     handleChangeAmount = amount => {
@@ -26,21 +28,45 @@ class Scrn extends React.Component {
     }
 
     handleWithdraw = async () => {
+        const {amount, processing} = this.state
         const {params} = this.props.navigation.state
-        this.props.navigation.navigate('TransactionReview',{
-            type:this.state.type,
-            ...params,
-            transaction: {
-                user:this.props.user,
-                ...this.state
-            },
-            cancellable:true
-        })
+
+        if(processing) return false
+
+        try {
+            this.setState({processing:true})
+
+            let res = await API.withdrawCashValidate({
+                walletno:this.props.user.walletno,
+                amount
+            })
+    
+            if(!res.error) {
+                this.props.navigation.navigate('TransactionReview',{
+                    type:this.state.type,
+                    ...params,
+                    transaction: {
+                        user:this.props.user,
+                        ...this.state
+                    },
+                    cancellable:true
+                })
+            }
+            else{
+                Say.some(res.message)
+            }
+        }
+        catch(err) {
+            alert(err)
+            Say.some(_('500'))
+        }
+
+        this.setState({processing:false})
     }
 
     render() {
 
-        const {type, amount, charges, total} = this.state
+        const {type, amount, charges, total, processing} = this.state
         let ready = false
 
         if(amount) ready = true
@@ -75,7 +101,7 @@ class Scrn extends React.Component {
 
                     <Spacer />
                     
-                    <Button disabled={!ready} t={Consts.tcn[type].submit_text} onPress={this.handleWithdraw} />
+                    <Button disabled={!ready} t={Consts.tcn[type].submit_text} onPress={this.handleWithdraw} loading={processing} />
                 </Footer>
             </>
         )

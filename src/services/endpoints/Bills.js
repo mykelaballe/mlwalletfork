@@ -8,7 +8,27 @@ export default {
         return await Fetch.post('',payload)
     },
 
-    getBillers: async () => {
+    getBillers: async category => {
+        let data = {}
+        let res = await Fetch.get(`bill_partners/all?category=${category}`)
+        
+        if(res.data) {
+            for(let d in res.data) {
+                let letter = res.data[d].bill_partner_name[0]
+
+                if(typeof data[letter] === 'undefined') {
+                    data[letter] = {
+                        letter,
+                        data:[]
+                    }
+                }
+
+                data[letter].data.push(res.data[d])
+            }
+        }
+        
+        return Object.values(data)
+
         return [
             {
                 letter:'A',
@@ -53,7 +73,6 @@ export default {
                 ]
             },
         ]
-        return await Fetch.get('')
     },
 
     getFavoriteBillers: async payload => {
@@ -78,10 +97,7 @@ export default {
     },
 
     addFavoriteBiller: async payload => {
-        return {
-            error:false
-        }
-        return await Fetch.post('',payload)
+        return await Fetch.post('addLoadReceiver',payload)
     },
 
     removeFavoriteBiller: async payload => {

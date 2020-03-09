@@ -33,59 +33,73 @@ class Scrn extends React.Component {
         categories:[
             {
                 icon:'airline',
-                label:'Airline'
+                label:'Airline',
+                value:'airline'
             },
             {
                 icon:'electricity',
-                label:'Electricity'
+                label:'Electricity',
+                value:'electricity'
             },
             {
                 icon:'financing',
-                label:'Financing'
+                label:'Financing',
+                value:'financing'
             },
             {
                 icon:'foundation',
-                label:'Foundations'
+                label:'Foundations',
+                value:'foundation'
             },
             {
                 icon:'insurance',
-                label:'Insurance'
+                label:'Insurance',
+                value:'insurance'
             },
             {
                 icon:'loan',
-                label:'Loan'
+                label:'Loan',
+                value:'loan'
             },
             {
                 icon:'memorial',
-                label:'Memorial'
+                label:'Memorial',
+                value:'memorial'
             },
             {
                 icon:'online_business',
-                label:'Online Businesses'
+                label:'Online Businesses',
+                value:'online_business'
             },
             {
                 icon:'school',
-                label:'Schools'
+                label:'Schools',
+                value:'school'
             },
             {
                 icon:'telco',
-                label:'Telcos'
+                label:'Telcos',
+                value:'telco'
             },
             {
                 icon:'travel',
-                label:'Travels'
+                label:'Travels',
+                value:'travel'
             },
             {
                 icon:'water',
-                label:'Water'
+                label:'Water',
+                value:'water'
             },
             {
                 icon:'other',
-                label:'Others'
+                label:'Others',
+                value:'other'
             }
         ],
         showFavorites:false,
-        loading:true
+        loading:true,
+        refreshing:false
     }
 
     componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
@@ -114,13 +128,15 @@ class Scrn extends React.Component {
 
     handleToggleFavorites = () => this.setState(prevState => ({showFavorites:!prevState.showFavorites}))
 
+    handleRefresh = () => this.setState({refreshing:true},this.getData)
+
     renderFavorites = ({item, index}) => <FavoriteUI data={item} onPress={this.handleSelectFavorite} />
 
     renderCategories = ({item, index}) => <CategoryUI data={item} onPress={this.handleSelectCategory} />
 
     render() {
 
-        const {favorites, categories, showFavorites, loading} = this.state
+        const {favorites, categories, showFavorites, loading, refreshing} = this.state
 
         return (
             <>
@@ -149,6 +165,9 @@ class Scrn extends React.Component {
                     renderItem={this.renderCategories}
                     numColumns={3}
                     columnWrapperStyle={style.columnWrapper}
+                    refreshing={refreshing}
+                    onRefresh={this.handleRefresh}
+                    placeholder={{text:'No Biller found'}}
                 />
             </>
         )

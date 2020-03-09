@@ -3,11 +3,12 @@ import {View, StyleSheet, InteractionManager} from 'react-native'
 import {SectionList, Text, Spacer, HR, Ripple, SearchInput} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
+import {API} from '../services'
 
 const ItemUI = props => (
     <>
         <Ripple onPress={() => props.onPress(props.data)} style={style.item}>
-            <Text md>{props.data.name}</Text>
+            <Text md>{props.data.bank_name}</Text>
         </Ripple>
         <HR />
     </>
@@ -22,7 +23,8 @@ class Scrn extends React.Component {
     state = {
         list:[],
         search:'',
-        loading:true
+        loading:true,
+        refreshing:false
     }
 
     componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
@@ -31,50 +33,7 @@ class Scrn extends React.Component {
         let list = []
 
         try {
-            list = [
-                {
-                    letter:'A',
-                    data:[
-                        {
-                            id:1,
-                            name:'Able Services',
-                        },
-                        {
-                            id:2,
-                            name:'ACF International'
-                        },
-                        {
-                            id:3,
-                            name:'Asia United Bank'
-                        }
-                    ]
-                },
-                {
-                    letter:'B',
-                    data:[
-                        {
-                            id:4,
-                            name:'Bank Albilad',
-                        },
-                        {
-                            id:5,
-                            name:'Bank of Commerce'
-                        },
-                        {
-                            id:6,
-                            name:'BC Remit'
-                        },
-                        {
-                            id:7,
-                            name:'BDO'
-                        },
-                        {
-                            id:8,
-                            name:'BIBO Global Inc.'
-                        }
-                    ]
-                },
-            ]
+            list = await API.getPartners()
         }
         catch(err) {
             Say.err(_('500'))
@@ -82,13 +41,16 @@ class Scrn extends React.Component {
 
         this.setState({
             list,
-            loading:false
+            loading:false,
+            refreshing:false
         })
     }
 
     handleSelect = partner => this.props.navigation.navigate('ReceiveMoneyInternational',{partner})
 
     handleChangeSearch = search => this.setState({search})
+
+    handleRefresh = () => this.setState({refreshing:true},this.getData)
 
     renderSectionHeader = ({section}) => (
         <View style={style.itemHeader}>
@@ -100,7 +62,7 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {list, search, loading} = this.state
+        const {list, search, loading, refreshing} = this.state
 
         return (
             <View style={style.container}>
@@ -117,6 +79,9 @@ class Scrn extends React.Component {
                     renderSectionHeader={this.renderSectionHeader}
                     renderItem={this.renderItem}
                     loading={loading}
+                    refreshing={refreshing}
+                    onRefresh={this.handleRefresh}
+                    placeholder={{text:'No partners found'}}
                 />
             </View>
         )

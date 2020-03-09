@@ -1,5 +1,6 @@
 import React from 'react'
 import {TouchableOpacity} from 'react-native'
+import {connect} from 'react-redux'
 import {Screen, Footer, Button, StaticInput, HeaderRight, Prompt} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
@@ -67,11 +68,15 @@ class Scrn extends React.Component {
     }
 
     handleConfirmDelete = () => {
+        const {walletno} = this.props.user
         const {index, bank} = this.props.navigation.state.params
         this.handleCloseModal()
         try {
             API.deleteBankPartner({
-                id:bank.id
+                walletno,
+                partnersid:bank.old_partnersid,
+                accountid:bank.old_account_no,
+                account_name:bank.old_account_name
             })
             this.props.navigation.navigate('SavedBankPartners',{removeAtIndex:index})
         }
@@ -89,7 +94,7 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {name, account_name, account_no} = this.props.navigation.state.params.bank
+        const {bankname, old_account_name, old_account_no} = this.props.navigation.state.params.bank
         const {showDeleteModal} = this.state
 
         return (
@@ -106,17 +111,17 @@ class Scrn extends React.Component {
                 <Screen>
                     <StaticInput
                         label='Bank Name'
-                        value={name}
+                        value={bankname}
                     />
 
                     <StaticInput
                         label='Account Name'
-                        value={account_name}
+                        value={old_account_name}
                     />
 
                     <StaticInput
                         label='Account No.'
-                        value={account_no}
+                        value={old_account_no}
                     />
                 </Screen>
 
@@ -128,4 +133,8 @@ class Scrn extends React.Component {
     }
 }
 
-export default Scrn
+const mapStateToProps = state => ({
+    user: state.user.data
+})
+
+export default connect(mapStateToProps)(Scrn)
