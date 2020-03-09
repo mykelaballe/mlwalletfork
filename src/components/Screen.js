@@ -1,6 +1,6 @@
 import React from 'react'
 import {KeyboardAvoidingView} from 'react-native'
-import {ScrollView, View} from './'
+import {ScrollView} from './'
 import {Metrics} from '../themes'
 
 export default props => {
@@ -9,6 +9,22 @@ export default props => {
         paddingTop:props.compact ? 0 : Metrics.lg,
         paddingHorizontal:props.compact ? 0 : Metrics.lg
     }
+
+    if(props.ns) {
+        return (
+            <KeyboardAvoidingView style={style}>
+                {props.children}
+            </KeyboardAvoidingView>
+        )
+    }
+
+    return (
+        <ScrollView keyboardShouldPersistTaps='handled'>
+            <KeyboardAvoidingView style={style}>
+                {props.children}
+            </KeyboardAvoidingView>
+        </ScrollView>
+    )
 
     return (
         <KeyboardAvoidingView style={style}>
