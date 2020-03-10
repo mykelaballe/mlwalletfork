@@ -2,9 +2,10 @@ import Snackbar from 'react-native-snackbar'
 import {Colors} from '../themes'
 
 const some = title => {
-    Snackbar.show({
+    alert(title)
+    /*Snackbar.show({
         title
-    })
+    })*/
 }
 
 const ok = title => {
@@ -24,7 +25,8 @@ const warn = title => {
 }
 
 const err = title => {
-    Snackbar.show({
+    alert(title)
+    /*Snackbar.show({
         title,
         color:Colors.light,
         backgroundColor:Colors.danger,
@@ -33,7 +35,7 @@ const err = title => {
             title:'Dismiss',
             color:Colors.light
         }
-    })
+    })*/
 }
 
 const info = title => {

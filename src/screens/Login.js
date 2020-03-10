@@ -61,15 +61,15 @@ class Scrn extends React.Component {
                 const {error,error_description} = res
                 
                 if(error) {
-                    if(error === '1attempt_left') alert(error_description)
-                    else if(error === '2attempt_left') alert(error_description)
-                    else if(error === 'reach_maximum_attempts') alert(error_description)
-                    else if(error === 'block_account_1day') alert(error_description)
-                    else if(error === 'block_account') alert(error_description)
+                    if(error === '1attempt_left') Say.some(error_description)
+                    else if(error === '2attempt_left') Say.some(error_description)
+                    else if(error === 'reach_maximum_attempts') Say.some(error_description)
+                    else if(error === 'block_account_1day') Say.some(error_description)
+                    else if(error === 'block_account') Say.some(error_description)
                     else if(error === 'invalid_grant' || error === 'username_notexists' || error === 'wrong_password') {
-                        alert(_('72'))
+                        Say.some(_('72'))
                     }
-                    if(error === 'version_outofdate') alert(error_description)
+                    if(error === 'version_outofdate') Say.some(error_description)
                     else if(error === 'registered_anotherdevice') {
                         this.setState({
                             walletno:error_description,
@@ -101,7 +101,7 @@ class Scrn extends React.Component {
             })
             .catch(err => {
                 if(err && TOUCHID_IGNORED_ERRORS.indexOf(err.code) < 0) {
-                    alert(err.message)
+                    Say.some(err.message)
                 }
             })
         }
