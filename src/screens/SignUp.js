@@ -63,7 +63,7 @@ class Scrn extends React.Component {
                 if(usernameValidation.ok && passwordValidation.ok) {
                     let res = await API.validateUsername(username)
 
-                    if(res.error) Say.some('Username already taken')
+                    if(!res.error) Say.some('Username already taken')
                     else {
                         this.props.navigation.navigate('SignUpStep1',{
                             username,

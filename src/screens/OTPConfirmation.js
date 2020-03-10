@@ -64,7 +64,7 @@ class Scrn extends React.Component {
                 walletno
             })
 
-            if(res.error) Say.some('error')
+            if(res.error) Say.some(res.message)
             else {
                 Say.some('OTP request sent')
             }

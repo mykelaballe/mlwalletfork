@@ -12,7 +12,7 @@ class Scrn extends React.Component {
     }
 
     state = {
-        gender:this.props.user.gender,
+        gender:this.props.user.gender == 'M' ? 'Male' : 'Female',
         processing:false,
         showSuccessModal:false
     }
@@ -39,6 +39,7 @@ class Scrn extends React.Component {
             }
         }
         catch(err) {
+            alert(err)
             Say.err(_('500'))
         }
 

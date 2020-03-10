@@ -61,21 +61,21 @@ class Scrn extends React.Component {
                 const {error,error_description} = res
                 
                 if(error) {
-                    if(error === 'invalid_grant' || error === 'username_notexists' || error === 'wrong_password') {
-                        Say.some(_('72'))
+                    if(error === '1attempt_left') alert(error_description)
+                    else if(error === '2attempt_left') alert(error_description)
+                    else if(error === 'reach_maximum_attempts') alert(error_description)
+                    else if(error === 'block_account_1day') alert(error_description)
+                    else if(error === 'block_account') alert(error_description)
+                    else if(error === 'invalid_grant' || error === 'username_notexists' || error === 'wrong_password') {
+                        alert(_('72'))
                     }
-                    if(error === 'version_outofdate') Say.some(error_description)
+                    if(error === 'version_outofdate') alert(error_description)
                     else if(error === 'registered_anotherdevice') {
                         this.setState({
                             walletno:error_description,
                             showNewDeviceModal:true
                         })
                     }
-                    else if(error === '1attempt_left') Say.some(error_description)
-                    else if(error === '2attempt_left') Say.some(error_description)
-                    else if(error === 'reach_maximum_attempts') Say.some(error_description)
-                    else if(error === 'block_account_1day') Say.some(error_description)
-                    else if(error === 'block_account') Say.some(error_description)
                     //else if(error === 'server_error') throw new Error()
                 }
                 else {

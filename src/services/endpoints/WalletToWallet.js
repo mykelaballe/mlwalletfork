@@ -2,10 +2,7 @@ import Fetch from '../../utils/Fetch'
 
 export default {
     sendWalletToWalletValidate: async payload => {
-        return {
-            error:false
-        }
-        return await Fetch.post('sendout/wallettowallet/validate',payload)
+        return await Fetch.get(`sendout/wallettowallet/validateamount?walletno=${payload.walletno}&principal=${payload.amount}&isMLP=1`)
     },
 
     sendWalletToWallet: async payload => {
@@ -16,7 +13,7 @@ export default {
     },
 
     getWalletReceivers: async payload => {
-        let res = await Fetch.get(`wallettowallet/receiverlist?walletNo=${payload.walletno}`)
+        let res = await Fetch.get(`wallettowallet/receiverlist?walletno=${payload.walletno}`)
         return res.recieverlists || []
     },
 

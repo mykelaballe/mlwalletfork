@@ -14,7 +14,7 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {walletno, firstname} = this.props.navigation.state.params
+        const {walletno, fname} = this.props.navigation.state.params
 
         return (
             <>
@@ -24,7 +24,7 @@ class Scrn extends React.Component {
                         <Image source={Res.trophy} style={{width:120,height:120}} resizeMode='contain' />
                     </View>
 
-                    <Headline title={`Congratulations, ${firstname}!`} />
+                    <Headline title={`Congratulations, ${fname}!`} />
                     
                     <Text center md>You are now registered as a</Text>
                     <Text center b md>Semi-Verified User.</Text>

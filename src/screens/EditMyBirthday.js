@@ -53,7 +53,7 @@ class Scrn extends React.Component {
 
             let res = await API.requestUpdateProfile({
                 walletno,
-                birthday:`${bday_year}-${bday_month}-${bday_day}`,
+                birthdate:`${bday_year}-${bday_month}-${bday_day}`,
                 reasons
             })
 

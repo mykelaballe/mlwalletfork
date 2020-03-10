@@ -169,7 +169,7 @@ class Scrn extends React.Component {
     handleToggleEdit = () => this.setState(prevState => ({editable:!prevState.editable}))
 
     handleSubmit = async () => {
-        let {firstname, middlename, lastname, suffix, other_suffix, bday_month, bday_day, bday_year, gender, email, nationality, source_of_income, house, street, region, country, province, city, barangay, zip_code} = this.state
+        let {firstname, middlename, lastname, suffix, other_suffix, bday_month, bday_day, bday_year, gender, email, nationality, source_of_income, house, street, region, country, province, city, barangay, zip_code, question1, answer1, question2, answer2, question3, answer3} = this.state
 
         try {
             firstname = firstname.trim()
@@ -189,6 +189,7 @@ class Scrn extends React.Component {
             if(!firstname || !middlename || !lastname || !source_of_income || !barangay || !zip_code) Say.some(_('8'))
             else {
                 this.props.navigation.navigate('SignUpVerificationMobile',{
+                    ...this.props.navigation.state.params,
                     firstname,
                     middlename,
                     lastname,
@@ -205,7 +206,13 @@ class Scrn extends React.Component {
                     province,
                     city,
                     barangay,
-                    zip_code
+                    zip_code,
+                    question1,
+                    answer1,
+                    question2,
+                    answer2,
+                    question3,
+                    answer3
                 })
             }
         }

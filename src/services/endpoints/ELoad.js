@@ -15,14 +15,14 @@ export default {
                 contact_no:'0912345678'
             }
         ]*/
-        let res = await Fetch.post(`getLoadReciever`,{
+        let res = await Fetch.post(`getLoadReceiver`,{
             _walletno:walletno
         })
 
         return res.data || []
     },
 
-    addELoadReceiver: async payload => await Fetch.post('addLoadReciever',payload),
+    addELoadReceiver: async payload => await Fetch.post('addLoadReceiver',payload),
 
     getLoadPromoCodes: async () => {
         return [
