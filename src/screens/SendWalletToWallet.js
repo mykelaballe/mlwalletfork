@@ -1,8 +1,10 @@
 import React from 'react'
 import {TouchableOpacity} from 'react-native'
+import {connect} from 'react-redux'
 import {Screen, Footer, Headline, Text, Spacer, Button, ButtonText, TextInput, Icon, View, HeaderRight} from '../components'
-import {_, Consts, Func} from '../utils'
+import {_, Consts, Func, Say} from '../utils'
 import {Colors} from '../themes'
+import {API} from '../services'
 
 class Scrn extends React.Component {
 
@@ -21,7 +23,8 @@ class Scrn extends React.Component {
         amount:'',
         notes:'',
         charges:'25',
-        total:''
+        total:'',
+        processing:false
     }
 
     componentDidUpdate = (prevProps, prevState) => {
@@ -51,20 +54,43 @@ class Scrn extends React.Component {
     handleAddNewReceiver = () => this.props.navigation.navigate('SavedWalletReceivers')
 
     handleSendMoney = async () => {
+        const {amount, total, processing} = this.state
         const {params} = this.props.navigation.state
-        this.props.navigation.navigate('TransactionReview',{
-            ...params,
-            transaction: {
-                ...this.state
-            },
-            status:'success'
-        })
+
+        if(processing) return false
+
+        try {
+            this.setState({processing:true})
+
+            let res = await API.sendWalletToWalletValidate({
+                walletno:this.props.user.walletno,
+                amount:total
+            })
+
+            if(!res.error) {
+                this.props.navigation.navigate('TransactionReview',{
+                    ...params,
+                    transaction: {
+                        ...this.state
+                    },
+                    status:'success'
+                })
+            }
+            else {
+                Say.some(res.message)
+            }
+        }
+        catch(err) {
+            Say.err(_('500'))
+        }
+
+        this.setState({processing:false})
     }
 
     render() {
 
         const {type} = this.props.navigation.state.params
-        const {walletno, receiver, amount, notes, charges, total} = this.state
+        const {walletno, receiver, amount, notes, charges, total, processing} = this.state
         let ready = false
 
         if(walletno && amount) ready = true
@@ -117,11 +143,15 @@ class Scrn extends React.Component {
 
                     <Spacer />
                     
-                    <Button disabled={!ready} t={Consts.tcn[type].submit_text} onPress={this.handleSendMoney} />
+                    <Button disabled={!ready} t={Consts.tcn[type].submit_text} onPress={this.handleSendMoney} loading={processing} />
                 </Footer>
             </>
         )
     }
 }
 
-export default Scrn
+const mapStateToProps = state => ({
+    user: state.user.data
+})
+
+export default connect(mapStateToProps)(Scrn)

@@ -28,8 +28,13 @@ export default class Scrn extends React.Component {
     handleProceed = async () => {
         try {
             let {list} = this.state
+            let reasons = []
 
-            this.props.navigation.navigate('EditMyName')
+            list.map(l => {
+                if(l.checked) reasons.push(l.label)
+            })
+
+            if(reasons.length > 0) this.props.navigation.navigate('EditMyName',{reasons})
         }
         catch(err) {
             Say.err(_('500'))

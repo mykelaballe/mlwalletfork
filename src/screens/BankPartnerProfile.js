@@ -1,6 +1,7 @@
 import React from 'react'
 import {TouchableOpacity} from 'react-native'
 import {connect} from 'react-redux'
+import {Creators} from '../actions'
 import {Screen, Footer, Button, StaticInput, HeaderRight, Prompt} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
@@ -47,6 +48,18 @@ class Scrn extends React.Component {
         })
     }
 
+    componentDidUpdate = (prevProps, prevState) => {
+        const {newProp} = this.props
+        if(newProp) {
+            this.props.navigation.setParams({
+                bank:{
+                    ...this.props.navigation.state.params.bank,
+                    ...newProp
+                }
+            })
+        }
+    }
+
     handleToggleMenu = () => {
         let {menuOpen} = this.props.navigation.state.params
 
@@ -57,9 +70,9 @@ class Scrn extends React.Component {
 
     handleEdit = () => {
         const {navigate, state} = this.props.navigation
-        const {bank} = state.params
+        const {index, bank} = state.params
         this.handleToggleMenu()
-        navigate('UpdateBankPartner',{bank})
+        navigate('UpdateBankPartner',{index, bank})
     }
 
     handleDelete = () => {
@@ -72,6 +85,7 @@ class Scrn extends React.Component {
         const {index, bank} = this.props.navigation.state.params
         this.handleCloseModal()
         try {
+            this.props.deletePartner(index)
             API.deleteBankPartner({
                 walletno,
                 partnersid:bank.old_partnersid,
@@ -134,7 +148,12 @@ class Scrn extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    user: state.user.data
+    user: state.user.data,
+    ...state.bankTransfer
 })
 
-export default connect(mapStateToProps)(Scrn)
+const mapDispatchToProps = dispatch => ({
+    deletePartner:deletedIndex => dispatch(Creators.deleteBankPartner(deletedIndex))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

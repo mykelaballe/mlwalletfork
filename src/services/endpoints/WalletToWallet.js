@@ -1,6 +1,13 @@
 import Fetch from '../../utils/Fetch'
 
 export default {
+    sendWalletToWalletValidate: async payload => {
+        return {
+            error:false
+        }
+        return await Fetch.post('sendout/wallettowallet/validate',payload)
+    },
+
     sendWalletToWallet: async payload => {
         return {
             error:false

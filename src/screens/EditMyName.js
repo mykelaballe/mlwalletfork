@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {Screen, Footer, Headline, TextInput, Button, Checkbox, Picker, Prompt} from '../components'
 import {Metrics} from '../themes'
 import {_, Say} from '../utils'
+import {API} from '../services'
 
 class Scrn extends React.Component {
 
@@ -62,6 +63,8 @@ class Scrn extends React.Component {
 
     handleSubmit = async () => {
         try {
+            const {walletno} = this.props.user
+            const {reasons} = this.props.navigation.state.params
             let {fname, mname, lname, suffix, other_suffix, processing} = this.state
 
             if(processing) return false
@@ -78,28 +81,27 @@ class Scrn extends React.Component {
 
             if(!fname || !mname || !lname || !suffix) Say.some(_('8'))
             else {
-
-                let payload = {
-                    fname,
-                    mname,
-                    lname,
-                    suffix
-                }
     
-                //await API.addNewReceiver(payload)
-
-                this.setState({
-                    processing:false,
-                    showSuccessModal:true
+                let res = await API.requestUpdateProfile({
+                    walletno,
+                    firstname:fname,
+                    middlename:mname,
+                    lastname:lname,
+                    suffix,
+                    reasons
                 })
-            }
 
-            this.setState({processing:false})
+                if(res.error) Say.some(res.message)
+                else {
+                    this.setState({showSuccessModal:true})
+                }
+            }
         }
         catch(err) {
-            this.setState({processing:false})
             Say.err(_('500'))
         }
+
+        this.setState({processing:false})
     }
 
     handleCloseModal = () => this.setState({showSuccessModal:false})

@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import Actions from '../actions/Creators'
+import {Creators} from '../actions'
 import {Screen, Button, TextInput, Footer} from '../components'
 import {_, Say} from '../utils'
 import {API} from '../services'
@@ -31,7 +31,7 @@ class Scrn extends React.Component {
     handleSubmit = async () => {
         try {
             const {walletno} = this.props.user
-            const {old_partnersid, old_account_no, old_account_name} = this.props.navigation.state.params.bank
+            const {index, bank: {old_partnersid, old_account_no, old_account_name}} = this.props.navigation.state.params
             let {bankname, account_name, account_no, processing} = this.state
 
             if(processing) return false
@@ -59,8 +59,14 @@ class Scrn extends React.Component {
 
                 if(res.error) Say.some(res.message)
                 else {
+                    this.props.updatePartner(index, {
+                        bankname,
+                        account_name,
+                        account_no,
+                        old_account_name:account_name,
+                        old_account_no:account_no
+                    })
                     Say.some('Bank Partner successfully updated')
-                    this.props.navigation.pop()
                 }
             }
         }
@@ -122,4 +128,8 @@ const mapStateToProps = state => ({
     user: state.user.data
 })
 
-export default connect(mapStateToProps)(Scrn)
+const mapDispatchToProps = dispatch => ({
+    updatePartner:(partnerIndex, newProp) => dispatch(Creators.updateBankPartner(partnerIndex, newProp))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

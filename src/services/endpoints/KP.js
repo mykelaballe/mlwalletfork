@@ -1,6 +1,13 @@
 import Fetch from '../../utils/Fetch'
 
 export default {
+    sendKPValidate: async payload => {
+        return {
+            error:false
+        }
+        return await Fetch.post('kp/validate',payload)
+    },
+
     sendKP: async payload => {
         return {
             error:false

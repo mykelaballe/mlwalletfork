@@ -52,13 +52,12 @@ class Scrn extends React.Component {
                     cancellable:true
                 })
             }
-            else{
+            else {
                 Say.some(res.message)
             }
         }
         catch(err) {
-            alert(err)
-            Say.some(_('500'))
+            Say.err(_('500'))
         }
 
         this.setState({processing:false})

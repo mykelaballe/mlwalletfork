@@ -7,6 +7,8 @@ import NotificationReducer from './NotificationReducer'
 import UserReducer from './UserReducer'
 import WalletToWalletReducer from './WalletToWalletReducer'
 import KPReducer from './KPReducer'
+import BankTransferReducer from './BankTransferReducer'
+import ELoadReducer from './ELoadReducer'
 
 export default combineReducers({
     app: AppReducer,
@@ -17,6 +19,8 @@ export default combineReducers({
     notification: NotificationReducer,
     walletToWallet: WalletToWalletReducer,
     kp: KPReducer,
+    bankTransfer: BankTransferReducer,
+    eLoad: ELoadReducer
 })
 
 export const persistentStoreBlacklist = []

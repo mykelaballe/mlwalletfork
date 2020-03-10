@@ -1,6 +1,7 @@
 import React from 'react'
-import {Screen, Footer, Headline, TextInput, Button} from '../components'
 import {connect} from 'react-redux'
+import {Creators} from '../actions'
+import {Screen, Footer, Headline, TextInput, Button} from '../components'
 import {_, Say} from '../utils'
 import {API} from '../services'
 
@@ -54,6 +55,12 @@ class Scrn extends React.Component {
 
                 if(res.error) Say.some(res.message)
                 else {
+                    this.props.addPartner({
+                        ...res,
+                        ...payload,
+                        old_account_no:account_no,
+                        old_account_name:account_name
+                    })
                     Say.some('Bank Partner successfully added')
                     this.props.navigation.pop()
                 }
@@ -119,4 +126,8 @@ const mapStateToProps = state => ({
     user: state.user.data
 })
 
-export default connect(mapStateToProps)(Scrn)
+const mapDispatchToProps = dispatch => ({
+    addPartner:newPartner => dispatch(Creators.addBankPartner(newPartner))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

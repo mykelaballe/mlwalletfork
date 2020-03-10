@@ -8,8 +8,14 @@ import {_, Say, Consts} from '../utils'
 import {API} from '../services'
 import TouchID from 'react-native-touch-id'
 
+const TOUCHID_IGNORED_ERRORS = [
+    'USER_CANCELED',
+    'SYSTEM_CANCELED'
+]
+
 //config is optional to be passed in on Android
 const touchIDConfig = {
+    unifiedErrors:true,
     title: 'Fingerprint Login', // Android
     imageColor: Colors.dark, // Android,
     imageErrorColor: Colors.danger, //Android
@@ -58,19 +64,19 @@ class Scrn extends React.Component {
                     if(error === 'invalid_grant' || error === 'username_notexists' || error === 'wrong_password') {
                         Say.some(_('72'))
                     }
-                    /*else if(error === '1attempt_left') return
-                    else if(error === '2attempt_left') return
-                    else if(error === 'reach_maximum_attempts') return
-                    else if(error === 'block_account_1day') return
-                    else if(error === 'block_account') return*/
-                    //if(error === 'version_outofdate') Say.some()
+                    if(error === 'version_outofdate') Say.some(error_description)
                     else if(error === 'registered_anotherdevice') {
                         this.setState({
                             walletno:error_description,
                             showNewDeviceModal:true
                         })
                     }
-                    //else if(error === 'server_error') return
+                    else if(error === '1attempt_left') Say.some(error_description)
+                    else if(error === '2attempt_left') Say.some(error_description)
+                    else if(error === 'reach_maximum_attempts') Say.some(error_description)
+                    else if(error === 'block_account_1day') Say.some(error_description)
+                    else if(error === 'block_account') Say.some(error_description)
+                    //else if(error === 'server_error') throw new Error()
                 }
                 else {
                     this.props.setUser(res)
@@ -94,7 +100,9 @@ class Scrn extends React.Component {
                 login()
             })
             .catch(err => {
-                if(err) alert(err)
+                if(err && TOUCHID_IGNORED_ERRORS.indexOf(err.code) < 0) {
+                    alert(err.message)
+                }
             })
         }
         else {
@@ -129,11 +137,7 @@ class Scrn extends React.Component {
         })
     }
 
-    handleCloseModal = () => {
-        this.setState({
-            showNewDeviceModal:false
-        })
-    }
+    handleCloseModal = () => this.setState({showNewDeviceModal:false})
 
     render() {
 

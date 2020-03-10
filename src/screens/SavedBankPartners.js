@@ -1,6 +1,7 @@
 import React from 'react'
 import {View, StyleSheet, InteractionManager} from 'react-native'
 import {connect} from 'react-redux'
+import {Creators} from '../actions'
 import {Screen, Footer, FlatList, Initial, Text, Row, Button, Spacer, HR, Ripple} from '../components'
 import {Metrics} from '../themes'
 import {_, Say} from '../utils'
@@ -36,6 +37,33 @@ class Scrn extends React.Component {
     }
 
     componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
+
+    componentDidUpdate = (prevProps, prevState) => {
+        const {newPartner, partnerIndex, newProp, deletedIndex, addPartner, updatePartner, deletePartner} = this.props
+        if(newPartner) {
+            addPartner(null)
+            let list = prevState.list.slice()
+            list.push(newPartner)
+            this.setState({list})
+        }
+
+        if(partnerIndex !== null && newProp) {
+            updatePartner(null, null)
+            let list = this.state.list.slice()
+            list[partnerIndex] = {
+                ...list[partnerIndex],
+                ...newProp
+            }
+            this.setState({list})
+        }
+
+        if(deletedIndex !== null) {
+            deletePartner(null)
+            let list = this.state.list.slice()
+            list.splice(deletedIndex,1)
+            this.setState({list})
+        }
+    }
 
     getData = async () => {
         const {walletno} = this.props.user
@@ -98,7 +126,14 @@ const style = StyleSheet.create({
 })
 
 const mapStateToProps = state => ({
-    user: state.user.data
+    user: state.user.data,
+    ...state.bankTransfer
 })
 
-export default connect(mapStateToProps)(Scrn)
+const mapDispatchToProps = dispatch => ({
+    addPartner:newPartner => dispatch(Creators.addBankPartner(newPartner)),
+    updatePartner:(partnerIndex, newProp) => dispatch(Creators.updateBankPartner(partnerIndex, newProp)),
+    deletePartner:deletedIndex => dispatch(Creators.deleteBankPartner(deletedIndex))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

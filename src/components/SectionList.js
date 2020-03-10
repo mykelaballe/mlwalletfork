@@ -1,7 +1,7 @@
 import React from 'react'
-import {ScrollView, StyleSheet, SectionList as List, RefreshControl} from 'react-native'
+import {ScrollView, StyleSheet, SectionList as List, RefreshControl, Image} from 'react-native'
 import {ActivityIndicator, Text} from './'
-import {Colors} from '../themes'
+import {Colors, Res} from '../themes'
 
 export default class SectionList extends React.Component {
 
@@ -24,8 +24,8 @@ export default class SectionList extends React.Component {
                 >
                     {placeholder &&
                     <>
-                        {placeholder.icon}
-                        <Text center lg>{placeholder.text}</Text>
+                        {placeholder.icon || <Image source={Res.placeholder.empty} resizeMode='contain' style={style.img} />}
+                        <Text center md mute>{placeholder.text || 'No Data'}</Text>
                     </>
                     }
                 </ScrollView>

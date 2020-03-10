@@ -20,7 +20,7 @@ export default props => {
     }
 
     return (
-        <KeyboardAwareScrollView style={style}>
+        <KeyboardAwareScrollView style={style} showsVerticalScrollIndicator={false}>
                 {props.children}
         </KeyboardAwareScrollView>
     )

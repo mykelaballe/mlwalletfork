@@ -28,51 +28,6 @@ export default {
         }
         
         return Object.values(data)
-
-        return [
-            {
-                letter:'A',
-                data:[
-                    {
-                        id:1,
-                        name:'A2M Global Distribution Inc.',
-                    },
-                    {
-                        id:2,
-                        name:'ABOEX Travel and Tours'
-                    },
-                    {
-                        id:3,
-                        name:'AT Service Limited'
-                    }
-                ]
-            },
-            {
-                letter:'B',
-                data:[
-                    {
-                        id:4,
-                        name:'BDMPC',
-                    },
-                    {
-                        id:5,
-                        name:'BIGSTART Travel and VISA Assistance'
-                    },
-                    {
-                        id:6,
-                        name:'Bohol Lights Inc.'
-                    },
-                    {
-                        id:7,
-                        name:'BPI'
-                    },
-                    {
-                        id:8,
-                        name:'Buenavista CATV Inc.'
-                    }
-                ]
-            },
-        ]
     },
 
     getFavoriteBillers: async payload => {

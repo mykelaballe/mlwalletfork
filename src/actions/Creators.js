@@ -68,6 +68,22 @@ import Types from './Types'
  const updateKPReceiver = (receiverIndex, newProp) => ({ type: Types.UPDATE_KP_RECEIVER, receiverIndex, newProp})
  const deleteKPReceiver = deletedIndex => ({ type: Types.DELETE_KP_RECEIVER, deletedIndex })
 
+ /*----------------------------------------------------------------------
+ BANK TRANSFER
+ ----------------------------------------------------------------------*/
+
+ const addBankPartner = newPartner => ({ type: Types.ADD_BANK_PARTNER, newPartner })
+ const updateBankPartner = (partnerIndex, newProp) => ({ type: Types.UPDATE_BANK_PARTNER, partnerIndex, newProp})
+ const deleteBankPartner = deletedIndex => ({ type: Types.DELETE_BANK_PARTNER, deletedIndex })
+
+ /*----------------------------------------------------------------------
+ ELOAD
+ ----------------------------------------------------------------------*/
+
+ const addELoadReceiver = newReceiver => ({ type: Types.ADD_ELOAD_RECEIVER, newReceiver })
+ const updateELoadReceiver = (receiverIndex, newProp) => ({ type: Types.UPDATE_ELOAD_RECEIVER, receiverIndex, newProp})
+ const deleteELoadReceiver = deletedIndex => ({ type: Types.DELETE_ELOAD_RECEIVER, deletedIndex })
+
 export default {
   startup,
 
@@ -85,6 +101,14 @@ export default {
   addKPReceiver,
   updateKPReceiver,
   deleteKPReceiver,
+
+  addBankPartner,
+  updateBankPartner,
+  deleteBankPartner,
+
+  addELoadReceiver,
+  updateELoadReceiver,
+  deleteELoadReceiver,
 
   login,
   logout,

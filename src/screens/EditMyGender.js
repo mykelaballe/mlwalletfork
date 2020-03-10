@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Screen, Footer, Headline, Text, Button, Prompt, Radio, Spacer, Row} from '../components'
 import {_, Say} from '../utils'
+import {API} from '../services'
 import {RadioButton} from 'react-native-paper'
 
 class Scrn extends React.Component {
@@ -20,29 +21,28 @@ class Scrn extends React.Component {
 
     handleSubmit = async () => {
         try {
+            const {walletno} = this.props.user
             let {gender, processing} = this.state
 
             if(processing) return false
 
             this.setState({processing:true})
 
-            let payload = {
+            let res = await API.requestUpdateProfile({
+                walletno,
                 gender
-            }
-
-            //await API.addNewReceiver(payload)
-
-            this.setState({
-                processing:false,
-                showSuccessModal:true
             })
 
-            this.setState({processing:false})
+            if(res.error) Say.some(res.message)
+            else {
+                this.setState({showSuccessModal:true})
+            }
         }
         catch(err) {
-            this.setState({processing:false})
             Say.err(_('500'))
         }
+
+        this.setState({processing:false})
     }
 
     handleCloseModal = () => this.setState({showSuccessModal:false})

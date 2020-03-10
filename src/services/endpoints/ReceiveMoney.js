@@ -1,3 +1,5 @@
+import Fetch from '../../utils/Fetch'
+
 export default {
     receiveMoneyDomestic: async payload => {
         return {

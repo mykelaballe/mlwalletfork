@@ -6,6 +6,7 @@ import WalletToWallet from './endpoints/WalletToWallet'
 import KP from './endpoints/KP'
 import BankTransfer from './endpoints/BankTransfer'
 import ReceiveMoney from './endpoints/ReceiveMoney'
+import WithdrawCash from './endpoints/WithdrawCash'
 import Bills from './endpoints/Bills'
 import ELoad from './endpoints/ELoad'
 
@@ -57,11 +58,7 @@ export default {
     },
 
     register: async payload => {
-        return {
-            walletno:'14874',
-            error:false
-        }
-        return Fetch.post('',payload)
+        return await Fetch.post('wallet/registration',payload)
     },
 
     forgotPassword: async payload => await Fetch.put('forgotPassword',payload),
@@ -78,44 +75,14 @@ export default {
     ...KP,
     ...BankTransfer,
     ...ReceiveMoney,
+    ...WithdrawCash,
     ...Bills,
     ...ELoad,
 
     ...OTP,
     ...User,
 
-    getPartners: async () => {
-        let data = {}
-        let res = await Fetch.get('banks')
-
-        if(res.data) {
-            for(let d in res.data) {
-                let letter = res.data[d].bank_name[0]
-
-                if(typeof data[letter] === 'undefined') {
-                    data[letter] = {
-                        letter,
-                        data:[]
-                    }
-                }
-
-                data[letter].data.push(res.data[d])
-            }
-        }
-        
-        return Object.values(data)
-    },
-
     checkBalance: async () => await Fetch.get('checkBalance'),
-
-    withdrawCashValidate: async payload => {
-        return await Fetch.post('withdrawcash/validate',payload)
-    },
-
-    withdrawCash: async payload => {
-        return {error:false}
-        return await Fetch.post('withdrawcash/validate',payload)
-    },
 
     getRates: async () => await Fetch.get('getchargevalues'),
 

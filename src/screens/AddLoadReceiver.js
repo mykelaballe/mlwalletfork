@@ -1,12 +1,13 @@
 import React from 'react'
 import {View, StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
+import {Creators} from '../actions'
 import {TextInput, Button} from '../components'
 import {Metrics} from '../themes'
 import {_, Say} from '../utils'
 import {API} from '../services'
 
-class AddLoadReceiver extends React.Component {
+class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Add New Receiver'
@@ -21,6 +22,8 @@ class AddLoadReceiver extends React.Component {
     handleChangeFullName = fullname => this.setState({fullname})
 
     handleChangeContactNo = contact_no => this.setState({contact_no})
+
+    handleFocusFullName = () => this.refs.fullname.focus()
 
     handleSubmit = async () => {
         try {
@@ -37,8 +40,6 @@ class AddLoadReceiver extends React.Component {
             if(!fullname || !contact_no) Say.some(_('8'))
             else {
 
-                alert(walletno + '\n' + fullname + '\n' + contact_no)
-
                 let payload = {
                     _walletno:walletno,
                     _fullname:fullname,
@@ -47,13 +48,21 @@ class AddLoadReceiver extends React.Component {
     
                 let res = await API.addELoadReceiver(payload)
 
-                alert(res.message)
-
-                this.props.navigation.pop()
+                if(!res.error) {
+                    this.props.addReceiver({
+                        ...res,
+                        fullname,
+                        contact_no
+                    })
+                    Say.some('New ELoad receiver successfully added')
+                    this.props.navigation.pop()
+                }
+                else {
+                    Say.some(res.message)
+                }
             }
         }
         catch(err) {
-            alert(err)
             Say.err(_('500'))
         }
 
@@ -70,13 +79,17 @@ class AddLoadReceiver extends React.Component {
         return (
             <View style={style.container}>
                 <TextInput
+                    ref='contact_no'
                     label='Contact No.'
                     value={contact_no}
                     onChangeText={this.handleChangeContactNo}
+                    onSubmitEditing={this.handleFocusFullName}
                     keyboardType='numeric'
+                    returnKeyType='next'
                 />
 
                 <TextInput
+                    ref='fullname'
                     label='Full Name'
                     value={fullname}
                     onChangeText={this.handleChangeFullName}
@@ -106,4 +119,8 @@ const mapStateToProps = state => ({
     user: state.user.data
 })
 
-export default connect(mapStateToProps)(AddLoadReceiver)
+const mapDispatchToProps = dispatch => ({
+    addReceiver:newReceiver => dispatch(Creators.addELoadReceiver(newReceiver))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

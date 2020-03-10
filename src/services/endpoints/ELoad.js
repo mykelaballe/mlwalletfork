@@ -9,11 +9,15 @@ export default {
     },
 
     getELoadReceivers: async walletno => {
+        /*return [
+            {
+                fullname:'John Smith',
+                contact_no:'0912345678'
+            }
+        ]*/
         let res = await Fetch.post(`getLoadReciever`,{
             _walletno:walletno
         })
-
-        alert(res.message + '\n' + res.data.length + '\n' + walletno)
 
         return res.data || []
     },
