@@ -49,7 +49,7 @@ export default {
                 mobile_no:res.mobileno,
                 email:res.emailaddress,
                 zip_code:res.zipcode,
-                source_of_income:res.sourceofincome,
+                source_of_income:res.sourceofincome
             }
             await Storage.doSave(Consts.db.user, {...res})
         }

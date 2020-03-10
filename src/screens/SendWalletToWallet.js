@@ -67,7 +67,7 @@ class Scrn extends React.Component {
                 amount:total
             })
 
-            if(!res.error) {
+            if(res.respcode === 1) {
                 this.props.navigation.navigate('TransactionReview',{
                     ...params,
                     transaction: {
@@ -77,7 +77,7 @@ class Scrn extends React.Component {
                 })
             }
             else {
-                Say.some(res.message)
+                Say.some(res.respmessage)
             }
         }
         catch(err) {

@@ -52,10 +52,10 @@ class Scrn extends React.Component {
                 deviceId:Consts.deviceId,
                 location:'Philippines',
                 devicetype:Consts.deviceType,
-                version:8//Consts.appVersion
+                version:Consts.appVersion
             }
 
-            if(username == '' || password == '') Say.some(_('8'))
+            if(!username || !password) Say.some(_('8'))
             else {
                 let res = await API.login(payload)
                 const {error,error_description} = res
@@ -76,7 +76,7 @@ class Scrn extends React.Component {
                             showNewDeviceModal:true
                         })
                     }
-                    //else if(error === 'server_error') throw new Error()
+                    else if(error === 'server_error') throw new Error()
                 }
                 else {
                     this.props.setUser(res)

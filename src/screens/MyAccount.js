@@ -38,7 +38,7 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {walletno, fname, mname, lname, suffix, email, country, province, city, barangay, mobile_no} = this.props.user
+        const {walletno, fname, mname, lname, suffix, email, country, province, city, barangay, mobile_no, status} = this.props.user
         const {avatar, verification_level, showWarning} = this.state
 
         return (
@@ -65,7 +65,9 @@ class Scrn extends React.Component {
 
                         <Spacer />
 
+                        {status == 0 &&
                         <Button t='Get Fully Verified Now' mode='outlined' onPress={this.handleGoToVerificationLevels} />
+                        }
 
                     </View>
 

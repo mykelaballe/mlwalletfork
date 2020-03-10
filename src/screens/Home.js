@@ -104,12 +104,12 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {level} = this.props.user
+        const {status} = this.props.user
         const {services, promo, loading} = this.state
 
         return (
             <>
-                {level === 0 &&
+                {status == 0 &&
                 <TouchableOpacity style={style.topBanner} onPress={this.handleViewVerificationLevels}>
                     <Text center>You are semi-verified. Tap to learn more.</Text>
                 </TouchableOpacity>

@@ -116,7 +116,7 @@ class Scrn extends React.Component {
                         loading={loading}
                         refreshing={refreshing}
                         onRefresh={this.handleRefresh}
-                        placeholder={{}}
+                        placeholder={{text:'No KP receivers found'}}
                     />
                 </Screen>
 

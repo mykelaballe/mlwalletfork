@@ -26,20 +26,19 @@ class Scrn extends React.Component {
         const {avatar, username} = this.state
 
         return (
-            <>
-                <ScrollView>
-                    <TopBuffer sm />
+            <ScrollView>
+                <TopBuffer sm />
 
-                    <View style={style.topContainer}>
-                        <Avatar source={avatar} size={Metrics.image.lg} />
-                        <Text b lg center mute>{fname} {lname}</Text>
+                <View style={style.topContainer}>
+                    <Avatar source={avatar} size={Metrics.image.lg} />
+                    <Text b lg center mute>{fname} {lname}</Text>
 
-                        <Spacer />
+                    <Spacer />
 
-                        <Button mode='outlined' icon='pencil' t='Edit Profile' onPress={this.handleEditProfile} />
-                    </View>
+                    <Button mode='outlined' icon='pencil' t='Edit Profile' onPress={this.handleEditProfile} />
+                </View>
 
-                    <View style={{padding:Metrics.md}}>
+                <View style={{padding:Metrics.md}}>
                     <Outline>
                         <Text sm mute>Username</Text>
                         <Text>{username}</Text>
@@ -112,9 +111,8 @@ class Scrn extends React.Component {
                         <Text sm mute>Zip Code</Text>
                         <Text>{zip_code}</Text>
                     </Outline>
-                    </View>
-                </ScrollView>
-            </>
+                </View>
+            </ScrollView>
         )
     }
 }

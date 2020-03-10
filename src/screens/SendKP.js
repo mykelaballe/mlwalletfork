@@ -43,7 +43,7 @@ class Scrn extends React.Component {
     handleAddNewReceiver = () => this.props.navigation.navigate('SavedKPReceivers')
 
     handleSendMoney = async () => {
-        const {amount, total, processing} = this.state
+        const {receiver, amount, total, processing} = this.state
         const {params} = this.props.navigation.state
 
         if(processing) return false
@@ -53,7 +53,7 @@ class Scrn extends React.Component {
 
             let res = await API.sendKPValidate({
                 walletno:this.props.user.walletno,
-                amount:total
+                principal:total
             })
 
             if(!res.error) {

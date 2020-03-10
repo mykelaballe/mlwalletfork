@@ -67,7 +67,7 @@ class Scrn extends React.Component {
     handleRequestAgain = () => this.setState({reprocessing:true},this.submit)
 
     submit = async () => {
-        const {username, password, firstname, middlename, lastname, suffix, birthday, email, nationality, source_of_income, house, street, country, province, city, barangay, zip_code, ids, question1, answer1, question2, answer2, question3, answer3, mobile_no} = this.props.navigation.state.params
+        const {username, password, firstname, middlename, lastname, suffix, gender, birthday, email, nationality, source_of_income, house, street, country, province, city, barangay, zip_code, ids, question1, answer1, question2, answer2, question3, answer3, mobile_no} = this.props.navigation.state.params
         const {digit1, digit2, digit3, digit4, digit5, digit6, processing, reprocessing} = this.state
 
         try {
@@ -90,6 +90,7 @@ class Scrn extends React.Component {
                         mname:middlename,
                         lname:lastname,
                         suffix,
+                        gender:gender == 'Male' ? 'M' : 'F',
                         bdate:birthday,
                         emailadd:email,
                         nationality,
@@ -119,7 +120,7 @@ class Scrn extends React.Component {
                     if(!res.error) {
                         this.props.navigation.navigate('SignUpSuccess',{
                             ...payload,
-                            ...res
+                            ...res.data
                         })
                     }
                     else {
