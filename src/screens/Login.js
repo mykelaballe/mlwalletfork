@@ -49,10 +49,7 @@ class Scrn extends React.Component {
                 password,
                 latitude:'1',
                 longitude:'1',
-                deviceId:Consts.deviceId,
-                location:'Philippines',
-                devicetype:Consts.deviceType,
-                version:Consts.appVersion
+                location:'Philippines'
             }
 
             if(!username || !password) Say.some(_('8'))

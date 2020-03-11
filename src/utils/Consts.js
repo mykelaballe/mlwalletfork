@@ -5,7 +5,7 @@ export default {
 	deviceId:DeviceInfo.getDeviceId(),
 	deviceType:null,//DeviceInfo.getDeviceType().then(deviceType => deviceType),
 	appName:DeviceInfo.getApplicationName(),
-	appVersion:DeviceInfo.getVersion(),
+	appVersion:8,//DeviceInfo.getVersion(),
 	db:{
 		app:'AppDB',
 		user:'UserDB'

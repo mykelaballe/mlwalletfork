@@ -40,6 +40,9 @@ export default {
         }*/
         let res = await Fetch.post('login', {
             ...payload,
+            deviceId:Consts.deviceId,
+            devicetype:Consts.deviceType,
+            version:Consts.appVersion,
             grant_type:'password'
         })
 
@@ -58,7 +61,11 @@ export default {
     },
 
     register: async payload => {
-        return await Fetch.post('wallet/registration',payload)
+        return await Fetch.post('wallet/registration',{
+            ...payload,
+            deviceId:Consts.deviceId,
+            version:Consts.appVersion,
+        })
     },
 
     forgotPassword: async payload => await Fetch.put('forgotPassword',payload),
