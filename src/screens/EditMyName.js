@@ -148,7 +148,7 @@ class Scrn extends React.Component {
                     <Checkbox
                         status={!has_middlename}
                         onPress={this.handleToggleHasMiddlename}
-                        label="I prefer not to indicate my receiver's middle name"
+                        label='I have no middle name'
                         labelStyle={{fontSize:Metrics.font.sm}}
                     />
 

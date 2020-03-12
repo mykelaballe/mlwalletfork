@@ -14,7 +14,7 @@ const moment = require('moment')
 class Scrn extends React.Component {
 
     static navigationOptions = {
-        title:'Deposit Money'
+        title:'Add Money'
     }
 
     state = {

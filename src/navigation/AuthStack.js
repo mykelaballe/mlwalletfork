@@ -13,6 +13,14 @@ export default createStackNavigator({
         screen:Scrn.SignUpScrn,
         navigationOptions:AppStyles.noHeaderNavigationOptions
     },
+    SignUpUsername: {
+        screen:Scrn.SignUpUsernameScrn,
+        navigationOptions:AppStyles.noHeaderNavigationOptions
+    },
+    SignUpPassword: {
+        screen:Scrn.SignUpPasswordScrn,
+        navigationOptions:AppStyles.noHeaderNavigationOptions
+    },
     SignUpStep1: Scrn.SignUpStep1Scrn,
     SignUpStep2: Scrn.SignUpStep2Scrn,
     SignUpStep3: Scrn.SignUpStep3Scrn,

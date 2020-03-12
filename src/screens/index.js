@@ -1,6 +1,8 @@
 import AuthIndexScrn from './AuthIndex'
 import LoginScrn from './Login'
 import SignUpScrn from './SignUp'
+import SignUpUsernameScrn from './SignUpUsername'
+import SignUpPasswordScrn from './SignUpPassword'
 import SignUpStep1Scrn from './SignUpStep1'
 import SignUpStep2Scrn from './SignUpStep2'
 import SignUpStep3Scrn from './SignUpStep3'
@@ -29,9 +31,10 @@ import PayBillsOnBoardingScrn from './PayBillsOnBoarding'
 import BuyLoadOnBoardingScrn from './BuyLoadOnBoarding'
 
 //deposit money
-import DepositMoneyIndexScrn from './DepositMoneyIndex'
+import AddMoneyIndexScrn from './AddMoneyIndex'
+import AddMoneyBranchScrn from './AddMoneyBranch'
 import DepositMoneyScrn from './DepositMoney'
-import DepositMoneyFormScrn from './DepositMoneyForm'
+import AddMoneyFormScrn from './AddMoneyForm'
 
 //send wallet to wallet
 import SendWalletToWalletScrn from './SendWalletToWallet'
@@ -100,10 +103,15 @@ import EditMyNameScrn from './EditMyName'
 import EditMyBirthdayIndexScrn from './EditMyBirthdayIndex'
 import EditMyBirthdayScrn from './EditMyBirthday'
 import EditMyGenderScrn from './EditMyGender'
+import EditMyMobileNoIndexScrn from './EditMyMobileNoIndex'
+import EditMyMobileNoScrn from './EditMyMobileNo'
+import EditMyEmailIndexScrn from './EditMyEmailIndex'
+import EditMyEmailScrn from './EditMyEmail'
 import EditMyOtherDetailsScrn from './EditMyOtherDetails'
 import EditProfileScrn from './EditProfile'
 import VerificationLevelsScrn from './VerificationLevels'
 import MyQRScrn from './MyQR'
+import MyPointsScrn from './MyPoints'
 import LoginSecurityScrn from './LoginSecurity'
 import ChangePasswordScrn from './ChangePassword'
 
@@ -119,6 +127,8 @@ export {
     AuthIndexScrn,
     LoginScrn,
     SignUpScrn,
+    SignUpUsernameScrn,
+    SignUpPasswordScrn,
     SignUpStep1Scrn,
     SignUpStep2Scrn,
     SignUpStep3Scrn,
@@ -146,9 +156,10 @@ export {
     PayBillsOnBoardingScrn,
     BuyLoadOnBoardingScrn,
 
-    DepositMoneyIndexScrn,
+    AddMoneyIndexScrn,
+    AddMoneyBranchScrn,
     DepositMoneyScrn,
-    DepositMoneyFormScrn,
+    AddMoneyFormScrn,
 
     SendWalletToWalletScrn,
     SavedWalletReceiversScrn,
@@ -212,10 +223,15 @@ export {
     EditMyBirthdayIndexScrn,
     EditMyBirthdayScrn,
     EditMyGenderScrn,
+    EditMyMobileNoIndexScrn,
+    EditMyMobileNoScrn,
+    EditMyEmailIndexScrn,
+    EditMyEmailScrn,
     EditMyOtherDetailsScrn,
     EditProfileScrn,
     VerificationLevelsScrn,
     MyQRScrn,
+    MyPointsScrn,
     LoginSecurityScrn,
     ChangePasswordScrn,
 

@@ -1,7 +1,6 @@
 import React from 'react'
-import {TouchableOpacity} from 'react-native'
 import {connect} from 'react-redux'
-import {Screen, Footer, Headline, Text, Spacer, Button, ButtonText, TextInput, Icon, View, HeaderRight} from '../components'
+import {Screen, Footer, Text, Row, Spacer, Button, ButtonText, TextInput, Icon, View, HeaderRight, UsePointsCheckbox} from '../components'
 import {_, Consts, Func, Say} from '../utils'
 import {Colors} from '../themes'
 import {API} from '../services'
@@ -24,6 +23,7 @@ class Scrn extends React.Component {
         notes:'',
         charges:'25',
         total:'',
+        points:'0',
         processing:false
     }
 
@@ -53,6 +53,8 @@ class Scrn extends React.Component {
 
     handleAddNewReceiver = () => this.props.navigation.navigate('SavedWalletReceivers')
 
+    handleChangePoints = points => this.setState({points})
+
     handleSendMoney = async () => {
         const {amount, total, processing} = this.state
         const {params} = this.props.navigation.state
@@ -81,7 +83,6 @@ class Scrn extends React.Component {
             }
         }
         catch(err) {
-            alert(err)
             Say.err(_('500'))
         }
 
@@ -91,7 +92,7 @@ class Scrn extends React.Component {
     render() {
 
         const {type} = this.props.navigation.state.params
-        const {walletno, receiver, amount, notes, charges, total, processing} = this.state
+        const {walletno, receiver, amount, notes, charges, total, points, processing} = this.state
         let ready = false
 
         if(walletno && amount) ready = true
@@ -99,19 +100,17 @@ class Scrn extends React.Component {
         return (
             <>
                 <Screen>
-                    {/*<Headline subtext='Send Money to an ML Wallet Account' />*/}
+
                     <View style={{alignItems:'flex-end'}}>
                         <ButtonText color={Colors.brand} icon='plus' t='Add Receiver' onPress={this.handleAddNewReceiver} />
                     </View>
 
-                    {/*<TouchableOpacity onPress={this.handleAddNewReceiver}>*/}
-                        <TextInput
-                            disabled
-                            label='Receiver'
-                            value={walletno}
-                            rightContent={<Icon name='user_plus' size={20} />}
-                        />
-                    {/*</TouchableOpacity>*/}
+                    <TextInput
+                        disabled
+                        label='Receiver'
+                        value={walletno}
+                        rightContent={<Icon name='user_plus' size={20} />}
+                    />
 
                     <TextInput
                         ref='amount'
@@ -134,8 +133,14 @@ class Scrn extends React.Component {
                 </Screen>
 
                 <Footer>
-                    <Text mute>Charges</Text>
-                    <Text md>PHP {Func.formatToCurrency(charges)}</Text>
+                    <Row bw>
+                        <View>
+                            <Text mute>Charges</Text>
+                            <Text md>PHP {Func.formatToCurrency(charges)}</Text>
+                        </View>
+
+                        <UsePointsCheckbox onChange={this.handleChangePoints} />
+                    </Row>
 
                     <Spacer />
 

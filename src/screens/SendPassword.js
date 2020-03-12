@@ -21,6 +21,8 @@ export default class Scrn extends React.Component {
             const {wallet_no} = this.props.navigation.state.params
             let {email, sms, processing} = this.state
 
+            alert(wallet_no);return false
+
             if(processing) return
 
             this.setState({processing:true})

@@ -6,7 +6,7 @@ import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
 
 const {width} = Dimensions.get('window')
-const ITEM_WIDTH = (width / 3) - (Metrics.xl)
+const ITEM_WIDTH = (width / 4) - (Metrics.xl)
 const ITEM_HEIGHT = 130
 
 class Scrn extends React.Component {
@@ -18,6 +18,11 @@ class Scrn extends React.Component {
 
     state = {
         services:[
+            {
+                icon:'send_money',
+                label:'Add\nMoney',
+                onPress:() => this.handleGoToAddMoney()
+            },
             {
                 icon:'send_money',
                 label:'Send\nMoney',
@@ -35,17 +40,17 @@ class Scrn extends React.Component {
             },
             {
                 icon:'pay_bills',
-                label:'Pay Bills',
+                label:'Pay\nBills',
                 onPress:() => this.handleGoToPayBills()
             },
             {
                 icon:'buy_load',
-                label:'Buy eLoad',
+                label:'Buy\neLoad',
                 onPress:() => this.handleGoToBuyLoad()
             },
             {
                 icon:'buy_items',
-                label:'Buy Items',
+                label:'Buy\nItems',
                 onPress:() => this.handleGoToBuyItems()
             },
         ],
@@ -58,6 +63,11 @@ class Scrn extends React.Component {
 
     getData = async () => {
 
+    }
+
+    handleGoToAddMoney = () => {
+        const {navigation: {navigate}} = this.props
+        navigate('AddMoneyIndex')
     }
 
     handleGoToSendMoney = () => {
@@ -122,7 +132,8 @@ class Scrn extends React.Component {
                 <FlatList
                     data={services}
                     renderItem={this.renderServices}
-                    numColumns={3}
+                    numColumns={4}
+                    columnWrapperStyle={{justifyContent:'center'}}
                 />
 
                 <Spacer />

@@ -8,14 +8,14 @@ import Icon from 'react-native-vector-icons/Feather'
 class Scrn extends React.Component {
 
     static navigationOptions = {
-        title:'Deposit Money'
+        title:'Add Money'
     }
 
     handleUseQR = () => this.props.navigation.navigate('MyQR')
 
-    handleUseForm = () => this.props.navigation.navigate('')
+    handleUseForm = () => this.props.navigation.navigate('AddMoneyForm')
 
-    handleLocateBranch = () => this.props.navigation.navigate('')
+    handleLocateBranch = () => this.props.navigation.navigate('Locator')
 
     render() {
 

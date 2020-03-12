@@ -15,7 +15,7 @@ import User from './endpoints/User'
 
 export default {
     login: async payload => {
-        /*return {
+        return {
             fname:'John',
             mname:'F',
             lname:'Smith',
@@ -34,10 +34,14 @@ export default {
             zip_code:'6000',
             mobile_no:'09326118146',
             walletno:'14040000000020',
-            balance:'1000',
+            secquestion1:'What was the name of your first pet?',
+            secquestion2:'What elementary school did you attend in Grade 6?',
+            secquestion3:'What is the name of your childhood bestfriend?',
+            balance:'50000',
+            points:35,
             level:0,
             error:payload.username == 'newphone' ? 'registered_anotherdevice' : null
-        }*/
+        }
         let res = await Fetch.post('login', {
             ...payload,
             deviceId:Consts.deviceId,
@@ -68,15 +72,15 @@ export default {
         })
     },
 
-    forgotPassword: async payload => await Fetch.put('forgotPassword',payload),
+    forgotPassword: async payload => {return {error:false}},//await Fetch.put('forgotPassword',payload),
 
     checkVersion: async () => await Fetch.get(''),
 
-    updateDevice: async payload => await Fetch.put('updateDevice',{username:payload.username, deviceid:Consts.deviceId}),
+    updateDevice: async payload => {return {error:false,message:'Success'}},//await Fetch.put('updateDevice',{username:payload.username, deviceid:Consts.deviceId}),
 
-    validateUsername: async username => await Fetch.post('validateUsername',{username}),
+    validateUsername: async username => {return {error:false,message:'Success'}},//await Fetch.post('validateUsername',{username}),
 
-    validateSecurityQuestion: async payload => await Fetch.post('validateSecurityQuestion',payload),
+    validateSecurityQuestion: async payload => {return {error:false}},//await Fetch.post('validateSecurityQuestion',payload),
 
     ...WalletToWallet,
     ...KP,

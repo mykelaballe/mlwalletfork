@@ -62,7 +62,7 @@ class Scrn extends React.Component {
                 />
                 
                 <Screen>
-                    <Headline subtext='Please make sure to enter all the correct details' />
+                    <Headline subtext='Please select your gender' />
 
                     <Text md mute>Gender</Text>
                     <RadioButton.Group onValueChange={this.handleSelectGender} value={gender}>

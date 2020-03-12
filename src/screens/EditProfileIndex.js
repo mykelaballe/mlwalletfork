@@ -17,6 +17,10 @@ class Scrn extends React.Component {
 
     handleEditGender = () => this.props.navigation.navigate('EditMyGender')
 
+    handleEditMobileNo = () => this.props.navigation.navigate('EditMyMobileNoIndex')
+
+    handleEditEmail = () => this.props.navigation.navigate('EditMyEmailIndex')
+
     handleEditOtherDetails = () => this.props.navigation.navigate('EditMyOtherDetails')
 
     render() {
@@ -34,6 +38,8 @@ class Scrn extends React.Component {
                 <ButtonText t='Edit my name' onPress={this.handleEditName} labelStyle={style.btnLabel} />
                 <ButtonText t='Edit my birthday' onPress={this.handleEditBirthday} labelStyle={style.btnLabel} />
                 <ButtonText t='Edit my gender' onPress={this.handleEditGender} labelStyle={style.btnLabel} />
+                <ButtonText t='Edit my mobile number' onPress={this.handleEditMobileNo} labelStyle={style.btnLabel} />
+                <ButtonText t='Edit my email address' onPress={this.handleEditEmail} labelStyle={style.btnLabel} />
                 <ButtonText t='Edit other details' onPress={this.handleEditOtherDetails} labelStyle={style.btnLabel} />
             </Screen>
         )

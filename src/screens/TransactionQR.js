@@ -13,7 +13,7 @@ const moment = require('moment')
 class Scrn extends React.Component {
 
     static navigationOptions = {
-        title:'Withdraw Cash'
+        title:'Withdraw Money'
     }
 
     state = {

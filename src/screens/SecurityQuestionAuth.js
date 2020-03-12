@@ -1,6 +1,6 @@
 import React from 'react'
 import {Screen, Footer, Headline, Button, ButtonText, Spacer, TextInput} from '../components'
-import {_, Say} from '../utils'
+import {_, Say, Func} from '../utils'
 import {API} from '../services'
 
 import registered_questions from '../services/registered_security_questions'
@@ -21,7 +21,7 @@ export default class Scrn extends React.Component {
     componentDidMount = () => {
         const {params = {}} = this.props.navigation.state
         let type = 'registered'
-        let questions = registered_questions
+        let questions = params.questions || registered_questions
         let question = ''
 
         if(params.questionType) type = params.questionType
@@ -30,7 +30,7 @@ export default class Scrn extends React.Component {
         if(type === 'personal') questions = personal_questions
         else if(type === 'transactional') questions = transactional_questions
 
-        question = this.randomizeQuestion(questions)
+        question = Func.randomize(questions)
 
         this.setState({
             type,
@@ -49,8 +49,6 @@ export default class Scrn extends React.Component {
         }
     }
 
-    randomizeQuestion = questions => questions[parseInt(Math.random() * questions.length)]
-
     handleChangeAnswer = answer => this.setState({answer})
 
     handleNext = async () => {
@@ -64,7 +62,7 @@ export default class Scrn extends React.Component {
             
             answer = answer.trim()
 
-            if(answer == '') Say.some('Enter your answer')
+            if(!answer) Say.some('Enter your answer')
             else {
                 let payload = {
                     wallet_no:params.walletno,
@@ -88,7 +86,8 @@ export default class Scrn extends React.Component {
                             })
                         }
                         else {
-                            if(params.purpose && params.purpose == 'updateDevice') {
+                            if(params.func) params.func()
+                            /*if(params.purpose && params.purpose == 'updateDevice') {
                                 let updateDeviceRes = await API.updateDevice({
                                     username:params.username
                                 })
@@ -100,12 +99,13 @@ export default class Scrn extends React.Component {
                                 else {
                                     Say.some('Error registering new device')
                                 }
-                            }
+                            }*/
                         }
                     }
-                    else {
+                    else if(params.func) params.func()
+                    /*else {
                         this.props.navigation.navigate('SendPassword',{...payload})
-                    }
+                    }*/
                 }
             }
         }
@@ -116,10 +116,26 @@ export default class Scrn extends React.Component {
         this.setState({processing:false})
     }
 
-    handleChangeQuestion = () => this.props.navigation.navigate('SecurityQuestions',{
-        sourceRoute:this.props.navigation.state.routeName,
-        type:this.state.type
-    })
+    handleChangeQuestion = () => {
+        const {params = {}} = this.props.navigation.state
+        let questions = this.state.questions.slice()
+
+        if(params.questions) {
+            let n = Math.floor(Math.random() * (questions.length - 2))
+            let q = questions.splice(n,1)
+            questions.push(q)
+            this.setState({
+                questions,
+                question:questions[n]
+            })
+        }
+        else {
+            this.props.navigation.navigate('SecurityQuestions',{
+                sourceRoute:this.props.navigation.state.routeName,
+                type:this.state.type
+            })
+        }
+    }
 
     render() {
 

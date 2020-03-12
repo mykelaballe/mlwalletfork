@@ -74,8 +74,24 @@ const formatToCurrency = value => {
     return isNaN(value) ? '0.00' : value
 }
 
+const formatToRealCurrency = value => {
+    value += ''
+	x = value.split('.')
+	x1 = x[0]
+	x2 = x.length > 1 ? '.' + x[1] : ''
+	var rgx = /(\d+)(\d{3})/;
+	while (rgx.test(x1)) {
+		x1 = x1.replace(rgx, '$1' + ',' + '$2')
+	}
+	return x1 + x2
+}
+
+const randomize = list => list[Math.floor(Math.random() * list.length)]
+
 export default {
     validate,
     compute,
-    formatToCurrency
+    formatToCurrency,
+    formatToRealCurrency,
+    randomize
 }

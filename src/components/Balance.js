@@ -16,7 +16,7 @@ class Balance extends React.Component {
 
     handleToggle = () => this.setState(prevState => ({show:!prevState.show}))
 
-    handleDeposit = () => this.props.navigation.navigate('DepositMoneyIndex')
+    handleViewPoints = () => this.props.navigation.navigate('Points')
 
     render() {
 
@@ -28,7 +28,7 @@ class Balance extends React.Component {
                 <Row>
                     <Text rg light>Php</Text>
                     <Spacer h xs />
-                    <Text b h3 light>{show ? Func.formatToCurrency(balance) : '******.**'}</Text>
+                    <Text b h3 light>{show ? Func.formatToRealCurrency(balance) : '******.**'}</Text>
                     <Spacer h sm />
                     <TouchableOpacity onPress={this.handleToggle}>
                         <Icon name={`eye${!show ? '-with-line' : ''}`} size={Metrics.icon.rg} color={Colors.light} />
@@ -38,9 +38,8 @@ class Balance extends React.Component {
                     style={{borderColor:Colors.light}}
                     mode='outlined'
                     color={Colors.light}
-                    icon='plus'
-                    t='Deposit'
-                    onPress={this.handleDeposit}
+                    t='15 ML Diamond Card Points'
+                    onPress={this.handleViewPoints}
                 />
             </View>
         )

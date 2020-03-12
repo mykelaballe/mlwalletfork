@@ -11,9 +11,10 @@ export default createStackNavigator({
         }
     },
 
-    DepositMoneyIndex: Scrn.DepositMoneyIndexScrn,
+    AddMoneyIndex: Scrn.AddMoneyIndexScrn,
+    AddMoneyBranch: Scrn.AddMoneyBranchScrn,
     DepositMoney: Scrn.DepositMoneyScrn,
-    DepositMoneyForm: Scrn.DepositMoneyFormScrn,
+    AddMoneyForm: Scrn.AddMoneyFormScrn,
 
     SendMoneyOnBoarding: Scrn.SendMoneyOnBoardingScrn,
     SendMoneyIndex: Scrn.SendMoneyIndexScrn,
@@ -75,6 +76,11 @@ export default createStackNavigator({
     OTPConfirmation: Scrn.OTPConfirmationScrn,
     TransactionQR: Scrn.TransactionQRScrn,
 
+    SecurityQuestion: {
+        screen:Scrn.SecurityQuestionAuthScrn,
+        navigationOptions:AppStyles.noHeaderNavigationOptions
+    },
+
     TransactionHistory: Scrn.TransactionHistoryScrn,
     Rates: Scrn.RatesScrn,
     Locator: Scrn.LocatorScreen,
@@ -90,10 +96,15 @@ export default createStackNavigator({
     EditMyBirthdayIndex: Scrn.EditMyBirthdayIndexScrn,
     EditMyBirthday: Scrn.EditMyBirthdayScrn,
     EditMyGender: Scrn.EditMyGenderScrn,
+    EditMyMobileNoIndex: Scrn.EditMyMobileNoIndexScrn,
+    EditMyMobileNo: Scrn.EditMyMobileNoScrn,
+    EditMyEmailIndex: Scrn.EditMyEmailIndexScrn,
+    EditMyEmail: Scrn.EditMyEmailScrn,
     EditMyOtherDetails: Scrn.EditMyOtherDetailsScrn,
     EditProfile: Scrn.EditProfileScrn,
     VerificationLevels: Scrn.VerificationLevelsScrn,
     MyQR: Scrn.MyQRScrn,
+    MyPoints: Scrn.MyPointsScrn,
     LoginSecurity: Scrn.LoginSecurityScrn,
     ChangePassword: Scrn.ChangePasswordScrn,
 

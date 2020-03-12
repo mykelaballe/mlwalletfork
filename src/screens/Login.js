@@ -109,7 +109,7 @@ class Scrn extends React.Component {
 
     handleGoToForgotPassword = () => this.props.navigation.navigate('ForgotPassword')
 
-    handleGoToSignUp = () => this.props.navigation.navigate('SignUp')
+    handleGoToSignUp = () => this.props.navigation.navigate('SignUpUsername')
 
     handleChangeUsername = username => this.setState({username})
 
@@ -120,16 +120,31 @@ class Scrn extends React.Component {
     handleTogglePassword = () => this.setState(prevState => ({show_password:!prevState.show_password}))
 
     handleRegisterNewDevice = () => {
+        const {username} = this.state
+
         this.setState({showNewDeviceModal:false},() => {
             this.props.navigation.navigate('SecurityQuestion',{
                 purpose:'updateDevice',
                 walletno:this.state.walletno,
-                username:this.state.username,
+                username,
                 steps:[
                     'registered',
                     //'personal',
                     //'transactional'
-                ]
+                ],
+                func:async () => {
+                    let res = await API.updateDevice({
+                        username
+                    })
+                    
+                    if(!res.error) {
+                        Say.some('New device successfully registered')
+                        this.props.navigation.navigate('Login')
+                    }
+                    else {
+                        Say.some('Error registering new device')
+                    }
+                }
             })
         })
     }

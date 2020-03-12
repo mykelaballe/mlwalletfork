@@ -3,10 +3,13 @@ import {View, StyleSheet, Image} from 'react-native'
 import {Text, Spacer} from '../components'
 import {Metrics, Res} from '../themes'
 
-class ComingSoon extends React.Component {
+export default class Scrn extends React.Component {
 
-    static navigationOptions = {
-        title:'Coming Soon'
+    static navigationOptions = ({navigation}) => {
+        const {params = {}} = navigation.state
+        return {
+            title:params.title || 'Coming Soon'
+        }
     }
 
     render() {
@@ -19,10 +22,10 @@ class ComingSoon extends React.Component {
 
                 <Text center b xl>COMING SOON!</Text>
                 
-                <Spacer sm />
+                {/*<Spacer sm />
 
                 <Text center mute>We're working on our store.</Text>
-                <Text center mute>Stay tuned for updates.</Text>
+                <Text center mute>Stay tuned for updates.</Text>*/}
             </View>
         )
     }
@@ -40,5 +43,3 @@ const style = StyleSheet.create({
         height:150
     }
 })
-
-export default ComingSoon

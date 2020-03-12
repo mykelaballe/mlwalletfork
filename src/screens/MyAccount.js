@@ -32,6 +32,8 @@ class Scrn extends React.Component {
 
     handlePressQR = () => this.props.navigation.navigate('MyQR')
 
+    handlePressPoints = () => this.props.navigation.navigate('MyPoints')
+
     handlePressLoginSecurity = () => this.props.navigation.navigate('LoginSecurity')
 
     handleCloseModal = () => this.setState({showWarning:false})
@@ -89,6 +91,17 @@ class Scrn extends React.Component {
                             <View>
                                 <Text b md mute>My QR Code</Text>
                                 <Text mute>View and Generate QR Code</Text>
+                            </View>
+                            <Icon name='ios-arrow-forward' size={Metrics.icon.sm} color={Colors.mute} />
+                        </Row>
+                        <HR m={Metrics.rg} />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity onPress={this.handlePressPoints} style={style.item}>
+                        <Row bw>
+                            <View>
+                                <Text b md mute>My Diamond Card Points</Text>
+                                <Text mute>View point mechanics</Text>
                             </View>
                             <Icon name='ios-arrow-forward' size={Metrics.icon.sm} color={Colors.mute} />
                         </Row>

@@ -28,7 +28,17 @@ export default class Scrn extends React.Component {
 
                 if(res.error) Say.some(res.message)
                 else {
-                    this.props.navigation.navigate('SecurityQuestion',{...res.data})
+                    this.props.navigation.navigate('SecurityQuestion',{
+                        questions:[
+                            'one',
+                            'two',
+                            'three'
+                        ],
+                        func:() => this.props.navigation.navigate('SendPassword',{
+                            wallet_no:'123456'
+                        })
+                    })
+                    //this.props.navigation.navigate('SecurityQuestion',{...res.data})
                 }
             }
         }

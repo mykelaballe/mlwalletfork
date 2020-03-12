@@ -3,7 +3,7 @@ import {Text, Spacer} from '../'
 import {Func} from '../../utils'
 
 export default props => {
-    const {walletno, receiver, amount, notes, charges, total} = props.data
+    const {walletno, receiver, amount, notes, points, charges, total} = props.data
 
     return (
         <>
@@ -34,7 +34,12 @@ export default props => {
             <Spacer />
 
             <Text mute sm>Charges</Text>
-            <Text md>PHP {Func.formatToCurrency(charges)}</Text>
+            <Text md>+ PHP {Func.formatToCurrency(charges)}</Text>
+
+            <Spacer />
+
+            <Text mute sm>Applied Points</Text>
+            <Text md>- {points}</Text>
 
             <Spacer />
 
