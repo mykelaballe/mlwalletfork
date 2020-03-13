@@ -247,7 +247,7 @@ class Scrn extends React.Component {
                         {email != '' && <Text center md>{email}</Text>}
                         <Text center md>{nationality}</Text>
                         <Text center md>{source_of_income}</Text>
-                    <Text center md>{house ? house + ', ' : ''}{street ? street + ', ' : ''}{barangay}, {city}, {province}, {region}, {country}</Text>
+                    <Text center md>{house ? house + ', ' : ''}{street ? street + ', ' : ''}{barangay}, {city}, {province}, {country}</Text>
                         <Text center md>{zip_code}</Text>
                     </>
                     }
@@ -384,11 +384,11 @@ class Scrn extends React.Component {
                             onPress={this.handleSelectCountry}
                         />
 
-                        <StaticInput
+                        {/*<StaticInput
                             label='Region'
                             value={region}
                             onPress={this.handleSelectRegion}
-                        />
+                        />*/}
 
                         <StaticInput
                             label='Province'

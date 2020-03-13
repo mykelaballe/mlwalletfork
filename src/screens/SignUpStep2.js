@@ -89,7 +89,7 @@ class Scrn extends React.Component {
             barangay = barangay.trim()
             zip_code = zip_code.trim()
 
-            if(!province || !city || !barangay || !zip_code || !region) Say.some(_('8'))
+            if(!province || !city || !barangay || !zip_code) Say.some(_('8'))
             else {
                 this.props.navigation.navigate('SignUpStep3',{
                     ...this.props.navigation.state.params,
@@ -114,7 +114,7 @@ class Scrn extends React.Component {
         const {house, street, country, province, city, barangay, zip_code, region, processing} = this.state
         let ready = false
 
-        if(country && province && city && barangay && zip_code && region) {
+        if(country && province && city && barangay && zip_code) {
             ready = true
         }
 
@@ -130,11 +130,11 @@ class Scrn extends React.Component {
                         onPress={this.handleSelectCountry}
                     />
 
-                    <StaticInput
+                    {/*<StaticInput
                         label='Region'
                         value={region}
                         onPress={this.handleSelectRegion}
-                    />
+                    />*/}
 
                     <StaticInput
                         label='Province'

@@ -15,7 +15,7 @@ import User from './endpoints/User'
 
 export default {
     login: async payload => {
-        return {
+        /*return {
             fname:'John',
             mname:'F',
             lname:'Smith',
@@ -41,7 +41,7 @@ export default {
             points:35,
             level:0,
             error:payload.username == 'newphone' ? 'registered_anotherdevice' : null
-        }
+        }*/
         let res = await Fetch.post('login', {
             ...payload,
             deviceId:Consts.deviceId,
@@ -49,6 +49,10 @@ export default {
             version:Consts.appVersion,
             grant_type:'password'
         })
+
+        let x = ''
+        for(let prop in res) x += prop + '=' + res[prop]  + '\n'
+        alert(x)
 
         if(res.access_token) {
             res = {
@@ -72,15 +76,15 @@ export default {
         })
     },
 
-    forgotPassword: async payload => {return {error:false}},//await Fetch.put('forgotPassword',payload),
+    forgotPassword: async payload => await Fetch.put('forgotPassword',payload),
 
     checkVersion: async () => await Fetch.get(''),
 
-    updateDevice: async payload => {return {error:false,message:'Success'}},//await Fetch.put('updateDevice',{username:payload.username, deviceid:Consts.deviceId}),
+    updateDevice: async payload => await Fetch.put('updateDevice',{username:payload.username, deviceid:Consts.deviceId}),
 
-    validateUsername: async username => {return {error:false,message:'Success'}},//await Fetch.post('validateUsername',{username}),
+    validateUsername: async username => await Fetch.post('validateUsername',{username}),
 
-    validateSecurityQuestion: async payload => {return {error:false}},//await Fetch.post('validateSecurityQuestion',payload),
+    validateSecurityQuestion: async payload => await Fetch.post('validateSecurityQuestion',payload),
 
     ...WalletToWallet,
     ...KP,
