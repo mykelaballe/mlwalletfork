@@ -50,10 +50,6 @@ export default {
             grant_type:'password'
         })
 
-        let x = ''
-        for(let prop in res) x += prop + '=' + res[prop]  + '\n'
-        alert(x)
-
         if(res.access_token) {
             res = {
                 ...res,

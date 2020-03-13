@@ -22,6 +22,7 @@ import Icon from './Icon'
 import Initial from './Initial'
 import ListItem from './ListItem'
 import LoadPromo from './LoadPromo'
+import MLBanner from './MLBanner'
 import Modal from './Modal'
 import MonthPicker from './MonthPicker'
 import Outline from './Outline'
@@ -75,6 +76,7 @@ export {
     Initial,
     ListItem,
     LoadPromo,
+    MLBanner,
     Modal,
     MonthPicker,
     Outline,

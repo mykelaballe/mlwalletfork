@@ -1,10 +1,10 @@
 import React from 'react'
-import {View, StyleSheet, Image, ImageBackground} from 'react-native'
+import {View, StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Text, Button, ButtonText, Spacer, TextInput, Row, Icon, Screen, Prompt} from '../components'
+import {Text, Button, ButtonText, Spacer, TextInput, Row, Icon, Screen, Prompt, MLBanner} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_, Say, Consts} from '../utils'
+import {_, Say} from '../utils'
 import {API} from '../services'
 import TouchID from 'react-native-touch-id'
 
@@ -172,12 +172,10 @@ class Scrn extends React.Component {
                     onConfirm={this.handleRegisterNewDevice}
                 />
 
-                <ImageBackground source={require('../res/login_header.png')} resizeMode='cover' style={style.banner}>
-                    <Image source={require('../res/logo_white.png')} resizeMode='contain' style={{width:undefined,height:60}} />
-                </ImageBackground>
+                <MLBanner />
                 
                 <Screen>
-                    <Spacer />
+                    <Spacer sm />
 
                     <View>
                         <Text center b xl>{_('54')}</Text>
@@ -219,7 +217,7 @@ class Scrn extends React.Component {
 
                         <Button disabled={!ready} t={_('5')} onPress={this.handleLogin} loading={processing} />
 
-                        <Spacer />
+                        <Spacer sm />
 
                         <Row c>
                             <Text>{_('7')}</Text>
@@ -227,7 +225,7 @@ class Scrn extends React.Component {
                         </Row>
                     </View>
 
-                    <Spacer />
+                    <Spacer sm />
 
                     <Row c>
                         <Icon name='fingerprint' size={Metrics.icon.rg} />
@@ -240,11 +238,6 @@ class Scrn extends React.Component {
 }
 
 const style = StyleSheet.create({
-    banner: {
-        width:undefined,
-        height:200,
-        justifyContent:'center'
-    },
     midContainer: {
         flex:1,
         justifyContent:'space-around'
