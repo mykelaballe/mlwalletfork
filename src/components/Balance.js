@@ -34,13 +34,13 @@ class Balance extends React.Component {
                         <Icon name={`eye${!show ? '-with-line' : ''}`} size={Metrics.icon.rg} color={Colors.light} />
                     </TouchableOpacity>
                 </Row>
-                <ButtonText
+                {/*<ButtonText
                     style={{borderColor:Colors.light}}
                     mode='outlined'
                     color={Colors.light}
                     t='15 ML Diamond Card Points'
                     onPress={this.handleViewPoints}
-                />
+                />*/}
             </View>
         )
     }

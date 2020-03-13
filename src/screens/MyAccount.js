@@ -97,7 +97,7 @@ class Scrn extends React.Component {
                         <HR m={Metrics.rg} />
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={this.handlePressPoints} style={style.item}>
+                    {/*<TouchableOpacity onPress={this.handlePressPoints} style={style.item}>
                         <Row bw>
                             <View>
                                 <Text b md mute>My Diamond Card Points</Text>
@@ -106,7 +106,7 @@ class Scrn extends React.Component {
                             <Icon name='ios-arrow-forward' size={Metrics.icon.sm} color={Colors.mute} />
                         </Row>
                         <HR m={Metrics.rg} />
-                    </TouchableOpacity>
+                    </TouchableOpacity>*/}
 
                     <TouchableOpacity onPress={this.handlePressLoginSecurity} style={style.item}>
                         <Row bw>

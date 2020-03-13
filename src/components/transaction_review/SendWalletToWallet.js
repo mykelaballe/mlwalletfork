@@ -34,12 +34,12 @@ export default props => {
             <Spacer />
 
             <Text mute sm>Charges</Text>
-            <Text md>+ PHP {Func.formatToCurrency(charges)}</Text>
+            <Text md>PHP {Func.formatToCurrency(charges)}</Text>
 
-            <Spacer />
+            {/*<Spacer />
 
             <Text mute sm>Applied Points</Text>
-            <Text md>- {points}</Text>
+            <Text md>- {points}</Text>*/}
 
             <Spacer />
 

@@ -139,7 +139,7 @@ class Scrn extends React.Component {
                             <Text md>PHP {Func.formatToCurrency(charges)}</Text>
                         </View>
 
-                        <UsePointsCheckbox onChange={this.handleChangePoints} />
+                        {/*<UsePointsCheckbox onChange={this.handleChangePoints} />*/}
                     </Row>
 
                     <Spacer />
