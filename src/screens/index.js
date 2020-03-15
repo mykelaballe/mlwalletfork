@@ -114,6 +114,7 @@ import MyQRScrn from './MyQR'
 import MyPointsScrn from './MyPoints'
 import LoginSecurityScrn from './LoginSecurity'
 import ChangePasswordScrn from './ChangePassword'
+import ChangePINScrn from './ChangePIN'
 
 import ComingSoonScrn from './ComingSoon'
 
@@ -234,6 +235,7 @@ export {
     MyPointsScrn,
     LoginSecurityScrn,
     ChangePasswordScrn,
+    ChangePINScrn,
 
     ComingSoonScrn,
 

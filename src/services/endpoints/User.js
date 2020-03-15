@@ -11,4 +11,6 @@ export default {
     },
 
     changePassword: async payload => await Fetch.put('changePassword',payload),
+
+    changePIN: async payload => await Fetch.put('changePIN',payload),
 }

@@ -20,6 +20,8 @@ class Scrn extends React.Component {
 
     handlePressChangePassword = () => this.props.navigation.navigate('ChangePassword')
 
+    handlePressChangePIN = () => this.props.navigation.navigate('ChangePIN')
+
     handleToggleTouchID = () => {
         let {isUsingTouchID, setIsUsingTouchID} = this.props
         //let successModalMsg = ''
@@ -64,6 +66,16 @@ class Scrn extends React.Component {
                     <Row bw>
                         <View>
                             <Text md mute>Change Password</Text>
+                        </View>
+                        <Icon name='ios-arrow-forward' size={Metrics.icon.sm} color={Colors.mute} />
+                    </Row>
+                    <HR m={Metrics.rg} />
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={this.handlePressChangePIN} style={style.item}>
+                    <Row bw>
+                        <View>
+                            <Text md mute>Change PIN</Text>
                         </View>
                         <Icon name='ios-arrow-forward' size={Metrics.icon.sm} color={Colors.mute} />
                     </Row>

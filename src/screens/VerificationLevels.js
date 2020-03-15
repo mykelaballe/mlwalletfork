@@ -137,7 +137,7 @@ class Scrn extends React.Component {
 
                     <Text>Step 1. Visit the nearest M Lhuillier branch nationwide.</Text>
                     <Text>Step 2. Present your ML Wallet Account no. to the branch personnel.</Text>
-                    <Text>Step 3. Deposit money on your account and get fully verified.</Text>
+                    <Text>Step 3. Add money on your account and get fully verified.</Text>
                 </View>
 
                 <Spacer md />

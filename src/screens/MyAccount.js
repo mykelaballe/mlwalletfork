@@ -116,7 +116,7 @@ class Scrn extends React.Component {
                         <Row bw>
                             <View>
                                 <Text b md mute>Login and Security</Text>
-                                <Text mute>Update Password, Enable Touch ID</Text>
+                                <Text mute>Update Password, PIN, Enable Touch ID</Text>
                             </View>
                             <Icon name='ios-arrow-forward' size={Metrics.icon.sm} color={Colors.mute} />
                         </Row>

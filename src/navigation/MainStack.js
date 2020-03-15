@@ -107,6 +107,7 @@ export default createStackNavigator({
     MyPoints: Scrn.MyPointsScrn,
     LoginSecurity: Scrn.LoginSecurityScrn,
     ChangePassword: Scrn.ChangePasswordScrn,
+    ChangePIN: Scrn.ChangePINScrn,
 
     ComingSoon: Scrn.ComingSoonScrn,
 },{

@@ -4,7 +4,6 @@ import {Screen, Footer, Button, ButtonText, TextInput, Prompt, Errors} from '../
 import {Colors} from '../themes'
 import {_, Say, Func} from '../utils'
 import {API} from '../services'
-import { supportedAbisSync } from 'react-native-device-info'
 
 class Scrn extends React.Component {
 
@@ -53,7 +52,7 @@ class Scrn extends React.Component {
             new_password = new_password.trim()
             confirm_password = confirm_password.trim()
 
-            if(old_password == '' || new_password == '' || confirm_password == '') Say.some(_('8'))
+            if(!old_password || !new_password || !confirm_password) Say.some(_('8'))
             else if(new_password != confirm_password) Say.warn('Passwords do not match')
             else {
                 let validation = Func.validate(new_password, {
