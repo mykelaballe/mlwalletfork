@@ -35,9 +35,9 @@ class Scrn extends React.Component {
         }
     }
 
-    state = {
+    /*state = {
         showDeleteModal:false
-    }
+    }*/
 
     componentDidMount = () => {
         this.props.navigation.setParams({
@@ -62,9 +62,7 @@ class Scrn extends React.Component {
 
     handleToggleMenu = () => {
         let {menuOpen} = this.props.navigation.state.params
-
         menuOpen = !menuOpen
-
         this.props.navigation.setParams({menuOpen})
     }
 
@@ -77,13 +75,20 @@ class Scrn extends React.Component {
 
     handleDelete = () => {
         this.handleToggleMenu()
-        this.setState({showDeleteModal:true})
+        Say.ask(
+            'You are about to delete a bank partner. This action cannot be undone',
+            null,
+            {
+                onConfirm:this.handleConfirmDelete
+            }
+        )
+        //this.setState({showDeleteModal:true})
     }
 
     handleConfirmDelete = () => {
         const {walletno} = this.props.user
         const {index, bank} = this.props.navigation.state.params
-        this.handleCloseModal()
+        //this.handleCloseModal()
         try {
             this.props.deletePartner(index)
             API.deleteBankPartner({
@@ -93,6 +98,7 @@ class Scrn extends React.Component {
                 account_name:bank.old_account_name
             })
             this.props.navigation.navigate('SavedBankPartners',{removeAtIndex:index})
+            Say.some('Partner successfully deleted')
         }
         catch(err) {
             Say.err(_('500'))
@@ -104,23 +110,23 @@ class Scrn extends React.Component {
         this.props.navigation.navigate('SendBankTransfer',{bank})
     }
 
-    handleCloseModal = () => this.setState({showDeleteModal:false})
+    //handleCloseModal = () => this.setState({showDeleteModal:false})
 
     render() {
 
         const {bankname, old_account_name, old_account_no} = this.props.navigation.state.params.bank
-        const {showDeleteModal} = this.state
+        //const {showDeleteModal} = this.state
 
         return (
             <>
-                <Prompt
+                {/*<Prompt
                     visible={showDeleteModal}
                     title='Are you sure?'
                     message='You are about to delete a bank partner. This action cannot be undone'
                     type='delete'
                     onConfirm={this.handleConfirmDelete}
                     onDismiss={this.handleCloseModal}
-                />
+                />*/}
 
                 <Screen>
                     <StaticInput

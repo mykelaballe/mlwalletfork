@@ -41,6 +41,8 @@ export default class Scrn extends React.Component {
                 {name:'Chinese'},
                 {name:'Korean'},
             ]
+
+            this.listHolder = list
         }
         catch(err) {
             Say.err(_('500'))
@@ -57,7 +59,12 @@ export default class Scrn extends React.Component {
         this.props.navigation.navigate(sourceRoute,{nationality})
     }
 
-    handleChangeSearch = search => this.setState({search})
+    handleChangeSearch = search => this.setState({search:this.search(search)})
+
+    search = searchText => {
+        const list = this.listHolder.filter(item => item.name.toUpperCase().indexOf(searchText.toUpperCase()) > -1)
+        this.setState({list})
+    }
 
     renderItem = ({item, index}) => <ItemUI data={item} onPress={this.handleSelect} />
 
@@ -76,6 +83,7 @@ export default class Scrn extends React.Component {
                 <Spacer />
 
                 <FlatList
+                    search={search}
                     data={list}
                     renderItem={this.renderItem}
                     loading={loading}
@@ -87,7 +95,6 @@ export default class Scrn extends React.Component {
 
 const style = StyleSheet.create({
     container: {
-        flex:1,
         padding:Metrics.lg
     },
     itemHeader: {

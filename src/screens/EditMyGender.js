@@ -14,7 +14,7 @@ class Scrn extends React.Component {
     state = {
         gender:this.props.user.gender == 'M' ? 'Male' : 'Female',
         processing:false,
-        showSuccessModal:false
+        //showSuccessModal:false
     }
 
     handleSelectGender = gender => this.setState({gender})
@@ -35,18 +35,18 @@ class Scrn extends React.Component {
 
             if(res.error) Say.some(res.message)
             else {
-                this.setState({showSuccessModal:true})
+                Say.ok('Your request to change your gender has been sent for approval. We will get back to you soon!')
+                //this.setState({showSuccessModal:true})
             }
         }
         catch(err) {
-            alert(err)
             Say.err(_('500'))
         }
 
         this.setState({processing:false})
     }
 
-    handleCloseModal = () => this.setState({showSuccessModal:false})
+    //handleCloseModal = () => this.setState({showSuccessModal:false})
 
     render() {
 
@@ -54,12 +54,12 @@ class Scrn extends React.Component {
 
         return (
             <>
-                <Prompt
+                {/*<Prompt
                     visible={showSuccessModal}
                     title='Success'
                     message='Your request to change your gender has been sent for approval. We will get back to you soon!'
                     onDismiss={this.handleCloseModal}
-                />
+                />*/}
                 
                 <Screen>
                     <Headline subtext='Please select your gender' />

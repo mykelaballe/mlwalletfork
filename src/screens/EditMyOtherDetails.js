@@ -21,7 +21,7 @@ class Scrn extends React.Component {
         barangay:this.props.user.barangay,
         zip_code:this.props.user.zip_code,
         processing:false,
-        showSuccessModal:false
+        //showSuccessModal:false
     }
 
     componentDidUpdate = (prevProps, prevState) => {
@@ -128,7 +128,8 @@ class Scrn extends React.Component {
                         barangay,
                         zip_code
                     })
-                    this.setState({showSuccessModal:true})
+                    Say.ok('Details updated')
+                    //this.setState({showSuccessModal:true})
                 }
             }
         }
@@ -139,7 +140,7 @@ class Scrn extends React.Component {
         this.setState({processing:false})
     }
 
-    handleCloseModal = () => this.setState({showSuccessModal:false})
+    //handleCloseModal = () => this.setState({showSuccessModal:false})
 
     render() {
 
@@ -150,12 +151,12 @@ class Scrn extends React.Component {
 
         return (
             <>
-                <Prompt
+                {/*<Prompt
                     visible={showSuccessModal}
                     title='Success'
                     message='Details updated'
                     onDismiss={this.handleCloseModal}
-                />
+                />*/}
                 
                 <Screen>
                     <Headline subtext='Please make sure to enter all the correct details' />

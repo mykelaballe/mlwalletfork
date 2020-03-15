@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Text, Row, TopBuffer, Switch, HR, Prompt} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_} from '../utils'
+import {_, Say} from '../utils'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 class Scrn extends React.Component {
@@ -14,47 +14,49 @@ class Scrn extends React.Component {
     }
 
     state = {
-        showSuccessModal:false,
-        successModalMsg:''
+        //showSuccessModal:false,
+        //successModalMsg:''
     }
 
     handlePressChangePassword = () => this.props.navigation.navigate('ChangePassword')
 
     handleToggleTouchID = () => {
         let {isUsingTouchID, setIsUsingTouchID} = this.props
-        let successModalMsg = ''
+        //let successModalMsg = ''
 
         if(isUsingTouchID) {
             setIsUsingTouchID(false)
-            successModalMsg = "You've successfully deactivated your Touch ID"
+            Say.ok("You've successfully deactivated your Touch ID")
+            //successModalMsg = "You've successfully deactivated your Touch ID"
         }
         else {
             setIsUsingTouchID(true)
-            successModalMsg = "You've successfully activated your Touch ID"
+            Say.ok("You've successfully activated your Touch ID")
+            //successModalMsg = "You've successfully activated your Touch ID"
         }
 
-        this.setState({
+        /*this.setState({
             showSuccessModal:true,
             successModalMsg
-        })
+        })*/
     }
 
-    handleCloseModal = () => this.setState({showSuccessModal:false})
+    //handleCloseModal = () => this.setState({showSuccessModal:false})
 
     render() {
 
         const {isUsingTouchID} = this.props
-        const {showSuccessModal, successModalMsg} = this.state
+        //const {showSuccessModal, successModalMsg} = this.state
 
         return (
             <View>
 
-                <Prompt
+                {/*<Prompt
                     visible={showSuccessModal}
                     title='Success'
                     message={successModalMsg}
                     onDismiss={this.handleCloseModal}
-                />
+                />*/}
 
                 <TopBuffer sm />
 

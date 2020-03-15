@@ -29,7 +29,7 @@ class Scrn extends React.Component {
         username:'',
         password:'',
         show_password:false,
-        showNewDeviceModal:false,
+        //showNewDeviceModal:false,
         processing:false
     }
 
@@ -70,8 +70,17 @@ class Scrn extends React.Component {
                     else if(error === 'registered_anotherdevice') {
                         this.setState({
                             walletno:error_description,
-                            showNewDeviceModal:true
+                            //showNewDeviceModal:true
                         })
+
+                        Say.ask(
+                            'Oh no! You can only access your ML Wallet account in one device. To transfer your ML Wallet account to this device, click OK',
+                            'New Device',
+                            {
+                                noBtnLabel:'CANCEL',
+                                onConfirm:this.handleRegisterNewDevice
+                            }
+                        )
                     }
                     else if(error === 'server_error') throw new Error()
                 }
@@ -122,7 +131,7 @@ class Scrn extends React.Component {
     handleRegisterNewDevice = () => {
         const {username} = this.state
 
-        this.setState({showNewDeviceModal:false},() => {
+        //this.setState({showNewDeviceModal:false},() => {
             this.props.navigation.navigate('SecurityQuestion',{
                 purpose:'updateDevice',
                 walletno:this.state.walletno,
@@ -146,10 +155,10 @@ class Scrn extends React.Component {
                     }
                 }
             })
-        })
+        //})
     }
 
-    handleCloseModal = () => this.setState({showNewDeviceModal:false})
+    //handleCloseModal = () => this.setState({showNewDeviceModal:false})
 
     render() {
 
@@ -161,7 +170,7 @@ class Scrn extends React.Component {
 
         return (
             <>  
-                <Prompt
+                {/*<Prompt
                     visible={showNewDeviceModal}
                     type='yes_no'
                     title='New Device'
@@ -170,7 +179,7 @@ class Scrn extends React.Component {
                     noBtnLabel='CANCEL'
                     onDismiss={this.handleCloseModal}
                     onConfirm={this.handleRegisterNewDevice}
-                />
+                />*/}
 
                 <MLBanner />
                 

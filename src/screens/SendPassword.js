@@ -9,7 +9,7 @@ export default class Scrn extends React.Component {
         email:false,
         sms:false,
         processing:false,
-        showSuccessModal:false
+        //showSuccessModal:false
     }
 
     handleToggleEmail = () => this.setState(prevState => ({email:!prevState.email}))
@@ -20,8 +20,6 @@ export default class Scrn extends React.Component {
         try {
             const {wallet_no} = this.props.navigation.state.params
             let {email, sms, processing} = this.state
-
-            alert(wallet_no);return false
 
             if(processing) return
 
@@ -41,7 +39,15 @@ export default class Scrn extends React.Component {
 
             if(res.error) Say.some('Wallet number does not exist')
             else {
-                this.setState({showSuccessModal:true})
+                //this.setState({showSuccessModal:true})
+                Say.ok(
+                    'A temporary password has been sent. Change your password within 24 hours so it will not expire.',
+                    null,
+                    {
+                        OkBtnLabel:'Back to Login',
+                        onDismiss:() => this.props.navigation.navigate('Login')
+                    }
+                )
             }
         }
         catch(err) {
@@ -51,11 +57,11 @@ export default class Scrn extends React.Component {
         this.setState({processing:false})
     }
 
-    handleCloseModal = () => {
+    /*handleCloseModal = () => {
         this.setState({
             showSuccessModal:false
         },() => this.props.navigation.navigate('Login'))
-    }
+    }*/
 
     render() {
 
@@ -68,13 +74,13 @@ export default class Scrn extends React.Component {
             <>
                 <Screen>
 
-                    <Prompt
+                    {/*<Prompt
                         visible={showSuccessModal}
                         title='Success'
                         message='A temporary password has been sent. Change your password within 24 hours so it will not expire.'
                         onDismiss={this.handleCloseModal}
                         OkBtnLabel='Back to Login'
-                    />
+                    />*/}
 
                     <Headline
                         title='Send Password'

@@ -20,7 +20,7 @@ class Scrn extends React.Component {
         showDayPicker:false,
         showYearPicker:false,
         processing:false,
-        showSuccessModal:false
+        //showSuccessModal:false
     }
 
     handleChangeMonth = () => this.setState({showMonthPicker:true})
@@ -59,7 +59,8 @@ class Scrn extends React.Component {
 
             if(res.error) Say.some(res.message)
             else {
-                this.setState({showSuccessModal:true})
+                Say.ok('Your request to change your birthdate has been sent for approval. We will get back to you soon!')
+                //this.setState({showSuccessModal:true})
             }
         }
         catch(err) {
@@ -77,12 +78,12 @@ class Scrn extends React.Component {
 
         return (
             <Provider>
-                <Prompt
+                {/*<Prompt
                     visible={showSuccessModal}
                     title='Success'
                     message='Your request to change your birthdate has been sent for approval. We will get back to you soon!'
                     onDismiss={this.handleCloseModal}
-                />
+                />*/}
                 
                 <Screen>
                     <Headline subtext='Please make sure to enter all the correct details' />

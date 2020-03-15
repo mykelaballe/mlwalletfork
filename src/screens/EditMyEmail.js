@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Screen, Footer, Headline, TextInput, Button, Checkbox, Picker, Prompt} from '../components'
-import {Metrics} from '../themes'
+import {Screen, Footer, Headline, TextInput, Button, Prompt} from '../components'
 import {_, Say} from '../utils'
 import {API} from '../services'
 
@@ -14,7 +13,7 @@ class Scrn extends React.Component {
     state = {
         email:this.props.user.email,
         processing:false,
-        showSuccessModal:false
+        //showSuccessModal:false
     }
 
     handleChangeEmail = email => this.setState({email})
@@ -49,7 +48,8 @@ class Scrn extends React.Component {
                         if(res.error) Say.some(res.message)
                         else {
                             this.props.navigation.pop()
-                            this.setState({showSuccessModal:true})
+                            Say.ok('Your request to change your email address has been sent for approval. We will get back to you soon!')
+                            //this.setState({showSuccessModal:true})
                         }
                     }
                 })
@@ -62,7 +62,7 @@ class Scrn extends React.Component {
         this.setState({processing:false})
     }
 
-    handleCloseModal = () => this.setState({showSuccessModal:false})
+    //handleCloseModal = () => this.setState({showSuccessModal:false})
 
     render() {
 
@@ -73,12 +73,12 @@ class Scrn extends React.Component {
 
         return (
             <>
-                <Prompt
+                {/*<Prompt
                     visible={showSuccessModal}
                     title='Success'
                     message='Your request to change your email address has been sent for approval. We will get back to you soon!'
                     onDismiss={this.handleCloseModal}
-                />
+                />*/}
                 
                 <Screen>
                     <Headline subtext='Please make sure to register an updated email address' />

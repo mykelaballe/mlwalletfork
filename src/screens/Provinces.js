@@ -123,7 +123,7 @@ export default class Scrn extends React.Component {
 
 const style = StyleSheet.create({
     container: {
-        flex:1,
+        //flex:1,
         padding:Metrics.lg
     },
     itemHeader: {

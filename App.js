@@ -5,6 +5,7 @@ import Actions from './src/actions/Creators'
 import Navigation from './src/navigation'
 import {Colors} from './src/themes'
 import {Responder} from './src/components'
+import SomeModal from './src/components/SomeModal'
 import {Consts, Storage} from './src/utils'
 import NetInfo from '@react-native-community/netinfo'
 import SplashScreen from 'react-native-splash-screen'
@@ -111,6 +112,7 @@ class App extends React.Component {
           <>
             <StatusBar backgroundColor={Colors.brand} />
             <Navigation />
+            <SomeModal />
           </>
           }
         </Responder>

@@ -27,6 +27,7 @@
     "react-native-fingerprint-scanner": "3.0.2",
     "react-native-gesture-handler": "1.4.1",
     "react-native-keyboard-aware-scroll-view": "^0.9.1",
+    "react-native-keyboard-spacer": "^0.4.1",
     "react-native-maps": "0.26.1",
     "react-native-paper": "3.5.1",
     "react-native-qrcode-svg": "6.0.3",

@@ -1,14 +1,9 @@
 import React from 'react'
-import {View, Dimensions} from 'react-native'
+import {Dimensions} from 'react-native'
 import {connect} from 'react-redux'
-import {Screen, Footer, Headline, Spacer, Button, Text} from '../components'
+import {Screen, Footer, Headline, Text} from '../components'
 import {_, Say} from '../utils'
-import {Metrics} from '../themes'
-import {API} from '../services'
-import QRCode from 'react-native-qrcode-svg'
 
-const {width} = Dimensions.get('window')
-const QR_SIZE = width * .80
 const moment = require('moment')
 
 class Scrn extends React.Component {
@@ -54,8 +49,6 @@ class Scrn extends React.Component {
     handleOnError = () => Say.err(_('500'))
 
     render() {
-
-        const {data, processing} = this.state
 
         return (
             <>

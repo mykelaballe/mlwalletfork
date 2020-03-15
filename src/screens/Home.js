@@ -3,7 +3,7 @@ import {View, StyleSheet, InteractionManager, TouchableOpacity, Dimensions, Imag
 import {connect} from 'react-redux'
 import {Text, Spacer, FlatList, Ripple, Icon, Balance} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_, Say} from '../utils'
+import {_} from '../utils'
 
 const {width} = Dimensions.get('window')
 const ITEM_WIDTH = (width / 4) - (Metrics.xl)

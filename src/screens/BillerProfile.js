@@ -19,8 +19,8 @@ class Scrn extends React.Component {
         reminder:"Don't Remind Me",
         add_to_favorites:this.props.navigation.state.params.biller.add_to_favorites,
         processing:false,
-        showSuccessModal:false,
-        modalMessage:''
+        //showSuccessModal:false,
+        //modalMessage:''
     }
 
     handleChangeAccountNo = account_no => this.setState({account_no})
@@ -38,22 +38,24 @@ class Scrn extends React.Component {
     handleToggleAddToFavorites = async () => {
         const {id} = this.props.navigation.state.params.biller
         const {add_to_favorites} = this.state
-        let modalMessage = ''
+        //let modalMessage = ''
 
         try {
             if(add_to_favorites) {
                 let res = await API.removeFavoriteBiller({id})
-                modalMessage = "You've successfully removed a Biller from Favorites"
+                if(!res.error) Say.ok("You've successfully removed a Biller from Favorites")
+                //modalMessage = "You've successfully removed a Biller from Favorites"
             }
             else {
                 let res = await API.addFavoriteBiller({id})
-                modalMessage = "You've successfully added a Biller to Favorites"
+                if(!res.error) Say.ok("You've successfully added a Biller to Favorites")
+                //modalMessage = "You've successfully added a Biller to Favorites"
             }
     
             this.setState({
                 add_to_favorites:!add_to_favorites,
-                modalMessage,
-                showSuccessModal:true
+                //modalMessage,
+                //showSuccessModal:true
             })
         }
         catch(err) {
@@ -74,7 +76,7 @@ class Scrn extends React.Component {
             account_name = account_name.trim()
             email = email.trim()
 
-            if(account_no === '' || account_name === '') Say.some(_('8'))
+            if(!account_no || !account_name) Say.some(_('8'))
             else {
                 let res = await API.updateFavoriteBiller({
                     id,
@@ -83,10 +85,10 @@ class Scrn extends React.Component {
                     email
                 })
 
-                this.setState({
+                /*this.setState({
                     showSuccessModal:true,
                     modalMessage:"You've successfully updated Biller details."
-                })
+                })*/
             }
         }
         catch(err) {
@@ -113,7 +115,7 @@ class Scrn extends React.Component {
         })
     }
 
-    handleCloseModal = () => this.setState({showSuccessModal:false})
+    //handleCloseModal = () => this.setState({showSuccessModal:false})
 
     render() {
 
@@ -125,12 +127,12 @@ class Scrn extends React.Component {
 
         return (
             <>
-                <Prompt
+                {/*<Prompt
                     visible={showSuccessModal}
                     title='Success'
                     message={modalMessage}
                     onDismiss={this.handleCloseModal}
-                />
+                />*/}
 
                 <Screen>
                     <Headline title={biller.name} />

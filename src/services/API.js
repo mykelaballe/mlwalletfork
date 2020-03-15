@@ -15,7 +15,7 @@ import User from './endpoints/User'
 
 export default {
     login: async payload => {
-        /*return {
+        return {
             fname:'John',
             mname:'F',
             lname:'Smith',
@@ -41,7 +41,7 @@ export default {
             points:35,
             level:0,
             error:payload.username == 'newphone' ? 'registered_anotherdevice' : null
-        }*/
+        }
         let res = await Fetch.post('login', {
             ...payload,
             deviceId:Consts.deviceId,

@@ -1,9 +1,8 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager, TouchableOpacity} from 'react-native'
-import {SectionList, TextInput, Text, Row, Button, Spacer, ButtonText, HR, Ripple, TopBuffer} from '../components'
-import {Colors, Metrics} from '../themes'
+import {View, StyleSheet, InteractionManager} from 'react-native'
+import {SectionList, Text, Spacer, Ripple} from '../components'
+import {Metrics} from '../themes'
 import {_, Say} from '../utils'
-import Icon from 'react-native-vector-icons/Ionicons'
 import {Searchbar} from 'react-native-paper'
 
 class FavoriteBillers extends React.Component {

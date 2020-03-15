@@ -1,11 +1,10 @@
 import React from 'react'
 import {StyleSheet, TouchableOpacity} from 'react-native'
-import {connect} from 'react-redux'
 import {Screen, Spacer, Avatar, ButtonText} from '../components'
 import {Metrics} from '../themes'
 import {_} from '../utils'
 
-class Scrn extends React.Component {
+export default class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Edit Profile'
@@ -54,5 +53,3 @@ const style = StyleSheet.create({
         fontSize:Metrics.font.md
     }
 })
-
-export default Scrn

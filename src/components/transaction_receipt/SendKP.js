@@ -3,7 +3,7 @@ import {withNavigation} from 'react-navigation'
 import {Header} from './'
 import {Screen, Footer, Text, Spacer, Prompt, Button, View, Row} from '../'
 import {Metrics} from '../../themes'
-import {Consts, Func} from '../../utils'
+import {Consts, Func, Say} from '../../utils'
 
 const moment = require('moment')
 
@@ -13,33 +13,62 @@ class SendKP extends React.Component {
         status:this.props.data.status,
         statusMessage:'Your money is waiting to be claimed',
         cancellable:this.props.data.cancellable,
-        showSuccessModal:true,
-        showCancelModal:false,
-        showOkModal:false
+        //showSuccessModal:true,
+        //showCancelModal:false,
+        //showOkModal:false
     }
 
-    handleCloseModal = () => {
+    componentDidMount = () => {
+        const {receiver} = this.props.data
+
+        Say.ok(
+            null,
+            'Success',
+            {
+                customMessage:(
+                    <>
+                        <Text mute md>Share the transaction number to {receiver.firstname} {receiver.middlename} {receiver.lastname} {receiver.suffix} to complete this transaction.</Text>
+                        <Spacer lg />
+                        <Text mute>Your new balance is</Text>
+                        <Text xl b>Php 1000</Text>
+                    </>
+                )
+            }
+        )
+    }
+
+    /*handleCloseModal = () => {
         this.setState({
             showSuccessModal:false,
             showCancelModal:false,
             showOkModal:false
         })
+    }*/
+
+    handleCancelTransaction = () => {
+        //this.setState({showCancelModal:true})
+        Say.ask(
+            'Are you sure you want to cancel this transaction?',
+            'Cancel Transaction',
+            {
+                onConfirm:this.cancelTransaction
+            }
+        )
     }
 
-    handleCancelTransaction = () => this.setState({showCancelModal:true})
-
-    handleOnCancel = () => {
+    /*handleOnCancel = () => {
         this.cancelTransaction()
         this.setState({showCancelModal:false})
-    }
+    }*/
 
     cancelTransaction = async () => {
         this.setState({
-            showOkModal:true,
+            //showOkModal:true,
             cancellable:false,
             status:'cancelled',
             statusMessage:''
         })
+        Say.ok(`Your transaction ${Consts.tcn.skp.short_desc} has been cancelled`)
     }
 
     handleBackToHome = () => this.props.navigation.navigate('Home')
@@ -51,7 +80,7 @@ class SendKP extends React.Component {
 
         return (
             <>
-                <Prompt
+                {/*<Prompt
                     visible={showSuccessModal}
                     title='Success'
                     customMessage={
@@ -63,23 +92,23 @@ class SendKP extends React.Component {
                         </>
                     }
                     onDismiss={this.handleCloseModal}
-                />
+                />*/}
 
-                <Prompt
+                {/*<Prompt
                     type='yes_no'
                     visible={showCancelModal}
                     title='Cancel Transaction'
                     message='Are you sure you want to cancel this transaction?'
                     onDismiss={this.handleCloseModal}
                     onConfirm={this.handleOnCancel}
-                />
+                />*/}
 
-                <Prompt
+                {/*<Prompt
                     visible={showOkModal}
                     title='Success'
                     message={`Your transaction ${Consts.tcn.skp.short_desc} has been cancelled`}
                     onDismiss={this.handleCloseModal}
-                />
+                />*/}
 
                 <Screen compact>
                     <Header

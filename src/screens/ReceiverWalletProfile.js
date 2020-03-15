@@ -34,9 +34,9 @@ class Scrn extends React.Component {
         }
     }
 
-    state = {
+    /*state = {
         showDeleteModal:false
-    }
+    }*/
 
     componentDidMount = () => {
         this.props.navigation.setParams({
@@ -49,20 +49,25 @@ class Scrn extends React.Component {
 
     handleToggleMenu = () => {
         let {menuOpen} = this.props.navigation.state.params
-
         menuOpen = !menuOpen
-
         this.props.navigation.setParams({menuOpen})
     }
 
     handleDelete = () => {
         this.handleToggleMenu()
-        this.setState({showDeleteModal:true})
+        Say.ask(
+            'You are about to delete a receiver. This action cannot be undone',
+            null,
+            {
+                onConfirm:this.handleConfirmDelete
+            }
+        )
+        //this.setState({showDeleteModal:true})
     }
 
     handleConfirmDelete = () => {
         const {index, receiver} = this.props.navigation.state.params
-        this.handleCloseModal()
+        //this.handleCloseModal()
         try {
             this.props.deleteReceiver(index)
             API.deleteWalletReceiver({
@@ -88,23 +93,23 @@ class Scrn extends React.Component {
         navigate('SendWalletToWallet',{receiver})
     }
 
-    handleCloseModal = () => this.setState({showDeleteModal:false})
+    //handleCloseModal = () => this.setState({showDeleteModal:false})
 
     render() {
 
         const {walletno, fullname} = this.props.navigation.state.params.receiver
-        const {showDeleteModal} = this.state
+        //const {showDeleteModal} = this.state
 
         return (
             <>
-                <Prompt
+                {/*<Prompt
                     visible={showDeleteModal}
                     title='Are you sure?'
                     message='You are about to delete a receiver. This action cannot be undone'
                     type='delete'
                     onConfirm={this.handleConfirmDelete}
                     onDismiss={this.handleCloseModal}
-                />
+                />*/}
 
                 <Screen>
                     <Outline>

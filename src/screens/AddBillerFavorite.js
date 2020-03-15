@@ -18,7 +18,7 @@ class Scrn extends React.Component {
         email:'',
         reminder:"Don't Remind Me",
         processing:false,
-        showSuccessModal:false
+        //showSuccessModal:false
     }
 
     handleChangeAccountNo = account_no => this.setState({account_no})
@@ -55,7 +55,9 @@ class Scrn extends React.Component {
                 let res = await API.addFavoriteBiller(payload)
                 
                 if(!res.error) {
-                    this.setState({showSuccessModal:true})
+                    Say.ok("You've successfully added a Biller to Favorites.")
+                    this.props.navigation.navigate('BillsCategory')
+                    //this.setState({showSuccessModal:true})
                 }
             }
         }
@@ -66,9 +68,9 @@ class Scrn extends React.Component {
         this.setState({processing:false})
     }
 
-    handleCloseModal = () => {
+    /*handleCloseModal = () => {
         this.setState({showSuccessModal:false},() => this.props.navigation.navigate('BillsCategory'))
-    }
+    }*/
 
     render() {
 
@@ -81,12 +83,12 @@ class Scrn extends React.Component {
         return (
             <>
 
-                <Prompt
+                {/*<Prompt
                     visible={showSuccessModal}
                     title='Success'
                     message="You've successfully added a Biller to Favorites."
                     onDismiss={this.handleCloseModal}
-                />
+                />*/}
 
                 <Screen>
                     <Headline title={biller.name} />

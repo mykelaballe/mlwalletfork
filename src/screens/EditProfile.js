@@ -1,9 +1,8 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager, TouchableOpacity} from 'react-native'
-import {ScrollView, Text, Row, Spacer, HR, Avatar, TopBuffer, Button, TextInput, Outline, Prompt} from '../components'
-import {Colors, Metrics} from '../themes'
-import {_} from '../utils'
-import Icon from 'react-native-vector-icons/Ionicons'
+import {View, StyleSheet, TouchableOpacity} from 'react-native'
+import {ScrollView, Text, Row, Spacer, Avatar, TopBuffer, Button, TextInput, Outline, Prompt} from '../components'
+import {Metrics} from '../themes'
+import {_, Say} from '../utils'
 
 const moment = require('moment')
 
@@ -31,7 +30,7 @@ class EditProfile extends React.Component {
         barangay:'Dumlog',
         zip_code:'6045',
         processing:false,
-        showSuccessModal:false
+        //showSuccessModal:false
     }
     
     handleChangeMobileNo = mobile_no => this.setState({mobile_no})
@@ -63,17 +62,16 @@ class EditProfile extends React.Component {
             email = email.trim()
             source_income = source_income.trim()
 
-            this.setState({
-                processing:false,
-                showSuccessModal:true
-            })
+            Say.ok("You've successfully saved your Profile details")
         }
         catch(err) {
-            this.setState({processing:false})
+            Say.err(_('500'))
         }
+
+        this.setState({processing:false})
     }
 
-    handleCloseModal = () => this.setState({showSuccessModal:false})
+    //handleCloseModal = () => this.setState({showSuccessModal:false})
 
     render() {
 
@@ -82,12 +80,12 @@ class EditProfile extends React.Component {
         return (
             <ScrollView>
                 
-                <Prompt
+                {/*<Prompt
                     visible={showSuccessModal}
                     title='Success'
                     message="You've successfully saved your Profile details"
                     onDismiss={this.handleCloseModal}
-                />
+                />*/}
 
                 <TopBuffer sm />
 

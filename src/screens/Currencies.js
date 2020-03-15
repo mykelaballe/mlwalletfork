@@ -1,9 +1,8 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager} from 'react-native'
-import {ScrollView, FlatList, Initial, Text, Row, Button, Spacer, ButtonText, HR, Ripple, TopBuffer} from '../components'
-import {Colors, Metrics} from '../themes'
+import {StyleSheet, InteractionManager} from 'react-native'
+import {FlatList, Text, Row, HR, Ripple} from '../components'
+import {Metrics} from '../themes'
 import {_} from '../utils'
-import Icon from 'react-native-vector-icons/Ionicons'
 
 const ItemUI = props => (
     <>

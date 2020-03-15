@@ -3,14 +3,14 @@ import {PanResponder, View} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Prompt} from './'
-import {Consts, Storage} from '../utils'
+import {Consts, Storage, Say} from '../utils'
 
 class Responder extends React.Component {
     _panResponder = {}
     timer = 0
 
     state = {
-        showPrompt:false
+        //showPrompt:false
     }
 
   componentDidMount() {
@@ -44,24 +44,29 @@ class Responder extends React.Component {
   showPrompt = () => {
     if(this.props.isLoggedIn) {
         Storage.doSave(Consts.db.user)
-        this.setState({showPrompt:true},() => this.props.logout())
+        this.props.logout()
+        Say.some(
+          'You are idle. Logging out now',
+          'Inactive'
+        )
+        //this.setState({showPrompt:true},() => this.props.logout())
     }
   }
 
-  handleDismiss = () => this.setState({showPrompt:false})
+  //handleDismiss = () => this.setState({showPrompt:false})
 
   render() {
 
-    const {showPrompt} = this.state
+    //const {showPrompt} = this.state
 
     return (
         <>
-            <Prompt
+            {/*<Prompt
                 visible={showPrompt}
                 title='Inactive'
                 message='You are idle. Logging out now'
                 onDismiss={this.handleDismiss}
-            />
+            />*/}
             <View style={{flex:1}} {...this._panResponder.panHandlers}>
                 {this.props.children}
             </View>

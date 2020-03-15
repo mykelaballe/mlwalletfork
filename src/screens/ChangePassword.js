@@ -4,6 +4,7 @@ import {Screen, Footer, Button, ButtonText, TextInput, Prompt, Errors} from '../
 import {Colors} from '../themes'
 import {_, Say, Func} from '../utils'
 import {API} from '../services'
+import { supportedAbisSync } from 'react-native-device-info'
 
 class Scrn extends React.Component {
 
@@ -18,7 +19,7 @@ class Scrn extends React.Component {
         show_old_password:false,
         show_new_password:false,
         show_confirm_password:false,
-        showSuccessModal:false,
+        //showSuccessModal:false,
         errors:[],
         processing:false
     }
@@ -79,8 +80,10 @@ class Scrn extends React.Component {
                             old_password:'',
                             new_password:'',
                             confirm_password:'',
-                            showSuccessModal:true,
+                            //showSuccessModal:true,
                         })
+
+                        Say.ok("You've successfully saved your new Password")
                     }
                 }
 
@@ -88,13 +91,13 @@ class Scrn extends React.Component {
             }
         }
         catch(err) {
-            Say.err(_('18'))
+            Say.err(_('500'))
         }
 
         this.setState({processing:false})
     }
 
-    handleCloseModal = () => this.setState({showSuccessModal:false})
+    //handleCloseModal = () => this.setState({showSuccessModal:false})
 
     render() {
 
@@ -105,12 +108,12 @@ class Scrn extends React.Component {
 
         return (
             <>
-                <Prompt
+                {/*<Prompt
                     visible={showSuccessModal}
                     title='Success'
                     message={"You've successfully saved your new Password"}
                     onDismiss={this.handleCloseModal}
-                />
+                />*/}
 
                 <Screen>
                     <TextInput
