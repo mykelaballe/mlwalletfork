@@ -21,6 +21,7 @@ import HR from './HR'
 import Icon from './Icon'
 import Initial from './Initial'
 import ListItem from './ListItem'
+import ListMenuItem from './ListMenuItem'
 import LoadPromo from './LoadPromo'
 import MLBanner from './MLBanner'
 import Modal from './Modal'
@@ -75,6 +76,7 @@ export {
     Icon,
     Initial,
     ListItem,
+    ListMenuItem,
     LoadPromo,
     MLBanner,
     Modal,
