@@ -34,7 +34,47 @@ class Scrn extends React.Component {
     }
 
     handleLogin = async () => {
-        let {username, password, processing} = this.state
+        const {username, password} = this.state
+        this.login({
+           username,
+           password
+        })
+    }
+
+    handleTouchID = () => {
+        const {login, isUsingTouchID} = this.props
+
+        if(isUsingTouchID) {
+            TouchID.authenticate('Place your finger on the fingerprint scanner to verify your identity', touchIDConfig)
+            .then(async success => {
+                let res = await API.loginByTouchID()
+
+                if(!res.error) {
+                    this.login({
+                        username:res.data.username,
+                        password:res.data.password
+                    })
+                }
+                else {
+                    Say.some(res.message)
+                }
+            })
+            .catch(err => {
+                if(err && TOUCHID_IGNORED_ERRORS.indexOf(err.code) < 0) {
+                    Say.some(err.message)
+                }
+            })
+        }
+        else {
+            this.props.navigation.navigate('TouchID')
+        }
+    }
+
+    login = async payload => {
+        const {processing} = this.state
+
+        let username = payload.username
+        let password = payload.password
 
         if(processing) return false
 
@@ -85,6 +125,7 @@ class Scrn extends React.Component {
                     else if(error === 'server_error') throw new Error()
                 }
                 else {
+                    this.props.setIsUsingTouchID(res.fingerprintstat === '1')
                     this.props.setUser(res)
                     this.props.login()
                 }
@@ -95,25 +136,6 @@ class Scrn extends React.Component {
         }
 
         this.setState({processing:false})
-    }
-
-    handleTouchID = () => {
-        const {login, isUsingTouchID} = this.props
-
-        if(isUsingTouchID) {
-            TouchID.authenticate('Place your finger on the fingerprint scanner to verify your identity', touchIDConfig)
-            .then(success => {
-                login()
-            })
-            .catch(err => {
-                if(err && TOUCHID_IGNORED_ERRORS.indexOf(err.code) < 0) {
-                    Say.some(err.message)
-                }
-            })
-        }
-        else {
-            this.props.navigation.navigate('TouchID')
-        }
     }
 
     handleGoToForgotPassword = () => this.props.navigation.navigate('ForgotPassword')
@@ -259,7 +281,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     login:() => dispatch(Creators.login()),
-    setUser:user => dispatch(Creators.setUser(user))
+    setUser:user => dispatch(Creators.setUser(user)),
+    setIsUsingTouchID:isUsing => dispatch(Creators.setIsUsingTouchID(isUsing))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

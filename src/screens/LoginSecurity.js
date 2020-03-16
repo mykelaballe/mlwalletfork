@@ -5,6 +5,7 @@ import {Creators} from '../actions'
 import {Text, Row, TopBuffer, Switch, HR, Prompt} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
+import {API} from '../services'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 class Scrn extends React.Component {
@@ -22,25 +23,35 @@ class Scrn extends React.Component {
 
     handlePressChangePIN = () => this.props.navigation.navigate('ChangePIN')
 
-    handleToggleTouchID = () => {
-        let {isUsingTouchID, setIsUsingTouchID} = this.props
+    handleToggleTouchID = async () => {
+        let {isUsingTouchID, setIsUsingTouchID, user} = this.props
         //let successModalMsg = ''
+        
+        try {
+            if(isUsingTouchID) {
+                setIsUsingTouchID(false)
+                Say.ok("You've successfully deactivated your Touch ID")
+                //successModalMsg = "You've successfully deactivated your Touch ID"
+            }
+            else {
+                setIsUsingTouchID(true)
+                Say.ok("You've successfully activated your Touch ID")
+                //successModalMsg = "You've successfully activated your Touch ID"
+            }
 
-        if(isUsingTouchID) {
-            setIsUsingTouchID(false)
-            Say.ok("You've successfully deactivated your Touch ID")
-            //successModalMsg = "You've successfully deactivated your Touch ID"
+            API.updateTouchIDStatus({
+               walletno:user.walletno,
+               flag:isUsingTouchID ? 0 : 1
+            })
+    
+            /*this.setState({
+                showSuccessModal:true,
+                successModalMsg
+            })*/
         }
-        else {
-            setIsUsingTouchID(true)
-            Say.ok("You've successfully activated your Touch ID")
-            //successModalMsg = "You've successfully activated your Touch ID"
+        catch(err) {
+            Say.err(_('500'))
         }
-
-        /*this.setState({
-            showSuccessModal:true,
-            successModalMsg
-        })*/
     }
 
     //handleCloseModal = () => this.setState({showSuccessModal:false})
@@ -101,6 +112,7 @@ const style = StyleSheet.create({
 })
 
 const mapStateToProps = state => ({
+    user: state.user.data,
     isUsingTouchID: state.app.isUsingTouchID
 })
 

@@ -4,19 +4,38 @@ import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Screen, Footer, Headline, Text, Button, Icon, Prompt} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_, Say} from '../utils'
+import {_, Say, Fetch} from '../utils'
 import {API} from '../services'
 
 class Scrn extends React.Component {
 
     state = {
         //showSuccessModal:false
+        processing:false
     }
 
     handleActivate = async () => {
-        this.props.setIsUsingTouchID(true)
-        Say.ok('You successfully activated your Touch ID. You can now use your Touch ID to Log in.')
-        //this.setState({showSuccessModal:true})
+        const {processing} = this.state
+
+        try {
+            this.setState({processing:true})
+
+            let res = await API.checkDeviceId()
+
+            if(!res.error) {
+                this.props.setIsUsingTouchID(true)
+                Say.ok('You successfully activated your Touch ID. You can now use your Touch ID to Log in.')
+                //this.setState({showSuccessModal:true})
+            }
+            else {
+                Say.some(res.message)
+            }
+        }
+        catch(err) {
+            Say.err(_('500'))
+        }
+
+        this.setState({processing:false})     
     }
 
     handleDeactivate = async () => this.props.setIsUsingTouchID(false)
@@ -31,6 +50,7 @@ class Scrn extends React.Component {
     render() {
 
         const {isUsingTouchID} = this.props
+        const {processing} = this.state
         //const {showSuccessModal} = this.state
         let title = 'Touch ID Activated'
         let subtext = 'Use your Touch ID to log in to ML Wallet without typing your username and password.'
@@ -63,7 +83,7 @@ class Scrn extends React.Component {
                 </Screen>
 
                 <Footer>
-                    {!isUsingTouchID && <Button t='Activate' onPress={this.handleActivate} />}
+                    {!isUsingTouchID && <Button t='Activate' onPress={this.handleActivate} loading={processing} />}
                     {isUsingTouchID && <Button t='Deactivate' mode='outlined' style={{borderColor:Colors.brand}} onPress={this.handleDeactivate} />}
                 </Footer>
             </>

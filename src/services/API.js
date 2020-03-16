@@ -15,7 +15,7 @@ import User from './endpoints/User'
 
 export default {
     login: async payload => {
-        return {
+        /*return {
             fname:'John',
             mname:'F',
             lname:'Smith',
@@ -41,7 +41,7 @@ export default {
             points:35,
             level:0,
             error:payload.username == 'newphone' ? 'registered_anotherdevice' : null
-        }
+        }*/
         let res = await Fetch.post('login', {
             ...payload,
             deviceId:Consts.deviceId,
@@ -64,6 +64,10 @@ export default {
         return res
     },
 
+    loginByTouchID: async () => await Fetch.get(`login/touchid?deviceId=${Consts.deviceId}`),
+
+    updateTouchIDStatus: async payload => await Fetch.put('update/touchid',payload),
+
     register: async payload => {
         return await Fetch.post('wallet/registration',{
             ...payload,
@@ -75,6 +79,8 @@ export default {
     forgotPassword: async payload => await Fetch.put('forgotPassword',payload),
 
     checkVersion: async () => await Fetch.get(''),
+
+    checkDeviceId: async () => await Fetch.get(`checkDeviceId?deviceId=${Consts.deviceId}`),
 
     updateDevice: async payload => await Fetch.put('updateDevice',{username:payload.username, deviceid:Consts.deviceId}),
 
