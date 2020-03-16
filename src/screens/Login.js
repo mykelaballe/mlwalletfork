@@ -26,8 +26,8 @@ class Scrn extends React.Component {
 
     state = {
         walletno:null,
-        username:'jadedev',
-        password:'password1234',
+        username:'',
+        password:'',
         show_password:false,
         //showNewDeviceModal:false,
         processing:false
@@ -151,12 +151,12 @@ class Scrn extends React.Component {
     handleTogglePassword = () => this.setState(prevState => ({show_password:!prevState.show_password}))
 
     handleRegisterNewDevice = () => {
-        const {username} = this.state
+        const {username, walletno} = this.state
 
         //this.setState({showNewDeviceModal:false},() => {
             this.props.navigation.navigate('SecurityQuestion',{
                 purpose:'updateDevice',
-                walletno:this.state.walletno,
+                walletno,
                 username,
                 steps:[
                     'registered',
@@ -169,11 +169,11 @@ class Scrn extends React.Component {
                     })
                     
                     if(!res.error) {
-                        Say.some('New device successfully registered')
+                        Say.ok('New device successfully registered')
                         this.props.navigation.navigate('Login')
                     }
                     else {
-                        Say.some('Error registering new device')
+                        Say.warn('Error registering new device')
                     }
                 }
             })

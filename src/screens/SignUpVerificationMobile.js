@@ -29,13 +29,11 @@ class Scrn extends React.Component {
             if(!mobile_no) Say.some(_('8'))
             else {
 
-                let res = {error:false}
-
-                /*let res = await API.requestOTP({
+                let res = await API.requestOTP({
                     _mobile_no:mobile_no
-                })*/
+                })
     
-                if(res.error) Say.some(res.message)
+                if(res.error) Say.warn(res.message)
                 else {
                     Say.some('OTP request sent')
                     this.props.navigation.navigate('SignUpVerificationOTP',{

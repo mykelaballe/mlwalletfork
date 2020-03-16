@@ -75,11 +75,10 @@ class Scrn extends React.Component {
 
             if(!otp) Say.some(_('8'))
             else {
-                let otpRes = {error:false}
-                /*let otpRes = await API.validateOTP({
+                let otpRes = await API.validateOTP({
                     _mobile_no:mobile_no,
                     _pin:otp
-                })*/
+                })
 
                 if(!otpRes.error) {
 
@@ -122,11 +121,11 @@ class Scrn extends React.Component {
                         })
                     }
                     else {
-                        Say.some(res.message)
+                        Say.warn(res.message)
                     }
                 }
                 else {
-                    alert(otpRes.message)
+                    Say.warn(otpRes.message)
                 }
             }
         }
