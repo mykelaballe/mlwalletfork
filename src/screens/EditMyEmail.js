@@ -32,6 +32,7 @@ class Scrn extends React.Component {
             if(!email) Say.some(_('8'))
             else {
                 this.props.navigation.navigate('SecurityQuestion',{
+                    walletno,
                     questions:[
                         secquestion1,
                         secquestion2,

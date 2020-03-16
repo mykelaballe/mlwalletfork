@@ -57,7 +57,7 @@ class Scrn extends React.Component {
     
                 let res = await API.updateBankPartner(payload)
 
-                if(res.error) Say.some(res.message)
+                if(res.error) Say.warn(res.message)
                 else {
                     this.props.updatePartner(index, {
                         bankname,

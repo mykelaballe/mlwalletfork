@@ -91,6 +91,7 @@ class Scrn extends React.Component {
         //this.handleCloseModal()
         try {
             this.props.deletePartner(index)
+            //alert(bank.old_partnersid + '\n' + bank.old_account_no + '\n' + bank.old_account_name)
             API.deleteBankPartner({
                 walletno,
                 partnersid:bank.old_partnersid,
