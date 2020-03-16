@@ -22,23 +22,23 @@ export default class Scrn extends React.Component {
             
             username = username.trim()
 
-            if(username == '') Say.some('Enter your username')
+            if(!username) Say.some('Enter your username')
             else {
                 let res = await API.validateUsername(username)
 
                 if(res.error) Say.some(res.message)
                 else {
                     this.props.navigation.navigate('SecurityQuestion',{
+                        walletno:res.data.walletno,
                         questions:[
-                            'one',
-                            'two',
-                            'three'
+                            res.data.secquestion1,
+                            res.data.secquestion2,
+                            res.data.secquestion3
                         ],
                         func:() => this.props.navigation.navigate('SendPassword',{
-                            wallet_no:'123456'
+                            walletno:res.data.walletno
                         })
                     })
-                    //this.props.navigation.navigate('SecurityQuestion',{...res.data})
                 }
             }
         }

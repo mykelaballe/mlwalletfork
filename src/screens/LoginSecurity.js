@@ -2,7 +2,7 @@ import React from 'react'
 import {View, StyleSheet, TouchableOpacity} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Text, Row, TopBuffer, Switch, HR, Prompt} from '../components'
+import {Text, Row, TopBuffer, Switch, HR} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
 import {API} from '../services'
@@ -14,62 +14,39 @@ class Scrn extends React.Component {
         title:'Login and Security'
     }
 
-    state = {
-        //showSuccessModal:false,
-        //successModalMsg:''
-    }
-
     handlePressChangePassword = () => this.props.navigation.navigate('ChangePassword')
 
     handlePressChangePIN = () => this.props.navigation.navigate('ChangePIN')
 
     handleToggleTouchID = async () => {
         let {isUsingTouchID, setIsUsingTouchID, user} = this.props
-        //let successModalMsg = ''
         
         try {
             if(isUsingTouchID) {
                 setIsUsingTouchID(false)
                 Say.ok("You've successfully deactivated your Touch ID")
-                //successModalMsg = "You've successfully deactivated your Touch ID"
             }
             else {
                 setIsUsingTouchID(true)
                 Say.ok("You've successfully activated your Touch ID")
-                //successModalMsg = "You've successfully activated your Touch ID"
             }
 
             API.updateTouchIDStatus({
                walletno:user.walletno,
                flag:isUsingTouchID ? 0 : 1
             })
-    
-            /*this.setState({
-                showSuccessModal:true,
-                successModalMsg
-            })*/
         }
         catch(err) {
             Say.err(_('500'))
         }
     }
 
-    //handleCloseModal = () => this.setState({showSuccessModal:false})
-
     render() {
 
         const {isUsingTouchID} = this.props
-        //const {showSuccessModal, successModalMsg} = this.state
 
         return (
             <View>
-
-                {/*<Prompt
-                    visible={showSuccessModal}
-                    title='Success'
-                    message={successModalMsg}
-                    onDismiss={this.handleCloseModal}
-                />*/}
 
                 <TopBuffer sm />
 

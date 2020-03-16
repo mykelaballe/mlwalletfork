@@ -18,9 +18,9 @@ class Scrn extends React.Component {
 
     componentDidUpdate = (prevProps, prevState) => {
         const {params = {}} = this.props.navigation.state
-        if(params.receiver && params.receiver.contact_no !== prevState.contact_no) {
+        if(params.receiver && params.receiver.mobileno !== prevState.contact_no) {
             this.props.navigation.setParams({receiver:null})
-            this.setState({contact_no:params.receiver.contact_no})
+            this.setState({contact_no:params.receiver.mobileno})
         }
     }
 

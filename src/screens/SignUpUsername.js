@@ -45,6 +45,9 @@ export default class Scrn extends React.Component {
                         this.props.navigation.navigate('SignUpPassword',{username})
                     }
                 }
+                else {
+                    Say.warn('Invalid format')
+                }
             }
         }
         catch(err) {

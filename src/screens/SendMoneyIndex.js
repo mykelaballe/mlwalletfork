@@ -8,7 +8,7 @@ export default class Scrn extends React.Component {
         title:'Send Money'
     }
 
-    handleSendToWallet = () => this.props.navigation.navigate('WalletToWallet',{type:Consts.tcn.stw.code})
+    handleSendToWallet = () => this.props.navigation.navigate('SendWalletToWallet',{type:Consts.tcn.stw.code})
 
     handleSendToKP = () => this.props.navigation.navigate('SendKP',{type:Consts.tcn.skp.code})
 

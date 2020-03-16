@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Screen, Footer, Button, ButtonText, TextInput, Prompt, Errors} from '../components'
+import {Screen, Footer, Button, ButtonText, TextInput, Errors} from '../components'
 import {Colors} from '../themes'
 import {_, Say, Func} from '../utils'
 import {API} from '../services'
@@ -18,7 +18,6 @@ class Scrn extends React.Component {
         show_old_password:false,
         show_new_password:false,
         show_confirm_password:false,
-        //showSuccessModal:false,
         errors:[],
         processing:false
     }
@@ -78,12 +77,14 @@ class Scrn extends React.Component {
                         this.setState({
                             old_password:'',
                             new_password:'',
-                            confirm_password:'',
-                            //showSuccessModal:true,
+                            confirm_password:''
                         })
 
                         Say.ok("You've successfully saved your new Password")
                     }
+                }
+                else {
+                    Say.warn('Invalid format')
                 }
 
                 this.setState({errors})
@@ -96,24 +97,15 @@ class Scrn extends React.Component {
         this.setState({processing:false})
     }
 
-    //handleCloseModal = () => this.setState({showSuccessModal:false})
-
     render() {
 
-        const {old_password, new_password, confirm_password, show_old_password, show_new_password, show_confirm_password, showSuccessModal, errors, processing} = this.state
+        const {old_password, new_password, confirm_password, show_old_password, show_new_password, show_confirm_password, errors, processing} = this.state
         let ready = false
 
         if(old_password && new_password && confirm_password) ready = true
 
         return (
             <>
-                {/*<Prompt
-                    visible={showSuccessModal}
-                    title='Success'
-                    message={"You've successfully saved your new Password"}
-                    onDismiss={this.handleCloseModal}
-                />*/}
-
                 <Screen>
                     <TextInput
                         ref='old_password'

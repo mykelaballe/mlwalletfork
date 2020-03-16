@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Screen, Footer, Headline, TextInput, Button, Checkbox, Picker, Prompt} from '../components'
+import {Screen, Footer, Headline, TextInput, Button, Checkbox, Picker} from '../components'
 import {Metrics} from '../themes'
 import {_, Say} from '../utils'
 import {API} from '../services'
@@ -29,8 +29,7 @@ class Scrn extends React.Component {
             {label:'V'},
             {label:'Others'}
         ],
-        processing:false,
-        //showSuccessModal:false
+        processing:false
     }
 
     handleChangeFirstName = fname => this.setState({fname})
@@ -94,7 +93,6 @@ class Scrn extends React.Component {
                 if(res.error) Say.some(res.message)
                 else {
                     Say.ok('Details updated')
-                    //this.setState({showSuccessModal:true})
                 }
             }
         }
@@ -105,24 +103,15 @@ class Scrn extends React.Component {
         this.setState({processing:false})
     }
 
-    //handleCloseModal = () => this.setState({showSuccessModal:false})
-
     render() {
 
-        const {fname, mname, has_middlename, lname, suffix, other_suffix, has_suffix, suffix_options, processing, showSuccessModal} = this.state
+        const {fname, mname, has_middlename, lname, suffix, other_suffix, has_suffix, suffix_options, processing} = this.state
         let ready = false
 
         if(fname && mname && lname && suffix) ready = true
 
         return (
             <>
-                {/*<Prompt
-                    visible={showSuccessModal}
-                    title='Success'
-                    message='Your request to change your name has been sent for approval. We will get back to you soon!'
-                    onDismiss={this.handleCloseModal}
-                />*/}
-                
                 <Screen>
                     <Headline subtext='Please make sure to enter all the correct details' />
 

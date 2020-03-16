@@ -54,6 +54,9 @@ export default class Scrn extends React.Component {
                         password
                     })
                 }
+                else {
+                    Say.warn('Invalid format')
+                }
             }
         }
         catch(err) {

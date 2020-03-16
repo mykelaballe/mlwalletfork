@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Provider, Screen, Footer, Headline, StaticInput, Text, Row, Spacer, Button, MonthPicker, DayPicker, YearPicker, Prompt} from '../components'
+import {Provider, Screen, Footer, Headline, StaticInput, Text, Row, Spacer, Button, MonthPicker, DayPicker, YearPicker} from '../components'
 import {_, Say} from '../utils'
 import {API} from '../services'
 
@@ -19,8 +19,7 @@ class Scrn extends React.Component {
         showMonthPicker:false,
         showDayPicker:false,
         showYearPicker:false,
-        processing:false,
-        //showSuccessModal:false
+        processing:false
     }
 
     handleChangeMonth = () => this.setState({showMonthPicker:true})
@@ -60,7 +59,6 @@ class Scrn extends React.Component {
             if(res.error) Say.some(res.message)
             else {
                 Say.ok('Your request to change your birthdate has been sent for approval. We will get back to you soon!')
-                //this.setState({showSuccessModal:true})
             }
         }
         catch(err) {
@@ -70,21 +68,12 @@ class Scrn extends React.Component {
         this.setState({processing:false})
     }
 
-    handleCloseModal = () => this.setState({showSuccessModal:false})
-
     render() {
 
-        const {bday_month, bday_day, bday_year, showMonthPicker, showDayPicker, showYearPicker, processing, showSuccessModal} = this.state
+        const {bday_month, bday_day, bday_year, showMonthPicker, showDayPicker, showYearPicker, processing} = this.state
 
         return (
             <Provider>
-                {/*<Prompt
-                    visible={showSuccessModal}
-                    title='Success'
-                    message='Your request to change your birthdate has been sent for approval. We will get back to you soon!'
-                    onDismiss={this.handleCloseModal}
-                />*/}
-                
                 <Screen>
                     <Headline subtext='Please make sure to enter all the correct details' />
 

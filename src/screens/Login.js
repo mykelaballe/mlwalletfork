@@ -26,8 +26,8 @@ class Scrn extends React.Component {
 
     state = {
         walletno:null,
-        username:'',
-        password:'',
+        username:'jadedev',
+        password:'password1234',
         show_password:false,
         //showNewDeviceModal:false,
         processing:false
@@ -98,15 +98,15 @@ class Scrn extends React.Component {
                 const {error,error_description} = res
                 
                 if(error) {
-                    if(error === '1attempt_left') Say.some(error_description)
-                    else if(error === '2attempt_left') Say.some(error_description)
-                    else if(error === 'reach_maximum_attempts') Say.some(error_description)
-                    else if(error === 'block_account_1day') Say.some(error_description)
-                    else if(error === 'block_account') Say.some(error_description)
+                    if(error === '1attempt_left') Say.warn(error_description)
+                    else if(error === '2attempt_left') Say.warn(error_description)
+                    else if(error === 'reach_maximum_attempts') Say.warn(error_description)
+                    else if(error === 'block_account') Say.warn(error_description)
+                    else if(error === 'block_account_1day') Say.warn(error_description)
                     else if(error === 'invalid_grant' || error === 'username_notexists' || error === 'wrong_password') {
-                        Say.some(_('72'))
+                        Say.warn(_('72'))
                     }
-                    if(error === 'version_outofdate') Say.some(error_description)
+                    if(error === 'version_outofdate') Say.warn(error_description)
                     else if(error === 'registered_anotherdevice') {
                         this.setState({
                             walletno:error_description,

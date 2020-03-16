@@ -47,7 +47,7 @@ export default class Prompt extends React.Component {
 			)
 		}
 
-		let message = <Text mute>{props.message}</Text>
+		let message = <Text mute md>{props.message}</Text>
 
 		if(props.customMessage) message = props.customMessage
 

@@ -72,7 +72,7 @@ export default class Scrn extends React.Component {
 
                 let securityRes = await API.validateSecurityQuestion(payload)
 
-                if(securityRes.error) Say.some('Invalid security question and answer')
+                if(securityRes.error) Say.warn('Invalid security question and answer')
                 else {
                     if(params.steps) {
 
@@ -87,25 +87,9 @@ export default class Scrn extends React.Component {
                         }
                         else {
                             if(params.func) params.func()
-                            /*if(params.purpose && params.purpose == 'updateDevice') {
-                                let updateDeviceRes = await API.updateDevice({
-                                    username:params.username
-                                })
-                                
-                                if(!updateDeviceRes.error) {
-                                    Say.some('New device successfully registered')
-                                    this.props.navigation.navigate('Login')
-                                }
-                                else {
-                                    Say.some('Error registering new device')
-                                }
-                            }*/
                         }
                     }
                     else if(params.func) params.func()
-                    /*else {
-                        this.props.navigation.navigate('SendPassword',{...payload})
-                    }*/
                 }
             }
         }

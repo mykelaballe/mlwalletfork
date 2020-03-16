@@ -77,7 +77,7 @@ class Scrn extends React.Component {
                     })
                 }
                 else {
-                    Say.some('Receiver does not exist')
+                    Say.warn(res.respmessage)
                 }
             }
             else {

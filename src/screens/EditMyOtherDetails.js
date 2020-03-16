@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Screen, Footer, Headline, StaticInput, TextInput, Button, Prompt} from '../components'
+import {Screen, Footer, Headline, StaticInput, TextInput, Button} from '../components'
 import {_, Say} from '../utils'
 import {API} from '../services'
 
@@ -20,8 +20,7 @@ class Scrn extends React.Component {
         city:this.props.user.city,
         barangay:this.props.user.barangay,
         zip_code:this.props.user.zip_code,
-        processing:false,
-        //showSuccessModal:false
+        processing:false
     }
 
     componentDidUpdate = (prevProps, prevState) => {
@@ -129,7 +128,6 @@ class Scrn extends React.Component {
                         zip_code
                     })
                     Say.ok('Details updated')
-                    //this.setState({showSuccessModal:true})
                 }
             }
         }
@@ -140,24 +138,15 @@ class Scrn extends React.Component {
         this.setState({processing:false})
     }
 
-    //handleCloseModal = () => this.setState({showSuccessModal:false})
-
     render() {
 
-        const {email, nationality, source_of_income, country, province, city, barangay, zip_code, processing, showSuccessModal} = this.state
+        const {email, nationality, source_of_income, country, province, city, barangay, zip_code, processing} = this.state
         let ready = false
 
         if(barangay && zip_code && source_of_income) ready = true
 
         return (
             <>
-                {/*<Prompt
-                    visible={showSuccessModal}
-                    title='Success'
-                    message='Details updated'
-                    onDismiss={this.handleCloseModal}
-                />*/}
-                
                 <Screen>
                     <Headline subtext='Please make sure to enter all the correct details' />
 

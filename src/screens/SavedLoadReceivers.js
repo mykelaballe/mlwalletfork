@@ -15,7 +15,7 @@ const ItemUI = props => (
                 <Spacer h sm />
                 <View>
                     <Text b>{props.data.fullname}</Text>
-                    <Text>{props.data.contact_no}</Text>
+                    <Text>{props.data.mobileno}</Text>
                 </View>
             </Row>
         </Ripple>

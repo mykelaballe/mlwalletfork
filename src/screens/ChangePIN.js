@@ -1,8 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Screen, Footer, Button, ButtonText, TextInput, Prompt, Errors} from '../components'
+import {Screen, Footer, Button, ButtonText, TextInput} from '../components'
 import {Colors} from '../themes'
-import {_, Say, Func} from '../utils'
+import {_, Say} from '../utils'
 import {API} from '../services'
 
 class Scrn extends React.Component {
@@ -18,7 +18,6 @@ class Scrn extends React.Component {
         show_old_pin:false,
         show_new_pin:false,
         show_confirm_pin:false,
-        //showSuccessModal:false,
         processing:false
     }
 
@@ -40,7 +39,7 @@ class Scrn extends React.Component {
 
     handleSubmit = async () => {
         const {walletno} = this.props.user
-        let {old_pin, new_pin, confirm_pin, errors, processing} = this.state
+        let {old_pin, new_pin, confirm_pin, processing} = this.state
 
         if(processing) return false
 
@@ -68,8 +67,7 @@ class Scrn extends React.Component {
                     this.setState({
                         old_pin:'',
                         new_pin:'',
-                        confirm_pin:'',
-                        //showSuccessModal:true,
+                        confirm_pin:''
                     })
 
                     Say.ok("You've successfully saved your new PIN")
@@ -83,24 +81,15 @@ class Scrn extends React.Component {
         this.setState({processing:false})
     }
 
-    //handleCloseModal = () => this.setState({showSuccessModal:false})
-
     render() {
 
-        const {old_pin, new_pin, confirm_pin, show_old_pin, show_new_pin, show_confirm_pin, showSuccessModal, errors, processing} = this.state
+        const {old_pin, new_pin, confirm_pin, show_old_pin, show_new_pin, show_confirm_pin, processing} = this.state
         let ready = false
 
         if(old_pin && new_pin && confirm_pin) ready = true
 
         return (
             <>
-                {/*<Prompt
-                    visible={showSuccessModal}
-                    title='Success'
-                    message={"You've successfully saved your new Password"}
-                    onDismiss={this.handleCloseModal}
-                />*/}
-
                 <Screen>
                     <TextInput
                         ref='old_pin'

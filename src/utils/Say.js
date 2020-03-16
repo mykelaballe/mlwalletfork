@@ -2,10 +2,10 @@
 import SomeModal from '../components/SomeModal'
 //import {Colors} from '../themes'
 
-const some = (message, title = 'Alert', options = {}) => {
+const some = (message, title = null, options = {}) => {
     SomeModal.show({
         message,
-        title,
+        title:title || 'Alert',
         options
     })
     //alert(title)
@@ -14,10 +14,10 @@ const some = (message, title = 'Alert', options = {}) => {
     })*/
 }
 
-const ok = (message, title = 'Success', options = {}) => {
+const ok = (message, title = null, options = {}) => {
     SomeModal.show({
         message,
-        title,
+        title:title || 'Success',
         options
     })
     /*Snackbar.show({
@@ -27,10 +27,10 @@ const ok = (message, title = 'Success', options = {}) => {
     })*/
 }
 
-const warn = (message, title = 'Warning', options = {}) => {
+const warn = (message, title = null, options = {}) => {
     SomeModal.show({
         message,
-        title,
+        title:title || 'Warning',
         options
     })
     /*Snackbar.show({
@@ -40,10 +40,10 @@ const warn = (message, title = 'Warning', options = {}) => {
     })*/
 }
 
-const err = (message, title = 'Error', options = {}) => {
+const err = (message, title = null, options = {}) => {
     SomeModal.show({
         message,
-        title,
+        title:title || 'Error',
         options
     })
     //alert(title)
@@ -59,10 +59,10 @@ const err = (message, title = 'Error', options = {}) => {
     })*/
 }
 
-const info = (message, title = 'Information', options = {}) => {
+const info = (message, title = null, options = {}) => {
     SomeModal.show({
         message,
-        title,
+        title:title || 'Information',
         options
     })
     /*Snackbar.show({
@@ -72,10 +72,10 @@ const info = (message, title = 'Information', options = {}) => {
     })*/
 }
 
-const ask = (message, title = 'Are you sure?', options = {}) => {
+const ask = (message, title = null, options = {}) => {
     SomeModal.show({
         message,
-        title,
+        title:title || 'Are you sure?',
         options: {
             type:'yes_no',
             ...options

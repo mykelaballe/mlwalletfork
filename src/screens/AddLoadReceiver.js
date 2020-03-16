@@ -52,13 +52,13 @@ class Scrn extends React.Component {
                     this.props.addReceiver({
                         ...res,
                         fullname,
-                        contact_no
+                        mobileno:contact_no
                     })
-                    Say.some('New ELoad receiver successfully added')
                     this.props.navigation.pop()
+                    Say.ok('New ELoad receiver successfully added')
                 }
                 else {
-                    Say.some(res.message)
+                    Say.warn(res.message)
                 }
             }
         }

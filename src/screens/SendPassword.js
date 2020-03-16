@@ -1,5 +1,5 @@
 import React from 'react'
-import {Screen, Footer, Headline, Button, Spacer, Prompt, Checkbox} from '../components'
+import {Screen, Footer, Headline, Button, Spacer, Checkbox} from '../components'
 import {_, Say} from '../utils'
 import {API} from '../services'
 
@@ -9,7 +9,6 @@ export default class Scrn extends React.Component {
         email:false,
         sms:false,
         processing:false,
-        //showSuccessModal:false
     }
 
     handleToggleEmail = () => this.setState(prevState => ({email:!prevState.email}))
@@ -18,7 +17,7 @@ export default class Scrn extends React.Component {
 
     handleProceed = async () => {
         try {
-            const {wallet_no} = this.props.navigation.state.params
+            const {walletno} = this.props.navigation.state.params
             let {email, sms, processing} = this.state
 
             if(processing) return
@@ -31,15 +30,14 @@ export default class Scrn extends React.Component {
             if(sms) flag_num += 2
 
             let payload = {
-                wallet_num:wallet_no,
+                wallet_num:walletno,
                 flag_num
             }
 
             let res = await API.forgotPassword(payload)
 
-            if(res.error) Say.some('Wallet number does not exist')
+            if(res.error) Say.some(res.message)
             else {
-                //this.setState({showSuccessModal:true})
                 Say.ok(
                     'A temporary password has been sent. Change your password within 24 hours so it will not expire.',
                     null,
@@ -57,15 +55,9 @@ export default class Scrn extends React.Component {
         this.setState({processing:false})
     }
 
-    /*handleCloseModal = () => {
-        this.setState({
-            showSuccessModal:false
-        },() => this.props.navigation.navigate('Login'))
-    }*/
-
     render() {
 
-        const {email, sms, processing, showSuccessModal} = this.state
+        const {email, sms, processing} = this.state
         let ready = false
 
         if(email || sms) ready = true
@@ -73,14 +65,6 @@ export default class Scrn extends React.Component {
         return (
             <>
                 <Screen>
-
-                    {/*<Prompt
-                        visible={showSuccessModal}
-                        title='Success'
-                        message='A temporary password has been sent. Change your password within 24 hours so it will not expire.'
-                        onDismiss={this.handleCloseModal}
-                        OkBtnLabel='Back to Login'
-                    />*/}
 
                     <Headline
                         title='Send Password'

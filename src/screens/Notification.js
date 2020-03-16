@@ -57,7 +57,7 @@ class Scrn extends React.Component {
                 
                 <View style={{flex:1}}>
                     <Text md>{item.message}</Text>
-                    <Text sm mute>{moment(item.date).format('D MMM YYYY h:ma')}</Text>
+                    <Text sm mute>{moment(item.date).format('D MMM YYYY h:mma')}</Text>
                 </View>
             </Row>
             

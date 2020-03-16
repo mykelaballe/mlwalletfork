@@ -30,11 +30,11 @@ class Scrn extends React.Component {
     componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
 
     getData = async () => {
-        const {category} = this.props.navigation.state.params
+        const {params = {}} = this.props.navigation.state
         let list = []
 
         try {
-            list = await API.getBillers(category ? category.value : '')
+            list = await API.getBillers(params.category ? params.category.value : '')
         }
         catch(err) {
             Say.err(_('500'))

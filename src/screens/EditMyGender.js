@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Screen, Footer, Headline, Text, Button, Prompt, Radio, Spacer, Row} from '../components'
+import {Screen, Footer, Headline, Text, Button, Radio, Spacer, Row} from '../components'
 import {_, Say} from '../utils'
 import {API} from '../services'
 import {RadioButton} from 'react-native-paper'
@@ -13,8 +13,7 @@ class Scrn extends React.Component {
 
     state = {
         gender:this.props.user.gender == 'M' ? 'Male' : 'Female',
-        processing:false,
-        //showSuccessModal:false
+        processing:false
     }
 
     handleSelectGender = gender => this.setState({gender})
@@ -36,7 +35,6 @@ class Scrn extends React.Component {
             if(res.error) Say.some(res.message)
             else {
                 Say.ok('Your request to change your gender has been sent for approval. We will get back to you soon!')
-                //this.setState({showSuccessModal:true})
             }
         }
         catch(err) {
@@ -46,21 +44,12 @@ class Scrn extends React.Component {
         this.setState({processing:false})
     }
 
-    //handleCloseModal = () => this.setState({showSuccessModal:false})
-
     render() {
 
-        const {gender, processing, showSuccessModal} = this.state
+        const {gender, processing} = this.state
 
         return (
             <>
-                {/*<Prompt
-                    visible={showSuccessModal}
-                    title='Success'
-                    message='Your request to change your gender has been sent for approval. We will get back to you soon!'
-                    onDismiss={this.handleCloseModal}
-                />*/}
-                
                 <Screen>
                     <Headline subtext='Please select your gender' />
 
