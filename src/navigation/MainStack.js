@@ -1,5 +1,6 @@
 import {createStackNavigator} from 'react-navigation-stack'
 import HomeStack from './HomeStack'
+import WalletToWalletStack from './WalletToWalletStack'
 import {AppStyles} from '../themes'
 import * as Scrn from '../screens'
 
@@ -26,6 +27,7 @@ export default createStackNavigator({
     ReceiverWalletProfile: Scrn.ReceiverWalletProfileScrn,
     AddWalletReceiver: Scrn.AddWalletReceiverScrn,
     UpdateWalletReceiver: Scrn.UpdateWalletReceiverScrn,
+    WalletToWallet: WalletToWalletStack,
 
     SendKP: Scrn.SendKPScrn,
     SavedKPReceivers: Scrn.SavedKPReceiversScrn,

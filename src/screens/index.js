@@ -42,6 +42,9 @@ import SavedWalletReceiversScrn from './SavedWalletReceivers'
 import ReceiverWalletProfileScrn from './ReceiverWalletProfile'
 import AddWalletReceiverScrn from './AddWalletReceiver'
 import UpdateWalletReceiverScrn from './UpdateWalletReceiver'
+import AllSavedWalletReceiversScrn from './AllSavedWalletReceivers'
+import FavoriteWalletReceiversScrn from './FavoriteWalletReceivers'
+import RecentWalletReceiversScrn from './RecentWalletReceivers'
 
 //send kp
 import SendKPScrn from './SendKP'
@@ -167,6 +170,9 @@ export {
     ReceiverWalletProfileScrn,
     AddWalletReceiverScrn,
     UpdateWalletReceiverScrn,
+    AllSavedWalletReceiversScrn,
+    FavoriteWalletReceiversScrn,
+    RecentWalletReceiversScrn,
 
     SendKPScrn,
     SavedKPReceiversScrn,

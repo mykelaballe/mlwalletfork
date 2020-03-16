@@ -13,6 +13,12 @@ export default {
     },
 
     getWalletReceivers: async payload => {
+        return [
+            {
+                walletno:'12345',
+                fullname:'John Smith'
+            }
+        ]
         let res = await Fetch.get(`wallettowallet/receiverlist?walletno=${payload.walletno}`)
         return res.recieverlists || []
     },
