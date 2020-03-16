@@ -2,7 +2,7 @@ import React from 'react'
 import {TouchableOpacity} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Screen, Footer, Button, StaticInput, HeaderRight, Prompt} from '../components'
+import {Screen, Footer, Button, StaticInput, HeaderRight} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
 import {API} from '../services'
@@ -34,10 +34,6 @@ class Scrn extends React.Component {
             )
         }
     }
-
-    /*state = {
-        showDeleteModal:false
-    }*/
 
     componentDidMount = () => {
         this.props.navigation.setParams({
@@ -82,16 +78,13 @@ class Scrn extends React.Component {
                 onConfirm:this.handleConfirmDelete
             }
         )
-        //this.setState({showDeleteModal:true})
     }
 
     handleConfirmDelete = () => {
         const {walletno} = this.props.user
         const {index, bank} = this.props.navigation.state.params
-        //this.handleCloseModal()
         try {
             this.props.deletePartner(index)
-            //alert(bank.old_partnersid + '\n' + bank.old_account_no + '\n' + bank.old_account_name)
             API.deleteBankPartner({
                 walletno,
                 partnersid:bank.old_partnersid,
@@ -111,24 +104,12 @@ class Scrn extends React.Component {
         this.props.navigation.navigate('SendBankTransfer',{bank})
     }
 
-    //handleCloseModal = () => this.setState({showDeleteModal:false})
-
     render() {
 
         const {bankname, old_account_name, old_account_no} = this.props.navigation.state.params.bank
-        //const {showDeleteModal} = this.state
 
         return (
             <>
-                {/*<Prompt
-                    visible={showDeleteModal}
-                    title='Are you sure?'
-                    message='You are about to delete a bank partner. This action cannot be undone'
-                    type='delete'
-                    onConfirm={this.handleConfirmDelete}
-                    onDismiss={this.handleCloseModal}
-                />*/}
-
                 <Screen>
                     <StaticInput
                         label='Bank Name'

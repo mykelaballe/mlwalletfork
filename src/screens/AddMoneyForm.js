@@ -1,5 +1,4 @@
 import React from 'react'
-import {Alert} from 'react-native'
 import {connect} from 'react-redux'
 import {Screen, Spacer, Headline, Text, View} from '../components'
 import {_, Say} from '../utils'
@@ -16,10 +15,6 @@ class Scrn extends React.Component {
             "This is sensitive personal information.\nPlease be careful in sharing these for your account's security",
             'Attention!'
         )
-        /*Alert.alert(
-            'Attention!',
-            "This is sensitive personal information.\nPlease be careful in sharing these for your account's security"
-        )*/
     }
 
     render() {

@@ -1,17 +1,13 @@
 import React from 'react'
 import {withNavigation} from 'react-navigation'
 import {Header} from './'
-import {Screen, Footer, View, Text, Spacer, Prompt, Button} from '../'
+import {Screen, Footer, View, Text, Spacer, Button} from '../'
 import {Metrics} from '../../themes'
 import {Consts, Func, Say} from '../../utils'
 
 const moment = require('moment')
 
 class SendWalletToWallet extends React.Component {
-    
-    state = {
-        //showSuccessModal:true
-    }
 
     componentDidMount = () => {
         const {walletno, amount} = this.props.data
@@ -32,30 +28,14 @@ class SendWalletToWallet extends React.Component {
         )
     }
 
-    //handleCloseModal = () => this.setState({showSuccessModal:false})
-
     handleBackToHome = () => this.props.navigation.navigate('Home')
 
     render() {
 
         const {_from, tcn, timestamp, walletno, receiver, amount, notes, charges, total} = this.props.data
-        //const {showSuccessModal} = this.state
 
         return (
             <>
-                {/*<Prompt
-                    visible={showSuccessModal}
-                    title='Success'
-                    customMessage={
-                        <>
-                            <Text mute md>You successfully sent money worth PHP {amount} to {walletno}</Text>
-                            <Spacer lg />
-                            <Text mute>Your new balance is</Text>
-                            <Text xl b>Php 1000</Text>
-                        </>
-                    }
-                    onDismiss={this.handleCloseModal}
-                />*/}
                 <Screen compact>
                     <Header
                         tcn={tcn}

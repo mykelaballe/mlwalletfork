@@ -8,10 +8,6 @@ import {Consts, Func, Say} from '../../utils'
 const moment = require('moment')
 
 class PayBill extends React.Component {
-    
-    state = {
-        //showSuccessModal:true
-    }
 
     componentDidMount = () => {
         Say.ok(
@@ -30,31 +26,14 @@ class PayBill extends React.Component {
         )
     }
 
-    //handleCloseModal = () => this.setState({showSuccessModal:false})
-
     handleBackToHome = () => this.props.navigation.navigate('Home')
 
     render() {
 
         const {_from, tcn, timestamp, biller, account_no, account_name, amount, email, fixed_charge, convenience_fee, total} = this.props.data
-        //const {showSuccessModal} = this.state
 
         return (
             <>
-                {/*}Prompt
-                    visible={showSuccessModal}
-                    title='Success'
-                    customMessage={
-                        <>
-                            <Text mute md>You successfully transferred money to bank. Expect 2-3 banking days for your new balance to reflect.</Text>
-                            <Spacer lg />
-                            <Text mute>Your new balance is</Text>
-                            <Text xl b>Php 1000</Text>
-                        </>
-                    }
-                    onDismiss={this.handleCloseModal}
-                />*/}
-
                 <Screen compact>
                     <Header
                         tcn={tcn}

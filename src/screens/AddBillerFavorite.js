@@ -1,6 +1,6 @@
 import React from 'react'
 import {TouchableOpacity} from 'react-native'
-import {Screen, Footer, Headline, Button, TextInput, Prompt} from '../components'
+import {Screen, Footer, Headline, Button, TextInput} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
 import {API} from '../services'
@@ -17,8 +17,7 @@ class Scrn extends React.Component {
         account_name:'',
         email:'',
         reminder:"Don't Remind Me",
-        processing:false,
-        //showSuccessModal:false
+        processing:false
     }
 
     handleChangeAccountNo = account_no => this.setState({account_no})
@@ -57,7 +56,6 @@ class Scrn extends React.Component {
                 if(!res.error) {
                     Say.ok("You've successfully added a Biller to Favorites.")
                     this.props.navigation.navigate('BillsCategory')
-                    //this.setState({showSuccessModal:true})
                 }
             }
         }
@@ -68,28 +66,16 @@ class Scrn extends React.Component {
         this.setState({processing:false})
     }
 
-    /*handleCloseModal = () => {
-        this.setState({showSuccessModal:false},() => this.props.navigation.navigate('BillsCategory'))
-    }*/
-
     render() {
 
         const {biller} = this.props.navigation.state.params
-        const {account_no, account_name, email, reminder, processing, showSuccessModal} = this.state
+        const {account_no, account_name, email, reminder, processing} = this.state
         let ready = false
 
         if(account_no && account_name && reminder) ready = true
 
         return (
             <>
-
-                {/*<Prompt
-                    visible={showSuccessModal}
-                    title='Success'
-                    message="You've successfully added a Biller to Favorites."
-                    onDismiss={this.handleCloseModal}
-                />*/}
-
                 <Screen>
                     <Headline title={biller.name} />
 

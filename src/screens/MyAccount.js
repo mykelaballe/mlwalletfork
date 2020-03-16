@@ -1,7 +1,7 @@
 import React from 'react'
-import {View, StyleSheet, TouchableOpacity, Alert} from 'react-native'
+import {View, StyleSheet, TouchableOpacity} from 'react-native'
 import {connect} from 'react-redux'
-import {ScrollView, Text, Row, Spacer, HR, Avatar, TopBuffer, Button, Prompt} from '../components'
+import {ScrollView, Text, Row, Spacer, HR, Avatar, TopBuffer, Button} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -24,10 +24,6 @@ class Scrn extends React.Component {
             "This is sensitive personal information.\nPlease be careful in sharing these for your account's security",
             'Attention!'
         )
-        /*Alert.alert(
-            'Attention!',
-            "This is sensitive personal information.\nPlease be careful in sharing these for your account's security"
-        )*/
     }
 
     handleGoToVerificationLevels = () => this.props.navigation.navigate('VerificationLevels')
@@ -45,17 +41,10 @@ class Scrn extends React.Component {
     render() {
 
         const {walletno, fname, mname, lname, suffix, email, country, province, city, barangay, mobile_no, status} = this.props.user
-        const {avatar, verification_level, showWarning} = this.state
+        const {avatar, verification_level} = this.state
 
         return (
             <>
-                {/*<Prompt
-                    visible={showWarning}
-                    title='Account Safety'
-                    message='Warning message here'
-                    onDismiss={this.handleCloseModal}
-                />*/}
-
                 <ScrollView>
 
                     <TopBuffer sm />

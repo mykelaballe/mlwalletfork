@@ -1,7 +1,7 @@
 import React from 'react'
 import {withNavigation} from 'react-navigation'
 import {Header} from './'
-import {Screen, Footer, Text, Spacer, Prompt, Button, View, Row} from '../'
+import {Screen, Footer, Text, Spacer, Button, View, Row} from '../'
 import {Metrics} from '../../themes'
 import {Consts, Func, Say} from '../../utils'
 
@@ -12,10 +12,7 @@ class SendKP extends React.Component {
     state = {
         status:this.props.data.status,
         statusMessage:'Your money is waiting to be claimed',
-        cancellable:this.props.data.cancellable,
-        //showSuccessModal:true,
-        //showCancelModal:false,
-        //showOkModal:false
+        cancellable:this.props.data.cancellable
     }
 
     componentDidMount = () => {
@@ -37,16 +34,7 @@ class SendKP extends React.Component {
         )
     }
 
-    /*handleCloseModal = () => {
-        this.setState({
-            showSuccessModal:false,
-            showCancelModal:false,
-            showOkModal:false
-        })
-    }*/
-
     handleCancelTransaction = () => {
-        //this.setState({showCancelModal:true})
         Say.ask(
             'Are you sure you want to cancel this transaction?',
             'Cancel Transaction',
@@ -56,14 +44,8 @@ class SendKP extends React.Component {
         )
     }
 
-    /*handleOnCancel = () => {
-        this.cancelTransaction()
-        this.setState({showCancelModal:false})
-    }*/
-
     cancelTransaction = async () => {
         this.setState({
-            //showOkModal:true,
             cancellable:false,
             status:'cancelled',
             statusMessage:''
@@ -76,40 +58,10 @@ class SendKP extends React.Component {
     render() {
 
         const {_from, tcn, timestamp, receiver, amount, charges, total} = this.props.data
-        const {status, statusMessage, cancellable, showSuccessModal, showCancelModal, showOkModal} = this.state
+        const {status, statusMessage, cancellable} = this.state
 
         return (
             <>
-                {/*<Prompt
-                    visible={showSuccessModal}
-                    title='Success'
-                    customMessage={
-                        <>
-                            <Text mute md>Share the transaction number to {receiver.firstname} {receiver.middlename} {receiver.lastname} {receiver.suffix} to complete this transaction.</Text>
-                            <Spacer lg />
-                            <Text mute>Your new balance is</Text>
-                            <Text xl b>Php 1000</Text>
-                        </>
-                    }
-                    onDismiss={this.handleCloseModal}
-                />*/}
-
-                {/*<Prompt
-                    type='yes_no'
-                    visible={showCancelModal}
-                    title='Cancel Transaction'
-                    message='Are you sure you want to cancel this transaction?'
-                    onDismiss={this.handleCloseModal}
-                    onConfirm={this.handleOnCancel}
-                />*/}
-
-                {/*<Prompt
-                    visible={showOkModal}
-                    title='Success'
-                    message={`Your transaction ${Consts.tcn.skp.short_desc} has been cancelled`}
-                    onDismiss={this.handleCloseModal}
-                />*/}
-
                 <Screen compact>
                     <Header
                         tcn={tcn}

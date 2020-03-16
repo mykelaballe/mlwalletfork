@@ -1,17 +1,13 @@
 import React from 'react'
 import {withNavigation} from 'react-navigation'
 import {Header} from './'
-import {Screen, Footer, View, Text, Spacer, Prompt, Button} from '../'
+import {Screen, Footer, View, Text, Spacer, Button} from '../'
 import {Metrics} from '../../themes'
 import {Consts, Func, Say} from '../../utils'
 
 const moment = require('moment')
 
 class BuyLoad extends React.Component {
-    
-    state = {
-        //showSuccessModal:true
-    }
 
     componentDidMount = () => {
         const {contact_no, amount} = this.props.data
@@ -32,31 +28,14 @@ class BuyLoad extends React.Component {
         )
     }
 
-    //handleCloseModal = () => this.setState({showSuccessModal:false})
-
     handleBackToHome = () => this.props.navigation.navigate('Home')
 
     render() {
 
         const {_from, tcn, timestamp, contact_no, amount, promo_code} = this.props.data
-        //const {showSuccessModal} = this.state
 
         return (
             <>
-                {/*<Prompt
-                    visible={showSuccessModal}
-                    title='Success'
-                    customMessage={
-                        <>
-                            <Text mute md>You successfully sent load worth PHP {Func.formatToCurrency(amount)} to {contact_no}</Text>
-                            <Spacer lg />
-                            <Text mute>Your new balance is</Text>
-                            <Text xl b>Php 1000</Text>
-                        </>
-                    }
-                    onDismiss={this.handleCloseModal}
-                />*/}
-
                 <Screen compact>
                     <Header
                         tcn={tcn}

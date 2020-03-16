@@ -1,12 +1,12 @@
 import React from 'react'
 import {View, StyleSheet, TouchableOpacity} from 'react-native'
-import {ScrollView, Text, Row, Spacer, Avatar, TopBuffer, Button, TextInput, Outline, Prompt} from '../components'
+import {ScrollView, Text, Row, Spacer, Avatar, TopBuffer, Button, TextInput, Outline} from '../components'
 import {Metrics} from '../themes'
 import {_, Say} from '../utils'
 
 const moment = require('moment')
 
-class EditProfile extends React.Component {
+export default class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Edit Profile'
@@ -29,8 +29,7 @@ class EditProfile extends React.Component {
         city:'Talisay',
         barangay:'Dumlog',
         zip_code:'6045',
-        processing:false,
-        //showSuccessModal:false
+        processing:false
     }
     
     handleChangeMobileNo = mobile_no => this.setState({mobile_no})
@@ -71,22 +70,13 @@ class EditProfile extends React.Component {
         this.setState({processing:false})
     }
 
-    //handleCloseModal = () => this.setState({showSuccessModal:false})
-
     render() {
 
-        const {avatar, username, firstname, lastname, wallet_no, address, mobile_no, email, source_income, birthday, gender, country, province, city, barangay, zip_code, processing, showSuccessModal} = this.state
+        const {avatar, username, firstname, lastname, wallet_no, address, mobile_no, email, source_income, birthday, gender, country, province, city, barangay, zip_code, processing} = this.state
 
         return (
             <ScrollView>
                 
-                {/*<Prompt
-                    visible={showSuccessModal}
-                    title='Success'
-                    message="You've successfully saved your Profile details"
-                    onDismiss={this.handleCloseModal}
-                />*/}
-
                 <TopBuffer sm />
 
                 <View style={style.topContainer}>
@@ -195,5 +185,3 @@ const style = StyleSheet.create({
         padding:Metrics.md
     },
 })
-
-export default EditProfile

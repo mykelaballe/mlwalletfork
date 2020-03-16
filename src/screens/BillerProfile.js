@@ -1,6 +1,6 @@
 import React from 'react'
 import {TouchableOpacity} from 'react-native'
-import {Screen, Footer, Headline, Text, Row, Spacer, Button, TextInput, Prompt, Switch} from '../components'
+import {Screen, Footer, Headline, Text, Row, Spacer, Button, TextInput, Switch} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Consts, Say} from '../utils'
 import {API} from '../services'
@@ -18,9 +18,7 @@ class Scrn extends React.Component {
         email:this.props.navigation.state.params.biller.email,
         reminder:"Don't Remind Me",
         add_to_favorites:this.props.navigation.state.params.biller.add_to_favorites,
-        processing:false,
-        //showSuccessModal:false,
-        //modalMessage:''
+        processing:false
     }
 
     handleChangeAccountNo = account_no => this.setState({account_no})
@@ -38,25 +36,18 @@ class Scrn extends React.Component {
     handleToggleAddToFavorites = async () => {
         const {id} = this.props.navigation.state.params.biller
         const {add_to_favorites} = this.state
-        //let modalMessage = ''
 
         try {
             if(add_to_favorites) {
                 let res = await API.removeFavoriteBiller({id})
                 if(!res.error) Say.ok("You've successfully removed a Biller from Favorites")
-                //modalMessage = "You've successfully removed a Biller from Favorites"
             }
             else {
                 let res = await API.addFavoriteBiller({id})
                 if(!res.error) Say.ok("You've successfully added a Biller to Favorites")
-                //modalMessage = "You've successfully added a Biller to Favorites"
             }
     
-            this.setState({
-                add_to_favorites:!add_to_favorites,
-                //modalMessage,
-                //showSuccessModal:true
-            })
+            this.setState({add_to_favorites:!add_to_favorites})
         }
         catch(err) {
             Say.err(_('500'))
@@ -84,11 +75,6 @@ class Scrn extends React.Component {
                     account_name,
                     email
                 })
-
-                /*this.setState({
-                    showSuccessModal:true,
-                    modalMessage:"You've successfully updated Biller details."
-                })*/
             }
         }
         catch(err) {
@@ -115,25 +101,16 @@ class Scrn extends React.Component {
         })
     }
 
-    //handleCloseModal = () => this.setState({showSuccessModal:false})
-
     render() {
 
         const {biller} = this.props.navigation.state.params
-        const {account_no, account_name, email, reminder, add_to_favorites, processing, showSuccessModal, modalMessage} = this.state
+        const {account_no, account_name, email, reminder, add_to_favorites, processing} = this.state
         let ready = false
 
         if(account_no && account_name) ready = true
 
         return (
             <>
-                {/*<Prompt
-                    visible={showSuccessModal}
-                    title='Success'
-                    message={modalMessage}
-                    onDismiss={this.handleCloseModal}
-                />*/}
-
                 <Screen>
                     <Headline title={biller.name} />
 

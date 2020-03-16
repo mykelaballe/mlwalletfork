@@ -2,7 +2,7 @@ import React from 'react'
 import {View, StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Text, Button, ButtonText, Spacer, TextInput, Row, Icon, Screen, Prompt, MLBanner} from '../components'
+import {Text, Button, ButtonText, Spacer, TextInput, Row, Icon, Screen, MLBanner} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
 import {API} from '../services'
@@ -29,20 +29,16 @@ class Scrn extends React.Component {
         username:'',
         password:'',
         show_password:false,
-        //showNewDeviceModal:false,
         processing:false
     }
 
     handleLogin = async () => {
         const {username, password} = this.state
-        this.login({
-           username,
-           password
-        })
+        this.login({username, password})
     }
 
     handleTouchID = () => {
-        const {login, isUsingTouchID} = this.props
+        const {isUsingTouchID} = this.props
 
         if(isUsingTouchID) {
             TouchID.authenticate('Place your finger on the fingerprint scanner to verify your identity', touchIDConfig)
@@ -108,10 +104,8 @@ class Scrn extends React.Component {
                     }
                     if(error === 'version_outofdate') Say.warn(error_description)
                     else if(error === 'registered_anotherdevice') {
-                        this.setState({
-                            walletno:error_description,
-                            //showNewDeviceModal:true
-                        })
+
+                        this.setState({walletno:error_description})
 
                         Say.ask(
                             'Oh no! You can only access your ML Wallet account in one device. To transfer your ML Wallet account to this device, click OK',
@@ -153,56 +147,41 @@ class Scrn extends React.Component {
     handleRegisterNewDevice = () => {
         const {username, walletno} = this.state
 
-        //this.setState({showNewDeviceModal:false},() => {
-            this.props.navigation.navigate('SecurityQuestion',{
-                purpose:'updateDevice',
-                walletno,
-                username,
-                steps:[
-                    'registered',
-                    //'personal',
-                    //'transactional'
-                ],
-                func:async () => {
-                    let res = await API.updateDevice({
-                        username
-                    })
-                    
-                    if(!res.error) {
-                        Say.ok('New device successfully registered')
-                        this.props.navigation.navigate('Login')
-                    }
-                    else {
-                        Say.warn('Error registering new device')
-                    }
+        this.props.navigation.navigate('SecurityQuestion',{
+            purpose:'updateDevice',
+            walletno,
+            username,
+            steps:[
+                'registered',
+                //'personal',
+                //'transactional'
+            ],
+            func:async () => {
+                let res = await API.updateDevice({
+                    username
+                })
+                
+                if(!res.error) {
+                    Say.ok('New device successfully registered')
+                    this.props.navigation.navigate('Login')
                 }
-            })
-        //})
+                else {
+                    Say.warn('Error registering new device')
+                }
+            }
+        })
     }
-
-    //handleCloseModal = () => this.setState({showNewDeviceModal:false})
 
     render() {
 
         const {isUsingTouchID} = this.props
-        const {username, password, show_password, showNewDeviceModal, processing} = this.state
+        const {username, password, show_password, processing} = this.state
         let ready = false
 
         if(username && password) ready = true
 
         return (
             <>  
-                {/*<Prompt
-                    visible={showNewDeviceModal}
-                    type='yes_no'
-                    title='New Device'
-                    message='Oh no! You can only access your ML Wallet account in one device. To transfer your ML Wallet account to this device, click OK'
-                    yesBtnLabel='OK'
-                    noBtnLabel='CANCEL'
-                    onDismiss={this.handleCloseModal}
-                    onConfirm={this.handleRegisterNewDevice}
-                />*/}
-
                 <MLBanner />
                 
                 <Screen>

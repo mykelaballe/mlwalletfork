@@ -2,15 +2,14 @@ import React from 'react'
 import {View} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Screen, Footer, Headline, Text, Button, Icon, Prompt} from '../components'
+import {Screen, Footer, Headline, Button, Icon} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_, Say, Fetch} from '../utils'
+import {_, Say} from '../utils'
 import {API} from '../services'
 
 class Scrn extends React.Component {
 
     state = {
-        //showSuccessModal:false
         processing:false
     }
 
@@ -25,10 +24,9 @@ class Scrn extends React.Component {
             if(!res.error) {
                 this.props.setIsUsingTouchID(true)
                 Say.ok('You successfully activated your Touch ID. You can now use your Touch ID to Log in.')
-                //this.setState({showSuccessModal:true})
             }
             else {
-                Say.some(res.message)
+                Say.warn(res.message)
             }
         }
         catch(err) {
@@ -45,13 +43,10 @@ class Scrn extends React.Component {
         this.props.navigation.pop()
     }
 
-    //handleCloseModal = () => this.setState({showSuccessModal:false})
-
     render() {
 
         const {isUsingTouchID} = this.props
         const {processing} = this.state
-        //const {showSuccessModal} = this.state
         let title = 'Touch ID Activated'
         let subtext = 'Use your Touch ID to log in to ML Wallet without typing your username and password.'
 
@@ -63,15 +58,6 @@ class Scrn extends React.Component {
         return (
             <>
                 <Screen>
-                    {/*<Prompt
-                        visible={showSuccessModal}
-                        title='Success'
-                        message='You successfully activated your Touch ID. You can now use your Touch ID to Log in.'
-                        onDismiss={this.handleCloseModal}
-                        onConfirm={this.handleGoToLogin}
-                        OkBtnLabel='Go to Login'
-                    />*/}
-
                     <Headline
                         title={title}
                         subtext={subtext}

@@ -1,7 +1,7 @@
 import React from 'react'
 import {withNavigation} from 'react-navigation'
 import {Header} from './'
-import {Screen, Footer, Text, Spacer, Prompt, Button, View} from '../'
+import {Screen, Footer, Text, Spacer, Button, View} from '../'
 import {Metrics} from '../../themes'
 import {Consts, Func, Say} from '../../utils'
 
@@ -11,10 +11,7 @@ class WithdrawCash extends React.Component {
     
     state = {
         status:this.props.data.status,
-        cancellable:this.props.data.cancellable,
-        //showSuccessModal:true,
-        //showCancelModal:false,
-        //showOkModal:false
+        cancellable:this.props.data.cancellable
     }
 
     componentDidMount = () => {
@@ -34,16 +31,7 @@ class WithdrawCash extends React.Component {
         )
     }
 
-    /*handleCloseModal = () => {
-        this.setState({
-            showSuccessModal:false,
-            showCancelModal:false,
-            showOkModal:false
-        })
-    }*/
-
     handleCancelTransaction = () => {
-        //this.setState({showCancelModal:true})
         Say.ask(
             'Are you sure you want to cancel this transaction?',
             'Cancel Transaction',
@@ -53,14 +41,8 @@ class WithdrawCash extends React.Component {
         )
     }
 
-    /*handleOnCancel = () => {
-        this.cancelTransaction()
-        this.setState({showCancelModal:false})
-    }*/
-
     cancelTransaction = async () => {
         this.setState({
-            //showOkModal:true,
             cancellable:false,
             status:'cancelled'
         })
@@ -73,40 +55,10 @@ class WithdrawCash extends React.Component {
     render() {
 
         const {_from, tcn, timestamp, user, amount, charges, total} = this.props.data
-        const {status, cancellable, showSuccessModal, showCancelModal, showOkModal} = this.state
+        const {status, cancellable} = this.state
 
         return (
             <>
-                {/*<Prompt
-                    visible={showSuccessModal}
-                    title='Success'
-                    customMessage={
-                        <>
-                            <Text mute md>Your transaction is pending. Go to the nearest M Lhuillier branch to complete your withdraw</Text>
-                            <Spacer lg />
-                            <Text mute>Your new balance is</Text>
-                            <Text xl b>Php 1000</Text>
-                        </>
-                    }
-                    onDismiss={this.handleCloseModal}
-                />*/}
-
-                {/*<Prompt
-                    type='yes_no'
-                    visible={showCancelModal}
-                    title='Cancel Transaction'
-                    message='Are you sure you want to cancel this transaction?'
-                    onDismiss={this.handleCloseModal}
-                    onConfirm={this.handleOnCancel}
-                />*/}
-
-                {/*<Prompt
-                    visible={showOkModal}
-                    title='Success'
-                    message={`Your transaction has been cancelled`}
-                    onDismiss={this.handleCloseModal}
-                />*/}
-
                 <Screen compact>
                     <Header
                         status={status}

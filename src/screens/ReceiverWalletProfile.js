@@ -2,7 +2,7 @@ import React from 'react'
 import {TouchableOpacity} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Screen, Footer, Text, Button, Spacer, HeaderRight, Outline, Prompt} from '../components'
+import {Screen, Footer, Text, Button, Spacer, HeaderRight, Outline} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
 import {API} from '../services'
@@ -34,10 +34,6 @@ class Scrn extends React.Component {
         }
     }
 
-    /*state = {
-        showDeleteModal:false
-    }*/
-
     componentDidMount = () => {
         this.props.navigation.setParams({
             menuOpen:false,
@@ -62,12 +58,10 @@ class Scrn extends React.Component {
                 onConfirm:this.handleConfirmDelete
             }
         )
-        //this.setState({showDeleteModal:true})
     }
 
     handleConfirmDelete = () => {
         const {index, receiver} = this.props.navigation.state.params
-        //this.handleCloseModal()
         try {
             this.props.deleteReceiver(index)
             API.deleteWalletReceiver({
@@ -93,24 +87,12 @@ class Scrn extends React.Component {
         navigate('SendWalletToWallet',{receiver})
     }
 
-    //handleCloseModal = () => this.setState({showDeleteModal:false})
-
     render() {
 
         const {walletno, fullname} = this.props.navigation.state.params.receiver
-        //const {showDeleteModal} = this.state
 
         return (
             <>
-                {/*<Prompt
-                    visible={showDeleteModal}
-                    title='Are you sure?'
-                    message='You are about to delete a receiver. This action cannot be undone'
-                    type='delete'
-                    onConfirm={this.handleConfirmDelete}
-                    onDismiss={this.handleCloseModal}
-                />*/}
-
                 <Screen>
                     <Outline>
                         <Text mute sm>Wallet Account Number</Text>
