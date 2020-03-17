@@ -30,7 +30,7 @@ export default {
         return Object.values(data)
     },
 
-    getFavoriteBillers: async payload => {
+    getFavoriteBillers: async walletno => {
         return [
             {
                 id:1,
@@ -41,7 +41,7 @@ export default {
                 add_to_favorites:true
             }
         ]
-        return await Fetch.get('',payload)
+        return await Fetch.get(`partners/getFavorite?walletno=${walletno}`)
     },
 
     updateFavoriteBiller: async payload => {
@@ -52,13 +52,13 @@ export default {
     },
 
     addFavoriteBiller: async payload => {
-        return await Fetch.post('addLoadReceiver',payload)
+        return await Fetch.post('partners/addFavorite',payload)
     },
 
     removeFavoriteBiller: async payload => {
         return {
             error:false
         }
-        return await Fetch.post('',payload)
+        return await Fetch.delete(`partners/deleteFavorite?walletno=${payload.walletno}&id=${payload.id}`)
     },
 }

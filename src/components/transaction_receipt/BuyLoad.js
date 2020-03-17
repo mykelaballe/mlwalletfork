@@ -32,7 +32,7 @@ class BuyLoad extends React.Component {
 
     render() {
 
-        const {_from, tcn, timestamp, contact_no, amount, promo_code} = this.props.data
+        const {_from, tcn, timestamp, contact_no, amount, promo} = this.props.data
 
         return (
             <>
@@ -47,12 +47,12 @@ class BuyLoad extends React.Component {
                         <Text>{contact_no}</Text>
 
                         
-                        {promo_code != '' &&
+                        {promo &&
                         <>
                             <Spacer />
 
                             <Text sm mute>Promo Code</Text>
-                            <Text>{promo_code}</Text>
+                            <Text>{promo.promoCode}</Text>
                         </>
                         }
 

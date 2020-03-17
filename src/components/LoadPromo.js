@@ -24,17 +24,17 @@ class LoadPromo extends React.Component {
 					leftContent={
 						<View style={[style.circle,{borderColor:bgColor}]}>
 							<Text center xs color={txtColor}>PHP</Text>
-							<Text center md color={txtColor}>{data.amount}</Text>
+							<Text center md color={txtColor}>{data.Amount}</Text>
 						</View>
 					}
 					topContent={
 						<View>
-							<Text b color={txtColor}>{data.label}</Text>
-							<Text color={txtColor}>{data.short_desc}</Text>
+							<Text b color={txtColor}>{data.loadType}</Text>
+							<Text color={txtColor}>{data.promoCode}</Text>
 						</View>
 					}
 					bottomContent={
-						<Text color={txtColor}>{data.long_desc}</Text>
+						<Text color={txtColor}>{data.promoName}</Text>
 					}
 					onPress={this.handlePress}
 				/>

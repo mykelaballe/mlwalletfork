@@ -1,6 +1,6 @@
 import React from 'react'
-import {View, StyleSheet, Dimensions, TouchableOpacity} from 'react-native'
-import {FlatList, Text, Row, Spacer, Button, TextInput, LoadPromo} from '../components'
+import {View, StyleSheet, Dimensions, TouchableOpacity, ScrollView} from 'react-native'
+import {Screen, Footer, Headline, FlatList, Text, Row, Spacer, Button, TextInput, LoadPromo} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Func} from '../utils'
 import {API} from '../services'
@@ -30,7 +30,7 @@ class LoadOptions extends React.Component {
 
     state = {
         amount:'',
-        promo_code:'',
+        promo:null,
         regulars:[
             {
                 amount:'10',
@@ -67,7 +67,7 @@ class LoadOptions extends React.Component {
             {
                 amount:'1000',
                 selected:false
-            },
+            }
         ],
         promo_codes:[],
         show_regulars:true,
@@ -123,7 +123,7 @@ class LoadOptions extends React.Component {
         this.setState({
             regulars,
             promo_codes,
-            promo_code:'',
+            promo:null,
             amount:Func.formatToCurrency(regulars[index].amount)
         })
     }
@@ -140,8 +140,8 @@ class LoadOptions extends React.Component {
         this.setState({
             regulars,
             promo_codes,
-            promo_code:promo_codes[index].label,
-            amount:Func.formatToCurrency(promo_codes[index].amount)
+            promo:promo_codes[index],
+            amount:Func.formatToCurrency(promo_codes[index].Amount)
         })
 
     }
@@ -165,23 +165,23 @@ class LoadOptions extends React.Component {
         if(amount) ready = true
 
         return (
-            <View style={style.container}>
+            <>
 
-                <Text b center xl>{contact_no}</Text>
-                {/*<Text center md b>Globe</Text>*/}
+                <Screen ns>
+                    <Text b xl center>{contact_no}</Text>
 
-                <Spacer />
+                    <Spacer />
 
-                <Row ar>
-                    <Button mode={show_regulars ? '' : 'outlined'} style={{flex:1}} t='Regular' onPress={this.handleShowRegulars} />
-                    <Spacer h sm />
-                    <Button mode={!show_regulars ? '' : 'outlined'} style={{flex:1}} t='Promo Code' onPress={this.handleShowPromoCodes} />
-                </Row>
+                    <Row ar>
+                        <Button mode={show_regulars ? '' : 'outlined'} style={{flex:1}} t='Regular' onPress={this.handleShowRegulars} />
+                        <Spacer h sm />
+                        <Button mode={!show_regulars ? '' : 'outlined'} style={{flex:1}} t='Promo Code' onPress={this.handleShowPromoCodes} />
+                    </Row>
 
-                <Spacer />
+                <Spacer sm />
 
                 {show_regulars &&
-                <View style={{alignItems:'center'}}>
+                <>
                     <Text center mute md>Enter load amount value or choose the load amount below.</Text>
 
                     <Spacer />
@@ -200,8 +200,9 @@ class LoadOptions extends React.Component {
                         data={regulars}
                         renderItem={this.renderRegulars}
                         numColumns={3}
+                        contentContainerStyle={{alignItems:'center'}}
                     />
-                </View>
+                </>
                 }
 
                 {!show_regulars &&
@@ -214,20 +215,19 @@ class LoadOptions extends React.Component {
                     />
                 </>
                 }
-
-                <Button disabled={!ready} t={_('62')} onPress={this.handleSubmit} />
-            </View>
+            </Screen>
+                <Footer>
+                    <Button disabled={!ready} t={_('62')} onPress={this.handleSubmit} />
+                </Footer>
+            </>
         )
     }
 }
 
 const style = StyleSheet.create({
     container: {
-        flex:1,
+        //flex:1,
         padding:Metrics.lg
-    },
-    input: {
-        flex:1
     },
     itemRegular: {
         width:ITEM_WIDTH,

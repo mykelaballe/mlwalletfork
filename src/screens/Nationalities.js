@@ -3,6 +3,7 @@ import {View, StyleSheet, InteractionManager} from 'react-native'
 import {FlatList, Text, Spacer, HR, Ripple, SearchInput} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
+import nationalities from '../services/nationalities'
 
 const ItemUI = props => (
     <>
@@ -31,16 +32,7 @@ export default class Scrn extends React.Component {
         let list = []
 
         try {
-            list = [
-                {name:'Filipino'},
-                {name:'American'},
-                {name:'German'},
-                {name:'Russian'},
-                {name:'French'},
-                {name:'Japanese'},
-                {name:'Chinese'},
-                {name:'Korean'},
-            ]
+            list = nationalities
 
             this.listHolder = list
         }

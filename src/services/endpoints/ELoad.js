@@ -1,11 +1,16 @@
-import {Fetch} from "../../utils"
+import {Consts, Fetch} from "../../utils"
 
 export default {
     buyLoad: async payload => {
         return {
             error:false
         }
-        return await Fetch.post('',payload)
+        return await Fetch.post('LoadSIM',{
+            ...payload,
+            deviceid:Consts.deviceId,
+            longitude:'1',
+            location:'cebu'
+        })
     },
 
     getELoadReceivers: async walletno => {
@@ -24,39 +29,31 @@ export default {
 
     addELoadReceiver: async payload => await Fetch.post('addLoadReceiver',payload),
 
-    getLoadPromoCodes: async () => {
+    getLoadPromoCodes: async network => {
+        //network - Globe, Smart Eload, Sun Cellular
+        //return await Fetch.get(`getPromos?network=${network}`)
         return [
             {
-                label:'GoSURF10',
-                short_desc:'For Globe Prepaid only.',
-                long_desc:'100MB data + 30MB for IG. Valid for 2 days',
-                amount:10
+                loadType:'All Text 20 Combo',
+                networkID:'MLNET16060001',
+                promoCode:'WAT020',
+                Amount:0,
+                promoName:'All Text 20 Combo'
             },
             {
-                label:'GoSURF15',
-                short_desc:'For Globe Prepaid only.',
-                long_desc:'100MB data + 30MB for IG. Valid for 2 days',
-                amount:15
+                loadType:'Gaan All In One 99',
+                networkID:'MLNET16060001',
+                promoCode:'WGA99',
+                Amount:0,
+                promoName:'Gaan All In One 99'
             },
             {
-                label:'GoSAKTO70',
-                short_desc:'For Globe Prepaid only.',
-                long_desc:'100MB data + 30MB for IG. Valid for 2 days',
-                amount:70
+                loadType:'Gaan Text Plus 2 Day',
+                networkID:'MLNET16060001',
+                promoCode:'WGT20',
+                Amount:0,
+                promoName:'Gaan Text Plus 2 Day'
             },
-            {
-                label:'GoSURF50',
-                short_desc:'For Globe Prepaid only.',
-                long_desc:'100MB data + 30MB for IG. Valid for 2 days',
-                amount:50
-            },
-            {
-                label:'GoSAKTO90',
-                short_desc:'For Globe Prepaid only.',
-                long_desc:'100MB data + 30MB for IG. Valid for 2 days',
-                amount:90
-            }
         ]
-        return await Fetch.get('')
     },
 }

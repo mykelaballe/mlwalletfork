@@ -9,7 +9,12 @@ export default {
         return {
             error:false
         }
-        return await Fetch.post('',payload)
+        return await Fetch.post('kp/sendMoney',{
+            ...payload,
+            mlat:'1',
+            mlong:'1',
+            location:'cebu'
+        })
     },
 
     getKPReceivers: async payload => await Fetch.get(`kp/kplistreceivers?walletno=${payload.walletno}`),

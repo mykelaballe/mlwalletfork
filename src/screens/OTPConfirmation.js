@@ -117,7 +117,9 @@ class Scrn extends React.Component {
 
                     })
                     else if(type == Consts.tcn.skp.code) await API.sendKP({
-
+                        walletno,
+                        receiverno:transaction.receiver.receiverno,
+                        principal:transaction.amount
                     })
                     else if(type == Consts.tcn.stb.code) await API.sendBankTransfer({
 
@@ -130,10 +132,14 @@ class Scrn extends React.Component {
 
                     })
                     else if(type == Consts.tcn.bul.code) await API.buyLoad({
-
+                        walletNo:walletno,
+                        amount:transaction.amount,
+                        mobileNo:transaction.contact_no,
+                        promoCode:transaction.promo.promoCode,
+                        networkId:transaction.promo.networkID
                     })
 
-                    if(res.error) Say.some('error')
+                    if(res.error) Say.warn('Error')
                     else {
                         replace('TransactionReceipt',{...state.params})
                     }

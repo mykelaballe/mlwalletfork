@@ -1,5 +1,6 @@
 import React from 'react'
 import {TouchableOpacity} from 'react-native'
+import {connect} from 'react-redux'
 import {Screen, Footer, Headline, Text, Row, Spacer, Button, TextInput, Switch} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Consts, Say} from '../utils'
@@ -13,8 +14,8 @@ class Scrn extends React.Component {
     }
 
     state = {
-        account_no:this.props.navigation.state.params.biller.account_no,
-        account_name:this.props.navigation.state.params.biller.account_name,
+        account_no:this.props.navigation.state.params.biller.bill_partner_accountid,
+        account_name:this.props.navigation.state.params.biller.bill_partner_name,
         email:this.props.navigation.state.params.biller.email,
         reminder:"Don't Remind Me",
         add_to_favorites:this.props.navigation.state.params.biller.add_to_favorites,
@@ -34,16 +35,27 @@ class Scrn extends React.Component {
     handleSelectReminder = () => this.props.navigation.navigate('Reminders')
 
     handleToggleAddToFavorites = async () => {
-        const {id} = this.props.navigation.state.params.biller
-        const {add_to_favorites} = this.state
+        const {walletno} = this.props.user
+        const {id, partnersid} = this.props.navigation.state.params.biller
+        const {account_no, account_name, email, add_to_favorites} = this.state
 
         try {
             if(add_to_favorites) {
-                let res = await API.removeFavoriteBiller({id})
+                let res = await API.removeFavoriteBiller({
+                    id,
+                    walletno
+                })
                 if(!res.error) Say.ok("You've successfully removed a Biller from Favorites")
             }
             else {
-                let res = await API.addFavoriteBiller({id})
+                let res = await API.addFavoriteBiller({
+                    walletno,
+                    partnersid,
+                    id,
+                    account_no,
+                    account_name,
+                    email
+                })
                 if(!res.error) Say.ok("You've successfully added a Biller to Favorites")
             }
     
@@ -172,4 +184,8 @@ class Scrn extends React.Component {
     }
 }
 
-export default Scrn
+const mapStateToprops = state => ({
+    user: state.user.data
+})
+
+export default connect(mapStateToprops)(Scrn)

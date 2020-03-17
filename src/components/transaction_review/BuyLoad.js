@@ -3,7 +3,7 @@ import {Text, Spacer} from '../'
 import {Func} from '../../utils'
 
 export default props => {
-    const {contact_no, amount, promo_code} = props.data
+    const {contact_no, amount, promo} = props.data
 
     return (
         <>
@@ -16,12 +16,12 @@ export default props => {
             <Text mute sm>Mobile Number</Text>
             <Text md>{contact_no}</Text>
 
-            {promo_code != '' &&
+            {promo &&
             <>
                 <Spacer />
                 
                 <Text mute sm>Promo</Text>
-                <Text md>{promo_code}</Text>
+                <Text md>{promo.promoCode}</Text>
             </>
             }
 
