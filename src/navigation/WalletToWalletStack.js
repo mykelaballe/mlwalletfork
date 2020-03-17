@@ -33,6 +33,6 @@ export default createMaterialTopTabNavigator({
     },
     tabBarPosition: 'bottom',
     animationEnabled: false,
-    //swipeEnabled: false,
+    swipeEnabled: false,
     showIcon: false
 })
