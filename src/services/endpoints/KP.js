@@ -6,9 +6,6 @@ export default {
     },
 
     sendKP: async payload => {
-        return {
-            error:false
-        }
         return await Fetch.post('kp/sendMoney',{
             ...payload,
             mlat:'1',

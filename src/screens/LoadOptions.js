@@ -77,10 +77,11 @@ class LoadOptions extends React.Component {
     componentDidMount = () => this.getData()
 
     getData = async () => {
+        const network = 'smart eload'
         let promo_codes = []
 
         try {
-            promo_codes = await API.getLoadPromoCodes()
+            promo_codes = await API.getLoadPromoCodes(network)
         }
         catch(err) {
 

@@ -31,7 +31,8 @@ export default {
 
     getLoadPromoCodes: async network => {
         //network - Globe, Smart Eload, Sun Cellular
-        //return await Fetch.get(`getPromos?network=${network}`)
+        let res = await Fetch.get(`getPromos?network=${network}`)
+        return res.data
         return [
             {
                 loadType:'All Text 20 Combo',

@@ -116,11 +116,13 @@ class Scrn extends React.Component {
                     if(type == Consts.tcn.stw.code) await API.sendWalletToWallet({
 
                     })
-                    else if(type == Consts.tcn.skp.code) await API.sendKP({
-                        walletno,
-                        receiverno:transaction.receiver.receiverno,
-                        principal:transaction.amount
-                    })
+                    else if(type == Consts.tcn.skp.code) {
+                        res = await API.sendKP({
+                            walletno,
+                            receiverno:transaction.receiver.receiverno,
+                            principal:transaction.amount
+                        })
+                    }
                     else if(type == Consts.tcn.stb.code) await API.sendBankTransfer({
 
                     })
@@ -131,13 +133,19 @@ class Scrn extends React.Component {
                     else if(type == Consts.tcn.bpm.code) await API.payBill({
 
                     })
-                    else if(type == Consts.tcn.bul.code) await API.buyLoad({
-                        walletNo:walletno,
-                        amount:transaction.amount,
-                        mobileNo:transaction.contact_no,
-                        promoCode:transaction.promo.promoCode,
-                        networkId:transaction.promo.networkID
-                    })
+                    else if(type == Consts.tcn.bul.code) {
+                        let payload = {
+                            walletNo:walletno,
+                            amount:transaction.amount,
+                            mobileNo:transaction.contact_no
+                        }
+
+                        if(transaction.promo) {
+                            payload.promoCode = transaction.promo.promoCode,
+                            payload.networkId = transactin.promo.networkID
+                        }
+                        res = await API.buyLoad(payload)
+                    }
 
                     if(res.error) Say.warn('Error')
                     else {
