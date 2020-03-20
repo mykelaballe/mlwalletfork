@@ -96,7 +96,7 @@ class Scrn extends React.Component {
 
     handleGoToBuyLoad = () => {
         const {navigation: {navigate}, hasSeenBuyLoadOnboarding} = this.props
-        if(hasSeenBuyLoadOnboarding) navigate('BuyLoadIndex')
+        if(hasSeenBuyLoadOnboarding) navigate('BuyLoad')
         else navigate('BuyLoadOnBoarding')
     }
 

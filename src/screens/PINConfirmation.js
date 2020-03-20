@@ -98,10 +98,12 @@ class Scrn extends React.Component {
                     else if(type == Consts.tcn.stb.code) await API.sendBankTransfer({
 
                     })
-                    else if(type == Consts.tcn.wdc.code) await API.withdrawCash({
-                        walletno,
-                        amount:transaction.amount
-                    })
+                    else if(type == Consts.tcn.wdc.code) {
+                        res = await API.withdrawCash({
+                            walletno,
+                            amount:transaction.amount
+                        })
+                    }
                     else if(type == Consts.tcn.bpm.code) await API.payBill({
 
                     })

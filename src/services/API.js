@@ -16,7 +16,7 @@ import User from './endpoints/User'
 
 export default {
     login: async payload => {
-        return {
+        /*return {
             username:'johnsmith',
             password:'123',
             fname:'John',
@@ -46,7 +46,7 @@ export default {
             isresetpass:"0",
             isresetpin:"0",
             error:payload.username == 'newphone' ? 'registered_anotherdevice' : null
-        }
+        }*/
         let res = await Fetch.post('login', {
             ...payload,
             deviceId:Consts.deviceId,
@@ -89,9 +89,20 @@ export default {
 
     updateDevice: async payload => await Fetch.put('updateDevice',{username:payload.username, deviceid:Consts.deviceId}),
 
-    validateUsername: async username => {return {error:false,data:{walletno:'123',secquestion1:'one',secquestion2:'two',secquestion3:'three'}}},//await Fetch.post('validateUsername',{username}),
+    validateUsername: async username => {
+        /*return {
+            error:false,
+            data:{
+                walletno:'123',
+                secquestion1:'one',
+                secquestion2:'two',
+                secquestion3:'three'
+            }
+        }*/
+        return await Fetch.post('validateUsername',{username})
+    },
 
-    validateSecurityQuestion: async payload => {return {error:false}},//await Fetch.post('validateSecurityQuestion',payload),
+    validateSecurityQuestion: async payload => await Fetch.post('validateSecurityQuestion',payload),
 
     ...WalletToWallet,
     ...KP,
@@ -118,7 +129,7 @@ export default {
 
     getCountries: async () => {
         let data = {}
-        let res = {
+        /*let res = {
             data: [
                 {
                     name:'Afghanistan'
@@ -139,8 +150,8 @@ export default {
                     name:'Angola'
                 }
             ]
-        }
-        //let res = await Fetch.get('getCountries')
+        }*/
+        let res = await Fetch.get('getCountries')
 
         if(res.data) {
             for(let d in res.data) {
@@ -162,7 +173,7 @@ export default {
 
     getProvinces: async () => {
         let data = {}
-        let res = {
+        /*let res = {
             data:[
                 {
                     province:'ABRA',
@@ -181,8 +192,8 @@ export default {
                     provCode:'0604'
                 }
             ]
-        }
-        //let res = await Fetch.get('getProvinces')
+        }*/
+        let res = await Fetch.get('getProvinces')
 
         if(res.data) {
             for(let d in res.data) {
@@ -204,7 +215,7 @@ export default {
 
     getCities: async provinceCode => {
         let data = {}
-        let res = {
+        /*let res = {
             data:[
                 {
                     city:'AGOO',
@@ -227,8 +238,8 @@ export default {
                     zipCode:'2517'
                 },
             ]
-        }
-        //let res = await Fetch.get(`getCities/${provinceCode}`)
+        }*/
+        let res = await Fetch.get(`getCities/${provinceCode}`)
 
         if(res.data) {
             for(let d in res.data) {
