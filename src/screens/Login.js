@@ -119,9 +119,22 @@ class Scrn extends React.Component {
                     else if(error === 'server_error') throw new Error()
                 }
                 else {
-                    this.props.setIsUsingTouchID(res.fingerprintstat === '1')
-                    this.props.setUser(res)
-                    this.props.login()
+                    if(res.isresetpass === '1') {
+                        this.props.navigation.navigate('CreatePassword',{
+                            walletno:res.walletno,
+                            old_password:res.password
+                        })
+                    }
+                    else if(res.isresetpin === '1') {
+                        this.props.navigation.navigate('ValidatePIN',{
+                            data:res
+                        })
+                    }
+                    else {
+                        this.props.setIsUsingTouchID(res.fingerprintstat === '1')
+                        this.props.setUser(res)
+                        this.props.login()
+                    }
                 }
             }
         }

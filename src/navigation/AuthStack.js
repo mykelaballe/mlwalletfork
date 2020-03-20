@@ -33,6 +33,18 @@ export default createStackNavigator({
         screen:Scrn.ForgotPasswordScrn,
         navigationOptions:AppStyles.noHeaderNavigationOptions
     },
+    CreatePassword: {
+        screen:Scrn.CreatePasswordScrn,
+        navigationOptions:AppStyles.noHeaderNavigationOptions
+    },
+    ValidatePIN: {
+        screen:Scrn.ValidatePINScrn,
+        navigationOptions:AppStyles.noHeaderNavigationOptions
+    },
+    CreatePIN: {
+        screen:Scrn.CreatePINScrn,
+        navigationOptions:AppStyles.noHeaderNavigationOptions
+    },
     SecurityQuestion: {
         screen:Scrn.SecurityQuestionAuthScrn,
         navigationOptions:AppStyles.noHeaderNavigationOptions

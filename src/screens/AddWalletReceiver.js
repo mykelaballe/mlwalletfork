@@ -104,11 +104,11 @@ class Scrn extends React.Component {
                     walletno,
                     fullname:`${firstname} ${lastname}`
                 })
-                Say.some('Receiver added successfully')
-                this.props.navigation.navigate('SavedWalletReceivers')
+                Say.ok('Receiver added successfully')
+                this.props.navigation.pop()
             }
             else {
-                Say.some(res.message)
+                Say.warn(res.message)
             }
         }
         catch(err) {

@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Provider, Screen, Footer, Headline, StaticInput, Text, Row, Spacer, Button, MonthPicker, DayPicker, YearPicker} from '../components'
+import {Screen, Footer, Headline, StaticInput, Text, Row, Spacer, Button, MonthPicker, DayPicker, YearPicker} from '../components'
 import {_, Say} from '../utils'
 import {API} from '../services'
 
@@ -73,7 +73,7 @@ class Scrn extends React.Component {
         const {bday_month, bday_day, bday_year, showMonthPicker, showDayPicker, showYearPicker, processing} = this.state
 
         return (
-            <Provider>
+            <>
                 <Screen>
                     <Headline subtext='Please make sure to enter all the correct details' />
 
@@ -104,15 +104,15 @@ class Scrn extends React.Component {
                 </Screen>
 
                 <Footer>
-                    <Button t={'Save Changes'} onPress={this.handleSubmit} loading={processing} />
+                    <Button disabled={showMonthPicker || showDayPicker || showYearPicker} t={'Save Changes'} onPress={this.handleSubmit} loading={processing} />
                 </Footer>
 
                 <MonthPicker initialValue={bday_month} visible={showMonthPicker} onSelect={this.handleSelectMonth} onDismiss={this.handleHideMonthPicker} />
 
-                <DayPicker initialValue={bday_day} visible={showDayPicker} onSelect={this.handleSelectDay} onDismiss={this.handleHideDayPicker} />
+                <DayPicker month={bday_month} initialValue={bday_day} visible={showDayPicker} onSelect={this.handleSelectDay} onDismiss={this.handleHideDayPicker} />
 
                 <YearPicker initialValue={bday_year} visible={showYearPicker} onSelect={this.handleSelectYear} onDismiss={this.handleHideYearPicker} />
-            </Provider>
+            </>
         )
     }
 }

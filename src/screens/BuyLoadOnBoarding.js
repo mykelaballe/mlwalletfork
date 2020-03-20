@@ -23,7 +23,7 @@ class Scrn extends React.Component {
   handleDone = () => {
     const {navigation: {replace}, setHasSeen} = this.props
     setHasSeen(true)
-    replace('BuyLoad')
+    replace('BuyLoadIndex')
   }
   
   render() {

@@ -27,7 +27,7 @@ export default createStackNavigator({
     ReceiverWalletProfile: Scrn.ReceiverWalletProfileScrn,
     AddWalletReceiver: Scrn.AddWalletReceiverScrn,
     UpdateWalletReceiver: Scrn.UpdateWalletReceiverScrn,
-    WalletToWallet: WalletToWalletStack,
+    SendWalletToWalletIndex: WalletToWalletStack,
 
     SendKP: Scrn.SendKPScrn,
     SavedKPReceivers: Scrn.SavedKPReceiversScrn,
@@ -76,12 +76,15 @@ export default createStackNavigator({
     TransactionReview: Scrn.TransactionReviewScrn,
     TransactionReceipt: Scrn.TransactionReceiptScrn,
     OTPConfirmation: Scrn.OTPConfirmationScrn,
+    PINConfirmation: Scrn.PINConfirmationScrn,
     TransactionQR: Scrn.TransactionQRScrn,
 
     SecurityQuestion: {
         screen:Scrn.SecurityQuestionAuthScrn,
         navigationOptions:AppStyles.noHeaderNavigationOptions
     },
+
+    SecurityQuestions: Scrn.SecurityQuestionsScrn,
 
     TransactionHistory: Scrn.TransactionHistoryScrn,
     Rates: Scrn.RatesScrn,
@@ -110,6 +113,10 @@ export default createStackNavigator({
     LoginSecurity: Scrn.LoginSecurityScrn,
     ChangePassword: Scrn.ChangePasswordScrn,
     ChangePIN: Scrn.ChangePINScrn,
+    SendPIN: {
+        screen:Scrn.SendPINScrn,
+        navigationOptions:AppStyles.noHeaderNavigationOptions
+    },
 
     ComingSoon: Scrn.ComingSoonScrn,
 },{

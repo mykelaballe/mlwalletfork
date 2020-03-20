@@ -10,7 +10,7 @@ const moment = require('moment')
 class BuyLoad extends React.Component {
 
     componentDidMount = () => {
-        const {contact_no, amount} = this.props.data
+        const {contact_no, amount, balance} = this.props.data
 
         Say.ok(
             null,
@@ -21,7 +21,7 @@ class BuyLoad extends React.Component {
                         <Text mute md>You successfully sent load worth PHP {Func.formatToCurrency(amount)} to {contact_no}</Text>
                         <Spacer lg />
                         <Text mute>Your new balance is</Text>
-                        <Text xl b>Php 1000</Text>
+                        <Text xl b>Php {Func.formatToRealCurrency(balance)}</Text>
                     </>
                 )
             }
@@ -32,13 +32,13 @@ class BuyLoad extends React.Component {
 
     render() {
 
-        const {_from, tcn, timestamp, contact_no, amount, promo} = this.props.data
+        const {_from, kptn, timestamp, contact_no, amount, promo} = this.props.data
 
         return (
             <>
                 <Screen compact>
                     <Header
-                        tcn={tcn}
+                        tcn={kptn}
                         status='success'
                     />
 

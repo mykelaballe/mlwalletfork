@@ -1,13 +1,7 @@
 import React from 'react'
 import {Screen, Headline, Button, ButtonText, TextInput, Footer, Errors} from '../components'
 import {Colors} from '../themes'
-import {_, Say, Func} from '../utils'
-
-const CRITERIA = {
-    minLength:8,
-    hasNum:true,
-    hasSpecialChar:true
-}
+import {_, Say, Func, Consts} from '../utils'
 
 export default class Scrn extends React.Component {
 
@@ -44,7 +38,7 @@ export default class Scrn extends React.Component {
             else if(password != confirm_password) Say.some('Password does not match')
             else {
 
-                let passwordValidation = Func.validate(password, CRITERIA)
+                let passwordValidation = Func.validate(password, Consts.password_criteria)
 
                 password_errors = passwordValidation.errors
                 
@@ -98,7 +92,7 @@ export default class Scrn extends React.Component {
 
                     <Errors
                         value={password}
-                        criteria={CRITERIA}
+                        criteria={Consts.password_criteria}
                     />
 
                     <TextInput

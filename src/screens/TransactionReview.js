@@ -20,11 +20,12 @@ class Scrn extends React.Component {
         try {
             this.setState({processing:true})
             
-            let res = await API.requestOTP({
+            /*let res = await API.requestOTP({
                 _walletno:this.props.user.walletno
             })
     
-            if(!res.error) navigate('OTPConfirmation',{...state.params})
+            if(!res.error)*/
+            navigate('PINConfirmation',{...state.params})
         }
         catch(err) {
             Say.err(_('500'))

@@ -17,8 +17,8 @@ class Scrn extends React.Component {
     })
 
     state = {
-        walletno:'',
-        receiver:'',
+        walletno:this.props.navigation.state.params.receiver.walletno,
+        receiver:this.props.navigation.state.params.receiver.fullname,
         amount:'',
         notes:'',
         charges:'25',
@@ -27,7 +27,7 @@ class Scrn extends React.Component {
         processing:false
     }
 
-    componentDidUpdate = (prevProps, prevState) => {
+    /*componentDidUpdate = (prevProps, prevState) => {
         const {params = {}} = this.props.navigation.state
         if(params.receiver && params.receiver.walletno !== prevState.walletno) {
             this.props.navigation.setParams({receiver:null})
@@ -36,7 +36,7 @@ class Scrn extends React.Component {
                 receiver:params.receiver.fullname
             })
         }
-    }
+    }*/
 
     handleChangeReceiverWalletID = receiver_wallet_id => this.setState({receiver_wallet_id})
 
@@ -56,7 +56,7 @@ class Scrn extends React.Component {
     handleChangePoints = points => this.setState({points})
 
     handleSendMoney = async () => {
-        const {amount, total, processing} = this.state
+        const {total, processing} = this.state
         const {params} = this.props.navigation.state
 
         if(processing) return false
@@ -72,6 +72,7 @@ class Scrn extends React.Component {
             if(res.respcode === 1) {
                 this.props.navigation.navigate('TransactionReview',{
                     ...params,
+                    type:Consts.tcn.stw.code,
                     transaction: {
                         ...this.state
                     },
@@ -79,7 +80,7 @@ class Scrn extends React.Component {
                 })
             }
             else {
-                Say.some(res.respmessage)
+                Say.warn(res.respmessage)
             }
         }
         catch(err) {
@@ -101,9 +102,9 @@ class Scrn extends React.Component {
             <>
                 <Screen>
 
-                    <View style={{alignItems:'flex-end'}}>
+                    {/*<View style={{alignItems:'flex-end'}}>
                         <ButtonText color={Colors.brand} icon='plus' t='Add Receiver' onPress={this.handleAddNewReceiver} />
-                    </View>
+                    </View>*/}
 
                     <TextInput
                         disabled
@@ -149,7 +150,7 @@ class Scrn extends React.Component {
 
                     <Spacer />
                     
-                    <Button disabled={!ready} t={Consts.tcn[type].submit_text} onPress={this.handleSendMoney} loading={processing} />
+                    <Button disabled={!ready} t={Consts.tcn.stw.submit_text} onPress={this.handleSendMoney} loading={processing} />
                 </Footer>
             </>
         )

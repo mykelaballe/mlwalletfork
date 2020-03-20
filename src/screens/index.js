@@ -14,6 +14,7 @@ import SignUpSuccessScrn from './SignUpSuccess'
 import ForgotPasswordScrn from './ForgotPassword'
 import SecurityQuestionAuthScrn from './SecurityQuestionAuth'
 import SendPasswordScrn from './SendPassword'
+import SendPINScrn from './SendPIN'
 import TouchIDScrn from './TouchID'
 import HomeScrn from './Home'
 import MyAccountScrn from './MyAccount'
@@ -86,6 +87,7 @@ import MyContactProfileScrn from './MyContactProfile'
 import TransactionReviewScrn from './TransactionReview'
 import TransactionReceiptScrn from './TransactionReceipt'
 import OTPConfirmationScrn from './OTPConfirmation'
+import PINConfirmationScrn from './PINConfirmation'
 import TransactionQRScrn from './TransactionQR'
 
 import CurrenciesScrn from './Currencies'
@@ -116,7 +118,10 @@ import VerificationLevelsScrn from './VerificationLevels'
 import MyQRScrn from './MyQR'
 import MyPointsScrn from './MyPoints'
 import LoginSecurityScrn from './LoginSecurity'
+import CreatePasswordScrn from './CreatePassword'
 import ChangePasswordScrn from './ChangePassword'
+import ValidatePINScrn  from './ValidatePIN'
+import CreatePINScrn from './CreatePIN'
 import ChangePINScrn from './ChangePIN'
 
 import ComingSoonScrn from './ComingSoon'
@@ -144,6 +149,7 @@ export {
     ForgotPasswordScrn,
     SecurityQuestionAuthScrn,
     SendPasswordScrn,
+    SendPINScrn,
     TouchIDScrn,
     HomeScrn,
     MyAccountScrn,
@@ -210,6 +216,7 @@ export {
     TransactionReviewScrn,
     TransactionReceiptScrn,
     OTPConfirmationScrn,
+    PINConfirmationScrn,
     TransactionQRScrn,
 
     CurrenciesScrn,
@@ -240,7 +247,10 @@ export {
     MyQRScrn,
     MyPointsScrn,
     LoginSecurityScrn,
+    CreatePasswordScrn,
     ChangePasswordScrn,
+    ValidatePINScrn,
+    CreatePINScrn,
     ChangePINScrn,
 
     ComingSoonScrn,

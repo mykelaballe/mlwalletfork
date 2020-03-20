@@ -7,7 +7,7 @@ import {Provider, RadioButton} from 'react-native-paper'
 
 const moment = require('moment')
 
-class Scrn extends React.Component {
+export default class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Review Information'
@@ -30,27 +30,39 @@ class Scrn extends React.Component {
             this.setState({nationality:params.nationality})
         }
 
-        if(params.country && params.country !== prevState.country) {
+        else if(params.country && params.country !== prevState.country) {
             this.props.navigation.setParams({country:null})
-            this.setState({country:params.country})
+            this.setState({
+                country:params.country,
+                province:'',
+                city:''
+            })
         }
 
-        if(params.region && params.region !== prevState.region) {
+        /*else if(params.region && params.region !== prevState.region) {
             this.props.navigation.setParams({region:null})
             this.setState({region:params.region})
-        }
+        }*/
 
-        if(params.province && params.province !== prevState.province) {
+        else if(params.province && params.province.province !== prevState.province.province) {
             this.props.navigation.setParams({province:null})
-            this.setState({province:params.province})
+            this.setState({
+                province:{
+                    ...params.province
+                },
+                city:''
+            })
         }
 
-        if(params.city && params.city !== prevState.city) {
+        else if(params.city && params.city.city !== prevState.city) {
             this.props.navigation.setParams({city:null})
-            this.setState({city:params.city})
+            this.setState({
+                city:params.city.city,
+                zip_code:params.city.zipCode
+            })
         }
 
-        if(params.source_of_income && params.source_of_income !== prevState.source_of_income) {
+        else if(params.source_of_income && params.source_of_income !== prevState.source_of_income) {
             this.props.navigation.setParams({source_of_income:null})
             this.setState({source_of_income:params.source_of_income})
         }
@@ -203,7 +215,7 @@ class Scrn extends React.Component {
                     street,
                     country,
                     region,
-                    province,
+                    province:province.province,
                     city,
                     barangay,
                     zip_code,
@@ -392,7 +404,7 @@ class Scrn extends React.Component {
 
                         <StaticInput
                             label='Province'
-                            value={province}
+                            value={province.province}
                             onPress={this.handleSelectProvince}
                         />
 
@@ -459,19 +471,17 @@ class Scrn extends React.Component {
 
                         <Spacer />
 
-                        <Button disabled={!ready} t={_('62')} onPress={this.handleSubmit} loading={processing} />
+                        <Button disabled={!ready || showMonthPicker || showDayPicker || showYearPicker} t={_('62')} onPress={this.handleSubmit} loading={processing} />
                     </>
                     }
                 </Footer>
 
                 <MonthPicker visible={showMonthPicker} onSelect={this.handleSelectMonth} onDismiss={this.handleHideMonthPicker} />
 
-                <DayPicker visible={showDayPicker} onSelect={this.handleSelectDay} onDismiss={this.handleHideDayPicker} />
+                <DayPicker month={bday_month} visible={showDayPicker} onSelect={this.handleSelectDay} onDismiss={this.handleHideDayPicker} />
 
                 <YearPicker visible={showYearPicker} onSelect={this.handleSelectYear} onDismiss={this.handleHideYearPicker} />
             </Provider>
         )
     }
 }
-
-export default Scrn

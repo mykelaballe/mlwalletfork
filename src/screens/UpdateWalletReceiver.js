@@ -32,13 +32,13 @@ class Scrn extends React.Component {
             wallet_id = wallet_id.trim()
             fullname = fullname.trim()
 
-            if(wallet_id == '' || fullname == '') Say.some(_('8'))
+            if(!wallet_id || !fullname) Say.some(_('8'))
             else {
                 Say.some('Receiver updated')
             }
         }
         catch(err) {
-            Say.err(_('18'))
+            Say.err(_('500'))
         }
     }
 

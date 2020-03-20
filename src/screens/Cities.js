@@ -3,11 +3,12 @@ import {View, StyleSheet, InteractionManager} from 'react-native'
 import {SectionList, Text, Spacer, HR, Ripple, SearchInput} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
+import {API} from '../services'
 
 const ItemUI = props => (
     <>
-        <Ripple onPress={() => props.onPress(props.data.name)} style={style.item}>
-            <Text md>{props.data.name}</Text>
+        <Ripple onPress={() => props.onPress(props.data)} style={style.item}>
+            <Text md>{props.data.city}</Text>
         </Ripple>
         <HR />
     </>
@@ -28,85 +29,11 @@ export default class Scrn extends React.Component {
     componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
 
     getData = async () => {
+        const {provCode} = this.props.navigation.state.params.province
         let list = []
 
         try {
-            list = [
-                {
-                    letter:'C',
-                    data:[
-                        {
-                            name:'Carcar',
-                        },
-                        {
-                            name:'Cebu'
-                        },
-                        {
-                            name:'Composetela'
-                        },
-                        {
-                            name:'Consolacion'
-                        },
-                        {
-                            name:'Cordova'
-                        }
-                    ]
-                },
-                {
-                    letter:'D',
-                    data:[
-                        {
-                            name:'Danao',
-                        },
-                    ]
-                },
-                {
-                    letter:'L',
-                    data:[
-                        {
-                            name:'Lapu-Lapu',
-                        },
-                        {
-                            name:'Liloan'
-                        }
-                    ]
-                },
-                {
-                    letter:'M',
-                    data:[
-                        {
-                            name:'Mandaue',
-                        },
-                        {
-                            name:'Minglanilla'
-                        }
-                    ]
-                },
-                {
-                    letter:'N',
-                    data:[
-                        {
-                            name:'Naga',
-                        },
-                    ]
-                },
-                {
-                    letter:'S',
-                    data:[
-                        {
-                            name:'San Fernando',
-                        },
-                    ]
-                },
-                {
-                    letter:'T',
-                    data:[
-                        {
-                            name:'Talisay',
-                        },
-                    ]
-                },
-            ]
+            list = await API.getCities(provCode)
         }
         catch(err) {
             Say.err(_('500'))

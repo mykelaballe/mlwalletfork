@@ -1,9 +1,11 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import {Creators} from '../actions'
 import {Screen, Footer, Headline, Button, Spacer, Checkbox} from '../components'
 import {_, Say} from '../utils'
 import {API} from '../services'
 
-export default class Scrn extends React.Component {
+class Scrn extends React.Component {
 
     state = {
         email:false,
@@ -17,7 +19,7 @@ export default class Scrn extends React.Component {
 
     handleProceed = async () => {
         try {
-            const {walletno} = this.props.navigation.state.params
+            const {walletno} = this.props.user
             let {email, sms, processing} = this.state
 
             if(processing) return
@@ -30,20 +32,20 @@ export default class Scrn extends React.Component {
             if(sms) flag_num += 2
 
             let payload = {
-                wallet_num:walletno,
+                walletno,
                 flag_num
             }
 
-            let res = await API.forgotPassword(payload)
+            let res = await API.forgotPIN(payload)
 
             if(res.error) Say.warn(res.message)
             else {
                 Say.ok(
-                    'A temporary password has been sent',
+                    'A temporary PIN has been sent',
                     null,
                     {
                         OkBtnLabel:'Back to Login',
-                        onDismiss:() => this.props.navigation.navigate('Login')
+                        onDismiss:() => this.props.logout()
                     }
                 )
             }
@@ -67,8 +69,8 @@ export default class Scrn extends React.Component {
                 <Screen>
 
                     <Headline
-                        title='Send Password'
-                        subtext='We are about to send a temporary password. Please choose among the options below:'
+                        title='Send PIN'
+                        subtext='We are about to send a temporary pin. Please choose among the options below:'
                     />
                     
                     <Checkbox status={email} onPress={this.handleToggleEmail} label='Email' />
@@ -83,3 +85,13 @@ export default class Scrn extends React.Component {
         )
     }
 }
+
+const mapStateToProps = state => ({
+    user: state.user.data
+})
+
+const mapDispatchToProps = dispatch => ({
+    logout: () => dispatch(Creators.logout())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

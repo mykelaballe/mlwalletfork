@@ -1,26 +1,47 @@
 import React from 'react'
-import {StyleSheet, View, TouchableOpacity} from 'react-native'
+import {StyleSheet, View, TouchableOpacity, Dimensions} from 'react-native'
 import {FlatList, Text} from './'
 import {Metrics, Colors} from '../themes'
-import {Modal} from 'react-native-paper'
+import {Portal, Modal} from 'react-native-paper'
+
+const {width, height} = Dimensions.get('window')
+const moment = require('moment')
+const MAX_COLUMN = 7
+const ITEM_SIZE = width / MAX_COLUMN
 
 const ItemUI = props => (
-	<TouchableOpacity onPress={() => props.onSelect(props.index)} style={[style.badge,{backgroundColor:props.data.selected ? Colors.brand : 'transparent'}]}>
-		<Text center md color={props.data.selected ? Colors.light : Colors.mute}>{props.data.label}</Text>
-	</TouchableOpacity>
+	<View style={{width:ITEM_SIZE,alignItems:'center'}}>
+		<TouchableOpacity onPress={() => props.onSelect(props.index)} style={[style.badge,{backgroundColor:props.data.selected ? Colors.brand : 'transparent'}]}>
+			<Text center md color={props.data.selected ? Colors.light : Colors.mute}>{props.data.label}</Text>
+		</TouchableOpacity>
+	</View>
 )
 
 export default class DayPicker extends React.Component {
 
 	state = {
+		month:this.props.month,
+		initialValue:this.props.initialValue,
 		list:[]
 	}
 
-	componentDidMount = () => {
-		const {initialValue} = this.props
+	componentDidMount = () => this.listDays()
+
+	componentDidUpdate = (prevProps, prevState) => {
+		if(prevState.month != this.props.month) {
+			this.setState({
+				month:this.props.month
+			},this.listDays)
+		}
+	}
+
+	listDays = () => {
+		const {month, initialValue} = this.state
 		let list = []
+
+		let numOfDays = moment(`${moment().year()}-${month}`, 'YYYY-MM').daysInMonth()
 		
-		for(let i=1; i<=31; i++) {
+		for(let i=1; i<=numOfDays; i++) {
 			list.push({
 				label:i,
 				selected:initialValue && initialValue == i ? true : false
@@ -49,16 +70,17 @@ export default class DayPicker extends React.Component {
 		const {visible, onDismiss} = this.props
 
 		return (
-			<Modal contentContainerStyle={style.modal} visible={visible} onDismiss={onDismiss}>
-				<View style={style.content}>
-					<FlatList
-						data={list}
-						renderItem={this.renderItem}
-						numColumns={7}
-						columnWrapperStyle={{justifyContent:'space-around'}}
-					/>
-				</View>
-			</Modal> 
+			<Portal>
+				<Modal contentContainerStyle={style.modal} visible={visible} onDismiss={onDismiss}>
+					<View style={style.content}>
+						<FlatList
+							data={list}
+							renderItem={this.renderItem}
+							numColumns={MAX_COLUMN}
+						/>
+					</View>
+				</Modal>
+			</Portal>
 		)
 	}
 }

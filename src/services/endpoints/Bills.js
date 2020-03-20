@@ -34,11 +34,27 @@ export default {
         return [
             {
                 id:1,
-                name:'A2M Global Distribution Inc.',
-                account_no:'123456',
-                account_name:'A2M',
-                email:'a2m@gmail.com',
-                add_to_favorites:true
+                partnersid:'MLB22324',
+                partner:'CBN ASIA / 700 CLUB',
+                account_name:'john',
+                account_no:'1234',
+                email:'john@gmail.com'
+            },
+            {
+                id:2,
+                partnersid:'MLB22324',
+                partner:'CBN ASIA',
+                account_name:'john',
+                account_no:'222',
+                email:'john@gmail.com'
+            },
+            {
+                id:3,
+                partnersid:'MLB22324',
+                partner:'700 CLUB',
+                account_name:'john',
+                account_no:'3333',
+                email:'john@gmail.com'
             }
         ]
         return await Fetch.get(`partners/getFavorite?walletno=${walletno}`)

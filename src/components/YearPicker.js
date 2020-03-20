@@ -1,20 +1,25 @@
 import React from 'react'
-import {StyleSheet, View, TouchableOpacity} from 'react-native'
+import {StyleSheet, View, TouchableOpacity, Dimensions} from 'react-native'
 import {FlatList, Text} from './'
 import {Metrics, Colors} from '../themes'
 import {Consts} from '../utils'
-import {Modal} from 'react-native-paper'
+import {Portal, Modal} from 'react-native-paper'
 
+const {width} = Dimensions.get('window')
 const moment = require('moment')
+const MAX_COLUMN = 4
+const ITEM_SIZE = width / MAX_COLUMN
 
 const CURRENT_YEAR = parseInt(moment().format('YYYY'))
 const MAX_YEAR = CURRENT_YEAR - Consts.user_min_age
 const MIN_YEAR = CURRENT_YEAR - Consts.user_max_age
 
 const ItemUI = props => (
-	<TouchableOpacity onPress={() => props.onSelect(props.index)} style={[style.badge,{backgroundColor:props.data.selected ? Colors.brand : 'transparent'}]}>
-		<Text center md color={props.data.selected ? Colors.light : Colors.mute}>{props.data.label}</Text>
-	</TouchableOpacity>
+	<View style={{width:ITEM_SIZE,alignItems:'center'}}>
+		<TouchableOpacity onPress={() => props.onSelect(props.index)} style={[style.badge,{backgroundColor:props.data.selected ? Colors.brand : 'transparent'}]}>
+			<Text center md color={props.data.selected ? Colors.light : Colors.mute}>{props.data.label}</Text>
+		</TouchableOpacity>
+	</View>
 )
 
 export default class YearPicker extends React.Component {
@@ -56,16 +61,18 @@ export default class YearPicker extends React.Component {
 		const {visible, onDismiss} = this.props
 
 		return (
-			<Modal contentContainerStyle={style.modal} visible={visible} onDismiss={onDismiss}>
-				<View style={style.content}>
-					<FlatList
-						data={list}
-						renderItem={this.renderItem}
-						numColumns={4}
-						columnWrapperStyle={{justifyContent:'space-around'}}
-					/>
-				</View>
-			</Modal> 
+			<Portal>
+				<Modal contentContainerStyle={style.modal} visible={visible} onDismiss={onDismiss}>
+					<View style={style.content}>
+						<FlatList
+							data={list}
+							renderItem={this.renderItem}
+							numColumns={MAX_COLUMN}
+							columnWrapperStyle={{justifyContent:'space-around'}}
+						/>
+					</View>
+				</Modal>
+			</Portal>
 		)
 	}
 }
@@ -76,7 +83,6 @@ const style = StyleSheet.create({
 		justifyContent:'flex-end'
 	},
 	content: {
-		maxHeight:300,
 		backgroundColor:Colors.light
 	},
 	badge: {

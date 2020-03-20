@@ -55,8 +55,8 @@ class Scrn extends React.Component {
             else {
 
                 let payload = {
-                    wallet_no:walletno,
-                    old_pin,
+                    walletno,
+                    current_pin:old_pin,
                     new_pin
                 }
 
