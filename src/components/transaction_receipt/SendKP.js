@@ -16,7 +16,7 @@ class SendKP extends React.Component {
     }
 
     componentDidMount = () => {
-        const {receiver} = this.props.data
+        const {receiver, balance} = this.props.data
 
         Say.ok(
             null,
@@ -27,7 +27,7 @@ class SendKP extends React.Component {
                         <Text mute md>Share the transaction number to {receiver.firstname} {receiver.middlename} {receiver.lastname} {receiver.suffix} to complete this transaction.</Text>
                         <Spacer lg />
                         <Text mute>Your new balance is</Text>
-                        <Text xl b>Php 1000</Text>
+                        <Text xl b>Php {Func.formatToRealCurrency(balance)}</Text>
                     </>
                 )
             }
@@ -57,14 +57,14 @@ class SendKP extends React.Component {
 
     render() {
 
-        const {_from, tcn, timestamp, receiver, amount, charges, total} = this.props.data
+        const {_from, kptn, timestamp, receiver, amount, charges, total} = this.props.data
         const {status, statusMessage, cancellable} = this.state
 
         return (
             <>
                 <Screen compact>
                     <Header
-                        tcn={tcn}
+                        tcn={kptn}
                         status={status}
                         statusMessage={statusMessage}
                         cancellable={cancellable}

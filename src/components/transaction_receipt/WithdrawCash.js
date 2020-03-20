@@ -15,6 +15,7 @@ class WithdrawCash extends React.Component {
     }
 
     componentDidMount = () => {
+        const {balance} = this.props.navigation.state.params
         Say.ok(
             null,
             'Success',
@@ -24,7 +25,7 @@ class WithdrawCash extends React.Component {
                         <Text mute md>Your transaction is pending. Go to the nearest M Lhuillier branch to complete your withdraw</Text>
                         <Spacer lg />
                         <Text mute>Your new balance is</Text>
-                        <Text xl b>Php 1000</Text>
+                        <Text xl b>Php {Func.formatToRealCurrency(balance)}</Text>
                     </>
                 )
             }
@@ -48,13 +49,13 @@ class WithdrawCash extends React.Component {
         })
     }
 
-    handleShowQR = () => this.props.navigation.navigate('TransactionQR',{transaction_no:this.props.data.tcn})
+    handleShowQR = () => this.props.navigation.navigate('TransactionQR',{transaction_no:this.props.data.kptn})
 
     handleBackToHome = () => this.props.navigation.navigate('Home')
 
     render() {
 
-        const {_from, tcn, timestamp, user, amount, charges, total} = this.props.data
+        const {_from, kptn, timestamp, user, amount, charges, total} = this.props.data
         const {status, cancellable} = this.state
 
         return (
@@ -63,7 +64,7 @@ class WithdrawCash extends React.Component {
                     <Header
                         status={status}
                         cancellable={cancellable}
-                        tcn={tcn}
+                        tcn={kptn}
                     />
 
                     <View style={{padding:Metrics.lg}}>
