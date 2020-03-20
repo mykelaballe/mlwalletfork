@@ -2,9 +2,6 @@ import {Consts, Fetch} from "../../utils"
 
 export default {
     buyLoad: async payload => {
-        return {
-            error:false
-        }
         return await Fetch.post('LoadSIM',{
             ...payload,
             deviceid:Consts.deviceId,

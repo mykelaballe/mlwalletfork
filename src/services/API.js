@@ -127,6 +127,8 @@ export default {
         return res.data.notificationList || []
     },
 
+    getTransactionHistory: async walletno => await Fetch.get(`transaction/history?walletno=${walletno}`),
+
     getCountries: async () => {
         let data = {}
         /*let res = {

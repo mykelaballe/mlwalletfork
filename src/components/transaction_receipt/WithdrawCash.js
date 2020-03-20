@@ -1,9 +1,11 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import {withNavigation} from 'react-navigation'
 import {Header} from './'
 import {Screen, Footer, Text, Spacer, Button, View} from '../'
 import {Metrics} from '../../themes'
 import {Consts, Func, Say} from '../../utils'
+import {API} from '../../services'
 
 const moment = require('moment')
 
@@ -11,7 +13,8 @@ class WithdrawCash extends React.Component {
     
     state = {
         status:this.props.data.status,
-        cancellable:this.props.data.cancellable
+        cancellable:this.props.data.cancellable,
+        cancelling:false
     }
 
     componentDidMount = () => {
@@ -43,10 +46,35 @@ class WithdrawCash extends React.Component {
     }
 
     cancelTransaction = async () => {
-        this.setState({
-            cancellable:false,
-            status:'cancelled'
-        })
+        const {cancelling} = this.state
+        const {walletno} = this.props.user
+        const {kptn} = this.props.data
+
+        if(cancelling) return false
+
+        try {
+            this.setState({cancelling:true})
+
+            let res = await API.withdrawCashCancel({
+                walletno,
+                kptn
+            })
+            
+            if(res.err) Say.warn(res.message)
+            else {
+                this.setState({
+                    cancellable:false,
+                    status:'cancelled',
+                    statusMessage:''
+                })
+                Say.ok(`Your transaction ${Consts.tcn.wdc.short_desc} has been cancelled`)
+            }
+        }
+        catch(err) {
+            Say.err(_('500'))
+        }
+
+        this.setState({cancelling:false})
     }
 
     handleShowQR = () => this.props.navigation.navigate('TransactionQR',{transaction_no:this.props.data.kptn})
@@ -56,7 +84,7 @@ class WithdrawCash extends React.Component {
     render() {
 
         const {_from, kptn, timestamp, user, amount, charges, total} = this.props.data
-        const {status, cancellable} = this.state
+        const {status, cancellable, cancelling} = this.state
 
         return (
             <>
@@ -98,7 +126,7 @@ class WithdrawCash extends React.Component {
                     <>
                         <Button mode='outlined' t='Withdraw using QR Code' onPress={this.handleShowQR} />
                         <Spacer sm />
-                        <Button mode='outlined' t='Cancel Transaction' onPress={this.handleCancelTransaction} />
+                        <Button mode='outlined' t='Cancel Transaction' onPress={this.handleCancelTransaction} loading={cancelling} />
 
                         <Spacer sm />
                     </>
@@ -111,4 +139,8 @@ class WithdrawCash extends React.Component {
     }
 }
 
-export default withNavigation(WithdrawCash)
+const mapStateToProps = state => ({
+    user: state.user.data
+})
+
+export default withNavigation(connect(mapStateToProps)(WithdrawCash))

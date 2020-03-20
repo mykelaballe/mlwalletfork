@@ -47,7 +47,7 @@ class Scrn extends React.Component {
     }
 
     render() {
-        const {type, _from, cancellable, transaction, kptn, balance} = this.props.navigation.state.params
+        const {type, _from, cancellable, transaction, kptn, controlno, balance} = this.props.navigation.state.params
         const {timestamp, loading} = this.state
         let tcn = ''
 
@@ -58,6 +58,7 @@ class Scrn extends React.Component {
             ...transaction,
             tcn,
             kptn,
+            controlno,
             balance,
             _from,
             cancellable

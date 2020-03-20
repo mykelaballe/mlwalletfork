@@ -51,6 +51,7 @@ class Scrn extends React.Component {
             confirm_pin = confirm_pin.trim()
 
             if(!old_pin || !new_pin || !confirm_pin) Say.some(_('8'))
+            else if(new_pin.length > 6) Say.warn('PIN too long')
             else if(new_pin != confirm_pin) Say.warn('PINs do not match')
             else {
 
@@ -112,6 +113,7 @@ class Scrn extends React.Component {
                         onChangeText={this.handleChangeNewPIN}
                         onSubmitEditing={this.handleFocusConfirmPIN}
                         autoCapitalize='none'
+                        maxLength={6}
                         secureTextEntry={show_new_pin ? false : true}
                         keyboardType='numeric'
                         returnKeyType='next'
@@ -126,6 +128,7 @@ class Scrn extends React.Component {
                         value={confirm_pin}
                         onChangeText={this.handleChangeConfirmPIN}
                         autoCapitalize='none'
+                        maxLength={6}
                         secureTextEntry={show_confirm_pin ? false : true}
                         keyboardType='numeric'
                         rightContent={

@@ -1,5 +1,6 @@
 import React from 'react'
 import {View, StyleSheet, InteractionManager, TouchableOpacity} from 'react-native'
+import {connect} from 'react-redux'
 import {Provider, FlatList, Text, Row, HeaderRight, HR, Spacer, ButtonText, ButtonIcon, StaticInput, Picker, MonthPicker, DayPicker, YearPicker} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Consts, Say} from '../utils'
@@ -105,13 +106,14 @@ class Scrn extends React.Component {
 
         Say.some(file.filePath)
     }
-    
 
     getData = async () => {
+        const {walletno} = this.props.user
         let list = []
 
         try {
-            //list = await API.getNotifications()
+            list = await API.getTransactionHistory(walletno)
+            console.log(list)
         }
         catch(err) {
             Say.err(_('500'))
@@ -156,7 +158,9 @@ class Scrn extends React.Component {
 
     handleHideYearFromPicker = () => this.setState({showYearFrom:false})
 
-    renderItem = ({item}) => (
+    renderItem = () => <View />
+
+    renderItem_ = ({item}) => (
         <>
             <Row bw style={style.item}>
                 <View>
@@ -290,4 +294,8 @@ const style = StyleSheet.create({
     }
 })
 
-export default Scrn
+const mapStateToProps = state => ({
+    user: state.user.data
+})
+
+export default connect(mapStateToProps)(Scrn)

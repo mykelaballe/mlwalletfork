@@ -14,6 +14,8 @@ export default {
         })
     },
 
+    sendKPCancel: async payload => await Fetch.post('kp/cancelSendMoney',payload),
+
     getKPReceivers: async payload => await Fetch.get(`kp/kplistreceivers?walletno=${payload.walletno}`),
 
     addKPReceiver: async payload => await Fetch.post('kp/addkwartapadalareceiver',payload),

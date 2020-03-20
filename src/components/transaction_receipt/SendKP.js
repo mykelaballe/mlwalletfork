@@ -1,9 +1,11 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import {withNavigation} from 'react-navigation'
 import {Header} from './'
 import {Screen, Footer, Text, Spacer, Button, View, Row} from '../'
 import {Metrics} from '../../themes'
 import {Consts, Func, Say} from '../../utils'
+import {API} from '../../services'
 
 const moment = require('moment')
 
@@ -12,7 +14,8 @@ class SendKP extends React.Component {
     state = {
         status:this.props.data.status,
         statusMessage:'Your money is waiting to be claimed',
-        cancellable:this.props.data.cancellable
+        cancellable:this.props.data.cancellable,
+        cancelling:false
     }
 
     componentDidMount = () => {
@@ -45,12 +48,36 @@ class SendKP extends React.Component {
     }
 
     cancelTransaction = async () => {
-        this.setState({
-            cancellable:false,
-            status:'cancelled',
-            statusMessage:''
-        })
-        Say.ok(`Your transaction ${Consts.tcn.skp.short_desc} has been cancelled`)
+        const {cancelling} = this.state
+        const {walletno} = this.props.user
+        const {kptn, controlno} = this.props.data
+
+        if(cancelling) return false
+
+        try {
+            this.setState({cancelling:true})
+
+            let res = await API.sendKPCancel({
+                walletno,
+                kptn,
+                controlno
+            })
+            
+            if(res.err) Say.warn(res.message)
+            else {
+                this.setState({
+                    cancellable:false,
+                    status:'cancelled',
+                    statusMessage:''
+                })
+                Say.ok(`Your transaction ${Consts.tcn.skp.short_desc} has been cancelled`)
+            }
+        }
+        catch(err) {
+            Say.err(_('500'))
+        }
+
+        this.setState({cancelling:false})
     }
 
     handleBackToHome = () => this.props.navigation.navigate('Home')
@@ -58,7 +85,7 @@ class SendKP extends React.Component {
     render() {
 
         const {_from, kptn, timestamp, receiver, amount, charges, total} = this.props.data
-        const {status, statusMessage, cancellable} = this.state
+        const {status, statusMessage, cancellable, cancelling} = this.state
 
         return (
             <>
@@ -134,7 +161,7 @@ class SendKP extends React.Component {
                 </Screen>
 
                 <Footer>
-                    {cancellable && <Button mode='outlined' t='Cancel Transaction' onPress={this.handleCancelTransaction} />}
+                    {cancellable && <Button mode='outlined' t='Cancel Transaction' onPress={this.handleCancelTransaction} loading={cancelling} />}
                     <Spacer sm />
                     {_from !== 'history' && <Button t='Back to Home' onPress={this.handleBackToHome} />}
                 </Footer>
@@ -143,4 +170,8 @@ class SendKP extends React.Component {
     }
 }
 
-export default withNavigation(SendKP)
+const mapStateToProps = state => ({
+    user: state.user.data
+})
+
+export default withNavigation(connect(mapStateToProps)(SendKP))

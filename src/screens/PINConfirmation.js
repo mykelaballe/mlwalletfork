@@ -81,7 +81,7 @@ class Scrn extends React.Component {
                     pin
                 })
     
-                if(pinRes.error) Say.some(pinRes.message)
+                if(pinRes.error) Say.warn(pinRes.message)
                 else {
                     let res = {}
                     
@@ -108,6 +108,7 @@ class Scrn extends React.Component {
 
                     })
                     else if(type == Consts.tcn.bul.code) {
+                        alert(walletno + '\n' + transaction.amount + '\n' + transaction.contact_no)
                         let payload = {
                             walletNo:walletno,
                             amount:transaction.amount,
@@ -116,7 +117,7 @@ class Scrn extends React.Component {
 
                         if(transaction.promo) {
                             payload.promoCode = transaction.promo.promoCode,
-                            payload.networkId = transactin.promo.networkID
+                            payload.networkId = transaction.promo.networkID
                         }
                         res = await API.buyLoad(payload)
                     }
