@@ -1,6 +1,6 @@
 import React from 'react'
 import {View, StyleSheet, InteractionManager} from 'react-native'
-import {SectionList, Text, Spacer, Ripple} from '../components'
+import {FlatList, Text, Spacer, Ripple} from '../components'
 import {Metrics} from '../themes'
 import {_, Say} from '../utils'
 import {Searchbar} from 'react-native-paper'
@@ -25,33 +25,49 @@ class FavoriteBillers extends React.Component {
         try {
             list = [
                 {
-                    letter:'G',
-                    data:[
-                        {
-                            name:'Globe',
-                        }
-                    ]
+                    id:1,
+                    name:'A2M Global Distribution Inc.',
+                    account_no:'123456',
+                    account_name:'A2M',
+                    email:'a2m@gmail.com',
+                    add_to_favorites:true
                 },
                 {
-                    letter:'M',
-                    data:[
-                        {
-                            name:'MCWD',
-                        }
-                    ]
+                    id:2,
+                    name:'A2M Global',
+                    account_no:'123456',
+                    account_name:'A2M',
+                    email:'a2m@gmail.com',
+                    add_to_favorites:true
                 },
                 {
-                    letter:'V',
-                    data:[
-                        {
-                            name:'Veco',
-                        }
-                    ]
+                    id:3,
+                    name:'A2M',
+                    account_no:'123456',
+                    account_name:'A2M',
+                    email:'a2m@gmail.com',
+                    add_to_favorites:true
                 },
+                {
+                    id:4,
+                    name:'A2M Global',
+                    account_no:'123456',
+                    account_name:'A2M',
+                    email:'a2m@gmail.com',
+                    add_to_favorites:true
+                },
+                {
+                    id:5,
+                    name:'A2M',
+                    account_no:'123456',
+                    account_name:'A2M',
+                    email:'a2m@gmail.com',
+                    add_to_favorites:true
+                }
             ]
         }
         catch(err) {
-
+            Say.err(_('500'))
         }
 
         this.setState({
@@ -64,15 +80,9 @@ class FavoriteBillers extends React.Component {
 
     handleChangeSearch = search => this.setState({search})
 
-    renderSectionHeader = ({section}) => (
-        <View style={style.itemHeader}>
-            <Text xl b>{section.letter}</Text>
-        </View>
-    )
-
     renderItem = ({item, index}) => (
         <Ripple onPress={this.handleSelect} style={style.item}>
-            <Text md>{item.name}</Text>
+            <Text md>{item.partner}</Text>
         </Ripple>
     )
 
@@ -90,9 +100,8 @@ class FavoriteBillers extends React.Component {
 
                 <Spacer />
 
-                <SectionList
-                    sections={list}
-                    renderSectionHeader={this.renderSectionHeader}
+                <FlatList
+                    data={list}
                     renderItem={this.renderItem}
                     loading={loading}
                 />

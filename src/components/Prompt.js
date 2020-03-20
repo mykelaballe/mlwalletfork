@@ -66,7 +66,7 @@ export default class Prompt extends React.Component {
 			<Modal
 				visible={props.visible}
 				title={props.title}
-				onDismiss={this.handleDismiss}
+				onDismiss={props.type === 'yes_no' ? props.onDismiss : this.handleDismiss}
 				content={content}
 			/>
 		)

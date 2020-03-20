@@ -7,11 +7,11 @@ import {API} from '../services'
 
 const {width} = Dimensions.get('window')
 const ITEM_WIDTH = (width / 3) - (Metrics.xl)
-const ITEM_HEIGHT = 120
+const ITEM_HEIGHT = 80
 
 const FavoriteUI = props => (
     <Ripple onPress={() => props.onPress(props.data)} style={style.pill}>
-        <Text center numberOfLines={1} light>{props.data.name}</Text>
+        <Text center numberOfLines={1} light>{props.data.partner}</Text>
     </Ripple>
 )
 
@@ -128,6 +128,8 @@ class Scrn extends React.Component {
 
     handleToggleFavorites = () => this.setState(prevState => ({showFavorites:!prevState.showFavorites}))
 
+    handleViewFavorites = () => this.props.navigation.navigate('FavoriteBillers')
+
     handleRefresh = () => this.setState({refreshing:true},this.getData)
 
     renderFavorites = ({item, index}) => <FavoriteUI data={item} onPress={this.handleSelectFavorite} />
@@ -146,17 +148,16 @@ class Scrn extends React.Component {
                         <ButtonText color={Colors.brand} icon='plus' t='Add Biller' onPress={this.handleAddFavoriteBiller} />
                     </Row>
                     <FlatList
-                        data={favorites}
+                        data={favorites.slice(0,3)}
                         renderItem={this.renderFavorites}
-                        horizontal
+                        numColumns={3}
                         style={{paddingTop:Metrics.md}}
+                        columnWrapperStyle={{flexWrap:'wrap'}}
                     />
 
-                    {favorites.length > 0 &&
-                    <>
-                        <Spacer />
-                        <ButtonText color={Colors.brand} t={`${showFavorites ? 'Hide' : 'Show'} More Favorites`} onPress={this.handleToggleFavorites} />
-                    </>
+                    {/*<ButtonText color={Colors.brand} t={`${showFavorites ? 'Hide' : 'Show'} More Favorites`} onPress={this.handleToggleFavorites} />*/}
+                    {favorites.length > 3 &&
+                    <ButtonText color={Colors.brand} t='View All Favorites' onPress={this.handleViewFavorites} />
                     }
                 </View>
                 
@@ -180,7 +181,7 @@ const style = StyleSheet.create({
     },
     pill: {
         backgroundColor:Colors.brandlight,
-        marginHorizontal:Metrics.sm,
+        margin:Metrics.sm,
         padding:Metrics.rg,
         justifyContent:'center',
         alignItems:'center'

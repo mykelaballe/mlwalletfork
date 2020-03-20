@@ -2,8 +2,8 @@ import React from 'react'
 import {View, StyleSheet, InteractionManager} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Screen, Footer, FlatList, Initial, Text, Row, Button, Spacer, HR, Ripple, SearchInput} from '../components'
-import {Metrics} from '../themes'
+import {Screen, Footer, FlatList, Initial, Text, Row, Button, ButtonText, Spacer, HR, Ripple, SearchInput} from '../components'
+import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
 import {API} from '../services'
 
@@ -61,7 +61,7 @@ class Scrn extends React.Component {
         let list = []
 
         try {
-            list = await API.getWalletReceivers({walletno})
+            list = await API.getFavoriteWalletReceivers({walletno})
         }
         catch(err) {
             Say.err(_('500'))
@@ -85,6 +85,8 @@ class Scrn extends React.Component {
 
     handleRefresh = () => this.setState({refreshing:true},this.getData)
 
+    handleAddReceiver = () => this.props.navigation.navigate('AddWalletReceiver')
+
     renderItem = ({item, index}) => <ItemUI index={index} data={item} onPress={this.handleViewReceiver} />
 
     render() {
@@ -98,6 +100,12 @@ class Scrn extends React.Component {
                         onChangeText={this.handleChangeSearch}
                         value={search}
                     />
+
+                    <Spacer sm />
+
+                    <View style={{alignItems:'flex-end'}}>
+                        <ButtonText icon='plus' t='Add Receiver' onPress={this.handleAddReceiver} color={Colors.brand} />
+                    </View>
 
                     <Spacer sm />
 

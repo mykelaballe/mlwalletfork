@@ -16,7 +16,10 @@ class Scrn extends React.Component {
         nationality:this.props.user.nationality,
         source_of_income:this.props.user.source_of_income,
         country:this.props.user.country,
-        province:this.props.user.province,
+        province:{
+            province:this.props.user.province,
+            provCode:''
+        },
         city:this.props.user.city,
         barangay:this.props.user.barangay,
         zip_code:this.props.user.zip_code,
@@ -32,17 +35,24 @@ class Scrn extends React.Component {
 
         else if(params.country && params.country !== prevState.country) {
             this.props.navigation.setParams({country:null})
-            this.setState({country:params.country})
+            this.setState(prevState => ({
+                country:params.country,
+                province:'',
+                city:''
+            }))
         }
 
-        else if(params.region && params.region !== prevState.region) {
+        /*else if(params.region && params.region !== prevState.region) {
             this.props.navigation.setParams({region:null})
             this.setState({region:params.region})
-        }
+        }*/
 
-        else if(params.province && params.province !== prevState.province) {
+        else if(params.province && params.province.province !== prevState.province.province) {
             this.props.navigation.setParams({province:null})
-            this.setState({province:params.province})
+            this.setState({
+                province:params.province,
+                city:''
+            })
         }
 
         else if(params.city && params.city !== prevState.city) {
@@ -104,7 +114,7 @@ class Scrn extends React.Component {
                     nationality,
                     sourceofincome:source_of_income,
                     country,
-                    province,
+                    province:province.province,
                     city,
                     barangay,
                     zipcode:zip_code,
@@ -122,12 +132,15 @@ class Scrn extends React.Component {
                         nationality,
                         source_of_income,
                         country,
-                        province,
+                        province:province.province,
                         city,
                         barangay,
                         zip_code
                     })
                     Say.ok('Details updated')
+                }
+                else {
+                    Say.warn(res.message)
                 }
             }
         }
@@ -179,17 +192,21 @@ class Scrn extends React.Component {
                         onPress={this.handleSelectCountry}
                     />
 
-                    <StaticInput
-                        label='Province'
-                        value={province}
-                        onPress={this.handleSelectProvince}
-                    />
+                    {country === 'Philippines' &&
+                    <>
+                        <StaticInput
+                            label='Province'
+                            value={province.province}
+                            onPress={this.handleSelectProvince}
+                        />
 
-                    <StaticInput
-                        label='City/Municipality'
-                        value={city}
-                        onPress={this.handleSelectCity}
-                    />
+                        <StaticInput
+                            label='City/Municipality'
+                            value={city}
+                            onPress={this.handleSelectCity}
+                        />
+                    </>
+                    }
 
                     <TextInput
                         ref='barangay'

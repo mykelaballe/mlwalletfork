@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Screen, Footer, Button, ButtonText, TextInput, Errors} from '../components'
+import {Screen, Footer, Headline, Button, ButtonText, TextInput, Errors} from '../components'
 import {Colors} from '../themes'
 import {_, Say, Func, Consts} from '../utils'
 import {API} from '../services'
@@ -8,11 +8,11 @@ import {API} from '../services'
 class Scrn extends React.Component {
 
     static navigationOptions = {
-        title:'Change Password'
+        title:'Create Password'
     }
 
     state = {
-        old_password:'',
+        old_password:this.props.navigation.state.params.old_password,
         new_password:'',
         confirm_password:'',
         show_old_password:false,
@@ -22,13 +22,9 @@ class Scrn extends React.Component {
         processing:false
     }
 
-    handleChangeOldPassword = old_password => this.setState({old_password})
-
     handleChangeNewPassword = new_password => this.setState({new_password})
 
     handleChangeConfirmPassword = confirm_password => this.setState({confirm_password})
-
-    handleToggleOldPassword = () => this.setState(prevState => ({show_old_password:!prevState.show_old_password}))
 
     handleToggleNewPassword = () => this.setState(prevState => ({show_new_password:!prevState.show_new_password}))
 
@@ -76,7 +72,9 @@ class Scrn extends React.Component {
                             confirm_password:''
                         })
 
-                        Say.ok("You've successfully saved your new Password")
+                        Say.ok("You password has been successfully changed",null,{
+                            onDismiss:() => this.props.navigation.navigate('Login')
+                        })
                     }
                 }
                 else {
@@ -103,22 +101,14 @@ class Scrn extends React.Component {
         return (
             <>
                 <Screen>
-                    <TextInput
-                        ref='old_password'
-                        label={'Current Password'}
-                        value={old_password}
-                        onChangeText={this.handleChangeOldPassword}
-                        onSubmitEditing={this.handleFocusNewPassword}
-                        autoCapitalize='none'
-                        secureTextEntry={show_old_password ? false : true}
-                        returnKeyType='next'
-                        rightContent={
-                            <ButtonText color={Colors.gray} t={show_old_password ? 'Hide' : 'Show'} onPress={this.handleToggleOldPassword} />
-                        }
+                    <Headline
+                        title='Create your own password'
+                        subtext='You are using a temporary password. You are required to change your password.'
                     />
+
                     <TextInput
                         ref='new_password'
-                        label={'New Password'}
+                        label={'Password'}
                         value={new_password}
                         onChangeText={this.handleChangeNewPassword}
                         onSubmitEditing={this.handleFocusConfirmPassword}
@@ -137,7 +127,7 @@ class Scrn extends React.Component {
 
                     <TextInput
                         ref='confirm_password'
-                        label={'Re-Type New Password'}
+                        label={'Re-Type Password'}
                         value={confirm_password}
                         onChangeText={this.handleChangeConfirmPassword}
                         autoCapitalize='none'
@@ -149,7 +139,7 @@ class Scrn extends React.Component {
                 </Screen>
                 
                 <Footer>
-                    <Button disabled={!ready} t={_('9')} onPress={this.handleSubmit} loading={processing} />
+                    <Button disabled={!ready} t={_('10')} onPress={this.handleSubmit} loading={processing} />
                 </Footer>
             </>
         )

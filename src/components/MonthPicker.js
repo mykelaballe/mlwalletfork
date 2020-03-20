@@ -1,13 +1,19 @@
 import React from 'react'
-import {StyleSheet, View, TouchableOpacity} from 'react-native'
+import {StyleSheet, View, TouchableOpacity, Dimensions} from 'react-native'
 import {FlatList, Text} from './'
 import {Metrics, Colors} from '../themes'
-import {Modal} from 'react-native-paper'
+import {Portal, Modal} from 'react-native-paper'
+
+const {width} = Dimensions.get('window')
+const MAX_COLUMN = 3
+const ITEM_SIZE = width / MAX_COLUMN
 
 const ItemUI = props => (
-	<TouchableOpacity onPress={() => props.onSelect(props.index)} style={[style.badge,{backgroundColor:props.data.selected ? Colors.brand : 'transparent'}]}>
-		<Text center md color={props.data.selected ? Colors.light : Colors.mute}>{props.data.label}</Text>
-	</TouchableOpacity>
+	<View style={{width:ITEM_SIZE,alignItems:'center'}}>
+		<TouchableOpacity onPress={() => props.onSelect(props.index)} style={[style.badge,{backgroundColor:props.data.selected ? Colors.brand : 'transparent'}]}>
+			<Text center md color={props.data.selected ? Colors.light : Colors.mute}>{props.data.label}</Text>
+		</TouchableOpacity>
+	</View>
 )
 
 export default class MonthPicker extends React.Component {
@@ -63,16 +69,18 @@ export default class MonthPicker extends React.Component {
 		const {visible, onDismiss} = this.props
 
 		return (
-			<Modal contentContainerStyle={style.modal} visible={visible} onDismiss={onDismiss}>
-				<View style={style.content}>
-					<FlatList
-						data={list}
-						renderItem={this.renderItem}
-						numColumns={3}
-						columnWrapperStyle={{justifyContent:'space-around'}}
-					/>
-				</View>
-			</Modal> 
+			<Portal>
+				<Modal contentContainerStyle={style.modal} visible={visible} onDismiss={onDismiss}>
+					<View style={style.content}>
+						<FlatList
+							data={list}
+							renderItem={this.renderItem}
+							numColumns={MAX_COLUMN}
+							columnWrapperStyle={{justifyContent:'space-around'}}
+						/>
+					</View>
+				</Modal>
+			</Portal>
 		)
 	}
 }

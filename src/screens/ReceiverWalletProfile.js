@@ -2,7 +2,7 @@ import React from 'react'
 import {TouchableOpacity} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Screen, Footer, Text, Button, Spacer, HeaderRight, Outline} from '../components'
+import {Screen, Footer, Text, Button, Spacer, HeaderRight, Outline, Switch, Row} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
 import {API} from '../services'
@@ -32,6 +32,10 @@ class Scrn extends React.Component {
                 </Menu>
             )
         }
+    }
+
+    state = {
+        is_favorite:this.props.navigation.state.params.receiver.is_favorite
     }
 
     componentDidMount = () => {
@@ -67,7 +71,7 @@ class Scrn extends React.Component {
             API.deleteWalletReceiver({
                 walletno:receiver.receiverno
             })
-            this.props.navigation.navigate('SavedWalletReceivers')
+            this.props.navigation.pop()
             Say.some('Receiver successfully deleted')
         }
         catch(err) {
@@ -87,9 +91,37 @@ class Scrn extends React.Component {
         navigate('SendWalletToWallet',{receiver})
     }
 
+    handleToggleFavorite = () => {
+        const {walletno} = this.props.user
+        let {index, receiver} = this.props.navigation.state.params
+        const {is_favorite} = this.state
+        
+        try {
+            let payload = {
+                walletno,
+                receiver:receiver.walletno,
+                is_favorite:!is_favorite
+            }
+
+            this.props.updateReceiver(index, {
+                ...receiver,
+                is_favorite:!is_favorite
+            })
+
+            if(is_favorite) API.removeFavoriteWalletReceiver(payload)
+            else API.addFavoriteWalletReceiver(payload)
+            
+            this.setState({is_favorite:!is_favorite})
+        }
+        catch(err) {
+            Say.err(_('500'))
+        }
+    }
+
     render() {
 
         const {walletno, fullname} = this.props.navigation.state.params.receiver
+        const {is_favorite} = this.state
 
         return (
             <>
@@ -105,6 +137,13 @@ class Scrn extends React.Component {
                         <Text mute sm>Full Name</Text>
                         <Text>{fullname}</Text>
                     </Outline>
+
+                    <Outline>
+                        <Row bw>
+                            <Text>{is_favorite ? 'Remove from' : 'Add to'} favorite</Text>
+                            <Switch value={is_favorite} onValueChange={this.handleToggleFavorite} />
+                        </Row>
+                    </Outline>
                 </Screen>
 
                 <Footer>
@@ -115,8 +154,13 @@ class Scrn extends React.Component {
     }
 }
 
+const mapStateToProps = state => ({
+    user: state.user.data
+})
+
 const mapDispatchToProps = dispatch => ({
+    updateReceiver:(receiverIndex, newProp) => dispatch(Creators.updateWalletReceiver(receiverIndex, newProp)),
     deleteReceiver:deletedIndex => dispatch(Creators.deleteWalletReceiver(deletedIndex))
 })
 
-export default connect(null, mapDispatchToProps)(Scrn)
+export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

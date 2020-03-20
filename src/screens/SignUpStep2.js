@@ -12,7 +12,10 @@ class Scrn extends React.Component {
     state = {
         country:'Philippines',
         region:'',
-        province:'',
+        province:{
+            province:'',
+            provCode:''
+        },
         city:'',
         barangay:'',
         street:'',
@@ -25,20 +28,29 @@ class Scrn extends React.Component {
         const {params = {}} = this.props.navigation.state
         if(params.country && params.country !== prevState.country) {
             this.props.navigation.setParams({country:null})
-            this.setState({country:params.country})
+            this.setState({
+                country:params.country,
+                province:'',
+                city:''
+            })
         }
 
-        if(params.region && params.region !== prevState.region) {
+        /*if(params.region && params.region !== prevState.region) {
             this.props.navigation.setParams({region:null})
             this.setState({region:params.region})
-        }
+        }*/
 
-        if(params.province && params.province !== prevState.province) {
+        else if(params.province && params.province.province !== prevState.province.province) {
             this.props.navigation.setParams({province:null})
-            this.setState({province:params.province})
+            this.setState({
+                province:{
+                    ...params.province
+                },
+                city:''
+            })
         }
 
-        if(params.city && params.city !== prevState.city) {
+        else if(params.city && params.city !== prevState.city) {
             this.props.navigation.setParams({city:null})
             this.setState({city:params.city})
         }
@@ -89,7 +101,7 @@ class Scrn extends React.Component {
             barangay = barangay.trim()
             zip_code = zip_code.trim()
 
-            if(!province || !city || !barangay || !zip_code) Say.some(_('8'))
+            if(!province.province || !city || !barangay || !zip_code) Say.some(_('8'))
             else {
                 this.props.navigation.navigate('SignUpStep3',{
                     ...this.props.navigation.state.params,
@@ -138,7 +150,7 @@ class Scrn extends React.Component {
 
                     <StaticInput
                         label='Province'
-                        value={province}
+                        value={province.province}
                         onPress={this.handleSelectProvince}
                     />
 

@@ -310,12 +310,12 @@ class Scrn extends React.Component {
                 </Screen>
             
                 <Footer>
-                    <Button disabled={!ready} t='Next' onPress={this.handleSubmit} loading={processing} />
+                    <Button disabled={!ready || showMonthPicker || showDayPicker || showYearPicker} t='Next' onPress={this.handleSubmit} loading={processing} />
                 </Footer>
 
                 <MonthPicker visible={showMonthPicker} onSelect={this.handleSelectMonth} onDismiss={this.handleHideMonthPicker} />
 
-                <DayPicker visible={showDayPicker} onSelect={this.handleSelectDay} onDismiss={this.handleHideDayPicker} />
+                <DayPicker month={bday_month} visible={showDayPicker} onSelect={this.handleSelectDay} onDismiss={this.handleHideDayPicker} />
 
                 <YearPicker visible={showYearPicker} onSelect={this.handleSelectYear} onDismiss={this.handleHideYearPicker} />                
             </Provider>

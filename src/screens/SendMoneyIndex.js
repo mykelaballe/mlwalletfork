@@ -8,11 +8,11 @@ export default class Scrn extends React.Component {
         title:'Send Money'
     }
 
-    handleSendToWallet = () => this.props.navigation.navigate('WalletToWallet',{type:Consts.tcn.stw.code})
+    handleSendToWallet = () => this.props.navigation.navigate('SendWalletToWalletIndex',{type:Consts.tcn.stw.code})
 
-    handleSendToKP = () => this.props.navigation.navigate('SendKP',{type:Consts.tcn.skp.code})
+    handleSendToKP = () => this.props.navigation.navigate('SendKPIndex',{type:Consts.tcn.skp.code})
 
-    handleSendToBank = () => this.props.navigation.navigate('SendBankTransfer',{type:Consts.tcn.stb.code})
+    handleSendToBank = () => this.props.navigation.navigate('SendBankTransferIndex',{type:Consts.tcn.stb.code})
 
     render() {
 

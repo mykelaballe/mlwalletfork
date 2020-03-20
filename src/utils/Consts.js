@@ -13,6 +13,11 @@ export default {
 	user_max_age:100,
 	user_min_age:16,
 	allowed_idle_time:300000,//in milliseconds - 300000
+	password_criteria: {
+		minLength:8,
+		hasNum:true,
+		hasSpecialChar:true
+	},
 	tcn: {
 		stw: {
 			code:'stw',

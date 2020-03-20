@@ -11,11 +11,14 @@ import Bills from './endpoints/Bills'
 import ELoad from './endpoints/ELoad'
 
 import OTP from './endpoints/OTP'
+import PIN from './endpoints/PIN'
 import User from './endpoints/User'
 
 export default {
     login: async payload => {
-        /*return {
+        return {
+            username:'johnsmith',
+            password:'123',
             fname:'John',
             mname:'F',
             lname:'Smith',
@@ -40,8 +43,10 @@ export default {
             balance:'50000',
             points:35,
             level:0,
+            isresetpass:"0",
+            isresetpin:"0",
             error:payload.username == 'newphone' ? 'registered_anotherdevice' : null
-        }*/
+        }
         let res = await Fetch.post('login', {
             ...payload,
             deviceId:Consts.deviceId,
@@ -84,9 +89,9 @@ export default {
 
     updateDevice: async payload => await Fetch.put('updateDevice',{username:payload.username, deviceid:Consts.deviceId}),
 
-    validateUsername: async username => await Fetch.post('validateUsername',{username}),
+    validateUsername: async username => {return {error:false,data:{walletno:'123',secquestion1:'one',secquestion2:'two',secquestion3:'three'}}},//await Fetch.post('validateUsername',{username}),
 
-    validateSecurityQuestion: async payload => await Fetch.post('validateSecurityQuestion',payload),
+    validateSecurityQuestion: async payload => {return {error:false}},//await Fetch.post('validateSecurityQuestion',payload),
 
     ...WalletToWallet,
     ...KP,
@@ -97,6 +102,7 @@ export default {
     ...ELoad,
 
     ...OTP,
+    ...PIN,
     ...User,
 
     checkBalance: async () => await Fetch.get('checkBalance'),
@@ -108,5 +114,137 @@ export default {
     getNotifications: async params => {
         let res = await Fetch.get(`getnotificationlist?walletno=${params.walletno}&start=${params.start}`)
         return res.data.notificationList || []
+    },
+
+    getCountries: async () => {
+        let data = {}
+        let res = {
+            data: [
+                {
+                    name:'Afghanistan'
+                },
+                {
+                    name:'Albania'
+                },
+                {
+                    name:'Andorra'
+                },
+                {
+                    name:'Algeria'
+                },
+                {
+                    name:'Andorra'
+                },
+                {
+                    name:'Angola'
+                }
+            ]
+        }
+        //let res = await Fetch.get('getCountries')
+
+        if(res.data) {
+            for(let d in res.data) {
+                let letter = res.data[d].name[0]
+
+                if(typeof data[letter] === 'undefined') {
+                    data[letter] = {
+                        letter,
+                        data:[]
+                    }
+                }
+
+                data[letter].data.push(res.data[d])
+            }
+        }
+
+        return Object.values(data)
+    },
+
+    getProvinces: async () => {
+        let data = {}
+        let res = {
+            data:[
+                {
+                    province:'ABRA',
+                    provCode:'1401'
+                },
+                {
+                    province:'AGUSAN DEL NORTE',
+                    provCode:'1602'
+                },
+                {
+                    province:'AGUSAN DEL SUR',
+                    provCode:'1603'
+                },
+                {
+                    province:'AKLAN',
+                    provCode:'0604'
+                }
+            ]
+        }
+        //let res = await Fetch.get('getProvinces')
+
+        if(res.data) {
+            for(let d in res.data) {
+                let letter = res.data[d].province[0]
+
+                if(typeof data[letter] === 'undefined') {
+                    data[letter] = {
+                        letter,
+                        data:[]
+                    }
+                }
+
+                data[letter].data.push(res.data[d])
+            }
+        }
+
+        return Object.values(data)
+    },
+
+    getCities: async provinceCode => {
+        let data = {}
+        let res = {
+            data:[
+                {
+                    city:'AGOO',
+                    zipCode:'2504'
+                },
+                {
+                    city:'ARINGAY',
+                    zipCode:'2503'
+                },
+                {
+                    city:'BACNOTAN',
+                    zipCode:'2515'
+                },
+                {
+                    city:'BAGULIN',
+                    zipCode:'2512'
+                },
+                {
+                    city:'BALAOAN',
+                    zipCode:'2517'
+                },
+            ]
+        }
+        //let res = await Fetch.get(`getCities/${provinceCode}`)
+
+        if(res.data) {
+            for(let d in res.data) {
+                let letter = res.data[d].city[0]
+
+                if(typeof data[letter] === 'undefined') {
+                    data[letter] = {
+                        letter,
+                        data:[]
+                    }
+                }
+
+                data[letter].data.push(res.data[d])
+            }
+        }
+
+        return Object.values(data)
     },
 }

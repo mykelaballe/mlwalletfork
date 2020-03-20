@@ -3,11 +3,12 @@ import {View, StyleSheet, InteractionManager} from 'react-native'
 import {SectionList, Text, Spacer, HR, Ripple, SearchInput} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
+import {API} from '../services'
 
 const ItemUI = props => (
     <>
-        <Ripple onPress={() => props.onPress(props.data.name)} style={style.item}>
-            <Text md>{props.data.name}</Text>
+        <Ripple onPress={() => props.onPress(props.data)} style={style.item}>
+            <Text md>{props.data.province}</Text>
         </Ripple>
         <HR />
     </>
@@ -31,45 +32,7 @@ export default class Scrn extends React.Component {
         let list = []
 
         try {
-            list = [
-                {
-                    letter:'A',
-                    data:[
-                        {
-                            name:'Abra',
-                        },
-                        {
-                            name:'Apayao'
-                        },
-                    ]
-                },
-                {
-                    letter:'C',
-                    data:[
-                        {
-                            name:'Cagayan',
-                        },
-                        {
-                            name:'Camarines Norte'
-                        },
-                        {
-                            name:'Camarines Sur'
-                        },
-                        {
-                            name:'Camiguin'
-                        },
-                        {
-                            name:'Capiz'
-                        },
-                        {
-                            name:'Catanduanes'
-                        },
-                        {
-                            name:'Cebu'
-                        }
-                    ]
-                },
-            ]
+            list = await API.getProvinces()
         }
         catch(err) {
             Say.err(_('500'))
@@ -123,7 +86,6 @@ export default class Scrn extends React.Component {
 
 const style = StyleSheet.create({
     container: {
-        //flex:1,
         padding:Metrics.lg
     },
     itemHeader: {

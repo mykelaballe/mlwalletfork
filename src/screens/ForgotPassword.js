@@ -35,6 +35,11 @@ export default class Scrn extends React.Component {
                             res.data.secquestion2,
                             res.data.secquestion3
                         ],
+                        steps:[
+                            'registered',
+                            'personal',
+                            'transactional'
+                        ],
                         func:() => this.props.navigation.navigate('SendPassword',{
                             walletno:res.data.walletno
                         })

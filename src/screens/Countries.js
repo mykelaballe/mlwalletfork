@@ -3,6 +3,7 @@ import {View, StyleSheet, InteractionManager} from 'react-native'
 import {SectionList, Text, Spacer, HR, Ripple, SearchInput} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
+import {API} from '../services'
 
 const ItemUI = props => (
     <>
@@ -31,45 +32,7 @@ export default class Scrn extends React.Component {
         let list = []
 
         try {
-            list = [
-                {
-                    letter:'A',
-                    data:[
-                        {
-                            name:'Afghanistan',
-                        },
-                        {
-                            name:'Algeria'
-                        },
-                        {
-                            name:'Argentina'
-                        },
-                        {
-                            name:'Australia'
-                        },
-                        {
-                            name:'Austria'
-                        }
-                    ]
-                },
-                {
-                    letter:'P',
-                    data:[
-                        {
-                            name:'Pakistan',
-                        },
-                        {
-                            name:'Palau'
-                        },
-                        {
-                            name:'Palestine'
-                        },
-                        {
-                            name:'Philippines'
-                        }
-                    ]
-                },
-            ]
+            list = await API.getCountries()
         }
         catch(err) {
             Say.err(_('500'))

@@ -1,10 +1,10 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager, Dimensions} from 'react-native'
+import {View, StyleSheet, Dimensions} from 'react-native'
 import {connect} from 'react-redux'
 import Actions from '../actions/Creators'
-import {Text, Row, Spacer, FlatList, Ripple, Icon} from '../components'
-import {Colors, Metrics, Res} from '../themes'
-import {_, Storage, Consts} from '../utils'
+import {Text, Spacer, FlatList, Ripple, Icon} from '../components'
+import {Metrics} from '../themes'
+import {_} from '../utils'
 
 const {width} = Dimensions.get('window')
 const ITEM_WIDTH = (width / 3) - (Metrics.xl)
@@ -76,7 +76,7 @@ class More extends React.Component {
 
     handlePressContactUs = () => this.props.navigation.navigate('ContactUs')
 
-    handlePressLogout = async () => this.props.logout()
+    handlePressLogout = () => this.props.logout()
 
     renderItems = ({item, index}) => (
         <Ripple style={style.item} onPress={item.onPress}>
@@ -116,10 +116,8 @@ const style = StyleSheet.create({
     }
 })
 
-mapDispatchToProps = dispatch => {
-    return {
-        logout: () => dispatch(Actions.logout())
-    }
-}
+const mapDispatchToProps = dispatch => ({
+    logout: () => dispatch(Actions.logout())
+})
 
 export default connect(null, mapDispatchToProps)(More)

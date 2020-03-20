@@ -25,6 +25,7 @@ export default class Scrn extends React.Component {
         let question = ''
 
         if(params.questionType) type = params.questionType
+
         if(params.steps && params.steps.length > 0) type = params.steps[0]
 
         if(type === 'personal') questions = personal_questions
@@ -43,9 +44,7 @@ export default class Scrn extends React.Component {
         const {params = {}} = this.props.navigation.state
         if(params.question && params.question !== prevState.question) {
             this.props.navigation.setParams({question:''})
-            this.setState({
-                question:params.question
-            })
+            this.setState({question:params.question})
         }
     }
 
@@ -102,9 +101,10 @@ export default class Scrn extends React.Component {
 
     handleChangeQuestion = () => {
         const {params = {}} = this.props.navigation.state
+        const {type} = this.state
         let questions = this.state.questions.slice()
 
-        if(params.questions) {
+        if(params.questions && type === 'registered') {
             let n = Math.floor(Math.random() * (questions.length - 2))
             let q = questions.splice(n,1)
             questions.push(q)
