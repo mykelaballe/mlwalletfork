@@ -50,9 +50,12 @@ class Scrn extends React.Component {
             })
         }
 
-        else if(params.city && params.city !== prevState.city) {
+        else if(params.city && params.city.city !== prevState.city) {
             this.props.navigation.setParams({city:null})
-            this.setState({city:params.city})
+            this.setState({
+                city:params.city.city,
+                zip_code:params.city.zipCode
+            })
         }
     }
 
