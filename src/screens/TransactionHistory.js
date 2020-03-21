@@ -3,7 +3,7 @@ import {View, StyleSheet, InteractionManager, TouchableOpacity} from 'react-nati
 import {connect} from 'react-redux'
 import {Provider, FlatList, Text, Row, HeaderRight, HR, Spacer, ButtonText, ButtonIcon, StaticInput, Picker, MonthPicker, DayPicker, YearPicker} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_, Consts, Say} from '../utils'
+import {_, Consts, Say, Func} from '../utils'
 import {API} from '../services'
 import Icon from 'react-native-vector-icons/AntDesign'
 //import RNHTMLtoPDF from 'react-native-html-to-pdf'
@@ -16,11 +16,11 @@ class Scrn extends React.Component {
         const {params = {}} = navigation.state
         return {
             title:'Transactions',
-            headerRight: (
+            /*headerRight: (
                 <HeaderRight>
                     <ButtonIcon icon={<Icon name='download' color={Colors.light} size={Metrics.icon.sm} />} onPress={params.downloadHistory} />
                 </HeaderRight>
-            )
+            )*/
         }
     }
 
@@ -89,7 +89,8 @@ class Scrn extends React.Component {
         day_to:null,
         year_from:null,
         year_to:null,
-        loading:true
+        loading:true,
+        refreshing:false
     }
 
     componentDidMount = () => {
@@ -113,7 +114,6 @@ class Scrn extends React.Component {
 
         try {
             list = await API.getTransactionHistory(walletno)
-            console.log(list)
         }
         catch(err) {
             Say.err(_('500'))
@@ -121,7 +121,8 @@ class Scrn extends React.Component {
 
         this.setState({
             list,
-            loading:false
+            loading:false,
+            refreshing:false
         })
     }
 
@@ -158,9 +159,11 @@ class Scrn extends React.Component {
 
     handleHideYearFromPicker = () => this.setState({showYearFrom:false})
 
-    renderItem = () => <View />
+    handleRefresh = () => this.setState({refreshing:true},this.getData)
 
-    renderItem_ = ({item}) => (
+    renderItem_ = () => <View />
+
+    renderItem = ({item}) => (
         <>
             <Row bw style={style.item}>
                 <View>
@@ -170,7 +173,7 @@ class Scrn extends React.Component {
                 </View>
 
                 <View>
-                    <Text b md right>{item.code === Consts.tcn.rmd.code || item.action === Consts.tcn.rmi.code ? '' : '-'}PHP {item.amount.toFixed(2)}</Text>
+                    <Text b md right>{item.code === Consts.tcn.rmd.code || item.action === Consts.tcn.rmi.code ? '' : '-'}PHP {Func.formatToCurrency(item.amount)}</Text>
                     <TouchableOpacity onPress={() => this.handleViewDetails(item)}>
                         <Text brand right>View details</Text>
                     </TouchableOpacity>
@@ -183,7 +186,7 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {list, timeframe_filters, type_filters, selected_type, selected_timeframe, show_filters, showMonthFrom, showMonthTo, showDayFrom, showDayTo, showYearFrom, showYearTo, month_from, month_to, day_from, day_to, year_from, year_to, loading} = this.state
+        const {list, timeframe_filters, type_filters, selected_type, selected_timeframe, show_filters, showMonthFrom, showMonthTo, showDayFrom, showDayTo, showYearFrom, showYearTo, month_from, month_to, day_from, day_to, year_from, year_to, loading, refreshing} = this.state
 
         return (
             <Provider>
@@ -271,6 +274,9 @@ class Scrn extends React.Component {
                     data={list}
                     renderItem={this.renderItem}
                     loading={loading}
+                    refreshing={refreshing}
+                    onRefresh={this.handleRefresh}
+                    placeholder={{}}
                 />
 
                 <MonthPicker visible={showMonthFrom} onSelect={this.handleSelectMonthFrom} onDismiss={this.handleHideMonthFromPicker} />

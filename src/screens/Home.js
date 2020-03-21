@@ -1,9 +1,11 @@
 import React from 'react'
 import {View, StyleSheet, InteractionManager, TouchableOpacity, Dimensions, Image} from 'react-native'
 import {connect} from 'react-redux'
+import {Creators} from '../actions'
 import {Text, Spacer, FlatList, Ripple, Icon, Balance} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_} from '../utils'
+import {API} from '../services'
 
 const {width} = Dimensions.get('window')
 const ITEM_WIDTH = (width / 4) - (Metrics.xl)
@@ -62,7 +64,23 @@ class Scrn extends React.Component {
     componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
 
     getData = async () => {
+        const {walletno} = this.props.user
 
+        try {
+            let res = await API.getAccountInfo(walletno)
+            if(!res.error) {
+                this.props.updateInfo({
+                    ...res.data,
+                    mobile_no:res.data.mobileno,
+                    email:res.data.emailaddress,
+                    zip_code:res.data.zipcode,
+                    source_of_income:res.data.sourceofincome
+                })
+            }
+        }
+        catch(err) {
+
+        }
     }
 
     handleGoToAddMoney = () => {
@@ -182,4 +200,8 @@ const mapStateToProps = state => ({
     hasSeenBuyLoadOnboarding: state.app.hasSeenBuyLoadOnboarding
 })
 
-export default connect(mapStateToProps)(Scrn)
+const mapDispatchToProps = dispatch => ({
+    updateInfo:newInfo => dispatch(Creators.updateUserInfo(newInfo))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

@@ -1,3 +1,4 @@
+import Consts from '../../utils/Consts'
 import Fetch from '../../utils/Fetch'
 
 export default {
@@ -7,10 +8,14 @@ export default {
     },
 
     sendWalletToWallet: async payload => {
-        return {
-            error:false
-        }
-        return await Fetch.post('',payload)
+        return await Fetch.post('sendout/wallettowallet',{
+            ...payload,
+            currency:'PHP',
+            latitude:'1.1',
+            longitude:'1.2',
+            version:Consts.appVersion,
+            deviceid:Consts.deviceId
+        })
     },
 
     getWalletReceivers: async payload => {

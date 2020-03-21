@@ -19,7 +19,7 @@ export default props => {
             <Spacer />
 
             <Text mute sm>Receiver</Text>
-            <Text md>{receiver}</Text>
+            <Text md>{receiver.fullname}</Text>
 
             <Spacer />
 

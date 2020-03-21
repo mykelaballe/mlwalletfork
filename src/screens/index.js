@@ -10,6 +10,7 @@ import SignUpStep4Scrn from './SignUpStep4'
 import SignUpReviewScrn from './SignUpReview'
 import SignUpVerificationMobileScrn from './SignUpVerificationMobile'
 import SignUpVerificationOTPScrn from './SignUpVerificationOTP'
+import SignUpPINScrn from './SignUpPIN'
 import SignUpSuccessScrn from './SignUpSuccess'
 import ForgotPasswordScrn from './ForgotPassword'
 import SecurityQuestionAuthScrn from './SecurityQuestionAuth'
@@ -145,6 +146,7 @@ export {
     SignUpReviewScrn,
     SignUpVerificationMobileScrn,
     SignUpVerificationOTPScrn,
+    SignUpPINScrn,
     SignUpSuccessScrn,
     ForgotPasswordScrn,
     SecurityQuestionAuthScrn,

@@ -74,6 +74,7 @@ export default {
     updateTouchIDStatus: async payload => await Fetch.put('update/touchid',payload),
 
     register: async payload => {
+        return {error:false}
         return await Fetch.post('wallet/registration',{
             ...payload,
             deviceId:Consts.deviceId,
@@ -91,7 +92,7 @@ export default {
 
     validateUsername: async username => {
         /*return {
-            error:false,
+            error:true,
             data:{
                 walletno:'123',
                 secquestion1:'one',
@@ -120,14 +121,54 @@ export default {
 
     getRates: async () => await Fetch.get('getchargevalues'),
 
-    getBranches: async () => await Fetch.get(''),
-
     getNotifications: async params => {
         let res = await Fetch.get(`getnotificationlist?walletno=${params.walletno}&start=${params.start}`)
         return res.data.notificationList || []
     },
 
-    getTransactionHistory: async walletno => await Fetch.get(`transaction/history?walletno=${walletno}`),
+    getTransactionHistory: async walletno => {
+        return [
+            {
+                kptn:'123456',
+                date:'2020-01-01',
+                status:'success',
+                label:'Wallet to Wallet',
+                code:'stw',
+                amount:'3000'
+            }
+        ]
+        return await Fetch.get(`transaction/history?walletno=${walletno}`)
+    },
+
+    getBranches: async () => {
+        let data = []
+        //let res = await Fetch.get('ml_branches')
+
+        let res = {
+            data:[
+                {
+                    latitude:10.2488493,
+                    longitude:123.85214660000001,
+                    branchname:'Basak Branch',
+                    address:'basak'
+                }
+            ]
+        }
+
+        if(res.data) {
+            for(let r in res.data) {
+                data.push({
+                    ...res.data[r],
+                    latlng: {
+                        latitude:res.data[r].latitude,
+                        longitude:res.data[r].longitude
+                    }
+                }) 
+            }
+        }
+
+        return data
+    },
 
     getCountries: async () => {
         let data = {}

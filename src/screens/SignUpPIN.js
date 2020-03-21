@@ -1,10 +1,10 @@
 import React from 'react'
-import {StyleSheet, View} from 'react-native'
+import {StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Screen, Footer, Headline, Row, Button, Spacer, ButtonText, TextInputFlat} from '../components'
+import {Screen, Footer, Headline, Button, TextInputFlat, Row} from '../components'
 import {Metrics} from '../themes'
-import {_, Consts, Say} from '../utils'
+import {_, Say} from '../utils'
 import {API} from '../services'
 
 class Scrn extends React.Component {
@@ -20,9 +20,7 @@ class Scrn extends React.Component {
         digit4:'',
         digit5:'',
         digit6:'',
-        processing:false,
-        has_requested:false,
-        reprocessing:false
+        processing:false
     }
 
     handleChangeDigit1 = digit1 => {
@@ -52,6 +50,8 @@ class Scrn extends React.Component {
 
     handleChangeDigit6 = digit6 => this.setState({digit6})
 
+    handleResendOTP = async () => this.setState({reprocessing:true})
+
     handleFocusDigit2 = () => this.refs.digit2.focus()
 
     handleFocusDigit3 = () => this.refs.digit3.focus()
@@ -63,93 +63,33 @@ class Scrn extends React.Component {
     handleFocusDigit6 = () => this.refs.digit6.focus()
 
     handleSubmit = async () => {
-        const {replace, state, processing} = this.props.navigation
+        const {digit1, digit2, digit3, digit4, digit5, digit6, processing} = this.state
 
         if(processing) return false
 
         try {
-
             this.setState({processing:true})
-
-            const {walletno, firstname, lastname} = this.props.user
-            const {type, transaction} = this.props.navigation.state.params
-            const {digit1, digit2, digit3, digit4, digit5, digit6} = this.state
-
+            
             let pin = `${digit1}${digit2}${digit3}${digit4}${digit5}${digit6}`
 
-            if(pin.length >= 6) {
-                let pinRes = await API.validatePIN({
-                    walletno,
+            if(!pin) Say.some(_('8'))
+            else {
+
+                let payload = {
+                    ...this.props.navigation.state.params.payload,
                     pin
-                })
-    
-                if(pinRes.error) Say.warn(pinRes.message)
+                }
+
+                let res = await API.register(payload)
+
+                if(!res.error) {
+                    this.props.navigation.replace('SignUpSuccess',{
+                        ...payload,
+                        ...res.data
+                    })
+                }
                 else {
-                    let res = {}
-                    
-                    if(type == Consts.tcn.stw.code) {
-                        let stwRes = await API.sendWalletToWallet({
-                            senderWalletNo:walletno,
-                            senderName:`${firstname} ${lastname}`,
-                            receivernoVal:transaction.receiver.receiverno,
-                            receiverName:transaction.receiver.fullname,
-                            receiverWalletNo:transaction.receiver.walletno,
-                            receiverMobileNo:transaction.receiver.contact_no,
-                            principal:transaction.amount,
-                            charge:transaction.charges,
-                            notes:transaction.notes
-                        })
-
-                        res = {
-                            error:stwRes.respcode == 1 ? false : true,
-                            message:stwRes.respmessage,
-                            data:{
-                                kptn:stwRes.kptnVal,
-                                balance:stwRes.BalanceVal
-                            }
-                        }
-                    }
-                    else if(type == Consts.tcn.skp.code) {
-                        res = await API.sendKP({
-                            walletno,
-                            receiverno:transaction.receiver.receiverno,
-                            principal:transaction.amount
-                        })
-                    }
-                    else if(type == Consts.tcn.stb.code) await API.sendBankTransfer({
-
-                    })
-                    else if(type == Consts.tcn.wdc.code) {
-                        res = await API.withdrawCash({
-                            walletno,
-                            amount:transaction.amount
-                        })
-                    }
-                    else if(type == Consts.tcn.bpm.code) await API.payBill({
-
-                    })
-                    else if(type == Consts.tcn.bul.code) {
-                        let payload = {
-                            walletNo:walletno,
-                            amount:transaction.amount,
-                            mobileNo:transaction.contact_no
-                        }
-
-                        if(transaction.promo) {
-                            payload.promoCode = transaction.promo.promoCode,
-                            payload.networkId = transaction.promo.networkID
-                        }
-                        res = await API.buyLoad(payload)
-                    }
-
-                    if(res.error) Say.warn(res.message)
-                    else {
-                        this.props.updateBalance(res.data.balance)
-                        replace('TransactionReceipt',{
-                            ...state.params,
-                            ...res.data
-                        })
-                    }
+                    Say.warn(res.message)
                 }
             }
         }
@@ -157,30 +97,7 @@ class Scrn extends React.Component {
             Say.err(_('500'))
         }
 
-        this.setState({
-            processing:false,
-            has_requested:true,
-            reprocessing:false
-        })
-    }
-
-    handleForgotPIN = () => {
-        const {walletno, secquestion1, secquestion2, secquestion3} = this.props.user
-
-        this.props.navigation.navigate('SecurityQuestion',{
-            walletno,
-            questions:[
-                secquestion1,
-                secquestion2,
-                secquestion3
-            ],
-            steps:[
-                'registered',
-                'registered',
-                'registered'
-            ],
-            func:async () => this.props.navigation.navigate('SendPIN')
-        })
+        this.setState({processing:false})
     }
 
     render() {
@@ -195,7 +112,8 @@ class Scrn extends React.Component {
         return (
             <>
                 <Screen>
-                    <Headline title='Enter your 6-digit PIN' />
+
+                    <Headline subtext='Create your own 6-digit Transaction PIN' />
 
                     <Row ar style={{paddingHorizontal:Metrics.lg}}>
                         <TextInputFlat
@@ -269,20 +187,9 @@ class Scrn extends React.Component {
                         />
                     </Row>
                 </Screen>
-
+            
                 <Footer>
-                    <View style={{alignItems:'flex-end'}}>
-                        <ButtonText t='Forgot PIN?' onPress={this.handleForgotPIN} />
-                    </View>
-
-                    <Spacer />
-
-                    <Button
-                        disabled={!ready}
-                        t='Validate'
-                        onPress={this.handleSubmit}
-                        loading={processing}
-                    />
+                    <Button disabled={!ready} t={_('10')} onPress={this.handleSubmit} loading={processing} />
                 </Footer>
             </>
         )
@@ -297,12 +204,10 @@ const style = StyleSheet.create({
     }
 })
 
-const mapStateToProps = state => ({
-    user: state.user.data
-})
-
 const mapDispatchToProps = dispatch => ({
-    updateBalance: newBalance => dispatch(Creators.updateBalance(newBalance))
+    login:() => dispatch(Creators.login()),
+    setUser:user => dispatch(Creators.setUser(user)),
+    setIsUsingTouchID:isUsing => dispatch(Creators.setIsUsingTouchID(isUsing))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Scrn)
+export default connect(null, mapDispatchToProps)(Scrn)

@@ -20,19 +20,19 @@ class Scrn extends React.Component {
             },
             {
                 label:'Smart/TNT',
-                value:'tnt'
+                value:'smart eload'
             },
             {
                 label:'Smart Dealer',
-                value:'smart'
+                value:'smart dealer'
             },
             {
                 label:'Sun Cellular',
-                value:'sun'
+                value:'sun cellular'
             },
             {
                 label:'PLDT Global Corp',
-                value:'pldt'
+                value:'load central'
             }
         ],
         network:'',

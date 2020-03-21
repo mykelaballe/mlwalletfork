@@ -5,6 +5,7 @@ import {SendWalletToWallet, SendKP, SendBankTransfer, ReceiveMoneyDomestic, Rece
 import {Colors, Metrics} from '../themes'
 import {_, Say, Consts} from '../utils'
 import Icon from 'react-native-vector-icons/AntDesign'
+import RNHTMLtoPDF from 'react-native-html-to-pdf'
 
 const moment = require('moment')
 
@@ -18,7 +19,7 @@ class Scrn extends React.Component {
             headerLeft:params._from === 'history' ? undefined : <View />,
             headerRight: (
                 <HeaderRight>
-                    <ButtonIcon icon={<Icon name='download' size={Metrics.icon.sm} color={Colors.light} />} onPress={() => {}} />
+                    <ButtonIcon icon={<Icon name='download' size={Metrics.icon.sm} color={Colors.light} />} onPress={params.handleExport} />
                 </HeaderRight>
             )
         }
@@ -29,7 +30,12 @@ class Scrn extends React.Component {
         loading:true
     }
 
-    componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
+    componentDidMount = () => {
+        this.props.navigation.setParams({
+            handleExport:this.handleExport
+        })
+        InteractionManager.runAfterInteractions(this.getData)
+    }
 
     getData = async () => {
 
@@ -44,6 +50,42 @@ class Scrn extends React.Component {
             timestamp:moment(),
             loading:false
         })
+    }
+
+    handleExport = async () => {
+        let kptn = 'MLW121324234'
+
+        let html = `
+            <div style="background-color:#323232;padding:5px 20px 5px 20px">
+                <h2 style="textAlign:center;color:#fff">Transaction Receipt</h2>
+                <h3 style="color:#fff;line-height:0">Transaction No: ${kptn}</h3>
+            </div>
+            
+            <hr />
+            
+            <h4 style="color:#6A6A6A;line-height:0">Full Legal Name</h4>
+            <h3>John Smith</h3>
+
+            <h4 style="color:#6A6A6A;line-height:0">Amount</h4>
+            <h3 style="margin-top:0">PHP 100.00</h3>
+
+            <h4 style="color:#6A6A6A;line-height:0">Date</h4>
+            <h3 style="margin-top:0">March 21, 2020</h3>
+
+            <h4 style="color:#6A6A6A;line-height:0">Time</h4>
+            <h3 style="margin-top:0">10:58:39 pm</h3>
+
+            <h4 style="color:#6A6A6A;line-height:0">Type</h4>
+            <h3 style="margin-top:0">Withdraw Cash</h3>
+        `
+        let options = {
+            html,
+            fileName: kptn,
+            directory: 'Documents'
+        }
+      
+        let file = await RNHTMLtoPDF.convert(options)
+        alert(file.filePath)
     }
 
     render() {

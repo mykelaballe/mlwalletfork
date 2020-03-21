@@ -13,13 +13,16 @@ const {width} = Dimensions.get('window')
 
 class Scrn extends React.Component {
 
-    static navigationOptions = {
-        title:'Camera',
-        headerStyle:{
-            backgroundColor:Colors.dark
+    static navigationOptions = ({navigation}) => {
+        const {params = {}} = navigation.state
+
+        return {
+            title:params.title || 'Camera',
+            headerStyle:{
+                backgroundColor:Colors.dark
+            }
         }
     }
-
     state = {
         source:null,
         viewType:RNCamera.Constants.Type.back,
@@ -49,8 +52,6 @@ class Scrn extends React.Component {
                 base64: true
             })
 
-            //alert(source.width + '\n' + source.height + '\n' + source.pictureOrientation + '\n' + source.deviceOrientation)
-
             //source.base64 = `data:image/jpeg;base64,${source.bsae64}`
 
             this.setState({
@@ -63,7 +64,7 @@ class Scrn extends React.Component {
     handleRetake = () => this.setState({source:null})
 
     handleConfirm = () => {
-        this.props.navigation.pop()
+        this.props.navigation.navigate(this.props.navigation.state.params.sourceRoute,{source:this.state.source.base64})
     }
 
     render() {
@@ -80,6 +81,7 @@ class Scrn extends React.Component {
                         ref={ref => this.camera = ref}
                         style={style.preview}
                         type={viewType}
+                        captureAudio={false}
                         androidCameraPermissionOptions={{
                             title: 'Permission to use camera',
                             message: 'We need your permission to use your camera',

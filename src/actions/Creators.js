@@ -31,6 +31,7 @@ import Types from './Types'
 
  const setUser = user => ({ type: Types.SET_USER, user })
  const updateBalance = newBalance => ({ type: Types.UPDATE_BALANCE, newBalance })
+ const updateUserInfo = newInfo => ({ type: Types.UPDATE_USER_INFO, newInfo })
  const clearUser = () => ({ type: Types.CLEAR_USER })
 
  /*----------------------------------------------------------------------
@@ -120,6 +121,7 @@ export default {
 
   setUser,
   updateBalance,
+  updateUserInfo,
   clearUser,
 
   networkSuccess,

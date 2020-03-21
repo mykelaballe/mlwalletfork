@@ -10,5 +10,7 @@ export default {
         })
     },
 
-    changePassword: async payload => {return {error:false}},//await Fetch.put('changePassword',payload),
+    changePassword: async payload => await Fetch.put('changePassword',payload),
+
+    getAccountInfo: async walletno => await Fetch.get(`wallet/info?walletno=${walletno}`)
 }

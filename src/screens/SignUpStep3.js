@@ -1,9 +1,9 @@
 import React from 'react'
 import {StyleSheet, TouchableOpacity} from 'react-native'
+//import {connect} from 'react-redux'
 import {Screen, Headline, Footer, FlatList, Text, Button, HR, SignUpStepsTracker} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
-import {API} from '../services'
 
 const ItemUI = props => (
     <>
@@ -22,6 +22,7 @@ export default class Scrn extends React.Component {
     }
 
     state = {
+        sourceRoute:this.props.navigation.state.routeName,
         list:[
             {
                 id:1,
@@ -57,10 +58,77 @@ export default class Scrn extends React.Component {
             }
         ],
         ids:[],
+        validID:'',
+        profilepic:'',
         processing:false
     }
 
+    static getDerivedStateFromProps = (props, state) => {
+        const {params = {}} = props.navigation.state
+
+        if(params.source) {
+            if(!state.validID) {
+                if(state.validID !== params.source) {
+                    return {
+                        validID:params.source
+                    }
+                }
+            }
+            else if(!state.profilepic) {
+                if(state.profilepic !== params.source) {
+                    props.navigation.navigate('SignUpStep4',{
+                        ...props.navigation.state.params,
+                        validID:state.validID,
+                        profilepic:params.source
+                    })
+                    return {
+                        profilepic:params.source
+                    }
+                }
+            }
+        }
+
+        return null
+    }
+
+    /*componentDidUpdate = (prevProps, prevState) => {
+        const {params = {}} = this.props.navigation.state
+
+        if(params.source) {
+            this.props.navigation.setParams({source:null})
+            if(!prevState.validID) {
+                if(params.source !== prevState.validID) {
+                    this.setState({
+                        validID:params.source
+                    })
+                }
+            }
+            else if(!prevState.profilepic) {
+                if(params.source !== prevState.profilepic) {
+                    this.setState({
+                        profilepic:params.source
+                    })
+                }
+            }
+        }
+    }*/
+
     handleSelect = index => {
+        let list = this.state.list.slice()
+
+        list.map(l => l.selected = false)
+
+        list[index].selected = !list[index].selected
+
+        this.setState({list})
+
+        this.props.navigation.navigate('Camera',{
+            title:'Valid ID',
+            sourceRoute:this.state.sourceRoute
+        })
+    }
+
+    /*handleSelect1 = index => {
         let list = this.state.list.slice()
         let ids = []
 
@@ -72,24 +140,37 @@ export default class Scrn extends React.Component {
             if(l.selected) ids.push(l.name)
         })
 
-        //this.props.navigation.navigate('Camera',{sourceRoute:this.props.navigation.state.routeName})
+        this.props.navigation.navigate('Camera',{sourceRoute:this.props.navigation.state.routeName})
 
         this.setState({
             list,
             ids
         })
-    }
+    }*/
 
     handleSubmit = async () => {
-        let {ids} = this.state
+        let {sourceRoute, ids, profilepic, validID} = this.state
 
         try {
-            if(ids.length > 0) {
+            if(!profilepic) {
+                this.props.navigation.navigate('Camera',{
+                    title:'Profile Picture',
+                    sourceRoute
+                })
+            }
+            else {
+                this.props.navigation.navigate('SignUpStep4',{
+                    ...this.props.navigation.state.params,
+                    validID,
+                    profilepic
+                })
+            }
+            /*if(ids.length > 0) {
                 this.props.navigation.navigate('SignUpStep4',{
                     ...this.props.navigation.state.params,
                     ids
                 })
-            }
+            }*/
         }
         catch(err) {
             Say.err(_('500'))
@@ -100,10 +181,10 @@ export default class Scrn extends React.Component {
 
     render() {
 
-        const {list, ids, processing} = this.state
+        const {list, ids, validID, profilepic, processing} = this.state
         let ready = false
 
-        if(ids.length > 0) ready = true
+        if(validID) ready = true
 
         return (
             <>
@@ -134,3 +215,9 @@ const style = StyleSheet.create({
         paddingHorizontal:Metrics.rg
     }
 })
+
+/*const mapStateToProps = state => ({
+
+})
+
+export default connect(mapStateToProps)(Scrn)*/

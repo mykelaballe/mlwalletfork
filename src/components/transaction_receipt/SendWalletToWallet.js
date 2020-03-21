@@ -10,7 +10,7 @@ const moment = require('moment')
 class SendWalletToWallet extends React.Component {
 
     componentDidMount = () => {
-        const {walletno, amount} = this.props.data
+        const {walletno, amount, balance} = this.props.data
 
         Say.ok(
             null,
@@ -21,7 +21,7 @@ class SendWalletToWallet extends React.Component {
                         <Text mute md>You successfully sent money worth PHP {Func.formatToCurrency(amount)} to {walletno}</Text>
                         <Spacer lg />
                         <Text mute>Your new balance is</Text>
-                        <Text xl b>Php 1000</Text>
+                        <Text xl b>Php {Func.formatToCurrency(balance)}</Text>
                     </>
                 )
             }
@@ -49,7 +49,7 @@ class SendWalletToWallet extends React.Component {
                         <Spacer />
 
                         <Text sm mute>Receiver</Text>
-                        <Text>{receiver}</Text>
+                        <Text>{receiver.fullname}</Text>
 
                         <Spacer />
 

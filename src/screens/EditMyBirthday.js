@@ -34,7 +34,7 @@ class Scrn extends React.Component {
 
     handleHideYearPicker = () => this.setState({showYearPicker:false})
 
-    handleSelectMonth = bday_month => this.setState({bday_month})
+    handleSelectMonth = bday_month => this.setState({bday_month, bday_day:''})
 
     handleSelectDay = bday_day => this.setState({bday_day})
 
@@ -71,6 +71,9 @@ class Scrn extends React.Component {
     render() {
 
         const {bday_month, bday_day, bday_year, showMonthPicker, showDayPicker, showYearPicker, processing} = this.state
+        let ready = false
+
+        if(bday_month && bday_day && bday_year) ready = true
 
         return (
             <>
@@ -104,7 +107,7 @@ class Scrn extends React.Component {
                 </Screen>
 
                 <Footer>
-                    <Button disabled={showMonthPicker || showDayPicker || showYearPicker} t={'Save Changes'} onPress={this.handleSubmit} loading={processing} />
+                    <Button disabled={!ready || showMonthPicker || showDayPicker || showYearPicker} t={'Save Changes'} onPress={this.handleSubmit} loading={processing} />
                 </Footer>
 
                 <MonthPicker initialValue={bday_month} visible={showMonthPicker} onSelect={this.handleSelectMonth} onDismiss={this.handleHideMonthPicker} />

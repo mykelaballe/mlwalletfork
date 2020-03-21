@@ -33,6 +33,7 @@ export default createTypes(`
 
   SET_USER
   UPDATE_BALANCE
+  UPDATE_USER_INFO
   CLEAR_USER
 
   NETWORK_SUCCESS

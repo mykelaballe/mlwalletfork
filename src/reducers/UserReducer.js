@@ -16,11 +16,20 @@ const updateBalance = (state, action) => {
   return state.merge({ data })
 }
 
+const updateUserInfo = (state, action) => {
+  let data = {
+    ...state.data,
+    balance:action.newInfo
+  }
+  return state.merge({ data })
+}
+
 const clearUser = state => state.merge({ user:null })
   
 const ACTION_HANDLERS = {
   [Types.SET_USER]: setUser,
   [Types.UPDATE_BALANCE]: updateBalance,
+  [Types.UPDATE_USER_INFO]: updateUserInfo,
   [Types.CLEAR_USER]: clearUser
 }
 

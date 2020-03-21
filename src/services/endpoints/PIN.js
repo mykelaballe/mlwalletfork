@@ -10,8 +10,7 @@ export default {
     },
 
     forgotPIN: async payload => {
-        //return {error:false}
-        alert(payload.walletno + '\n' + payload.flag_num)
+        return {error:false}
         return await Fetch.get(`forgotpin?flag_num=${payload.flag_num}&walletno=${payload.walletno}`)
     },
 

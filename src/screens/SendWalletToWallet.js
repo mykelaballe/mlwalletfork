@@ -18,7 +18,7 @@ class Scrn extends React.Component {
 
     state = {
         walletno:this.props.navigation.state.params.receiver.walletno,
-        receiver:this.props.navigation.state.params.receiver.fullname,
+        receiver:this.props.navigation.state.params.receiver,
         amount:'',
         notes:'',
         charges:'25',

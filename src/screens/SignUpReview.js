@@ -23,6 +23,16 @@ export default class Scrn extends React.Component {
         processing:false
     }
 
+    componentDidMount = () => {
+        this.props.navigation.setParams({
+            nationality:null,
+            country:null,
+            province:null,
+            city:null,
+            source_of_income:null
+        })
+    }
+
     componentDidUpdate = (prevProps, prevState) => {
         const {params = {}} = this.props.navigation.state
         if(params.nationality && params.nationality !== prevState.nationality) {
@@ -132,7 +142,7 @@ export default class Scrn extends React.Component {
 
     handleFocusSourceOfIncome = () => this.refs.source_of_income.focus()
 
-    handleSelectMonth = bday_month => this.setState({bday_month})
+    handleSelectMonth = bday_month => this.setState({bday_month, bday_day:''})
 
     handleSelectDay = bday_day => this.setState({bday_day})
 
@@ -198,7 +208,7 @@ export default class Scrn extends React.Component {
 
             suffix = other_suffix || suffix
 
-            if(!firstname || !middlename || !lastname || !source_of_income || !barangay || !zip_code) Say.some(_('8'))
+            if(!firstname || !middlename || !lastname || !bday_day || !source_of_income || !barangay || !zip_code) Say.some(_('8'))
             else {
                 this.props.navigation.navigate('SignUpVerificationMobile',{
                     ...this.props.navigation.state.params,
@@ -233,14 +243,14 @@ export default class Scrn extends React.Component {
         }
     }
 
-    render() {
+    render() {  
 
         const {firstname, middlename, has_middlename, lastname, suffix, other_suffix, has_suffix, suffix_options, bday_month, bday_day, bday_year, gender, email, nationality, source_of_income,
             country, region, province, city, barangay, house, street, zip_code, editable, showMonthPicker, showDayPicker, showYearPicker, agree, processing} = this.state
 
         let ready = false
 
-        if(firstname && middlename && lastname && suffix && nationality && source_of_income && barangay && zip_code && agree) {
+        if(firstname && middlename && lastname && suffix && bday_day && nationality && source_of_income && barangay && zip_code && agree) {
             ready = true
         }
 
@@ -259,7 +269,7 @@ export default class Scrn extends React.Component {
                         {email != '' && <Text center md>{email}</Text>}
                         <Text center md>{nationality}</Text>
                         <Text center md>{source_of_income}</Text>
-                    <Text center md>{house ? house + ', ' : ''}{street ? street + ', ' : ''}{barangay}, {city}, {province}, {country}</Text>
+                        <Text center md>{house ? house + ', ' : ''}{street ? street + ', ' : ''}{barangay}, {city}, {province.province}, {country}</Text>
                         <Text center md>{zip_code}</Text>
                     </>
                     }

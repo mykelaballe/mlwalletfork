@@ -120,7 +120,7 @@ class Scrn extends React.Component {
 
     handleFocusSourceOfIncome = () => this.refs.source_of_income.focus()
 
-    handleSelectMonth = bday_month => this.setState({bday_month})
+    handleSelectMonth = bday_month => this.setState({bday_month, bday_day:''})
 
     handleSelectDay = bday_day => this.setState({bday_day})
 

@@ -31,7 +31,7 @@ class SendKP extends React.Component {
                         <Text mute md>Share the transaction number to {receiver.firstname} {receiver.middlename} {receiver.lastname} {receiver.suffix} to complete this transaction.</Text>
                         <Spacer lg />
                         <Text mute>Your new balance is</Text>
-                        <Text xl b>Php {Func.formatToRealCurrency(balance)}</Text>
+                        <Text xl b>Php {Func.formatToCurrency(balance)}</Text>
                     </>
                 )
             }

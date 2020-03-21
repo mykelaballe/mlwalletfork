@@ -19,7 +19,7 @@ export default class Scrn extends React.Component {
     renderItem = ({item, index}) => (
         <CollapsibleItem
             style={style.item}
-            topContent={<Text b md>{item.question}</Text>}
+            topContent={<Text mute md>{item.question}</Text>}
             bottomContent={
             <>
                 <Spacer />
@@ -35,7 +35,7 @@ export default class Scrn extends React.Component {
 
         return (
             <View style={style.container}>
-                <Text center>M Lhuillier is committed to respect and protect the right to privacy of its data subject in accordance</Text>
+                <Text center>M Lhuillier is committed to respect and protect the right to privacy of its data subject in accordance with Republic Act No. 10173 (the Data Privacy Act of 2012 or DPA), its Implementing Rules and Regulations (IRR) and other applicable laws of the Republic of the Philippines governing privacy of individual personal information and of communication.</Text>
                 <FlatList
                     data={list}
                     renderItem={this.renderItem}
