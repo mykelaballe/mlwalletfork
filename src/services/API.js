@@ -16,7 +16,7 @@ import User from './endpoints/User'
 
 export default {
     login: async payload => {
-        return {
+        /*return {
             username:'johnsmith',
             password:'123',
             fname:'John',
@@ -46,7 +46,7 @@ export default {
             isresetpass:"0",
             isresetpin:"0",
             error:payload.username == 'newphone' ? 'registered_anotherdevice' : null
-        }
+        }*/
         let res = await Fetch.post('login', {
             ...payload,
             deviceId:Consts.deviceId,
@@ -142,9 +142,9 @@ export default {
 
     getBranches: async () => {
         let data = []
-        //let res = await Fetch.get('ml_branches')
+        let res = await Fetch.get('ml_branches')
 
-        let res = {
+        /*let res = {
             data:[
                 {
                     latitude:10.2488493,
@@ -153,7 +153,7 @@ export default {
                     address:'basak'
                 }
             ]
-        }
+        }*/
 
         if(res.data) {
             for(let r in res.data) {
