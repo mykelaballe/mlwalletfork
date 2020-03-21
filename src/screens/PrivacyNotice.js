@@ -1,38 +1,41 @@
 import React from 'react'
-import {StyleSheet, View} from 'react-native'
-import {FlatList, Text, Spacer} from '../components'
+import {View, StyleSheet} from 'react-native'
+import {FlatList, Text, Spacer, CollapsibleItem} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_} from '../utils'
-import data from '../services/terms'
+import list from '../services/privacy'
 
-class PrivacyNotice extends React.Component {
+export default class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Privacy Notice'
     }
 
     state = {
-        list:data
+        list,
+        search:''
     }
 
     renderItem = ({item, index}) => (
-        <View style={style.item}>
-            <Text md>{index + 1}. {item}</Text>
-        </View>
+        <CollapsibleItem
+            style={style.item}
+            topContent={<Text b md>{item.question}</Text>}
+            bottomContent={
+            <>
+                <Spacer />
+                {typeof item.answer === 'string' ? <Text>{item.answer}</Text> : item.answer}
+            </>
+            }
+        />
     )
 
     render() {
 
-        const {list} = this.state
-
-        return null
+        const {list, search} = this.state
 
         return (
             <View style={style.container}>
-                <View style={{alignItems:'center'}}>
-                    <Text>M Lhuillier is committed to respect and protect the right to privacy of its data subject in accordance with Republic Act No. 10173 (the Data Privacy Act of 2012 or DPA), its Implementing Rules and Regulations (IRR) and other applicable laws of the Republic of the Philippines governing privacy of individual personal information and of communication</Text>
-                </View>
-
+                <Text center>M Lhuillier is committed to respect and protect the right to privacy of its data subject in accordance</Text>
                 <FlatList
                     data={list}
                     renderItem={this.renderItem}
@@ -44,11 +47,14 @@ class PrivacyNotice extends React.Component {
 
 const style = StyleSheet.create({
     container: {
-        padding:Metrics.lg
+        flex:1,
+        padding:Metrics.md
     },
     item: {
-        marginVertical:Metrics.md
+        borderWidth:StyleSheet.hairlineWidth,
+        borderColor:Colors.gray,
+        borderRadius:Metrics.sm,
+        padding:Metrics.md,
+        marginVertical:Metrics.rg
     }
 })
-
-export default PrivacyNotice

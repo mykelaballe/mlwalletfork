@@ -41,7 +41,7 @@ class Scrn extends React.Component {
             if(res.error) Say.warn(res.message)
             else {
                 Say.ok(
-                    'A temporary PIN has been sent',
+                    res.message,
                     null,
                     {
                         OkBtnLabel:'Back to Login',

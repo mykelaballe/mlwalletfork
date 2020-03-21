@@ -8,10 +8,19 @@ export const INITIAL_STATE = Immutable({
 
 const setUser = (state, action) => state.merge({ data:{...action.user} })
 
+const updateBalance = (state, action) => {
+  let data = {
+    ...state.data,
+    balance:action.newBalance
+  }
+  return state.merge({ data })
+}
+
 const clearUser = state => state.merge({ user:null })
   
 const ACTION_HANDLERS = {
   [Types.SET_USER]: setUser,
+  [Types.UPDATE_BALANCE]: updateBalance,
   [Types.CLEAR_USER]: clearUser
 }
 

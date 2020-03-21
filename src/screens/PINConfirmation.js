@@ -67,13 +67,15 @@ class Scrn extends React.Component {
 
         if(processing) return false
 
-        const {walletno} = this.props.user
-        const {type, transaction} = this.props.navigation.state.params
-        const {digit1, digit2, digit3, digit4, digit5, digit6} = this.state
-
-        let pin = `${digit1}${digit2}${digit3}${digit4}${digit5}${digit6}`
-
         try {
+
+            this.setState({processing:true})
+
+            const {walletno} = this.props.user
+            const {type, transaction} = this.props.navigation.state.params
+            const {digit1, digit2, digit3, digit4, digit5, digit6} = this.state
+
+            let pin = `${digit1}${digit2}${digit3}${digit4}${digit5}${digit6}`
 
             if(pin.length >= 6) {
                 let pinRes = await API.validatePIN({
@@ -108,7 +110,6 @@ class Scrn extends React.Component {
 
                     })
                     else if(type == Consts.tcn.bul.code) {
-                        alert(walletno + '\n' + transaction.amount + '\n' + transaction.contact_no)
                         let payload = {
                             walletNo:walletno,
                             amount:transaction.amount,
@@ -124,6 +125,7 @@ class Scrn extends React.Component {
 
                     if(res.error) Say.warn(res.message)
                     else {
+                        this.props.updateBalance(res.data.balance)
                         replace('TransactionReceipt',{
                             ...state.params,
                             ...res.data
@@ -281,7 +283,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    logout: () => dispatch(Creators.logout())
+    updateBalance: newBalance => dispatch(Creators.updateBalance(newBalance))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

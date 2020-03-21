@@ -26,7 +26,7 @@ export default class Scrn extends React.Component {
             list = await API.getRates()
         }
         catch(err) {
-            Say.err('Something went wrong')
+            Say.err(_('500'))
         }
 
         this.setState({

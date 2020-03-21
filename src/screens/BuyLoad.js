@@ -1,6 +1,6 @@
 import React from 'react'
 import {View, StyleSheet, TouchableOpacity} from 'react-native'
-import {Screen, Footer, Headline, Spacer, Button, TextInput, Icon} from '../components'
+import {Screen, Footer, Headline, Spacer, Button, TextInput, StaticInput, Icon, Picker} from '../components'
 import {Metrics} from '../themes'
 import {_, Consts} from '../utils'
 import {API} from '../services'
@@ -13,6 +13,30 @@ class Scrn extends React.Component {
 
     state = {
         type:Consts.tcn.bul.code,
+        networks:[
+            {
+                label:'Globe/TM',
+                value:'globe'
+            },
+            {
+                label:'Smart/TNT',
+                value:'tnt'
+            },
+            {
+                label:'Smart Dealer',
+                value:'smart'
+            },
+            {
+                label:'Sun Cellular',
+                value:'sun'
+            },
+            {
+                label:'PLDT Global Corp',
+                value:'pldt'
+            }
+        ],
+        network:'',
+        name:'',
         contact_no:'',
     }
 
@@ -28,6 +52,8 @@ class Scrn extends React.Component {
 
     handleSelectReceiver = () => this.props.navigation.navigate('SavedLoadReceivers')
 
+    handleSelectNetwork = network => this.setState({network:network.label})
+
     handleNext = async () => {
         const {params} = this.props.navigation.state
         this.props.navigation.navigate('LoadOptions',{
@@ -38,10 +64,10 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {contact_no} = this.state
+        const {networks, network, contact_no, name} = this.state
         let ready = false
 
-        if(contact_no) ready = true
+        if(network && contact_no && name) ready = true
 
         return (
             <>
@@ -54,7 +80,14 @@ class Scrn extends React.Component {
 
                     <Headline subtext='Enter the mobile number that you will load or select from your contact list.' />
 
-                    <TextInput
+                    <Picker
+                        selected={network}
+                        items={networks}
+                        placeholder='Choose network'
+                        onChoose={this.handleSelectNetwork}
+                    />
+
+                    {/*<TextInput
                         label='Mobile Number'
                         value={contact_no}
                         keyboardType='numeric'
@@ -64,6 +97,16 @@ class Scrn extends React.Component {
                                 <Icon name='phonebook' style={{width:30,height:30}} />
                             </TouchableOpacity>
                         }
+                    />*/}
+
+                    <StaticInput
+                        label='Mobile Number'
+                        value={contact_no}
+                    />
+
+                    <StaticInput
+                        label='Name'
+                        value={name}
                     />
                 </Screen>
 

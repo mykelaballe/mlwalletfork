@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Creators} from '../../actions'
 import {withNavigation} from 'react-navigation'
 import {Header} from './'
 import {Screen, Footer, Text, Spacer, Button, View} from '../'
@@ -62,6 +63,7 @@ class WithdrawCash extends React.Component {
             
             if(res.err) Say.warn(res.message)
             else {
+                this.props.updateBalance(res.data.balance)
                 this.setState({
                     cancellable:false,
                     status:'cancelled',
@@ -143,4 +145,8 @@ const mapStateToProps = state => ({
     user: state.user.data
 })
 
-export default withNavigation(connect(mapStateToProps)(WithdrawCash))
+const mapDispatchToProps = dispatch => ({
+    updateBalance: newBalance => dispatch(Creators.updateBalance(newBalance))
+})
+
+export default withNavigation(connect(mapStateToProps, mapDispatchToProps)(WithdrawCash))

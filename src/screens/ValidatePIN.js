@@ -63,6 +63,8 @@ export default class Scrn extends React.Component {
         if(processing) return false
 
         try {
+            this.setState({processing:true})
+
             let pin = `${digit1}${digit2}${digit3}${digit4}${digit5}${digit6}`
 
             if(!pin) Say.some(_('8'))

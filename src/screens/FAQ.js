@@ -3,7 +3,7 @@ import {View, StyleSheet, TouchableOpacity} from 'react-native'
 import {SectionList, Text, Spacer, Button, CollapsibleItem, SearchInput} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_} from '../utils'
-import data from '../services/faq'
+import list from '../services/faq'
 
 const HeaderItemUI = props => (
     <TouchableOpacity style={style.sectionHeader} onPress={() => props.onPress(props.index)}>
@@ -18,7 +18,7 @@ export default class Scrn extends React.Component {
     }
 
     state = {
-        list:data,
+        list,
         search:''
     }
 

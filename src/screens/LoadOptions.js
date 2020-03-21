@@ -33,31 +33,7 @@ class LoadOptions extends React.Component {
         promo:null,
         regulars:[
             {
-                amount:'10',
-                selected:false
-            },
-            {
-                amount:'20',
-                selected:false
-            },
-            {
-                amount:'30',
-                selected:false
-            },
-            {
-                amount:'50',
-                selected:false
-            },
-            {
-                amount:'100',
-                selected:false
-            },
-            {
-                amount:'150',
-                selected:false
-            },
-            {
-                amount:'300',
+                amount:'1000',
                 selected:false
             },
             {
@@ -65,7 +41,35 @@ class LoadOptions extends React.Component {
                 selected:false
             },
             {
-                amount:'1000',
+                amount:'300',
+                selected:false
+            },
+            {
+                amount:'200',
+                selected:false
+            },
+            {
+                amount:'100',
+                selected:false
+            },
+            {
+                amount:'50',
+                selected:false
+            },
+            {
+                amount:'30',
+                selected:false
+            },
+            {
+                amount:'20',
+                selected:false
+            },
+            {
+                amount:'10',
+                selected:false
+            },
+            {
+                amount:'5',
                 selected:false
             }
         ],
@@ -159,7 +163,7 @@ class LoadOptions extends React.Component {
 
     render() {
 
-        const {contact_no} = this.props.navigation.state.params
+        const {network, contact_no} = this.props.navigation.state.params
         const {amount, regulars, promo_codes, show_regulars, loading} = this.state
         let ready = false
 
@@ -170,6 +174,7 @@ class LoadOptions extends React.Component {
 
                 <Screen ns>
                     <Text b xl center>{contact_no}</Text>
+                    <Text b center>{network}</Text>
 
                     <Spacer />
 

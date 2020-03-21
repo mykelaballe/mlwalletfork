@@ -32,6 +32,7 @@ export default createTypes(`
   LOGOUT
 
   SET_USER
+  UPDATE_BALANCE
   CLEAR_USER
 
   NETWORK_SUCCESS

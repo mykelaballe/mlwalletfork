@@ -10,7 +10,6 @@ import {Func} from '../utils'
 class Balance extends React.Component {
 
     state = {
-        balance: this.props.user.balance,
         show: false
     }
 
@@ -20,7 +19,8 @@ class Balance extends React.Component {
 
     render() {
 
-        const {balance, show} = this.state
+        const {balance} = this.props.user
+        const {show} = this.state
 
         return (
             <View style={style.jumbo}>
@@ -54,7 +54,7 @@ const style = StyleSheet.create({
     },
 })
 
-mapStateToProps = state => ({
+const mapStateToProps = state => ({
     user: state.user.data
 })
 
