@@ -74,7 +74,7 @@ export default {
     updateTouchIDStatus: async payload => await Fetch.put('update/touchid',payload),
 
     register: async payload => {
-        return {error:false}
+        //return {error:false}
         return await Fetch.post('wallet/registration',{
             ...payload,
             deviceId:Consts.deviceId,

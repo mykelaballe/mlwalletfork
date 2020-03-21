@@ -52,25 +52,23 @@ class LocatorScreen extends React.Component {
         if(loading) return <ActivityIndicator />
 
         return (
-            <View style={{ position: 'relative', height: 500}}>
-                <MapView
-                    provider={PROVIDER_GOOGLE}
-                    initialRegion={initialCoords}
-                    style={style.map}
-                    showsUserLocation={true}
-                >
-                    {markers.map((m, i) => (
-                        <Marker
-                            key={i}
-                            coordinate={m.latlng}
-                            title={m.branchname}
-                            description={m.address}
-                        >
-                            <Image source={require('../res/app_icon.png')} style={style.marker} />
-                        </Marker>
-                    ))}
-                </MapView>
-            </View>
+            <MapView
+                provider={PROVIDER_GOOGLE}
+                initialRegion={initialCoords}
+                style={style.map}
+                showsUserLocation={true}
+            >
+                {markers.map((m, i) => (
+                    <Marker
+                        key={i}
+                        coordinate={m.latlng}
+                        title={m.branchname}
+                        description={m.address}
+                    >
+                        <Image source={require('../res/app_icon.png')} style={style.marker} />
+                    </Marker>
+                ))}
+            </MapView>
         )
     }
 }
