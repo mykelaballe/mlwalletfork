@@ -69,9 +69,6 @@ class Scrn extends React.Component {
         try {
             let res = await API.getAccountInfo(walletno)
             if(!res.error) {
-                let x = ''
-                for(let prop in res.data) x += prop + '=' + res.data[prop] + '\n'
-                alert(x)
                 this.props.updateInfo({
                     ...res.data,
                     mobile_no:res.data.mobileNo,
