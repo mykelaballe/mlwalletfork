@@ -19,7 +19,7 @@ const updateBalance = (state, action) => {
 const updateUserInfo = (state, action) => {
   let data = {
     ...state.data,
-    balance:action.newInfo
+    ...action.newInfo
   }
   return state.merge({ data })
 }
