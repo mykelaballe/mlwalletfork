@@ -1,10 +1,10 @@
 import React from 'react'
-import {View, StyleSheet} from 'react-native'
+import {View, StyleSheet, Linking} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Text, Button, ButtonText, Spacer, TextInput, Row, Icon, Screen, MLBanner} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_, Say} from '../utils'
+import {_, Say, Consts} from '../utils'
 import {API} from '../services'
 import TouchID from 'react-native-touch-id'
 
@@ -52,7 +52,7 @@ class Scrn extends React.Component {
                     })
                 }
                 else {
-                    Say.some(res.message)
+                    Say.warn(res.message)
                 }
             })
             .catch(err => {
@@ -99,7 +99,17 @@ class Scrn extends React.Component {
                     else if(error === 'invalid_grant' || error === 'username_notexists' || error === 'wrong_password') {
                         Say.warn(_('72'))
                     }
-                    if(error === 'version_outofdate') Say.warn(error_description)
+                    if(error === 'version_outofdate') {
+                        Say.warn(
+                            'Please install the latest version of the app',
+                            'Version Out of date',
+                            {
+                                OkBtnLabel:'Update Now',
+                                onConfirm:() => Linking.openURL(Consts.storeListingUrl)
+                            }
+                        )
+                        //Say.warn(error_description)
+                    }
                     else if(error === 'registered_anotherdevice') {
 
                         this.setState({walletno:error_description})

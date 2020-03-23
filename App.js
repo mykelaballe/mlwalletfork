@@ -10,6 +10,7 @@ import {Consts, Storage} from './src/utils'
 import NetInfo from '@react-native-community/netinfo'
 import SplashScreen from 'react-native-splash-screen'
 import {Provider} from 'react-native-paper'
+import codePush from 'react-native-code-push'
 import DeviceInfo from 'react-native-device-info'
 
 class App extends React.Component {
@@ -21,6 +22,11 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+
+    codePush.sync({
+      deploymentKey:Consts.codepush_key,
+      installMode: codePush.InstallMode.IMMEDIATE
+    })
 
     /*DeviceInfo.isLocationEnabled().then(enabled => {
       alert(enabled)
