@@ -2,7 +2,7 @@ import React from 'react'
 import {StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Screen, Footer, Headline, Button, TextInputFlat, Row} from '../components'
+import {Screen, Footer, Headline, Button, TextInputFlat, Row, SignUpStepsTracker} from '../components'
 import {Metrics} from '../themes'
 import {_, Say} from '../utils'
 import {API} from '../services'
@@ -112,6 +112,8 @@ class Scrn extends React.Component {
         return (
             <>
                 <Screen>
+
+                    <SignUpStepsTracker step={5} />
 
                     <Headline subtext='Create your own 6-digit Transaction PIN' />
 

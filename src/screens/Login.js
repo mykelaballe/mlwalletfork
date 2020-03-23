@@ -82,10 +82,7 @@ class Scrn extends React.Component {
 
             let payload = {
                 username,
-                password,
-                latitude:'1',
-                longitude:'1',
-                location:'Philippines'
+                password
             }
 
             if(!username || !password) Say.some(_('8'))

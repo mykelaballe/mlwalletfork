@@ -49,6 +49,9 @@ export default {
         }*/
         let res = await Fetch.post('login', {
             ...payload,
+            latitude:'1',
+            longitude:'1',
+            location:'Philippines',
             deviceId:Consts.deviceId,
             devicetype:Consts.deviceType,
             version:Consts.appVersion,

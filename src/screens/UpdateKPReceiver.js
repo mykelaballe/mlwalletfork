@@ -101,6 +101,7 @@ class Scrn extends React.Component {
 
                 if(!res.error) {
                     this.props.updateReceiver(index, {
+                        ...receiver,
                         firstname,
                         middlename,
                         lastname,

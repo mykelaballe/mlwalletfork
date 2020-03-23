@@ -5,7 +5,7 @@ import {withNavigation} from 'react-navigation'
 import {Header} from './'
 import {Screen, Footer, Text, Spacer, Button, View} from '../'
 import {Metrics} from '../../themes'
-import {Consts, Func, Say} from '../../utils'
+import {_, Consts, Func, Say} from '../../utils'
 import {API} from '../../services'
 
 const moment = require('moment')
@@ -76,7 +76,7 @@ class WithdrawCash extends React.Component {
                 kptn
             })
             
-            if(res.err) Say.warn(res.message)
+            if(res.error) Say.warn(res.message)
             else {
                 this.props.updateBalance(res.data.balance)
                 this.setState({

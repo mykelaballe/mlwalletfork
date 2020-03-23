@@ -78,7 +78,7 @@ class Scrn extends React.Component {
 
             let otp = `${digit1}${digit2}${digit3}${digit4}${digit5}${digit6}`
 
-            if(!otp) Say.some(_('8'))
+            if(!otp) Say.warn(_('8'))
             else {
                 let otpRes = await API.validateOTP({
                     _mobile_no:mobile_no,
@@ -230,9 +230,9 @@ class Scrn extends React.Component {
 
                     <Spacer lg />
 
-                    {has_requested &&
+                    {/*has_requested &&
                     <ButtonText disabled={!ready} t='Resend Verification Code' onPress={this.handleRequestAgain} loading={reprocessing} />
-                    }
+                    */}
                 </Screen>
             
                 <Footer>

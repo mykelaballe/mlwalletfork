@@ -3,7 +3,7 @@ import {withNavigation} from 'react-navigation'
 import {Header} from './'
 import {Screen, Footer, View, Text, Spacer, Button} from '../'
 import {Metrics} from '../../themes'
-import {Consts, Func, Say} from '../../utils'
+import {_, Consts, Func, Say} from '../../utils'
 
 const moment = require('moment')
 

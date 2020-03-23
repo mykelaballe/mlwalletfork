@@ -43,7 +43,8 @@ class Scrn extends React.Component {
                 let payload = {
                     _walletno:walletno,
                     _fullname:fullname,
-                    _mobileno:contact_no
+                    _mobileno:contact_no,
+                    _isfavorite:false
                 }
     
                 let res = await API.addELoadReceiver(payload)

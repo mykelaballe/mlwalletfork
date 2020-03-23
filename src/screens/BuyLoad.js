@@ -44,7 +44,10 @@ class Scrn extends React.Component {
         const {params = {}} = this.props.navigation.state
         if(params.receiver && params.receiver.mobileno !== prevState.contact_no) {
             this.props.navigation.setParams({receiver:null})
-            this.setState({contact_no:params.receiver.mobileno})
+            this.setState({
+                contact_no:params.receiver.mobileno,
+                name:params.receiver.fullname
+            })
         }
     }
 
@@ -52,7 +55,7 @@ class Scrn extends React.Component {
 
     handleSelectReceiver = () => this.props.navigation.navigate('SavedLoadReceivers')
 
-    handleSelectNetwork = network => this.setState({network:network.label})
+    handleSelectNetwork = network => this.setState({network:network ? network.label : ''})
 
     handleNext = async () => {
         const {params} = this.props.navigation.state
@@ -87,7 +90,8 @@ class Scrn extends React.Component {
                         onChoose={this.handleSelectNetwork}
                     />
 
-                    {/*<TextInput
+                    <TextInput
+                        editable={false}
                         label='Mobile Number'
                         value={contact_no}
                         keyboardType='numeric'
@@ -97,12 +101,12 @@ class Scrn extends React.Component {
                                 <Icon name='phonebook' style={{width:30,height:30}} />
                             </TouchableOpacity>
                         }
-                    />*/}
+                    />
 
-                    <StaticInput
+                    {/*<StaticInput
                         label='Mobile Number'
                         value={contact_no}
-                    />
+                    />*/}
 
                     <StaticInput
                         label='Name'
