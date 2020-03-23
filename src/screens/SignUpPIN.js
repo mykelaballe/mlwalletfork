@@ -77,7 +77,7 @@ class Scrn extends React.Component {
 
                 let payload = {
                     ...this.props.navigation.state.params.payload,
-                    pin
+                    pincode:pin
                 }
 
                 let res = await API.register(payload)

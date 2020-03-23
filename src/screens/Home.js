@@ -4,8 +4,9 @@ import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Text, Spacer, FlatList, Ripple, Icon, Balance} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_} from '../utils'
+import {_, Consts} from '../utils'
 import {API} from '../services'
+import DeviceInfo from 'react-native-device-info'
 
 const {width} = Dimensions.get('window')
 const ITEM_WIDTH = (width / 4) - (Metrics.xl)
@@ -37,7 +38,7 @@ class Scrn extends React.Component {
             },
             {
                 icon:'withdraw_cash',
-                label:'Withdraw\bCash',
+                label:'Withdraw\bMoney',
                 onPress:() => this.handleGoToWithdrawCash()
             },
             {

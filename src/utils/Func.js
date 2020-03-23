@@ -88,10 +88,23 @@ const formatToRealCurrency = value => {
 
 const randomize = list => list[Math.floor(Math.random() * list.length)]
 
+const cleanName = str => {
+    str = str.replace(' WAIVED ', ' ')
+    str.replace(' NONE ', ' ')
+
+    return str
+}
+
+const formatName = userObject => {
+    return cleanName(`${userObject.firstname} ${userObject.middlename} ${userObject.lastname} ${userObject.suffix}`)
+}
+
 export default {
     validate,
     compute,
     formatToCurrency,
     formatToRealCurrency,
-    randomize
+    randomize,
+    cleanName,
+    formatName
 }

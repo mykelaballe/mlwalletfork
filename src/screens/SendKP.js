@@ -97,7 +97,7 @@ class Scrn extends React.Component {
                         <TextInput
                             disabled
                             label='Receiver'
-                            value={receiver && `${receiver.firstname} ${receiver.middlename} ${receiver.lastname} ${receiver.suffix}`}
+                            value={receiver ? Func.formatName(receiver) : ''}
                             rightContent={<Icon name='user_plus' size={20} />}
                         />
                     {/*</TouchableOpacity>*/}

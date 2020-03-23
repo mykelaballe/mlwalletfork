@@ -13,14 +13,44 @@ const moment = require('moment')
 class SendKP extends React.Component {
     
     state = {
+        amount:Func.formatToCurrency(this.props.data.amount),
+        charges:Func.formatToCurrency(this.props.data.charges),
+        total:Func.formatToCurrency(this.props.data.total),
+        date:this.props.data.date,
+        time:this.props.data.time,
         status:this.props.data.status,
         statusMessage:'Your money is waiting to be claimed',
         cancellable:this.props.data.cancellable,
-        cancelling:false
+        cancelling:false,
+        type:Consts.tcn.skp.long_desc
     }
 
     componentDidMount = () => {
         const {receiver, balance} = this.props.data
+        const {amount, charges, total} = this.state
+
+        this.props.onExport(`
+            <h4 style="color:#6A6A6A;line-height:0">First Name</h4>
+            <h3>${receiver.firstname}</h3>
+
+            <h4 style="color:#6A6A6A;line-height:0">Middle Name</h4>
+            <h3>${receiver.middlename}</h3>
+
+            <h4 style="color:#6A6A6A;line-height:0">Last Name</h4>
+            <h3>${receiver.lastname}</h3>
+
+            <h4 style="color:#6A6A6A;line-height:0">Suffix</h4>
+            <h3>${receiver.suffix}</h3>
+
+            <h4 style="color:#6A6A6A;line-height:0">Amount</h4>
+            <h3 style="margin-top:0">PHP ${amount}</h3>
+
+            <h4 style="color:#6A6A6A;line-height:0">Charges</h4>
+            <h3 style="margin-top:0">PHP ${charges}</h3>
+
+            <h4 style="color:#6A6A6A;line-height:0">Total</h4>
+            <h3 style="margin-top:0">PHP ${total}</h3>
+        `)
 
         Say.ok(
             null,
@@ -28,7 +58,7 @@ class SendKP extends React.Component {
             {
                 customMessage:(
                     <>
-                        <Text mute md>Share the transaction number to {receiver.firstname} {receiver.middlename} {receiver.lastname} {receiver.suffix} to complete this transaction.</Text>
+                        <Text mute md>Share the transaction number to {Func.formatName(receiver)} to complete this transaction.</Text>
                         <Spacer lg />
                         <Text mute>Your new balance is</Text>
                         <Text xl b>Php {Func.formatToCurrency(balance)}</Text>
@@ -86,8 +116,8 @@ class SendKP extends React.Component {
 
     render() {
 
-        const {_from, kptn, timestamp, receiver, amount, charges, total} = this.props.data
-        const {status, statusMessage, cancellable, cancelling} = this.state
+        const {_from, kptn, receiver} = this.props.data
+        const {amount, charges, total, date, time, status, statusMessage, cancellable, cancelling, type} = this.state
 
         return (
             <>
@@ -133,32 +163,32 @@ class SendKP extends React.Component {
                         <Spacer />
 
                         <Text sm mute>Amount</Text>
-                        <Text>PHP {Func.formatToCurrency(amount)}</Text>
+                        <Text>PHP {amount}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Charges</Text>
-                        <Text>PHP {Func.formatToCurrency(charges)}</Text>
+                        <Text>PHP {charges}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Total</Text>
-                        <Text>PHP {Func.formatToCurrency(total)}</Text>
+                        <Text>PHP {total}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Date</Text>
-                        <Text>{moment(timestamp).format('MMMM DD, YYYY')}</Text>
+                        <Text>{date}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Time</Text>
-                        <Text>{moment(timestamp).format('hh:mm:ss a')}</Text>
+                        <Text>{time}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Type</Text>
-                        <Text>{Consts.tcn.skp.long_desc}</Text>
+                        <Text>{type}</Text>
                     </View>
                 </Screen>
 

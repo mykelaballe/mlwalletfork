@@ -39,7 +39,7 @@ class Scrn extends React.Component {
 
     componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
 
-    componentDidUpdate = (prevProps, prevState) => {
+    /*componentDidUpdate = (prevProps, prevState) => {
         const {refresh, addReceiver} = this.props
         if(newReceiver) {
             addReceiver(null)
@@ -47,14 +47,14 @@ class Scrn extends React.Component {
             list.push(newReceiver)
             this.setState({list})
         }
-    }
+    }*/
 
     getData = async () => {
         const {walletno} = this.props.user
         let list = []
 
         try {
-            list = await API.getFavoriteWalletReceivers({walletno})
+            //list = await API.getFavoriteWalletReceivers({walletno})
         }
         catch(err) {
             Say.err(_('500'))

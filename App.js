@@ -10,6 +10,7 @@ import {Consts, Storage} from './src/utils'
 import NetInfo from '@react-native-community/netinfo'
 import SplashScreen from 'react-native-splash-screen'
 import {Provider} from 'react-native-paper'
+import DeviceInfo from 'react-native-device-info'
 
 class App extends React.Component {
 
@@ -20,6 +21,10 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+
+    /*DeviceInfo.isLocationEnabled().then(enabled => {
+      alert(enabled)
+    })*/
 
     const {networkSuccess, networkFailure} = this.props
 
@@ -41,23 +46,6 @@ class App extends React.Component {
   }
 
   componentWillUnmount = () => this.networkSubscribe()
-
-  static getDerivedStateFromProps = (props, state) => {
-
-    /*if(props.isLoggedIn != state.isLoggedIn) {
-      return {
-        isLoggedIn: props.isLoggedIn
-      }
-    }*/
-
-    /*else if(props.isFirstTime != state.isFirstTime) {
-      return {
-        isFirstTime: props.isFirstTime
-      }
-    }*/
-
-    return null
-  }
 
   requestPermissions = async () => {
     try {

@@ -133,6 +133,7 @@ class Scrn extends React.Component {
     handleSelectTypeFilter = (selected_type = {}) => this.setState({selected_type})
 
     handleViewDetails = item => {
+        return false
         this.props.navigation.navigate('TransactionReceipt',{
             type:Consts.tcn.stw.code,
             amount:item.amount,

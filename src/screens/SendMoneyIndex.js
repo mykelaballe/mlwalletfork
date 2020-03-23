@@ -12,7 +12,7 @@ export default class Scrn extends React.Component {
 
     handleSendToKP = () => this.props.navigation.navigate('SendKP',{type:Consts.tcn.skp.code})
 
-    handleSendToBank = () => this.props.navigation.navigate('SendBankTransferIndex',{type:Consts.tcn.stb.code})
+    handleSendToBank = () => this.props.navigation.navigate('SendBankTransfer',{type:Consts.tcn.stb.code})
 
     render() {
 

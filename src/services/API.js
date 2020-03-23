@@ -103,7 +103,7 @@ export default {
         return await Fetch.post('validateUsername',{username})
     },
 
-    validateSecurityQuestion: async payload => {return {error:false}},//await Fetch.post('validateSecurityQuestion',payload),
+    validateSecurityQuestion: async payload => await Fetch.post('validateSecurityQuestion',payload),
 
     ...WalletToWallet,
     ...KP,
@@ -127,7 +127,7 @@ export default {
     },
 
     getTransactionHistory: async walletno => {
-        return [
+        /*return [
             {
                 kptn:'123456',
                 date:'2020-01-01',
@@ -136,7 +136,7 @@ export default {
                 code:'stw',
                 amount:'3000'
             }
-        ]
+        ]*/
         return await Fetch.get(`transaction/history?walletno=${walletno}`)
     },
 

@@ -27,7 +27,10 @@ class Scrn extends React.Component {
 
     state = {
         timestamp:null,
-        loading:true
+        date:'',
+        time:'',
+        loading:true,
+        exportData:''
     }
 
     componentDidMount = () => {
@@ -39,6 +42,8 @@ class Scrn extends React.Component {
 
     getData = async () => {
 
+        let now = moment()
+
         try {
             
         }
@@ -48,55 +53,66 @@ class Scrn extends React.Component {
 
         this.setState({
             timestamp:moment(),
+            date:now.format('MMMM DD, YYYY'),
+            time:now.format('hh:mm:ss a'),
             loading:false
         })
     }
 
+    handleSetExportData = exportData => this.setState({exportData})
+
     handleExport = async () => {
+        const {type} = this.props.navigation.state.params
+        const {date, time, exportData} = this.state
+
+        if(!exportData) return false
+
         let kptn = 'MLW121324234'
 
         let html = `
-            <div style="background-color:#323232;padding:5px 20px 5px 20px">
+            <img src="https://user-images.githubusercontent.com/22584900/77245393-485a7b80-6c59-11ea-971f-c8da5230fdbf.png" width="350" />
+
+            <div style="background-color:#323232;padding:3px 15px 3px 15px;margin-top:3px">
                 <h2 style="textAlign:center;color:#fff">Transaction Receipt</h2>
-                <h3 style="color:#fff;line-height:0">Transaction No: ${kptn}</h3>
+                <h4 style="color:#fff;line-height:0">Transaction No: ${kptn}</h4>
             </div>
             
             <hr />
             
-            <h4 style="color:#6A6A6A;line-height:0">Full Legal Name</h4>
-            <h3>John Smith</h3>
-
-            <h4 style="color:#6A6A6A;line-height:0">Amount</h4>
-            <h3 style="margin-top:0">PHP 100.00</h3>
+            ${exportData}
 
             <h4 style="color:#6A6A6A;line-height:0">Date</h4>
-            <h3 style="margin-top:0">March 21, 2020</h3>
+            <h3 style="margin-top:0">${date}</h3>
 
             <h4 style="color:#6A6A6A;line-height:0">Time</h4>
-            <h3 style="margin-top:0">10:58:39 pm</h3>
+            <h3 style="margin-top:0">${time}</h3>
 
             <h4 style="color:#6A6A6A;line-height:0">Type</h4>
-            <h3 style="margin-top:0">Withdraw Cash</h3>
+            <h3 style="margin-top:0">${Consts.tcn[type].long_desc}</h3>
         `
-        let options = {
+      
+        let file = await RNHTMLtoPDF.convert({
             html,
             fileName: kptn,
-            directory: 'Documents'
-        }
-      
-        let file = await RNHTMLtoPDF.convert(options)
-        alert(file.filePath)
+            directory: 'Documents',
+            width:350,
+            height:600
+        })
+
+        Say.ok(`Receipt exported in:\n ${file.filePath}`)
     }
 
     render() {
         const {type, _from, cancellable, transaction, kptn, controlno, balance} = this.props.navigation.state.params
-        const {timestamp, loading} = this.state
+        const {timestamp, date, time, loading} = this.state
         let tcn = ''
 
         if(loading) return <ActivityIndicator />
 
         let data = {
             timestamp,
+            date,
+            time,
             ...transaction,
             tcn,
             kptn,
@@ -106,21 +122,21 @@ class Scrn extends React.Component {
             cancellable
         }
 
-        if(type === Consts.tcn.stw.code) return <SendWalletToWallet data={data} />
+        if(type === Consts.tcn.stw.code) return <SendWalletToWallet data={data} onExport={this.handleSetExportData} />
 
-        if(type === Consts.tcn.skp.code) return <SendKP data={data} />
+        if(type === Consts.tcn.skp.code) return <SendKP data={data} onExport={this.handleSetExportData} />
 
-        if(type === Consts.tcn.stb.code) return <SendBankTransfer data={data} />
+        if(type === Consts.tcn.stb.code) return <SendBankTransfer data={data} onExport={this.handleSetExportData} />
 
-        if(type === Consts.tcn.rmd.code) return <ReceiveMoneyDomestic data={data} />
+        if(type === Consts.tcn.rmd.code) return <ReceiveMoneyDomestic data={data} onExport={this.handleSetExportData} />
 
-        if(type === Consts.tcn.rmi.code) return <ReceiveMoneyInternational data={data} />
+        if(type === Consts.tcn.rmi.code) return <ReceiveMoneyInternational data={data} onExport={this.handleSetExportData} />
 
-        if(type === Consts.tcn.wdc.code) return <WithdrawCash data={data} />
+        if(type === Consts.tcn.wdc.code) return <WithdrawCash data={data} onExport={this.handleSetExportData} />
 
-        if(type === Consts.tcn.bpm.code) return <PayBill data={data} />
+        if(type === Consts.tcn.bpm.code) return <PayBill data={data} onExport={this.handleSetExportData} />
 
-        if(type === Consts.tcn.bul.code) return <BuyLoad data={data} />
+        if(type === Consts.tcn.bul.code) return <BuyLoad data={data} onExport={this.handleSetExportData} />
 
         return null
     }

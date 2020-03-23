@@ -3,7 +3,7 @@ import DeviceInfo from 'react-native-device-info'
 export default {
 	baseURL:'http://192.168.19.30/api/',
 	deviceId:DeviceInfo.getDeviceId(),
-	deviceType:null,//DeviceInfo.getDeviceType().then(deviceType => deviceType),
+	deviceType:'Handset',
 	appName:DeviceInfo.getApplicationName(),
 	appVersion:8,//DeviceInfo.getVersion(),
 	db:{
@@ -62,9 +62,9 @@ export default {
 		wdc: {
 			code:'wdc',
 			action:'withdraw',
-			short_desc:'Withdraw Cash',
-			long_desc:'Withdraw Cash',
-			submit_text:'Withdraw Cash',
+			short_desc:'Withdraw Money',
+			long_desc:'Withdraw Money',
+			submit_text:'Withdraw Money',
 			otp:'Verify'
 		},
 		bpm: {

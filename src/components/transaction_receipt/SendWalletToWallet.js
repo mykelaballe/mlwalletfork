@@ -9,8 +9,38 @@ const moment = require('moment')
 
 class SendWalletToWallet extends React.Component {
 
+    state = {
+        amount:Func.formatToCurrency(amount),
+        charges:Func.formatToCurrency(charges),
+        total:Func.formatToCurrency(total),
+        date:this.props.data.date,
+        time:this.props.data.time,
+        type:Consts.tcn.stw.long_desc
+    }
+
     componentDidMount = () => {
-        const {walletno, amount, balance} = this.props.data
+        const {walletno, receiver, notes, balance} = this.props.data
+        const {amount, charges, total} = this.state
+
+        this.props.onExport(`
+            <h4 style="color:#6A6A6A;line-height:0">Wallet Account Number</h4>
+            <h3>${walletno}</h3>
+
+            <h4 style="color:#6A6A6A;line-height:0">Receiver</h4>
+            <h3>${receiver.fullname}</h3>
+
+            <h4 style="color:#6A6A6A;line-height:0">Amount</h4>
+            <h3 style="margin-top:0">PHP ${amount}</h3>
+
+            <h4 style="color:#6A6A6A;line-height:0">Notes</h4>
+            <h3 style="margin-top:0">PHP ${notes}</h3>
+
+            <h4 style="color:#6A6A6A;line-height:0">Charges</h4>
+            <h3 style="margin-top:0">PHP ${charges}</h3>
+
+            <h4 style="color:#6A6A6A;line-height:0">Total</h4>
+            <h3 style="margin-top:0">PHP ${total}</h3>
+        `)
 
         Say.ok(
             null,
@@ -18,7 +48,7 @@ class SendWalletToWallet extends React.Component {
             {
                 customMessage:(
                     <>
-                        <Text mute md>You successfully sent money worth PHP {Func.formatToCurrency(amount)} to {walletno}</Text>
+                        <Text mute md>You successfully sent money worth PHP {amount} to {walletno}</Text>
                         <Spacer lg />
                         <Text mute>Your new balance is</Text>
                         <Text xl b>Php {Func.formatToCurrency(balance)}</Text>
@@ -32,7 +62,8 @@ class SendWalletToWallet extends React.Component {
 
     render() {
 
-        const {_from, tcn, timestamp, walletno, receiver, amount, notes, charges, total} = this.props.data
+        const {_from, tcn, walletno, receiver, notes} = this.props.data
+        const {amount, charges, total, date, time, type} = this.state
 
         return (
             <>
@@ -54,7 +85,7 @@ class SendWalletToWallet extends React.Component {
                         <Spacer />
 
                         <Text sm mute>Amount</Text>
-                        <Text>PHP {Func.formatToCurrency(amount)}</Text>
+                        <Text>PHP {amount}</Text>
 
                         <Spacer />
 
@@ -64,27 +95,27 @@ class SendWalletToWallet extends React.Component {
                         <Spacer />
 
                         <Text sm mute>Charges</Text>
-                        <Text>PHP {Func.formatToCurrency(charges)}</Text>
+                        <Text>PHP {charges}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Total</Text>
-                        <Text>PHP {Func.formatToCurrency(total)}</Text>
+                        <Text>PHP {total}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Date</Text>
-                        <Text>{moment(timestamp).format('MMMM DD, YYYY')}</Text>
+                        <Text>{date}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Time</Text>
-                        <Text>{moment(timestamp).format('hh:mm:ss a')}</Text>
+                        <Text>{time}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Type</Text>
-                        <Text>{Consts.tcn.stw.long_desc}</Text>
+                        <Text>{type}</Text>
                     </View>
                 </Screen>
 

@@ -9,7 +9,7 @@ import {API} from '../services'
 class Scrn extends React.Component {
 
     static navigationOptions = {
-        title:'Withdraw Cash'
+        title:'Withdraw Money'
     }
 
     state = {

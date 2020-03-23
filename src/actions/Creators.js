@@ -17,6 +17,7 @@ import Types from './Types'
  const setHasSeenWithdrawCashOnboarding = hasSeen => ({ type: Types.SET_HAS_SEEN_WITHDRAWCASH_ONBOARDING, hasSeen })
  const setHasSeenPayBillsOnboarding = hasSeen => ({ type: Types.SET_HAS_SEEN_PAYBILLS_ONBOARDING, hasSeen })
  const setHasSeenBuyLoadOnboarding = hasSeen => ({ type: Types.SET_HAS_SEEN_BUYLOAD_ONBOARDING, hasSeen })
+ const setIsLocationEnabled = isEnabled => ({ type: Types.SET_IS_LOCATION_ENABLED, isEnabled })
 
  /*----------------------------------------------------------------------
  AUTHENTICATION
@@ -98,6 +99,7 @@ export default {
   setHasSeenWithdrawCashOnboarding,
   setHasSeenPayBillsOnboarding,
   setHasSeenBuyLoadOnboarding,
+  setIsLocationEnabled,
 
   addWalletReceiver,
   updateWalletReceiver,

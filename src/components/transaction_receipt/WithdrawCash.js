@@ -13,13 +13,28 @@ const moment = require('moment')
 class WithdrawCash extends React.Component {
     
     state = {
+        amount:Func.formatToCurrency(this.props.data.amount),
+        date:this.props.data.date,
+        time:this.props.data.time,
         status:this.props.data.status,
         cancellable:this.props.data.cancellable,
-        cancelling:false
+        cancelling:false,
+        type:Consts.tcn.wdc.long_desc
     }
 
     componentDidMount = () => {
+        const {user} = this.props.data
         const {balance} = this.props.navigation.state.params
+        const {amount} = this.state
+
+        this.props.onExport(`
+            <h4 style="color:#6A6A6A;line-height:0">Full Legal Name</h4>
+            <h3>${user.fname} ${user.lname}</h3>
+
+            <h4 style="color:#6A6A6A;line-height:0">Amount</h4>
+            <h3 style="margin-top:0">PHP ${amount}</h3>
+        `)
+
         Say.ok(
             null,
             'Success',
@@ -85,8 +100,8 @@ class WithdrawCash extends React.Component {
 
     render() {
 
-        const {_from, kptn, timestamp, user, amount, charges, total} = this.props.data
-        const {status, cancellable, cancelling} = this.state
+        const {_from, kptn, user} = this.props.data
+        const {status, cancellable, cancelling, amount, date, time, type} = this.state
 
         return (
             <>
@@ -104,22 +119,22 @@ class WithdrawCash extends React.Component {
                         <Spacer />
 
                         <Text sm mute>Amount</Text>
-                        <Text>PHP {Func.formatToCurrency(amount)}</Text>
+                        <Text>PHP {amount}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Date</Text>
-                        <Text>{moment(timestamp).format('MMMM DD, YYYY')}</Text>
+                        <Text>{date}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Time</Text>
-                        <Text>{moment(timestamp).format('hh:mm:ss a')}</Text>
+                        <Text>{time}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Type</Text>
-                        <Text>{Consts.tcn.wdc.long_desc}</Text>
+                        <Text>{type}</Text>
                     </View>
                 </Screen>
 
