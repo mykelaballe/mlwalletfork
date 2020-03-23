@@ -72,7 +72,13 @@ export default {
 
     deleteWalletReceiver: async payload => await Fetch.delete(`wallettowallet/deletereceiver?receiverNo=${payload.walletno}`),
 
-    addFavoriteWalletReceiver: async payload => await Fetch.post('wallettowallet/addfavorite',payload),
+    addFavoriteWalletReceiver: async payload => {
+        return {error:false}
+        return await Fetch.post('wallettowallet/addfavorite',payload)
+    },
 
-    removeFavoriteWalletReceiver: async payload => await Fetch.post('wallettowallet/removefavorite',payload),
+    removeFavoriteWalletReceiver: async payload => {
+        return {error:false}
+        return await Fetch.post('wallettowallet/removefavorite',payload)
+    }
 }

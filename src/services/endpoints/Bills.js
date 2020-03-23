@@ -68,6 +68,9 @@ export default {
     },
 
     addFavoriteBiller: async payload => {
+        return {
+            error:false
+        }
         return await Fetch.post('partners/addFavorite',payload)
     },
 

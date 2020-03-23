@@ -96,9 +96,9 @@ class Scrn extends React.Component {
 
                     <Spacer sm />
 
-                    <View style={{alignItems:'flex-end'}}>
+                    {/*<View style={{alignItems:'flex-end'}}>
                         <ButtonText icon='plus' t='Add Receiver' onPress={this.handleAddReceiver} color={Colors.brand} />
-                    </View>
+                    </View>*/}
 
                     <Spacer sm />
 
