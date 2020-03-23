@@ -98,7 +98,7 @@ class Scrn extends React.Component {
                 senderwalletno:this.props.user.walletno,
                 receiverwalletno:walletno
             })
-            if(!res.error) {
+            if(res.respcode == 1) {
                 this.props.addReceiver({
                     receiverno:res.data,
                     walletno,
@@ -108,7 +108,7 @@ class Scrn extends React.Component {
                 this.props.navigation.pop()
             }
             else {
-                Say.warn(res.message)
+                Say.warn(res.respmessage)
             }
         }
         catch(err) {
