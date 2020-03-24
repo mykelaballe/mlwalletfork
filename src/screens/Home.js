@@ -73,9 +73,7 @@ class Scrn extends React.Component {
                 this.props.updateInfo({
                     ...res.data,
                     mobile_no:res.data.mobileNo,
-                    email:res.data.EmailAdd,
-                    zip_code:res.data.zipcode,
-                    source_of_income:res.data.sourceofincome
+                    email:res.data.EmailAdd
                 })
             }
         }

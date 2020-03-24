@@ -1,7 +1,9 @@
 import Fetch from '../../utils/Fetch'
 
 export default {
-    withdrawCashValidate: async payload => await Fetch.post('withdrawcash/validate',payload),
+    withdrawCashValidate: async payload => {
+        return await Fetch.post('withdrawcash/validate',payload)
+    },
 
     withdrawCash: async payload => {
         /*return {

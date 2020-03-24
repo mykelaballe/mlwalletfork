@@ -12,9 +12,8 @@ class Scrn extends React.Component {
     }
 
     state = {
-        email:this.props.user.email,
         nationality:this.props.user.nationality,
-        source_of_income:this.props.user.source_of_income,
+        sourceofincome:this.props.user.sourceofincome,
         country:this.props.user.country,
         province:{
             province:this.props.user.province,
@@ -22,7 +21,9 @@ class Scrn extends React.Component {
         },
         city:this.props.user.city,
         barangay:this.props.user.barangay,
-        zip_code:this.props.user.zip_code,
+        houseno:this.props.user.houseno,
+        street:this.props.user.street,
+        zipcode:this.props.user.zipcode,
         processing:false
     }
 
@@ -38,7 +39,8 @@ class Scrn extends React.Component {
             this.setState(prevState => ({
                 country:params.country,
                 province:'',
-                city:''
+                city:'',
+                zipcode:''
             }))
         }
 
@@ -59,21 +61,19 @@ class Scrn extends React.Component {
             this.props.navigation.setParams({city:null})
             this.setState({
                 city:params.city.city,
-                zip_code:params.city.zipCode
+                zipcode:params.city.zipCode
             })
         }
 
-        else if(params.source_of_income && params.source_of_income !== prevState.source_of_income) {
+        else if(params.source_of_income && params.source_of_income !== prevState.sourceofincome) {
             this.props.navigation.setParams({source_of_income:null})
-            this.setState({source_of_income:params.source_of_income})
+            this.setState({sourceofincome:params.source_of_income})
         }
     }
 
-    handleChangeEmail = email => this.setState({email})
-
     handleSelectNationality = () => this.props.navigation.navigate('Nationalities',{sourceRoute:this.props.navigation.state.routeName})
 
-    handleChangeSourceOfIncome = source_of_income => this.setState({source_of_income})
+    handleChangeSourceOfIncome = sourceofincome => this.setState({sourceofincome})
 
     handleSelectCountry = () => this.props.navigation.navigate('Countries',{sourceRoute:this.props.navigation.state.routeName})
 
@@ -83,7 +83,11 @@ class Scrn extends React.Component {
 
     handleChangeBarangay = barangay => this.setState({barangay})
 
-    handleChangeZipCode = zip_code => this.setState({zip_code})
+    handleChangeHouse = houseno => this.setState({houseno})
+
+    handleChangeStreet = street => this.setState({street})
+
+    handleChangeZipCode = zipcode => this.setState({zipcode})
 
     handleSelectSourceOfIncome = () => {
         const {state, navigate} = this.props.navigation
@@ -92,54 +96,48 @@ class Scrn extends React.Component {
 
     handleFocusBarangay = () => this.refs.barangay.focus()
 
+    handleFocusStreet = () => this.refs.street.focus()
+
+    handleFocusHouse = () => this.refs.houseno.focus()
+
     handleFocusZipCode = () => this.refs.zip_code.focus()
 
     handleSubmit = async () => {
         try {
-            const {walletno, mobile_no, suffix, street} = this.props.user
-            let {email, nationality, source_of_income, country, province, city, barangay, zip_code, processing} = this.state
+            const {walletno} = this.props.user
+            let {nationality, sourceofincome, country, province, city, barangay, houseno, street, zipcode, processing} = this.state
 
             if(processing) return false
 
             this.setState({processing:true})
 
-            email = email.trim()
-            source_of_income = source_of_income.trim()
+            sourceofincome = sourceofincome.trim()
             barangay = barangay.trim()
-            zip_code = zip_code.trim()
+            street = street.trim()
+            houseno = houseno.trim()
+            zipcode = zipcode.trim()
 
-            if(!source_of_income || !barangay || !zip_code) Say.some(_('8'))
+            if(!sourceofincome || !barangay || !zipcode) Say.some(_('8'))
+            else if(country === 'Philippines' && !province && !city && !zipcode) Say.some(_('8'))
             else {
 
                 let payload = {
                     walletno,
-                    emailadd:email,
                     nationality,
-                    sourceofincome:source_of_income,
+                    sourceofincome,
                     country,
                     province:province.province,
                     city,
                     barangay,
-                    zipcode:zip_code,
+                    houseno,
                     street,
-                    mobileno:mobile_no,
-                    suffix
+                    zipcode
                 }
     
                 let res = await API.updateProfile(payload)
 
                 if(!res.error) {
-                    this.props.setUser({
-                        ...this.props.user,
-                        email,
-                        nationality,
-                        source_of_income,
-                        country,
-                        province:province.province,
-                        city,
-                        barangay,
-                        zip_code
-                    })
+                    this.props.updateInfo(payload)
                     Say.ok('Details updated')
                 }
                 else {
@@ -156,26 +154,16 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {email, nationality, source_of_income, country, province, city, barangay, zip_code, processing} = this.state
+        const {nationality, sourceofincome, country, province, city, barangay, houseno, street, zipcode, processing} = this.state
         let ready = false
 
-        if(barangay && zip_code && source_of_income) ready = true
+        if(barangay && sourceofincome) ready = true
+        if(country === 'Philippines' && !province && !city && !zipcode) ready = false
 
         return (
             <>
                 <Screen>
                     <Headline subtext='Please make sure to enter all the correct details' />
-
-                    <TextInput
-                        ref='email'
-                        label={'Email address (optional)'}
-                        value={email}
-                        onChangeText={this.handleChangeEmail}
-                        onSubmitEditing={this.handleFocusSourceOfIncome}
-                        autoCapitalize='none'
-                        keyboardType='email-address'
-                        returnKeyType='next'
-                    />
 
                     <StaticInput
                         label='Nationality'
@@ -185,7 +173,7 @@ class Scrn extends React.Component {
 
                     <StaticInput
                         label='Source of Income'
-                        value={source_of_income}
+                        value={sourceofincome}
                         onPress={this.handleSelectSourceOfIncome}
                     />
 
@@ -213,21 +201,42 @@ class Scrn extends React.Component {
 
                     <TextInput
                         ref='barangay'
-                        label={'Barangay/Street'}
+                        label={'Barangay'}
                         value={barangay}
                         onChangeText={this.handleChangeBarangay}
-                        onSubmitEditing={this.handleFocusZipCode}
+                        onSubmitEditing={this.handleFocusStreet}
                         autoCapitalize='words'
                         returnKeyType='next'
                     />
 
                     <TextInput
+                        ref='street'
+                        label={'Street'}
+                        value={street}
+                        onChangeText={this.handleChangeStreet}
+                        onSubmitEditing={this.handleFocusHouse}
+                        returnKeyType='next'
+                    />
+
+                    <TextInput
+                        ref='houseno'
+                        label={'House/Unit/Floor #, Bldg Name, Block or Lot #'}
+                        value={houseno}
+                        onChangeText={this.handleChangeHouse}
+                        onSubmitEditing={this.handleFocusZipCode}
+                        autoCapitalize='none'
+                        returnKeyType='next'
+                    />
+
+                    {country === 'Philippines' &&
+                    <TextInput
                         ref='zip_code'
                         label={'Zip Code'}
-                        value={zip_code}
+                        value={zipcode}
                         onChangeText={this.handleChangeZipCode}
                         keyboardType='numeric'
                     />
+                    }
                 </Screen>
 
                 <Footer>
@@ -243,7 +252,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    setUser:user => dispatch(Creators.setUser(user))
+    updateInfo:newInfo => dispatch(Creators.updateUserInfo(newInfo))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

@@ -20,27 +20,29 @@ export default {
             username:'johnsmith',
             password:'123',
             fname:'John',
-            mname:'F',
+            mname:'WAIVED',
             lname:'Smith',
-            suffix:'',
+            suffix:'NONE',
             birthdate:'1980-01-01',
             gender:'Male',
-            email:'johnsmith@gmail.com',
+            emailaddress:'johnsmith@gmail.com',
             nationality:'Filipino',
-            source_of_income:'Business',
+            sourceofincome:'Business',
             country:'Philippines',
             province:'Cebu',
-            city:'Cebu City',
-            barangay:'Basak',
-            street:'',
-            house:'',
-            zip_code:'6000',
-            mobile_no:'09326118146',
+            city:'Talisay City',
+            barangay:'Cansojong',
+            street:'Canton',
+            houseno:'123',
+            zipcode:'6000',
+            mobileno:'09326118146',
             walletno:'14040000000020',
             secquestion1:'What was the name of your first pet?',
             secquestion2:'What elementary school did you attend in Grade 6?',
             secquestion3:'What is the name of your childhood bestfriend?',
             balance:'50000',
+            profilepic:null,
+            validID:null,
             points:35,
             level:0,
             isresetpass:"0",
@@ -59,14 +61,7 @@ export default {
         })
 
         if(res.access_token) {
-            res = {
-                ...res,
-                mobile_no:res.mobileno,
-                email:res.emailaddress,
-                zip_code:res.zipcode,
-                source_of_income:res.sourceofincome
-            }
-            await Storage.doSave(Consts.db.user, {...res})
+            await Storage.doSave(Consts.db.user, res)
         }
 
         return res
@@ -94,19 +89,25 @@ export default {
     updateDevice: async payload => await Fetch.put('updateDevice',{username:payload.username, deviceid:Consts.deviceId}),
 
     validateUsername: async username => {
-        /*return {
-            error:true,
-            data:{
-                walletno:'123',
-                secquestion1:'one',
-                secquestion2:'two',
-                secquestion3:'three'
-            }
-        }*/
         return await Fetch.post('validateUsername',{username})
     },
 
-    validateSecurityQuestion: async payload => await Fetch.post('validateSecurityQuestion',payload),
+    validateSecurityQuestion: async payload => {
+        if(payload.key) {
+            return await Fetch.post('validate_answers',{
+                walletno:payload.wallet_no,
+                type:payload.type,
+                key:payload.key,
+                answer:payload.answer
+            })
+        }
+
+        return await Fetch.post('validateSecurityQuestion',{
+            wallet_no:payload.wallet_no,
+            question:payload.question,
+            answer:payload.answer
+        })
+    },
 
     ...WalletToWallet,
     ...KP,

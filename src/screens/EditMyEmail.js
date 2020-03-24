@@ -11,7 +11,7 @@ class Scrn extends React.Component {
     }
 
     state = {
-        email:this.props.user.email,
+        email:this.props.user.emailaddress,
         processing:false
     }
 
@@ -45,7 +45,7 @@ class Scrn extends React.Component {
                             reasons
                         })
         
-                        if(res.error) Say.some(res.message)
+                        if(res.error) Say.warn(res.message)
                         else {
                             this.props.navigation.pop()
                             Say.ok('Your request to change your email address has been sent for approval. We will get back to you soon!')

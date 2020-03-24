@@ -76,7 +76,7 @@ export default class Scrn extends React.Component {
                 </Screen>
 
                 <Footer>
-                    <Button disabled={!ready} t='Proceed' onPress={this.handleProceed} />
+                    <Button disabled={!ready} t={_('22')} onPress={this.handleProceed} />
                 </Footer>
             </>
         )

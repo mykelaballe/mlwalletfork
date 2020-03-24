@@ -1,10 +1,11 @@
 import React from 'react'
 import {StyleSheet, TouchableOpacity} from 'react-native'
+import {connect} from 'react-redux'
 import {Screen, Spacer, Avatar, ButtonText} from '../components'
 import {Metrics} from '../themes'
 import {_} from '../utils'
 
-export default class Scrn extends React.Component {
+class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Edit Profile'
@@ -24,12 +25,12 @@ export default class Scrn extends React.Component {
 
     render() {
 
-        const avatar = null
+        const {profilepic} = this.props.user
 
         return (
             <Screen>
                 <TouchableOpacity style={style.topContainer}>
-                    <Avatar source={avatar} size={Metrics.image.lg} />
+                    <Avatar source={profilepic} size={Metrics.image.lg} />
                 </TouchableOpacity>
 
                 <Spacer lg />
@@ -53,3 +54,9 @@ const style = StyleSheet.create({
         fontSize:Metrics.font.md
     }
 })
+
+const mapStateToProps = state => ({
+    user: state.user.data
+})
+
+export default connect(mapStateToProps)(Scrn)

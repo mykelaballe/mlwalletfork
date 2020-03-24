@@ -3,7 +3,7 @@ import {Screen, Button, TextInput, Footer, StaticInput, SignUpStepsTracker} from
 import {_, Say} from '../utils'
 import {API} from '../services'
 
-class Scrn extends React.Component {
+export default class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Address'
@@ -213,5 +213,3 @@ class Scrn extends React.Component {
         )
     }
 }
-
-export default Scrn

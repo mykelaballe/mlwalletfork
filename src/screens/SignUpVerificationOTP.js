@@ -19,7 +19,6 @@ class Scrn extends React.Component {
         digit5:'',
         digit6:'',
         processing:false,
-        has_requested:false,
         reprocessing:false
     }
 
@@ -62,13 +61,36 @@ class Scrn extends React.Component {
 
     handleFocusDigit6 = () => this.refs.digit6.focus()
 
-    handleRequest = () => {
-        const {processing} = this.state
-        if(processing) return false
+    handleSubmit = () => {
+        const {processing, reprocessing} = this.state
+        if(processing || reprocessing) return false
         this.setState({processing:true},this.submit)
     }
 
-    handleRequestAgain = () => this.setState({reprocessing:true},this.submit)
+    handleResend = async () => {
+        const {mobile_no} = this.props.navigation.state.params
+        const {processing, reprocessing} = this.state
+
+        if(processing || reprocessing) return false
+
+        try {
+            this.setState({reprocessing:true})
+
+            let res = await API.requestOTP({
+                _mobile_no:mobile_no
+            })
+
+            if(res.error) Say.warn(res.message)
+            else {
+                Say.some('OTP request sent')
+            }
+        }
+        catch(err) {
+            Say.err(_('500'))
+        }
+
+        this.setState({reprocessing:false})
+    }
 
     submit = async () => {
         const {username, password, firstname, middlename, lastname, suffix, gender, birthday, email, nationality, source_of_income, house, street, country, province, city, barangay, zip_code, ids, question1, answer1, question2, answer2, question3, answer3, mobile_no, validID, profilepic} = this.props.navigation.state.params
@@ -132,14 +154,13 @@ class Scrn extends React.Component {
 
         this.setState({
             processing:false,
-            has_requested:true,
             reprocessing:false
         })
     }
 
     render() {
 
-        const {digit1, digit2, digit3, digit4, digit5, digit6, processing, has_requested, reprocessing} = this.state
+        const {digit1, digit2, digit3, digit4, digit5, digit6, processing, reprocessing} = this.state
         let ready = false
 
         if(`${digit1}${digit2}${digit3}${digit4}${digit5}${digit6}`.length >= 6) {
@@ -230,13 +251,11 @@ class Scrn extends React.Component {
 
                     <Spacer lg />
 
-                    {/*has_requested &&
-                    <ButtonText disabled={!ready} t='Resend Verification Code' onPress={this.handleRequestAgain} loading={reprocessing} />
-                    */}
+                    <ButtonText t='Resend Verification Code' onPress={this.handleResend} loading={reprocessing} />
                 </Screen>
             
                 <Footer>
-                    <Button disabled={!ready} t={_('62')} onPress={this.handleRequest} loading={processing} />
+                    <Button disabled={!ready} t={_('62')} onPress={this.handleSubmit} loading={processing} />
                 </Footer>
             </>
         )

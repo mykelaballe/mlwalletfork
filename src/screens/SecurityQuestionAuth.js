@@ -14,6 +14,7 @@ export default class Scrn extends React.Component {
         questions:[],
         question:'',
         answer:'',
+        key:'',
         processing:false,
         error:''
     }
@@ -44,7 +45,10 @@ export default class Scrn extends React.Component {
         const {params = {}} = this.props.navigation.state
         if(params.question && params.question !== prevState.question) {
             this.props.navigation.setParams({question:''})
-            this.setState({question:params.question})
+            this.setState({
+                question:typeof params.question === 'object' ? params.question.text : params.question,
+                key:typeof params.question === 'object' ? params.question.key : ''
+            })
         }
     }
 
@@ -53,7 +57,7 @@ export default class Scrn extends React.Component {
     handleNext = async () => {
         try {
             const {params = {}} = this.props.navigation.state
-            let {question, answer, processing} = this.state
+            let {type, questions, question, answer, key, processing} = this.state
 
             if(processing) return
 
@@ -65,22 +69,32 @@ export default class Scrn extends React.Component {
             else {
                 let payload = {
                     wallet_no:params.walletno,
+                    type,
                     question,
-                    answer
+                    answer,
+                    key
                 }
 
                 let securityRes = await API.validateSecurityQuestion(payload)
 
-                if(securityRes.error) Say.warn('Invalid security question and answer')
+                if(securityRes.error) Say.warn('Invalid security question or answer')
                 else {
                     if(params.steps) {
 
                         let steps = params.steps
+                        
                         steps.shift()
 
                         if(params.steps.length > 0) {
+
+                            if(questions.length > 0) {
+                                let index = questions.indexOf(question)
+                                questions.splice(index, 1)
+                            }
+
                             this.props.navigation.replace('SecurityQuestion',{
                                 ...params,
+                                questions,
                                 steps
                             })
                         }
@@ -123,6 +137,7 @@ export default class Scrn extends React.Component {
 
     render() {
 
+        const {params = {}} = this.props.navigation.state
         const {question, answer, processing, error} = this.state
 
         return (
@@ -143,7 +158,9 @@ export default class Scrn extends React.Component {
 
                     <Spacer lg />
 
+                    {(!params.questions || params.questions.length > 1) &&
                     <ButtonText t='Answer a different question' onPress={this.handleChangeQuestion} />
+                    }
                 </Screen>
 
                 <Footer>

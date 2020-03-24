@@ -27,18 +27,21 @@ class Scrn extends React.Component {
     }
 
     handleSelectQuestion1 = () => {
+        const {question1, question2, question3} = this.state
         const {state, navigate} = this.props.navigation
-        navigate('SecurityQuestions',{sourceRoute:state.routeName, _for:'question1'})
+        navigate('SecurityQuestions',{sourceRoute:state.routeName, _for:'question1',selected:[question1, question2, question3]})
     }
 
     handleSelectQuestion2 = () => {
+        const {question1, question2, question3} = this.state
         const {state, navigate} = this.props.navigation
-        navigate('SecurityQuestions',{sourceRoute:state.routeName, _for:'question2'})
+        navigate('SecurityQuestions',{sourceRoute:state.routeName, _for:'question2',selected:[question1, question2, question3]})
     }
 
     handleSelectQuestion3 = () => {
+        const {question1, question2, question3} = this.state
         const {state, navigate} = this.props.navigation
-        navigate('SecurityQuestions',{sourceRoute:state.routeName, _for:'question3'})
+        navigate('SecurityQuestions',{sourceRoute:state.routeName, _for:'question3',selected:[question1, question2, question3]})
     }
 
     handleChangeAnswer1 = answer1 => this.setState({answer1})

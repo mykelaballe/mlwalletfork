@@ -3,7 +3,7 @@ import {View, StyleSheet, TouchableOpacity} from 'react-native'
 import {connect} from 'react-redux'
 import {ScrollView, Text, Row, Spacer, HR, Avatar, TopBuffer, Button} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_, Say} from '../utils'
+import {_, Say, Func} from '../utils'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 class Scrn extends React.Component {
@@ -11,12 +11,6 @@ class Scrn extends React.Component {
     static navigationOptions = {
         headerLeft:<View />,
         title:'My Account'
-    }
-
-    state = {
-        avatar:null,
-        verification_level:1,
-        showWarning:false
     }
 
     componentDidMount = () => {
@@ -36,12 +30,9 @@ class Scrn extends React.Component {
 
     handlePressLoginSecurity = () => this.props.navigation.navigate('LoginSecurity')
 
-    handleCloseModal = () => this.setState({showWarning:false})
-
     render() {
 
-        const {walletno, fname, mname, lname, suffix, email, country, province, city, barangay, mobile_no, status} = this.props.user
-        const {avatar, verification_level} = this.state
+        const {user} = this.props
 
         return (
             <>
@@ -50,17 +41,17 @@ class Scrn extends React.Component {
                     <TopBuffer sm />
 
                     <View style={style.topContainer}>
-                        <Avatar source={avatar} size={Metrics.image.lg} />
+                        <Avatar source={user.profilepic} size={Metrics.image.lg} />
 
-                        <Text b lg center mute>{fname} {lname}</Text>
-                        <Text center mute>Wallet Account No: {walletno}</Text>
-                        <Text center mute>{barangay}, {city}, {province}, {country}</Text>
-                        <Text center mute>{mobile_no}</Text>
-                        <Text center mute>{email}</Text>
+                        <Text b lg center mute>{Func.formatName(user)}</Text>
+                        <Text center mute>Wallet Account No: {user.walletno}</Text>
+                        <Text center mute>{Func.formatAddress(user)}</Text>
+                        <Text center mute>{user.mobileno}</Text>
+                        <Text center mute>{user.emailaddress}</Text>
 
                         <Spacer />
 
-                        {status == 0 &&
+                        {user.status == 0 &&
                         <Button t='Get Fully Verified Now' mode='outlined' onPress={this.handleGoToVerificationLevels} />
                         }
 

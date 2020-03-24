@@ -23,11 +23,20 @@ export default class Scrn extends React.Component {
 
     getData = async () => {
         const {params = {}} = this.props.navigation.state
-        let list = registered_questions
+        let list = registered_questions.slice()
 
         try {
             if(params.type === 'personal') list = personal_questions
             else if(params.type === 'transactional') list = transactional_questions
+
+            if(params.selected && params.selected.length > 0) {
+                for(let s in params.selected) {
+                    let index = list.indexOf(params.selected[s])
+                    if(index >= 0) {
+                        list.splice(index, 1)
+                    }
+                }
+            }
         }
         catch(err) {
 

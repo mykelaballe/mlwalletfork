@@ -90,13 +90,32 @@ const randomize = list => list[Math.floor(Math.random() * list.length)]
 
 const cleanName = str => {
     str = str.replace(' WAIVED ', ' ')
-    str.replace(' NONE ', ' ')
+    str = str.replace(' NONE', ' ')
 
     return str
 }
 
 const formatName = userObject => {
-    return cleanName(`${userObject.firstname} ${userObject.middlename} ${userObject.lastname} ${userObject.suffix}`)
+    const fname = userObject.fname || userObject.firstname
+    const mname = userObject.mname || userObject.middlename
+    const lname = userObject.lname || userObject.lastname
+
+    return cleanName(`${fname} ${mname} ${lname} ${userObject.suffix}`)
+}
+
+const formatAddress = userObject => {
+    const data = [
+        userObject.country
+    ]
+
+    if(userObject.province) data.push(userObject.province)
+    if(userObject.city) data.push(userObject.city)
+    if(userObject.barangay) data.push(userObject.barangay)
+    if(userObject.street) data.push(userObject.street)
+    if(userObject.houseno) data.push(userObject.houseno)
+    if(userObject.zipcode) data.push(userObject.zipcode)
+
+    return data.reverse().join(', ')
 }
 
 export default {
@@ -106,5 +125,6 @@ export default {
     formatToRealCurrency,
     randomize,
     cleanName,
-    formatName
+    formatName,
+    formatAddress
 }

@@ -3,7 +3,7 @@ import {View, StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
 import {ScrollView, Text, Row, Spacer, Avatar, TopBuffer, Button, Outline} from '../components'
 import {Metrics} from '../themes'
-import {_} from '../utils'
+import {_, Func} from '../utils'
 
 const moment = require('moment')
 
@@ -13,24 +13,19 @@ class Scrn extends React.Component {
         title:'Profile'
     }
 
-    state = {
-        avatar:null
-    }
-
     handleEditProfile = () => this.props.navigation.navigate('EditProfileIndex')
 
     render() {
 
-        const {username, fname, mname, lname, suffix, mobile_no, email, source_of_income, birthdate, gender, nationality, country, province, city, barangay, zip_code} = this.props.user
-        const {avatar} = this.state
+        const {user} = this.props
 
         return (
             <ScrollView>
                 <TopBuffer sm />
 
                 <View style={style.topContainer}>
-                    <Avatar source={avatar} size={Metrics.image.lg} />
-                    <Text b lg center mute>{fname} {lname}</Text>
+                    <Avatar source={user.profilepic} size={Metrics.image.lg} />
+                    <Text b lg center mute>{Func.formatName(user)}</Text>
 
                     <Spacer />
 
@@ -40,22 +35,22 @@ class Scrn extends React.Component {
                 <View style={{padding:Metrics.md}}>
                     <Outline>
                         <Text sm mute>Username</Text>
-                        <Text>{username}</Text>
+                        <Text>{user.username}</Text>
                     </Outline>
 
                     <Outline>
                         <Text sm mute>Mobile No.</Text>
-                        <Text>{mobile_no}</Text>
+                        <Text>{user.mobileno}</Text>
                     </Outline>
                 
                     <Outline>
                         <Text sm mute>Email address</Text>
-                        <Text>{email}</Text>
+                        <Text>{user.emailaddress}</Text>
                     </Outline>
 
                     <Outline>
                         <Text sm mute>Source of Income</Text>
-                        <Text>{source_of_income}</Text>
+                        <Text>{user.sourceofincome}</Text>
                     </Outline>
 
                     <Outline>
@@ -63,52 +58,62 @@ class Scrn extends React.Component {
                         <Row ar>
                             <View>
                                 <Text sm mute>Month</Text>
-                                <Text md>{moment(birthdate).format('MMMM')}</Text>
+                                <Text md>{moment(user.birthdate).format('MMMM')}</Text>
                             </View>
                             <View>
                                 <Text sm mute>Day</Text>
-                                <Text md>{moment(birthdate).format('DD')}</Text>
+                                <Text md>{moment(user.birthdate).format('DD')}</Text>
                             </View>
                             <View>
                                 <Text sm mute>Year</Text>
-                                <Text md>{moment(birthdate).format('YYYY')}</Text>
+                                <Text md>{moment(user.birthdate).format('YYYY')}</Text>
                             </View>
                         </Row>
                     </Outline>
 
                     <Outline>
                         <Text sm mute>Gender</Text>
-                        <Text>{gender}</Text>
+                        <Text>{user.gender}</Text>
                     </Outline>
 
                     <Outline>
                         <Text sm mute>Nationality</Text>
-                        <Text>{nationality}</Text>
+                        <Text>{user.nationality}</Text>
                     </Outline>
 
                     <Outline>
                         <Text sm mute>Country</Text>
-                        <Text>{country}</Text>
+                        <Text>{user.country}</Text>
                     </Outline>
 
                     <Outline>
                         <Text sm mute>Province</Text>
-                        <Text>{province}</Text>
+                        <Text>{user.province}</Text>
                     </Outline>
 
                     <Outline>
                         <Text sm mute>City/Municipality</Text>
-                        <Text>{city}</Text>
+                        <Text>{user.city}</Text>
                     </Outline>
 
                     <Outline>
-                        <Text sm mute>Barangay/Street</Text>
-                        <Text>{barangay}</Text>
+                        <Text sm mute>Barangay</Text>
+                        <Text>{user.barangay}</Text>
+                    </Outline>
+
+                    <Outline>
+                        <Text sm mute>Street</Text>
+                        <Text>{user.street}</Text>
+                    </Outline>
+
+                    <Outline>
+                        <Text sm mute>House/Unit/Floor #, Bldg Name, Block or Lot #</Text>
+                        <Text>{user.houseno}</Text>
                     </Outline>
 
                     <Outline>
                         <Text sm mute>Zip Code</Text>
-                        <Text>{zip_code}</Text>
+                        <Text>{user.zipcode}</Text>
                     </Outline>
                 </View>
             </ScrollView>
