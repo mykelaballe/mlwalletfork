@@ -5,7 +5,8 @@ export default {
         return await Fetch.post('LoadSIM',{
             ...payload,
             deviceid:Consts.deviceId,
-            longitude:'1',
+            latitude:'1.1',
+            longitude:'1.1',
             location:'cebu'
         })
     },
