@@ -55,7 +55,7 @@ class Scrn extends React.Component {
 
     handleSelectReceiver = () => this.props.navigation.navigate('SavedLoadReceivers')
 
-    handleSelectNetwork = network => this.setState({network:network ? network.label : ''})
+    handleSelectNetwork = network => this.setState({network})
 
     handleNext = async () => {
         const {params} = this.props.navigation.state
@@ -84,7 +84,7 @@ class Scrn extends React.Component {
                     <Headline subtext='Enter the mobile number that you will load or select from your contact list.' />
 
                     <Picker
-                        selected={network}
+                        selected={network && network.label}
                         items={networks}
                         placeholder='Choose network'
                         onChoose={this.handleSelectNetwork}

@@ -81,11 +81,11 @@ class LoadOptions extends React.Component {
     componentDidMount = () => this.getData()
 
     getData = async () => {
-        const network = 'smart eload'
+        const {network} = this.props.navigation.state.params
         let promo_codes = []
 
         try {
-            promo_codes = await API.getLoadPromoCodes(network)
+            promo_codes = await API.getLoadPromoCodes(network.value)
         }
         catch(err) {
 
@@ -174,7 +174,7 @@ class LoadOptions extends React.Component {
 
                 <Screen ns>
                     <Text b xl center>{contact_no}</Text>
-                    <Text b center>{network}</Text>
+                    <Text b center>{network.label}</Text>
 
                     <Spacer />
 

@@ -14,16 +14,15 @@ class Scrn extends React.Component {
     }
 
     state = {
-        avatar:null,
-        username:'johnsmith',
+        avatar:null
     }
 
     handleEditProfile = () => this.props.navigation.navigate('EditProfileIndex')
 
     render() {
 
-        const {fname, mname, lname, suffix, mobile_no, email, source_of_income, birthdate, gender, nationality, country, province, city, barangay, zip_code} = this.props.user
-        const {avatar, username} = this.state
+        const {username, fname, mname, lname, suffix, mobile_no, email, source_of_income, birthdate, gender, nationality, country, province, city, barangay, zip_code} = this.props.user
+        const {avatar} = this.state
 
         return (
             <ScrollView>

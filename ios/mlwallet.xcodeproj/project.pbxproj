@@ -691,7 +691,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Marlyn Isidoro (K8SA4RXR6Z)";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
@@ -722,8 +722,9 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: MICHEL J. LHUILLIER FINANCIAL SERVICES (PAWNSHOPS), INC. (3M956BCSGM)";
+				CODE_SIGN_IDENTITY = "Apple Distribution";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 3M956BCSGM;
 				INFOPLIST_FILE = mlwalletTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -746,7 +747,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 47;
+				CURRENT_PROJECT_VERSION = 48;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 3M956BCSGM;
 				INFOPLIST_FILE = mlwallet/Info.plist;
@@ -776,7 +777,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 47;
+				CURRENT_PROJECT_VERSION = 48;
 				DEVELOPMENT_TEAM = 3M956BCSGM;
 				INFOPLIST_FILE = mlwallet/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
