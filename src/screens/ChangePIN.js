@@ -63,7 +63,7 @@ class Scrn extends React.Component {
 
                 let res = await API.changePIN(payload)
 
-                if(res.error) Say.some(res.message)
+                if(res.error) Say.attemptLeft(res.message)
                 else {
                     this.setState({
                         old_pin:'',

@@ -106,15 +106,6 @@ export default {
             error:false
         }*/
         if(payload.key) {
-            /*alert(`
-                ${payload.wallet_no}
-                ${payload.type}
-                ${payload.key}
-                ${payload.answer}
-            `)
-            return {
-                error:false
-            }*/
             return await Fetch.post('validate_answers',{
                 walletno:payload.wallet_no,
                 type:payload.type,
@@ -122,16 +113,6 @@ export default {
                 answer:payload.answer
             })
         }
-        /*else {
-            alert(`
-                ${payload.wallet_no}
-                ${payload.question}
-                ${payload.answer}
-            `)
-            return {
-                error:false
-            }
-        }*/
 
         return await Fetch.post('validateSecurityQuestion',{
             wallet_no:payload.wallet_no,

@@ -67,7 +67,7 @@ class Scrn extends React.Component {
 
                     let res = await API.changePassword(payload)
 
-                    if(res.error) Say.some(res.message)
+                    if(res.error) Say.attemptLeft(res.message)
                     else {
                         errors = []
                         this.setState({

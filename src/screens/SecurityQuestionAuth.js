@@ -37,7 +37,8 @@ export default class Scrn extends React.Component {
         this.setState({
             type,
             questions,
-            question
+            question:question.text || question,
+            key:question.key || ''
         })
     }
 
@@ -80,7 +81,7 @@ export default class Scrn extends React.Component {
 
                 let securityRes = await API.validateSecurityQuestion(payload)
 
-                if(securityRes.error) Say.warn('Invalid security question or answer')
+                if(securityRes.error) Say.attemptLeft(securityRes.message)
                 else {
                     if(params.steps) {
 

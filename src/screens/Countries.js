@@ -33,6 +33,8 @@ export default class Scrn extends React.Component {
 
         try {
             list = await API.getCountries()
+
+            this.listHolder = list
         }
         catch(err) {
             Say.err(_('500'))
@@ -49,7 +51,24 @@ export default class Scrn extends React.Component {
         this.props.navigation.navigate(sourceRoute,{country})
     }
 
-    handleChangeSearch = search => this.setState({search})
+    handleChangeSearch = search => this.setState({search:this.search(search)})
+
+    search = searchText => {
+        let list = []
+
+        this.listHolder.map(section => {
+            let data = section.data.filter(item => item.name.toUpperCase().indexOf(searchText.toUpperCase()) > -1)
+            
+            if(data.length > 0) {
+                list = list.concat({
+                    letter:section.letter,
+                    data
+                })
+            }
+        })
+
+        this.setState({list})
+    }
 
     renderSectionHeader = ({section}) => (
         <View style={style.itemHeader}>

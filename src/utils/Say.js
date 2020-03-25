@@ -54,7 +54,7 @@ const ask = (message, title = null, options = {}) => {
 const attemptLeft = error => {
     if(error === '1attempt_left') warn('Oops! You entered the wrong information. You only have 1 attempt left.')
     else if(error === '2attempt_left') warn('Oops! You entered the wrong information. You only have 2 attempts left')
-    else if(error === 'reacth_maximum_attempts' || error === 'block_account_1day') {
+    else if(error === 'reach_maximum_attempts' || error === 'block_account_1day') {
         warn(
             `Your account will be blocked for 24 hours. Please contact our Customer Care for assistance.
             

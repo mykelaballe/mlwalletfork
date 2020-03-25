@@ -35,7 +35,7 @@ class Scrn extends React.Component {
     handleFocusConfirmPassword = () => this.refs.confirm_password.focus()
 
     handleSubmit = async () => {
-        const {walletno} = this.props.user
+        const {walletno} = this.props.navigation.state.params
         let {old_password, new_password, confirm_password, errors, processing} = this.state
 
         if(processing) return false
@@ -63,7 +63,7 @@ class Scrn extends React.Component {
 
                     let res = await API.changePassword(payload)
 
-                    if(res.error) Say.some(res.message)
+                    if(res.error) Say.attemptLeft(res.message)
                     else {
                         errors = []
                         this.setState({

@@ -1,5 +1,6 @@
 import React from 'react'
 import {View, StyleSheet, InteractionManager} from 'react-native'
+import {connect} from 'react-redux'
 import {Screen, Text, Row, Spacer, FlatList, Bullet} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_} from '../utils'
@@ -152,6 +153,7 @@ class Scrn extends React.Component {
 
     render() {
 
+        const {status} = this.props.user
         const {list, loading} = this.state
 
         return (
@@ -174,12 +176,12 @@ class Scrn extends React.Component {
                     </View>
 
                     <View style={style.cell}>
-                        <Icon name='ios-checkmark-circle' color={Colors.brand} size={Metrics.icon.sm} />
+                        {status == 1 ? <Bullet size={9} /> : <Icon name='ios-checkmark-circle' color={Colors.brand} size={Metrics.icon.sm} />}
                         <Text center sm>Semi-Verified</Text>
                     </View>
 
                     <View style={style.cell}>
-                        <Bullet size={9} />
+                        {status == 0 ? <Bullet size={9} /> : <Icon name='ios-checkmark-circle' color={Colors.brand} size={Metrics.icon.sm} />}
                         <Text center sm>Verified</Text>
                     </View>
 
@@ -219,4 +221,8 @@ const style = StyleSheet.create({
     }
 })
 
-export default Scrn
+const mapStateToProps = state => ({
+    user: state.user.data
+})
+
+export default connect(mapStateToProps)(Scrn)

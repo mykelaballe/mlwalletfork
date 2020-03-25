@@ -14,8 +14,8 @@ class Scrn extends React.Component {
     slides:[
       {
         key: 'one',
-        title: 'Withdraw Cash',
-        text: 'Withdraw cash for free from your ML Wallet account from any M Lhuillier branch nationwide.'
+        title: 'Withdraw Money',
+        text: 'Withdraw money for free from your ML Wallet account from any M Lhuillier branch nationwide.'
       }
     ]
   }

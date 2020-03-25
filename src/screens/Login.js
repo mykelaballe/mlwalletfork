@@ -24,10 +24,12 @@ const touchIDConfig = {
 
 class Scrn extends React.Component {
 
+    //quinyolxd24 : yoltorres1!
+
     state = {
         walletno:null,
-        username:'',
-        password:'',
+        username:'jones2020',
+        password:'p@ssword1',
         show_password:false,
         processing:false
     }
@@ -92,9 +94,6 @@ class Scrn extends React.Component {
                 
                 if(error) {
                     if(['1attempt_left', '2attempt_left', 'reach_maximum_attempts', 'block_account_1day'].indexOf(error) >= 0) Say.attemptLeft(error)
-                    //if(error === '1attempt_left') Say.warn('Oops! You entered the wrong information. You only have 1 attempt left.')
-                    //else if(error === '2attempt_left') Say.warn('Oops! You entered the wrong information. You only have 2 attempts left')
-                    //else if(error === 'reach_maximum_attempts' || error === 'block_account_1day') Say.warn('Your account will be blocked for 24 hours. Please contact our Customer Care for assistance')
                     else if(error === 'block_account') Say.warn(error_description)
                     else if(error === 'invalid_grant' || error === 'username_notexists' || error === 'wrong_password') {
                         Say.warn(_('72'))
@@ -111,7 +110,9 @@ class Scrn extends React.Component {
                     }
                     else if(error === 'registered_anotherdevice') {
 
-                        this.setState({walletno:error_description})
+                        this.setState({
+                            walletno:error_description
+                        })
 
                         Say.ask(
                             'Oh no! You can only access your ML Wallet account in one device. To transfer your ML Wallet account to this device, click OK',
@@ -172,7 +173,7 @@ class Scrn extends React.Component {
             steps:[
                 'registered',
                 'personal',
-                //'transactional'
+                'transactional'
             ],
             func:async () => {
                 let res = await API.updateDevice({

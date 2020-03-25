@@ -70,8 +70,6 @@ class Scrn extends React.Component {
         let kptn = 'MLW121324234'
 
         let html = `
-            <img src="https://user-images.githubusercontent.com/22584900/77245393-485a7b80-6c59-11ea-971f-c8da5230fdbf.png" width="350" />
-
             <div style="background-color:#323232;padding:3px 15px 3px 15px;margin-top:3px">
                 <h2 style="textAlign:center;color:#fff">Transaction Receipt</h2>
                 <h4 style="color:#fff;line-height:0">Transaction No: ${kptn}</h4>
