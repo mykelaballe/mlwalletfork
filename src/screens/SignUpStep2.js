@@ -117,8 +117,8 @@ export default class Scrn extends React.Component {
         const {house, street, country, province, city, barangay, zip_code, processing} = this.state
         let ready = true
 
-        if(country && province && city && barangay && zip_code) ready = true
-        if(country == Consts.country.PH && (!province || !city || !barangay || !zip_code)) ready = false
+        //if(country && province && city && barangay && zip_code) ready = true
+        if(country == Consts.country.PH && (!province.province || !city || !barangay || !zip_code)) ready = false
 
         return (
             <>
