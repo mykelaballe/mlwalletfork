@@ -1,7 +1,10 @@
 import Fetch from '../../utils/Fetch'
 
 export default {
-    updateProfile: async payload => await Fetch.put('updateProfile',payload),
+    updateProfile: async payload => {
+        return {error:false}
+        return await Fetch.put('updateProfile',payload)
+    },
 
     requestUpdateProfile: async payload => {
         return await Fetch.post('send_wallet_request',{

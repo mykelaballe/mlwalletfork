@@ -26,7 +26,7 @@ export default class Scrn extends React.Component {
             else {
                 let res = await API.validateUsername(username)
 
-                if(res.error) Say.some(res.message)
+                if(res.error) Say.warn(res.message)
                 else {
                     this.props.navigation.navigate('SecurityQuestion',{
                         walletno:res.data.walletno,

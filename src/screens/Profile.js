@@ -3,7 +3,7 @@ import {View, StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
 import {Screen, Text, Row, Spacer, Avatar, TopBuffer, Button, Outline} from '../components'
 import {Metrics} from '../themes'
-import {_, Func} from '../utils'
+import {_, Func, Consts} from '../utils'
 
 const moment = require('moment')
 
@@ -85,20 +85,24 @@ class Scrn extends React.Component {
                     <Text>{user.country}</Text>
                 </Outline>
 
-                <Outline>
-                    <Text sm mute>Province</Text>
-                    <Text>{user.province}</Text>
-                </Outline>
+                {user.country === Consts.country.PH &&
+                <>
+                    <Outline>
+                        <Text sm mute>Province</Text>
+                        <Text>{user.province}</Text>
+                    </Outline>
 
-                <Outline>
-                    <Text sm mute>City/Municipality</Text>
-                    <Text>{user.city}</Text>
-                </Outline>
+                    <Outline>
+                        <Text sm mute>City/Municipality</Text>
+                        <Text>{user.city}</Text>
+                    </Outline>
 
-                <Outline>
-                    <Text sm mute>Barangay</Text>
-                    <Text>{user.barangay}</Text>
-                </Outline>
+                    <Outline>
+                        <Text sm mute>Barangay</Text>
+                        <Text>{user.barangay}</Text>
+                    </Outline>
+                </>
+                }
 
                 <Outline>
                     <Text sm mute>Street</Text>
@@ -110,10 +114,12 @@ class Scrn extends React.Component {
                     <Text>{user.houseno}</Text>
                 </Outline>
 
+                {user.country === Consts.country.PH &&
                 <Outline>
                     <Text sm mute>Zip Code</Text>
                     <Text>{user.zipcode}</Text>
                 </Outline>
+                }
             </Screen>
         )
     }

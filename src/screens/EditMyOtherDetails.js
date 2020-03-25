@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Screen, Footer, Headline, StaticInput, TextInput, Button} from '../components'
-import {_, Say} from '../utils'
+import {_, Say, Consts} from '../utils'
 import {API} from '../services'
 
 class Scrn extends React.Component {
@@ -118,7 +118,7 @@ class Scrn extends React.Component {
             zipcode = zipcode.trim()
 
             if(!sourceofincome) Say.some(_('8'))
-            else if(country === 'Philippines' && !province && !city && !barangay && !zipcode) Say.some(_('8'))
+            else if(country === Consts.country.PH && !province && !city && !zipcode) Say.some(_('8'))
             else {
 
                 let payload = {
@@ -158,7 +158,7 @@ class Scrn extends React.Component {
         let ready = false
 
         if(barangay && sourceofincome) ready = true
-        if(country === 'Philippines' && !province && !city && !zipcode) ready = false
+        if(country === Consts.country.PH && (!province || !city || !barangay || !zipcode)) ready = false
 
         return (
             <>
@@ -183,7 +183,7 @@ class Scrn extends React.Component {
                         onPress={this.handleSelectCountry}
                     />
 
-                    {country === 'Philippines' &&
+                    {country === Consts.country.PH &&
                     <>
                         <StaticInput
                             label='Province'
@@ -228,7 +228,7 @@ class Scrn extends React.Component {
                         returnKeyType='next'
                     />
 
-                    {country === 'Philippines' &&
+                    {country === Consts.country.PH &&
                     <TextInput
                         ref='zip_code'
                         label={'Zip Code'}

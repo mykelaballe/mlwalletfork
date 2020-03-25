@@ -145,7 +145,7 @@ export default class Scrn extends React.Component {
                 <Screen>
                     <Headline
                         title='Security Question'
-                        subtext={question}
+                        subtext={typeof question === 'object' ? question.text : question}
                     />
 
                     <TextInput

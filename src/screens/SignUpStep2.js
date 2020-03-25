@@ -1,7 +1,6 @@
 import React from 'react'
 import {Screen, Button, TextInput, Footer, StaticInput, SignUpStepsTracker} from '../components'
-import {_, Say} from '../utils'
-import {API} from '../services'
+import {_, Say, Consts} from '../utils'
 
 export default class Scrn extends React.Component {
 
@@ -110,7 +109,7 @@ export default class Scrn extends React.Component {
                     ...this.props.navigation.state.params,
                     country,
                     province,
-                    region,
+                    //region,
                     city,
                     house,
                     street,

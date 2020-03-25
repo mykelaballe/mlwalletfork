@@ -30,6 +30,9 @@ export default {
 		hasNum:true,
 		hasSpecialChar:true
 	},
+	country: {
+		PH:'Philippines'
+	},
 	tcn: {
 		stw: {
 			code:'stw',
