@@ -94,7 +94,7 @@ export default class Scrn extends React.Component {
             zip_code = zip_code.trim()
 
             if(!province.province || !city || !barangay || !zip_code) Say.some(_('8'))
-            else if(country == Consts.country.PH (!province.province || !city || !barangay || !zip_code)) Say.some(_('8'))
+            else if(country == Consts.country.PH && (!province.province || !city || !barangay || !zip_code)) Say.some(_('8'))
             else {
                 this.props.navigation.navigate('SignUpStep3',{
                     ...this.props.navigation.state.params,
@@ -119,7 +119,7 @@ export default class Scrn extends React.Component {
         let ready = true
 
         if(country && province && city && barangay && zip_code) ready = true
-        if(country == Consts.country.PH (!province || !city || !barangay || !zip_code)) ready = false
+        if(country == Consts.country.PH && (!province || !city || !barangay || !zip_code)) ready = false
 
         return (
             <>
