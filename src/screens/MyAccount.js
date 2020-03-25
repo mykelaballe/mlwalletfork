@@ -110,7 +110,8 @@ class Scrn extends React.Component {
 
 const style = StyleSheet.create({
     topContainer: {
-        alignItems:'center'
+        alignItems:'center',
+        paddingHorizontal:Metrics.rg
     },
     item: {
         padding:Metrics.md,

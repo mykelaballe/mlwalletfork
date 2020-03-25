@@ -16,14 +16,14 @@ class Scrn extends React.Component {
         sourceofincome:this.props.user.sourceofincome,
         country:this.props.user.country,
         province:{
-            province:this.props.user.province,
+            province:this.props.user.province || '',
             provCode:''
         },
-        city:this.props.user.city,
-        barangay:this.props.user.barangay,
-        houseno:this.props.user.houseno,
-        street:this.props.user.street,
-        zipcode:this.props.user.zipcode,
+        city:this.props.user.city || '',
+        barangay:this.props.user.barangay || '',
+        houseno:this.props.user.houseno || '',
+        street:this.props.user.street || '',
+        zipcode:this.props.user.zipcode || '',
         processing:false
     }
 

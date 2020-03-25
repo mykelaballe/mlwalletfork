@@ -116,18 +116,22 @@ class Scrn extends React.Component {
                             principal:transaction.amount
                         })
                     }
-                    else if(type == Consts.tcn.stb.code) await API.sendBankTransfer({
-
-                    })
+                    else if(type == Consts.tcn.stb.code) {
+                        res = await API.sendBankTransfer({
+                        
+                        })
+                    }
                     else if(type == Consts.tcn.wdc.code) {
                         res = await API.withdrawCash({
                             walletno,
                             amount:transaction.amount
                         })
                     }
-                    else if(type == Consts.tcn.bpm.code) await API.payBill({
-
-                    })
+                    else if(type == Consts.tcn.bpm.code) {
+                        res = await API.payBill({
+                        
+                        })
+                    }
                     else if(type == Consts.tcn.bul.code) {
                         let payload = {
                             walletNo:walletno,
@@ -154,7 +158,6 @@ class Scrn extends React.Component {
             }
         }
         catch(err) {
-            alert(err)
             Say.err(_('500'))
         }
 

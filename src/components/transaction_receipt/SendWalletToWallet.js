@@ -10,9 +10,9 @@ const moment = require('moment')
 class SendWalletToWallet extends React.Component {
 
     state = {
-        amount:Func.formatToCurrency(amount),
-        charges:Func.formatToCurrency(charges),
-        total:Func.formatToCurrency(total),
+        amount:Func.formatToCurrency(this.props.data.amount),
+        charges:Func.formatToCurrency(this.props.data.charges),
+        total:Func.formatToCurrency(this.props.data.total),
         date:this.props.data.date,
         time:this.props.data.time,
         type:Consts.tcn.stw.long_desc
@@ -62,14 +62,14 @@ class SendWalletToWallet extends React.Component {
 
     render() {
 
-        const {_from, tcn, walletno, receiver, notes} = this.props.data
+        const {_from, kptn, walletno, receiver, notes} = this.props.data
         const {amount, charges, total, date, time, type} = this.state
 
         return (
             <>
                 <Screen compact>
                     <Header
-                        tcn={tcn}
+                        tcn={kptn}
                         status='success'
                     />
 
