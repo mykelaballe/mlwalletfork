@@ -43,12 +43,15 @@ export default class Scrn extends React.Component {
 
     componentDidUpdate = (prevProps, prevState) => {
         const {params = {}} = this.props.navigation.state
-        if(params.question && params.question !== prevState.question) {
-            this.props.navigation.setParams({question:''})
-            this.setState({
-                question:typeof params.question === 'object' ? params.question.text : params.question,
-                key:typeof params.question === 'object' ? params.question.key : ''
-            })
+        if(params.question) {
+            const question = params.question.text || params.question
+            if(question !== prevState.question) {
+                this.props.navigation.setParams({question:''})
+                this.setState({
+                    question:params.question.text || params.question,
+                    key:params.question.key || ''
+                }) 
+            }
         }
     }
 

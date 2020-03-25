@@ -56,7 +56,7 @@ export default class Scrn extends React.Component {
     renderItem = ({item, index}) => (
         <>
             <Ripple onPress={() => this.handleSelect(item)} style={style.item}>
-                <Text md>{item}</Text>
+                <Text md>{item.text || item}</Text>
             </Ripple>
 
             <HR />
