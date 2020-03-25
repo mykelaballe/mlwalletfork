@@ -10,7 +10,6 @@ export default class Scrn extends React.Component {
 
     state = {
         country:'Philippines',
-        region:'',
         province:{
             province:'',
             provCode:''
@@ -30,14 +29,10 @@ export default class Scrn extends React.Component {
             this.setState({
                 country:params.country,
                 province:'',
-                city:''
+                city:'',
+                zip_code:''
             })
         }
-
-        /*if(params.region && params.region !== prevState.region) {
-            this.props.navigation.setParams({region:null})
-            this.setState({region:params.region})
-        }*/
 
         else if(params.province && params.province.province !== prevState.province.province) {
             this.props.navigation.setParams({province:null})
@@ -67,11 +62,6 @@ export default class Scrn extends React.Component {
         navigate('Countries',{sourceRoute:state.routeName})
     }
 
-    handleSelectRegion = () => {
-        const {state, navigate} = this.props.navigation
-        navigate('Regions',{sourceRoute:state.routeName})
-    }
-
     handleSelectProvince = () => {
         const {state, navigate} = this.props.navigation
         navigate('Provinces',{sourceRoute:state.routeName, country:this.state.country})
@@ -95,7 +85,7 @@ export default class Scrn extends React.Component {
     handleFocusZipCode = () => this.refs.zip_code.focus()
 
     handleSubmit = async () => {
-        let {region, house, street, country, province, city, barangay, zip_code} = this.state
+        let {house, street, country, province, city, barangay, zip_code} = this.state
 
         try {
             house = house.trim()
@@ -104,12 +94,12 @@ export default class Scrn extends React.Component {
             zip_code = zip_code.trim()
 
             if(!province.province || !city || !barangay || !zip_code) Say.some(_('8'))
+            else if(country == Consts.country.PH (!province.province || !city || !barangay || !zip_code)) Say.some(_('8'))
             else {
                 this.props.navigation.navigate('SignUpStep3',{
                     ...this.props.navigation.state.params,
                     country,
                     province,
-                    //region,
                     city,
                     house,
                     street,
@@ -125,12 +115,11 @@ export default class Scrn extends React.Component {
 
     render() {
 
-        const {house, street, country, province, city, barangay, zip_code, region, processing} = this.state
-        let ready = false
+        const {house, street, country, province, city, barangay, zip_code, processing} = this.state
+        let ready = true
 
-        if(country && province && city && barangay && zip_code) {
-            ready = true
-        }
+        if(country && province && city && barangay && zip_code) ready = true
+        if(country == Consts.country.PH (!province || !city || !barangay || !zip_code)) ready = false
 
         return (
             <>
@@ -144,13 +133,7 @@ export default class Scrn extends React.Component {
                         onPress={this.handleSelectCountry}
                     />
 
-                    {/*<StaticInput
-                        label='Region'
-                        value={region}
-                        onPress={this.handleSelectRegion}
-                    />*/}
-
-                    {country === 'Philippines' &&
+                    {country === Consts.country.PH &&
                     <>
                         <StaticInput
                             label='Province'
@@ -163,18 +146,18 @@ export default class Scrn extends React.Component {
                             value={city}
                             onPress={this.handleSelectCity}
                         />
+
+                        <TextInput
+                            ref='barangay'
+                            label={'Barangay'}
+                            value={barangay}
+                            onChangeText={this.handleChangeBarangay}
+                            onSubmitEditing={this.handleFocusStreet}
+                            autoCapitalize='words'
+                            returnKeyType='next'
+                        />
                     </>
                     }
-
-                    <TextInput
-                        ref='barangay'
-                        label={'Barangay'}
-                        value={barangay}
-                        onChangeText={this.handleChangeBarangay}
-                        onSubmitEditing={this.handleFocusStreet}
-                        autoCapitalize='words'
-                        returnKeyType='next'
-                    />
 
                     <TextInput
                         ref='street'
@@ -195,6 +178,7 @@ export default class Scrn extends React.Component {
                         returnKeyType='next'
                     />
 
+                    {country == Consts.country.PH &&
                     <TextInput
                         ref='zip_code'
                         label={'Zip Code'}
@@ -202,7 +186,7 @@ export default class Scrn extends React.Component {
                         onChangeText={this.handleChangeZipCode}
                         keyboardType='numeric'
                     />
-
+                    }
                 </Screen>
             
                 <Footer>

@@ -188,7 +188,7 @@ export default {
 
     getCountries: async () => {
         let data = {}
-        let res = {
+        /*let res = {
             data: [
                 {
                     name:'Afghanistan'
@@ -212,8 +212,8 @@ export default {
                     name:'Philippines'
                 }
             ]
-        }
-        //let res = await Fetch.get('getCountries')
+        }*/
+        let res = await Fetch.get('getCountries')
 
         if(res.data) {
             for(let d in res.data) {
@@ -235,7 +235,7 @@ export default {
 
     getProvinces: async () => {
         let data = {}
-        let res = {
+        /*let res = {
             data:[
                 {
                     province:'ABRA',
@@ -254,8 +254,8 @@ export default {
                     provCode:'0604'
                 }
             ]
-        }
-        //let res = await Fetch.get('getProvinces')
+        }*/
+        let res = await Fetch.get('getProvinces')
 
         if(res.data) {
             for(let d in res.data) {
@@ -277,7 +277,7 @@ export default {
 
     getCities: async provinceCode => {
         let data = {}
-        let res = {
+        /*let res = {
             data:[
                 {
                     city:'AGOO',
@@ -300,8 +300,8 @@ export default {
                     zipCode:'2517'
                 },
             ]
-        }
-        //let res = await Fetch.get(`getCities/${provinceCode}`)
+        }*/
+        let res = await Fetch.get(`getCities/${provinceCode}`)
 
         if(res.data) {
             for(let d in res.data) {

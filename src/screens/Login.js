@@ -173,7 +173,7 @@ class Scrn extends React.Component {
             steps:[
                 'registered',
                 'personal',
-                'transactional'
+                //'transactional'
             ],
             func:async () => {
                 let res = await API.updateDevice({
