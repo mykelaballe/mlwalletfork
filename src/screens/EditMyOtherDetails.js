@@ -117,8 +117,8 @@ class Scrn extends React.Component {
             houseno = houseno.trim()
             zipcode = zipcode.trim()
 
-            if(!sourceofincome || !barangay || !zipcode) Say.some(_('8'))
-            else if(country === 'Philippines' && !province && !city && !zipcode) Say.some(_('8'))
+            if(!sourceofincome) Say.some(_('8'))
+            else if(country === 'Philippines' && !province && !city && !barangay && !zipcode) Say.some(_('8'))
             else {
 
                 let payload = {
