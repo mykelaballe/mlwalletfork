@@ -45,7 +45,8 @@ export default class Scrn extends React.Component {
             this.setState({
                 country:params.country,
                 province:'',
-                city:''
+                city:'',
+                zip_code:''
             })
         }
 
@@ -253,6 +254,8 @@ export default class Scrn extends React.Component {
         if(firstname && middlename && lastname && suffix && bday_day && nationality && source_of_income && barangay && zip_code && agree) {
             ready = true
         }
+
+
 
         return (
             <Provider>

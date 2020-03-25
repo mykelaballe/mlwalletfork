@@ -2,7 +2,6 @@ import Fetch from '../../utils/Fetch'
 
 export default {
     updateProfile: async payload => {
-        return {error:false}
         return await Fetch.put('updateProfile',payload)
     },
 
