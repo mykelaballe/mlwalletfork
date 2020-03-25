@@ -91,9 +91,10 @@ class Scrn extends React.Component {
                 const {error,error_description} = res
                 
                 if(error) {
-                    if(error === '1attempt_left') Say.warn('Oops! You entered the wrong information. You only have 1 attempt left.')
-                    else if(error === '2attempt_left') Say.warn('Oops! You entered the wrong information. You only have 2 attempts left')
-                    else if(error === 'reach_maximum_attempts' || error === 'block_account_1day') Say.warn('Your account will be blocked for 24 hours. Please contact our Customer Care for assistance')
+                    if(['1attempt_left', '2attempt_left', 'reach_maximum_attempts', 'block_account_1day'].indexOf(error) >= 0) Say.attemptLeft(error)
+                    //if(error === '1attempt_left') Say.warn('Oops! You entered the wrong information. You only have 1 attempt left.')
+                    //else if(error === '2attempt_left') Say.warn('Oops! You entered the wrong information. You only have 2 attempts left')
+                    //else if(error === 'reach_maximum_attempts' || error === 'block_account_1day') Say.warn('Your account will be blocked for 24 hours. Please contact our Customer Care for assistance')
                     else if(error === 'block_account') Say.warn(error_description)
                     else if(error === 'invalid_grant' || error === 'username_notexists' || error === 'wrong_password') {
                         Say.warn(_('72'))

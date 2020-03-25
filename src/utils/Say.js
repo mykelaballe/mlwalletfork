@@ -1,6 +1,4 @@
-//import Snackbar from 'react-native-snackbar'
 import SomeModal from '../components/SomeModal'
-//import {Colors} from '../themes'
 
 const some = (message, title = null, options = {}) => {
     SomeModal.show({
@@ -8,10 +6,6 @@ const some = (message, title = null, options = {}) => {
         title:title || 'Alert',
         options
     })
-    //alert(title)
-    /*Snackbar.show({
-        title
-    })*/
 }
 
 const ok = (message, title = null, options = {}) => {
@@ -20,11 +14,6 @@ const ok = (message, title = null, options = {}) => {
         title:title || 'Success',
         options
     })
-    /*Snackbar.show({
-        title,
-        color:Colors.light,
-        backgroundColor:Colors.success
-    })*/
 }
 
 const warn = (message, title = null, options = {}) => {
@@ -33,11 +22,6 @@ const warn = (message, title = null, options = {}) => {
         title:title || 'Warning',
         options
     })
-    /*Snackbar.show({
-        title,
-        color:Colors.black,
-        backgroundColor:Colors.warning
-    })*/
 }
 
 const err = (message, title = null, options = {}) => {
@@ -46,17 +30,6 @@ const err = (message, title = null, options = {}) => {
         title:title || 'Error',
         options
     })
-    //alert(title)
-    /*Snackbar.show({
-        title,
-        color:Colors.light,
-        backgroundColor:Colors.danger,
-        duration:Snackbar.LENGTH_INDEFINITE,
-        action:{
-            title:'Dismiss',
-            color:Colors.light
-        }
-    })*/
 }
 
 const info = (message, title = null, options = {}) => {
@@ -65,11 +38,6 @@ const info = (message, title = null, options = {}) => {
         title:title || 'Information',
         options
     })
-    /*Snackbar.show({
-        title,
-        color:Colors.light,
-        backgroundColor:Colors.info
-    })*/
 }
 
 const ask = (message, title = null, options = {}) => {
@@ -83,11 +51,26 @@ const ask = (message, title = null, options = {}) => {
     })
 }
 
+const attemptLeft = error => {
+    if(error === '1attempt_left') warn('Oops! You entered the wrong information. You only have 1 attempt left.')
+    else if(error === '2attempt_left') warn('Oops! You entered the wrong information. You only have 2 attempts left')
+    else if(error === 'reacth_maximum_attempts' || error === 'block_account_1day') {
+        warn(
+            `Your account will be blocked for 24 hours. Please contact our Customer Care for assistance.
+            
+            Smart  :0947-999-0037
+            Globe  :0917-871-2973`,
+            null
+        )
+    }
+}
+
 export default {
     some,
     ok,
     warn,
     err,
     info,
-    ask
+    ask,
+    attemptLeft
 }
