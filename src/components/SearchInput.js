@@ -7,5 +7,6 @@ export default props => (
         placeholder={props.placeholder || _('85')}
         onChangeText={props.onChangeText}
         value={props.value}
+        autoCorrect={false}
     />
 )
