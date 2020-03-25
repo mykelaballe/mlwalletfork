@@ -91,11 +91,10 @@ class Scrn extends React.Component {
                 const {error,error_description} = res
                 
                 if(error) {
-                    if(error === '1attempt_left') Say.warn(error_description)
-                    else if(error === '2attempt_left') Say.warn(error_description)
-                    else if(error === 'reach_maximum_attempts') Say.warn(error_description)
+                    if(error === '1attempt_left') Say.warn('Oops! You entered the wrong information. You only have 1 attempt left.')
+                    else if(error === '2attempt_left') Say.warn('Oops! You entered the wrong information. You only have 2 attempts left')
+                    else if(error === 'reach_maximum_attempts' || error === 'block_account_1day') Say.warn('Your account will be blocked for 24 hours. Please contact our Customer Care for assistance')
                     else if(error === 'block_account') Say.warn(error_description)
-                    else if(error === 'block_account_1day') Say.warn(error_description)
                     else if(error === 'invalid_grant' || error === 'username_notexists' || error === 'wrong_password') {
                         Say.warn(_('72'))
                     }
@@ -108,7 +107,6 @@ class Scrn extends React.Component {
                                 onConfirm:() => Linking.openURL(Consts.storeListingUrl)
                             }
                         )
-                        //Say.warn(error_description)
                     }
                     else if(error === 'registered_anotherdevice') {
 
@@ -168,12 +166,11 @@ class Scrn extends React.Component {
         const {username, walletno} = this.state
 
         this.props.navigation.navigate('SecurityQuestion',{
-            purpose:'updateDevice',
             walletno,
             username,
             steps:[
                 'registered',
-                //'personal',
+                'personal',
                 //'transactional'
             ],
             func:async () => {
@@ -182,7 +179,7 @@ class Scrn extends React.Component {
                 })
                 
                 if(!res.error) {
-                    Say.ok('New device successfully registered')
+                    Say.ok('Success! You can now access your ML Wallet account in this device')
                     this.props.navigation.navigate('Login')
                 }
                 else {

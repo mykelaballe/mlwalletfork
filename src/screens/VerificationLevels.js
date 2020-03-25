@@ -24,38 +24,52 @@ class Scrn extends React.Component {
         try {
             list = [
                 {
-                    feature:'Receive Money Limit',
+                    feature:'Add Money',
                     semi_verified:{
                         value:'PHP 10,000 Monthly'
                     },
                     verified:{
                         value:'PHP 200,000',
+                        note:'PHP 50,000 per transaction'
                     },
                     sme:{
                         value:''
                     }
                 },
                 {
-                    feature:'Pay Bills Limit',
+                    feature:'Receive Money',
                     semi_verified:{
                         value:'PHP 10,000 Monthly'
                     },
                     verified:{
                         value:'PHP 200,000',
-                        note:'25,000-50,000 limit per transaction'
+                        note:'PHP 50,000 per transaction'
                     },
                     sme:{
                         value:''
                     }
                 },
                 {
-                    feature:'Withdraw Cash Limit',
+                    feature:'Pay Bills',
                     semi_verified:{
                         value:'PHP 10,000 Monthly'
                     },
                     verified:{
-                        value:'PHP 40,000',
-                        note:'per day transaction'
+                        value:'PHP 200,000',
+                        note:'PHP 25,000-50,000 per transaction'
+                    },
+                    sme:{
+                        value:''
+                    }
+                },
+                {
+                    feature:'Withdraw Money',
+                    semi_verified:{
+                        value:'PHP 10,000 Monthly'
+                    },
+                    verified:{
+                        value:'PHP 200,000',
+                        note:'PHP 40,000 per transaction'
                     },
                     sme:{
                         value:'Coming Soon'
@@ -68,14 +82,26 @@ class Scrn extends React.Component {
                     },
                     verified:{
                         value:'PHP 200,000',
-                        note:'50,000 limit per transaction'
+                        note:'PHP 50,000 per transaction'
                     },
                     sme:{
                         value:''
                     }
                 },
                 {
-                    feature:'Buy Load',
+                    feature:'Buy eLoad',
+                    semi_verified:{
+                        value:'PHP 10,000 Monthly'
+                    },
+                    verified:{
+                        value:'PHP 200,000',
+                    },
+                    sme:{
+                        value:''
+                    }
+                },
+                {
+                    feature:'Buy Items',
                     semi_verified:{
                         value:'PHP 10,000 Monthly'
                     },
