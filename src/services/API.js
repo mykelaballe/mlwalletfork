@@ -89,6 +89,14 @@ export default {
     updateDevice: async payload => await Fetch.put('updateDevice',{username:payload.username, deviceid:Consts.deviceId}),
 
     validateUsername: async username => {
+        /*return {
+            error:false,
+            data:{
+                secquestion1:'one',
+                secquestion2:'two',
+                secquestion3:'three'
+            }
+        }*/
         return await Fetch.post('validateUsername',{username})
     },
 

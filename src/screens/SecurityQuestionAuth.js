@@ -121,7 +121,7 @@ export default class Scrn extends React.Component {
         if(params.questions && type === 'registered') {
             let n = Math.floor(Math.random() * (questions.length - 2))
             let q = questions.splice(n,1)
-            questions.push(q)
+            questions.push(q[0])
             this.setState({
                 questions,
                 question:questions[n]
