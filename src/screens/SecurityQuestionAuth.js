@@ -81,7 +81,7 @@ export default class Scrn extends React.Component {
 
                 let securityRes = await API.validateSecurityQuestion(payload)
 
-                if(securityRes.error) Say.attemptLeft(securityRes.message)
+                if(securityRes.error) Say.warn(securityRes.message)
                 else {
                     if(params.steps) {
 
