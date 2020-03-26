@@ -38,16 +38,14 @@ class Scrn extends React.Component {
             this.props.navigation.setParams({country:null})
             this.setState(prevState => ({
                 country:params.country,
-                province:'',
+                province:{
+                    province:'',
+                    provCode:''
+                },
                 city:'',
                 zipcode:''
             }))
         }
-
-        /*else if(params.region && params.region !== prevState.region) {
-            this.props.navigation.setParams({region:null})
-            this.setState({region:params.region})
-        }*/
 
         else if(params.province && params.province.province !== prevState.province.province) {
             this.props.navigation.setParams({province:null})
@@ -118,7 +116,7 @@ class Scrn extends React.Component {
             zipcode = zipcode.trim()
 
             if(!sourceofincome) Say.some(_('8'))
-            else if(country === Consts.country.PH && !province && !city && !zipcode) Say.some(_('8'))
+            else if(country == Consts.country.PH && (!province.province || !city || !barangay || !zipcode)) Say.some(_('8'))
             else {
 
                 let payload = {
@@ -140,9 +138,7 @@ class Scrn extends React.Component {
                     this.props.updateInfo(payload)
                     Say.ok('Details updated')
                 }
-                else {
-                    Say.warn(res.message)
-                }
+                else Say.warn(res.message)
             }
         }
         catch(err) {
@@ -155,10 +151,10 @@ class Scrn extends React.Component {
     render() {
 
         const {nationality, sourceofincome, country, province, city, barangay, houseno, street, zipcode, processing} = this.state
-        let ready = false
+        let ready = true
 
-        if(barangay && sourceofincome) ready = true
-        if(country === Consts.country.PH && (!province || !city || !barangay || !zipcode)) ready = false
+        if(!sourceofincome) ready = false
+        if(country == Consts.country.PH && (!province.province || !city || !barangay || !zip_code)) ready = false
 
         return (
             <>
@@ -196,18 +192,18 @@ class Scrn extends React.Component {
                             value={city}
                             onPress={this.handleSelectCity}
                         />
+
+                        <TextInput
+                            ref='barangay'
+                            label={'Barangay'}
+                            value={barangay}
+                            onChangeText={this.handleChangeBarangay}
+                            onSubmitEditing={this.handleFocusStreet}
+                            autoCapitalize='words'
+                            returnKeyType='next'
+                        />
                     </>
                     }
-
-                    <TextInput
-                        ref='barangay'
-                        label={'Barangay'}
-                        value={barangay}
-                        onChangeText={this.handleChangeBarangay}
-                        onSubmitEditing={this.handleFocusStreet}
-                        autoCapitalize='words'
-                        returnKeyType='next'
-                    />
 
                     <TextInput
                         ref='street'

@@ -1,7 +1,7 @@
 import React from 'react'
 import {TouchableOpacity} from 'react-native'
 import {Screen, Footer, Headline, Text, Button, Spacer, Row, Checkbox, TextInput, DynamicStaticInput, StaticInput, SignUpStepsTracker, Radio, MonthPicker, DayPicker, YearPicker, Picker} from '../components'
-import {_, Say} from '../utils'
+import {_, Say, Consts} from '../utils'
 import {Metrics} from '../themes'
 import {Provider, RadioButton} from 'react-native-paper'
 
@@ -44,16 +44,14 @@ export default class Scrn extends React.Component {
             this.props.navigation.setParams({country:null})
             this.setState({
                 country:params.country,
-                province:'',
+                province:{
+                    province:'',
+                    provCode:''
+                },
                 city:'',
                 zip_code:''
             })
         }
-
-        /*else if(params.region && params.region !== prevState.region) {
-            this.props.navigation.setParams({region:null})
-            this.setState({region:params.region})
-        }*/
 
         else if(params.province && params.province.province !== prevState.province.province) {
             this.props.navigation.setParams({province:null})
@@ -158,11 +156,6 @@ export default class Scrn extends React.Component {
         navigate('Countries',{sourceRoute:state.routeName})
     }
 
-    handleSelectRegion = () => {
-        const {state, navigate} = this.props.navigation
-        navigate('Regions',{sourceRoute:state.routeName})
-    }
-
     handleSelectProvince = () => {
         const {state, navigate} = this.props.navigation
         navigate('Provinces',{sourceRoute:state.routeName, country:this.state.country})
@@ -192,7 +185,7 @@ export default class Scrn extends React.Component {
     handleToggleEdit = () => this.setState(prevState => ({editable:!prevState.editable}))
 
     handleSubmit = async () => {
-        let {firstname, middlename, lastname, suffix, other_suffix, bday_month, bday_day, bday_year, gender, email, nationality, source_of_income, house, street, region, country, province, city, barangay, zip_code, question1, answer1, question2, answer2, question3, answer3} = this.state
+        let {firstname, middlename, lastname, suffix, other_suffix, bday_month, bday_day, bday_year, gender, email, nationality, source_of_income, house, street, country, province, city, barangay, zip_code, question1, answer1, question2, answer2, question3, answer3} = this.state
 
         try {
             firstname = firstname.trim()
@@ -209,7 +202,8 @@ export default class Scrn extends React.Component {
 
             suffix = other_suffix || suffix
 
-            if(!firstname || !middlename || !lastname || !bday_day || !source_of_income || !barangay || !zip_code) Say.some(_('8'))
+            if(!firstname || !middlename || !lastname || !bday_day || !source_of_income) Say.some(_('8'))
+            else if(country == Consts.country.PH && (!province.province || !city || !barangay || !zip_code)) Say.some(_('8'))
             else {
                 this.props.navigation.navigate('SignUpVerificationMobile',{
                     ...this.props.navigation.state.params,
@@ -225,7 +219,6 @@ export default class Scrn extends React.Component {
                     house,
                     street,
                     country,
-                    region,
                     province:province.province,
                     city,
                     barangay,
@@ -247,14 +240,17 @@ export default class Scrn extends React.Component {
     render() {  
 
         const {firstname, middlename, has_middlename, lastname, suffix, other_suffix, has_suffix, suffix_options, bday_month, bday_day, bday_year, gender, email, nationality, source_of_income,
-            country, region, province, city, barangay, house, street, zip_code, editable, showMonthPicker, showDayPicker, showYearPicker, agree, processing} = this.state
+            country, province, city, barangay, house, street, zip_code, editable, showMonthPicker, showDayPicker, showYearPicker, agree, processing} = this.state
 
-        let ready = false
+        let ready = true
 
         if(firstname && middlename && lastname && suffix && bday_day && nationality && source_of_income && barangay && zip_code && agree) {
             ready = true
         }
 
+        if(!firstname || !middlename || !lastname || !suffix || !bday_day || !source_of_income || !agree) ready = false
+
+        if(country == Consts.country.PH && (!province.province || !city || !barangay || !zip_code)) ready = false
 
 
         return (
@@ -408,12 +404,6 @@ export default class Scrn extends React.Component {
                             value={country}
                             onPress={this.handleSelectCountry}
                         />
-
-                        {/*<StaticInput
-                            label='Region'
-                            value={region}
-                            onPress={this.handleSelectRegion}
-                        />*/}
 
                         <StaticInput
                             label='Province'

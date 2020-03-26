@@ -28,7 +28,10 @@ export default class Scrn extends React.Component {
             this.props.navigation.setParams({country:null})
             this.setState({
                 country:params.country,
-                province:'',
+                province:{
+                    province:'',
+                    provCode:''
+                },
                 city:'',
                 zip_code:''
             })
@@ -117,7 +120,6 @@ export default class Scrn extends React.Component {
         const {house, street, country, province, city, barangay, zip_code, processing} = this.state
         let ready = true
 
-        //if(country && province && city && barangay && zip_code) ready = true
         if(country == Consts.country.PH && (!province.province || !city || !barangay || !zip_code)) ready = false
 
         return (
