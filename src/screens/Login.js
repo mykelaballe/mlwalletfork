@@ -98,7 +98,7 @@ class Scrn extends React.Component {
                     else if(error === 'invalid_grant' || error === 'username_notexists' || error === 'wrong_password') {
                         Say.warn(_('72'))
                     }
-                    if(error === 'version_outofdate') {
+                    else if(error === 'version_outofdate') {
                         Say.warn(
                             'Please install the latest version of the app',
                             'Version Out of date',
