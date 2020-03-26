@@ -67,7 +67,7 @@ class Scrn extends React.Component {
                 if(res.error) {
                     Say.attemptLeft(res.message)
                     
-                    if(res.message == Consts.error.blk1day) this.props.logout()
+                    if(res.message == Consts.error.blk1d) this.props.logout()
                 }
                 else {
                     this.setState({
