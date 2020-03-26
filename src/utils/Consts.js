@@ -33,6 +33,12 @@ export default {
 	country: {
 		PH:'Philippines'
 	},
+	error: {
+		atl1:'1attempt_left',
+		atl2:'2attempt_left',
+		blk1d:'block_account_1day',
+		blk:'block_account'
+	},
 	tcn: {
 		stw: {
 			code:'stw',

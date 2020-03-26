@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Creators} from '../actions'
 import {Screen, Footer, Button, ButtonText, TextInput, Errors} from '../components'
 import {Colors} from '../themes'
 import {_, Say, Func, Consts} from '../utils'
@@ -67,7 +68,11 @@ class Scrn extends React.Component {
 
                     let res = await API.changePassword(payload)
 
-                    if(res.error) Say.attemptLeft(res.message)
+                    if(res.error) {
+                        Say.attemptLeft(res.message)
+
+                        if(res.message == Consts.error.blk1day) this.props.logout()
+                    }
                     else {
                         errors = []
                         this.setState({
@@ -160,4 +165,8 @@ const mapStateToProps = state => ({
     user:state.user.data
 })
 
-export default connect(mapStateToProps)(Scrn)
+const mapDispatchToProps = dispatch => ({
+    logout: () => dispatch(Creators.logout())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

@@ -1,4 +1,5 @@
 import SomeModal from '../components/SomeModal'
+import Consts from './Consts'
 
 const some = (message, title = null, options = {}) => {
     SomeModal.show({
@@ -52,9 +53,9 @@ const ask = (message, title = null, options = {}) => {
 }
 
 const attemptLeft = error => {
-    if(error === '1attempt_left') warn('Oops! You entered the wrong information. You only have 1 attempt left.')
-    else if(error === '2attempt_left') warn('Oops! You entered the wrong information. You only have 2 attempts left')
-    else if(error === 'reach_maximum_attempts' || error === 'block_account_1day') {
+    if(error === Consts.error.atl1) warn('Oops! You entered the wrong information. You only have 1 attempt left.')
+    else if(error === Consts.error.atl2) warn('Oops! You entered the wrong information. You only have 2 attempts left')
+    else if(error === 'reach_maximum_attempts' || error === Consts.error.blk1d) {
         warn(
             `Your account will be blocked for 24 hours. Please contact our Customer Care for assistance.
             

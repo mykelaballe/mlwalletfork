@@ -24,8 +24,6 @@ const touchIDConfig = {
 
 class Scrn extends React.Component {
 
-    //quinyolxd24 : yoltorres1!
-
     state = {
         walletno:null,
         username:'jones2020',
@@ -93,8 +91,10 @@ class Scrn extends React.Component {
                 const {error,error_description} = res
                 
                 if(error) {
-                    if(['1attempt_left', '2attempt_left', 'reach_maximum_attempts', 'block_account_1day'].indexOf(error) >= 0) Say.attemptLeft(error)
-                    else if(error === 'block_account') Say.warn(error_description)
+                    if([Consts.error.atl1, Consts.error.atl2, 'reach_maximum_attempts', Consts.error.blk1d].indexOf(error) >= 0) {
+                        Say.attemptLeft(error)
+                    }
+                    else if(error === Consts.error.blk) Say.warn(error_description)
                     else if(error === 'invalid_grant' || error === 'username_notexists' || error === 'wrong_password') {
                         Say.warn(_('72'))
                     }
