@@ -77,15 +77,11 @@ export default class Scrn extends React.Component {
 
     handleChangeBarangay = barangay => this.setState({barangay})
 
-    handleChangeZipCode = zip_code => this.setState({zip_code})
-
     handleFocusBarangay = () => this.refs.barangay.focus()
 
     handleFocusStreet = () => this.refs.street.focus()
 
     handleFocusHouse = () => this.refs.house.focus()
-
-    handleFocusZipCode = () => this.refs.zip_code.focus()
 
     handleSubmit = async () => {
         let {house, street, country, province, city, barangay, zip_code} = this.state
@@ -174,18 +170,13 @@ export default class Scrn extends React.Component {
                         label={'House/Unit/Floor #, Bldg Name, Block or Lot #'}
                         value={house}
                         onChangeText={this.handleChangeHouse}
-                        onSubmitEditing={this.handleFocusZipCode}
                         autoCapitalize='none'
-                        returnKeyType='next'
                     />
 
                     {country == Consts.country.PH &&
-                    <TextInput
-                        ref='zip_code'
-                        label={'Zip Code'}
+                    <StaticInput
+                        label='Zip Code'
                         value={zip_code}
-                        onChangeText={this.handleChangeZipCode}
-                        keyboardType='numeric'
                     />
                     }
                 </Screen>

@@ -85,8 +85,6 @@ class Scrn extends React.Component {
 
     handleChangeStreet = street => this.setState({street})
 
-    handleChangeZipCode = zipcode => this.setState({zipcode})
-
     handleSelectSourceOfIncome = () => {
         const {state, navigate} = this.props.navigation
         navigate('SourceOfIncome',{sourceRoute:state.routeName})
@@ -97,8 +95,6 @@ class Scrn extends React.Component {
     handleFocusStreet = () => this.refs.street.focus()
 
     handleFocusHouse = () => this.refs.houseno.focus()
-
-    handleFocusZipCode = () => this.refs.zip_code.focus()
 
     handleSubmit = async () => {
         try {
@@ -219,18 +215,13 @@ class Scrn extends React.Component {
                         label={'House/Unit/Floor #, Bldg Name, Block or Lot #'}
                         value={houseno}
                         onChangeText={this.handleChangeHouse}
-                        onSubmitEditing={this.handleFocusZipCode}
                         autoCapitalize='none'
-                        returnKeyType='next'
                     />
 
                     {country === Consts.country.PH &&
-                    <TextInput
-                        ref='zip_code'
-                        label={'Zip Code'}
+                    <StaticInput
+                        label='Zip Code'
                         value={zipcode}
-                        onChangeText={this.handleChangeZipCode}
-                        keyboardType='numeric'
                     />
                     }
                 </Screen>

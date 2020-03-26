@@ -168,15 +168,11 @@ export default class Scrn extends React.Component {
 
     handleChangeBarangay = barangay => this.setState({barangay})
 
-    handleChangeZipCode = zip_code => this.setState({zip_code})
-
     handleFocusBarangay = () => this.refs.barangay.focus()
 
     handleFocusStreet = () => this.refs.street.focus()
 
     handleFocusHouse = () => this.refs.house.focus()
-
-    handleFocusZipCode = () => this.refs.zip_code.focus()
 
     handleViewTerms = () => this.props.navigation.navigate('TermsAndConditions')
 
@@ -446,13 +442,12 @@ export default class Scrn extends React.Component {
                             returnKeyType='next'
                         />
 
-                        <TextInput
-                            ref='zip_code'
-                            label={'Zip Code'}
+                        {country === Consts.country.PH &&
+                        <StaticInput
+                            label='Zip Code'
                             value={zip_code}
-                            onChangeText={this.handleChangeZipCode}
-                            keyboardType='numeric'
                         />
+                        }
                     </>
                     }
                 </Screen>
