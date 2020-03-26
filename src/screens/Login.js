@@ -123,7 +123,7 @@ class Scrn extends React.Component {
                             }
                         )
                     }
-                    else if(error === 'server_error') throw new Error()
+                    else if(error === 'server_error') Say.err(_('500'))
                 }
                 else {
                     if(res.isresetpass === '1') {
