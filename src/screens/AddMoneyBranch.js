@@ -21,12 +21,12 @@ class Scrn extends React.Component {
 
         return (
             <Screen>
-                <Headline subtext='To deposit money to your account, go to the nearest M Lhuillier branch.' />
+                <Headline subtext={`To add money to your account, go to the nearest\nM Lhuillier branch.`} />
                 
                 <View style={{padding:Metrics.xl}}>
-                    <Button mode='outlined' t='Deposit using QR Code' onPress={this.handleUseQR} />
+                    <Button mode='outlined' t='My QR Code' onPress={this.handleUseQR} />
                     <Spacer />
-                    <Button mode='outlined' t='Fill-up Form' onPress={this.handleUseForm} />
+                    <Button mode='outlined' t='Fill up Form' onPress={this.handleUseForm} />
 
                     <Spacer xl />
 

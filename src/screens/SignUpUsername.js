@@ -11,12 +11,13 @@ const CRITERIA = {
 export default class Scrn extends React.Component {
 
     state = {
-        username:'',
+        username:'peter2020',
+        error:false,
         username_errors:[],
         processing:false
     }
 
-    handleChangeUsername = username => this.setState({username})
+    handleChangeUsername = username => this.setState({username,error:false})
 
     handleSubmit = async () => {
 
@@ -42,11 +43,15 @@ export default class Scrn extends React.Component {
 
                     if(!res.error) Say.some('Username already taken')
                     else {
-                        this.props.navigation.navigate('SignUpPassword',{username})
+                        let payload = {
+                            username
+                        }
+                        this.props.navigation.navigate('SignUpPassword',{payload})
                     }
                 }
                 else {
-                    Say.warn('Invalid format')
+                    //Say.warn('Invalid format')
+                    this.setState({error:true})
                 }
             }
         }
@@ -59,7 +64,7 @@ export default class Scrn extends React.Component {
 
     render() {
 
-        const {username, username_errors, processing} = this.state
+        const {username, error, username_errors, processing} = this.state
         let ready = false
 
         if(username) ready = true
@@ -70,13 +75,14 @@ export default class Scrn extends React.Component {
                     
                     <Headline
                         title='Registration'
-                        subtext='To start, create your own desired username. Make it as unique as possible.'
+                        subtext='To start, create your desired username. Make it as unique as possible.'
                     />
 
                     <TextInput
                         ref='username'
                         label={_('1')}
                         value={username}
+                        error={error}
                         onChangeText={this.handleChangeUsername}
                         autoCapitalize='none'
                     />

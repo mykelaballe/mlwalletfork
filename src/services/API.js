@@ -13,7 +13,7 @@ import ELoad from './endpoints/ELoad'
 import OTP from './endpoints/OTP'
 import PIN from './endpoints/PIN'
 import User from './endpoints/User'
-
+//your mobile number has been successfully updated
 export default {
     login: async payload => {
         /*return {
@@ -61,7 +61,10 @@ export default {
         })
 
         if(res.access_token) {
-            await Storage.doSave(Consts.db.user, res)
+            await Storage.doSave(Consts.db.user, {
+                ...res,
+                balance:'50000'
+            })
         }
 
         return res

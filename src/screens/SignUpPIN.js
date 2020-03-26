@@ -2,24 +2,25 @@ import React from 'react'
 import {StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Screen, Footer, Headline, Button, TextInputFlat, Row, SignUpStepsTracker} from '../components'
+import {Screen, Footer, Headline, Button, TextInputFlat, Row, Text, SignUpStepsTracker} from '../components'
 import {Metrics} from '../themes'
 import {_, Say} from '../utils'
 import {API} from '../services'
 
 class Scrn extends React.Component {
 
-    static navigationOptions = {
+    /*static navigationOptions = {
         title:'Transaction PIN'
-    }
+        header:null
+    }*/
 
     state = {
-        digit1:'',
-        digit2:'',
-        digit3:'',
-        digit4:'',
-        digit5:'',
-        digit6:'',
+        digit1:'1',
+        digit2:'1',
+        digit3:'1',
+        digit4:'1',
+        digit5:'1',
+        digit6:'1',
         processing:false
     }
 
@@ -80,7 +81,11 @@ class Scrn extends React.Component {
                     pincode:pin
                 }
 
-                let res = await API.register(payload)
+                this.props.navigation.replace('SignUpStep1',{
+                    ...payload
+                })
+
+                /*let res = await API.register(payload)
 
                 if(!res.error) {
                     this.props.navigation.replace('SignUpSuccess',{
@@ -90,7 +95,7 @@ class Scrn extends React.Component {
                 }
                 else {
                     Say.warn(res.message)
-                }
+                }*/
             }
         }
         catch(err) {
@@ -113,9 +118,14 @@ class Scrn extends React.Component {
             <>
                 <Screen>
 
-                    <SignUpStepsTracker step={5} />
+                    {/*<SignUpStepsTracker step={5} />*/}
 
-                    <Headline subtext='Create your own 6-digit Transaction PIN' />
+                    <Headline
+                        title='Registration'
+                        subtext='Create 6-digit Transaction PIN'
+                    />
+
+                    <Text center mute>This PIN will be asked everytime you do a transaction</Text>
 
                     <Row ar style={{paddingHorizontal:Metrics.lg}}>
                         <TextInputFlat

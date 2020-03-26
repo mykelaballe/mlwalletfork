@@ -7,8 +7,8 @@ import {TextInput as TxtInput} from 'react-native-paper'
 export default React.forwardRef((props, ref) => (
     <>
         <Row style={{
-            borderWidth:StyleSheet.hairlineWidth,
-            borderColor:Colors.lightgray,
+            borderWidth:props.error ? 2 : StyleSheet.hairlineWidth,
+            borderColor:props.error ? Colors.brand : Colors.lightgray,
             borderRadius:Metrics.sm,
             marginVertical:Metrics.sm,
             //height:props.multiline ? undefined : 63,

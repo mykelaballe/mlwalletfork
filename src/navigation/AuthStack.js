@@ -28,7 +28,10 @@ export default createStackNavigator({
     SignUpReview: Scrn.SignUpReviewScrn,
     SignUpVerificationMobile: Scrn.SignUpVerificationMobileScrn,
     SignUpVerificationOTP: Scrn.SignUpVerificationOTPScrn,
-    SignUpPIN: Scrn.SignUpPINScrn,
+    SignUpPIN: {
+        screen:Scrn.SignUpPINScrn,
+        navigationOptions:AppStyles.noHeaderNavigationOptions
+    },
     SignUpSuccess: Scrn.SignUpSuccessScrn,
     ForgotPassword: {
         screen:Scrn.ForgotPasswordScrn,

@@ -9,14 +9,16 @@ const moment = require('moment')
 class Scrn extends React.Component {
 
     static navigationOptions = {
-        title:'Personal Info'
+        title:'Personal Information'
     }
 
     state = {
-        firstname:'',
-        middlename:'',
+        firstname:'Peter',
+        error_firstname:false,
+        middlename:'Jones',
         has_middlename:true,
-        lastname:'',
+        lastname:'Armstrong',
+        error_lastname:false,
         suffix:'NONE',
         other_suffix:'',
         has_suffix:false,
@@ -30,13 +32,13 @@ class Scrn extends React.Component {
             {label:'V'},
             {label:'Others'}
         ],
-        bday_month:'',
-        bday_day:'',
-        bday_year:'',
+        bday_month:'1',
+        bday_day:'1',
+        bday_year:'2000',
         gender:'Male',
         email:'',
         nationality:'Filipino',
-        source_of_income:'',
+        source_of_income:'Gift',
         showMonthPicker:false,
         showDayPicker:false,
         showYearPicker:false,
@@ -56,7 +58,7 @@ class Scrn extends React.Component {
         }
     }
 
-    handleChangeFirstname = firstname => this.setState({firstname})
+    handleChangeFirstname = firstname => this.setState({firstname,error_firstname:false})
 
     handleChangeMiddlename = middlename => this.setState({middlename})
 
@@ -67,7 +69,7 @@ class Scrn extends React.Component {
         }))
     }
 
-    handleChangeLastname = lastname => this.setState({lastname})
+    handleChangeLastname = lastname => this.setState({lastname,error_lastname:false})
 
     handleChangeSuffix = (option = {}) => this.setState({suffix:option.label})
 
@@ -108,8 +110,6 @@ class Scrn extends React.Component {
         navigate('SourceOfIncome',{sourceRoute:state.routeName})
     }
 
-    //handleChangeSourceOfIncome = source_of_income => this.setState({source_of_income})
-
     handleFocusMiddlename = () => this.state.has_middlename ? this.refs.middlename.focus() : this.refs.lastname.focus()
 
     handleFocusLastname = () => this.refs.lastname.focus()
@@ -141,7 +141,11 @@ class Scrn extends React.Component {
 
             suffix = other_suffix || suffix
 
-            if(!firstname || !middlename || !lastname || !suffix || !source_of_income) Say.some(_('8'))
+            if(!firstname || !middlename || !lastname || !suffix || !bday_month || !bday_day || !bday_year || !source_of_income) {
+                if(!firstname) this.setState({error_firstname:true})
+                if(!lastname) this.setState({error_lastname:true})
+                Say.some('Fill-out missing fields to proceed')
+            }
             else {
                 this.props.navigation.navigate('SignUpStep2',{
                     ...this.props.navigation.state.params,
@@ -170,12 +174,13 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {firstname, middlename, has_middlename, lastname, suffix, other_suffix, has_suffix, suffix_options, bday_month, bday_day, bday_year, gender, email, nationality, source_of_income, showMonthPicker, showDayPicker, showYearPicker, processing} = this.state
-        let ready = false
+        const {firstname, error_firstname, middlename, has_middlename, lastname, error_lastname, suffix, other_suffix, has_suffix, suffix_options, bday_month, bday_day, bday_year, gender, email, nationality, source_of_income, showMonthPicker, showDayPicker, showYearPicker, processing} = this.state
+        //let ready = false
+        let ready = true
 
-        if(firstname && middlename && lastname && suffix && bday_month && bday_day && bday_year && nationality && source_of_income) {
+        /*if(firstname && middlename && lastname && suffix && bday_month && bday_day && bday_year && nationality && source_of_income) {
             ready = true
-        }
+        }*/
 
         return (
             <Provider>
@@ -183,12 +188,13 @@ class Scrn extends React.Component {
                     
                     <SignUpStepsTracker step={1} />
 
-                    <Headline subtext='Enter your complete personal details for your account' />
+                    <Headline subtext='Enter your complete, personal details below' />
 
                     <TextInput
                         ref='firstname'
                         label={'First Name'}
                         value={firstname}
+                        error={error_firstname}
                         onChangeText={this.handleChangeFirstname}
                         onSubmitEditing={this.handleFocusMiddlename}
                         autoCapitalize='words'
@@ -217,6 +223,7 @@ class Scrn extends React.Component {
                         ref='lastname'
                         label={'Last Name'}
                         value={lastname}
+                        error={error_lastname}
                         onChangeText={this.handleChangeLastname}
                         onSubmitEditing={this.handleFocusEmail}
                         autoCapitalize='words'
@@ -288,7 +295,7 @@ class Scrn extends React.Component {
 
                     <TextInput
                         ref='email'
-                        label={'Email address (optional)'}
+                        label={'Email address'}
                         value={email}
                         onChangeText={this.handleChangeEmail}
                         autoCapitalize='none'

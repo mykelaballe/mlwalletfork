@@ -1,13 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Screen, Spacer, Headline, Text, View} from '../components'
-import {_, Say} from '../utils'
+import {_, Say, Func} from '../utils'
 import {Metrics} from '../themes'
 
 class Scrn extends React.Component {
 
     static navigationOptions = {
-        title:'Deposit Money'
+        title:'Add Money'
     }
 
     componentDidMount = () => {
@@ -19,26 +19,27 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {walletno, fname, mname, lname, suffix, barangay, city, province, country, mobile_no, email} = this.props.user
+        //const {walletno, fname, mname, lname, suffix, barangay, city, province, country, mobile_no, email} = this.props
+        const {user} = this.props
 
         return (
             <Screen>
                 <View style={{paddingHorizontal:Metrics.md}}>
                     <Headline title='Ask a teller for an ML Kwarta Padala form' size={Metrics.font.lg} />
 
-                    <Text center lg>Here are your account details:</Text>
+                    <Text center md>Here are your account details:</Text>
 
                     <Spacer xl />
 
-                    <Text center>{fname} {mname} {lname} {suffix}</Text>
+                    <Text center md>{Func.formatName(user)}</Text>
                     <Spacer sm />
-                    <Text center>Wallet Account Number: {walletno}</Text>
+                    <Text center md>Wallet Account Number: {user.walletno}</Text>
                     <Spacer sm />
-                    <Text center>{barangay}, {city}, {province}</Text>
+                    <Text center md>{Func.formatAddress(user)}</Text>
                     <Spacer sm />
-                    <Text center>{mobile_no}</Text>
+                    <Text center md>{user.mobile_no}</Text>
                     <Spacer sm />
-                    <Text center>{email}</Text>
+                    <Text center md>{user.emailaddress}</Text>
                 </View>
             </Screen>
         )

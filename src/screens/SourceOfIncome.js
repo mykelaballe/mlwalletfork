@@ -16,7 +16,7 @@ const ItemUI = props => (
 export default class Scrn extends React.Component {
 
     static navigationOptions = {
-        title:'Select Source of Income'
+        title:'Source of Income'
     }
 
     state = {

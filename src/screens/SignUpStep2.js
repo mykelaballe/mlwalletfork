@@ -11,14 +11,14 @@ export default class Scrn extends React.Component {
     state = {
         country:'Philippines',
         province:{
-            province:'',
-            provCode:''
+            province:'Cebu',
+            provCode:'111'
         },
-        city:'',
-        barangay:'',
+        city:'Talisay',
+        barangay:'Cansojong',
         street:'',
         house:'',
-        zip_code:'',
+        zip_code:'6000',
         processing:false
     }
 

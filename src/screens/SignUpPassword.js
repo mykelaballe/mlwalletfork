@@ -6,13 +6,14 @@ import {_, Say, Func, Consts} from '../utils'
 export default class Scrn extends React.Component {
 
     state = {
-        password:'',
-        confirm_password:'',
+        password:'p@ssword1',
+        confirm_password:'p@ssword1',
+        error:false,
         password_errors:[],
         processing:false
     }
 
-    handleChangePassword = password => this.setState({password})
+    handleChangePassword = password => this.setState({password,error:false})
 
     handleChangeConfirmPassword = confirm_password => this.setState({confirm_password})
 
@@ -43,13 +44,17 @@ export default class Scrn extends React.Component {
                 password_errors = passwordValidation.errors
                 
                 if(passwordValidation.ok) {
-                    this.props.navigation.navigate('SignUpStep1',{
-                        ...this.props.navigation.state.params,
+                    let payload = {
+                        ...this.props.navigation.state.params.payload,
                         password
+                    }
+                    this.props.navigation.navigate('SignUpPIN',{
+                        payload
                     })
                 }
                 else {
-                    Say.warn('Invalid format')
+                    //Say.warn('Invalid format')
+                    this.setState({error:true})
                 }
             }
         }
@@ -62,7 +67,7 @@ export default class Scrn extends React.Component {
 
     render() {
 
-        const {password, confirm_password, show_password, show_confirm_password, password_errors, processing} = this.state
+        const {password, confirm_password, error, show_password, show_confirm_password, password_errors, processing} = this.state
         let ready = false
 
         if(password && confirm_password) ready = true
@@ -80,6 +85,7 @@ export default class Scrn extends React.Component {
                         ref='password'
                         label={_('2')}
                         value={password}
+                        error={error}
                         onChangeText={this.handleChangePassword}
                         onSubmitEditing={this.handleFocusConfirmPassword}
                         secureTextEntry={show_password ? false : true}

@@ -10,7 +10,7 @@ export default class Scrn extends React.Component {
     }
 
     state = {
-        mobile_no:'',
+        mobile_no:'09326118146',
         processing:false
     }
 
@@ -35,7 +35,7 @@ export default class Scrn extends React.Component {
     
                 if(res.error) Say.warn(res.message)
                 else {
-                    Say.some('OTP request sent')
+                    Say.ok('Your OTP has been sent to your mobile number. Please check your inbox')
                     this.props.navigation.navigate('SignUpVerificationOTP',{
                         ...this.props.navigation.state.params,
                         mobile_no

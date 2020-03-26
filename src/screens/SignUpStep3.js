@@ -154,7 +154,7 @@ export default class Scrn extends React.Component {
         try {
             if(!profilepic) {
                 this.props.navigation.navigate('Camera',{
-                    title:'Profile Picture',
+                    title:'Live Photo',
                     sourceRoute
                 })
             }
