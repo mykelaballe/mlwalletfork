@@ -150,7 +150,7 @@ class Scrn extends React.Component {
         let ready = true
 
         if(!sourceofincome) ready = false
-        if(country == Consts.country.PH && (!province.province || !city || !barangay || !zip_code)) ready = false
+        if(country == Consts.country.PH && (!province.province || !city || !barangay || !zipcode)) ready = false
 
         return (
             <>
