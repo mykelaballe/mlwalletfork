@@ -37,7 +37,7 @@ class Scrn extends React.Component {
                     <Spacer sm />
                     <Text center md>{Func.formatAddress(user)}</Text>
                     <Spacer sm />
-                    <Text center md>{user.mobile_no}</Text>
+                    <Text center md>{user.mobileno}</Text>
                     <Spacer sm />
                     <Text center md>{user.emailaddress}</Text>
                 </View>

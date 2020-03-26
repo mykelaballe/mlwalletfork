@@ -6,6 +6,7 @@ export default {
     },
 
     requestUpdateProfile: async payload => {
+        //return {error:false}
         return await Fetch.post('send_wallet_request',{
             ...payload,
             reason:payload.reasons ? payload.reasons.join(';') : ''

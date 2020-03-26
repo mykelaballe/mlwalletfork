@@ -102,7 +102,6 @@ class Scrn extends React.Component {
             <>
                 <Screen>
                     <Headline
-                        title='Create your own password'
                         subtext='You are using a temporary password. You are required to change your password.'
                     />
 

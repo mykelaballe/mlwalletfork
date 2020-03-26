@@ -82,7 +82,7 @@ class Scrn extends React.Component {
 
             if(res.error) Say.warn(res.message)
             else {
-                Say.ok('Your OTP has been sent to your mobile number. Please check your inbox')
+                Say.ok(_('86'))
             }
         }
         catch(err) {

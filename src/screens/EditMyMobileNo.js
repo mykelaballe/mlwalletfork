@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Creators} from '../actions'
 import {Screen, Footer, Headline, TextInput, Button} from '../components'
 import {_, Say} from '../utils'
 import {API} from '../services'
@@ -11,25 +12,25 @@ class Scrn extends React.Component {
     }
 
     state = {
-        mobile_no:this.props.user.mobileno,
+        mobileno:this.props.user.mobileno,
         processing:false
     }
 
-    handleChangeMobileNo = mobile_no => this.setState({mobile_no})
+    handleChangeMobileNo = mobileno => this.setState({mobileno})
 
     handleSubmit = async () => {
         try {
             const {walletno, secquestion1, secquestion2, secquestion3} = this.props.user
             const {reasons} = this.props.navigation.state.params
-            let {mobile_no, processing} = this.state
+            let {mobileno, processing} = this.state
 
             if(processing) return false
 
             this.setState({processing:true})
 
-            mobile_no = mobile_no.trim()
+            mobileno = mobileno.trim()
 
-            if(!mobile_no) Say.some(_('8'))
+            if(!mobileno) Say.some(_('8'))
             else {
                 this.props.navigation.navigate('SecurityQuestion',{
                     walletno,
@@ -41,14 +42,15 @@ class Scrn extends React.Component {
                     func:async () => {
                         let res = await API.requestUpdateProfile({
                             walletno,
-                            mobile_no,
+                            mobile_no:mobileno,
                             reasons
                         })
         
                         if(res.error) Say.warn(res.message)
                         else {
+                            this.props.updateInfo({mobileno})
                             this.props.navigation.pop()
-                            Say.ok('Your request to change your mobile number has been sent for approval. We will get back to you soon!')
+                            Say.ok('Your mobile number has been successfully updated')
                         }
                     }
                 })
@@ -63,10 +65,10 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {mobile_no, processing} = this.state
+        const {mobileno, processing} = this.state
         let ready = false
 
-        if(mobile_no) ready = true
+        if(mobileno) ready = true
 
         return (
             <>
@@ -75,7 +77,7 @@ class Scrn extends React.Component {
 
                     <TextInput
                         label='Mobile No'
-                        value={mobile_no}
+                        value={mobileno}
                         onChangeText={this.handleChangeMobileNo}
                         keyboardType='numeric'
                     />
@@ -93,4 +95,8 @@ const mapStateToProps = state => ({
     user: state.user.data
 })
 
-export default connect(mapStateToProps)(Scrn)
+const mapDispatchToProps = dispatch => ({
+    updateInfo: newInfo => dispatch(Creators.updateUserInfo(newInfo))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

@@ -90,7 +90,7 @@ export default class Scrn extends React.Component {
 
     handleChangeLastname = lastname => this.setState({lastname})
 
-    handleChangeSuffix = (option = {}) => this.setState({suffix:option.label})
+    handleChangeSuffix = (option = {}) => this.setState({suffix:option.label || ''})
 
     handleChangeSuffixOthers = other_suffix => this.setState({other_suffix})
 
@@ -197,6 +197,8 @@ export default class Scrn extends React.Component {
             zip_code = zip_code.trim()
 
             suffix = other_suffix || suffix
+
+            if(suffix == 'Others') suffix = ''
 
             if(!firstname || !middlename || !lastname || !bday_day || !source_of_income) Say.some(_('8'))
             else if(country == Consts.country.PH && (!province.province || !city || !barangay || !zip_code)) Say.some(_('8'))

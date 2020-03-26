@@ -32,7 +32,7 @@ class Scrn extends React.Component {
                 gender
             })
 
-            if(res.error) Say.some(res.message)
+            if(res.error) Say.warn(res.message)
             else {
                 Say.ok('Your request to change your gender has been sent for approval. We will get back to you soon!')
             }

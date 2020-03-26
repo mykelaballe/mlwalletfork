@@ -45,7 +45,7 @@ class Scrn extends React.Component {
 
     handleChangeLastName = lname => this.setState({lname})
 
-    handleChangeSuffix = (option = {}) => this.setState({suffix:option.label})
+    handleChangeSuffix = (option = {}) => this.setState({suffix:option.label || ''})
 
     handleChangeSuffixOthers = other_suffix => this.setState({other_suffix})
 
@@ -78,6 +78,8 @@ class Scrn extends React.Component {
 
             suffix = other_suffix || suffix
 
+            if(suffix == 'Others') suffix = ''
+
             if(!fname || !mname || !lname || !suffix) Say.some(_('8'))
             else {
     
@@ -90,7 +92,7 @@ class Scrn extends React.Component {
                     reasons
                 })
 
-                if(res.error) Say.some(res.message)
+                if(res.error) Say.warn(res.message)
                 else {
                     Say.ok('Details updated')
                 }

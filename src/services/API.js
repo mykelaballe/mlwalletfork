@@ -13,7 +13,7 @@ import ELoad from './endpoints/ELoad'
 import OTP from './endpoints/OTP'
 import PIN from './endpoints/PIN'
 import User from './endpoints/User'
-//your mobile number has been successfully updated
+
 export default {
     login: async payload => {
         /*return {
@@ -61,10 +61,7 @@ export default {
         })
 
         if(res.access_token) {
-            await Storage.doSave(Consts.db.user, {
-                ...res,
-                balance:'50000'
-            })
+            await Storage.doSave(Consts.db.user, res)
         }
 
         return res
@@ -93,7 +90,7 @@ export default {
 
     validateUsername: async username => {
         /*return {
-            error:false,
+            error:true,
             data:{
                 walletno:'1234',
                 secquestion1:'one',
@@ -105,9 +102,7 @@ export default {
     },
 
     validateSecurityQuestion: async payload => {
-        /*return {
-            error:false
-        }*/
+        //return {error:false}
         if(payload.key) {
             return await Fetch.post('validate_answers',{
                 walletno:payload.wallet_no,

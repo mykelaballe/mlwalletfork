@@ -12,6 +12,7 @@ export default {
         bell_active:require('../res/icon/bell_active.png'),
         hamburger:require('../res/icon/hamburger.png'),
 
+        add_money:require('../res/icon/add_money.png'),
         send_money:require('../res/icon/send_money.png'),
         receive_money:require('../res/icon/receive_money.png'),
         withdraw_cash:require('../res/icon/withdraw_cash.png'),

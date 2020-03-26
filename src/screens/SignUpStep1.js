@@ -13,12 +13,10 @@ class Scrn extends React.Component {
     }
 
     state = {
-        firstname:'Peter',
-        error_firstname:false,
-        middlename:'Jones',
+        firstname:'',
+        middlename:'',
         has_middlename:true,
-        lastname:'Armstrong',
-        error_lastname:false,
+        lastname:'',
         suffix:'NONE',
         other_suffix:'',
         has_suffix:false,
@@ -32,17 +30,25 @@ class Scrn extends React.Component {
             {label:'V'},
             {label:'Others'}
         ],
-        bday_month:'1',
-        bday_day:'1',
-        bday_year:'2000',
+        bday_month:'',
+        bday_day:'',
+        bday_year:'',
         gender:'Male',
         email:'',
         nationality:'Filipino',
-        source_of_income:'Gift',
+        source_of_income:'',
         showMonthPicker:false,
         showDayPicker:false,
         showYearPicker:false,
-        processing:false
+        processing:false,
+        error_firstname:false,
+        error_middlename:false,
+        error_lastname:false,
+        error_suffix:false,
+        error_bday_month:false,
+        error_bday_day:false,
+        error_bday_year:false,
+        error_source_of_income:false
     }
 
     componentDidUpdate = (prevProps, prevState) => {
@@ -54,31 +60,36 @@ class Scrn extends React.Component {
 
         if(params.source_of_income && params.source_of_income !== prevState.source_of_income) {
             this.props.navigation.setParams({source_of_income:null})
-            this.setState({source_of_income:params.source_of_income})
+            this.setState({
+                source_of_income:params.source_of_income,
+                error_source_of_income:false
+            })
         }
     }
 
     handleChangeFirstname = firstname => this.setState({firstname,error_firstname:false})
 
-    handleChangeMiddlename = middlename => this.setState({middlename})
+    handleChangeMiddlename = middlename => this.setState({middlename,error_middlename:false})
 
     handleToggleHasMiddlename = () => {
         this.setState(prevState => ({
             middlename:prevState.has_middlename ? _('50') : '',
-            has_middlename:!prevState.has_middlename
+            has_middlename:!prevState.has_middlename,
+            error_middlename:false
         }))
     }
 
     handleChangeLastname = lastname => this.setState({lastname,error_lastname:false})
 
-    handleChangeSuffix = (option = {}) => this.setState({suffix:option.label})
+    handleChangeSuffix = (option = {}) => this.setState({suffix:option.label || '',error_suffix:false})
 
-    handleChangeSuffixOthers = other_suffix => this.setState({other_suffix})
+    handleChangeSuffixOthers = other_suffix => this.setState({other_suffix,error_suffix:false})
 
     handleToggleHasSuffix = () => {
         this.setState(prevState => ({
             suffix:prevState.has_suffix ? _('51') : '',
-            has_suffix:!prevState.has_suffix
+            has_suffix:!prevState.has_suffix,
+            error_suffix:false
         }))
     }
 
@@ -120,11 +131,11 @@ class Scrn extends React.Component {
 
     handleFocusSourceOfIncome = () => this.refs.source_of_income.focus()
 
-    handleSelectMonth = bday_month => this.setState({bday_month, bday_day:''})
+    handleSelectMonth = bday_month => this.setState({bday_month, bday_day:'', error_bday_month:false})
 
-    handleSelectDay = bday_day => this.setState({bday_day})
+    handleSelectDay = bday_day => this.setState({bday_day, error_bday_day:false})
 
-    handleSelectYear = bday_year => this.setState({bday_year})
+    handleSelectYear = bday_year => this.setState({bday_year, error_bday_year:false})
 
     handleSubmit = async () => {
         let {firstname, middlename, has_middlename, lastname, suffix, other_suffix, has_suffix, suffix_options, bday_month, bday_day, bday_year, gender, email, nationality, source_of_income} = this.state
@@ -141,9 +152,18 @@ class Scrn extends React.Component {
 
             suffix = other_suffix || suffix
 
+            if(suffix == 'Others') suffix = ''
+
             if(!firstname || !middlename || !lastname || !suffix || !bday_month || !bday_day || !bday_year || !source_of_income) {
                 if(!firstname) this.setState({error_firstname:true})
+                if(!middlename) this.setState({error_middlename:true})
                 if(!lastname) this.setState({error_lastname:true})
+                if(!suffix) this.setState({error_suffix:true})
+                if(!bday_month) this.setState({error_bday_month:true})
+                if(!bday_day) this.setState({error_bday_day:true})
+                if(!bday_year) this.setState({error_bday_year:true})
+                if(!source_of_income) this.setState({error_source_of_income:true})
+
                 Say.some('Fill-out missing fields to proceed')
             }
             else {
@@ -174,7 +194,8 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {firstname, error_firstname, middlename, has_middlename, lastname, error_lastname, suffix, other_suffix, has_suffix, suffix_options, bday_month, bday_day, bday_year, gender, email, nationality, source_of_income, showMonthPicker, showDayPicker, showYearPicker, processing} = this.state
+        const {firstname, middlename, has_middlename, lastname, suffix, other_suffix, has_suffix, suffix_options, bday_month, bday_day, bday_year, gender, email, nationality, source_of_income, showMonthPicker, showDayPicker, showYearPicker, processing} = this.state
+        const {error_firstname, error_middlename, error_lastname, error_suffix, error_bday_month, error_bday_day, error_bday_year, error_source_of_income} = this.state
         //let ready = false
         let ready = true
 
@@ -206,6 +227,7 @@ class Scrn extends React.Component {
                         editable={has_middlename}
                         label={'Middle Name'}
                         value={middlename}
+                        error={error_middlename}
                         onChangeText={this.handleChangeMiddlename}
                         onSubmitEditing={this.handleFocusLastname}
                         autoCapitalize='words'
@@ -233,6 +255,7 @@ class Scrn extends React.Component {
                     <Picker
                         editable={has_suffix}
                         selected={suffix}
+                        error={error_suffix}
                         items={suffix_options}
                         placeholder='Suffix'
                         onChoose={this.handleChangeSuffix}
@@ -261,6 +284,7 @@ class Scrn extends React.Component {
                         <StaticInput
                             label='Month'
                             value={bday_month ? moment(bday_month,'M').format('MMM') : null}
+                            error={error_bday_month}
                             onPress={this.handleChangeMonth}
                             style={{flex:2}}
                         />
@@ -268,6 +292,7 @@ class Scrn extends React.Component {
                         <StaticInput
                             label='Day'
                             value={bday_day}
+                            error={error_bday_day}
                             onPress={this.handleChangeDay}
                             style={{flex:1}}
                         />
@@ -275,6 +300,7 @@ class Scrn extends React.Component {
                         <StaticInput
                             label='Year'
                             value={bday_year}
+                            error={error_bday_year}
                             onPress={this.handleChangeYear}
                             style={{flex:1}}
                         />
@@ -311,6 +337,7 @@ class Scrn extends React.Component {
                     <StaticInput
                         label='Source of Income'
                         value={source_of_income}
+                        error={error_source_of_income}
                         onPress={this.handleSelectSourceOfIncome}
                     />
 

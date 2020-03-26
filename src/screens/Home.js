@@ -22,7 +22,7 @@ class Scrn extends React.Component {
     state = {
         services:[
             {
-                icon:'send_money',
+                icon:'add_money',
                 label:'Add\nMoney',
                 onPress:() => this.handleGoToAddMoney()
             },

@@ -23,12 +23,20 @@ export default class Picker extends React.Component {
     
     render() {
 
-        const {selected, items, placeholder, editable} = this.props
+        const {selected, items, placeholder, editable, error} = this.props
         const {visible} = this.state
         const value = selected && selected !== '' ? selected : null
 
+        let pickerStyle = {
+            borderWidth:error ? 2 : StyleSheet.hairlineWidth,
+            borderColor:error ? Colors.brand : Colors.lightgray,
+            borderRadius:Metrics.sm,
+            padding:Metrics.md,
+            marginVertical:Metrics.sm
+        }
+
         const pickerContent = (
-            <Row bw style={style.btn}>
+            <Row bw style={pickerStyle}>
                 <Text mute md>{value || placeholder}</Text>
                 {(!value || editable === false) && <Icon name='down' color={Colors.gray} />}
 
@@ -40,9 +48,7 @@ export default class Picker extends React.Component {
             </Row>
         )
 
-        if(typeof editable !== 'undefined' && editable === false) {
-            return pickerContent
-        }
+        if(typeof editable !== 'undefined' && editable === false) return pickerContent
 
         return (
             <Menu

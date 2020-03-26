@@ -56,7 +56,7 @@ class Scrn extends React.Component {
                 reasons
             })
 
-            if(res.error) Say.some(res.message)
+            if(res.error) Say.warn(res.message)
             else {
                 Say.ok('Your request to change your birthdate has been sent for approval. We will get back to you soon!')
             }

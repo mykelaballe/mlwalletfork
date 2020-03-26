@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Creators} from '../actions'
 import {Screen, Footer, Headline, TextInput, Button} from '../components'
 import {_, Say} from '../utils'
 import {API} from '../services'
@@ -11,25 +12,25 @@ class Scrn extends React.Component {
     }
 
     state = {
-        email:this.props.user.emailaddress,
+        emailaddress:this.props.user.emailaddress,
         processing:false
     }
 
-    handleChangeEmail = email => this.setState({email})
+    handleChangeEmail = emailaddress => this.setState({emailaddress})
 
     handleSubmit = async () => {
         try {
             const {walletno, secquestion1, secquestion2, secquestion3} = this.props.user
             const {reasons} = this.props.navigation.state.params
-            let {email, processing} = this.state
+            let {emailaddress, processing} = this.state
 
             if(processing) return false
 
             this.setState({processing:true})
 
-            email = email.trim()
+            emailaddress = emailaddress.trim()
 
-            if(!email) Say.some(_('8'))
+            if(!emailaddress) Say.some(_('8'))
             else {
                 this.props.navigation.navigate('SecurityQuestion',{
                     walletno,
@@ -41,14 +42,15 @@ class Scrn extends React.Component {
                     func:async () => {
                         let res = await API.requestUpdateProfile({
                             walletno,
-                            email,
+                            email:emailaddress,
                             reasons
                         })
         
                         if(res.error) Say.warn(res.message)
                         else {
+                            this.props.updateInfo({emailaddress})
                             this.props.navigation.pop()
-                            Say.ok('Your request to change your email address has been sent for approval. We will get back to you soon!')
+                            Say.ok('Your email has been successfully updated')
                         }
                     }
                 })
@@ -63,10 +65,10 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {email, processing} = this.state
+        const {emailaddress, processing} = this.state
         let ready = false
 
-        if(email) ready = true
+        if(emailaddress) ready = true
 
         return (
             <>
@@ -75,7 +77,7 @@ class Scrn extends React.Component {
 
                     <TextInput
                         label='Email'
-                        value={email}
+                        value={emailaddress}
                         onChangeText={this.handleChangeEmail}
                         autoCapitalize='none'
                         keyboardType='email-address'
@@ -94,4 +96,8 @@ const mapStateToProps = state => ({
     user: state.user.data
 })
 
-export default connect(mapStateToProps)(Scrn)
+const mapDispatchToProps = dispatch => ({
+    updateInfo: newInfo => dispatch(Creators.updateUserInfo(newInfo))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Scrn)
