@@ -2,7 +2,7 @@ import React from 'react'
 import {TouchableOpacity} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Screen, Footer, Button, StaticInput, HeaderRight} from '../components'
+import {Screen, Footer, Button, StaticInput, HeaderRight, Outline, Switch} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
 import {API} from '../services'
@@ -104,6 +104,33 @@ class Scrn extends React.Component {
         this.props.navigation.navigate('SendBankTransfer',{bank:receiver})
     }
 
+    handleToggleFavorite = () => {
+        //const {walletno} = this.props.user
+        let {index, receiver} = this.props.navigation.state.params
+        const {is_favorite} = this.state
+        
+        try {
+            /*let payload = {
+                walletno,
+                receiver:receiver.walletno,
+                is_favorite:!is_favorite
+            }*/
+
+            this.props.updateReceiver(index, {
+                ...receiver,
+                is_favorite:!is_favorite
+            })
+
+            if(is_favorite) API.removeFavoriteBankPartner(receiver.receiverno)
+            else API.addFavoriteBankPartner(receiver.receiverno)
+            
+            this.setState({is_favorite:!is_favorite})
+        }
+        catch(err) {
+            Say.err(_('500'))
+        }
+    }
+
     render() {
 
         const {bankname, old_account_name, old_account_no} = this.props.navigation.state.params.receiver
@@ -125,6 +152,13 @@ class Scrn extends React.Component {
                         label='Account No.'
                         value={old_account_no}
                     />
+                    
+                    <Outline>
+                        <Row bw>
+                            <Text>{is_favorite ? 'Remove from' : 'Add to'} favorite</Text>
+                            <Switch value={is_favorite} onValueChange={this.handleToggleFavorite} />
+                        </Row>
+                    </Outline>
                 </Screen>
 
                 <Footer>

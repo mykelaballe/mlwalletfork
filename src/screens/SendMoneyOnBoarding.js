@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {AppIntro} from '../components'
 import {AppStyles} from '../themes'
+import {Consts} from '../utils'
 
 class Scrn extends React.Component {
 
@@ -14,17 +15,17 @@ class Scrn extends React.Component {
     slides:[
       {
         key: 'one',
-        title: 'Wallet to Wallet',
+        title: Consts.tcn.stw.short_desc,
         text: 'Quick and convenient way of sending money to another ML Wallet user.'
       },
       {
         key: 'two',
-        title: 'Kwarta Padala',
+        title: Consts.tcn.skp.short_desc,
         text: 'Send Money anywhere in the world with Kwarta Padala.'
       },
       {
         key: 'three',
-        title: 'Bank Transfer',
+        title: Consts.tcn.stb.short_desc,
         text: 'Transferring money from your ML Wallet to banks made easy.'
       }
     ]

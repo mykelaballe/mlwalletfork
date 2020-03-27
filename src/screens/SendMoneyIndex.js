@@ -20,9 +20,9 @@ export default class Scrn extends React.Component {
             <Screen>
                 <Headline subtext='Select Send Money Service' />
 
-                <ListMenuItem t='Wallet to Wallet' onPress={this.handleSendToWallet} />
-                <ListMenuItem t='Kwarta Padala' onPress={this.handleSendToKP} />
-                <ListMenuItem t='Bank Transfer' onPress={this.handleSendToBank} />
+                <ListMenuItem t={Consts.tcn.stw.short_desc} onPress={this.handleSendToWallet} />
+                <ListMenuItem t={Consts.tcn.skp.short_desc} onPress={this.handleSendToKP} />
+                <ListMenuItem t={Consts.tcn.stb.short_desc} onPress={this.handleSendToBank} />
             </Screen>
         )
     }

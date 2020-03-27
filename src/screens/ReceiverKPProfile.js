@@ -2,7 +2,7 @@ import React from 'react'
 import {TouchableOpacity} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Screen, Footer, Text, Row, Button, Spacer, HeaderRight, Outline} from '../components'
+import {Screen, Footer, Text, Row, Button, HeaderRight, StaticInput, Outline, Switch} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
 import {API} from '../services'
@@ -33,6 +33,10 @@ class Scrn extends React.Component {
                 </Menu>
             )
         }
+    }
+
+    state = {
+        is_favorite:false
     }
 
     componentDidMount = () => {
@@ -104,44 +108,71 @@ class Scrn extends React.Component {
         navigate('SendKP',{receiver})
     }
 
+    handleToggleFavorite = () => {
+        //const {walletno} = this.props.user
+        let {index, receiver} = this.props.navigation.state.params
+        const {is_favorite} = this.state
+        
+        try {
+            /*let payload = {
+                walletno,
+                receiver:receiver.receiverno,
+                is_favorite:!is_favorite
+            }*/
+
+            this.props.updateReceiver(index, {
+                ...receiver,
+                is_favorite:!is_favorite
+            })
+
+            if(is_favorite) API.removeFavoriteKPReceiver(receiver.receiverno)
+            else API.addFavoriteKPReceiver(receiver.receiverno)
+            
+            this.setState({is_favorite:!is_favorite})
+        }
+        catch(err) {
+            Say.err(_('500'))
+        }
+    }
+
     render() {
 
         const {firstname, middlename, lastname, suffix, ContactNo} = this.props.navigation.state.params.receiver
+        const {is_favorite} = this.state
 
         return (
             <>
                 <Screen>
-                    <Outline>
-                        <Text mute sm>First Name</Text>
-                        <Text md>{firstname}</Text>
-                    </Outline>
+                    <StaticInput
+                        label='First Name'
+                        value={firstname}
+                    />
 
-                    <Spacer sm />
+                    <StaticInput
+                        label='Middle Name'
+                        value={middlename || _('50')}
+                    />
 
-                    <Outline>
-                        <Text mute sm>Middle Name</Text>
-                        <Text md>{middlename || _('50')}</Text>
-                    </Outline>
+                    <StaticInput
+                        label='Last Name'
+                        value={lastname}
+                    />
 
-                    <Spacer sm />
+                    <StaticInput
+                        label='Suffix'
+                        value={suffix || _('51')}
+                    />
 
-                    <Outline>
-                        <Text mute sm>Last Name</Text>
-                        <Text md>{lastname}</Text>
-                    </Outline>
-
-                    <Spacer sm />
-
-                    <Outline>
-                        <Text mute sm>Suffix</Text>
-                        <Text md>{suffix || _('51')}</Text>
-                    </Outline>
-
-                    <Spacer sm />
+                    <StaticInput
+                        label='Contact No.'
+                        value={ContactNo}
+                    />
 
                     <Outline>
-                        <Text mute sm>Contact No.</Text>
-                        <Text>{ContactNo}</Text>
+                        <Row bw>
+                            <Text>{is_favorite ? 'Remove from' : 'Add to'} favorite</Text>
+                            <Switch value={is_favorite} onValueChange={this.handleToggleFavorite} />
+                        </Row>
                     </Outline>
                 </Screen>
 

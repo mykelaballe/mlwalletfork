@@ -3,7 +3,13 @@ import Fetch from '../../utils/Fetch'
 
 export default {
     sendWalletToWalletValidate: async payload => {
-        return await Fetch.get(`sendout/wallettowallet/validate?walletno=${payload.walletno}&principal=${payload.amount}&isMLP=1`)
+        let res = await Fetch.get(`sendout/wallettowallet/validate?walletno=${payload.walletno}&principal=${payload.amount}&isMLP=1`)
+
+        return {
+            ...res,
+            error:res.respcode === 1,
+            message:res.respmessage
+        }
     },
 
     sendWalletToWallet: async payload => {
@@ -18,37 +24,40 @@ export default {
         })
     },
 
-    getWalletReceivers: async payload => {
-        /*return [
+    getWalletReceivers: async walletno => {
+        return [
             {
                 receiverno:1,
                 walletno:'123',
-                fullname:'Mary Poppins'
+                fullname:'Mary WAIVED Poppins',
+                mobileno:'09121321'
             },
             {
                 receiverno:2,
                 walletno:'456',
-                fullname:'Jane Peters'
+                fullname:'Jane Grace Peters NONE',
+                mobileno:'0955456'
             },
             {
                 receiverno:3,
                 walletno:'789',
-                fullname:'Gary Oak'
+                fullname:'Gary WAIVED Oak Jr',
+                mobileno:'094435455'
             }
-        ]*/
-        let res = await Fetch.get(`wallettowallet/receiverlist?walletno=${payload.walletno}`)
+        ]
+        let res = await Fetch.get(`wallettowallet/receiverlist?walletno=${walletno}`)
         return res.recieverlists || []
     },
 
-    getFavoriteWalletReceivers: async payload => {
+    getFavoriteWalletReceivers: async walletno => {
         return []
-        let res = await Fetch.get(`wallettowallet/favoritereceiverlist?walletno=${payload.walletno}`)
+        let res = await Fetch.get(`wallettowallet/favoritereceiverlist?walletno=${walletno}`)
         return res.recieverlists || []
     },
 
-    getRecentWalletReceivers: async payload => {
+    getRecentWalletReceivers: async walletno => {
         return []
-        let res = await Fetch.get(`wallettowallet/recentreceiverlist?walletno=${payload.walletno}`)
+        let res = await Fetch.get(`wallettowallet/recentreceiverlist?walletno=${walletno}`)
         return res.recieverlists || []
     },
 
@@ -72,13 +81,13 @@ export default {
 
     deleteWalletReceiver: async payload => await Fetch.delete(`wallettowallet/deletereceiver?receiverNo=${payload.walletno}`),
 
-    addFavoriteWalletReceiver: async payload => {
+    addFavoriteWalletReceiver: async receiverno => {
         return {error:false}
-        return await Fetch.post('wallettowallet/addfavorite',payload)
+        return await Fetch.post(`wallettowallet/addfavorite/${receiverno}`)
     },
 
-    removeFavoriteWalletReceiver: async payload => {
+    removeFavoriteWalletReceiver: async receiverno => {
         return {error:false}
-        return await Fetch.post('wallettowallet/removefavorite',payload)
+        return await Fetch.delete(`wallettowallet/removefavorite/${receiverno}`)
     }
 }

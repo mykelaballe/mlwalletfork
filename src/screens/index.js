@@ -22,6 +22,8 @@ import MyAccountScrn from './MyAccount'
 import NotificationScrn from './Notification'
 import MoreScrn from './More'
 import RatesScrn from './Rates'
+import WalletRatesScrn from './WalletRates'
+import BankTransferRatesScrn from './BankTransferRates'
 import TransactionHistoryScrn from './TransactionHistory'
 import SendMoneyIndexScrn from './SendMoneyIndex'
 import ReceiveMoneyIndexScrn from './ReceiveMoneyIndex'
@@ -77,6 +79,8 @@ import WithdrawCashScrn from './WithdrawCash'
 import BuyLoadScrn from './BuyLoad'
 import SavedLoadReceiversScrn from './SavedLoadReceivers'
 import AddLoadReceiverScrn from './AddLoadReceiver'
+import ReceiverLoadReceiverScrn from './ReceiverLoadProfile'
+import UpdateLoadReceiverScrn from './UpdateLoadReceiver'
 import LoadOptionsScrn from './LoadOptions'
 import AllELoadReceiversScrn from './AllELoadReceivers'
 import FavoriteELoadReceiversScrn from './FavoriteELoadReceivers'
@@ -89,6 +93,9 @@ import AddBillerFavoriteScrn from './AddBillerFavorite'
 import BillerProfileScrn from './BillerProfile'
 import FavoriteBillersScrn from './FavoriteBillers'
 import PayBillScrn from './PayBill'
+import AllBillsPartnersScrn from './AllBillsPartners'
+import FavoriteBillsPartnersScrn from './FavoriteBillsPartners'
+import RecentBillsPartnersScrn from './RecentBillsPartners'
 
 import PartnersScrn from './Partners'
 import MyContactsScrn from './MyContacts'
@@ -167,6 +174,8 @@ export {
     NotificationScrn,
     MoreScrn,
     RatesScrn,
+    WalletRatesScrn,
+    BankTransferRatesScrn,
     TransactionHistoryScrn,
     SendMoneyIndexScrn,
     ReceiveMoneyIndexScrn,
@@ -217,6 +226,8 @@ export {
     BuyLoadScrn,
     SavedLoadReceiversScrn,
     AddLoadReceiverScrn,
+    ReceiverLoadReceiverScrn,
+    UpdateLoadReceiverScrn,
     LoadOptionsScrn,
     AllELoadReceiversScrn,
     FavoriteELoadReceiversScrn,
@@ -228,6 +239,9 @@ export {
     BillerProfileScrn,
     FavoriteBillersScrn,
     PayBillScrn,
+    AllBillsPartnersScrn,
+    FavoriteBillsPartnersScrn,
+    RecentBillsPartnersScrn,
 
     PartnersScrn,
     MyContactsScrn,

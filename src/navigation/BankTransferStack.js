@@ -3,7 +3,7 @@ import * as Scrn from '../screens'
 import {AppStyles} from '../themes'
 
 export default createMaterialTopTabNavigator({
-    AllBankTransferReceivers: {
+  AllBankTransferReceivers: {
     screen: Scrn.AllBankTransferReceiversScrn,
     navigationOptions:() => ({
       tabBarLabel: 'All'

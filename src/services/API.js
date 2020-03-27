@@ -16,7 +16,7 @@ import User from './endpoints/User'
 
 export default {
     login: async payload => {
-        /*return {
+        return {
             username:'johnsmith',
             password:'123',
             fname:'John',
@@ -48,7 +48,7 @@ export default {
             isresetpass:"0",
             isresetpin:"0",
             error:payload.username == 'newphone' ? 'registered_anotherdevice' : null
-        }*/
+        }
         let res = await Fetch.post('login', {
             ...payload,
             latitude:'1',

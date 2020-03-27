@@ -3,20 +3,26 @@ import * as Scrn from '../screens'
 import {AppStyles} from '../themes'
 
 export default createMaterialTopTabNavigator({
-  AllSavedWalletReceivers: {
-    screen: Scrn.AllELoadReceiversScrn,
+  BillsCategory: {
+    screen: Scrn.BillsCategoryScrn,
+    navigationOptions:() => ({
+      tabBarLabel: 'Categories'
+    })
+  },
+  AllBillsPartners: {
+    screen: Scrn.AllBillsPartnersScrn,
     navigationOptions:() => ({
       tabBarLabel: 'All'
     })
   },
-  FavoriteWalletReceivers: {
-    screen: Scrn.FavoriteELoadReceiversScrn,
+  FavoriteBillsPartners: {
+    screen: Scrn.FavoriteBillsPartnersScrn,
     navigationOptions:() => ({
       tabBarLabel: 'Favorites'
     })
   },
-  RecentWalletReceivers: {
-    screen: Scrn.RecentELoadReceiversScrn,
+  RecentBillsPartners: {
+    screen: Scrn.RecentBillsPartnersScrn,
     navigationOptions:() => ({
       tabBarLabel: 'Recent'
     })

@@ -35,9 +35,31 @@ export default {
         return res.data || []
     },
 
+    getFavoriteBankPartners: async walletno => {
+        return []
+        let res = await Fetch.get(`bankAccount/favoritereceiverlist?walletno=${walletno}`)
+        return res.recieverlists || []
+    },
+
+    getRecentBankPartners: async walletno => {
+        return []
+        let res = await Fetch.get(`bankAccount/recentreceiverlist?walletno=${walletno}`)
+        return res.recieverlists || []
+    },
+
     addBankPartner: async payload => await Fetch.post('bankAccount/add',payload),
 
     updateBankPartner: async payload => await Fetch.put('bankAccount/edit',payload),
 
-    deleteBankPartner: async payload => await Fetch.delete('bankAccount/delete',payload)
+    deleteBankPartner: async payload => await Fetch.delete('bankAccount/delete',payload),
+
+    addFavoriteBankPartner: async payload => {
+        return {error:false}
+        return await Fetch.post(`bankAccount/addfavorite`,payload)
+    },
+
+    removeFavoriteBankPartner: async receiverno => {
+        return {error:false}
+        return await Fetch.delete(`bankAccount/removefavorite`,payload)
+    }
 }

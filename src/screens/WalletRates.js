@@ -1,42 +1,24 @@
 import React from 'react'
-import {StyleSheet, InteractionManager} from 'react-native'
+import {StyleSheet} from 'react-native'
 import {Screen, Text, Row, FlatList, Spacer} from '../components'
 import {Metrics} from '../themes'
-import {_, Say, Consts} from '../utils'
-import {API} from '../services'
+import {_, Consts} from '../utils'
 
 export default class Scrn extends React.Component {
 
     static navigationOptions = {
-        title:`${Consts.tcn.skp.short_desc} Rates`
+        title:`${Consts.tcn.stw.short_desc} Rates`
     }
 
     state = {
-        list:[],
-        loading:true,
-        refreshing:false
+        list:[
+            {
+                minAmount:'0.01',
+                maxAmount:'50000',
+                chargeValue:'25.00'
+            }
+        ]
     }
-
-    componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
-
-    getData = async () => {
-        let list = []
-
-        try {
-            list = await API.getRates()
-        }
-        catch(err) {
-            Say.err(_('500'))
-        }
-
-        this.setState({
-            list,
-            loading:false,
-            refreshing:false
-        })
-    }
-
-    handleRefresh = () => this.setState({refreshing:true},this.getData)
 
     renderItems = ({item}) => (
         <Row style={style.item}>
@@ -47,7 +29,7 @@ export default class Scrn extends React.Component {
 
     render() {
 
-        const {list, loading, refreshing} = this.state
+        const {list} = this.state
 
         return (
            <Screen ns>
@@ -61,9 +43,6 @@ export default class Scrn extends React.Component {
                 <FlatList
                     data={list}
                     renderItem={this.renderItems}
-                    loading={loading}
-                    refreshing={refreshing}
-                    onRefresh={this.handleRefresh}
                 />
             </Screen>
         )

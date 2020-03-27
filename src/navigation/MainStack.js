@@ -1,10 +1,14 @@
+import React from 'react'
 import {createStackNavigator} from 'react-navigation-stack'
 import HomeStack from './HomeStack'
 import WalletToWalletStack from './WalletToWalletStack'
 import KPStack from './KPStack'
 import BankTransferStack from './BankTransferStack'
 import ELoadStack from './ELoadStack'
-import {AppStyles} from '../themes'
+import BillsStack from './BillsStack'
+import {HeaderRight, ButtonText} from '../components'
+import {AppStyles, Colors} from '../themes'
+import {Consts} from '../utils'
 import * as Scrn from '../screens'
 
 export default createStackNavigator({
@@ -30,21 +34,51 @@ export default createStackNavigator({
     ReceiverWalletProfile: Scrn.ReceiverWalletProfileScrn,
     AddWalletReceiver: Scrn.AddWalletReceiverScrn,
     UpdateWalletReceiver: Scrn.UpdateWalletReceiverScrn,
-    SendWalletToWalletIndex: WalletToWalletStack,
+    SendWalletToWalletIndex: {
+        screen:WalletToWalletStack,
+        navigationOptions:({navigation}) => ({
+            title:Consts.tcn.stw.short_desc,
+            headerRight:(
+                <HeaderRight>
+                    <ButtonText color={Colors.light} t='Rates' onPress={() => navigation.navigate('WalletRates')} />
+                </HeaderRight>
+            )
+        })
+    },
 
     SendKP: Scrn.SendKPScrn,
     SavedKPReceivers: Scrn.SavedKPReceiversScrn,
     ReceiverKPProfile: Scrn.ReceiverKPProfileScrn,
     AddKPReceiver: Scrn.AddKPReceiverScrn,
     UpdateKPReceiver: Scrn.UpdateKPReceiverScrn,
-    SendKPIndex: KPStack,
+    SendKPIndex: {
+        screen:KPStack,
+        navigationOptions:({navigation}) => ({
+            title:Consts.tcn.skp.short_dec,
+            headerRight:(
+                <HeaderRight>
+                    <ButtonText color={Colors.light} t='Rates' onPress={() => navigation.navigate('Rates')} />
+                </HeaderRight>
+            )
+        })
+    },
 
     SavedBankPartners: Scrn.SavedBankPartnersScrn,
     SendBankTransfer: Scrn.SendBankTransferScrn,
     AddBankPartner: Scrn.AddBankPartnerScrn,
     UpdateBankPartner: Scrn.UpdateBankPartnerScrn,
     BankPartnerProfile: Scrn.BankPartnerProfileScrn,
-    SendBankTransferIndex: BankTransferStack,
+    SendBankTransferIndex: {
+        screen:BankTransferStack,
+        navigationOptions:({navigation}) => ({
+            title:Consts.tcn.stb.short_desc,
+            headerRight:(
+                <HeaderRight>
+                    <ButtonText color={Colors.light} t='Rates' onPress={() => navigation.navigate('BankTransferRates')} />
+                </HeaderRight>
+            )
+        })
+    },
 
     ReceiveMoneyDomestic: Scrn.ReceiveMoneyDomesticScrn,
     ReceiveMoneyInternational: Scrn.ReceiveMoneyInternationalScrn,
@@ -56,8 +90,15 @@ export default createStackNavigator({
     BuyLoad: Scrn.BuyLoadScrn,
     SavedLoadReceivers: Scrn.SavedLoadReceiversScrn,
     AddLoadReceiver: Scrn.AddLoadReceiverScrn,
+    ReceiverLoadReceiver: Scrn.ReceiverLoadReceiverScrn,
+    UpdateLoadReceiver: Scrn.UpdateLoadReceiverScrn,
     LoadOptions: Scrn.LoadOptionsScrn,
-    BuyLoadIndex: ELoadStack,
+    BuyLoadIndex: {
+        screen:ELoadStack,
+        navigationOptions:{
+            title:'Buy E-Load'
+        }
+    },
 
     PayBillsOnBoarding: Scrn.PayBillsOnBoardingScrn,
     BillsCategory: Scrn.BillsCategoryScrn,
@@ -66,6 +107,12 @@ export default createStackNavigator({
     BillerProfile: Scrn.BillerProfileScrn,
     FavoriteBillers: Scrn.FavoriteBillersScrn,
     PayBill: Scrn.PayBillScrn,
+    PayBillsIndex: {
+        screen:BillsStack,
+        navigationOptions:{
+            title:'Pay Bills'
+        }
+    },
 
     Partners: Scrn.PartnersScrn,
     MyContacts: Scrn.MyContactsScrn,
@@ -94,6 +141,8 @@ export default createStackNavigator({
 
     TransactionHistory: Scrn.TransactionHistoryScrn,
     Rates: Scrn.RatesScrn,
+    WalletRates: Scrn.WalletRatesScrn,
+    BankTransferRates: Scrn.BankTransferRatesScrn,
     Locator: Scrn.LocatorScreen,
     FAQ: Scrn.FAQScrn,
     PrivacyNotice: Scrn.PrivacyNoticeScrn,

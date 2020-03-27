@@ -1,7 +1,7 @@
 import React from 'react'
 import {TouchableOpacity} from 'react-native'
 import {Screen, Footer, Headline, Text, Button, Spacer, Row, Checkbox, TextInput, DynamicStaticInput, StaticInput, SignUpStepsTracker, Radio, MonthPicker, DayPicker, YearPicker, Picker} from '../components'
-import {_, Say, Consts} from '../utils'
+import {_, Say, Consts, Func} from '../utils'
 import {Metrics} from '../themes'
 import {Provider, RadioButton} from 'react-native-paper'
 
@@ -147,7 +147,7 @@ export default class Scrn extends React.Component {
 
     handleSelectYear = bday_year => this.setState({bday_year})
 
-    handleChangeHouse = house => this.setState({house})
+    handleChangeHouse = houseno => this.setState({houseno})
 
     handleChangeStreet = street => this.setState({street})
 
@@ -172,7 +172,7 @@ export default class Scrn extends React.Component {
 
     handleFocusStreet = () => this.refs.street.focus()
 
-    handleFocusHouse = () => this.refs.house.focus()
+    handleFocusHouse = () => this.refs.houseno.focus()
 
     handleViewTerms = () => this.props.navigation.navigate('TermsAndConditions')
 
@@ -181,7 +181,7 @@ export default class Scrn extends React.Component {
     handleToggleEdit = () => this.setState(prevState => ({editable:!prevState.editable}))
 
     handleSubmit = async () => {
-        let {firstname, middlename, lastname, suffix, other_suffix, bday_month, bday_day, bday_year, gender, email, nationality, source_of_income, house, street, country, province, city, barangay, zip_code, question1, answer1, question2, answer2, question3, answer3} = this.state
+        let {firstname, middlename, lastname, suffix, other_suffix, bday_month, bday_day, bday_year, gender, email, nationality, source_of_income, houseno, street, country, province, city, barangay, zip_code, question1, answer1, question2, answer2, question3, answer3} = this.state
 
         try {
             firstname = firstname.trim()
@@ -191,7 +191,7 @@ export default class Scrn extends React.Component {
             other_suffix = other_suffix.trim()
             email = email.trim()
             source_of_income = source_of_income.trim()
-            house = house.trim()
+            houseno = houseno.trim()
             street = street.trim()
             barangay = barangay.trim()
             zip_code = zip_code.trim()
@@ -214,7 +214,7 @@ export default class Scrn extends React.Component {
                     source_of_income,
                     birthday:`${bday_year}-${bday_month}-${bday_day}`,
                     nationality,
-                    house,
+                    house:houseno,
                     street,
                     country,
                     province:province.province,
@@ -238,7 +238,7 @@ export default class Scrn extends React.Component {
     render() {  
 
         const {firstname, middlename, has_middlename, lastname, suffix, other_suffix, has_suffix, suffix_options, bday_month, bday_day, bday_year, gender, email, nationality, source_of_income,
-            country, province, city, barangay, house, street, zip_code, editable, showMonthPicker, showDayPicker, showYearPicker, agree, processing} = this.state
+            country, province, city, barangay, houseno, street, zip_code, editable, showMonthPicker, showDayPicker, showYearPicker, agree, processing} = this.state
 
         let ready = true
 
@@ -293,17 +293,17 @@ export default class Scrn extends React.Component {
                         {email != '' && <Text center md>{email}</Text>}
 
                         <Text sm mute center>Nationality</Text>
-                        <Text md center>Filipino</Text>
+                        <Text md center>{nationality}</Text>
 
                         <Spacer sm />
 
                         <Text sm mute center>Source of Income</Text>
-                        <Text md center>Business</Text>
+                        <Text md center>{source_of_income}</Text>
                         
                         <Spacer sm />
 
                         <Text sm mute center>Address</Text>
-                        <Text md center>{house ? house + ', ' : ''}{street ? street + ', ' : ''}{barangay}, {city}, Cebu, {country}</Text>
+                        <Text md center>{Func.formatAddress(this.state)}</Text>
 
                         <Spacer sm />
                         
@@ -476,9 +476,9 @@ export default class Scrn extends React.Component {
                         />
 
                         <TextInput
-                            ref='house'
+                            ref='houseno'
                             label={'House/Unit/Floor #, Bldg Name, Block or Lot #'}
-                            value={house}
+                            value={houseno}
                             onChangeText={this.handleChangeHouse}
                             onSubmitEditing={this.handleFocusZipCode}
                             autoCapitalize='none'

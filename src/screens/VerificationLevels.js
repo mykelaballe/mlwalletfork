@@ -158,17 +158,21 @@ class Scrn extends React.Component {
 
         return (
             <Screen ns>
-                <View style={style.statusContainer}>
-                    <Text center b md>You are semi-verified. To get more benefits, get fully-verified now! Here's how:</Text>
+                {status == 0 &&
+                <>
+                    <View style={style.statusContainer}>
+                        <Text center b md>You are semi-verified. To get more benefits, get fully-verified now! Here's how:</Text>
 
-                    <Spacer />
+                        <Spacer />
 
-                    <Text>Step 1. Visit the nearest M Lhuillier branch nationwide.</Text>
-                    <Text>Step 2. Present your ML Wallet Account no. to the branch personnel.</Text>
-                    <Text>Step 3. Add money on your account and get fully verified.</Text>
-                </View>
+                        <Text>Step 1. Visit the nearest M Lhuillier branch nationwide.</Text>
+                        <Text>Step 2. Present your ML Wallet Account no. to the branch personnel.</Text>
+                        <Text>Step 3. Add money on your account and get fully verified.</Text>
+                    </View>
 
-                <Spacer md />
+                    <Spacer md />
+                </>
+                }
 
                 <Row ar style={style.tableHeader}>
                     <View style={[style.cell,{alignItems:'flex-start'}]}>

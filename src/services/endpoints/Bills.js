@@ -8,7 +8,7 @@ export default {
         return await Fetch.post('',payload)
     },
 
-    getBillers: async category => {
+    getAllBillers: async category => {
         let data = {}
         let res = await Fetch.get(`bill_partners/all?category=${category}`)
         
@@ -28,6 +28,10 @@ export default {
         }
         
         return Object.values(data)
+    },
+
+    getBillers: async walletno => {
+        return await Fetch.get(`bill_partners/${walletno}`)
     },
 
     getFavoriteBillers: async walletno => {
@@ -60,6 +64,12 @@ export default {
         return await Fetch.get(`partners/getFavorite?walletno=${walletno}`)
     },
 
+    getRecentBillers: async walletno => {
+        return []
+        let res = await Fetch.get(`partners/recentreceiverlist?walletno=${walletno}`)
+        return res.recieverlists || []
+    },
+
     updateFavoriteBiller: async payload => {
         return {
             error:false
@@ -68,16 +78,12 @@ export default {
     },
 
     addFavoriteBiller: async payload => {
-        return {
-            error:false
-        }
+        return {error:false}
         return await Fetch.post('partners/addFavorite',payload)
     },
 
     removeFavoriteBiller: async payload => {
-        return {
-            error:false
-        }
+        return {error:false}
         return await Fetch.delete(`partners/deleteFavorite?walletno=${payload.walletno}&id=${payload.id}`)
     },
 }

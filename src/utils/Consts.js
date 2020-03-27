@@ -43,7 +43,7 @@ export default {
 		stw: {
 			code:'stw',
 			action:'send',
-			short_desc:'Wallet to Wallet',
+			short_desc:'Wallet To Wallet',
 			long_desc:'Send Money - Wallet to Wallet',
 			submit_text:'Send Money',
 			otp:'Send Money'
@@ -59,8 +59,8 @@ export default {
 		stb: {
 			code:'stb',
 			action:'send',
-			short_desc:'Bank Transfer',
-			long_desc:'Send Money - Bank Transfer',
+			short_desc:'Wallet To Bank',
+			long_desc:'Send Money - Wallet To Bank',
 			submit_text:'Send Money',
 			otp:'Send Money'
 		},

@@ -107,7 +107,7 @@ class Scrn extends React.Component {
 
     handleGoToPayBills = () => {
         const {navigation: {navigate}, hasSeenPayBillsOnboarding} = this.props
-        if(hasSeenPayBillsOnboarding) navigate('BillsCategory')
+        if(hasSeenPayBillsOnboarding) navigate('PayBillsIndex')
         else navigate('PayBillsOnBoarding')
     }
 
@@ -136,11 +136,9 @@ class Scrn extends React.Component {
 
         return (
             <>
-                {status == 0 &&
                 <TouchableOpacity style={style.topBanner} onPress={this.handleViewVerificationLevels}>
-                    <Text center>You are semi-verified. Tap to learn more.</Text>
+                    <Text center>You are {status == 0 ? 'semi-verified' : 'fully verified'}. Tap to learn more.</Text>
                 </TouchableOpacity>
-                }
 
                 <Balance />
 

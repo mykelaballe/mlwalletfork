@@ -25,13 +25,13 @@ class Scrn extends React.Component {
         processing:false
     }
 
-    componentDidUpdate = (prevProps, prevState) => {
+    /*componentDidUpdate = (prevProps, prevState) => {
         const {params = {}} = this.props.navigation.state
         if(params.receiver && params.receiver !== prevState.receiver) {
             this.props.navigation.setParams({receiver:null})
             this.setState({receiver:params.receiver})
         }
-    }
+    }*/
 
     handleChangeAmount = amount => {
         this.setState({
@@ -66,7 +66,7 @@ class Scrn extends React.Component {
                 })
             }
             else {
-                Say.some(res.message)
+                Say.warn(res.message)
             }
         }
         catch(err) {
@@ -87,18 +87,12 @@ class Scrn extends React.Component {
             <>
                 <Screen>
 
-                    {/*<View style={{alignItems:'flex-end'}}>
-                        <ButtonText color={Colors.brand} icon='plus' t='Add Receiver' onPress={this.handleAddNewReceiver} />
-                    </View>*/}
-
-                    {/*<TouchableOpacity onPress={this.handleAddNewReceiver}>*/}
-                        <TextInput
-                            disabled
-                            label='Receiver'
-                            value={receiver ? Func.formatName(receiver) : ''}
-                            rightContent={<Icon name='user_plus' size={20} />}
-                        />
-                    {/*</TouchableOpacity>*/}
+                    <TextInput
+                        disabled
+                        label='Receiver'
+                        value={Func.formatName(receiver)}
+                        rightContent={<Icon name='user_plus' size={20} />}
+                    />
 
                     <TextInput
                         label='Amount (PHP)'

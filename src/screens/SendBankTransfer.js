@@ -1,21 +1,17 @@
 import React from 'react'
-import {Screen, Footer, Headline, Text, Spacer, Button, ButtonText, ButtonIcon, TextInput, HeaderRight, View} from '../components'
+import {Screen, Footer, Headline, Text, Spacer, Button, ButtonText, TextInput, HeaderRight} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Consts, Func} from '../utils'
-import Icon from 'react-native-vector-icons/FontAwesome'
 
 class Scrn extends React.Component {
 
     static navigationOptions = ({navigation}) => ({
         title:Consts.tcn.stb.short_desc,
-        /*headerRight:(
+        headerRight:(
             <HeaderRight>
-                <ButtonIcon
-                    icon={<Icon name='university' color={Colors.light} size={Metrics.icon.sm} />}
-                    onPress={() => navigation.navigate('SavedBankPartners')}
-                />
+                <ButtonText color={Colors.light} t='Rates' onPress={() => navigation.navigate('BankTransferRates')} />
             </HeaderRight>
-        )*/
+        )
     })
 
     state = {
@@ -28,7 +24,7 @@ class Scrn extends React.Component {
         total:''
     }
 
-    componentDidUpdate = (prevProps, prevState) => {
+    /*componentDidUpdate = (prevProps, prevState) => {
         const {params = {}} = this.props.navigation.state
         if(params.bank && params.bank.name !== prevState.bank) {
             this.props.navigation.setParams({bank:null})
@@ -38,7 +34,7 @@ class Scrn extends React.Component {
                 account_number:params.bank.account_no
             })
         }
-    }
+    }*/
 
     handleChangeAccountName = account_name => this.setState({account_name})
 

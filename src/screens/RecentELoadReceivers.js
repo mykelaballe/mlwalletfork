@@ -61,7 +61,7 @@ class Scrn extends React.Component {
         let list = []
 
         try {
-            //list = await API.getWalletReceivers({walletno})
+            list = await API.getRecentELoadReceivers(walletno)
         }
         catch(err) {
             Say.err(_('500'))

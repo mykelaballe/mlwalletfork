@@ -12,12 +12,18 @@ export default {
     },
 
     getELoadReceivers: async walletno => {
-        /*return [
+        return [
             {
-                fullname:'John Smith',
-                contact_no:'0912345678'
+                receiverno:1,
+                fullname:'John Andrews Smith',
+                mobileno:'0912345678'
+            },
+            {
+                receiverno:2,
+                fullname:'Greg WAIVED Odom',
+                mobileno:'0945532234'
             }
-        ]*/
+        ]
         let res = await Fetch.post(`getLoadReceiver`,{
             _walletno:walletno
         })
@@ -27,8 +33,33 @@ export default {
 
     addELoadReceiver: async payload => await Fetch.post('addLoadReceiver',payload),
 
+    updateELoadReceiver: async payload => await Fetch.put('updateLoadReceiver',payload),
+    
+    deleteELoadReceiver: async payload => await Fetch.delete('deleteLoadReceiver',payload),
+
+    getFavoriteELoadReceivers: async walletno => {
+        return []
+        let res = await Fetch.get(`eload/favoritereceiverlist?walletno=${walletno}`)
+        return res.recieverlists || []
+    },
+
+    addFavoriteELoadReceiver: async receiverno => {
+        return {error:false}
+        return await Fetch.post(`eloadFavorites/${receiverno}`)
+    },
+
+    removeFavoriteELoadReceiver: async receiverno => {
+        return {error:false}
+        return await Fetch.delete(`eloadFavorites/${receiverno}`)
+    },
+
+    getRecentELoadReceivers: async walletno => {
+        return []
+        let res = await Fetch.get(`eload/recentreceiverlist?walletno=${walletno}`)
+        return res.recieverlists || []
+    },
+
     getLoadPromoCodes: async network => {
-        //network - Globe, Smart Eload, Sun Cellular
         let res = await Fetch.get(`getPromos?network=${network}`)
         return res.data
         return [

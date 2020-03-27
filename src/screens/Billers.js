@@ -34,7 +34,7 @@ class Scrn extends React.Component {
         let list = []
 
         try {
-            list = await API.getBillers(params.category ? params.category.value : '')
+            list = await API.getAllBillers(params.category ? params.category.value : '')
         }
         catch(err) {
             Say.err(_('500'))

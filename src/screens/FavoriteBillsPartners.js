@@ -2,9 +2,9 @@ import React from 'react'
 import {View, StyleSheet, InteractionManager} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Screen, Footer, FlatList, Initial, Text, Row, Button, Spacer, HR, Ripple, SearchInput} from '../components'
-import {Metrics} from '../themes'
-import {_, Say} from '../utils'
+import {Screen, FlatList, Initial, Text, Row, ButtonText, Spacer, HR, Ripple, SearchInput} from '../components'
+import {Colors, Metrics} from '../themes'
+import {_, Say, Func} from '../utils'
 import {API} from '../services'
 
 const ItemUI = props => (
@@ -14,8 +14,8 @@ const ItemUI = props => (
                 <Initial text={props.data.fullname} />
                 <Spacer h sm />
                 <View>
-                    <Text b>{props.data.walletno}</Text>
-                    <Text>{props.data.fullname}</Text>
+                    <Text b>{Func.cleanName(props.data.fullname)}</Text>
+                    <Text>{props.data.mobileno}</Text>
                 </View>
             </Row>
         </Ripple>
@@ -61,7 +61,9 @@ class Scrn extends React.Component {
         let list = []
 
         try {
-            list = await API.getRecentBankPartners(walletno)
+            list = await API.getFavoriteBillers(walletno)
+
+            this.listHolder = list
         }
         catch(err) {
             Say.err(_('500'))
@@ -74,16 +76,21 @@ class Scrn extends React.Component {
         })
     }
 
-    handleAddNewReceiver = () => this.props.navigation.navigate('AddWalletReceiver')
+    handleAddNewReceiver = () => this.props.navigation.navigate('AddLoadReceiver')
 
     handleViewReceiver = index => {
         const {list} = this.state
-        this.props.navigation.navigate('ReceiverWalletProfile',{index, receiver:list[index]})
+        this.props.navigation.navigate('ReceiverLoadReceiver',{index, receiver:list[index]})
     }
 
-    handleChangeSearch = search => this.setState({search})
-
     handleRefresh = () => this.setState({refreshing:true},this.getData)
+
+    handleChangeSearch = search => this.setState({search:this.search(search)})
+
+    search = searchText => {
+        const list = this.listHolder.filter(item => item.fullname.toUpperCase().indexOf(searchText.toUpperCase()) > -1)
+        this.setState({list})
+    }
 
     renderItem = ({item, index}) => <ItemUI index={index} data={item} onPress={this.handleViewReceiver} />
 

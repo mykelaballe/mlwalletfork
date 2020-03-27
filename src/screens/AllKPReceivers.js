@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Screen, Footer, FlatList, Initial, Text, Row, Button, ButtonText, Spacer, HR, Ripple, SearchInput} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_, Say} from '../utils'
+import {_, Say, Func} from '../utils'
 import {API} from '../services'
 
 const ItemUI = props => (
@@ -14,7 +14,7 @@ const ItemUI = props => (
                 <Initial text={props.data.firstname} />
                 <Spacer h sm />
                 <View>
-                    <Text b>{props.data.firstname} {props.data.lastname}</Text>
+                    <Text b>{Func.formatName(props.data)}</Text>
                     <Text>{props.data.ContactNo}</Text>
                 </View>
             </Row>
@@ -61,7 +61,9 @@ class Scrn extends React.Component {
         let list = []
 
         try {
-            list = await API.getKPReceivers({walletno})
+            list = await API.getKPReceivers(walletno)
+
+            this.listHolder = list
         }
         catch(err) {
             Say.err(_('500'))
@@ -81,11 +83,16 @@ class Scrn extends React.Component {
         this.props.navigation.navigate('ReceiverKPProfile',{index, receiver:list[index]})
     }
 
-    handleChangeSearch = search => this.setState({search})
-
     handleRefresh = () => this.setState({refreshing:true},this.getData)
 
     handleAddReceiver = () => this.props.navigation.navigate('AddKPReceiver')
+
+    handleChangeSearch = search => this.setState({search:this.search(search)})
+
+    search = searchText => {
+        const list = this.listHolder.filter(item => Func.formatName(item).toUpperCase().indexOf(searchText.toUpperCase()) > -1)
+        this.setState({list})
+    }
 
     renderItem = ({item, index}) => <ItemUI index={index} data={item} onPress={this.handleViewReceiver} />
 

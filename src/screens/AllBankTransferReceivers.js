@@ -62,6 +62,8 @@ class Scrn extends React.Component {
 
         try {
             list = await API.getBankPartners(walletno)
+
+            this.listHolder = list
         }
         catch(err) {
             Say.err(_('500'))
@@ -81,11 +83,16 @@ class Scrn extends React.Component {
         this.props.navigation.navigate('BankPartnerProfile',{index, receiver:list[index]})
     }
 
-    handleChangeSearch = search => this.setState({search})
-
     handleRefresh = () => this.setState({refreshing:true},this.getData)
 
     handleAddReceiver = () => this.props.navigation.navigate('AddBankPartner')
+
+    handleChangeSearch = search => this.setState({search:this.search(search)})
+
+    search = searchText => {
+        const list = this.listHolder.filter(item => item.bankname.toUpperCase().indexOf(searchText.toUpperCase()) > -1)
+        this.setState({list})
+    }
 
     renderItem = ({item, index}) => <ItemUI index={index} data={item} onPress={this.handleViewReceiver} />
 

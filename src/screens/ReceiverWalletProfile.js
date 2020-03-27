@@ -2,9 +2,9 @@ import React from 'react'
 import {TouchableOpacity} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Screen, Footer, Text, Button, Spacer, HeaderRight, Outline, Switch, Row} from '../components'
+import {Screen, Footer, Text, Button, HeaderRight, Outline, StaticInput, Switch, Row} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_, Say} from '../utils'
+import {_, Say, Func} from '../utils'
 import {API} from '../services'
 import Icon from 'react-native-vector-icons/Ionicons'
 import {Menu} from 'react-native-paper'
@@ -92,24 +92,24 @@ class Scrn extends React.Component {
     }
 
     handleToggleFavorite = () => {
-        const {walletno} = this.props.user
+        //const {walletno} = this.props.user
         let {index, receiver} = this.props.navigation.state.params
         const {is_favorite} = this.state
         
         try {
-            let payload = {
+            /*let payload = {
                 walletno,
                 receiver:receiver.walletno,
                 is_favorite:!is_favorite
-            }
+            }*/
 
             this.props.updateReceiver(index, {
                 ...receiver,
                 is_favorite:!is_favorite
             })
 
-            if(is_favorite) API.removeFavoriteWalletReceiver(payload)
-            else API.addFavoriteWalletReceiver(payload)
+            if(is_favorite) API.removeFavoriteWalletReceiver(receiver.receiverno)
+            else API.addFavoriteWalletReceiver(receiver.receiverno)
             
             this.setState({is_favorite:!is_favorite})
         }
@@ -126,17 +126,15 @@ class Scrn extends React.Component {
         return (
             <>
                 <Screen>
-                    <Outline>
-                        <Text mute sm>Wallet Account Number</Text>
-                        <Text md>{walletno}</Text>
-                    </Outline>
+                    <StaticInput
+                        label='Wallet Account Number'
+                        value={walletno}
+                    />
 
-                    <Spacer sm />
-
-                    <Outline>
-                        <Text mute sm>Full Name</Text>
-                        <Text>{fullname}</Text>
-                    </Outline>
+                    <StaticInput
+                        label='Full Name'
+                        value={Func.cleanName(fullname)}
+                    />
 
                     <Outline>
                         <Row bw>

@@ -97,6 +97,8 @@ const cleanName = str => {
 }
 
 const formatName = userObject => {
+    if(userObject === null || !userObject) return ''
+
     const fname = userObject.fname || userObject.firstname
     const mname = userObject.mname || userObject.middlename
     const lname = userObject.lname || userObject.lastname
@@ -109,7 +111,7 @@ const formatAddress = userObject => {
         userObject.country
     ]
 
-    if(userObject.province) data.push(userObject.province)
+    if(userObject.province) data.push(userObject.province.province || userObject.province)
     if(userObject.city) data.push(userObject.city)
     if(userObject.barangay) data.push(userObject.barangay)
     if(userObject.street) data.push(userObject.street)

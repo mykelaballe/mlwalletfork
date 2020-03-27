@@ -142,7 +142,7 @@ class Scrn extends React.Component {
 
         return (
             <>
-                {/*<View style={{padding:Metrics.lg}}>
+                <View style={{padding:Metrics.lg}}>
                     <Row bw>
                         <Text b lg>Favorites</Text>
                         <ButtonText color={Colors.brand} icon='plus' t='Add Biller' onPress={this.handleAddFavoriteBiller} />
@@ -155,10 +155,11 @@ class Scrn extends React.Component {
                         columnWrapperStyle={{flexWrap:'wrap'}}
                     />
 
+                    {/*<ButtonText color={Colors.brand} t={`${showFavorites ? 'Hide' : 'Show'} More Favorites`} onPress={this.handleToggleFavorites} />*/}
                     {favorites.length > 3 &&
                     <ButtonText color={Colors.brand} t='View All Favorites' onPress={this.handleViewFavorites} />
                     }
-                </View>*/}
+                </View>
                 
                 <FlatList
                     data={categories}

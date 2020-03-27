@@ -8,10 +8,10 @@ import {API} from '../services'
 class Scrn extends React.Component {
 
     static navigationOptions = ({navigation}) => ({
-        title:'Wallet to Wallet',
+        title:Consts.tcn.stw.short_desc,
         headerRight:(
             <HeaderRight>
-                <ButtonText color={Colors.light} t='Rates' onPress={() => navigation.navigate('Rates')} />
+                <ButtonText color={Colors.light} t='Rates' onPress={() => navigation.navigate('WalletRates')} />
             </HeaderRight>
         )
     })
@@ -69,7 +69,7 @@ class Scrn extends React.Component {
                 amount:total
             })
 
-            if(res.respcode === 1) {
+            if(res.error) {
                 this.props.navigation.navigate('TransactionReview',{
                     ...params,
                     type:Consts.tcn.stw.code,
@@ -80,7 +80,7 @@ class Scrn extends React.Component {
                 })
             }
             else {
-                Say.warn(res.respmessage)
+                Say.warn(res.message)
             }
         }
         catch(err) {
@@ -101,10 +101,6 @@ class Scrn extends React.Component {
         return (
             <>
                 <Screen>
-
-                    {/*<View style={{alignItems:'flex-end'}}>
-                        <ButtonText color={Colors.brand} icon='plus' t='Add Receiver' onPress={this.handleAddNewReceiver} />
-                    </View>*/}
 
                     <TextInput
                         disabled
