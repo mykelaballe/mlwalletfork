@@ -49,7 +49,7 @@ class Scrn extends React.Component {
         if(newProp) {
             this.props.navigation.setParams({
                 bank:{
-                    ...this.props.navigation.state.params.bank,
+                    ...this.props.navigation.state.params.receiver,
                     ...newProp
                 }
             })
@@ -82,7 +82,7 @@ class Scrn extends React.Component {
 
     handleConfirmDelete = () => {
         const {walletno} = this.props.user
-        const {index, bank} = this.props.navigation.state.params
+        const {index, receiver} = this.props.navigation.state.params
         try {
             this.props.deletePartner(index)
             API.deleteBankPartner({
@@ -100,13 +100,13 @@ class Scrn extends React.Component {
     }
 
     handleSelect = () => {
-        const {navigation: {navigate, state: {params: {bank}}}} = this.props
-        this.props.navigation.navigate('SendBankTransfer',{bank})
+        const {navigation: {navigate, state: {params: {receiver}}}} = this.props
+        this.props.navigation.navigate('SendBankTransfer',{bank:receiver})
     }
 
     render() {
 
-        const {bankname, old_account_name, old_account_no} = this.props.navigation.state.params.bank
+        const {bankname, old_account_name, old_account_no} = this.props.navigation.state.params.receiver
 
         return (
             <>

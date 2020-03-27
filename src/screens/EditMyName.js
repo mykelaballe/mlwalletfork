@@ -94,7 +94,7 @@ class Scrn extends React.Component {
 
                 if(res.error) Say.warn(res.message)
                 else {
-                    Say.ok('Details updated')
+                    Say.ok('Your request to change your name has been sent for approval. We will get back to you soon!')
                 }
             }
         }

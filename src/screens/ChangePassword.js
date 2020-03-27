@@ -81,7 +81,7 @@ class Scrn extends React.Component {
                             confirm_password:''
                         })
 
-                        Say.ok("You've successfully saved your new Password")
+                        Say.ok("Your password has been successfully changed")
                     }
                 }
                 else {

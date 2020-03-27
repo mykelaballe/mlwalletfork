@@ -36,7 +36,7 @@ export default class Scrn extends React.Component {
             confirm_password = confirm_password.trim()
 
             if(!password) Say.some(_('8'))
-            else if(password != confirm_password) Say.some('Password does not match')
+            else if(password != confirm_password) Say.some('Password do not match')
             else {
 
                 let passwordValidation = Func.validate(password, Consts.password_criteria)

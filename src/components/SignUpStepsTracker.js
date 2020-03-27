@@ -40,7 +40,7 @@ export default props => (
             </View>
         </Row>
     
-        <Spacer md />
+        <Spacer />
     </>
 )
 

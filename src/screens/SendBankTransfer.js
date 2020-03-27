@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 class Scrn extends React.Component {
 
     static navigationOptions = ({navigation}) => ({
-        title:Consts.tcn[navigation.state.params.type].short_desc,
+        title:Consts.tcn.stb.short_desc,
         /*headerRight:(
             <HeaderRight>
                 <ButtonIcon
@@ -19,9 +19,9 @@ class Scrn extends React.Component {
     })
 
     state = {
-        bank:'',
-        account_name:'',
-        account_number:'',
+        bank:this.props.navigation.state.params.bank.bankname,
+        account_name:this.props.navigation.state.params.bank.old_account_name,
+        account_number:this.props.navigation.state.params.bank.old_account_no,
         amount:'',
         fixed_charge:'100',
         convenience_fee:'15',
@@ -66,7 +66,6 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {type} = this.props.navigation.state.params
         const {bank, account_name, account_number, amount, fixed_charge, convenience_fee, total} = this.state
         let ready = false
 
@@ -76,11 +75,9 @@ class Scrn extends React.Component {
             <>
                 <Screen>
 
-                    {/*<Headline subtext={Consts.tcn[type].short_desc} />*/}
-
-                    <View style={{alignItems:'flex-end'}}>
+                    {/*<View style={{alignItems:'flex-end'}}>
                         <ButtonText color={Colors.brand} icon='plus' t='Add Bank Partner' onPress={this.handleSelectPartner} />
-                    </View>
+                    </View>*/}
 
                     <TextInput
                         disabled
@@ -127,7 +124,7 @@ class Scrn extends React.Component {
 
                     <Spacer />
                     
-                    <Button disabled={!ready} t={Consts.tcn[type].submit_text} onPress={this.handleSendMoney} />
+                    <Button disabled={!ready} t={Consts.tcn.stb.submit_text} onPress={this.handleSendMoney} />
                 </Footer>
             </>
         )

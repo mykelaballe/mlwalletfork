@@ -55,6 +55,14 @@ export default class Scrn extends React.Component {
             {
                 id:8,
                 name:"Senior Citizen's ID"
+            },
+            {
+                id:9,
+                name:"Student ID"
+            },
+            {
+                id:10,
+                name:"Company ID"
             }
         ],
         ids:[],

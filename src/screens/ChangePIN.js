@@ -53,7 +53,7 @@ class Scrn extends React.Component {
 
             if(!old_pin || !new_pin || !confirm_pin) Say.some(_('8'))
             else if(new_pin.length > 6) Say.warn('PIN too long')
-            else if(new_pin != confirm_pin) Say.warn('PINs do not match')
+            else if(new_pin != confirm_pin) Say.warn('PIN do not match')
             else {
 
                 let payload = {
@@ -76,7 +76,7 @@ class Scrn extends React.Component {
                         confirm_pin:''
                     })
 
-                    Say.ok("You've successfully saved your new PIN")
+                    Say.ok("Your PIN has been successfully changed")
                 }
             }
         }

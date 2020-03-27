@@ -260,14 +260,55 @@ export default class Scrn extends React.Component {
 
                     {!editable &&
                     <>
-                        <Text center md>{firstname} {middlename} {lastname}</Text>
-                        <Text center md>{moment(bday_month,'MM').format('MMMM')} {moment(bday_day,'DD').format('DD')}, {moment(bday_year,'YYYY').format('YYYY')}</Text>
-                        <Text center md>{gender}</Text>
+                        <Text sm mute center>First Name</Text>
+                        <Text md center>{firstname}</Text>
+
+                        <Spacer sm />
+
+                        <Text sm mute center>Middle Name</Text>
+                        <Text md center>{middlename}</Text>
+
+                        <Spacer sm />
+
+                        <Text sm mute center>Last Name</Text>
+                        <Text md center>{lastname}</Text>
+
+                        <Spacer sm />
+
+                        <Text sm mute center>Suffix</Text>
+                        <Text md center>{suffix}</Text>
+
+                        <Spacer sm />
+
+                        <Text sm mute center>Birthday: </Text>
+                        <Text md center>{moment(bday_month,'MM').format('MMMM')} {moment(bday_day,'DD').format('DD')}, {moment(bday_year,'YYYY').format('YYYY')}</Text>
+
+                        <Spacer sm />
+
+                        <Text sm mute center>Gender</Text>
+                        <Text md center>{gender}</Text>
+
+                        <Spacer sm />
+
                         {email != '' && <Text center md>{email}</Text>}
-                        <Text center md>{nationality}</Text>
-                        <Text center md>{source_of_income}</Text>
-                        <Text center md>{house ? house + ', ' : ''}{street ? street + ', ' : ''}{barangay}, {city}, {province.province}, {country}</Text>
-                        <Text center md>{zip_code}</Text>
+
+                        <Text sm mute center>Nationality</Text>
+                        <Text md center>Filipino</Text>
+
+                        <Spacer sm />
+
+                        <Text sm mute center>Source of Income</Text>
+                        <Text md center>Business</Text>
+                        
+                        <Spacer sm />
+
+                        <Text sm mute center>Address</Text>
+                        <Text md center>{house ? house + ', ' : ''}{street ? street + ', ' : ''}{barangay}, {city}, Cebu, {country}</Text>
+
+                        <Spacer sm />
+                        
+                        <Text sm mute center>Zip Code</Text>
+                        <Text md center>{zip_code}</Text>
                     </>
                     }
 

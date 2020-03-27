@@ -9,7 +9,7 @@ import {API} from '../services'
 class Scrn extends React.Component {
 
     static navigationOptions = ({navigation}) => ({
-        title:Consts.tcn[navigation.state.params.type].short_desc,
+        title:Consts.tcn.skp.short_desc,
         headerRight:(
             <HeaderRight>
                 <ButtonText color={Colors.light} t='Rates' onPress={() => navigation.navigate('Rates')} />
@@ -78,7 +78,6 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {type} = this.props.navigation.state.params
         const {receiver, amount, charges, total, processing} = this.state
         let ready = false
 
@@ -88,10 +87,9 @@ class Scrn extends React.Component {
             <>
                 <Screen>
 
-                    {/*<Headline subtext={Consts.tcn[type].short_desc} />*/}
-                    <View style={{alignItems:'flex-end'}}>
+                    {/*<View style={{alignItems:'flex-end'}}>
                         <ButtonText color={Colors.brand} icon='plus' t='Add Receiver' onPress={this.handleAddNewReceiver} />
-                    </View>
+                    </View>*/}
 
                     {/*<TouchableOpacity onPress={this.handleAddNewReceiver}>*/}
                         <TextInput
@@ -111,7 +109,7 @@ class Scrn extends React.Component {
                 </Screen>
                 
                 <Footer>
-                    <Text mute>Charges</Text>
+                    <Text mute>Charge</Text>
                     <Text md>PHP {Func.formatToCurrency(charges)}</Text>
 
                     <Spacer />
@@ -121,7 +119,7 @@ class Scrn extends React.Component {
 
                     <Spacer />
                     
-                    <Button disabled={!ready} t={Consts.tcn[type].submit_text} onPress={this.handleSendMoney} loading={processing} />
+                    <Button disabled={!ready} t={Consts.tcn.skp.submit_text} onPress={this.handleSendMoney} loading={processing} />
                 </Footer>
             </>
         )

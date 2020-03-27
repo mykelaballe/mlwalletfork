@@ -94,9 +94,10 @@ class Scrn extends React.Component {
     addReceiver = async () => {
         try {
             const {walletno, firstname, lastname, mobile_no} = this.state
+
             let res = await API.addWalletReceiver({
-                senderwalletno:this.props.user.walletno,
-                receiverwalletno:walletno
+                senderWalletNum:this.props.user.walletno,
+                receiverWalletNum:walletno
             })
             if(res.respcode == 1) {
                 this.props.addReceiver({

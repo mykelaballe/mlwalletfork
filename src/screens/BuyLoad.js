@@ -36,8 +36,8 @@ class Scrn extends React.Component {
             }
         ],
         network:'',
-        name:'',
-        contact_no:'',
+        name:this.props.navigation.state.params.receiver.fullname,
+        contact_no:this.props.navigation.state.params.receiver.mobileno,
     }
 
     componentDidUpdate = (prevProps, prevState) => {
@@ -96,11 +96,11 @@ class Scrn extends React.Component {
                         value={contact_no}
                         keyboardType='numeric'
                         onChangeText={this.handleChangeContactNo}
-                        rightContent={
+                        /*rightContent={
                             <TouchableOpacity onPress={this.handleSelectReceiver}>
                                 <Icon name='phonebook' style={{width:30,height:30}} />
                             </TouchableOpacity>
-                        }
+                        }*/
                     />
 
                     {/*<StaticInput

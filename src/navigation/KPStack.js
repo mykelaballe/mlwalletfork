@@ -4,19 +4,19 @@ import {AppStyles} from '../themes'
 
 export default createMaterialTopTabNavigator({
     AllSavedWalletReceivers: {
-    screen: Scrn.AllSavedWalletReceiversScrn,
+    screen: Scrn.AllKPReceiversScrn,
     navigationOptions:() => ({
       tabBarLabel: 'All'
     })
   },
   FavoriteWalletReceivers: {
-    screen: Scrn.FavoriteWalletReceiversScrn,
+    screen: Scrn.FavoriteKPReceiversScrn,
     navigationOptions:() => ({
       tabBarLabel: 'Favorites'
     })
   },
   RecentWalletReceivers: {
-    screen: Scrn.RecentWalletReceiversScrn,
+    screen: Scrn.RecentKPReceiversScrn,
     navigationOptions:() => ({
       tabBarLabel: 'Recent'
     })

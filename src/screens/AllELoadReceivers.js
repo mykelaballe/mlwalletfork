@@ -9,7 +9,7 @@ import {API} from '../services'
 
 const ItemUI = props => (
     <>
-        <Ripple onPress={() => props.onPress(props.data)} style={style.item}>
+        <Ripple onPress={() => props.onPress(props.index)} style={style.item}>
             <Row>
                 <Initial text={props.data.fullname} />
                 <Spacer h sm />
@@ -78,7 +78,7 @@ class Scrn extends React.Component {
 
     handleViewReceiver = index => {
         const {list} = this.state
-        //this.props.navigation.navigate('ReceiverWalletProfile',{index, receiver:list[index]})
+        this.props.navigation.navigate('BuyLoad',{index, receiver:list[index]})
     }
 
     handleChangeSearch = search => this.setState({search})

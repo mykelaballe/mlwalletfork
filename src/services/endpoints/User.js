@@ -2,7 +2,7 @@ import Fetch from '../../utils/Fetch'
 
 export default {
     updateProfile: async payload => {
-        return await Fetch.put('updateProfile',payload)
+        return await Fetch.put('editProfile',payload)
     },
 
     requestUpdateProfile: async payload => {
