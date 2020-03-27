@@ -64,6 +64,7 @@ const attemptLeft = error => {
             null
         )
     }
+    else warn(error)
 }
 
 export default {

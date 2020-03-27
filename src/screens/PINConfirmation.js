@@ -83,7 +83,11 @@ class Scrn extends React.Component {
                     pin
                 })
     
-                if(pinRes.error) Say.warn(pinRes.message)
+                if(pinRes.error) {
+                    Say.attemptLeft(pinRes.message)
+
+                    if(this.props.isLoggedIn) this.props.logout()
+                }
                 else {
                     let res = {}
                     
@@ -308,11 +312,13 @@ const style = StyleSheet.create({
 })
 
 const mapStateToProps = state => ({
-    user: state.user.data
+    user: state.user.data,
+    isLoggedIn: state.auth.isLoggedIn
 })
 
 const mapDispatchToProps = dispatch => ({
-    updateBalance: newBalance => dispatch(Creators.updateBalance(newBalance))
+    updateBalance: newBalance => dispatch(Creators.updateBalance(newBalance)),
+    logout: () => dispatch(Creators.logout())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrn)
