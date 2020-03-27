@@ -22,5 +22,21 @@ export default {
             elevation:0
         },
         headerTintColor:Colors.brand
+    },
+
+    tabConfig: {
+        tabBarOptions: {
+            activeTintColor: Colors.light,
+            labelStyle: {
+              fontSize:11
+            },
+            style: {
+              backgroundColor:Colors.brand
+            }
+        },
+        tabBarPosition: 'bottom',
+        animationEnabled: false,
+        swipeEnabled: false,
+        showIcon: false
     }
 }

@@ -54,6 +54,9 @@ import SavedKPReceiversScrn from './SavedKPReceivers'
 import ReceiverKPProfileScrn from './ReceiverKPProfile'
 import AddKPReceiverScrn from './AddKPReceiver'
 import UpdateKPReceiverScrn from './UpdateKPReceiver'
+import AllKPReceiversScrn from './AllKPReceivers'
+import FavoriteKPReceiversScrn from './FavoriteKPReceivers'
+import RecentKPReceiversScrn from './RecentKPReceivers'
 
 //bank transfer
 import SavedBankPartnersScrn from './SavedBankPartners'
@@ -61,6 +64,9 @@ import SendBankTransferScrn from './SendBankTransfer'
 import AddBankPartnerScrn from './AddBankPartner'
 import UpdateBankPartnerScrn from './UpdateBankPartner'
 import BankPartnerProfileScrn from './BankPartnerProfile'
+import AllBankTransferReceiversScrn from './AllBankTransferReceivers'
+import FavoriteBankTransferReceiversScrn from './FavoriteBankTransferReceivers'
+import RecentBankTransferReceiversScrn from './RecentBankTransferReceivers'
 
 import ReceiveMoneyDomesticScrn from './ReceiveMoneyDomestic'
 import ReceiveMoneyInternationalScrn from './ReceiveMoneyInternational'
@@ -72,6 +78,9 @@ import BuyLoadScrn from './BuyLoad'
 import SavedLoadReceiversScrn from './SavedLoadReceivers'
 import AddLoadReceiverScrn from './AddLoadReceiver'
 import LoadOptionsScrn from './LoadOptions'
+import AllELoadReceiversScrn from './AllELoadReceivers'
+import FavoriteELoadReceiversScrn from './FavoriteELoadReceivers'
+import RecentELoadReceiversScrn from './RecentELoadReceivers'
 
 //pay bills
 import BillsCategoryScrn from './BillsCategory'
@@ -187,12 +196,18 @@ export {
     ReceiverKPProfileScrn,
     AddKPReceiverScrn,
     UpdateKPReceiverScrn,
+    AllKPReceiversScrn,
+    FavoriteKPReceiversScrn,
+    RecentKPReceiversScrn,
 
     SavedBankPartnersScrn,
     SendBankTransferScrn,
     AddBankPartnerScrn,
     UpdateBankPartnerScrn,
     BankPartnerProfileScrn,
+    AllBankTransferReceiversScrn,
+    FavoriteBankTransferReceiversScrn,
+    RecentBankTransferReceiversScrn,
 
     ReceiveMoneyDomesticScrn,
     ReceiveMoneyInternationalScrn,
@@ -203,6 +218,9 @@ export {
     SavedLoadReceiversScrn,
     AddLoadReceiverScrn,
     LoadOptionsScrn,
+    AllELoadReceiversScrn,
+    FavoriteELoadReceiversScrn,
+    RecentELoadReceiversScrn,
 
     BillsCategoryScrn,
     BillersScrn,

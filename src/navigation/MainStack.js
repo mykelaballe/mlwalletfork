@@ -1,6 +1,9 @@
 import {createStackNavigator} from 'react-navigation-stack'
 import HomeStack from './HomeStack'
 import WalletToWalletStack from './WalletToWalletStack'
+import KPStack from './KPStack'
+import BankTransferStack from './BankTransferStack'
+import ELoadStack from './ELoadStack'
 import {AppStyles} from '../themes'
 import * as Scrn from '../screens'
 
@@ -34,12 +37,14 @@ export default createStackNavigator({
     ReceiverKPProfile: Scrn.ReceiverKPProfileScrn,
     AddKPReceiver: Scrn.AddKPReceiverScrn,
     UpdateKPReceiver: Scrn.UpdateKPReceiverScrn,
+    SendKPIndex: KPStack,
 
     SavedBankPartners: Scrn.SavedBankPartnersScrn,
     SendBankTransfer: Scrn.SendBankTransferScrn,
     AddBankPartner: Scrn.AddBankPartnerScrn,
     UpdateBankPartner: Scrn.UpdateBankPartnerScrn,
     BankPartnerProfile: Scrn.BankPartnerProfileScrn,
+    SendBankTransferIndex: BankTransferStack,
 
     ReceiveMoneyDomestic: Scrn.ReceiveMoneyDomesticScrn,
     ReceiveMoneyInternational: Scrn.ReceiveMoneyInternationalScrn,
@@ -52,6 +57,7 @@ export default createStackNavigator({
     SavedLoadReceivers: Scrn.SavedLoadReceiversScrn,
     AddLoadReceiver: Scrn.AddLoadReceiverScrn,
     LoadOptions: Scrn.LoadOptionsScrn,
+    BuyLoadIndex: ELoadStack,
 
     PayBillsOnBoarding: Scrn.PayBillsOnBoardingScrn,
     BillsCategory: Scrn.BillsCategoryScrn,
