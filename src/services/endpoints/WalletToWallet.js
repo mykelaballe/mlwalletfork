@@ -74,10 +74,22 @@ export default {
 
         let res = await Fetch.get(`wallettowallet/${endpoint}?${params.join('&')}`)
 
-        return res
+        return {
+            ...res,
+            error:res.respcode === 1,
+            message:res.respmessage
+        }
     },
 
-    addWalletReceiver: async payload => await Fetch.post('wallettowallet/addreceiver',payload),
+    addWalletReceiver: async payload => {
+        let res = await Fetch.post('wallettowallet/addreceiver',payload)
+
+        return {
+            ...res,
+            error:res.respcode === 1,
+            message:res.respmessage
+        }
+    },
 
     deleteWalletReceiver: async payload => await Fetch.delete(`wallettowallet/deletereceiver?receiverNo=${payload.walletno}`),
 

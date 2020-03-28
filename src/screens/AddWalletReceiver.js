@@ -65,9 +65,8 @@ class Scrn extends React.Component {
     
                 let res = await API.searchWalletReceiver(payload)
                 
-                if(res.respcode === 1) {
-                    Say.some('Search successful')
-
+                if(res.error) Say.warn(res.message)
+                else {
                     this.setState({
                         found:true,
                         walletno:res.walletno,
@@ -75,9 +74,8 @@ class Scrn extends React.Component {
                         lastname:res.lastName,
                         mobile_no:res.mobileno
                     })
-                }
-                else {
-                    Say.warn(res.respmessage)
+
+                    Say.ok('Search successful')
                 }
             }
             else {
@@ -99,17 +97,17 @@ class Scrn extends React.Component {
                 senderWalletNum:this.props.user.walletno,
                 receiverWalletNum:walletno
             })
-            if(res.respcode == 1) {
+
+            if(res.error) Say.warn(res.message)
+            else {
                 this.props.addReceiver({
                     receiverno:res.data,
                     walletno,
-                    fullname:`${firstname} ${lastname}`
+                    fullname:`${firstname} ${lastname}`,
+                    mobileno:mobile_no
                 })
                 Say.ok('Receiver added successfully')
                 this.props.navigation.pop()
-            }
-            else {
-                Say.warn(res.respmessage)
             }
         }
         catch(err) {

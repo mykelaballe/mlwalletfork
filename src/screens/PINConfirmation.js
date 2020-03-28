@@ -109,7 +109,7 @@ class Scrn extends React.Component {
                             receivernoVal:transaction.receiver.receiverno,
                             receiverName:transaction.receiver.fullname,
                             receiverWalletNo:transaction.receiver.walletno,
-                            receiverMobileNo:transaction.receiver.contact_no,
+                            receiverMobileNo:transaction.receiver.mobileno,
                             principal:transaction.amount,
                             charge:transaction.charges,
                             notes:transaction.notes
