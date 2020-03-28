@@ -218,6 +218,7 @@ export default class Scrn extends React.Component {
                     street,
                     country,
                     province:province.province,
+                    provincecode:province.provCode,
                     city,
                     barangay,
                     zip_code,

@@ -17,7 +17,7 @@ class Scrn extends React.Component {
         country:this.props.user.country,
         province:{
             province:this.props.user.province || '',
-            provCode:''
+            provCode:this.props.user.provincecode || ''
         },
         city:this.props.user.city || '',
         barangay:this.props.user.barangay || '',
@@ -121,6 +121,7 @@ class Scrn extends React.Component {
                     sourceofincome,
                     country,
                     province:province.province,
+                    provincecode:province.provCode,
                     city,
                     barangay,
                     houseno,

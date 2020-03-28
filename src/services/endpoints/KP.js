@@ -47,8 +47,7 @@ export default {
     },
 
     getFavoriteKPReceivers: async walletno => {
-        return []
-        let res = await Fetch.get(`kp/favoritereceiverlist?walletno=${walletno}`)
+        let res = await Fetch.get(`kpFavorites/${walletno}`)
         return res.recieverlists || []
     },
 
@@ -64,13 +63,11 @@ export default {
 
     deleteKPReceiver: async payload => await Fetch.delete('kp/deleteKwartaPadalaReceiver',payload),
 
-    addFavoriteKPReceiver: async receiverno => {
-        return {error:false}
-        return await Fetch.post(`kpFavorites/${receiverno}`)
+    addFavoriteKPReceiver: async payload => {
+        return await Fetch.post(`kpFavorites`,payload)
     },
 
-    removeFavoriteKPReceiver: async receiverno => {
-        return {error:false}
-        return await Fetch.delete(`kpFavorites/${receiverno}`)
+    removeFavoriteKPReceiver: async payload => {
+        return await Fetch.delete(`kpFavorites`,payload)
     },
 }

@@ -38,19 +38,16 @@ export default {
     deleteELoadReceiver: async payload => await Fetch.delete('deleteLoadReceiver',payload),
 
     getFavoriteELoadReceivers: async walletno => {
-        return []
-        let res = await Fetch.get(`eload/favoritereceiverlist?walletno=${walletno}`)
+        let res = await Fetch.get(`eloadFavorites/${walletno}`)
         return res.recieverlists || []
     },
 
-    addFavoriteELoadReceiver: async receiverno => {
-        return {error:false}
-        return await Fetch.post(`eloadFavorites/${receiverno}`)
+    addFavoriteELoadReceiver: async payload => {
+        return await Fetch.post(`eloadFavorites/${payload.receiverno}`)
     },
 
-    removeFavoriteELoadReceiver: async receiverno => {
-        return {error:false}
-        return await Fetch.delete(`eloadFavorites/${receiverno}`)
+    removeFavoriteELoadReceiver: async payload => {
+        return await Fetch.delete(`eloadFavorites/${payload.receiverno}`)
     },
 
     getRecentELoadReceivers: async walletno => {

@@ -86,24 +86,13 @@ class Scrn extends React.Component {
                 if(pinRes.error) {
                     Say.attemptLeft(pinRes.message)
 
-                    if(this.props.isLoggedIn) this.props.logout()
+                    this.props.logout()
                 }
                 else {
                     let res = {}
                     
                     if(type == Consts.tcn.stw.code) {
-                        alert(`
-                            ${walletno}
-                            ${fname} ${lname}
-                            ${transaction.receiver.receiverno}
-                            ${transaction.receiver.fullname}
-                            ${transaction.receiver.walletno}
-                            ${transaction.receiver.contact_no}
-                            ${transaction.amount}
-                            ${transaction.charges}
-                            ${transaction.notes}
-                        `)
-                        let stwRes = await API.sendWalletToWallet({
+                        res = await API.sendWalletToWallet({
                             senderWalletNo:walletno,
                             senderName:`${firstname} ${lastname}`,
                             receivernoVal:transaction.receiver.receiverno,
@@ -114,15 +103,6 @@ class Scrn extends React.Component {
                             charge:transaction.charges,
                             notes:transaction.notes
                         })
-
-                        res = {
-                            error:stwRes.respcode == 1 ? false : true,
-                            message:stwRes.respmessage,
-                            data:{
-                                kptn:stwRes.kptnVal,
-                                balance:stwRes.BalanceVal
-                            }
-                        }
                     }
                     else if(type == Consts.tcn.skp.code) {
                         res = await API.sendKP({
@@ -173,7 +153,6 @@ class Scrn extends React.Component {
             }
         }
         catch(err) {
-            alert(err)
             Say.err(_('500'))
         }
 

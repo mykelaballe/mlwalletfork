@@ -13,7 +13,7 @@ export default {
     },
 
     sendWalletToWallet: async payload => {
-        return await Fetch.post('sendout/wallettowallet',{
+        let res = await Fetch.post('sendout/wallettowallet',{
             ...payload,
             currency:'PHP',
             latitude:'1.1',
@@ -22,6 +22,15 @@ export default {
             version:Consts.appVersion,
             deviceid:Consts.deviceId
         })
+
+        return {
+            error:res.respcode === 1,
+            message:res.respmessage,
+            data: {
+                kptn:res.kptnVal,
+                balance:res.BalanceVal
+            }
+        }
     },
 
     getWalletReceivers: async walletno => {
@@ -50,8 +59,7 @@ export default {
     },
 
     getFavoriteWalletReceivers: async walletno => {
-        return []
-        let res = await Fetch.get(`wallettowallet/favoritereceiverlist?walletno=${walletno}`)
+        let res = await Fetch.get(`walletFavorites/${walletno}`)
         return res.recieverlists || []
     },
 
@@ -93,13 +101,11 @@ export default {
 
     deleteWalletReceiver: async payload => await Fetch.delete(`wallettowallet/deletereceiver?receiverNo=${payload.walletno}`),
 
-    addFavoriteWalletReceiver: async receiverno => {
-        return {error:false}
-        return await Fetch.post(`wallettowallet/addfavorite/${receiverno}`)
+    addFavoriteWalletReceiver: async payload => {
+        return await Fetch.post(`walletFavorites`,payload)
     },
 
-    removeFavoriteWalletReceiver: async receiverno => {
-        return {error:false}
-        return await Fetch.delete(`wallettowallet/removefavorite/${receiverno}`)
+    removeFavoriteWalletReceiver: async payload => {
+        return await Fetch.delete(`walletFavorites`,payload)
     }
 }

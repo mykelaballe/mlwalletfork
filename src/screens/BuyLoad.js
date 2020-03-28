@@ -2,7 +2,7 @@ import React from 'react'
 import {View, StyleSheet, TouchableOpacity} from 'react-native'
 import {Screen, Footer, Headline, Spacer, Button, TextInput, StaticInput, Icon, Picker} from '../components'
 import {Metrics} from '../themes'
-import {_, Consts} from '../utils'
+import {_, Consts, Func} from '../utils'
 import {API} from '../services'
 
 class Scrn extends React.Component {
@@ -32,7 +32,7 @@ class Scrn extends React.Component {
             },
             {
                 label:'PLDT Global Corp',
-                value:'load central'
+                value:'pldt'
             }
         ],
         network:'',
@@ -64,7 +64,7 @@ class Scrn extends React.Component {
         if(network.value == 'globe') {
             Say.info('Sorry! We are currently fixing some supplier issues.')
         }
-        else if(network.value == 'load central') {
+        else if(network.value == 'pldt') {
             Say.info('Coming Soon!')
         }
         else {
@@ -120,7 +120,7 @@ class Scrn extends React.Component {
 
                     <StaticInput
                         label='Name'
-                        value={name}
+                        value={Func.cleanName(name)}
                     />
                 </Screen>
 

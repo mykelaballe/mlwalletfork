@@ -25,7 +25,7 @@ const touchIDConfig = {
 class Scrn extends React.Component {
 
     state = {
-        walletno:null,
+        data:null,
         username:'',
         password:'',
         show_password:false,
@@ -88,17 +88,16 @@ class Scrn extends React.Component {
             if(!username || !password) Say.some(_('8'))
             else {
                 let res = await API.login(payload)
-                const {error,error_description} = res
                 
-                if(error) {
-                    if([Consts.error.atl1, Consts.error.atl2, 'reach_maximum_attempts', Consts.error.blk1d].indexOf(error) >= 0) {
-                        Say.attemptLeft(error)
+                if(res.error) {
+                    if([Consts.error.atl1, Consts.error.atl2, 'reach_maximum_attempts', Consts.error.blk1d].indexOf(res.message) >= 0) {
+                        Say.attemptLeft(res.message)
                     }
-                    else if(error === Consts.error.blk) Say.warn(error_description)
-                    else if(error === 'invalid_grant' || error === 'username_notexists' || error === 'wrong_password') {
+                    else if(res.message === Consts.error.blk) Say.warn(res.message)
+                    else if(res.message === 'invalid_grant' || res.message === 'username_notexists' || res.message === 'wrong_password') {
                         Say.warn(_('72'))
                     }
-                    else if(error === 'version_outofdate') {
+                    else if(res.message === 'version_outofdate') {
                         Say.warn(
                             'Please install the latest version of the app',
                             'Version Out of date',
@@ -108,11 +107,9 @@ class Scrn extends React.Component {
                             }
                         )
                     }
-                    else if(error === 'registered_anotherdevice') {
+                    else if(res.message === 'registered_anotherdevice') {
 
-                        this.setState({
-                            walletno:error_description
-                        })
+                        this.setState({data:res.data})
 
                         Say.ask(
                             'Oh no! You can only access your ML Wallet account in one device. To transfer your ML Wallet account to this device, click OK',
@@ -123,23 +120,23 @@ class Scrn extends React.Component {
                             }
                         )
                     }
-                    else if(error === 'server_error') throw new Error()
+                    else if(res.message === 'server_error') throw new Error()
                 }
                 else {
-                    if(res.isresetpass === '1') {
+                    if(res.data.isresetpass === '1') {
                         this.props.navigation.navigate('CreatePassword',{
-                            walletno:res.walletno,
-                            old_password:res.password
+                            walletno:res.data.walletno,
+                            old_password:res.data.password
                         })
                     }
-                    else if(res.isresetpin === '1') {
+                    else if(res.data.isresetpin === '1') {
                         this.props.navigation.navigate('ValidatePIN',{
-                            data:res
+                            data:res.data
                         })
                     }
                     else {
-                        this.props.setIsUsingTouchID(res.fingerprintstat === '1')
-                        this.props.setUser(res)
+                        this.props.setIsUsingTouchID(res.data.fingerprintstat === '1')
+                        this.props.setUser(res.data)
                         this.props.login()
                     }
                 }
@@ -165,27 +162,28 @@ class Scrn extends React.Component {
     handleTogglePassword = () => this.setState(prevState => ({show_password:!prevState.show_password}))
 
     handleRegisterNewDevice = () => {
-        const {username, walletno} = this.state
+        const {username, data} = this.state
 
         this.props.navigation.navigate('SecurityQuestion',{
-            walletno,
+            walletno:data.walletno,
             username,
+            questions:[
+                data.secquestion1,
+                data.secquestion2,
+                data.secquestion3
+            ],
             steps:[
                 'registered',
                 'personal',
                 'transactional'
             ],
             func:async () => {
-                let res = await API.updateDevice({
-                    username
-                })
+                let res = await API.updateDevice({username})
                 
-                if(!res.error) {
+                if(res.error) Say.warn('Error registering new device')
+                else {
                     Say.ok('Success! You can now access your ML Wallet account in this device')
                     this.props.navigation.navigate('Login')
-                }
-                else {
-                    Say.warn('Error registering new device')
                 }
             }
         })

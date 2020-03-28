@@ -1,4 +1,5 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import {Screen, Footer, Text, Spacer, Button, TextInput} from '../components'
 import {_, Consts, Say} from '../utils'
 import {API} from '../services'
@@ -27,6 +28,7 @@ class Scrn extends React.Component {
     handleFocusSender = () => this.refs.sender.focus()
 
     handleSubmit = async () => {
+        const {walletno} = this.props.user
         const {params} = this.props.navigation.state
         let {transaction_no, amount, sender, processing} = this.state
 
@@ -39,20 +41,20 @@ class Scrn extends React.Component {
 
             if(!transaction_no || !amount || !sender) Say.some(_('8'))
             else {
-                let payload = {
-                    transaction_no,
-                    amount,
+                let res = await API.receiveMoneyDomestic({
+                    walletno,
+                    kptn:transaction_no,
+                    principal:amount,
                     sender
-                }
+                })
 
-                let res = await API.receiveMoneyDomestic(payload)
-
-                if(res.error) Say.some('error')
+                if(res.error) Say.warn(res.message)
                 else {
                     this.props.navigation.navigate('TransactionReceipt',{
                         ...params,
                         transaction: {
-                            ...this.state
+                            ...this.state,
+                            ...res.data
                         },
                         status:'success'
                     })
@@ -116,4 +118,8 @@ class Scrn extends React.Component {
     }
 }
 
-export default Scrn
+const mapStateToProps = state => ({
+    user: state.user.data
+})
+
+export default connect(mapStateToProps)(Scrn)

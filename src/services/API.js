@@ -17,39 +17,42 @@ import User from './endpoints/User'
 export default {
     login: async payload => {
         return {
-            username:'johnsmith',
-            password:'123',
-            fname:'John',
-            mname:'WAIVED',
-            lname:'Smith',
-            suffix:'NONE',
-            birthdate:'1980-01-01',
-            gender:'Male',
-            emailaddress:'johnsmith@gmail.com',
-            nationality:'Filipino',
-            sourceofincome:'Business',
-            country:'Philippines',
-            province:'Cebu',
-            city:'Talisay City',
-            barangay:'Cansojong',
-            street:'Canton',
-            houseno:'123',
-            zipcode:'6000',
-            mobileno:'09326118146',
-            walletno:'14040000000020',
-            secquestion1:'What was the name of your first pet?',
-            secquestion2:'What elementary school did you attend in Grade 6?',
-            secquestion3:'What is the name of your childhood bestfriend?',
-            balance:'50000',
-            profilepic:null,
-            validID:null,
-            points:35,
-            level:0,
-            isresetpass:"0",
-            isresetpin:"0",
-            error:payload.username == 'newphone' ? 'registered_anotherdevice' : null
+            error:false,
+            data: {
+                username:'johnsmith',
+                password:'123',
+                fname:'John',
+                mname:'WAIVED',
+                lname:'Smith',
+                suffix:'NONE',
+                birthdate:'1980-01-01',
+                gender:'Male',
+                emailaddress:'johnsmith@gmail.com',
+                nationality:'Filipino',
+                sourceofincome:'Business',
+                country:'Philippines',
+                province:'Cebu',
+                city:'Talisay City',
+                barangay:'Cansojong',
+                street:'Canton',
+                houseno:'123',
+                zipcode:'6000',
+                mobileno:'09326118146',
+                walletno:'14040000000020',
+                secquestion1:'What was the name of your first pet?',
+                secquestion2:'What elementary school did you attend in Grade 6?',
+                secquestion3:'What is the name of your childhood bestfriend?',
+                balance:'50000',
+                profilepic:null,
+                validID:null,
+                points:35,
+                level:0,
+                isresetpass:"0",
+                isresetpin:"0",
+                error:payload.username == 'newphone' ? 'registered_anotherdevice' : null
+            }
         }
-        let res = await Fetch.post('login', {
+        let res = await Fetch.post('wallet/login', {
             ...payload,
             latitude:'1',
             longitude:'1',
@@ -60,9 +63,7 @@ export default {
             grant_type:'password'
         })
 
-        if(res.access_token) {
-            await Storage.doSave(Consts.db.user, res)
-        }
+        if(!res.error) await Storage.doSave(Consts.db.user, res.data)
 
         return res
     },

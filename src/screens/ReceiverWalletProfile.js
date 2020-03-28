@@ -68,11 +68,9 @@ class Scrn extends React.Component {
         const {index, receiver} = this.props.navigation.state.params
         try {
             this.props.deleteReceiver(index)
-            API.deleteWalletReceiver({
-                walletno:receiver.receiverno
-            })
+            API.deleteWalletReceiver({walletno:receiver.receiverno})
             this.props.navigation.pop()
-            Say.some('Receiver successfully deleted')
+            Say.ok('Receiver successfully deleted')
         }
         catch(err) {
             Say.err(_('500'))
@@ -92,24 +90,23 @@ class Scrn extends React.Component {
     }
 
     handleToggleFavorite = () => {
-        //const {walletno} = this.props.user
+        const {walletno} = this.props.user
         let {index, receiver} = this.props.navigation.state.params
         const {is_favorite} = this.state
         
         try {
-            /*let payload = {
+            let payload = {
                 walletno,
-                receiver:receiver.walletno,
-                is_favorite:!is_favorite
-            }*/
+                receiverno:receiver.receiverno,
+            }
 
             this.props.updateReceiver(index, {
                 ...receiver,
                 is_favorite:!is_favorite
             })
 
-            if(is_favorite) API.removeFavoriteWalletReceiver(receiver.receiverno)
-            else API.addFavoriteWalletReceiver(receiver.receiverno)
+            if(is_favorite) API.removeFavoriteWalletReceiver(payload)
+            else API.addFavoriteWalletReceiver(payload)
             
             this.setState({is_favorite:!is_favorite})
         }

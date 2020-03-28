@@ -1,4 +1,6 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import {Creators} from '../actions'
 import {Screen, Footer, Headline, Button, ButtonText, Spacer, TextInput} from '../components'
 import {_, Say, Func} from '../utils'
 import {API} from '../services'
@@ -7,7 +9,7 @@ import registered_questions from '../services/registered_security_questions'
 import personal_questions from '../services/personal_security_questions'
 import transactional_questions from '../services/transactional_security_questions'
 
-export default class Scrn extends React.Component {
+class Scrn extends React.Component {
 
     state = {
         type:'',
@@ -81,7 +83,11 @@ export default class Scrn extends React.Component {
 
                 let securityRes = await API.validateSecurityQuestion(payload)
 
-                if(securityRes.error) Say.warn(securityRes.message)
+                if(securityRes.error) {
+                    Say.warn(securityRes.message)
+
+                    if(this.props.isLoggedIn) this.props.logout()
+                }
                 else {
                     if(params.steps) {
 
@@ -174,3 +180,13 @@ export default class Scrn extends React.Component {
         )
     }
 }
+
+const mapStateToProps = state => ({
+    isLoggedIn: state.auth.isLoggedIn
+})
+
+const mapDispatchToProps = dispatch => ({
+    logout:() => dispatch(Creators.logout())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

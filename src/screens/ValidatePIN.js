@@ -75,14 +75,12 @@ export default class Scrn extends React.Component {
                     pin
                 })
 
-                if(!res.error) {
+                if(res.error) Say.warn(res.message)
+                else {
                     this.props.navigation.replace('CreatePIN',{
                         old_pin:pin,
                         data
                     })
-                }
-                else {
-                    Say.warn(res.message)
                 }
             }
         }

@@ -87,7 +87,7 @@ class Scrn extends React.Component {
                 receiverNumVal:receiver.receiverno
             })
             this.props.navigation.navigate('SavedKPReceivers',{removeAtIndex:index})
-            Say.some('Receiver successfully deleted')
+            Say.ok('Receiver successfully deleted')
         }
         catch(err) {
             Say.err(_('500'))
@@ -109,24 +109,23 @@ class Scrn extends React.Component {
     }
 
     handleToggleFavorite = () => {
-        //const {walletno} = this.props.user
+        const {walletno} = this.props.user
         let {index, receiver} = this.props.navigation.state.params
         const {is_favorite} = this.state
         
         try {
-            /*let payload = {
+            let payload = {
                 walletno,
-                receiver:receiver.receiverno,
-                is_favorite:!is_favorite
-            }*/
+                receiver:receiver.receiverno
+            }
 
             this.props.updateReceiver(index, {
                 ...receiver,
                 is_favorite:!is_favorite
             })
 
-            if(is_favorite) API.removeFavoriteKPReceiver(receiver.receiverno)
-            else API.addFavoriteKPReceiver(receiver.receiverno)
+            if(is_favorite) API.removeFavoriteKPReceiver(payload)
+            else API.addFavoriteKPReceiver(payload)
             
             this.setState({is_favorite:!is_favorite})
         }
