@@ -40,7 +40,7 @@ class Scrn extends React.Component {
         contact_no:this.props.navigation.state.params.receiver.mobileno,
     }
 
-    componentDidUpdate = (prevProps, prevState) => {
+    /*componentDidUpdate = (prevProps, prevState) => {
         const {params = {}} = this.props.navigation.state
         if(params.receiver && params.receiver.mobileno !== prevState.contact_no) {
             this.props.navigation.setParams({receiver:null})
@@ -49,7 +49,7 @@ class Scrn extends React.Component {
                 name:params.receiver.fullname
             })
         }
-    }
+    }*/
 
     handleChangeContactNo = contact_no => this.setState({contact_no})
 
@@ -59,10 +59,20 @@ class Scrn extends React.Component {
 
     handleNext = async () => {
         const {params} = this.props.navigation.state
-        this.props.navigation.navigate('LoadOptions',{
-            ...params,
-            ...this.state
-        })
+        const {network} = this.state
+        
+        if(network.value == 'globe') {
+            Say.info('Sorry! We are currently fixing some supplier issues.')
+        }
+        else if(network.value == 'load central') {
+            Say.info('Coming Soon!')
+        }
+        else {
+            this.props.navigation.navigate('LoadOptions',{
+                ...params,
+                ...this.state
+            })
+        }
     }
 
     render() {
