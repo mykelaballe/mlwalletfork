@@ -14,8 +14,8 @@ const ItemUI = props => (
                 <Initial text={props.data.fullname} />
                 <Spacer h sm />
                 <View>
-                    <Text b>{props.data.walletno}</Text>
-                    <Text>{props.data.fullname}</Text>
+                    <Text b>{Func.cleanName(props.data.fullname)}</Text>
+                    <Text>{props.data.mobileno}</Text>
                 </View>
             </Row>
         </Ripple>

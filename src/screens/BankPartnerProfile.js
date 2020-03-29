@@ -87,12 +87,12 @@ class Scrn extends React.Component {
             this.props.deletePartner(index)
             API.deleteBankPartner({
                 walletno,
-                partnersid:bank.old_partnersid,
-                accountid:bank.old_account_no,
-                account_name:bank.old_account_name
+                partnersid:receiver.old_partnersid,
+                accountid:receiver.old_account_no,
+                account_name:receiver.old_account_name
             })
             this.props.navigation.navigate('SavedBankPartners',{removeAtIndex:index})
-            Say.some('Partner successfully deleted')
+            Say.ok('Partner successfully deleted')
         }
         catch(err) {
             Say.err(_('500'))
@@ -113,7 +113,7 @@ class Scrn extends React.Component {
             let payload = {
                 walletno,
                 partnersname:receiver.bankname,
-                partnersid:receiver.old_account_name,
+                partnersid:receiver.old_partnersid,
                 accountid:receiver.old_account_no
             }
 
