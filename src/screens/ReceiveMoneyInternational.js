@@ -1,5 +1,6 @@
 import React from 'react'
 import {TouchableOpacity} from 'react-native'
+import {connect} from 'react-redux'
 import {Screen, Footer, Text, Spacer, Button, TextInput} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Consts, Say} from '../utils'
@@ -62,17 +63,16 @@ class Scrn extends React.Component {
 
             if(!transaction_no || !currency || !amount || !partner || !sender) Say.some(_('8'))
             else {
-                let payload = {
+   
+                let res = await API.receiveMoneyInternational({
                     transaction_no,
                     currency,
                     amount,
                     partner:partner.id,
                     sender
-                }
+                })
 
-                let res = await API.receiveMoneyInternational(payload)
-
-                if(res.error) Say.some('error')
+                if(res.error) Say.warn(res.message)
                 else {
                     this.props.navigation.navigate('TransactionReceipt',{
                         ...params,
@@ -159,4 +159,8 @@ class Scrn extends React.Component {
     }
 }
 
-export default Scrn
+const mapStateToProps = state => ({
+    user: state.user.data
+})
+
+export default connect(mapStateToProps)(Scrn)

@@ -6,9 +6,7 @@ export default {
     },
 
     receiveMoneyInternational: async payload => {
-        return {
-            error:false
-        }
+        return {error:false}
         return await Fetch.post('',payload)
     },
 }

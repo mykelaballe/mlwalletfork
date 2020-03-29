@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Screen, Footer, Headline, Button, ButtonText, Spacer, TextInput} from '../components'
-import {_, Say, Func} from '../utils'
+import {_, Say, Func, Consts} from '../utils'
 import {API} from '../services'
 
 import registered_questions from '../services/registered_security_questions'
@@ -86,7 +86,7 @@ class Scrn extends React.Component {
                 if(securityRes.error) {
                     Say.warn(securityRes.message)
 
-                    if(this.props.isLoggedIn) this.props.logout()
+                    if(securityRes.message == Consts.error.blk1d && this.props.isLoggedIn) this.props.logout()
                 }
                 else {
                     if(params.steps) {

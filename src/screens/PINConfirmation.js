@@ -86,7 +86,7 @@ class Scrn extends React.Component {
                 if(pinRes.error) {
                     Say.attemptLeft(pinRes.message)
 
-                    this.props.logout()
+                    if(pinRes.message == Consts.error.blk1d) this.props.logout()
                 }
                 else {
                     let res = {}
@@ -303,8 +303,7 @@ const style = StyleSheet.create({
 })
 
 const mapStateToProps = state => ({
-    user: state.user.data,
-    isLoggedIn: state.auth.isLoggedIn
+    user: state.user.data
 })
 
 const mapDispatchToProps = dispatch => ({

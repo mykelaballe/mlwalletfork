@@ -105,24 +105,25 @@ class Scrn extends React.Component {
     }
 
     handleToggleFavorite = () => {
-        //const {walletno} = this.props.user
+        const {walletno} = this.props.user
         let {index, receiver} = this.props.navigation.state.params
         const {is_favorite} = this.state
         
         try {
-            /*let payload = {
+            let payload = {
                 walletno,
-                receiver:receiver.walletno,
-                is_favorite:!is_favorite
-            }*/
+                partnersname:receiver.bankname,
+                partnersid:receiver.old_account_name,
+                accountid:receiver.old_account_no
+            }
 
             this.props.updateReceiver(index, {
                 ...receiver,
                 is_favorite:!is_favorite
             })
 
-            if(is_favorite) API.removeFavoriteBankPartner(receiver.receiverno)
-            else API.addFavoriteBankPartner(receiver.receiverno)
+            if(is_favorite) API.removeFavoriteBankPartner(payload)
+            else API.addFavoriteBankPartner(payload)
             
             this.setState({is_favorite:!is_favorite})
         }
