@@ -86,17 +86,15 @@ class Scrn extends React.Component {
 
             if(!firstname || !middlename || !lastname || !suffix || !contact_no) Say.some(_('8'))
             else {
-
-                let payload = {
+    
+                let res = await API.addKPReceiver({
                     walletno,
                     Fname:firstname,
                     Mname:middlename,
                     Lname:lastname,
                     Suffix:suffix,
                     ContactNo:contact_no
-                }
-    
-                let res = await API.addKPReceiver(payload)
+                })
 
                 if(res.walletno) {
                     this.props.addReceiver({
@@ -106,7 +104,7 @@ class Scrn extends React.Component {
                         middlename:res.Mname,
                         suffix:res.Suffix
                     })
-                    Say.some('Successfully added KP receiver')
+                    Say.ok('Successfully added KP receiver')
                     this.props.navigation.pop()
                 }
             }

@@ -60,13 +60,13 @@ export default {
 
     getFavoriteWalletReceivers: async walletno => {
         let res = await Fetch.get(`walletFavorites/${walletno}`)
-        return res.recieverlists || []
+        return res.data || []
     },
 
     getRecentWalletReceivers: async walletno => {
         return []
         let res = await Fetch.get(`wallettowallet/recentreceiverlist?walletno=${walletno}`)
-        return res.recieverlists || []
+        return res.data || []
     },
 
     searchWalletReceiver: async payload => {

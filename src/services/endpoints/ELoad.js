@@ -39,7 +39,7 @@ export default {
 
     getFavoriteELoadReceivers: async walletno => {
         let res = await Fetch.get(`eloadFavorites/${walletno}`)
-        return res.recieverlists || []
+        return res.data || []
     },
 
     addFavoriteELoadReceiver: async payload => {
@@ -53,7 +53,7 @@ export default {
     getRecentELoadReceivers: async walletno => {
         return []
         let res = await Fetch.get(`eload/recentreceiverlist?walletno=${walletno}`)
-        return res.recieverlists || []
+        return res.data || []
     },
 
     getLoadPromoCodes: async network => {

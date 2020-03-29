@@ -116,7 +116,7 @@ class Scrn extends React.Component {
         try {
             let payload = {
                 walletno,
-                receiver:receiver.receiverno
+                receiverno:receiver.receiverno
             }
 
             this.props.updateReceiver(index, {

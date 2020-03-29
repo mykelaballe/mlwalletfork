@@ -37,13 +37,13 @@ export default {
 
     getFavoriteBankPartners: async walletno => {
         let res = await Fetch.get(`bankFavorites/${walletno}`)
-        return res.recieverlists || []
+        return res.data || []
     },
 
     getRecentBankPartners: async walletno => {
         return []
         let res = await Fetch.get(`bankAccount/recentreceiverlist?walletno=${walletno}`)
-        return res.recieverlists || []
+        return res.data || []
     },
 
     addBankPartner: async payload => await Fetch.post('bankAccount/add',payload),

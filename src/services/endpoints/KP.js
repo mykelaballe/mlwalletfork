@@ -48,13 +48,13 @@ export default {
 
     getFavoriteKPReceivers: async walletno => {
         let res = await Fetch.get(`kpFavorites/${walletno}`)
-        return res.recieverlists || []
+        return res.data || []
     },
 
     getRecentKPReceivers: async walletno => {
         return []
-        let res = await Fetch.get(`kp/recentreceiverlist?walletno=${walletno}`)
-        return res.recieverlists || []
+        let res = await Fetch.get(`kpRecent/${walletno}`)
+        return res.data || []
     },
 
     addKPReceiver: async payload => await Fetch.post('kp/addkwartapadalareceiver',payload),

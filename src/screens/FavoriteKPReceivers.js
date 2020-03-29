@@ -11,11 +11,11 @@ const ItemUI = props => (
     <>
         <Ripple onPress={() => props.onPress(props.index)} style={style.item}>
             <Row>
-                <Initial text={props.data.fullname} />
+                <Initial text={props.data.firstname} />
                 <Spacer h sm />
                 <View>
-                    <Text b>{props.data.walletno}</Text>
-                    <Text>{props.data.fullname}</Text>
+                    <Text b>{Func.formatName(props.data)}</Text>
+                    <Text>{props.data.ContactNo}</Text>
                 </View>
             </Row>
         </Ripple>
