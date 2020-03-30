@@ -97,7 +97,7 @@ class Scrn extends React.Component {
 
                         if(params.steps.length > 0) {
 
-                            if(questions.length > 0) {
+                            if(questions.length > 0 && steps[0] == 'registered') {
                                 let index = questions.indexOf(question)
                                 questions.splice(index, 1)
                             }
