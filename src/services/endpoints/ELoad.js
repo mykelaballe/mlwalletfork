@@ -47,7 +47,7 @@ export default {
 
     updateELoadReceiver: async payload => await Fetch.put('updateLoadReceiver',payload),
     
-    deleteELoadReceiver: async payload => await Fetch.delete('deleteLoadReceiver',payload),
+    deleteELoadReceiver: async payload => await Fetch.delete(`deleteLoadReceiver/${payload.receiverno}`),
 
     getFavoriteELoadReceivers: async walletno => {
         let res = await Fetch.get(`eloadFavorites/${walletno}`)

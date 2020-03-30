@@ -24,6 +24,7 @@ class Scrn extends React.Component {
 
     handleSubmit = async () => {
         try {
+            const {walletno} = this.props.user
             const {index, receiver} = this.props.navigation.state.params
             let {fullname, mobileno, processing} = this.state
 
@@ -38,21 +39,23 @@ class Scrn extends React.Component {
             else {
 
                 let payload = {
-                    receiverno:receiver.receiverno,
-                    fullname,
-                    mobileno
+                    _walletno:walletno,
+                    _receiverno:receiver.receiverno,
+                    _fullname:fullname,
+                    _mobileno:mobileno
                 }
     
                 let res = await API.updateELoadReceiver(payload)
 
                 if(!res.error) {
-                    this.props.updateReceiver(index, {
+                    /*this.props.updateReceiver(index, {
                         ...receiver,
                         fullname,
                         mobileno
-                    })
-                    Say.some('Receiver updated!')
+                    })*/
+                    Say.ok('Receiver updated')
                 }
+                else Say.warn(res.message)
             }
         }
         catch(err) {
