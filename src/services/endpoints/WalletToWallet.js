@@ -23,8 +23,15 @@ export default {
             deviceid:Consts.deviceId
         })
 
+        if(res.respcode != 1) {
+            return {
+                error:true,
+                message:res.respmessage
+            }
+        }
+
         return {
-            error:res.respcode === 1,
+            error:false,
             message:res.respmessage,
             data: {
                 kptn:res.kptnVal,
