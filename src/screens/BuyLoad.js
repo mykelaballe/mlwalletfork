@@ -16,23 +16,28 @@ class Scrn extends React.Component {
         networks:[
             {
                 label:'Globe/TM',
-                value:'globe'
+                value:'globe',
+                id:'MLNET17030007'
             },
             {
                 label:'Smart/TNT',
-                value:'smart eload'
+                value:'smart eload',
+                id:'MLNET16060001'
             },
             {
                 label:'Smart Dealer',
-                value:'smart dealer'
+                value:'smart dealer',
+                id:'MLNET17030003'
             },
             {
                 label:'Sun Cellular',
-                value:'sun cellular'
+                value:'sun cellular',
+                id:'MLNET16080001'
             },
             {
                 label:'PLDT Global Corp',
-                value:'pldt'
+                value:'pldt',
+                id:''
             }
         ],
         network:'',

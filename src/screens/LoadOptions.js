@@ -106,6 +106,7 @@ class LoadOptions extends React.Component {
             load,
             transaction: {
                 ...this.state,
+                network:params.network,
                 contact_no:params.contact_no
             },
             status:'success'
