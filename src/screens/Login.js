@@ -123,13 +123,13 @@ class Scrn extends React.Component {
                     else if(res.message === 'server_error') throw new Error()
                 }
                 else {
-                    if(res.data.isresetpass === '1') {
+                    if(res.data.isresetpass === 1) {
                         this.props.navigation.navigate('CreatePassword',{
                             walletno:res.data.walletno,
                             old_password:res.data.password
                         })
                     }
-                    else if(res.data.isresetpin === '1') {
+                    else if(res.data.isresetpin === 1) {
                         this.props.navigation.navigate('ValidatePIN',{
                             data:res.data
                         })
