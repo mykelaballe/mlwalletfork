@@ -58,6 +58,7 @@ class Scrn extends React.Component {
 
             if(!res.error) {
                 this.props.navigation.navigate('TransactionReview',{
+                    type:Consts.tcn.skp.code,
                     ...params,
                     transaction: {
                         ...this.state
