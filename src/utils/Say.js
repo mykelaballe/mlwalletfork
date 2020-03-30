@@ -64,7 +64,7 @@ const attemptLeft = error => {
             null
         )
     }
-    else warn(error)
+    else warn('Oops! You entered the wrong information')
 }
 
 export default {
