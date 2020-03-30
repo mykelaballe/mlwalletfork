@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Screen, Footer, FlatList, Initial, Text, Row, Button, ButtonText, Spacer, HR, Ripple, SearchInput} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_, Say} from '../utils'
+import {_, Say, Func} from '../utils'
 import {API} from '../services'
 
 const ItemUI = props => (
