@@ -84,7 +84,7 @@ class Scrn extends React.Component {
                 let securityRes = await API.validateSecurityQuestion(payload)
 
                 if(securityRes.error) {
-                    Say.warn(securityRes.message)
+                    Say.attemptLeft(securityRes.message)
 
                     if(securityRes.message == Consts.error.blk1d && this.props.isLoggedIn) this.props.logout()
                 }
