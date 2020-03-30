@@ -102,8 +102,12 @@ class Scrn extends React.Component {
     }
 }
 
+const mapStateToProps = state => ({
+    user: state.user.data
+})
+
 const mapDispatchToProps = dispatch => ({
     updateReceiver:(receiverIndex, newProp) => dispatch(Creators.updateLoadReceiver(receiverIndex, newProp))
 })
 
-export default connect(null, mapDispatchToProps)(Scrn)
+export default connect(mapStateToProps, mapDispatchToProps)(Scrn)
