@@ -71,7 +71,7 @@ class Scrn extends React.Component {
 
     handleViewReceiver = index => {
         const {list} = this.state
-        this.props.navigation.navigate('ReceiverWalletProfile',{index, receiver:list[index]})
+        this.props.navigation.navigate('ReceiverKPProfile',{index, receiver:list[index]})
     }
 
     handleChangeSearch = search => this.setState({search})
