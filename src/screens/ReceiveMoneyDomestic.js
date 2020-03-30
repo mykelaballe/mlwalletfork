@@ -58,8 +58,8 @@ class Scrn extends React.Component {
                     kptn:transaction_no,
                     principal:amount,
                     //sender,
-                    firstname,
-                    lastname
+                    sender_firstname:firstname,
+                    sender_lastname:lastname
                 })
 
                 if(res.error) Say.warn(res.message)

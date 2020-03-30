@@ -95,7 +95,7 @@ class Scrn extends React.Component {
                     }
                     else if(res.message === Consts.error.blk) Say.warn(res.message)
                     else if(res.message === 'invalid_grant' || res.message === 'username_notexists' || res.message === 'wrong_password') {
-                        Say.warn(_('72'))
+                        Say.warn('Oops! You entered the wrong information')
                     }
                     else if(res.message === 'version_outofdate') {
                         Say.warn(
