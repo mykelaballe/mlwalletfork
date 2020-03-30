@@ -112,7 +112,7 @@ class Scrn extends React.Component {
             <>
                 <Screen>
 
-                    <Headline subtext='Create new 6-digit Transaction PIN' />
+                    <Headline subtext={`You are required to change your PIN.\nEnter 6-digit Transaction PIN`} />
 
                     <Row ar style={{paddingHorizontal:Metrics.lg}}>
                         <TextInputFlat

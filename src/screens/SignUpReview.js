@@ -418,7 +418,7 @@ export default class Scrn extends React.Component {
 
                         <TextInput
                             ref='email'
-                            label={'Email address (optional)'}
+                            label={'Email address'}
                             value={email}
                             onChangeText={this.handleChangeEmail}
                             onSubmitEditing={this.handleFocusBarangay}

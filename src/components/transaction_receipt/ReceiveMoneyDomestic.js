@@ -10,7 +10,7 @@ const moment = require('moment')
 class ReceiveMoneyDomestic extends React.Component {
 
     componentDidMount = () => {
-        const {sender, amount, balance} = this.props.data
+        const {sender, amount, balance, firstname, lastname} = this.props.data
 
         Say.ok(
             null,
@@ -18,7 +18,7 @@ class ReceiveMoneyDomestic extends React.Component {
             {
                 customMessage:(
                     <>
-                        <Text mute md>You have successfully received Php {Func.formatToCurrency(amount)} from {Func.cleanName(sender)}.</Text>
+                        <Text mute md>You have successfully received Php {Func.formatToCurrency(amount)} from {Func.cleanName(`${firstname} ${lastname}`)}.</Text>
                         <Spacer lg />
                         <Text mute>Your new balance is</Text>
                         <Text xl b>Php {Func.formatToCurrency(balance)}</Text>
@@ -32,7 +32,7 @@ class ReceiveMoneyDomestic extends React.Component {
 
     render() {
 
-        const {_from, timestamp, transaction_no, amount, sender} = this.props.data
+        const {_from, timestamp, transaction_no, amount, sender, firstname, lastname} = this.props.data
 
         return (
             <>
@@ -44,7 +44,7 @@ class ReceiveMoneyDomestic extends React.Component {
 
                     <View style={{padding:Metrics.lg}}>
                         <Text sm mute>Sender</Text>
-                        <Text>{Func.cleanName(sender)}</Text>
+                        <Text>{Func.cleanName(`${firstname} ${lastname}`)}</Text>
 
                         <Spacer />
 

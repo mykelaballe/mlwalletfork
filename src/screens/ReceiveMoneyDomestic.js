@@ -14,6 +14,8 @@ class Scrn extends React.Component {
         transaction_no:'',
         amount:'',
         sender:'',
+        firstname:'',
+        lastname:'',
         processing:false
     }
 
@@ -23,29 +25,41 @@ class Scrn extends React.Component {
 
     handleChangeSender = sender => this.setState({sender})
 
+    handleChangeFirstName = firstname => this.setState({firstname})
+
+    handleChangeLastName = lastname => this.setState({lastname})
+
     handleFocusAmount = () => this.refs.amount.focus()
 
     handleFocusSender = () => this.refs.sender.focus()
 
+    handleFocusFirstName = () => this.refs.firstname.focus()
+
+    handleFocusLastName = () => this.refs.lastname.focus()
+
     handleSubmit = async () => {
         const {walletno} = this.props.user
         const {params} = this.props.navigation.state
-        let {transaction_no, amount, sender, processing} = this.state
+        let {transaction_no, amount, sender, firstname, lastname, processing} = this.state
 
         if(processing) return false
         
         try {
             transaction_no = transaction_no.trim()
             amount = amount.trim()
-            sender = sender.trim()
+            //sender = sender.trim()
+            firstname = firstname.trim()
+            lastname = lastname.trim()
 
-            if(!transaction_no || !amount || !sender) Say.some(_('8'))
+            if(!transaction_no || !amount || !firstname || !lastname) Say.some(_('8'))
             else {
                 let res = await API.receiveMoneyDomestic({
                     walletno,
                     kptn:transaction_no,
                     principal:amount,
-                    sender
+                    //sender,
+                    firstname,
+                    lastname
                 })
 
                 if(res.error) Say.warn(res.message)
@@ -71,10 +85,10 @@ class Scrn extends React.Component {
     render() {
 
         const {type} = this.props.navigation.state.params
-        const {transaction_no, amount, sender, processing} = this.state
+        const {transaction_no, amount, sender, firstname, lastname, processing} = this.state
         let ready = false
 
-        if(transaction_no && amount && sender) ready = true
+        if(transaction_no && amount && firstname && lastname) ready = true
 
         return (
             <>
@@ -94,16 +108,34 @@ class Scrn extends React.Component {
                         label='Amount (PHP)'
                         value={amount}
                         onChangeText={this.handleChangeAmount}
-                        onSubmitEditing={this.handleFocusSender}
+                        onSubmitEditing={this.handleFocusFirstName}
                         keyboardType='numeric'
                         returnKeyType='next'
                     />
 
-                    <TextInput
+                    {/*<TextInput
                         ref='sender'
                         label="Sender's Name"
                         value={sender}
                         onChangeText={this.handleChangeSender}
+                        autoCapitalize='words'
+                    />*/}
+
+                    <TextInput
+                        ref='firstname'
+                        label="First Name"
+                        value={firstname}
+                        onChangeText={this.handleChangeFirstName}
+                        onSubmitEditing={this.handleFocusLastName}
+                        autoCapitalize='words'
+                        returnKeyType='next'
+                    />
+
+                    <TextInput
+                        ref='lastname'
+                        label="Last Name"
+                        value={lastname}
+                        onChangeText={this.handleChangeLastName}
                         autoCapitalize='words'
                     />
                 </Screen>
