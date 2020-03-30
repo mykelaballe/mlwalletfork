@@ -132,11 +132,11 @@ class Scrn extends React.Component {
                             walletNo:walletno,
                             amount:transaction.amount,
                             mobileNo:transaction.contact_no,
-                            networkID:transaction.network.id
+                            networkId:transaction.network.id
                         }
 
                         if(transaction.promo) {
-                            payload.promoCode = transaction.promo.promoCode,
+                            payload.promoCode = transaction.promo.promoCode
                         }
                         res = await API.buyLoad(payload)
                     }
