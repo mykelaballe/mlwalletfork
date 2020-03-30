@@ -90,7 +90,7 @@ export default createStackNavigator({
     BuyLoad: Scrn.BuyLoadScrn,
     SavedLoadReceivers: Scrn.SavedLoadReceiversScrn,
     AddLoadReceiver: Scrn.AddLoadReceiverScrn,
-    ReceiverLoadReceiver: Scrn.ReceiverLoadReceiverScrn,
+    ReceiverLoadProfile: Scrn.ReceiverLoadReceiverScrn,
     UpdateLoadReceiver: Scrn.UpdateLoadReceiverScrn,
     LoadOptions: Scrn.LoadOptionsScrn,
     BuyLoadIndex: {
