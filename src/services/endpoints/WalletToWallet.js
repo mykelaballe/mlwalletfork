@@ -34,7 +34,7 @@ export default {
     },
 
     getWalletReceivers: async walletno => {
-        return [
+        /*return [
             {
                 receiverno:1,
                 walletno:'123',
@@ -53,7 +53,7 @@ export default {
                 fullname:'Gary WAIVED Oak Jr',
                 mobileno:'094435455'
             }
-        ]
+        ]*/
         let res = await Fetch.get(`wallettowallet/receiverlist?walletno=${walletno}`)
         return res.recieverlists || []
     },

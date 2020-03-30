@@ -12,7 +12,7 @@ export default {
     },
 
     getELoadReceivers: async walletno => {
-        return [
+        /*return [
             {
                 receiverno:1,
                 fullname:'John Andrews Smith',
@@ -23,7 +23,7 @@ export default {
                 fullname:'Greg WAIVED Odom',
                 mobileno:'0945532234'
             }
-        ]
+        ]*/
         let res = await Fetch.post(`getLoadReceiver`,{
             _walletno:walletno
         })

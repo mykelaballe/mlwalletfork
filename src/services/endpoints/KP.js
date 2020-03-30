@@ -17,7 +17,7 @@ export default {
     sendKPCancel: async payload => await Fetch.post('kp/cancelSendMoney',payload),
 
     getKPReceivers: async walletno => {
-        return [
+        /*return [
             {
                 receiverno:1,
                 firstname:'Mary',
@@ -42,7 +42,7 @@ export default {
                 suffix:'NONE',
                 ContactNo:'0944345423'
             }
-        ]
+        ]*/
         return await Fetch.get(`kp/kplistreceivers?walletno=${walletno}`)
     },
 
