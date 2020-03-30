@@ -2,13 +2,25 @@ import {Consts, Fetch} from "../../utils"
 
 export default {
     buyLoad: async payload => {
-        return await Fetch.post('LoadSIM',{
+        let res = await Fetch.post('LoadSIM',{
             ...payload,
             deviceid:Consts.deviceId,
             latitude:'1.1',
             longitude:'1.1',
             location:'cebu'
         })
+
+        if(!res.error) {
+            return {
+                ...res,
+                data:{
+                    kptn:res.data.transactionNo,
+                    balance:res.data.currentBalance
+                }
+            }
+        }
+
+        return res
     },
 
     getELoadReceivers: async walletno => {
