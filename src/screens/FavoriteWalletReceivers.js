@@ -39,15 +39,19 @@ class Scrn extends React.Component {
 
     componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
 
-    /*componentDidUpdate = (prevProps, prevState) => {
-        const {refresh, addReceiver} = this.props
+    componentDidUpdate = (prevProps, prevState) => {
+        if(this.props.refreshAllReceivers != prevProps.refreshAllReceivers && this.props.refreshAllReceivers) {
+            this.props.refreshScreen(false)
+            this.handleRefresh()
+        }
+        /*const {refresh, addReceiver} = this.props
         if(newReceiver) {
             addReceiver(null)
             let list = prevState.list.slice()
             list.push(newReceiver)
             this.setState({list})
-        }
-    }*/
+        }*/
+    }
 
     getData = async () => {
         const {walletno} = this.props.user
