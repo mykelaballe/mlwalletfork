@@ -67,8 +67,6 @@ class Scrn extends React.Component {
         })
     }
 
-    handleAddNewReceiver = () => this.props.navigation.navigate('AddWalletReceiver')
-
     handleViewReceiver = index => {
         const {list} = this.state
         this.props.navigation.navigate('ReceiverLoadProfile',{index, receiver:list[index]})
@@ -78,7 +76,7 @@ class Scrn extends React.Component {
 
     handleRefresh = () => this.setState({refreshing:true},this.getData)
 
-    handleAddReceiver = () => this.props.navigation.navigate('AddWalletReceiver')
+    //handleAddReceiver = () => this.props.navigation.navigate('AddWalletReceiver')
 
     renderItem = ({item, index}) => <ItemUI index={index} data={item} onPress={this.handleViewReceiver} />
 
