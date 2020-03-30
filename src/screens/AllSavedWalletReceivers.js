@@ -40,7 +40,11 @@ class Scrn extends React.Component {
     componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
 
     componentDidUpdate = (prevProps, prevState) => {
-        const {newReceiver, deletedIndex, addReceiver, deleteReceiver} = this.props
+        if(this.props.refreshAllReceivers != prevProps.refreshAllReceivers && this.props.refreshAllReceivers) {
+            this.props.refreshScreen(false)
+            this.handleRefresh()
+        }
+        /*const {newReceiver, deletedIndex, addReceiver, deleteReceiver} = this.props
         if(newReceiver) {
             addReceiver(null)
             let list = prevState.list.slice()
@@ -53,7 +57,7 @@ class Scrn extends React.Component {
             let list = this.state.list.slice()
             list.splice(deletedIndex,1)
             this.setState({list})
-        }
+        }*/
     }
 
     getData = async () => {
@@ -143,7 +147,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     addReceiver:newReceiver => dispatch(Creators.addWalletReceiver(newReceiver)),
-    deleteReceiver:deletedIndex => dispatch(Creators.deleteWalletReceiver(deletedIndex))
+    deleteReceiver:deletedIndex => dispatch(Creators.deleteWalletReceiver(deletedIndex)),
+    refreshScreen:refresh => dispatch(Creators.refreshWalletAllReceivers(refresh))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

@@ -128,7 +128,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    addReceiver:refresh => dispatch(Creators.refreshWalletFavorites(refresh))
+    addReceiver:refresh => dispatch(Creators.refreshWalletFavorites(refresh)),
+    refreshScreen:refresh => dispatch(Creators.refreshWalletFavorites(refresh))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

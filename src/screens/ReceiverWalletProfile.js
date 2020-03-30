@@ -67,7 +67,9 @@ class Scrn extends React.Component {
     handleConfirmDelete = () => {
         const {index, receiver} = this.props.navigation.state.params
         try {
-            this.props.deleteReceiver(index)
+            //this.props.deleteReceiver(index)
+            this.props.refreshAll(true)
+            this.props.refreshFavorites(true)
             API.deleteWalletReceiver({walletno:receiver.receiverno})
             this.props.navigation.pop()
             Say.ok('Receiver successfully deleted')
@@ -155,7 +157,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     updateReceiver:(receiverIndex, newProp) => dispatch(Creators.updateWalletReceiver(receiverIndex, newProp)),
-    deleteReceiver:deletedIndex => dispatch(Creators.deleteWalletReceiver(deletedIndex))
+    deleteReceiver:deletedIndex => dispatch(Creators.deleteWalletReceiver(deletedIndex)),
+    refreshAll:refresh => dispatch(Creators.refreshWalletAllReceivers(refresh)),
+    refreshFavorites:refresh => dispatch(Creators.refreshWalletFavorites(refresh))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

@@ -63,6 +63,7 @@ import Types from './Types'
  const addWalletReceiver = newReceiver => ({ type: Types.ADD_WALLET_RECEIVER, newReceiver })
  const updateWalletReceiver = (receiverIndex, newProp) => ({ type: Types.UPDATE_WALLET_RECEIVER, receiverIndex, newProp})
  const deleteWalletReceiver = deletedIndex => ({ type: Types.DELETE_WALLET_RECEIVER, deletedIndex })
+ const refreshWalletAllReceivers = refresh => ({ type: Types.REFRESH_WALLET_ALL_RECEIVERS, refresh })
  const refreshWalletFavorites = refresh => ({ type: Types.REFRESH_WALLET_FAVORITES, refresh })
 
  /*----------------------------------------------------------------------
@@ -104,6 +105,7 @@ export default {
   addWalletReceiver,
   updateWalletReceiver,
   deleteWalletReceiver,
+  refreshWalletAllReceivers,
   refreshWalletFavorites,
 
   addKPReceiver,
