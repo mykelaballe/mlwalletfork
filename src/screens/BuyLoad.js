@@ -2,7 +2,7 @@ import React from 'react'
 import {View, StyleSheet, TouchableOpacity} from 'react-native'
 import {Screen, Footer, Headline, Spacer, Button, TextInput, StaticInput, Icon, Picker} from '../components'
 import {Metrics} from '../themes'
-import {_, Consts, Func} from '../utils'
+import {_, Consts, Func, Say} from '../utils'
 import {API} from '../services'
 
 class Scrn extends React.Component {
