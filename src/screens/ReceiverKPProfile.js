@@ -119,10 +119,10 @@ class Scrn extends React.Component {
                 receiverno:receiver.receiverno
             }
 
-            this.props.updateReceiver(index, {
+            /*this.props.updateReceiver(index, {
                 ...receiver,
                 is_favorite:!is_favorite
-            })
+            })*/
 
             if(is_favorite) API.removeFavoriteKPReceiver(payload)
             else API.addFavoriteKPReceiver(payload)

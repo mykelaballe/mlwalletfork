@@ -117,10 +117,10 @@ class Scrn extends React.Component {
                 accountid:receiver.old_account_no
             }
 
-            this.props.updateReceiver(index, {
+            /*this.props.updateReceiver(index, {
                 ...receiver,
                 is_favorite:!is_favorite
-            })
+            })*/
 
             if(is_favorite) API.removeFavoriteBankPartner(payload)
             else API.addFavoriteBankPartner(payload)
