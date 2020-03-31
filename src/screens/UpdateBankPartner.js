@@ -59,14 +59,16 @@ class Scrn extends React.Component {
 
                 if(res.error) Say.warn(res.message)
                 else {
-                    this.props.updatePartner(index, {
+                    /*this.props.updatePartner(index, {
                         bankname,
                         account_name,
                         account_no,
                         old_account_name:account_name,
                         old_account_no:account_no
-                    })
-                    Say.some('Bank Partner successfully updated')
+                    })*/
+                    this.props.refreshAll(true)
+                    this.props.refreshFavorites(true)
+                    Say.ok('Bank Partner successfully updated')
                 }
             }
         }
@@ -129,7 +131,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    updatePartner:(partnerIndex, newProp) => dispatch(Creators.updateBankPartner(partnerIndex, newProp))
+    //updatePartner:(partnerIndex, newProp) => dispatch(Creators.updateBankPartner(partnerIndex, newProp)),
+    refreshAll:refresh => dispatch(Creators.refreshBankAllPartners(refresh)),
+    refreshFavorites:refresh => dispatch(Creators.refreshBankFavorites(refresh))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrn)
