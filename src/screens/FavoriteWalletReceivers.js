@@ -78,7 +78,12 @@ class Scrn extends React.Component {
         this.props.navigation.navigate('ReceiverWalletProfile',{index, receiver:list[index]})
     }
 
-    handleChangeSearch = search => this.setState({search})
+    handleChangeSearch = search => this.setState({search:this.search(search)})
+
+    search = searchText => {
+        const list = this.listHolder.filter(item => item.fullname.toUpperCase().indexOf(searchText.toUpperCase()) > -1)
+        this.setState({list})
+    }
 
     handleRefresh = () => this.setState({refreshing:true},this.getData)
 

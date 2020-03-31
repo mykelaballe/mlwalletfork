@@ -36,7 +36,7 @@ class Scrn extends React.Component {
     }
 
     state = {
-        is_favorite:false
+        is_favorite:this.props.navigation.state.params.receiver.isFavorite
     }
 
     componentDidMount = () => {
