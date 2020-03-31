@@ -69,7 +69,7 @@ class Scrn extends React.Component {
                 amount:total
             })
 
-            if(res.error) {
+            if(!res.error) {
                 this.props.navigation.navigate('TransactionReview',{
                     ...params,
                     type:Consts.tcn.stw.code,
@@ -79,9 +79,7 @@ class Scrn extends React.Component {
                     status:'success'
                 })
             }
-            else {
-                Say.warn(res.message)
-            }
+            else Say.warn(res.message)
         }
         catch(err) {
             Say.err(_('500'))
