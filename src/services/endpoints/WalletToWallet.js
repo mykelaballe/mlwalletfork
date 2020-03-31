@@ -90,14 +90,14 @@ export default {
 
         if(res.respcode == 1) {
             return {
-                error:true,
+                ...res,
+                error:false,
                 message:res.respmessage
             }
         }
 
         return {
-            ...res,
-            error:false,
+            error:true,
             message:res.respmessage
         }
     },
