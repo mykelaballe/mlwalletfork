@@ -89,6 +89,7 @@ class Scrn extends React.Component {
             })
             this.props.refreshAll(true)
             this.props.refreshFavorites(true)
+            this.props.refreshRecent(true)
             this.props.navigation.pop()
             //this.props.navigation.navigate('SavedKPReceivers',{removeAtIndex:index})
             Say.ok('Receiver successfully deleted')
@@ -198,7 +199,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     deleteReceiver:deletedIndex => dispatch(Creators.deleteKPReceiver(deletedIndex)),
     refreshAll:refresh => dispatch(Creators.refreshKPAllReceivers(refresh)),
-    refreshFavorites:refresh => dispatch(Creators.refreshKPFavorites(refresh))
+    refreshFavorites:refresh => dispatch(Creators.refreshKPFavorites(refresh)),
+    refreshRecent:refresh => dispatch(Creators.refreshKPRecent(refresh))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

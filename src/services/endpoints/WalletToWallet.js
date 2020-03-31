@@ -71,8 +71,7 @@ export default {
     },
 
     getRecentWalletReceivers: async walletno => {
-        return []
-        let res = await Fetch.get(`wallettowallet/recentreceiverlist?walletno=${walletno}`)
+        let res = await Fetch.get(`recent/${Consts.tcn.stw.code}/${walletno}`)
         return res.data || []
     },
 

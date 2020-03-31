@@ -1,3 +1,4 @@
+import Consts from '../../utils/Consts'
 import Fetch from '../../utils/Fetch'
 
 export default {
@@ -41,8 +42,7 @@ export default {
     },
 
     getRecentBankPartners: async walletno => {
-        return []
-        let res = await Fetch.get(`bankAccount/recentreceiverlist?walletno=${walletno}`)
+        let res = await Fetch.get(`recent/${Consts.tcn.stb.code}/${walletno}`)
         return res.data || []
     },
 

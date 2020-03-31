@@ -8,7 +8,8 @@ export const INITIAL_STATE = Immutable({
   newProp: null,
   deletedIndex: null,
   refreshAllReceivers: false,
-  refreshFavorites: false
+  refreshFavorites: false,
+  refreshRecent: false
 })
 
 const addWalletReceiver = (state, action) => state.merge({ newReceiver:action.newReceiver })
@@ -20,6 +21,8 @@ const deleteWalletReceiver = (state, action) => state.merge({ deletedIndex:actio
 const refreshWalletAllReceivers = (state, action) => state.merge({ refreshAllReceivers:action.refresh })
 
 const refreshWalletFavorites = (state, action) => state.merge({ refreshFavorites:action.refresh })
+
+const refreshWalletRecent = (state, action) => state.merge({ refreshRecent:action.refresh })
   
 const ACTION_HANDLERS = {
   [Types.ADD_WALLET_RECEIVER]: addWalletReceiver,
@@ -27,6 +30,7 @@ const ACTION_HANDLERS = {
   [Types.DELETE_WALLET_RECEIVER]: deleteWalletReceiver,
   [Types.REFRESH_WALLET_ALL_RECEIVERS]: refreshWalletAllReceivers,
   [Types.REFRESH_WALLET_FAVORITES]: refreshWalletFavorites,
+  [Types.REFRESH_WALLET_RECENT]: refreshWalletRecent,
 }
 
 export default createReducer(INITIAL_STATE, ACTION_HANDLERS)

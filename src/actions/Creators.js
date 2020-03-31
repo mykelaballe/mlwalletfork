@@ -65,6 +65,7 @@ import Types from './Types'
  const deleteWalletReceiver = deletedIndex => ({ type: Types.DELETE_WALLET_RECEIVER, deletedIndex })
  const refreshWalletAllReceivers = refresh => ({ type: Types.REFRESH_WALLET_ALL_RECEIVERS, refresh })
  const refreshWalletFavorites = refresh => ({ type: Types.REFRESH_WALLET_FAVORITES, refresh })
+ const refreshWalletRecent = refresh => ({ type: Types.REFRESH_WALLET_RECENT, refresh })
 
  /*----------------------------------------------------------------------
  KP
@@ -75,6 +76,7 @@ import Types from './Types'
  const deleteKPReceiver = deletedIndex => ({ type: Types.DELETE_KP_RECEIVER, deletedIndex })
  const refreshKPAllReceivers = refresh => ({ type: Types.REFRESH_KP_ALL_RECEIVERS, refresh })
  const refreshKPFavorites = refresh => ({ type: Types.REFRESH_KP_FAVORITES, refresh })
+ const refreshKPRecent = refresh => ({ type: Types.REFRESH_KP_RECENT, refresh })
 
  /*----------------------------------------------------------------------
  BANK TRANSFER
@@ -85,6 +87,7 @@ import Types from './Types'
  const deleteBankPartner = deletedIndex => ({ type: Types.DELETE_BANK_PARTNER, deletedIndex })
  const refreshBankAllPartners = refresh => ({ type: Types.REFRESH_BANK_ALL_PARTNERS, refresh })
  const refreshBankFavorites = refresh => ({ type: Types.REFRESH_BANK_FAVORITES, refresh })
+ const refreshBankRecent = refresh => ({ type: Types.REFRESH_BANK_RECENT, refresh })
 
  /*----------------------------------------------------------------------
  ELOAD
@@ -95,6 +98,7 @@ import Types from './Types'
  const deleteELoadReceiver = deletedIndex => ({ type: Types.DELETE_ELOAD_RECEIVER, deletedIndex })
  const refreshELoadAllReceivers = refresh => ({ type: Types.REFRESH_ELOAD_ALL_RECEIVERS, refresh })
  const refreshELoadFavorites = refresh => ({ type: Types.REFRESH_ELOAD_FAVORITES, refresh })
+ const refreshELoadRecent = refresh => ({ type: Types.REFRESH_ELOAD_RECENT, refresh })
 
 export default {
   startup,
@@ -113,24 +117,28 @@ export default {
   deleteWalletReceiver,
   refreshWalletAllReceivers,
   refreshWalletFavorites,
+  refreshWalletRecent,
 
   addKPReceiver,
   updateKPReceiver,
   deleteKPReceiver,
   refreshKPAllReceivers,
   refreshKPFavorites,
+  refreshKPRecent,
 
   addBankPartner,
   updateBankPartner,
   deleteBankPartner,
   refreshBankAllPartners,
   refreshBankFavorites,
+  refreshBankRecent,
 
   addELoadReceiver,
   updateELoadReceiver,
   deleteELoadReceiver,
   refreshELoadAllReceivers,
   refreshELoadFavorites,
+  refreshELoadRecent,
 
   login,
   logout,

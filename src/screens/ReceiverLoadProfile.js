@@ -72,6 +72,7 @@ class Scrn extends React.Component {
             await API.deleteELoadReceiver({receiverno:receiver.receiverno})
             this.props.refreshAll(true)
             this.props.refreshFavorites(true)
+            this.props.refreshRecent(true)
             this.props.navigation.pop()
             Say.ok('Receiver successfully deleted')
         }
@@ -162,7 +163,8 @@ const mapDispatchToProps = dispatch => ({
     updateReceiver:(receiverIndex, newProp) => dispatch(Creators.updateELoadReceiver(receiverIndex, newProp)),
     deleteReceiver:deletedIndex => dispatch(Creators.deleteELoadReceiver(deletedIndex)),
     refreshAll:refresh => dispatch(Creators.refreshELoadAllReceivers(refresh)),
-    refreshFavorites:refresh => dispatch(Creators.refreshELoadFavorites(refresh))
+    refreshFavorites:refresh => dispatch(Creators.refreshELoadFavorites(refresh)),
+    refreshRecent:refresh => dispatch(Creators.refreshELoadRecent(refresh))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

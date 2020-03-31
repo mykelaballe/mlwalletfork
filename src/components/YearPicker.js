@@ -11,8 +11,6 @@ const MAX_COLUMN = 4
 const ITEM_SIZE = width / MAX_COLUMN
 
 const CURRENT_YEAR = parseInt(moment().format('YYYY'))
-const MAX_YEAR = CURRENT_YEAR - Consts.user_min_age
-const MIN_YEAR = CURRENT_YEAR - Consts.user_max_age
 
 const ItemUI = props => (
 	<View style={{width:ITEM_SIZE,alignItems:'center'}}>
@@ -29,10 +27,12 @@ export default class YearPicker extends React.Component {
 	}
 
 	componentDidMount = () => {
-		const {initialValue} = this.props
+		const {initialValue, max, min} = this.props
 		let list = []
+		let min_year = min || CURRENT_YEAR - Consts.user_max_age
+		let max_year = max || CURRENT_YEAR - Consts.user_min_age
 		
-		for(let i=MAX_YEAR; i>MIN_YEAR; i--) {
+		for(let i=max_year; i>min_year; i--) {
 			list.push({
 				label:i,
 				selected:initialValue && initialValue == i ? true : false

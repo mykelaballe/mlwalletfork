@@ -9,6 +9,9 @@ import Icon from 'react-native-vector-icons/AntDesign'
 //import RNHTMLtoPDF from 'react-native-html-to-pdf'
 
 const moment = require('moment')
+const NOW = moment()
+const CURRENT_YEAR = parseInt(NOW.format('YYYY'))
+const MIN_YEAR = CURRENT_YEAR - 12
 
 class Scrn extends React.Component {
 
@@ -78,8 +81,12 @@ class Scrn extends React.Component {
                 label:Consts.tcn.wdc.submit_text
             }
         ],
-        selected_type:{},
-        selected_timeframe:{},
+        selected_type:{
+            value:'all_types'
+        },
+        selected_timeframe:{
+            value:'all_time'
+        },
         show_filters:false,
         showMonthFrom:false,
         showMonthTo:false,
@@ -114,10 +121,35 @@ class Scrn extends React.Component {
 
     getData = async () => {
         const {walletno} = this.props.user
-        let list = []
+        const {month_from, day_from, year_from, month_to, day_to, year_to, selected_timeframe, selected_type} = this.state
+        let list = [], from = '', to = ''
 
         try {
-            list = await API.getTransactionHistory(walletno)
+            if(selected_timeframe.value == 'past_week') {
+                let past_week = NOW.subtract(1,'weeks')
+                from = past_week.startOf('week').format('YYYY-MM-DD')
+                to = past_week.endOf('week').format('YYYY-MM-DD')
+            }
+            else if(selected_timeframe.value == 'past_month') {
+                let past_month = NOW.subtract(1,'months')
+                from = past_month.startOf('month').format('YYYY-MM-DD')
+                to = past_month.endOf('month').format('YYYY-MM-DD')
+            }
+            else if(selected_timeframe.value == 'past_year') {
+                from = `${CURRENT_YEAR - 1}-01-31`
+                to = `${CURRENT_YEAR - 1}-12-31`
+            }
+            else if(selected_timeframe.value == 'custom') {
+                from = `${year_from}-${month_from}-${day_from}`
+                to = `${year_to}-${month_to}-${day_to}`
+            }
+
+            /*list = await API.getTransactionHistory({
+                walletno,
+                from:,
+                to:,
+                type:selected_type.value || ''
+            })*/
         }
         catch(err) {
             Say.err(_('500'))
@@ -132,9 +164,31 @@ class Scrn extends React.Component {
 
     handleToggleFilters = () => this.setState(prevState => ({show_filters:!prevState.show_filters}))
 
-    handleSelectTimeframeFilter = (selected_timeframe = {}) => this.setState({selected_timeframe})
+    handleSelectTimeframeFilter = (selected_timeframe = {}) => {
+        let month_from = '', day_from = '', year_from = ''
+        let month_to = '', day_to = '', year_to = ''
 
-    handleSelectTypeFilter = (selected_type = {}) => this.setState({selected_type})
+        if(selected_timeframe.value == 'custom') {
+            month_from = NOW.format('MM')
+            day_from = NOW.format('DD')
+            year_from = CURRENT_YEAR
+            month_to = NOW.format('MM')
+            day_to = NOW.format('DD')
+            year_to = CURRENT_YEAR
+        }
+
+        this.setState({
+            month_from,
+            day_from,
+            year_from,
+            month_to,
+            day_to,
+            year_to,
+            selected_timeframe
+        },this.handleRefresh)
+    }
+
+    handleSelectTypeFilter = (selected_type = {}) => this.setState({selected_type},this.handleRefresh)
 
     handleViewDetails = item => {
         return false
@@ -152,17 +206,35 @@ class Scrn extends React.Component {
 
     handleChangeYearFrom = () => this.setState({showYearFrom:true})
 
-    handleSelectMonthFrom = () => {}
+    handleSelectMonthFrom = month_from => this.setState({month_from,day_from:1},this.handleRefresh)
 
-    handleSelectDayFrom = () => {}
+    handleSelectDayFrom = day_from => this.setState({day_from},this.handleRefresh)
 
-    handleSelectYearFrom = () => {}
+    handleSelectYearFrom = year_from => this.setState({year_from},this.handleRefresh)
 
     handleHideMonthFromPicker = () => this.setState({showMonthFrom:false})
 
     handleHideDayFromPicker = () => this.setState({showDayFrom:false})
 
     handleHideYearFromPicker = () => this.setState({showYearFrom:false})
+
+    handleChangeMonthTo = () => this.setState({showMonthTo:true})
+
+    handleChangeDayTo = () => this.setState({showDayTo:true})
+
+    handleChangeYearTo= () => this.setState({showYearTo:true})
+
+    handleSelectMonthTo= month_to => this.setState({month_to,day_to:1},this.handleRefresh)
+
+    handleSelectDayTo = day_to => this.setState({day_to},this.handleRefresh)
+
+    handleSelectYearTo= year_to => this.setState({year_to},this.handleRefresh)
+
+    handleHideMonthToPicker = () => this.setState({showMonthTo:false})
+
+    handleHideDayToPicker = () => this.setState({showDayTo:false})
+
+    handleHideYearToPicker = () => this.setState({showYearTo:false})
 
     handleRefresh = () => this.setState({refreshing:true},this.getData)
 
@@ -241,22 +313,22 @@ class Scrn extends React.Component {
                             <Row bw>
                                 <StaticInput
                                     label='Month'
-                                    value={month_from ? moment(month_from,'M').format('MMM') : null}
-                                    onPress={this.handleChangeMonthFrom}
+                                    value={month_to ? moment(month_to,'M').format('MMM') : null}
+                                    onPress={this.handleChangeMonthTo}
                                     style={{flex:2}}
                                 />
                                 <Spacer h xs/>
                                 <StaticInput
                                     label='Day'
-                                    value={day_from}
-                                    onPress={this.handleChangeDayFrom}
+                                    value={day_to}
+                                    onPress={this.handleChangeDayTo}
                                     style={{flex:1}}
                                 />
                                 <Spacer h xs/>
                                 <StaticInput
                                     label='Year'
-                                    value={year_from}
-                                    onPress={this.handleChangeYearFrom}
+                                    value={year_to}
+                                    onPress={this.handleChangeYearTo}
                                     style={{flex:1}}
                                 />
                             </Row>
@@ -286,9 +358,15 @@ class Scrn extends React.Component {
 
                 <MonthPicker visible={showMonthFrom} onSelect={this.handleSelectMonthFrom} onDismiss={this.handleHideMonthFromPicker} />
 
-                <DayPicker visible={showDayFrom} onSelect={this.handleSelectDayFrom} onDismiss={this.handleHideDayFromPicker} />
+                <DayPicker month={month_from} visible={showDayFrom} onSelect={this.handleSelectDayFrom} onDismiss={this.handleHideDayFromPicker} />
 
-                <YearPicker visible={showYearFrom} onSelect={this.handleSelectYearFrom} onDismiss={this.handleHideYearFromPicker} />   
+                <YearPicker visible={showYearFrom} max={CURRENT_YEAR} min={MIN_YEAR} onSelect={this.handleSelectYearFrom} onDismiss={this.handleHideYearFromPicker} />
+
+                <MonthPicker visible={showMonthTo} onSelect={this.handleSelectMonthTo} onDismiss={this.handleHideMonthToPicker} />
+
+                <DayPicker month={month_to} visible={showDayTo} onSelect={this.handleSelectDayTo} onDismiss={this.handleHideDayToPicker} />
+
+                <YearPicker visible={showYearTo} max={CURRENT_YEAR} min={MIN_YEAR} onSelect={this.handleSelectYearTo} onDismiss={this.handleHideYearToPicker} />   
             </Provider>
         )
     }

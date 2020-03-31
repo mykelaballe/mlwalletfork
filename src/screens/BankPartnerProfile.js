@@ -97,6 +97,7 @@ class Scrn extends React.Component {
             })
             this.props.refreshAll(true)
             this.props.refreshFavorites(true)
+            this.props.refreshRecent(true)
             this.props.navigation.pop()
             //this.props.navigation.navigate('SavedBankPartners',{removeAtIndex:index})
             Say.ok('Partner successfully deleted')
@@ -189,7 +190,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     deletePartner:deletedIndex => dispatch(Creators.deleteBankPartner(deletedIndex)),
     refreshAll:refresh => dispatch(Creators.refreshBankAllPartners(refresh)),
-    refreshFavorites:refresh => dispatch(Creators.refreshBankFavorites(refresh))
+    refreshFavorites:refresh => dispatch(Creators.refreshBankFavorites(refresh)),
+    refreshRecent:refresh => dispatch(Creators.refreshBankRecent(refresh))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

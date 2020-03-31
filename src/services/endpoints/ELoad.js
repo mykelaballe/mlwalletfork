@@ -1,4 +1,5 @@
-import {Consts, Fetch} from "../../utils"
+import Consts from '../../utils/Consts'
+import Fetch from '../../utils/Fetch'
 
 export default {
     buyLoad: async payload => {
@@ -63,8 +64,7 @@ export default {
     },
 
     getRecentELoadReceivers: async walletno => {
-        return []
-        let res = await Fetch.get(`eload/recentreceiverlist?walletno=${walletno}`)
+        let res = await Fetch.get(`recent/${Consts.tcn.bul.code}/${walletno}`)
         return res.data || []
     },
 

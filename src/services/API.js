@@ -16,7 +16,7 @@ import User from './endpoints/User'
 
 export default {
     login: async payload => {
-        /*return {
+        return {
             error:false,
             data: {
                 username:'johnsmith',
@@ -46,12 +46,12 @@ export default {
                 profilepic:null,
                 validID:null,
                 points:35,
-                level:0,
+                status:0,
                 isresetpass:"0",
                 isresetpin:"0",
                 error:payload.username == 'newphone' ? 'registered_anotherdevice' : null
             }
-        }*/
+        }
         let res = await Fetch.post('wallet/login', {
             ...payload,
             latitude:'1',
@@ -141,7 +141,7 @@ export default {
         return res.data.notificationList || []
     },
 
-    getTransactionHistory: async walletno => {
+    getTransactionHistory: async payload => {
         /*return [
             {
                 kptn:'123456',
@@ -152,7 +152,7 @@ export default {
                 amount:'3000'
             }
         ]*/
-        return await Fetch.get(`transaction/history?walletno=${walletno}`)
+        return await Fetch.get(`transaction/history?walletno=${walletno}&from=${payload.from}&to=${payload.to}&type=${payload.type}`)
     },
 
     getBranches: async () => {

@@ -8,7 +8,8 @@ export const INITIAL_STATE = Immutable({
   newProp: null,
   deletedIndex: null,
   refreshAllPartners: false,
-  refreshFavorites: false
+  refreshFavorites: false,
+  refreshRecent: false
 })
 
 const addBankPartner = (state, action) => state.merge({ newPartner:action.newPartner })
@@ -20,6 +21,8 @@ const deleteBankPartner = (state, action) => state.merge({ deletedIndex:action.d
 const refreshBankAllPartners = (state, action) => state.merge({ refreshAllPartners:action.refresh })
 
 const refreshBankFavorites = (state, action) => state.merge({ refreshFavorites:action.refresh })
+
+const refreshBankRecent = (state, action) => state.merge({ refreshRecent:action.refresh })
   
 const ACTION_HANDLERS = {
   [Types.ADD_BANK_PARTNER]: addBankPartner,
@@ -27,6 +30,7 @@ const ACTION_HANDLERS = {
   [Types.DELETE_BANK_PARTNER]: deleteBankPartner,
   [Types.REFRESH_BANK_ALL_PARTNERS]: refreshBankAllPartners,
   [Types.REFRESH_BANK_FAVORITES]: refreshBankFavorites,
+  [Types.REFRESH_BANK_RECENT]: refreshBankRecent,
 }
 
 export default createReducer(INITIAL_STATE, ACTION_HANDLERS)

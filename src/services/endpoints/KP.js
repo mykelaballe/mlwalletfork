@@ -1,3 +1,4 @@
+import Consts from '../../utils/Consts'
 import Fetch from '../../utils/Fetch'
 
 export default {
@@ -52,8 +53,7 @@ export default {
     },
 
     getRecentKPReceivers: async walletno => {
-        return []
-        let res = await Fetch.get(`kpRecent/${walletno}`)
+        let res = await Fetch.get(`recent/${Consts.tcn.skp.code}/${walletno}`)
         return res.data || []
     },
 

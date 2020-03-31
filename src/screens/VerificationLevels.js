@@ -170,7 +170,7 @@ class Scrn extends React.Component {
                         <Text>Step 3. Add money on your account and get fully verified.</Text>
                     </View>
 
-                    <Spacer md />
+                    <Spacer sm />
                 </>
                 }
 

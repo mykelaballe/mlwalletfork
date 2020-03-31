@@ -8,7 +8,8 @@ export const INITIAL_STATE = Immutable({
   newProp: null,
   deletedIndex: null,
   refreshAllReceivers: false,
-  refreshFavorites: false
+  refreshFavorites: false,
+  refreshRecent: false
 })
 
 const addELoadReceiver = (state, action) => state.merge({ newReceiver:action.newReceiver })
@@ -20,6 +21,8 @@ const deleteELoadReceiver = (state, action) => state.merge({ deletedIndex:action
 const refreshELoadAllReceivers = (state, action) => state.merge({ refreshAllReceivers:action.refresh })
 
 const refreshELoadFavorites = (state, action) => state.merge({ refreshFavorites:action.refresh })
+
+const refreshELoadRecent = (state, action) => state.merge({ refreshRecent:action.refresh })
   
 const ACTION_HANDLERS = {
   [Types.ADD_ELOAD_RECEIVER]: addELoadReceiver,
@@ -27,6 +30,7 @@ const ACTION_HANDLERS = {
   [Types.DELETE_ELOAD_RECEIVER]: deleteELoadReceiver,
   [Types.REFRESH_ELOAD_ALL_RECEIVERS]: refreshELoadAllReceivers,
   [Types.REFRESH_ELOAD_FAVORITES]: refreshELoadFavorites,
+  [Types.REFRESH_ELOAD_RECENT]: refreshELoadRecent,
 }
 
 export default createReducer(INITIAL_STATE, ACTION_HANDLERS)

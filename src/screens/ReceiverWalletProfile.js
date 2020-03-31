@@ -71,6 +71,7 @@ class Scrn extends React.Component {
             await PI.deleteWalletReceiver({walletno:receiver.receiverno})
             this.props.refreshAll(true)
             this.props.refreshFavorites(true)
+            this.props.refreshRecent(true)
             this.props.navigation.pop()
             Say.ok('Receiver successfully deleted')
         }
@@ -162,7 +163,8 @@ const mapDispatchToProps = dispatch => ({
     updateReceiver:(receiverIndex, newProp) => dispatch(Creators.updateWalletReceiver(receiverIndex, newProp)),
     deleteReceiver:deletedIndex => dispatch(Creators.deleteWalletReceiver(deletedIndex)),
     refreshAll:refresh => dispatch(Creators.refreshWalletAllReceivers(refresh)),
-    refreshFavorites:refresh => dispatch(Creators.refreshWalletFavorites(refresh))
+    refreshFavorites:refresh => dispatch(Creators.refreshWalletFavorites(refresh)),
+    refreshRecent:refresh => dispatch(Creators.refreshWalletRecent(refresh))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrn)
