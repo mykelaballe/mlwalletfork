@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Creators} from '../actions'
 import {Screen, Footer, Text, Spacer, Button, TextInput} from '../components'
 import {_, Consts, Say} from '../utils'
 import {API} from '../services'
@@ -46,7 +47,7 @@ class Scrn extends React.Component {
         
         try {
             this.setState({processing:true})
-            
+
             transaction_no = transaction_no.trim()
             amount = amount.trim()
             //sender = sender.trim()
@@ -64,7 +65,11 @@ class Scrn extends React.Component {
                     sender_lastname:lastname
                 })
 
-                if(res.error) Say.warn(res.message)
+                if(res.error) {
+                    Say.attemptLeft(res.message)
+
+                    if(res.message == Consts.error.blk1d) this.props.logout()
+                }
                 else {
                     this.props.navigation.navigate('TransactionReceipt',{
                         ...params,
@@ -156,4 +161,8 @@ const mapStateToProps = state => ({
     user: state.user.data
 })
 
-export default connect(mapStateToProps)(Scrn)
+const mapDispatchToProps = dispatch => ({
+    logout: () => dispatch(Creators.logout())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Scrn)
