@@ -97,13 +97,14 @@ class Scrn extends React.Component {
                 })
 
                 if(res.walletno) {
-                    this.props.addReceiver({
+                    /*this.props.addReceiver({
                         ...res,
                         firstname:res.Fname,
                         lastname:res.Lname,
                         middlename:res.Mname,
                         suffix:res.Suffix
-                    })
+                    })*/
+                    this.props.refreshAll(true)
                     Say.ok('Successfully added KP receiver')
                     this.props.navigation.pop()
                 }
@@ -210,7 +211,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    addReceiver:newReceiver => dispatch(Creators.addKPReceiver(newReceiver))
+    //addReceiver:newReceiver => dispatch(Creators.addKPReceiver(newReceiver)),
+    refreshAll:refresh => dispatch(Creators.refreshKPAllReceivers(refresh)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

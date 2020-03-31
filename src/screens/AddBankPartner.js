@@ -55,13 +55,14 @@ class Scrn extends React.Component {
 
                 if(res.error) Say.some(res.message)
                 else {
-                    this.props.addPartner({
+                    /*this.props.addPartner({
                         ...res,
                         ...payload,
                         old_account_no:account_no,
                         old_account_name:account_name
-                    })
-                    Say.some('Bank Partner successfully added')
+                    })*/
+                    this.props.refreshAll(true)
+                    Say.ok('Bank Partner successfully added')
                     this.props.navigation.pop()
                 }
             }
@@ -127,7 +128,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    addPartner:newPartner => dispatch(Creators.addBankPartner(newPartner))
+    //addPartner:newPartner => dispatch(Creators.addBankPartner(newPartner)),
+    refreshAll:refresh => dispatch(Creators.refreshBankAllPartners(refresh)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

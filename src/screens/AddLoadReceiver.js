@@ -49,11 +49,12 @@ class Scrn extends React.Component {
                 let res = await API.addELoadReceiver(payload)
 
                 if(!res.error) {
-                    this.props.addReceiver({
+                    /*this.props.addReceiver({
                         ...res,
                         fullname,
                         mobileno
-                    })
+                    })*/
+                    this.props.refreshAll(true)
                     this.props.navigation.pop()
                     Say.ok('New ELoad receiver successfully added')
                 }
@@ -111,7 +112,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    addReceiver:newReceiver => dispatch(Creators.addELoadReceiver(newReceiver))
+    //addReceiver:newReceiver => dispatch(Creators.addELoadReceiver(newReceiver)),
+    refreshAll:refresh => dispatch(Creators.refreshELoadAllReceivers(refresh)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

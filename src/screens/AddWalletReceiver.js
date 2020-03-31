@@ -100,7 +100,7 @@ class Scrn extends React.Component {
 
             if(res.error) Say.warn(res.message)
             else {
-                this.props.refreshScreen(true)
+                this.props.refreshAll(true)
                 /*this.props.addReceiver({
                     receiverno:res.data,
                     walletno,
@@ -194,7 +194,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     addReceiver:newReceiver => dispatch(Creators.addWalletReceiver(newReceiver)),
-    refreshScreen:refresh => dispatch(Creators.refreshWalletAllReceivers(refresh))
+    refreshAll:refresh => dispatch(Creators.refreshWalletAllReceivers(refresh))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrn)
