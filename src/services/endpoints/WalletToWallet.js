@@ -89,9 +89,16 @@ export default {
 
         let res = await Fetch.get(`wallettowallet/${endpoint}?${params.join('&')}`)
 
+        if(res.respcode == 1) {
+            return {
+                error:true,
+                message:res.respmessage
+            }
+        }
+
         return {
             ...res,
-            error:res.respcode === 1,
+            error:false,
             message:res.respmessage
         }
     },
