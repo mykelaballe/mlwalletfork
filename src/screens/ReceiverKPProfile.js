@@ -81,7 +81,9 @@ class Scrn extends React.Component {
         const {walletno} = this.props.user
         const {index, receiver} = this.props.navigation.state.params
         try {
-            this.props.deleteReceiver(index)
+            //this.props.deleteReceiver(index)
+            this.props.refreshAll(true)
+            this.props.refreshFavorites(true)
             API.deleteKPReceiver({
                 walletno,
                 receiverNumVal:receiver.receiverno
@@ -118,6 +120,9 @@ class Scrn extends React.Component {
                 walletno,
                 receiverno:receiver.receiverno
             }
+
+            this.props.refreshAll(true)
+            this.props.refreshFavorites(true)
 
             /*this.props.updateReceiver(index, {
                 ...receiver,
@@ -189,7 +194,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    deleteReceiver:deletedIndex => dispatch(Creators.deleteKPReceiver(deletedIndex))
+    deleteReceiver:deletedIndex => dispatch(Creators.deleteKPReceiver(deletedIndex)),
+    refreshAll:refresh => dispatch(Creators.refreshKPAllReceivers(refresh)),
+    refreshFavorites:refresh => dispatch(Creators.refreshKPFavorites(refresh))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

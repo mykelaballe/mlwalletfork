@@ -84,7 +84,9 @@ class Scrn extends React.Component {
         const {walletno} = this.props.user
         const {index, receiver} = this.props.navigation.state.params
         try {
-            this.props.deletePartner(index)
+            //this.props.deletePartner(index)
+            this.props.refreshAll(true)
+            this.props.refreshFavorites(true)
             API.deleteBankPartner({
                 walletno,
                 partnersid:receiver.old_partnersid,
@@ -116,6 +118,9 @@ class Scrn extends React.Component {
                 partnersid:receiver.old_partnersid,
                 accountid:receiver.old_account_no
             }
+
+            this.props.refreshAll(true)
+            this.props.refreshFavorites(true)
 
             /*this.props.updateReceiver(index, {
                 ...receiver,
@@ -176,7 +181,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    deletePartner:deletedIndex => dispatch(Creators.deleteBankPartner(deletedIndex))
+    deletePartner:deletedIndex => dispatch(Creators.deleteBankPartner(deletedIndex)),
+    refreshAll:refresh => dispatch(Creators.refreshBankAllPartners(refresh)),
+    refreshFavorites:refresh => dispatch(Creators.refreshBankFavorites(refresh))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

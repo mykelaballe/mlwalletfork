@@ -40,7 +40,7 @@ class Scrn extends React.Component {
     componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
 
     componentDidUpdate = (prevProps, prevState) => {
-        if(this.props.refreshAllReceivers != prevProps.refreshAllReceivers && this.props.refreshAllReceivers) {
+        if(this.props.refreshFavorites != prevProps.refreshFavorites && this.props.refreshFavorites) {
             this.props.refreshScreen(false)
             this.handleRefresh()
         }
@@ -132,7 +132,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    addReceiver:refresh => dispatch(Creators.refreshWalletFavorites(refresh)),
+    //addReceiver:refresh => dispatch(Creators.refreshWalletFavorites(refresh)),
     refreshScreen:refresh => dispatch(Creators.refreshWalletFavorites(refresh))
 })
 

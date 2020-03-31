@@ -39,15 +39,19 @@ class Scrn extends React.Component {
 
     componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
 
-    /*componentDidUpdate = (prevProps, prevState) => {
-        const {refresh, addReceiver} = this.props
+    componentDidUpdate = (prevProps, prevState) => {
+        if(this.props.refreshFavorites != prevProps.refreshFavorites && this.props.refreshFavorites) {
+            this.props.refreshScreen(false)
+            this.handleRefresh()
+        }
+        /*const {refresh, addReceiver} = this.props
         if(newReceiver) {
             addReceiver(null)
             let list = prevState.list.slice()
             list.push(newReceiver)
             this.setState({list})
-        }
-    }*/
+        }*/
+    }
 
     getData = async () => {
         const {walletno} = this.props.user
@@ -124,11 +128,12 @@ const style = StyleSheet.create({
 
 const mapStateToProps = state => ({
     user: state.user.data,
-    ...state.walletToWallet
+    ...state.kp
 })
 
 const mapDispatchToProps = dispatch => ({
-    addReceiver:refresh => dispatch(Creators.refreshWalletFavorites(refresh))
+    //addReceiver:refresh => dispatch(Creators.refreshWalletFavorites(refresh)),
+    refreshScreen:refresh => dispatch(Creators.refreshKPFavorites(refresh))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

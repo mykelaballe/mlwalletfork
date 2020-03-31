@@ -48,6 +48,8 @@ class Scrn extends React.Component {
                 let res = await API.updateELoadReceiver(payload)
 
                 if(!res.error) {
+                    this.props.refreshAll(true)
+                    this.props.refreshFavorites(true)
                     /*this.props.updateReceiver(index, {
                         ...receiver,
                         fullname,
@@ -107,7 +109,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    updateReceiver:(receiverIndex, newProp) => dispatch(Creators.updateLoadReceiver(receiverIndex, newProp))
+    //updateReceiver:(receiverIndex, newProp) => dispatch(Creators.updateLoadReceiver(receiverIndex, newProp)),
+    refreshAll:refresh => dispatch(Creators.refreshELoadAllReceivers(refresh)),
+    refreshFavorites:refresh => dispatch(Creators.refreshELoadFavorites(refresh))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

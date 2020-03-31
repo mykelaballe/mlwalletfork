@@ -100,16 +100,19 @@ class Scrn extends React.Component {
                 let res = await API.updateKPReceiver(payload)
 
                 if(!res.error) {
-                    this.props.updateReceiver(index, {
+                    /*this.props.updateReceiver(index, {
                         ...receiver,
                         firstname,
                         middlename,
                         lastname,
                         suffix,
                         ContactNo:contact_no
-                    })
-                    Say.some('KP receiver updated!')
+                    })*/
+                    this.props.refreshAll(true)
+                    this.props.refreshFavorites(true)
+                    Say.ok('KP receiver updated!')
                 }
+                else Say.warn(res.message)
             }
         }
         catch(err) {
@@ -209,7 +212,9 @@ class Scrn extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    updateReceiver:(receiverIndex, newProp) => dispatch(Creators.updateKPReceiver(receiverIndex, newProp))
+    //updateReceiver:(receiverIndex, newProp) => dispatch(Creators.updateKPReceiver(receiverIndex, newProp)),
+    refreshAll:refresh => dispatch(Creators.refreshKPAllReceivers(refresh)),
+    refreshFavorites:refresh => dispatch(Creators.refreshKPFavorites(refresh))
 })
 
 export default connect(null, mapDispatchToProps)(Scrn)

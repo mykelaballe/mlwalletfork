@@ -73,6 +73,8 @@ import Types from './Types'
  const addKPReceiver = newReceiver => ({ type: Types.ADD_KP_RECEIVER, newReceiver })
  const updateKPReceiver = (receiverIndex, newProp) => ({ type: Types.UPDATE_KP_RECEIVER, receiverIndex, newProp})
  const deleteKPReceiver = deletedIndex => ({ type: Types.DELETE_KP_RECEIVER, deletedIndex })
+ const refreshKPAllReceivers = refresh => ({ type: Types.REFRESH_KP_ALL_RECEIVERS, refresh })
+ const refreshKPFavorites = refresh => ({ type: Types.REFRESH_KP_FAVORITES, refresh })
 
  /*----------------------------------------------------------------------
  BANK TRANSFER
@@ -81,6 +83,8 @@ import Types from './Types'
  const addBankPartner = newPartner => ({ type: Types.ADD_BANK_PARTNER, newPartner })
  const updateBankPartner = (partnerIndex, newProp) => ({ type: Types.UPDATE_BANK_PARTNER, partnerIndex, newProp})
  const deleteBankPartner = deletedIndex => ({ type: Types.DELETE_BANK_PARTNER, deletedIndex })
+ const refreshBankAllPartners = refresh => ({ type: Types.REFRESH_BANK_ALL_PARTNERS, refresh })
+ const refreshBankFavorites = refresh => ({ type: Types.REFRESH_BANK_FAVORITES, refresh })
 
  /*----------------------------------------------------------------------
  ELOAD
@@ -89,6 +93,8 @@ import Types from './Types'
  const addELoadReceiver = newReceiver => ({ type: Types.ADD_ELOAD_RECEIVER, newReceiver })
  const updateELoadReceiver = (receiverIndex, newProp) => ({ type: Types.UPDATE_ELOAD_RECEIVER, receiverIndex, newProp})
  const deleteELoadReceiver = deletedIndex => ({ type: Types.DELETE_ELOAD_RECEIVER, deletedIndex })
+ const refreshELoadAllReceivers = refresh => ({ type: Types.REFRESH_ELOAD_ALL_RECEIVERS, refresh })
+ const refreshELoadFavorites = refresh => ({ type: Types.REFRESH_ELOAD_FAVORITES, refresh })
 
 export default {
   startup,
@@ -111,14 +117,20 @@ export default {
   addKPReceiver,
   updateKPReceiver,
   deleteKPReceiver,
+  refreshKPAllReceivers,
+  refreshKPFavorites,
 
   addBankPartner,
   updateBankPartner,
   deleteBankPartner,
+  refreshBankAllPartners,
+  refreshBankFavorites,
 
   addELoadReceiver,
   updateELoadReceiver,
   deleteELoadReceiver,
+  refreshELoadAllReceivers,
+  refreshELoadFavorites,
 
   login,
   logout,

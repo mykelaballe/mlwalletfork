@@ -68,7 +68,9 @@ class Scrn extends React.Component {
     handleConfirmDelete = () => {
         const {index, receiver} = this.props.navigation.state.params
         try {
-            this.props.deleteReceiver(index)
+            //this.props.deleteReceiver(index)
+            this.props.refreshAll(true)
+            this.props.refreshFavorites(true)
             API.deleteELoadReceiver({receiverno:receiver.receiverno})
             this.props.navigation.pop()
             Say.ok('Receiver successfully deleted')
@@ -98,6 +100,9 @@ class Scrn extends React.Component {
             let payload = {
                 receiverno:receiver.receiverno
             }
+
+            this.props.refreshAll(true)
+            this.props.refreshFavorites(true)
 
             /*this.props.updateReceiver(index, {
                 ...receiver,
@@ -155,7 +160,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     updateReceiver:(receiverIndex, newProp) => dispatch(Creators.updateELoadReceiver(receiverIndex, newProp)),
-    deleteReceiver:deletedIndex => dispatch(Creators.deleteELoadReceiver(deletedIndex))
+    deleteReceiver:deletedIndex => dispatch(Creators.deleteELoadReceiver(deletedIndex)),
+    refreshAll:refresh => dispatch(Creators.refreshELoadAllReceivers(refresh)),
+    refreshFavorites:refresh => dispatch(Creators.refreshELoadFavorites(refresh))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrn)
