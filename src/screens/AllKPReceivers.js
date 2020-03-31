@@ -40,7 +40,7 @@ class Scrn extends React.Component {
     componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
 
     componentDidUpdate = (prevProps, prevState) => {
-        if(this.props.refreshAllReceivers != prevProps.refreshAllReceivers && this.props.refreshAllReceivers) {
+        if(this.props.refreshAllReceivers) {
             this.props.refreshScreen(false)
             this.handleRefresh()
         }

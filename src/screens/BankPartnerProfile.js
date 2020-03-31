@@ -80,19 +80,19 @@ class Scrn extends React.Component {
         )
     }
 
-    handleConfirmDelete = () => {
+    handleConfirmDelete = async () => {
         const {walletno} = this.props.user
         const {index, receiver} = this.props.navigation.state.params
         try {
             //this.props.deletePartner(index)
-            this.props.refreshAll(true)
-            this.props.refreshFavorites(true)
-            API.deleteBankPartner({
+            await API.deleteBankPartner({
                 walletno,
                 partnersid:receiver.old_partnersid,
                 accountid:receiver.old_account_no,
                 account_name:receiver.old_account_name
             })
+            this.props.refreshAll(true)
+            this.props.refreshFavorites(true)
             this.props.navigation.pop()
             //this.props.navigation.navigate('SavedBankPartners',{removeAtIndex:index})
             Say.ok('Partner successfully deleted')
@@ -107,7 +107,7 @@ class Scrn extends React.Component {
         this.props.navigation.navigate('SendBankTransfer',{bank:receiver})
     }
 
-    handleToggleFavorite = () => {
+    handleToggleFavorite = async () => {
         const {walletno} = this.props.user
         let {index, receiver} = this.props.navigation.state.params
         const {is_favorite} = this.state
@@ -120,16 +120,16 @@ class Scrn extends React.Component {
                 accountid:receiver.old_account_no
             }
 
-            this.props.refreshAll(true)
-            this.props.refreshFavorites(true)
-
             /*this.props.updateReceiver(index, {
                 ...receiver,
                 is_favorite:!is_favorite
             })*/
 
-            if(is_favorite) API.removeFavoriteBankPartner(payload)
-            else API.addFavoriteBankPartner(payload)
+            if(is_favorite) await API.removeFavoriteBankPartner(payload)
+            else await API.addFavoriteBankPartner(payload)
+
+            this.props.refreshAll(true)
+            this.props.refreshFavorites(true)
             
             this.setState({is_favorite:!is_favorite})
         }

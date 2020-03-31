@@ -40,7 +40,7 @@ class Scrn extends React.Component {
     componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
 
     componentDidUpdate = (prevProps, prevState) => {
-        if(this.props.refreshFavorites != prevProps.refreshFavorites && this.props.refreshFavorites) {
+        if(this.props.refreshFavorites) {
             this.props.refreshScreen(false)
             this.handleRefresh()
         }

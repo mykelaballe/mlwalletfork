@@ -65,13 +65,13 @@ class Scrn extends React.Component {
         )
     }
 
-    handleConfirmDelete = () => {
+    handleConfirmDelete = async () => {
         const {index, receiver} = this.props.navigation.state.params
         try {
             //this.props.deleteReceiver(index)
+            await API.deleteELoadReceiver({receiverno:receiver.receiverno})
             this.props.refreshAll(true)
             this.props.refreshFavorites(true)
-            API.deleteELoadReceiver({receiverno:receiver.receiverno})
             this.props.navigation.pop()
             Say.ok('Receiver successfully deleted')
         }
@@ -92,7 +92,7 @@ class Scrn extends React.Component {
         navigate('BuyLoad',{receiver})
     }
 
-    handleToggleFavorite = () => {
+    handleToggleFavorite = async () => {
         let {index, receiver} = this.props.navigation.state.params
         const {is_favorite} = this.state
         
@@ -101,16 +101,16 @@ class Scrn extends React.Component {
                 receiverno:receiver.receiverno
             }
 
-            this.props.refreshAll(true)
-            this.props.refreshFavorites(true)
-
             /*this.props.updateReceiver(index, {
                 ...receiver,
                 is_favorite:!is_favorite
             })*/
 
-            if(is_favorite) API.removeFavoriteELoadReceiver(payload)
-            else API.addFavoriteELoadReceiver(payload)
+            if(is_favorite) await API.removeFavoriteELoadReceiver(payload)
+            else await API.addFavoriteELoadReceiver(payload)
+
+            this.props.refreshAll(true)
+            this.props.refreshFavorites(true)
             
             this.setState({is_favorite:!is_favorite})
         }

@@ -77,17 +77,18 @@ class Scrn extends React.Component {
         )
     }
 
-    handleConfirmDelete = () => {
+    handleConfirmDelete = async () => {
         const {walletno} = this.props.user
         const {index, receiver} = this.props.navigation.state.params
         try {
             //this.props.deleteReceiver(index)
-            this.props.refreshAll(true)
-            this.props.refreshFavorites(true)
-            API.deleteKPReceiver({
+            
+            await API.deleteKPReceiver({
                 walletno,
                 receiverNumVal:receiver.receiverno
             })
+            this.props.refreshAll(true)
+            this.props.refreshFavorites(true)
             this.props.navigation.pop()
             //this.props.navigation.navigate('SavedKPReceivers',{removeAtIndex:index})
             Say.ok('Receiver successfully deleted')
@@ -111,7 +112,7 @@ class Scrn extends React.Component {
         navigate('SendKP',{receiver})
     }
 
-    handleToggleFavorite = () => {
+    handleToggleFavorite = async () => {
         const {walletno} = this.props.user
         let {index, receiver} = this.props.navigation.state.params
         const {is_favorite} = this.state
@@ -122,16 +123,16 @@ class Scrn extends React.Component {
                 receiverno:receiver.receiverno
             }
 
-            this.props.refreshAll(true)
-            this.props.refreshFavorites(true)
-
             /*this.props.updateReceiver(index, {
                 ...receiver,
                 is_favorite:!is_favorite
             })*/
 
-            if(is_favorite) API.removeFavoriteKPReceiver(payload)
-            else API.addFavoriteKPReceiver(payload)
+            if(is_favorite) await API.removeFavoriteKPReceiver(payload)
+            else await API.addFavoriteKPReceiver(payload)
+
+            this.props.refreshAll(true)
+            this.props.refreshFavorites(true)
             
             this.setState({is_favorite:!is_favorite})
         }

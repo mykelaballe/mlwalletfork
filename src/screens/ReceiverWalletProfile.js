@@ -64,13 +64,13 @@ class Scrn extends React.Component {
         )
     }
 
-    handleConfirmDelete = () => {
+    handleConfirmDelete = async () => {
         const {index, receiver} = this.props.navigation.state.params
         try {
             //this.props.deleteReceiver(index)
+            await PI.deleteWalletReceiver({walletno:receiver.receiverno})
             this.props.refreshAll(true)
             this.props.refreshFavorites(true)
-            API.deleteWalletReceiver({walletno:receiver.receiverno})
             this.props.navigation.pop()
             Say.ok('Receiver successfully deleted')
         }
@@ -91,7 +91,7 @@ class Scrn extends React.Component {
         navigate('SendWalletToWallet',{receiver})
     }
 
-    handleToggleFavorite = () => {
+    handleToggleFavorite = async () => {
         const {walletno} = this.props.user
         let {index, receiver} = this.props.navigation.state.params
         const {is_favorite} = this.state
@@ -102,16 +102,16 @@ class Scrn extends React.Component {
                 receiverno:receiver.receiverno,
             }
 
-            this.props.refreshAll(true)
-            this.props.refreshFavorites(true)
-
             /*this.props.updateReceiver(index, {
                 ...receiver,
                 is_favorite:!is_favorite
             })*/
 
-            if(is_favorite) API.removeFavoriteWalletReceiver(payload)
-            else API.addFavoriteWalletReceiver(payload)
+            if(is_favorite) await API.removeFavoriteWalletReceiver(payload)
+            else await API.addFavoriteWalletReceiver(payload)
+
+            this.props.refreshAll(true)
+            this.props.refreshFavorites(true)
             
             this.setState({is_favorite:!is_favorite})
         }
