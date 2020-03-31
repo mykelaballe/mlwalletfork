@@ -145,6 +145,7 @@ class Scrn extends React.Component {
     render() {
 
         const {bankname, old_account_name, old_account_no} = this.props.navigation.state.params.receiver
+        const {is_favorite} = this.state
 
         return (
             <>
