@@ -88,7 +88,8 @@ class Scrn extends React.Component {
                 walletno,
                 receiverNumVal:receiver.receiverno
             })
-            this.props.navigation.navigate('SavedKPReceivers',{removeAtIndex:index})
+            this.props.navigation.pop()
+            //this.props.navigation.navigate('SavedKPReceivers',{removeAtIndex:index})
             Say.ok('Receiver successfully deleted')
         }
         catch(err) {

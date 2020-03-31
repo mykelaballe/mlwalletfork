@@ -93,7 +93,8 @@ class Scrn extends React.Component {
                 accountid:receiver.old_account_no,
                 account_name:receiver.old_account_name
             })
-            this.props.navigation.navigate('SavedBankPartners',{removeAtIndex:index})
+            this.props.navigation.pop()
+            //this.props.navigation.navigate('SavedBankPartners',{removeAtIndex:index})
             Say.ok('Partner successfully deleted')
         }
         catch(err) {
