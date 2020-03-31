@@ -68,9 +68,9 @@ class Scrn extends React.Component {
 
     handleEdit = () => {
         const {navigate, state} = this.props.navigation
-        const {index, bank} = state.params
+        const {index, receiver} = state.params
         this.handleToggleMenu()
-        navigate('UpdateBankPartner',{index, bank})
+        navigate('UpdateBankPartner',{index, bank:receiver})
     }
 
     handleDelete = () => {
