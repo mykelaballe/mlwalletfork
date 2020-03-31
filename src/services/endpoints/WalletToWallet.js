@@ -5,9 +5,16 @@ export default {
     sendWalletToWalletValidate: async payload => {
         let res = await Fetch.get(`sendout/wallettowallet/validate?walletno=${payload.walletno}&principal=${payload.amount}&isMLP=1`)
 
+        if(res.respcode == 1) {
+            return {
+                ...res,
+                error:false,
+                message:res.respmessage
+            }
+        }
+
         return {
-            ...res,
-            error:res.respcode === 1,
+            error:true,
             message:res.respmessage
         }
     },
@@ -105,9 +112,16 @@ export default {
     addWalletReceiver: async payload => {
         let res = await Fetch.post('wallettowallet/addreceiver',payload)
 
+        if(res.respcode == 1) {
+            return {
+                ...res,
+                error:false,
+                message:res.respmessage
+            }
+        }
+
         return {
-            ...res,
-            error:res.respcode === 1,
+            error:true,
             message:res.respmessage
         }
     },
