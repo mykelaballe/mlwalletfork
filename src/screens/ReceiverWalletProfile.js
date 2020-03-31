@@ -68,7 +68,7 @@ class Scrn extends React.Component {
         const {index, receiver} = this.props.navigation.state.params
         try {
             //this.props.deleteReceiver(index)
-            await PI.deleteWalletReceiver({walletno:receiver.receiverno})
+            await API.deleteWalletReceiver({walletno:receiver.receiverno})
             this.props.refreshAll(true)
             this.props.refreshFavorites(true)
             this.props.refreshRecent(true)
