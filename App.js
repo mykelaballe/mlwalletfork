@@ -64,9 +64,9 @@ class App extends React.Component {
 
   checkUser = async () => {
     const {setUser, login, logout, setIsFirstTime} = this.props
-    let appData = await Storage.doLoad(Consts.db.app)
+    //let appData = await Storage.doLoad(Consts.db.app)
 
-    if(appData) setIsFirstTime(appData.isFirstTime)
+    //if(appData) setIsFirstTime(appData.isFirstTime)
 
     let userData = await Storage.doLoad(Consts.db.user)
 

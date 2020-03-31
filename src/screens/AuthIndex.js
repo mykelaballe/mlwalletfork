@@ -1,17 +1,19 @@
 import React from 'react'
 import {View, StyleSheet, ImageBackground, Image} from 'react-native'
+import {connect} from 'react-redux'
+import {Creators} from '../actions'
 import {Text, Button, Spacer} from '../components'
 import {Colors} from '../themes'
 import {_, Storage, Consts} from '../utils'
 import RNRestart from 'react-native-restart'
 
-export default class Scrn extends React.Component {
+class Scrn extends React.Component {
 
-    componentDidMount = async () => {
+    /*componentDidMount = async () => {
         let db = await Storage.doLoad(Consts.db.app)
         db.isFirstTime = false
         await Storage.doSave(Consts.db.app,db)
-    }
+    }*/
 
     handleChangeLang = async lang => {
         let db = await Storage.doLoad(Consts.db.app)
@@ -20,9 +22,14 @@ export default class Scrn extends React.Component {
         RNRestart.Restart()
     }
 
-    handleGoToLogin = () => this.props.navigation.navigate('Login')
+    handleGoToLogin = () => {
+        this.props.setIsFirstTime(false)
+        //this.props.navigation.navigate('Login')
+    }
 
-    handleGoToSignUp = () => this.props.navigation.navigate('SignUp')
+    handleGoToSignUp = () => {
+        //this.props.navigation.navigate('SignUp')
+    }
 
     render() {
 
@@ -94,3 +101,9 @@ const style = StyleSheet.create({
         height:50
     }
 })
+
+const mapDispatchToProps = dispatch => ({
+    setIsFirstTime: isFirstTime => dispatch(Creators.setIsFirstTime(isFirstTime))
+})
+
+export default connect(null, mapDispatchToProps)(Scrn)
