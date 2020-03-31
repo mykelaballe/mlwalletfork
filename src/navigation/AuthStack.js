@@ -1,5 +1,6 @@
 import {createStackNavigator} from 'react-navigation-stack'
 import * as Scrn from '../screens'
+import SignUpRoutes from './SignUpRoutes'
 import {AppStyles} from '../themes'
 
 export default createStackNavigator({
@@ -9,30 +10,9 @@ export default createStackNavigator({
             header:null
         }
     },
-    SignUp: {
-        screen:Scrn.SignUpScrn,
-        navigationOptions:AppStyles.noHeaderNavigationOptions
-    },
-    SignUpUsername: {
-        screen:Scrn.SignUpUsernameScrn,
-        navigationOptions:AppStyles.noHeaderNavigationOptions
-    },
-    SignUpPassword: {
-        screen:Scrn.SignUpPasswordScrn,
-        navigationOptions:AppStyles.noHeaderNavigationOptions
-    },
-    SignUpStep1: Scrn.SignUpStep1Scrn,
-    SignUpStep2: Scrn.SignUpStep2Scrn,
-    SignUpStep3: Scrn.SignUpStep3Scrn,
-    SignUpStep4: Scrn.SignUpStep4Scrn,
-    SignUpReview: Scrn.SignUpReviewScrn,
-    SignUpVerificationMobile: Scrn.SignUpVerificationMobileScrn,
-    SignUpVerificationOTP: Scrn.SignUpVerificationOTPScrn,
-    SignUpPIN: {
-        screen:Scrn.SignUpPINScrn,
-        navigationOptions:AppStyles.noHeaderNavigationOptions
-    },
-    SignUpSuccess: Scrn.SignUpSuccessScrn,
+
+    ...SignUpRoutes,
+    
     ForgotPassword: {
         screen:Scrn.ForgotPasswordScrn,
         navigationOptions:AppStyles.noHeaderNavigationOptions
@@ -61,15 +41,7 @@ export default createStackNavigator({
         screen:Scrn.TouchIDScrn,
         navigationOptions:AppStyles.noHeaderNavigationOptions
     },
-    Countries: Scrn.CountriesScrn,
-    Provinces: Scrn.ProvincesScrn,
-    Cities: Scrn.CitiesScrn,
-    Nationalities: Scrn.NationalitiesScrn,
-    SourceOfIncome: Scrn.SourceOfIncomeScrn,
-    Regions: Scrn.RegionsScrn,
-    SecurityQuestions: Scrn.SecurityQuestionsScrn,
-    TermsAndConditions: Scrn.TermsAndConditionsScreen,
-    Camera: Scrn.CameraScrn,
+    //Regions: Scrn.RegionsScrn,
 },{
     defaultNavigationOptions:AppStyles.defaultNavigationOptions
 })

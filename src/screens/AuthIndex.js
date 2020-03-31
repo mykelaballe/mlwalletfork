@@ -28,7 +28,6 @@ class Scrn extends React.Component {
     }
 
     handleGoToSignUp = () => {
-        this.props.setIsFirstTime(false)
         this.props.navigation.navigate('SignUpUsername')
     }
 
