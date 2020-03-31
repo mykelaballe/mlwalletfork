@@ -135,7 +135,7 @@ class Scrn extends React.Component {
                         })
                     }
                     else {
-                        this.props.setIsUsingTouchID(res.data.fingerprintstat === '1')
+                        this.props.setIsUsingTouchID(res.data.fingerprintstat === 1)
                         this.props.setUser(res.data)
                         this.props.login()
                     }
