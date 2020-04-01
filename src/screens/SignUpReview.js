@@ -190,7 +190,7 @@ export default class Scrn extends React.Component {
         }
     }
 
-    validate = async () => {
+    validate = () => {
         let {firstname, middlename, lastname, suffix, other_suffix, bday_month, bday_day, bday_year, gender, email, nationality, source_of_income, house, street, country, province, city, barangay, zip_code, question1, answer1, question2, answer2, question3, answer3} = this.state
 
         try {
