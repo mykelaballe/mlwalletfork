@@ -36,7 +36,7 @@ class Scrn extends React.Component {
     }
 
     state = {
-        is_favorite:this.props.navigation.state.params.receiver.isFavorite
+        ...this.props.navigation.state.params.receiver
     }
 
     componentDidMount = () => {
@@ -46,6 +46,14 @@ class Scrn extends React.Component {
             handleEdit:this.handleEdit,
             handleDelete:this.handleDelete
         })
+    }
+
+    componentDidUpdate = (prevProps, prevState) => {
+        const {newProp} = this.props
+        if(newProp) {
+            this.props.updateReceiver(null)
+            this.setState({...newProps})
+        }
     }
 
     handleToggleMenu = () => {
@@ -66,10 +74,9 @@ class Scrn extends React.Component {
     }
 
     handleConfirmDelete = async () => {
-        const {index, receiver} = this.props.navigation.state.params
+        const {receiverno} = this.state
         try {
-            //this.props.deleteReceiver(index)
-            await API.deleteELoadReceiver({receiverno:receiver.receiverno})
+            await API.deleteELoadReceiver({receiverno})
             this.props.refreshAll(true)
             this.props.refreshFavorites(true)
             this.props.refreshRecent(true)
@@ -82,38 +89,27 @@ class Scrn extends React.Component {
     }
 
     handleEdit = () => {
-        const {navigate, state} = this.props.navigation
-        const {receiver} = state.params
         this.handleToggleMenu()
-        navigate('UpdateLoadReceiver',{receiver})
+        this.props.navigation.navigate('UpdateLoadReceiver',{receiver:this.state})
     }
 
-    handleSelect = () => {
-        const {navigation: {navigate, state: {params: {receiver}}}} = this.props
-        navigate('BuyLoad',{receiver})
-    }
+    handleSelect = () => this.props.navigation.navigate('BuyLoad',{receiver:this.state})
 
     handleToggleFavorite = async () => {
-        let {index, receiver} = this.props.navigation.state.params
-        const {is_favorite} = this.state
+        const {receiverno, isFavorite} = this.state
         
         try {
             let payload = {
-                receiverno:receiver.receiverno
+                receiverno
             }
 
-            /*this.props.updateReceiver(index, {
-                ...receiver,
-                is_favorite:!is_favorite
-            })*/
-
-            if(is_favorite) await API.removeFavoriteELoadReceiver(payload)
+            if(isFavorite) await API.removeFavoriteELoadReceiver(payload)
             else await API.addFavoriteELoadReceiver(payload)
 
             this.props.refreshAll(true)
             this.props.refreshFavorites(true)
             
-            this.setState({is_favorite:!is_favorite})
+            this.setState({isFavorite:!isFavorite})
         }
         catch(err) {
             Say.err(_('500'))
@@ -122,8 +118,7 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {mobileno, fullname} = this.props.navigation.state.params.receiver
-        const {is_favorite} = this.state
+        const {mobileno, fullname, isFavorite} = this.state
 
         return (
             <>
@@ -141,8 +136,8 @@ class Scrn extends React.Component {
 
                     <Outline>
                         <Row bw>
-                            <Text>{is_favorite ? 'Remove from' : 'Add to'} favorite</Text>
-                            <Switch value={is_favorite} onValueChange={this.handleToggleFavorite} />
+                            <Text>{isFavorite ? 'Remove from' : 'Add to'} favorite</Text>
+                            <Switch value={isFavorite} onValueChange={this.handleToggleFavorite} />
                         </Row>
                     </Outline>
                 </Screen>
@@ -156,12 +151,12 @@ class Scrn extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    user: state.user.data
+    user: state.user.data,
+    ...state.eLoad
 })
 
 const mapDispatchToProps = dispatch => ({
-    updateReceiver:(receiverIndex, newProp) => dispatch(Creators.updateELoadReceiver(receiverIndex, newProp)),
-    deleteReceiver:deletedIndex => dispatch(Creators.deleteELoadReceiver(deletedIndex)),
+    updateReceiver:newProp => dispatch(Creators.updateELoadReceiver(newProp)),
     refreshAll:refresh => dispatch(Creators.refreshELoadAllReceivers(refresh)),
     refreshFavorites:refresh => dispatch(Creators.refreshELoadFavorites(refresh)),
     refreshRecent:refresh => dispatch(Creators.refreshELoadRecent(refresh))

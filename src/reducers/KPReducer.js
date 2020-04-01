@@ -14,8 +14,6 @@ export const INITIAL_STATE = Immutable({
 
 const addKPReceiver = (state, action) => state.merge({ newReceiver:action.newReceiver })
 
-//const updateKPReceiver = (state, action) => state.merge({ receiverIndex:action.receiverIndex, newProp:action.newProp })
-
 const updateKPReceiver = (state, action) => state.merge({ newProp:action.newProp })
 
 const deleteKPReceiver = (state, action) => state.merge({ deletedIndex:action.deletedIndex })

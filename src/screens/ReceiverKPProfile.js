@@ -177,7 +177,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     updateReceiver:newProp => dispatch(Creators.updateKPReceiver(newProp)),
-    deleteReceiver:deletedIndex => dispatch(Creators.deleteKPReceiver(deletedIndex)),
     refreshAll:refresh => dispatch(Creators.refreshKPAllReceivers(refresh)),
     refreshFavorites:refresh => dispatch(Creators.refreshKPFavorites(refresh)),
     refreshRecent:refresh => dispatch(Creators.refreshKPRecent(refresh))

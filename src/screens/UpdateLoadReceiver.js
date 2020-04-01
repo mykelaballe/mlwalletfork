@@ -25,7 +25,7 @@ class Scrn extends React.Component {
     handleSubmit = async () => {
         try {
             const {walletno} = this.props.user
-            const {index, receiver} = this.props.navigation.state.params
+            const {receiver} = this.props.navigation.state.params
             let {fullname, mobileno, processing} = this.state
 
             if(processing) return false
@@ -50,11 +50,11 @@ class Scrn extends React.Component {
                 if(!res.error) {
                     this.props.refreshAll(true)
                     this.props.refreshFavorites(true)
-                    /*this.props.updateReceiver(index, {
+                    this.props.updateReceiver({
                         ...receiver,
                         fullname,
                         mobileno
-                    })*/
+                    })
                     Say.ok('Receiver updated')
                 }
                 else Say.warn(res.message)
@@ -109,7 +109,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    //updateReceiver:(receiverIndex, newProp) => dispatch(Creators.updateLoadReceiver(receiverIndex, newProp)),
+    updateReceiver:newProp => dispatch(Creators.updateELoadReceiver(newProp)),
     refreshAll:refresh => dispatch(Creators.refreshELoadAllReceivers(refresh)),
     refreshFavorites:refresh => dispatch(Creators.refreshELoadFavorites(refresh))
 })

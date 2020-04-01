@@ -14,7 +14,7 @@ export const INITIAL_STATE = Immutable({
 
 const addELoadReceiver = (state, action) => state.merge({ newReceiver:action.newReceiver })
 
-const updateELoadReceiver = (state, action) => state.merge({ receiverIndex:action.receiverIndex, newProp:action.newProp })
+const updateELoadReceiver = (state, action) => state.merge({ newProp:action.newProp })
 
 const deleteELoadReceiver = (state, action) => state.merge({ deletedIndex:action.deletedIndex })
 

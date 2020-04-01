@@ -72,7 +72,6 @@ import Types from './Types'
  ----------------------------------------------------------------------*/
 
  const addKPReceiver = newReceiver => ({ type: Types.ADD_KP_RECEIVER, newReceiver })
- //const updateKPReceiver = (receiverIndex, newProp) => ({ type: Types.UPDATE_KP_RECEIVER, receiverIndex, newProp})
  const updateKPReceiver = newProp => ({ type: Types.UPDATE_KP_RECEIVER, newProp})
  const deleteKPReceiver = deletedIndex => ({ type: Types.DELETE_KP_RECEIVER, deletedIndex })
  const refreshKPAllReceivers = refresh => ({ type: Types.REFRESH_KP_ALL_RECEIVERS, refresh })
@@ -104,7 +103,7 @@ import Types from './Types'
  ----------------------------------------------------------------------*/
 
  const addELoadReceiver = newReceiver => ({ type: Types.ADD_ELOAD_RECEIVER, newReceiver })
- const updateELoadReceiver = (receiverIndex, newProp) => ({ type: Types.UPDATE_ELOAD_RECEIVER, receiverIndex, newProp})
+ const updateELoadReceiver = newProp => ({ type: Types.UPDATE_ELOAD_RECEIVER, newProp})
  const deleteELoadReceiver = deletedIndex => ({ type: Types.DELETE_ELOAD_RECEIVER, deletedIndex })
  const refreshELoadAllReceivers = refresh => ({ type: Types.REFRESH_ELOAD_ALL_RECEIVERS, refresh })
  const refreshELoadFavorites = refresh => ({ type: Types.REFRESH_ELOAD_FAVORITES, refresh })
