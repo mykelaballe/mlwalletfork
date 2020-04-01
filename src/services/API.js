@@ -157,7 +157,8 @@ export default {
 
     getBranches: async () => {
         //let data = []
-        return await Fetch.get('ml_branches')
+        let res = await Fetch.get('ml_branches')
+        return res.data || []
 
         /*let res = {
             data:[
