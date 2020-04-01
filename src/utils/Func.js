@@ -72,10 +72,8 @@ const isNumbersOnly = str => {
 }
 
 const isAlphaNumOnly = str => {
-    const letterRegex = /^[a-zA-Z]+$/
-    const numberRegex = /^\d+$/
-
-    return letterRegex.test(str) && numberRegex.test(str)
+    const regex = /[^A-Za-z0-9]+/
+    return regex.test(str)
 }
 
 const hasCommonSpecialCharsOnly = str => {
