@@ -14,7 +14,7 @@ export const INITIAL_STATE = Immutable({
 
 const addBankPartner = (state, action) => state.merge({ newPartner:action.newPartner })
 
-const updateBankPartner = (state, action) => state.merge({ partnerIndex:action.partnerIndex, newProp:action.newProp })
+const updateBankPartner = (state, action) => state.merge({ newProp:action.newProp })
 
 const deleteBankPartner = (state, action) => state.merge({ deletedIndex:action.deletedIndex })
 

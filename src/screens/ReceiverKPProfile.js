@@ -114,6 +114,7 @@ class Scrn extends React.Component {
 
             this.props.refreshAll(true)
             this.props.refreshFavorites(true)
+            this.props.refreshRecent(true)
             
             this.setState({isFavorite:!isFavorite})
         }

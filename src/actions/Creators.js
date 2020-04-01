@@ -83,7 +83,7 @@ import Types from './Types'
  ----------------------------------------------------------------------*/
 
  const addBankPartner = newPartner => ({ type: Types.ADD_BANK_PARTNER, newPartner })
- const updateBankPartner = (partnerIndex, newProp) => ({ type: Types.UPDATE_BANK_PARTNER, partnerIndex, newProp})
+ const updateBankPartner = newProp => ({ type: Types.UPDATE_BANK_PARTNER, newProp})
  const deleteBankPartner = deletedIndex => ({ type: Types.DELETE_BANK_PARTNER, deletedIndex })
  const refreshBankAllPartners = refresh => ({ type: Types.REFRESH_BANK_ALL_PARTNERS, refresh })
  const refreshBankFavorites = refresh => ({ type: Types.REFRESH_BANK_FAVORITES, refresh })

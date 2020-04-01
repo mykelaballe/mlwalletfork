@@ -12,7 +12,7 @@ class Scrn extends React.Component {
     }
 
     state = {
-        bankname:this.props.navigation.state.params.bank.bankname,
+        ...this.props.navigation.state.params.bank,
         account_name:this.props.navigation.state.params.bank.old_account_name,
         account_no:this.props.navigation.state.params.bank.old_account_no,
         processing:false
@@ -31,8 +31,7 @@ class Scrn extends React.Component {
     handleSubmit = async () => {
         try {
             const {walletno} = this.props.user
-            const {index, bank: {old_partnersid, old_account_no, old_account_name}} = this.props.navigation.state.params
-            let {bankname, account_name, account_no, processing} = this.state
+            let {bankname, account_name, account_no, old_partnersid, old_account_no, old_account_name, processing} = this.state
 
             if(processing) return false
 
@@ -59,15 +58,16 @@ class Scrn extends React.Component {
 
                 if(res.error) Say.warn(res.message)
                 else {
-                    /*this.props.updatePartner(index, {
+                    this.props.updatePartner({
                         bankname,
                         account_name,
                         account_no,
                         old_account_name:account_name,
                         old_account_no:account_no
-                    })*/
+                    })
                     this.props.refreshAll(true)
                     this.props.refreshFavorites(true)
+                    this.props.refreshRecent(true)
                     Say.ok('Bank Partner successfully updated')
                 }
             }
@@ -131,9 +131,10 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    //updatePartner:(partnerIndex, newProp) => dispatch(Creators.updateBankPartner(partnerIndex, newProp)),
+    updatePartner:newProp => dispatch(Creators.updateBankPartner(newProp)),
     refreshAll:refresh => dispatch(Creators.refreshBankAllPartners(refresh)),
-    refreshFavorites:refresh => dispatch(Creators.refreshBankFavorites(refresh))
+    refreshFavorites:refresh => dispatch(Creators.refreshBankFavorites(refresh)),
+    refreshRecent:refresh => dispatch(Creators.refreshBankRecent(refresh))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

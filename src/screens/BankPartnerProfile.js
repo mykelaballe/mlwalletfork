@@ -36,7 +36,7 @@ class Scrn extends React.Component {
     }
 
     state = {
-        is_favorite:this.props.navigation.state.params.receiver.isFavorite
+        ...this.props.navigation.state.params.receiver
     }
 
     componentDidMount = () => {
@@ -51,12 +51,8 @@ class Scrn extends React.Component {
     componentDidUpdate = (prevProps, prevState) => {
         const {newProp} = this.props
         if(newProp) {
-            this.props.navigation.setParams({
-                bank:{
-                    ...this.props.navigation.state.params.receiver,
-                    ...newProp
-                }
-            })
+            this.props.updateReceiver(null)
+            this.setState({...newProp})
         }
     }
 
@@ -86,20 +82,18 @@ class Scrn extends React.Component {
 
     handleConfirmDelete = async () => {
         const {walletno} = this.props.user
-        const {index, receiver} = this.props.navigation.state.params
+        const {old_partnersid, old_account_no, old_account_name} = this.state
         try {
-            //this.props.deletePartner(index)
             await API.deleteBankPartner({
                 walletno,
-                partnersid:receiver.old_partnersid,
-                accountid:receiver.old_account_no,
-                account_name:receiver.old_account_name
+                partnersid:old_partnersid,
+                accountid:old_account_no,
+                account_name:old_account_name
             })
             this.props.refreshAll(true)
             this.props.refreshFavorites(true)
             this.props.refreshRecent(true)
             this.props.navigation.pop()
-            //this.props.navigation.navigate('SavedBankPartners',{removeAtIndex:index})
             Say.ok('Partner successfully deleted')
         }
         catch(err) {
@@ -107,36 +101,28 @@ class Scrn extends React.Component {
         }
     }
 
-    handleSelect = () => {
-        const {navigation: {navigate, state: {params: {receiver}}}} = this.props
-        this.props.navigation.navigate('SendBankTransfer',{bank:receiver})
-    }
+    handleSelect = () => this.props.navigation.navigate('SendBankTransfer',{bank:this.state})
 
     handleToggleFavorite = async () => {
         const {walletno} = this.props.user
-        let {index, receiver} = this.props.navigation.state.params
-        const {is_favorite} = this.state
+        const {bankname, old_partnersid, old_account_no, isFavorite} = this.state
         
         try {
             let payload = {
                 walletno,
-                partnersname:receiver.bankname,
-                partnersid:receiver.old_partnersid,
-                accountid:receiver.old_account_no
+                partnersname:bankname,
+                partnersid:old_partnersid,
+                accountid:old_account_no
             }
 
-            /*this.props.updateReceiver(index, {
-                ...receiver,
-                is_favorite:!is_favorite
-            })*/
-
-            if(is_favorite) await API.removeFavoriteBankPartner(payload)
+            if(isFavorite) await API.removeFavoriteBankPartner(payload)
             else await API.addFavoriteBankPartner(payload)
 
             this.props.refreshAll(true)
             this.props.refreshFavorites(true)
+            this.props.refreshRecent(true)
             
-            this.setState({is_favorite:!is_favorite})
+            this.setState({isFavorite:!isFavorite})
         }
         catch(err) {
             Say.err(_('500'))
@@ -145,8 +131,7 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {bankname, old_account_name, old_account_no} = this.props.navigation.state.params.receiver
-        const {is_favorite} = this.state
+        const {bankname, old_account_name, old_account_no, isFavorite} = this.state
 
         return (
             <>
@@ -168,8 +153,8 @@ class Scrn extends React.Component {
                     
                     <Outline>
                         <Row bw>
-                            <Text>{is_favorite ? 'Remove from' : 'Add to'} favorite</Text>
-                            <Switch value={is_favorite} onValueChange={this.handleToggleFavorite} />
+                            <Text>{isFavorite ? 'Remove from' : 'Add to'} favorite</Text>
+                            <Switch value={isFavorite} onValueChange={this.handleToggleFavorite} />
                         </Row>
                     </Outline>
                 </Screen>
@@ -188,7 +173,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    deletePartner:deletedIndex => dispatch(Creators.deleteBankPartner(deletedIndex)),
     refreshAll:refresh => dispatch(Creators.refreshBankAllPartners(refresh)),
     refreshFavorites:refresh => dispatch(Creators.refreshBankFavorites(refresh)),
     refreshRecent:refresh => dispatch(Creators.refreshBankRecent(refresh))
