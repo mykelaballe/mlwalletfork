@@ -14,7 +14,7 @@ let langs = {
 let lang = en
 
 const checkLang = async () => {
-    let db = await Storage.doLoad(Consts.db.app)
+    let db = await Storage.doLoad('AppDB')
 
     if(db.lang) lang = langs[db.lang] 
 }

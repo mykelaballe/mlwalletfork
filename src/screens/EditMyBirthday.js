@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Screen, Footer, Headline, StaticInput, Text, Row, Spacer, Button, MonthPicker, DayPicker, YearPicker} from '../components'
-import {_, Say} from '../utils'
+import {_, Say, Consts} from '../utils'
 import {API} from '../services'
 
 const moment = require('moment')
@@ -50,15 +50,20 @@ class Scrn extends React.Component {
 
             this.setState({processing:true})
 
-            let res = await API.requestUpdateProfile({
-                walletno,
-                birthdate:`${bday_year}-${bday_month}-${bday_day}`,
-                reasons
-            })
+            let birthdate = `${bday_year}-${bday_month}-${bday_day}`
 
-            if(res.error) Say.warn(res.message)
+            if(!moment(birthdate).isValid()) Say.warn(Consts.error.birthdate)
             else {
-                Say.ok('Your request to change your birthdate has been sent for approval. We will get back to you soon!')
+                let res = await API.requestUpdateProfile({
+                    walletno,
+                    birthdate,
+                    reasons
+                })
+
+                if(res.error) Say.warn(res.message)
+                else {
+                    Say.ok('Your request to change your birthdate has been sent for approval. We will get back to you soon!')
+                }
             }
         }
         catch(err) {

@@ -199,12 +199,14 @@ export default class Scrn extends React.Component {
             suffix = other_suffix || suffix
 
             if(suffix == 'Others') suffix = ''
+            let birthday = `${bday_year}-${bday_month}-${bday_day}`
 
             if(!firstname || !middlename || !lastname || !bday_day || !source_of_income) Say.some(_('8'))
             else if(country == Consts.country.PH && (!province.province || !city || !barangay || !zip_code)) Say.some(_('8'))
             else if(!Func.isLettersOnly(firstname)) Say.warn(Consts.error.onlyLetters + '\n\nFirst Name')
             else if(!Func.isLettersOnly(middlename)) Say.warn(Consts.error.onlyLetters + '\n\nMiddle Name')
             else if(!Func.isLettersOnly(lastname)) Say.warn(Consts.error.onlyLetters + '\n\nLast Name')
+            else if(!moment(birthday).isValid()) Say.warn(Consts.error.birthdate)
             else if(email && !Func.hasEmailSpecialCharsOnly(email)) Say.warn(Consts.error.notAllowedChar + '\n\nEmail')
             else {
                 this.props.navigation.navigate('SignUpVerificationMobile',{
@@ -216,7 +218,7 @@ export default class Scrn extends React.Component {
                     email,
                     gender,
                     source_of_income,
-                    birthday:`${bday_year}-${bday_month}-${bday_day}`,
+                    birthday,
                     nationality,
                     house,
                     street,
