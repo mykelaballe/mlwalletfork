@@ -35,6 +35,7 @@ export default {
     },
 
     getFavoriteBillers: async walletno => {
+        return []
         return [
             {
                 id:1,
