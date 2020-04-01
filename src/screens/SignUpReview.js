@@ -147,7 +147,7 @@ export default class Scrn extends React.Component {
 
     handleSelectYear = bday_year => this.setState({bday_year})
 
-    handleChangeHouse = houseno => this.setState({houseno})
+    handleChangeHouse = house => this.setState({house})
 
     handleChangeStreet = street => this.setState({street})
 
@@ -191,7 +191,7 @@ export default class Scrn extends React.Component {
             other_suffix = other_suffix.trim()
             email = email.trim()
             source_of_income = source_of_income.trim()
-            houseno = houseno.trim()
+            house = house.trim()
             street = street.trim()
             barangay = barangay.trim()
             zip_code = zip_code.trim()
@@ -243,7 +243,7 @@ export default class Scrn extends React.Component {
     render() {  
 
         const {firstname, middlename, has_middlename, lastname, suffix, other_suffix, has_suffix, suffix_options, bday_month, bday_day, bday_year, gender, email, nationality, source_of_income,
-            country, province, city, barangay, houseno, street, zip_code, editable, showMonthPicker, showDayPicker, showYearPicker, agree, processing} = this.state
+            country, province, city, barangay, house, street, zip_code, editable, showMonthPicker, showDayPicker, showYearPicker, agree, processing} = this.state
 
         let ready = true
 
@@ -483,7 +483,7 @@ export default class Scrn extends React.Component {
                         <TextInput
                             ref='houseno'
                             label={'House/Unit/Floor #, Bldg Name, Block or Lot #'}
-                            value={houseno}
+                            value={house}
                             onChangeText={this.handleChangeHouse}
                             onSubmitEditing={this.handleFocusZipCode}
                             autoCapitalize='none'
