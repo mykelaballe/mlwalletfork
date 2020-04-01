@@ -69,7 +69,7 @@ class Scrn extends React.Component {
 
     handleSubmit = async () => {
         try {
-            const {index, receiver} = this.props.navigation.state.params
+            const {receiver} = this.props.navigation.state.params
             let {firstname, middlename, lastname, suffix, other_suffix, contact_no, processing} = this.state
 
             if(processing) return false
@@ -91,9 +91,9 @@ class Scrn extends React.Component {
                 let payload = {
                     receiverNumVal:receiver.receiverno,
                     Fname:firstname,
-                    Mname:middlename,
+                    Mname:middlename == _('50') ? null : middlename,
                     Lname:lastname,
-                    Suffix:suffix,
+                    Suffix:suffix == _('51') ? null : suffix,
                     ContactNo:contact_no
                 }
     
