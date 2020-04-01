@@ -178,9 +178,19 @@ export default class Scrn extends React.Component {
 
     handleToggleTerms = () => this.setState(prevState => ({agree:!prevState.agree}))
 
-    handleToggleEdit = () => this.setState(prevState => ({editable:!prevState.editable}))
+    handleToggleEdit = () => {
+        const {editable} = this.state
 
-    handleSubmit = async () => {
+        if(editable) {
+            let res = this.validate()
+            if(res) this.setState({editable:false})
+        }
+        else {
+            this.setState({editable:true})
+        }
+    }
+
+    validate = async () => {
         let {firstname, middlename, lastname, suffix, other_suffix, bday_month, bday_day, bday_year, gender, email, nationality, source_of_income, house, street, country, province, city, barangay, zip_code, question1, answer1, question2, answer2, question3, answer3} = this.state
 
         try {
@@ -209,7 +219,7 @@ export default class Scrn extends React.Component {
             else if(!Func.isDateValid(birthday)) Say.warn(Consts.error.birthdate)
             else if(email && !Func.hasEmailSpecialCharsOnly(email)) Say.warn(Consts.error.notAllowedChar + '\n\nEmail')
             else {
-                this.props.navigation.navigate('SignUpVerificationMobile',{
+                return {
                     ...this.props.navigation.state.params,
                     firstname,
                     middlename,
@@ -234,12 +244,17 @@ export default class Scrn extends React.Component {
                     answer2,
                     question3,
                     answer3
-                })
+                }
             }
         }
         catch(err) {
             Say.err(_('500'))
         }
+    }
+
+    handleSubmit = async () => {
+        let res = this.validate()
+        if(res) this.props.navigation.navigate('SignUpVerificationMobile',res)
     }
 
     render() {  
