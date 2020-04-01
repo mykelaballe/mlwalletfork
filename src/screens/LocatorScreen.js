@@ -7,7 +7,9 @@ import {API} from '../services'
 import Icon from 'react-native-vector-icons/Ionicons'
 import MapView, {Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 
-class LocatorScreen extends React.Component {
+//ios api key = AIzaSyCxoT1ORnihAKC1FZe5FHYCXA_56CUjfkM
+
+export default class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'M Lhuillier Branches'
@@ -98,5 +100,3 @@ const style = StyleSheet.create({
         borderRadius:20
     }
 })
-
-export default LocatorScreen
