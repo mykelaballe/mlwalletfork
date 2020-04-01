@@ -154,8 +154,9 @@ const formatName = userObject => {
     const fname = userObject.fname || userObject.firstname
     const mname = userObject.mname || userObject.middlename
     const lname = userObject.lname || userObject.lastname
+    const suffix = userObject.suffix || ' NONE'
 
-    return cleanName(`${fname} ${mname} ${lname} ${userObject.suffix}`)
+    return cleanName(`${fname} ${mname} ${lname} ${suffix}`)
 }
 
 const formatAddress = userObject => {
