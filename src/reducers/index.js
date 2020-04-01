@@ -8,6 +8,7 @@ import UserReducer from './UserReducer'
 import WalletToWalletReducer from './WalletToWalletReducer'
 import KPReducer from './KPReducer'
 import BankTransferReducer from './BankTransferReducer'
+import BillsPaymentReducer from './BillsPaymentReducer'
 import ELoadReducer from './ELoadReducer'
 
 export default combineReducers({
@@ -20,6 +21,7 @@ export default combineReducers({
     walletToWallet: WalletToWalletReducer,
     kp: KPReducer,
     bankTransfer: BankTransferReducer,
+    billsPayment: BillsPaymentReducer,
     eLoad: ELoadReducer
 })
 
