@@ -466,17 +466,21 @@ export default class Scrn extends React.Component {
                             onPress={this.handleSelectCountry}
                         />
 
-                        <StaticInput
-                            label='Province'
-                            value={province.province}
-                            onPress={this.handleSelectProvince}
-                        />
+                        {country == Consts.country.PH &&
+                        <>
+                            <StaticInput
+                                label='Province'
+                                value={province.province}
+                                onPress={this.handleSelectProvince}
+                            />
 
-                        <StaticInput
-                            label='City/Municipality'
-                            value={city}
-                            onPress={this.handleSelectCity}
-                        />
+                            <StaticInput
+                                label='City/Municipality'
+                                value={city}
+                                onPress={this.handleSelectCity}
+                            />
+                        </>
+                        }
 
                         <TextInput
                             ref='barangay'
