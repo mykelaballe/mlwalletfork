@@ -479,18 +479,18 @@ export default class Scrn extends React.Component {
                                 value={city}
                                 onPress={this.handleSelectCity}
                             />
+
+                            <TextInput
+                                ref='barangay'
+                                label={'Barangay'}
+                                value={barangay}
+                                onChangeText={this.handleChangeBarangay}
+                                onSubmitEditing={this.handleFocusStreet}
+                                autoCapitalize='words'
+                                returnKeyType='next'
+                            />
                         </>
                         }
-
-                        <TextInput
-                            ref='barangay'
-                            label={'Barangay'}
-                            value={barangay}
-                            onChangeText={this.handleChangeBarangay}
-                            onSubmitEditing={this.handleFocusStreet}
-                            autoCapitalize='words'
-                            returnKeyType='next'
-                        />
 
                         <TextInput
                             ref='street'
