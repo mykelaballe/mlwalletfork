@@ -1,5 +1,7 @@
 import Consts from './Consts'
 
+const moment = require('moment')
+
 const validate = (value, options = {}) => {
     let errors = []
 
@@ -74,6 +76,10 @@ const isNumbersOnly = str => {
 const isAlphaNumOnly = str => {
     const regex = /[^A-Za-z0-9]+/
     return !regex.test(str)
+}
+
+const isDateValid = dateStr => {
+    return moment(dateStr, 'YYYY-MM-DD').isValid()
 }
 
 const hasCommonSpecialCharsOnly = str => {
@@ -172,6 +178,7 @@ export default {
     isLettersOnly,
     isNumbersOnly,
     isAlphaNumOnly,
+    isDateValid,
     hasCommonSpecialCharsOnly,
     hasEmailSpecialCharsOnly,
     hasAddressSpecialCharsOnly,

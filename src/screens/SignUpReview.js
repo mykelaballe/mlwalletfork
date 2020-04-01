@@ -206,7 +206,7 @@ export default class Scrn extends React.Component {
             else if(!Func.isLettersOnly(firstname)) Say.warn(Consts.error.onlyLetters + '\n\nFirst Name')
             else if(!Func.isLettersOnly(middlename)) Say.warn(Consts.error.onlyLetters + '\n\nMiddle Name')
             else if(!Func.isLettersOnly(lastname)) Say.warn(Consts.error.onlyLetters + '\n\nLast Name')
-            else if(!moment(birthday).isValid()) Say.warn(Consts.error.birthdate)
+            else if(!Func.isDateValid(birthday)) Say.warn(Consts.error.birthdate)
             else if(email && !Func.hasEmailSpecialCharsOnly(email)) Say.warn(Consts.error.notAllowedChar + '\n\nEmail')
             else {
                 this.props.navigation.navigate('SignUpVerificationMobile',{

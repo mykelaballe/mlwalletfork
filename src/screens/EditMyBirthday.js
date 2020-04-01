@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Screen, Footer, Headline, StaticInput, Text, Row, Spacer, Button, MonthPicker, DayPicker, YearPicker} from '../components'
-import {_, Say, Consts} from '../utils'
+import {_, Say, Consts, Func} from '../utils'
 import {API} from '../services'
 
 const moment = require('moment')
@@ -52,7 +52,7 @@ class Scrn extends React.Component {
 
             let birthdate = `${bday_year}-${bday_month}-${bday_day}`
 
-            if(!moment(birthdate).isValid()) Say.warn(Consts.error.birthdate)
+            if(!Func.isDateValid(birthdate)) Say.warn(Consts.error.birthdate)
             else {
                 let res = await API.requestUpdateProfile({
                     walletno,
