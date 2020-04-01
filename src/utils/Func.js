@@ -71,6 +71,13 @@ const isNumbersOnly = str => {
     return regex.test(str)
 }
 
+const isAlphaNumOnly = str => {
+    const letterRegex = /^[a-zA-Z]+$/
+    const numberRegex = /^\d+$/
+
+    return letterRegex.test(str) && numberRegex.test(str)
+}
+
 const hasCommonSpecialCharsOnly = str => {
     for(let s in str) {
         if(!isLettersOnly(str[s]) && !isNumbersOnly(str[s])) {
@@ -166,6 +173,7 @@ export default {
     validate,
     isLettersOnly,
     isNumbersOnly,
+    isAlphaNumOnly,
     hasCommonSpecialCharsOnly,
     hasEmailSpecialCharsOnly,
     hasAddressSpecialCharsOnly,

@@ -32,9 +32,9 @@ export default class Scrn extends React.Component {
             username = username.trim()
 
             if(!username) Say.some(_('8'))
-            else if(!Func.isLettersOnly(username)) {
+            else if(!Func.isAlphaNumOnly(username)) {
                 this.setState({error:true})
-                Say.warn(Consts.error.onlyLetters)
+                Say.warn(Consts.error.onlyAlphaNum)
             }
             else {
 

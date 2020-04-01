@@ -37,6 +37,7 @@ export default {
 	error: {
 		onlyLetters:'Letters only',
 		onlyNumbers:'Numbers only',
+		onlyAlphaNum:'Letters and Numbers only',
 		noSpecialChars:'Letters and Numbers only',
 		notAllowedChar:'You used an invalid character',
 		atl1:'1attempt_left',
