@@ -51,7 +51,7 @@ class Scrn extends React.Component {
     componentDidUpdate = (prevProps, prevState) => {
         const {newProp} = this.props
         if(newProp) {
-            this.props.updateReceiver(null)
+            this.props.updatePartner(null)
             this.setState({...newProp})
         }
     }
@@ -173,6 +173,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+    updatePartner:newProp => dispatch(Creators.updateBankPartner(newProp)),
     refreshAll:refresh => dispatch(Creators.refreshBankAllPartners(refresh)),
     refreshFavorites:refresh => dispatch(Creators.refreshBankFavorites(refresh)),
     refreshRecent:refresh => dispatch(Creators.refreshBankRecent(refresh))
