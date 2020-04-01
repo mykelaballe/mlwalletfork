@@ -181,7 +181,7 @@ export default class Scrn extends React.Component {
     handleToggleEdit = () => this.setState(prevState => ({editable:!prevState.editable}))
 
     handleSubmit = async () => {
-        let {firstname, middlename, lastname, suffix, other_suffix, bday_month, bday_day, bday_year, gender, email, nationality, source_of_income, houseno, street, country, province, city, barangay, zip_code, question1, answer1, question2, answer2, question3, answer3} = this.state
+        let {firstname, middlename, lastname, suffix, other_suffix, bday_month, bday_day, bday_year, gender, email, nationality, source_of_income, house, street, country, province, city, barangay, zip_code, question1, answer1, question2, answer2, question3, answer3} = this.state
 
         try {
             firstname = firstname.trim()
@@ -218,7 +218,7 @@ export default class Scrn extends React.Component {
                     source_of_income,
                     birthday:`${bday_year}-${bday_month}-${bday_day}`,
                     nationality,
-                    house:houseno,
+                    house,
                     street,
                     country,
                     province:province.province,
