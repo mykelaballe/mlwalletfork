@@ -50,7 +50,7 @@ const style = StyleSheet.create({
     jumbo: {
         alignItems:'center',
         backgroundColor:Colors.dark,
-        paddingVertical:Metrics.md
+        paddingVertical:Metrics.lg
     },
 })
 

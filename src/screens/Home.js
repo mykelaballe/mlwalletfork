@@ -132,7 +132,7 @@ class Scrn extends React.Component {
     render() {
 
         const {status} = this.props.user
-        const {services, promo, loading} = this.state
+        const {services} = this.state
 
         return (
             <>
@@ -142,7 +142,7 @@ class Scrn extends React.Component {
 
                 <Balance />
 
-                <Spacer />
+                <Spacer sm />
 
                 <FlatList
                     data={services}
