@@ -218,6 +218,9 @@ export default class Scrn extends React.Component {
             else if(!Func.isLettersOnly(lastname)) Say.warn(Consts.error.onlyLetters + '\n\nLast Name')
             else if(!Func.isDateValid(birthday)) Say.warn(Consts.error.birthdate)
             else if(email && !Func.hasEmailSpecialCharsOnly(email)) Say.warn(Consts.error.notAllowedChar + '\n\nEmail')
+            else if(barangay && !Func.hasAddressSpecialCharsOnly(barangay)) Say.warn(Consts.error.notAllowedChar + '\n\nBarangay')
+            else if(street && !Func.hasAddressSpecialCharsOnly(street)) Say.warn(Consts.error.notAllowedChar + '\n\nStreet')
+            else if(house && !Func.hasAddressSpecialCharsOnly(house)) Say.warn(Consts.error.notAllowedChar + '\n\nHouse/Unit/Floor...: ')
             else {
                 return {
                     ...this.props.navigation.state.params,
