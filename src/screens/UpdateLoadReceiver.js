@@ -50,6 +50,7 @@ class Scrn extends React.Component {
                 if(!res.error) {
                     this.props.refreshAll(true)
                     this.props.refreshFavorites(true)
+                    this.props.refreshRecent(true)
                     this.props.updateReceiver({
                         ...receiver,
                         fullname,
@@ -111,7 +112,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     updateReceiver:newProp => dispatch(Creators.updateELoadReceiver(newProp)),
     refreshAll:refresh => dispatch(Creators.refreshELoadAllReceivers(refresh)),
-    refreshFavorites:refresh => dispatch(Creators.refreshELoadFavorites(refresh))
+    refreshFavorites:refresh => dispatch(Creators.refreshELoadFavorites(refresh)),
+    refreshRecent:refresh => dispatch(Creators.refreshELoadRecent(refresh))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

@@ -110,6 +110,7 @@ class Scrn extends React.Component {
                     })
                     this.props.refreshAll(true)
                     this.props.refreshFavorites(true)
+                    this.props.refreshRecent(true)
                     Say.ok('KP receiver updated!')
                 }
                 else Say.warn(res.message)
@@ -214,7 +215,8 @@ class Scrn extends React.Component {
 const mapDispatchToProps = dispatch => ({
     updateReceiver:newProp => dispatch(Creators.updateKPReceiver(newProp)),
     refreshAll:refresh => dispatch(Creators.refreshKPAllReceivers(refresh)),
-    refreshFavorites:refresh => dispatch(Creators.refreshKPFavorites(refresh))
+    refreshFavorites:refresh => dispatch(Creators.refreshKPFavorites(refresh)),
+    refreshRecent:refresh => dispatch(Creators.refreshKPRecent(refresh))
 })
 
 export default connect(null, mapDispatchToProps)(Scrn)
