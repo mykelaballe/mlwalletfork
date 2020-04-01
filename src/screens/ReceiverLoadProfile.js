@@ -52,7 +52,7 @@ class Scrn extends React.Component {
         const {newProp} = this.props
         if(newProp) {
             this.props.updateReceiver(null)
-            this.setState({...newProps})
+            this.setState({...newProp})
         }
     }
 
