@@ -156,8 +156,8 @@ export default {
     },
 
     getBranches: async () => {
-        let data = []
-        let res = await Fetch.get('ml_branches')
+        //let data = []
+        return await Fetch.get('ml_branches')
 
         /*let res = {
             data:[
@@ -170,7 +170,7 @@ export default {
             ]
         }*/
 
-        if(res.data) {
+        /*if(res.data) {
             for(let r in res.data) {
                 data.push({
                     ...res.data[r],
@@ -182,7 +182,7 @@ export default {
             }
         }
 
-        return data
+        return data*/
     },
 
     getCountries: async () => {

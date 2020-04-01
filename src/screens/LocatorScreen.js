@@ -1,18 +1,16 @@
 import React from 'react'
-import {StyleSheet, View, Image, InteractionManager} from 'react-native'
-import {Text, Card, Row, ActivityIndicator} from '../components'
-import {Colors, Metrics} from '../themes'
-import {_, Say} from '../utils'
+import {StyleSheet, Image, InteractionManager} from 'react-native'
+import {ActivityIndicator} from '../components'
+import {_, Say, Consts} from '../utils'
 import {API} from '../services'
-import Icon from 'react-native-vector-icons/Ionicons'
-import MapView, {Marker, PROVIDER_GOOGLE } from 'react-native-maps'
+import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps'
 
 //ios api key = AIzaSyCxoT1ORnihAKC1FZe5FHYCXA_56CUjfkM
 
 export default class Scrn extends React.Component {
 
     static navigationOptions = {
-        title:'M Lhuillier Branches'
+        title:`${Consts.companyName} Branches`
     }
 
     state = {
@@ -34,17 +32,7 @@ export default class Scrn extends React.Component {
         let markers = []
 
         try {
-            //markers = await API.getBranches()
-            markers = [
-                {
-                    branchname:'CEBU HEAD OFFICE',
-                    address:'ML BLDG BENEDICTO STREET NRA CEBU CITY',
-                    latlng: {
-                        latitude:10.123000,
-                        longitude:123.456000
-                    }
-                }
-            ]
+            markers = await API.getBranches()
         }
         catch(err) {
             Say.err(_('500'))
@@ -58,8 +46,7 @@ export default class Scrn extends React.Component {
 
     render() {
 
-        const {initialCoords, markers, loading, refreshing, error} = this.state
-        const {navigate} = this.props.navigation
+        const {initialCoords, markers, loading} = this.state
 
         if(loading) return <ActivityIndicator />
 
@@ -73,7 +60,10 @@ export default class Scrn extends React.Component {
                 {markers.map((m, i) => (
                     <Marker
                         key={i}
-                        coordinate={m.latlng}
+                        coordinate={{
+                            latitude:m.latitude,
+                            longitude:m.longitude
+                        }}
                         title={m.branchname}
                         description={m.address}
                     >

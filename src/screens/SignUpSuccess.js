@@ -3,7 +3,7 @@ import {View, Image} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Screen, Footer, Headline, Text, Button, Spacer} from '../components'
-import {_} from '../utils'
+import {_, Consts} from '../utils'
 import {Res} from '../themes'
 
 class Scrn extends React.Component {
@@ -13,8 +13,10 @@ class Scrn extends React.Component {
     }
 
     handleGoToLogin = async () => {
-        if(this.props.isFirstTime) this.props.setIsFirstTime(false)
-        else this.props.navigation.navigate('Login')
+        const {isFirstTime, setIsFirstTime, navigation} = this.props
+        
+        if(isFirstTime) setIsFirstTime(false)
+        else navigation.navigate('Login')
     }
 
     render() {
@@ -37,7 +39,7 @@ class Scrn extends React.Component {
                     <Spacer />
 
                     <Text center md>Please remember your</Text>
-                    <Text center md>ML Wallet Account number</Text>
+                    <Text center md>{Consts.companyName} Account number</Text>
 
                     <Spacer sm />
 

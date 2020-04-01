@@ -18,6 +18,7 @@ export default {
 	appVersion:8,//DeviceInfo.getVersion(),
 	storeListingUrl:IS_ANDROID ? PLAYSTORE_URL : APPSTORE_URL,
 	codepush_key:IS_ANDROID ? CODEPUSH_ANDROID_DEV : CODEPUSH_IOS_DEV,
+	companyName:'M Lhuillier',
 	db:{
 		app:'AppDB',
 		user:'UserDB'
