@@ -16,7 +16,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  [GMSServices provideAPIKey:@"AIzaSyAq0kHsLjbJLX4CkyJqv4EKyzSfsyafRMA"];
+  [GMSServices provideAPIKey:@"AIzaSyCxoT1ORnihAKC1FZe5FHYCXA_56CUjfkM"];
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
                                                    moduleName:@"mlwallet"
