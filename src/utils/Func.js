@@ -1,3 +1,5 @@
+import Consts from './Consts'
+
 const validate = (value, options = {}) => {
     let errors = []
 
@@ -25,7 +27,7 @@ const validate = (value, options = {}) => {
     if(options.hasSpecialChar) {
         errors.push({
             ok: hasSpecialChar(value),
-            message: 'At least one special character (!@#$%)'
+            message: 'At least one special character'
         })
     }
 
@@ -57,6 +59,45 @@ const checkHasNum = value => {
 const hasSpecialChar = value => {
     const regex = /[!@#$%&]+/
     return regex.test(value)
+}
+
+const isLettersOnly = str => {
+    const regex = /^[a-zA-Z]+$/
+    return regex.test(str)
+}
+
+const isNumbersOnly = str => {
+    const regex = /^\d+$/
+    return regex.test(str)
+}
+
+const hasCommonSpecialCharsOnly = str => {
+    for(let s in str) {
+        if(!isLettersOnly(str[s]) && !isNumbersOnly(str[s])) {
+            if(Consts.allowedSpecialChars.common.indexOf(str[s]) < 0) return false
+        }
+    }
+    return true
+}
+
+const hasEmailSpecialCharsOnly = str => {
+    for(let s in str) {
+        if(!isLettersOnly(str[s]) && !isNumbersOnly(str[s])) {
+            if(Consts.allowedSpecialChars.email.indexOf(str[s]) < 0) return false
+        }
+    }
+
+    return true
+}
+
+const hasAddressSpecialCharsOnly = str => {
+    for(let s in str) {
+        if(!isLettersOnly(str[s]) && !isNumbersOnly(str[s])) {
+            if(Consts.allowedSpecialChars.address.indexOf(str[s]) < 0) return false
+        }
+    }
+
+    return true
 }
 
 function compute() {
@@ -123,6 +164,11 @@ const formatAddress = userObject => {
 
 export default {
     validate,
+    isLettersOnly,
+    isNumbersOnly,
+    hasCommonSpecialCharsOnly,
+    hasEmailSpecialCharsOnly,
+    hasAddressSpecialCharsOnly,
     compute,
     formatToCurrency,
     formatToRealCurrency,

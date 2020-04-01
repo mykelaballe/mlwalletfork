@@ -29,11 +29,11 @@ class Scrn extends React.Component {
 
         return (
             <Screen>
-                <TouchableOpacity style={style.topContainer}>
+                {/*<TouchableOpacity style={style.topContainer}>
                     <Avatar source={profilepic} size={Metrics.image.lg} />
                 </TouchableOpacity>
 
-                <Spacer lg />
+                <Spacer lg />*/}
 
                 <ButtonText t='Edit my name' onPress={this.handleEditName} labelStyle={style.btnLabel} />
                 <ButtonText t='Edit my birthday' onPress={this.handleEditBirthday} labelStyle={style.btnLabel} />

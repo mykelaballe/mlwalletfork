@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Screen, Footer, Headline, TextInput, Button} from '../components'
-import {_, Say} from '../utils'
+import {_, Say, Consts, Func} from '../utils'
 import {API} from '../services'
 
 class Scrn extends React.Component {
@@ -31,6 +31,7 @@ class Scrn extends React.Component {
             mobileno = mobileno.trim()
 
             if(!mobileno) Say.some(_('8'))
+            else if(!Func.isNumbersOnly(mobileno)) Say.warn(Consts.error.onlyNumbers)
             else {
                 this.props.navigation.navigate('SecurityQuestion',{
                     walletno,

@@ -34,10 +34,25 @@ export default {
 		PH:'Philippines'
 	},
 	error: {
+		onlyLetters:'Letters only',
+		onlyNumbers:'Numbers only',
+		noSpecialChars:'Letters and Numbers only',
+		notAllowedChar:'You used an invalid character',
 		atl1:'1attempt_left',
 		atl2:'2attempt_left',
 		blk1d:'block_account_1day',
 		blk:'block_account'
+	},
+	allowedSpecialChars:{
+		common:[
+			'+','-','@','$','(',')','*',"/",':','#',',','=','!','?','.','[',']','{','}','<','>','&','_','%','√','|','\\','~','•','`','...','€','¥','£','¢','α','β','^','®','©','™','π','¤',';'
+		],
+		email:[
+			'@','.','_'
+		],
+		address:[
+			'.','-',',','&','/','\\'
+		]
 	},
 	tcn: {
 		stw: {

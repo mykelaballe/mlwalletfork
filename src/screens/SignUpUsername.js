@@ -1,6 +1,6 @@
 import React from 'react'
 import {Screen, Headline, Button, TextInput, Footer, Errors} from '../components'
-import {_, Say, Func} from '../utils'
+import {_, Say, Func, Consts} from '../utils'
 import {API} from '../services'
 
 const CRITERIA = {
@@ -32,6 +32,10 @@ export default class Scrn extends React.Component {
             username = username.trim()
 
             if(!username) Say.some(_('8'))
+            else if(!Func.isLettersOnly(username)) {
+                this.setState({error:true})
+                Say.warn(Consts.error.onlyLetters)
+            }
             else {
 
                 let usernameValidation = Func.validate(username, CRITERIA)
@@ -50,7 +54,7 @@ export default class Scrn extends React.Component {
                     }
                 }
                 else {
-                    //Say.warn('Invalid format')
+                    Say.warn('Invalid format')
                     this.setState({error:true})
                 }
             }

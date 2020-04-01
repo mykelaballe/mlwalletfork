@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Screen, Footer, Headline, TextInput, Button, Checkbox, Picker} from '../components'
 import {Metrics} from '../themes'
-import {_, Say} from '../utils'
+import {_, Say, Consts, Func} from '../utils'
 import {API} from '../services'
 
 class Scrn extends React.Component {
@@ -29,30 +29,36 @@ class Scrn extends React.Component {
             {label:'V'},
             {label:'Others'}
         ],
+        error_fname:false,
+        error_mname:false,
+        error_lname:false,
+        error_suffix:false,
         processing:false
     }
 
-    handleChangeFirstName = fname => this.setState({fname})
+    handleChangeFirstName = fname => this.setState({fname,error_fname:false})
 
-    handleChangeMiddleName = mname => this.setState({mname})
+    handleChangeMiddleName = mname => this.setState({mname,error_mname:false})
 
     handleToggleHasMiddlename = () => {
         this.setState(prevState => ({
             mname:prevState.has_middlename ? _('50') : '',
-            has_middlename:!prevState.has_middlename
+            has_middlename:!prevState.has_middlename,
+            error_mname:false
         }))
     }
 
-    handleChangeLastName = lname => this.setState({lname})
+    handleChangeLastName = lname => this.setState({lname,error_lname:false})
 
-    handleChangeSuffix = (option = {}) => this.setState({suffix:option.label || ''})
+    handleChangeSuffix = (option = {}) => this.setState({suffix:option.label || '',error_suffix:false})
 
-    handleChangeSuffixOthers = other_suffix => this.setState({other_suffix})
+    handleChangeSuffixOthers = other_suffix => this.setState({other_suffix,error_suffix:false})
 
     handleToggleHasSuffix = () => {
         this.setState(prevState => ({
             suffix:prevState.has_suffix ? _('51') : '',
-            has_suffix:!prevState.has_suffix
+            has_suffix:!prevState.has_suffix,
+            error_suffix:false
         }))
     }
 
@@ -80,7 +86,26 @@ class Scrn extends React.Component {
 
             if(suffix == 'Others') suffix = ''
 
-            if(!fname || !mname || !lname || !suffix) Say.some(_('8'))
+            if(!fname || !mname || !lname || !suffix) {
+                if(!fname) this.setState({error_fname:true})
+                if(!mname) this.setState({error_mname:true})
+                if(!lname) this.setState({error_lname:true})
+                if(!suffix) this.setState({error_suffix:true})
+
+                Say.some('Fill-out missing fields to proceed')
+            }
+            else if(!Func.isLettersOnly(fname)) {
+                this.setState({error_fname:true})
+                Say.warn(Consts.error.onlyLetters)
+            }
+            else if(!Func.isLettersOnly(mname)) {
+                this.setState({error_mname:true})
+                Say.warn(Consts.error.onlyLetters)
+            }
+            else if(!Func.isLettersOnly(lname)) {
+                this.setState({error_lname:true})
+                Say.warn(Consts.error.onlyLetters)
+            }
             else {
     
                 let res = await API.requestUpdateProfile({
@@ -107,7 +132,7 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {fname, mname, has_middlename, lname, suffix, other_suffix, has_suffix, suffix_options, processing} = this.state
+        const {fname, mname, has_middlename, lname, suffix, other_suffix, has_suffix, suffix_options, error_fname, error_mname, error_lname, error_suffix, processing} = this.state
         let ready = false
 
         if(fname && mname && lname && suffix) ready = true
@@ -120,6 +145,7 @@ class Scrn extends React.Component {
                     <TextInput
                         label='First Name'
                         value={fname}
+                        error={error_fname}
                         onChangeText={this.handleChangeFirstName}
                         onSubmitEditing={this.handleFocusMiddleName}
                         autoCapitalize='words'
@@ -131,6 +157,7 @@ class Scrn extends React.Component {
                         editable={has_middlename}
                         label='Middle Name'
                         value={mname}
+                        error={error_mname}
                         onChangeText={this.handleChangeMiddleName}
                         onSubmitEditing={this.handleFocusLastName}
                         autoCapitalize='words'
@@ -148,6 +175,7 @@ class Scrn extends React.Component {
                         ref='lname'
                         label='Last Name'
                         value={lname}
+                        error={error_lname}
                         onChangeText={this.handleChangeLastName}
                         onSubmitEditing={this.handleFocusContactNo}
                         autoCapitalize='words'
@@ -156,6 +184,7 @@ class Scrn extends React.Component {
                     <Picker
                         editable={has_suffix}
                         selected={suffix}
+                        error={error_suffix}
                         items={suffix_options}
                         placeholder='Suffix'
                         onChoose={this.handleChangeSuffix}

@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Screen, Footer, Headline, StaticInput, TextInput, Button} from '../components'
-import {_, Say, Consts} from '../utils'
+import {_, Say, Consts, Func} from '../utils'
 import {API} from '../services'
 
 class Scrn extends React.Component {
@@ -113,6 +113,9 @@ class Scrn extends React.Component {
 
             if(!sourceofincome) Say.some(_('8'))
             else if(country == Consts.country.PH && (!province.province || !city || !barangay || !zipcode)) Say.some(_('8'))
+            else if(barangay && !Func.hasAddressSpecialCharsOnly(barangay)) Say.warn(Consts.error.notAllowedChar + '\n\nBarangay')
+            else if(street && !Func.hasAddressSpecialCharsOnly(street)) Say.warn(Consts.error.notAllowedChar + '\n\nStreet')
+            else if(houseno && !Func.hasAddressSpecialCharsOnly(houseno)) Say.warn(Consts.error.notAllowedChar + '\n\nHouse/Unit/Floor...: ')
             else {
 
                 let payload = {

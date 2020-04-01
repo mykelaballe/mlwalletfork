@@ -32,7 +32,17 @@ class LocatorScreen extends React.Component {
         let markers = []
 
         try {
-            markers = await API.getBranches()
+            //markers = await API.getBranches()
+            markers = [
+                {
+                    branchname:'CEBU HEAD OFFICE',
+                    address:'ML BLDG BENEDICTO STREET NRA CEBU CITY',
+                    latlng: {
+                        latitude:10.123000,
+                        longitude:123.456000
+                    }
+                }
+            ]
         }
         catch(err) {
             Say.err(_('500'))

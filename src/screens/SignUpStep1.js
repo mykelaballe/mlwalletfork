@@ -1,6 +1,6 @@
 import React from 'react'
 import {Provider, Screen, Headline, Text, Checkbox, Button, Spacer, TextInput, Row, Footer, Radio, DynamicStaticInput, StaticInput, SignUpStepsTracker, Picker, MonthPicker, DayPicker, YearPicker} from '../components'
-import {_, Say} from '../utils'
+import {_, Say, Func, Consts} from '../utils'
 import {RadioButton} from 'react-native-paper'
 import {Metrics} from '../themes'
 
@@ -166,6 +166,19 @@ class Scrn extends React.Component {
 
                 Say.some('Fill-out missing fields to proceed')
             }
+            else if(!Func.isLettersOnly(firstname)) {
+                this.setState({error_firstname:true})
+                Say.warn(Consts.error.onlyLetters)
+            }
+            else if(!Func.isLettersOnly(middlename)) {
+                this.setState({error_middlename:true})
+                Say.warn(Consts.error.onlyLetters)
+            }
+            else if(!Func.isLettersOnly(lastname)) {
+                this.setState({error_lastname:true})
+                Say.warn(Consts.error.onlyLetters)
+            }
+            else if(email && !Func.hasEmailSpecialCharsOnly(email)) Say.warn(Consts.error.notAllowedChar + '\n\nEmail')
             else {
                 this.props.navigation.navigate('SignUpStep2',{
                     ...this.props.navigation.state.params,

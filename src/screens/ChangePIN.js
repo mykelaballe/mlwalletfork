@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Screen, Footer, Button, ButtonText, TextInput} from '../components'
 import {Colors} from '../themes'
-import {_, Say, Consts} from '../utils'
+import {_, Say, Consts, Func} from '../utils'
 import {API} from '../services'
 
 class Scrn extends React.Component {
@@ -19,12 +19,14 @@ class Scrn extends React.Component {
         show_old_pin:false,
         show_new_pin:false,
         show_confirm_pin:false,
+        error_old:false,
+        error_new:false,
         processing:false
     }
 
-    handleChangeOldPIN = old_pin => this.setState({old_pin})
+    handleChangeOldPIN = old_pin => this.setState({old_pin,error_old:false})
 
-    handleChangeNewPIN = new_pin => this.setState({new_pin})
+    handleChangeNewPIN = new_pin => this.setState({new_pin,error_new:false})
 
     handleChangeConfirmPIN = confirm_pin => this.setState({confirm_pin})
 
@@ -52,6 +54,10 @@ class Scrn extends React.Component {
             confirm_pin = confirm_pin.trim()
 
             if(!old_pin || !new_pin || !confirm_pin) Say.some(_('8'))
+            else if(!Func.isNumbersOnly(new_pin)) {
+                this.setState({error_new:true})
+                Say.warn(Consts.error.onlyNumbers)
+            }
             else if(new_pin.length > 6) Say.warn('PIN too long')
             else if(new_pin != confirm_pin) Say.warn('PIN do not match')
             else {
@@ -65,6 +71,8 @@ class Scrn extends React.Component {
                 let res = await API.changePIN(payload)
 
                 if(res.error) {
+                    this.setState({error_old:true})
+
                     Say.attemptLeft(res.message)
                     
                     if(res.message == Consts.error.blk1d) this.props.logout()
@@ -89,7 +97,7 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {old_pin, new_pin, confirm_pin, show_old_pin, show_new_pin, show_confirm_pin, processing} = this.state
+        const {old_pin, new_pin, confirm_pin, show_old_pin, show_new_pin, show_confirm_pin, error_old, error_new, processing} = this.state
         let ready = false
 
         if(old_pin && new_pin && confirm_pin) ready = true
@@ -101,10 +109,13 @@ class Scrn extends React.Component {
                         ref='old_pin'
                         label={'Current PIN'}
                         value={old_pin}
+                        error={error_old}
                         onChangeText={this.handleChangeOldPIN}
                         onSubmitEditing={this.handleFocusNewPIN}
                         autoCapitalize='none'
+                        maxLength={6}
                         secureTextEntry={show_old_pin ? false : true}
+                        contextMenuHidden
                         keyboardType='numeric'
                         returnKeyType='next'
                         rightContent={
@@ -115,11 +126,13 @@ class Scrn extends React.Component {
                         ref='new_pin'
                         label={'New PIN'}
                         value={new_pin}
+                        error={error_new}
                         onChangeText={this.handleChangeNewPIN}
                         onSubmitEditing={this.handleFocusConfirmPIN}
                         autoCapitalize='none'
                         maxLength={6}
                         secureTextEntry={show_new_pin ? false : true}
+                        contextMenuHidden
                         keyboardType='numeric'
                         returnKeyType='next'
                         rightContent={
@@ -135,6 +148,7 @@ class Scrn extends React.Component {
                         autoCapitalize='none'
                         maxLength={6}
                         secureTextEntry={show_confirm_pin ? false : true}
+                        contextMenuHidden
                         keyboardType='numeric'
                         rightContent={
                             <ButtonText color={Colors.gray} t={show_confirm_pin ? 'Hide' : 'Show'} onPress={this.handleToggleConfirmPIN} />

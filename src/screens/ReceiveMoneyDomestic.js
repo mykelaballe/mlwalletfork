@@ -71,11 +71,12 @@ class Scrn extends React.Component {
                     if(res.message == Consts.error.blk1d) this.props.logout()
                 }
                 else {
+                    this.props.updateBalance(res.data.balance)
                     this.props.navigation.navigate('TransactionReceipt',{
                         ...params,
+                        ...res.data,
                         transaction: {
-                            ...this.state,
-                            ...res.data
+                            ...this.state
                         },
                         status:'success'
                     })
@@ -162,6 +163,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+    updateBalance: newBalance => dispatch(Creators.updateBalance(newBalance)),
     logout: () => dispatch(Creators.logout())
 })
 

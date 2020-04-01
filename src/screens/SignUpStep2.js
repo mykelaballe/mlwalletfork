@@ -1,6 +1,6 @@
 import React from 'react'
 import {Screen, Button, TextInput, Footer, StaticInput, SignUpStepsTracker} from '../components'
-import {_, Say, Consts} from '../utils'
+import {_, Say, Consts, Func} from '../utils'
 
 export default class Scrn extends React.Component {
 
@@ -93,6 +93,9 @@ export default class Scrn extends React.Component {
             zip_code = zip_code.trim()
 
             if(country == Consts.country.PH && (!province.province || !city || !barangay || !zip_code)) Say.some(_('8'))
+            else if(barangay && !Func.hasAddressSpecialCharsOnly(barangay)) Say.warn(Consts.error.notAllowedChar + '\n\nBarangay')
+            else if(street && !Func.hasAddressSpecialCharsOnly(street)) Say.warn(Consts.error.notAllowedChar + '\n\nStreet')
+            else if(house && !Func.hasAddressSpecialCharsOnly(house)) Say.warn(Consts.error.notAllowedChar + '\n\nHouse/Unit/Floor...: ')
             else {
                 this.props.navigation.navigate('SignUpStep3',{
                     ...this.props.navigation.state.params,

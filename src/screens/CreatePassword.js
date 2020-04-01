@@ -19,10 +19,11 @@ class Scrn extends React.Component {
         show_new_password:false,
         show_confirm_password:false,
         errors:[],
+        error_new:false,
         processing:false
     }
 
-    handleChangeNewPassword = new_password => this.setState({new_password})
+    handleChangeNewPassword = new_password => this.setState({new_password,error_new:false})
 
     handleChangeConfirmPassword = confirm_password => this.setState({confirm_password})
 
@@ -48,6 +49,10 @@ class Scrn extends React.Component {
             confirm_password = confirm_password.trim()
 
             if(!old_password || !new_password || !confirm_password) Say.some(_('8'))
+            else if(!Func.hasCommonSpecialCharsOnly(new_password)) {
+                this.setState({error_new:true})
+                Say.warn(Consts.error.notAllowedChar)
+            }
             else if(new_password != confirm_password) Say.warn('Passwords do not match')
             else {
                 let validation = Func.validate(new_password, Consts.password_criteria)
@@ -78,10 +83,9 @@ class Scrn extends React.Component {
                     }
                 }
                 else {
+                    this.setState({error_new:true})
                     Say.warn('Invalid format')
                 }
-
-                this.setState({errors})
             }
         }
         catch(err) {
@@ -93,7 +97,7 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {old_password, new_password, confirm_password, show_old_password, show_new_password, show_confirm_password, errors, processing} = this.state
+        const {old_password, new_password, confirm_password, show_old_password, show_new_password, show_confirm_password, errors, error_new, processing} = this.state
         let ready = false
 
         if(old_password && new_password && confirm_password) ready = true
@@ -109,6 +113,7 @@ class Scrn extends React.Component {
                         ref='new_password'
                         label={'Password'}
                         value={new_password}
+                        error={error_new}
                         onChangeText={this.handleChangeNewPassword}
                         onSubmitEditing={this.handleFocusConfirmPassword}
                         autoCapitalize='none'

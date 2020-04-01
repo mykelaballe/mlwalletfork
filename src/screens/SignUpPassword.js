@@ -36,6 +36,10 @@ export default class Scrn extends React.Component {
             confirm_password = confirm_password.trim()
 
             if(!password) Say.some(_('8'))
+            else if(!Func.hasCommonSpecialCharsOnly(password)) {
+                this.setState({error:true})
+                Say.warn(Consts.error.notAllowedChar)
+            }
             else if(password != confirm_password) Say.some('Password do not match')
             else {
 
@@ -53,7 +57,7 @@ export default class Scrn extends React.Component {
                     })
                 }
                 else {
-                    //Say.warn('Invalid format')
+                    Say.warn('Invalid format')
                     this.setState({error:true})
                 }
             }

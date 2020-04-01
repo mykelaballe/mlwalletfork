@@ -214,6 +214,7 @@ class Scrn extends React.Component {
                             returnKeyType='next'
                             selectTextOnFocus
                             secureTextEntry
+                            contextMenuHidden
                         />
 
                         <TextInputFlat
@@ -227,6 +228,7 @@ class Scrn extends React.Component {
                             returnKeyType='next'
                             selectTextOnFocus
                             secureTextEntry
+                            contextMenuHidden
                         />
 
                         <TextInputFlat
@@ -240,6 +242,7 @@ class Scrn extends React.Component {
                             returnKeyType='next'
                             selectTextOnFocus
                             secureTextEntry
+                            contextMenuHidden
                         />
 
                         <TextInputFlat
@@ -253,6 +256,7 @@ class Scrn extends React.Component {
                             returnKeyType='next'
                             selectTextOnFocus
                             secureTextEntry
+                            contextMenuHidden
                         />
 
                         <TextInputFlat
@@ -266,6 +270,7 @@ class Scrn extends React.Component {
                             returnKeyType='next'
                             selectTextOnFocus
                             secureTextEntry
+                            contextMenuHidden
                         />
 
                         <TextInputFlat
@@ -277,6 +282,7 @@ class Scrn extends React.Component {
                             maxLength={1}
                             selectTextOnFocus
                             secureTextEntry
+                            contextMenuHidden
                         />
                     </Row>
                 </Screen>

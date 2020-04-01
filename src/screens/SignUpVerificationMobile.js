@@ -1,6 +1,6 @@
 import React from 'react'
 import {Screen, Footer, Headline, Button, TextInput, SignUpStepsTracker} from '../components'
-import {_, Say} from '../utils'
+import {_, Say, Consts, Func} from '../utils'
 import {API} from '../services'
 
 export default class Scrn extends React.Component {
@@ -27,6 +27,7 @@ export default class Scrn extends React.Component {
             mobile_no = mobile_no.trim()
 
             if(!mobile_no) Say.some(_('8'))
+            else if(!Func.isNumbersOnly(mobile_no)) Say.warn(Consts.error.onlyNumbers)
             else {
 
                 let res = await API.requestOTP({

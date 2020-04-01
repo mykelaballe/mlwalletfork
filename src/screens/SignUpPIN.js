@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Screen, Footer, Headline, Button, TextInputFlat, Row, Text, SignUpStepsTracker} from '../components'
 import {Metrics} from '../themes'
-import {_, Say} from '../utils'
+import {_, Say, Consts, Func} from '../utils'
 import {API} from '../services'
 
 class Scrn extends React.Component {
@@ -74,6 +74,7 @@ class Scrn extends React.Component {
             let pin = `${digit1}${digit2}${digit3}${digit4}${digit5}${digit6}`
 
             if(!pin) Say.some(_('8'))
+            else if(!Func.isNumbersOnly(pin)) Say.warn(Consts.error.onlyNumbers)
             else {
 
                 let payload = {
@@ -84,18 +85,6 @@ class Scrn extends React.Component {
                 this.props.navigation.replace('SignUpStep1',{
                     ...payload
                 })
-
-                /*let res = await API.register(payload)
-
-                if(!res.error) {
-                    this.props.navigation.replace('SignUpSuccess',{
-                        ...payload,
-                        ...res.data
-                    })
-                }
-                else {
-                    Say.warn(res.message)
-                }*/
             }
         }
         catch(err) {
@@ -138,6 +127,7 @@ class Scrn extends React.Component {
                             maxLength={1}
                             returnKeyType='next'
                             selectTextOnFocus
+                            contextMenuHidden
                         />
 
                         <TextInputFlat
@@ -150,6 +140,7 @@ class Scrn extends React.Component {
                             maxLength={1}
                             returnKeyType='next'
                             selectTextOnFocus
+                            contextMenuHidden
                         />
 
                         <TextInputFlat
@@ -162,6 +153,7 @@ class Scrn extends React.Component {
                             maxLength={1}
                             returnKeyType='next'
                             selectTextOnFocus
+                            contextMenuHidden
                         />
 
                         <TextInputFlat
@@ -174,6 +166,7 @@ class Scrn extends React.Component {
                             maxLength={1}
                             returnKeyType='next'
                             selectTextOnFocus
+                            contextMenuHidden
                         />
 
                         <TextInputFlat
@@ -186,6 +179,7 @@ class Scrn extends React.Component {
                             maxLength={1}
                             returnKeyType='next'
                             selectTextOnFocus
+                            contextMenuHidden
                         />
 
                         <TextInputFlat
@@ -196,6 +190,7 @@ class Scrn extends React.Component {
                             keyboardType='numeric'
                             maxLength={1}
                             selectTextOnFocus
+                            contextMenuHidden
                         />
                     </Row>
                 </Screen>

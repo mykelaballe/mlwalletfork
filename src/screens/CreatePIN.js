@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Screen, Footer, Headline, Button, TextInputFlat, Row} from '../components'
 import {Metrics} from '../themes'
-import {_, Say} from '../utils'
+import {_, Say, Func, Consts} from '../utils'
 import {API} from '../services'
 
 class Scrn extends React.Component {
@@ -70,6 +70,7 @@ class Scrn extends React.Component {
             let pin = `${digit1}${digit2}${digit3}${digit4}${digit5}${digit6}`
 
             if(!pin) Say.some(_('8'))
+            else if(!Func.isNumbersOnly(pin)) Say.warn(Consts.error.onlyNumbers)
             else {
 
                 let res = await API.changePIN({
@@ -126,6 +127,7 @@ class Scrn extends React.Component {
                             returnKeyType='next'
                             selectTextOnFocus
                             secureTextEntry
+                            contextMenuHidden
                         />
 
                         <TextInputFlat
@@ -139,6 +141,7 @@ class Scrn extends React.Component {
                             returnKeyType='next'
                             selectTextOnFocus
                             secureTextEntry
+                            contextMenuHidden
                         />
 
                         <TextInputFlat
@@ -152,6 +155,7 @@ class Scrn extends React.Component {
                             returnKeyType='next'
                             selectTextOnFocus
                             secureTextEntry
+                            contextMenuHidden
                         />
 
                         <TextInputFlat
@@ -165,6 +169,7 @@ class Scrn extends React.Component {
                             returnKeyType='next'
                             selectTextOnFocus
                             secureTextEntry
+                            contextMenuHidden
                         />
 
                         <TextInputFlat
@@ -178,6 +183,7 @@ class Scrn extends React.Component {
                             returnKeyType='next'
                             selectTextOnFocus
                             secureTextEntry
+                            contextMenuHidden
                         />
 
                         <TextInputFlat
@@ -189,6 +195,7 @@ class Scrn extends React.Component {
                             maxLength={1}
                             selectTextOnFocus
                             secureTextEntry
+                            contextMenuHidden
                         />
                     </Row>
                 </Screen>
