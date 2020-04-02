@@ -41,6 +41,9 @@ target 'mlwallet' do
   pod 'GoogleMaps'
   pod 'Google-Maps-iOS-Utils'
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
+  pod 'react-native-geolocation', path: '../node_modules/@react-native-community/geolocation'
+  pod 'Permission-LocationWhenInUse', :path => '../node_modules/react-native-permissions/ios/LocationWhenInUse.podspec'
+  pod 'RNPermissions', :path => '../node_modules/react-native-permissions'
 
   target 'mlwalletTests' do
     inherit! :search_paths
