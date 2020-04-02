@@ -19,7 +19,7 @@ import Geolocation from 'react-native-geolocation-service'
 
 export default {
     login: async payload => {
-        const locationPermission = Consts.is_android ? PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION : PERMISSIONS.IOS.LOCATION_ALWAYS
+        const locationPermission = Consts.is_android ? PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION : PERMISSIONS.IOS.LOCATION_WHEN_IN_USE
         request(locationPermission)
         .then(res => {
             alert(res)
