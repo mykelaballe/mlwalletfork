@@ -14,8 +14,64 @@ import OTP from './endpoints/OTP'
 import PIN from './endpoints/PIN'
 import User from './endpoints/User'
 
+import DeviceInfo from 'react-native-device-info'
+//import {check, request, PERMISSIONS, RESULTS} from 'react-native-permissions'
+import Geolocation from 'react-native-geolocation-service'
+//import Geocoder from 'react-native-geocoding'
+
 export default {
     login: async payload => {
+        //const locationPermission = Consts.is_android ? PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION : PERMISSIONS.IOS.LOCATION_ALWAYS
+        /*request(locationPermission)
+        .then(res => {
+            console.log(res)
+        })*/
+
+        /*check(locationPermission)
+        .then(res => {
+            switch (res) {
+            case RESULTS.UNAVAILABLE:
+                alert('This feature is not available (on this device / in this context)')
+                break
+            case RESULTS.DENIED:
+                alert('The permission has not been requested / is denied but requestable')
+                break
+            case RESULTS.GRANTED:
+                alert('The permission is granted')
+                break
+            case RESULTS.BLOCKED:
+                alert('The permission is denied and not requestable anymore')
+                break
+            }
+        })
+        .catch(error => {
+            alert(error)
+        })*/
+
+        //Geocoder.init('AIzaSyCPyKmt6in3JwAsogYikNNjor8qgU9stRQ')
+
+        Geolocation.getCurrentPosition(
+            pos => {
+                //console.log(pos)
+                const {latitude, longitude} = pos.coords
+                //let location = Geocoder.from({latitude, longitude})
+                //console.log(`Location: ${location}`)
+                alert(`
+                    Latitude: ${latitude}
+                    Longitude: ${longitude}
+                `)
+            },
+            err => {
+                alert(err.code + '\n' + err.message)
+            },
+            {enableHighAccuracy:true, timeout:15000, maximumAge:10000}
+        )
+
+        /*DeviceInfo.isLocationEnabled()
+        .then(enabled => {
+            alert(enabled.toString())
+        })*/
+        return false
         /*return {
             error:false,
             data: {
@@ -73,7 +129,6 @@ export default {
     updateTouchIDStatus: async payload => await Fetch.put('update/touchid',payload),
 
     register: async payload => {
-        //return {error:false}
         return await Fetch.post('wallet/registration',{
             ...payload,
             deviceId:Consts.deviceId,
@@ -142,48 +197,12 @@ export default {
     },
 
     getTransactionHistory: async payload => {
-        /*return [
-            {
-                kptn:'123456',
-                date:'2020-01-01',
-                status:'success',
-                label:'Wallet to Wallet',
-                code:'stw',
-                amount:'3000'
-            }
-        ]*/
         return await Fetch.get(`transaction/history?walletno=${walletno}&from=${payload.from}&to=${payload.to}&type=${payload.type}`)
     },
 
     getBranches: async () => {
-        //let data = []
         let res = await Fetch.get('ml_branches')
         return res.data || []
-
-        /*let res = {
-            data:[
-                {
-                    latitude:10.2488493,
-                    longitude:123.85214660000001,
-                    branchname:'Basak Branch',
-                    address:'basak'
-                }
-            ]
-        }*/
-
-        /*if(res.data) {
-            for(let r in res.data) {
-                data.push({
-                    ...res.data[r],
-                    latlng: {
-                        latitude:res.data[r].latitude,
-                        longitude:res.data[r].longitude
-                    }
-                }) 
-            }
-        }
-
-        return data*/
     },
 
     getCountries: async () => {
