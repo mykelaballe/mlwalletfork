@@ -1,5 +1,6 @@
 import React from 'react'
 import {Prompt} from './'
+import {Consts} from '../utils'
 
 class SomeModal extends React.Component {
  
@@ -20,6 +21,13 @@ class SomeModal extends React.Component {
   
     static hide() {
       SomeModal.__singletonRef.hideModal()
+    }
+
+    static sayLogout() {
+        SomeModal.__singletonRef.showModal({
+            message:`We are logging you out because you were idle for more than ${Consts.allowed_idle_time / 60000} minutes`,
+            title:'You are idle'
+        })
     }
   
     showModal = options => {

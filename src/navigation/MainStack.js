@@ -54,7 +54,7 @@ export default createStackNavigator({
     SendKPIndex: {
         screen:KPStack,
         navigationOptions:({navigation}) => ({
-            title:Consts.tcn.skp.short_dec,
+            title:Consts.tcn.skp.short_desc,
             headerRight:(
                 <HeaderRight>
                     <ButtonText color={Colors.light} t='Rates' onPress={() => navigation.navigate('Rates')} />
@@ -96,7 +96,7 @@ export default createStackNavigator({
     BuyLoadIndex: {
         screen:ELoadStack,
         navigationOptions:{
-            title:'Buy E-Load'
+            title:Consts.tcn.bul.short_desc
         }
     },
 
@@ -110,7 +110,7 @@ export default createStackNavigator({
     PayBillsIndex: {
         screen:BillsStack,
         navigationOptions:{
-            title:'Pay Bills'
+            title:Consts.tcn.bpm.short_desc
         }
     },
 

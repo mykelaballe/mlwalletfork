@@ -67,6 +67,8 @@ const attemptLeft = error => {
     else warn('Oops! You entered the wrong information')
 }
 
+const logout = () => SomeModal.sayLogout()
+
 export default {
     some,
     ok,
@@ -74,5 +76,6 @@ export default {
     err,
     info,
     ask,
-    attemptLeft
+    attemptLeft,
+    logout
 }

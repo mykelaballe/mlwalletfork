@@ -93,7 +93,7 @@ class Scrn extends React.Component {
     }
 
     submit = async () => {
-        const {username, password, firstname, middlename, lastname, suffix, gender, birthday, email, nationality, source_of_income, house, street, country, province, provincecode, city, barangay, zip_code, ids, question1, answer1, question2, answer2, question3, answer3, mobile_no, validID, profilepic} = this.props.navigation.state.params
+        const {username, password, pincode, firstname, middlename, lastname, suffix, gender, birthday, email, nationality, source_of_income, house, street, country, province, provincecode, city, barangay, zip_code, ids, question1, answer1, question2, answer2, question3, answer3, mobile_no, validID, profilepic} = this.props.navigation.state.params
         const {digit1, digit2, digit3, digit4, digit5, digit6} = this.state
 
         try {
@@ -112,6 +112,7 @@ class Scrn extends React.Component {
                     let payload = {
                         uname:username,
                         password,
+                        pincode,
                         fname:firstname,
                         mname:middlename,
                         lname:lastname,

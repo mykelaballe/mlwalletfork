@@ -1,6 +1,7 @@
 import Types from '../actions/Types'
 import Immutable from 'seamless-immutable'
 import {createReducer} from 'reduxsauce'
+import {Consts, Storage} from '../utils'
 
 export const INITIAL_STATE = Immutable({
   data: null
@@ -21,6 +22,7 @@ const updateUserInfo = (state, action) => {
     ...state.data,
     ...action.newInfo
   }
+  Storage.doSave(Consts.db.user, data)
   return state.merge({ data })
 }
 

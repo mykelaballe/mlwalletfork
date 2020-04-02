@@ -2,11 +2,26 @@ import React from 'react'
 import {PanResponder, View} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Consts, Storage, Say} from '../utils'
+import {Consts, Say} from '../utils'
 
 class Responder extends React.Component {
-    _panResponder = {}
-    timer = 0
+
+  _panResponder = {}
+  timer = 0
+
+  state = {
+    isLoggedIn:this.props.isLoggedIn
+  }
+
+  componentDidUpdate = (prevProps, prevState) => {
+    const {isLoggedIn} = this.props
+    if(isLoggedIn !== prevState.isLoggedIn) {
+      this.setState({isLoggedIn})
+
+      if(isLoggedIn) this.startTimer()
+      else clearTimeout(this.timer)
+    }
+  }
 
   componentDidMount() {
     this._panResponder = PanResponder.create({
@@ -28,7 +43,10 @@ class Responder extends React.Component {
   }
 
   startTimer() {
-    //this.timer = setTimeout(() => this.showPrompt(),Consts.allowed_idle_time)
+    return false
+    if(this.state.isLoggedIn) {
+      this.timer = setTimeout(this.showPrompt,Consts.allowed_idle_time)
+    }
   }
 
   resetTimer(){
@@ -37,13 +55,9 @@ class Responder extends React.Component {
   }
 
   showPrompt = () => {
-    if(this.props.isLoggedIn) {
-        Storage.doSave(Consts.db.user)
+    if(this.state.isLoggedIn) {
         this.props.logout()
-        Say.some(
-          'You are idle. Logging out now',
-          'Inactive'
-        )
+        Say.logout()
     }
   }
 
@@ -57,11 +71,11 @@ class Responder extends React.Component {
   }
 }
 
-mapStateToProps = state => ({
+const mapStateToProps = state => ({
     isLoggedIn: state.auth.isLoggedIn
 })
 
-mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = dispatch => ({
     logout:() => dispatch(Creators.logout())
 })
 
