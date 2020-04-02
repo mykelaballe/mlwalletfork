@@ -90,20 +90,13 @@ class Scrn extends React.Component {
                 let res = await API.addKPReceiver({
                     walletno,
                     Fname:firstname,
-                    Mname:middlename,
+                    Mname:middlename === _('50') ? '' : middlename,
                     Lname:lastname,
-                    Suffix:suffix,
+                    Suffix:suffix === _('51') ? '' : suffix,
                     ContactNo:contact_no
                 })
 
                 if(res.walletno) {
-                    /*this.props.addReceiver({
-                        ...res,
-                        firstname:res.Fname,
-                        lastname:res.Lname,
-                        middlename:res.Mname,
-                        suffix:res.Suffix
-                    })*/
                     this.props.refreshAll(true)
                     Say.ok('Successfully added KP receiver')
                     this.props.navigation.pop()
