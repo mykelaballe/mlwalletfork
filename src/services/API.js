@@ -1,3 +1,5 @@
+import {Linking} from 'react-native'
+
 import Consts from '../utils/Consts'
 import Fetch from '../utils/Fetch'
 import Storage from '../utils/Storage'
