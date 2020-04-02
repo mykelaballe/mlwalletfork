@@ -1,4 +1,5 @@
 import Consts from './Consts'
+import _ from './Lang'
 
 const moment = require('moment')
 
@@ -152,9 +153,9 @@ const formatName = userObject => {
     if(userObject === null || !userObject) return ''
 
     const fname = userObject.fname || userObject.firstname
-    const mname = (userObject.mname || userObject.middlename) || ' WAIVED'
+    const mname = (userObject.mname || userObject.middlename) || _('50')
     const lname = userObject.lname || userObject.lastname
-    const suffix = userObject.suffix || ' NONE'
+    const suffix = userObject.suffix || _('51')
 
     return cleanName(`${fname} ${mname} ${lname} ${suffix}`)
 }
