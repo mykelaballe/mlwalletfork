@@ -1,7 +1,6 @@
 import React from 'react'
 import {StyleSheet, TouchableOpacity} from 'react-native'
-//import {connect} from 'react-redux'
-import {Screen, Headline, Footer, FlatList, Text, Button, HR, SignUpStepsTracker} from '../components'
+import {Screen, Headline, Footer, FlatList, Text, Button, ButtonText, HR, SignUpStepsTracker, Row, Outline} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
 
@@ -65,9 +64,10 @@ export default class Scrn extends React.Component {
                 name:"Company ID"
             }
         ],
-        ids:[],
-        validID:'',
-        profilepic:'',
+        for:'',
+        selectedIDIndex:null,
+        validID:null,
+        profilepic:null,
         processing:false
     }
 
@@ -75,23 +75,22 @@ export default class Scrn extends React.Component {
         const {params = {}} = props.navigation.state
 
         if(params.source) {
-            if(!state.validID) {
-                if(state.validID !== params.source) {
-                    return {
-                        validID:params.source
-                    }
+            if(state.for !== '' && state[state.for] !== params.source) {
+                let list = state.list.slice()
+                
+                if(state.for == 'validID') {
+                    if(state.selectedIDIndex !== null) {
+                        list.map(l => l.selected = false)
+                        list[state.selectedIDIndex].selected = !list[state.selectedIDIndex].selected
+                    } 
                 }
-            }
-            else if(!state.profilepic) {
-                if(state.profilepic !== params.source) {
-                    props.navigation.navigate('SignUpStep4',{
-                        ...props.navigation.state.params,
-                        validID:state.validID,
-                        profilepic:params.source
-                    })
-                    return {
-                        profilepic:params.source
-                    }
+
+                props.navigation.setParams({source:null})
+
+                return {
+                    for:'',
+                    [state.for]:params.source,
+                    list
                 }
             }
         }
@@ -99,73 +98,31 @@ export default class Scrn extends React.Component {
         return null
     }
 
-    /*componentDidUpdate = (prevProps, prevState) => {
-        const {params = {}} = this.props.navigation.state
-
-        if(params.source) {
-            this.props.navigation.setParams({source:null})
-            if(!prevState.validID) {
-                if(params.source !== prevState.validID) {
-                    this.setState({
-                        validID:params.source
-                    })
-                }
-            }
-            else if(!prevState.profilepic) {
-                if(params.source !== prevState.profilepic) {
-                    this.setState({
-                        profilepic:params.source
-                    })
-                }
-            }
-        }
-    }*/
-
-    handleSelect = index => {
-        let list = this.state.list.slice()
-
-        list.map(l => l.selected = false)
-
-        list[index].selected = !list[index].selected
-
-        this.setState({list})
-
+    handleSelectValidID = selectedIDIndex => {
+        this.setState({
+            selectedIDIndex,
+            for:'validID'
+        })
         this.props.navigation.navigate('Camera',{
             title:'Valid ID',
             sourceRoute:this.state.sourceRoute
         })
     }
 
-    /*handleSelect1 = index => {
-        let list = this.state.list.slice()
-        let ids = []
-
-        list.map(l => l.selected = false)
-
-        list[index].selected = !list[index].selected
-
-        list.map(l => {
-            if(l.selected) ids.push(l.name)
+    takeLivePhoto = () => {
+        const {sourceRoute} = this.state
+        this.setState({for:'profilepic'})
+        this.props.navigation.navigate('Camera',{
+            title:'Live Photo',
+            sourceRoute,
         })
-
-        this.props.navigation.navigate('Camera',{sourceRoute:this.props.navigation.state.routeName})
-
-        this.setState({
-            list,
-            ids
-        })
-    }*/
+    }
 
     handleSubmit = async () => {
-        let {sourceRoute, ids, profilepic, validID} = this.state
+        let {profilepic, validID} = this.state
 
         try {
-            if(!profilepic) {
-                this.props.navigation.navigate('Camera',{
-                    title:'Live Photo',
-                    sourceRoute
-                })
-            }
+            if(!profilepic) this.takeLivePhoto()
             else {
                 this.props.navigation.navigate('SignUpStep4',{
                     ...this.props.navigation.state.params,
@@ -173,23 +130,30 @@ export default class Scrn extends React.Component {
                     profilepic
                 })
             }
-            /*if(ids.length > 0) {
-                this.props.navigation.navigate('SignUpStep4',{
-                    ...this.props.navigation.state.params,
-                    ids
-                })
-            }*/
         }
         catch(err) {
             Say.err(_('500'))
         }
     }
 
-    renderItem = ({item, index}) => <ItemUI index={index} data={item} onPress={this.handleSelect} />
+    handleChangeValidID = () => {
+        let list = this.state.list.slice()
+        list.map(l => l.selected = false)
+        this.setState({
+            validID:null,
+            selectedIDIndex:null,
+            list,
+            for:''
+        })
+    }
+
+    handleChangeProfilePic = () => this.takeLivePhoto()
+
+    renderItem = ({item, index}) => <ItemUI index={index} data={item} onPress={this.handleSelectValidID} />
 
     render() {
 
-        const {list, ids, validID, profilepic, processing} = this.state
+        const {list, selectedIDIndex, validID, profilepic, processing} = this.state
         let ready = false
 
         if(validID) ready = true
@@ -202,10 +166,30 @@ export default class Scrn extends React.Component {
 
                     <Headline subtext='Choose a valid ID you can provide from the list below' />
 
+                    {validID &&
+                    <Outline>
+                        <Row bw>
+                            <Text b>{list[selectedIDIndex].name}</Text>
+                            <ButtonText t='Change' onPress={this.handleChangeValidID} />
+                        </Row>
+                    </Outline>
+                    }
+
+                    {profilepic &&
+                    <Outline>
+                        <Row bw>
+                            <Text b>Live Photo</Text>
+                            <ButtonText t='Change' onPress={this.handleChangeProfilePic} />
+                        </Row>
+                    </Outline>
+                    }
+
+                    {!validID &&
                     <FlatList
                         data={list}
                         renderItem={this.renderItem}
                     />
+                    }
 
                 </Screen>
             
@@ -223,9 +207,3 @@ const style = StyleSheet.create({
         paddingHorizontal:Metrics.rg
     }
 })
-
-/*const mapStateToProps = state => ({
-
-})
-
-export default connect(mapStateToProps)(Scrn)*/

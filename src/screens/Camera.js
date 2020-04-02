@@ -42,22 +42,29 @@ class Scrn extends React.Component {
 
         if(this.camera) {
 
-            this.setState({processing:true})
+            try {
+                this.setState({processing:true})
 
-            //base64, width, height, pictureOrientation, deviceOrientation
-            let source = await this.camera.takePictureAsync({
-                width: 720,
-                height: 540,
-                quality: 0.5,
-                base64: true
-            })
+                //base64, width, height, pictureOrientation, deviceOrientation
+                let source = await this.camera.takePictureAsync({
+                    width: 720,
+                    height: 540,
+                    quality: 0.7,
+                    base64: true
+                })
 
-            //source.base64 = `data:image/jpeg;base64,${source.bsae64}`
+                //source.base64 = `data:image/jpeg;base64,${source.bsae64}`
 
-            this.setState({
-                source,
-                processing:false
-            })
+                this.setState({
+                    source,
+                    //processing:false
+                })
+            }
+            catch(err) {
+                
+            }
+
+            this.setState({processing:false})
         }
     }
 
