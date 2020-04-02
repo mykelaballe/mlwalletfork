@@ -152,7 +152,7 @@ const formatName = userObject => {
     if(userObject === null || !userObject) return ''
 
     const fname = userObject.fname || userObject.firstname
-    const mname = userObject.mname || userObject.middlename
+    const mname = (userObject.mname || userObject.middlename) || ' WAIVED'
     const lname = userObject.lname || userObject.lastname
     const suffix = userObject.suffix || ' NONE'
 
