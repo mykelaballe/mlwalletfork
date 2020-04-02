@@ -14,48 +14,19 @@ import OTP from './endpoints/OTP'
 import PIN from './endpoints/PIN'
 import User from './endpoints/User'
 
-import DeviceInfo from 'react-native-device-info'
-//import {check, request, PERMISSIONS, RESULTS} from 'react-native-permissions'
+import {request, PERMISSIONS} from 'react-native-permissions'
 import Geolocation from 'react-native-geolocation-service'
-//import Geocoder from 'react-native-geocoding'
 
 export default {
     login: async payload => {
-        //const locationPermission = Consts.is_android ? PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION : PERMISSIONS.IOS.LOCATION_ALWAYS
-        /*request(locationPermission)
+        const locationPermission = Consts.is_android ? PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION : PERMISSIONS.IOS.LOCATION_ALWAYS
+        request(locationPermission)
         .then(res => {
-            console.log(res)
-        })*/
-
-        /*check(locationPermission)
-        .then(res => {
-            switch (res) {
-            case RESULTS.UNAVAILABLE:
-                alert('This feature is not available (on this device / in this context)')
-                break
-            case RESULTS.DENIED:
-                alert('The permission has not been requested / is denied but requestable')
-                break
-            case RESULTS.GRANTED:
-                alert('The permission is granted')
-                break
-            case RESULTS.BLOCKED:
-                alert('The permission is denied and not requestable anymore')
-                break
-            }
+            alert(res)
         })
-        .catch(error => {
-            alert(error)
-        })*/
-
-        //Geocoder.init('AIzaSyCPyKmt6in3JwAsogYikNNjor8qgU9stRQ')
-
-        Geolocation.getCurrentPosition(
+        /*Geolocation.getCurrentPosition(
             pos => {
-                //console.log(pos)
                 const {latitude, longitude} = pos.coords
-                //let location = Geocoder.from({latitude, longitude})
-                //console.log(`Location: ${location}`)
                 alert(`
                     Latitude: ${latitude}
                     Longitude: ${longitude}
@@ -65,12 +36,8 @@ export default {
                 alert(err.code + '\n' + err.message)
             },
             {enableHighAccuracy:true, timeout:15000, maximumAge:10000}
-        )
+        )*/
 
-        /*DeviceInfo.isLocationEnabled()
-        .then(enabled => {
-            alert(enabled.toString())
-        })*/
         return false
         /*return {
             error:false,
