@@ -1,5 +1,5 @@
 import React from 'react'
-import {TouchableOpacity} from 'react-native'
+import {TouchableOpacity, View} from 'react-native'
 import {Screen, Footer, Headline, Text, Button, Spacer, Row, Checkbox, TextInput, DynamicStaticInput, StaticInput, SignUpStepsTracker, Radio, MonthPicker, DayPicker, YearPicker, Picker} from '../components'
 import {_, Say, Consts, Func} from '../utils'
 import {Metrics} from '../themes'
@@ -284,7 +284,7 @@ export default class Scrn extends React.Component {
                     <Headline subtext='Make sure all the details are correct.' />
 
                     {!editable &&
-                    <>
+                    <View style={{paddingBottom:Metrics.xl}}>
                         <Text sm mute center>First Name</Text>
                         <Text md center>{firstname}</Text>
 
@@ -334,7 +334,7 @@ export default class Scrn extends React.Component {
                         
                         <Text sm mute center>Zip Code</Text>
                         <Text md center>{zip_code}</Text>
-                    </>
+                    </View>
                     }
 
                     {editable &&
