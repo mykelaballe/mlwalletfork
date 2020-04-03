@@ -64,6 +64,7 @@ class Scrn extends React.Component {
 
     handleSubmit = async () => {
         const {replace, state, processing} = this.props.navigation
+        const {type, transaction} = this.props.navigation.state.params
 
         if(processing) return false
 
@@ -71,7 +72,7 @@ class Scrn extends React.Component {
 
             let latitude = '', longitude = ''
 
-            if(type === Consts.tcn.wdc.code) {
+            if(type == Consts.tcn.wdc.code) {
                 const locationRes = await Func.getLocation()
                 if(locationRes.error) return false
                 else {
@@ -83,7 +84,6 @@ class Scrn extends React.Component {
             this.setState({processing:true})
 
             const {walletno, fname, lname} = this.props.user
-            const {type, transaction} = this.props.navigation.state.params
             const {digit1, digit2, digit3, digit4, digit5, digit6} = this.state
 
             let pin = `${digit1}${digit2}${digit3}${digit4}${digit5}${digit6}`
