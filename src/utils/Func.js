@@ -199,6 +199,11 @@ const getLocation = () => {
                         error:true
                     })
                 }
+                else {
+                    resolve({
+                        error:false
+                    })
+                }
             })
         })
     }
