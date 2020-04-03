@@ -13,39 +13,18 @@ class Scrn extends React.Component {
         title:'Profile'
     }
 
-    state = {
-        profilepic:null
-    }
-
-    componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
-
-    getData = async () => {
-        const {walletno, profilepic} = this.props.user
-
-        try {
-            if(profilepic) {
-                let data = await API.getProfilePic(walletno)
-                this.setState({profilepic:data})
-            }
-        }
-        catch(err) {
-
-        }
-    }
-
     handleEditProfile = () => this.props.navigation.navigate('EditProfileIndex')
 
     render() {
 
         const {user} = this.props
-        const {profilepic} = this.state
 
         return (
             <Screen>
                 <TopBuffer sm />
 
                 <View style={style.topContainer}>
-                    <Avatar source={profilepic} size={Metrics.image.lg} />
+                    <Avatar source={user.profilepic ? `${Consts.baseURL}wallet/image?walletno=${user.walletno}` : null} size={Metrics.image.lg} />
                     <Text b lg center mute>{Func.formatName(user)}</Text>
 
                     <Spacer />

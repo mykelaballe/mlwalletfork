@@ -15,7 +15,5 @@ export default {
 
     changePassword: async payload => await Fetch.put('changePassword',payload),
 
-    getAccountInfo: async walletno => await Fetch.get(`wallet/info?walletno=${walletno}`),
-
-    getProfilePic: async walletno => await Fetch.get(`wallet/image?walletno=${walletno}`)
+    getAccountInfo: async walletno => await Fetch.get(`wallet/info?walletno=${walletno}`)
 }
