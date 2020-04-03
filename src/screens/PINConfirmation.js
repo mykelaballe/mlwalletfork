@@ -90,6 +90,17 @@ class Scrn extends React.Component {
                 }
                 else {
                     let res = {}
+
+                    let latitude = '', longitude = ''
+
+                    if(type === Consts.tcn.wdc.code) {
+                        const locationRes = await Func.getLocation()
+                        if(locationRes.error) return false
+                        else {
+                            latitude = locationRes.data.latitude
+                            longitude = locationRes.data.longitude
+                        }
+                    }
                     
                     if(type == Consts.tcn.stw.code) {
                         res = await API.sendWalletToWallet({
@@ -119,7 +130,9 @@ class Scrn extends React.Component {
                     else if(type == Consts.tcn.wdc.code) {
                         res = await API.withdrawCash({
                             walletno,
-                            amount:transaction.amount
+                            amount:transaction.amount,
+                            latitude,
+                            longitude
                         })
                     }
                     else if(type == Consts.tcn.bpm.code) {

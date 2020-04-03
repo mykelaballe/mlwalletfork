@@ -18,7 +18,6 @@ import User from './endpoints/User'
 
 export default {
     login: async payload => {
-        alert(payload.latitude + '\n' + payload.longitude)
         return {
             error:false,
             data: {

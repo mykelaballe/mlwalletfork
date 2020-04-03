@@ -16,9 +16,9 @@ export default {
         }*/
         return await Fetch.post('withdrawcash/withdraw',{
             ...payload,
-            location:'cebu',
-            latitude:'11.11',
-            longitude:'2.22'
+            location:'',
+            //latitude:'11.11',
+            //longitude:'2.22'
         })
     },
 
