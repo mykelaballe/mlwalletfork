@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, StyleSheet} from 'react-native'
+import {View, StyleSheet, InteractionManager} from 'react-native'
 import {connect} from 'react-redux'
 import {Screen, Text, Row, Spacer, Avatar, TopBuffer, Button, Outline} from '../components'
 import {Metrics} from '../themes'
@@ -13,18 +13,39 @@ class Scrn extends React.Component {
         title:'Profile'
     }
 
+    state = {
+        profilepic:null
+    }
+
+    componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
+
+    getData = async () => {
+        const {walletno, profilepic} = this.props.user
+
+        try {
+            if(profilepic) {
+                let data = await API.getProfilePic(walletno)
+                this.setState({profilepic:data})
+            }
+        }
+        catch(err) {
+
+        }
+    }
+
     handleEditProfile = () => this.props.navigation.navigate('EditProfileIndex')
 
     render() {
 
         const {user} = this.props
+        const {profilepic} = this.state
 
         return (
             <Screen>
                 <TopBuffer sm />
 
                 <View style={style.topContainer}>
-                    <Avatar source={user.profilepic} size={Metrics.image.lg} />
+                    <Avatar source={profilepic} size={Metrics.image.lg} />
                     <Text b lg center mute>{Func.formatName(user)}</Text>
 
                     <Spacer />

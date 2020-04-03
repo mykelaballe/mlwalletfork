@@ -93,6 +93,7 @@ import AddBillerFavoriteScrn from './AddBillerFavorite'
 import BillerProfileScrn from './BillerProfile'
 import FavoriteBillersScrn from './FavoriteBillers'
 import PayBillScrn from './PayBill'
+import AddBillerScrn from './AddBiller'
 import AllBillsPartnersScrn from './AllBillsPartners'
 import FavoriteBillsPartnersScrn from './FavoriteBillsPartners'
 import RecentBillsPartnersScrn from './RecentBillsPartners'
@@ -239,6 +240,7 @@ export {
     BillerProfileScrn,
     FavoriteBillersScrn,
     PayBillScrn,
+    AddBillerScrn,
     AllBillsPartnersScrn,
     FavoriteBillsPartnersScrn,
     RecentBillsPartnersScrn,

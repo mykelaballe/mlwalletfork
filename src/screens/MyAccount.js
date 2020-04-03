@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {ScrollView, Text, Row, Spacer, HR, Avatar, TopBuffer, Button} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say, Func} from '../utils'
+import {API} from '../services'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 class Scrn extends React.Component {
@@ -13,11 +14,30 @@ class Scrn extends React.Component {
         title:'My Account'
     }
 
+    state = {
+        profilepic:null
+    }
+
     componentDidMount = () => {
+        this.getData()
         Say.some(
             "This is sensitive personal information.\nPlease be careful in sharing these for your account's security",
             'Attention!'
         )
+    }
+
+    getData = async () => {
+        const {walletno, profilepic} = this.props.user
+
+        try {
+            if(profilepic) {
+                let data = await API.getProfilePic(walletno)
+                this.setState({profilepic:data})
+            }
+        }
+        catch(err) {
+
+        }
     }
 
     handleGoToVerificationLevels = () => this.props.navigation.navigate('VerificationLevels')
@@ -33,6 +53,7 @@ class Scrn extends React.Component {
     render() {
 
         const {user} = this.props
+        const {profilepic} = this.state
 
         return (
             <>
@@ -41,7 +62,7 @@ class Scrn extends React.Component {
                     <TopBuffer sm />
 
                     <View style={style.topContainer}>
-                        <Avatar source={user.profilepic} size={Metrics.image.lg} />
+                        <Avatar source={profilepic} size={Metrics.image.lg} />
 
                         <Text b lg center mute>{Func.formatName(user)}</Text>
                         <Text center mute>Wallet Account No: {user.walletno}</Text>

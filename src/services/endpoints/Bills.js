@@ -10,7 +10,22 @@ export default {
 
     getAllBillers: async category => {
         let data = {}
-        let res = await Fetch.get(`bill_partners/all?category=${category}`)
+        //let res = await Fetch.get(`bill_partners/all?category=${category}`)
+
+        let res = {
+            data: [
+                {
+                    bill_partner_accountid:'MLBPP170388',
+                    bill_partner_name:'API RIA',
+                    classId:'CID081684154611'
+                },
+                {
+                    bill_partner_accountid:'MLBPP130014',
+                    bill_partner_name:'CEBU INSTITUTE OF TECHNOLOGY',
+                    classId:'CID081684154611'
+                }
+            ]
+        }
         
         if(res.data) {
             for(let d in res.data) {
@@ -31,6 +46,9 @@ export default {
     },
 
     getBillers: async walletno => {
+        return [
+
+        ]
         return await Fetch.get(`bill_partners/${walletno}`)
     },
 
@@ -69,6 +87,10 @@ export default {
         return []
         let res = await Fetch.get(`partners/recentreceiverlist?walletno=${walletno}`)
         return res.recieverlists || []
+    },
+
+    addBiller: async payload => {
+        return await Fetch.post(`partners/addBillerAccount`,payload)
     },
 
     updateFavoriteBiller: async payload => {

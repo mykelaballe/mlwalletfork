@@ -35,6 +35,8 @@ class Scrn extends React.Component {
 
         try {
             list = await API.getAllBillers(params.category ? params.category.value : '')
+
+            this.listHolder = list
         }
         catch(err) {
             Say.err(_('500'))
@@ -48,14 +50,33 @@ class Scrn extends React.Component {
     }
 
     handleSelectBiller = biller => {
-        const {state, navigate, pop} = this.props.navigation
-        const {params = {}} = state
+        //const {state, navigate, pop} = this.props.navigation
+        //const {params = {}} = state
 
-        if(params.category) navigate('PayBill',{type:Consts.tcn.bpm.code, biller})
-        else navigate('AddBillerFavorite',{biller})
+        this.props.navigation.navigate('AddBiller',{biller})
+
+        //if(params.category) navigate('PayBill',{type:Consts.tcn.bpm.code, biller})
+        //else navigate('AddBillerFavorite',{biller})
     }
 
-    handleChangeSearch = search => this.setState({search})
+    handleChangeSearch = search => this.setState({search:this.search(search)})
+
+    search = searchText => {
+        let list = []
+
+        this.listHolder.map(section => {
+            let data = section.data.filter(item => item.bill_partner_name.toUpperCase().indexOf(searchText.toUpperCase()) > -1)
+            
+            if(data.length > 0) {
+                list = list.concat({
+                    letter:section.letter,
+                    data
+                })
+            }
+        })
+
+        this.setState({list})
+    }
 
     renderSectionHeader = ({section}) => (
         <View style={style.itemHeader}>

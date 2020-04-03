@@ -27,7 +27,7 @@ const ItemUI = props => (
 class Scrn extends React.Component {
 
     static navigationOptions = {
-        title:_('84')
+        title:_('87')
     }
 
     state = {
@@ -76,8 +76,6 @@ class Scrn extends React.Component {
         })
     }
 
-    handleAddNewReceiver = () => this.props.navigation.navigate('AddLoadReceiver')
-
     handleViewReceiver = index => {
         const {list} = this.state
         this.props.navigation.navigate('ReceiverLoadReceiver',{index, receiver:list[index]})
@@ -85,7 +83,7 @@ class Scrn extends React.Component {
 
     handleRefresh = () => this.setState({refreshing:true},this.getData)
 
-    handleAddReceiver = () => this.props.navigation.navigate('AddLoadReceiver')
+    handleAddReceiver = () => this.props.navigation.navigate('AddBiller')
 
     handleChangeSearch = search => this.setState({search:this.search(search)})
 
@@ -111,7 +109,7 @@ class Scrn extends React.Component {
                     <Spacer sm />
 
                     <View style={{alignItems:'flex-end'}}>
-                        <ButtonText icon='plus' t='Add Receiver' onPress={this.handleAddReceiver} color={Colors.brand} />
+                        <ButtonText icon='plus' t='Add Biller' onPress={this.handleAddReceiver} color={Colors.brand} />
                     </View>
 
                     <Spacer sm />
