@@ -1,5 +1,10 @@
+import {Linking} from 'react-native'
 import Consts from './Consts'
 import _ from './Lang'
+import Say from './Say'
+
+import {request, PERMISSIONS, RESULTS} from 'react-native-permissions'
+import Geolocation from 'react-native-geolocation-service'
 
 const moment = require('moment')
 
@@ -175,6 +180,53 @@ const formatAddress = userObject => {
     return data.reverse().join(', ')
 }
 
+const getLocation = () => {
+    const message = 'Please turn on your location'
+    if(!Consts.is_android) {
+        return new Promise(resolve => {
+            request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE)
+            .then(res => {
+                if(res === RESULTS.UNAVAILABLE || res === RESULTS.DENIED) {
+                    Say.warn(
+                        message,
+                        null,
+                        {
+                            OkBtnLabel:'Turn on location',
+                            onDismiss:() => Linking.openURL('app-settings:')
+                        }
+                    )
+                    resolve({
+                        error:true
+                    })
+                }
+            })
+        })
+    }
+    else {
+        return new Promise(resolve => {
+            Geolocation.getCurrentPosition(
+                pos => {
+                    const {latitude, longitude} = pos.coords
+                    resolve({
+                        error:false,
+                        data:{
+                            latitude,
+                            longitude
+                        }
+                    })
+                },
+                err => {
+                    Say.warn(message)
+                    resolve({
+                        error:true
+                    })
+                },
+                {enableHighAccuracy:true, timeout:15000, maximumAge:10000}
+            )
+        })
+    }
+}
+
 export default {
     validate,
     isLettersOnly,
@@ -190,5 +242,6 @@ export default {
     randomize,
     cleanName,
     formatName,
-    formatAddress
+    formatAddress,
+    getLocation
 }

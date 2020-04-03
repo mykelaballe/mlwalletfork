@@ -16,56 +16,9 @@ import OTP from './endpoints/OTP'
 import PIN from './endpoints/PIN'
 import User from './endpoints/User'
 
-import {request, PERMISSIONS, RESULTS} from 'react-native-permissions'
-import Geolocation from 'react-native-geolocation-service'
-
 export default {
     login: async payload => {
-        const locationPermission = Consts.is_android ? PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION : PERMISSIONS.IOS.LOCATION_WHEN_IN_USE
-        request(locationPermission)
-        .then(res => {
-            if(res === RESULTS.UNAVAILABLE || res === RESULTS.DENIED) {
-                if(!Consts.is_android) Linking.openURL('app-settings:')
-                else {
-                    /*check(locationPermission)
-                    .then(res => {
-                        switch (res) {
-                        case RESULTS.UNAVAILABLE:
-                            alert('This feature is not available (on this device / in this context)')
-                            break
-                        case RESULTS.DENIED:
-                            alert('The permission has not been requested / is denied but requestable')
-                            break
-                        case RESULTS.GRANTED:
-                            alert('The permission is granted')
-                            break
-                        case RESULTS.BLOCKED:
-                            alert('The permission is denied and not requestable anymore')
-                            break
-                        }
-                    })
-                    .catch(error => {
-                        alert(error)
-                    })*/
-                }
-            }
-        })
-        /*Geolocation.getCurrentPosition(
-            pos => {
-                const {latitude, longitude} = pos.coords
-                alert(`
-                    Latitude: ${latitude}
-                    Longitude: ${longitude}
-                `)
-            },
-            err => {
-                alert(err.code + '\n' + err.message)
-            },
-            {enableHighAccuracy:true, timeout:15000, maximumAge:10000}
-        )*/
-
-        return false
-        /*return {
+        return {
             error:false,
             data: {
                 username:'johnsmith',
@@ -100,7 +53,7 @@ export default {
                 isresetpin:"0",
                 error:payload.username == 'newphone' ? 'registered_anotherdevice' : null
             }
-        }*/
+        }
         let res = await Fetch.post('wallet/login', {
             ...payload,
             latitude:'1',

@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Text, Button, ButtonText, Spacer, TextInput, Row, Icon, Screen, MLBanner} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_, Say, Consts} from '../utils'
+import {_, Say, Consts, Func} from '../utils'
 import {API} from '../services'
 import TouchID from 'react-native-touch-id'
 
@@ -73,6 +73,9 @@ class Scrn extends React.Component {
         let password = payload.password
 
         if(processing) return false
+
+        let locationRes = await Func.getLocation()
+        if(locationRes.error) return false
 
         try {
             this.setState({processing:true})
@@ -143,6 +146,7 @@ class Scrn extends React.Component {
             }
         }
         catch(err) {
+            alert(err)
             Say.err(_('500'))
         }
 
