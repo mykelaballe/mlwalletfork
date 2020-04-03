@@ -85,6 +85,7 @@ class Scrn extends React.Component {
                     this.props.navigation.navigate('TransactionReceipt',{
                         ...params,
                         ...res.data,
+                        kptn:transaction_no,
                         transaction: {
                             ...this.state
                         },

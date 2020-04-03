@@ -25,11 +25,11 @@ class Scrn extends React.Component {
     }
 
     state = {
-        transaction_no:'785112191406368803',
-        amount:'390',
+        transaction_no:'MLX001061704701430219',
+        amount:'100',
         sender:'',
-        firstname:'gelit',
-        lastname:'De guzman',
+        firstname:'abigail',
+        lastname:'gerona',
         processing:false
     }
 
