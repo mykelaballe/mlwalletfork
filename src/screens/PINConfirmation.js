@@ -69,6 +69,17 @@ class Scrn extends React.Component {
 
         try {
 
+            let latitude = '', longitude = ''
+
+            if(type === Consts.tcn.wdc.code) {
+                const locationRes = await Func.getLocation()
+                if(locationRes.error) return false
+                else {
+                    latitude = locationRes.data.latitude
+                    longitude = locationRes.data.longitude
+                }
+            }
+
             this.setState({processing:true})
 
             const {walletno, fname, lname} = this.props.user
@@ -90,17 +101,6 @@ class Scrn extends React.Component {
                 }
                 else {
                     let res = {}
-
-                    let latitude = '', longitude = ''
-
-                    if(type === Consts.tcn.wdc.code) {
-                        const locationRes = await Func.getLocation()
-                        if(locationRes.error) return false
-                        else {
-                            latitude = locationRes.data.latitude
-                            longitude = locationRes.data.longitude
-                        }
-                    }
                     
                     if(type == Consts.tcn.stw.code) {
                         res = await API.sendWalletToWallet({
