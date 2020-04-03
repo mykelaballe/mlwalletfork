@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Screen, Footer, Headline, Row, Button, Spacer, ButtonText, TextInputFlat} from '../components'
 import {Metrics} from '../themes'
-import {_, Consts, Say} from '../utils'
+import {_, Consts, Say, Func} from '../utils'
 import {API} from '../services'
 
 class Scrn extends React.Component {

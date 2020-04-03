@@ -72,10 +72,16 @@ class Scrn extends React.Component {
         let username = payload.username
         let password = payload.password
 
+        let latitude = '', longitude = ''
+
         if(processing) return false
 
         let locationRes = await Func.getLocation()
         if(locationRes.error) return false
+        else {
+            latitude = locationRes.data.latitude
+            longitude = locationRes.data.longitude
+        }
 
         try {
             this.setState({processing:true})
@@ -85,7 +91,9 @@ class Scrn extends React.Component {
 
             let payload = {
                 username,
-                password
+                password,
+                latitude,
+                longitude
             }
 
             if(!username || !password) Say.some(_('8'))

@@ -200,9 +200,25 @@ const getLocation = () => {
                     })
                 }
                 else {
-                    resolve({
-                        error:false
-                    })
+                    Geolocation.getCurrentPosition(
+                        pos => {
+                            const {latitude, longitude} = pos.coords
+                            resolve({
+                                error:false,
+                                data:{
+                                    latitude,
+                                    longitude
+                                }
+                            })
+                        },
+                        err => {
+                            Say.warn(message)
+                            resolve({
+                                error:true
+                            })
+                        },
+                        {enableHighAccuracy:true, timeout:15000, maximumAge:10000}
+                    )
                 }
             })
         })

@@ -18,6 +18,7 @@ import User from './endpoints/User'
 
 export default {
     login: async payload => {
+        alert(payload.latitude + '\n' + payload.longitude)
         return {
             error:false,
             data: {
@@ -56,9 +57,9 @@ export default {
         }
         let res = await Fetch.post('wallet/login', {
             ...payload,
-            latitude:'1',
-            longitude:'1',
-            location:'Philippines',
+            //latitude:'1',
+            //longitude:'1',
+            location:'',
             deviceId:Consts.deviceId,
             devicetype:Consts.deviceType,
             version:Consts.appVersion,
