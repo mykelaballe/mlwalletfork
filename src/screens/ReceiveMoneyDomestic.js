@@ -5,18 +5,31 @@ import {Screen, Footer, Text, Spacer, Button, TextInput} from '../components'
 import {_, Consts, Say} from '../utils'
 import {API} from '../services'
 
+/*
+785112191406368803
+390
+gelit
+de GuzMan
+*/
+
+/*
+MLX001061704701430219
+100
+abigail
+gerona
+*/
 class Scrn extends React.Component {
 
-    static navigationOptions = ({navigation}) => ({
+    static navigationOptions = {
         title:Consts.tcn.rmd.short_desc
-    })
+    }
 
     state = {
-        transaction_no:'MLX001061704701430219',
-        amount:'100.5',
+        transaction_no:'785112191406368803',
+        amount:'390',
         sender:'',
-        firstname:'abigail',
-        lastname:'geron',
+        firstname:'gelit',
+        lastname:'De guzman',
         processing:false
     }
 
