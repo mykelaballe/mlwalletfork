@@ -1,6 +1,7 @@
 import React from 'react'
 import {TouchableOpacity} from 'react-native'
 import {connect} from 'react-redux'
+import {Creators} from '../actions'
 import {Screen, Footer, Text, Spacer, Button, TextInput} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Consts, Say} from '../utils'
@@ -10,7 +11,7 @@ import Icon from 'react-native-vector-icons/Ionicons'
 class Scrn extends React.Component {
 
     static navigationOptions = ({navigation}) => ({
-        title:Consts.tcn[navigation.state.params.type].short_desc
+        title:Consts.tcn.rmi.short_desc
     })
 
     state = {
@@ -51,6 +52,7 @@ class Scrn extends React.Component {
     handleFocusSender = () => this.refs.sender.focus()
 
     handleSubmit = async () => {
+        const {walletno} = this.props.user
         const {params} = this.props.navigation.state
         let {transaction_no, currency, amount, partner, sender, processing} = this.state
 
@@ -65,17 +67,24 @@ class Scrn extends React.Component {
             else {
    
                 let res = await API.receiveMoneyInternational({
-                    transaction_no,
+                    walletno,
+                    referenceno:transaction_no,
                     currency,
                     amount,
-                    partner:partner.id,
-                    sender
+                    accountid:partner.id,
+                    sendername:sender
                 })
 
-                if(res.error) Say.warn(res.message)
+                if(res.error) {
+                    Say.attemptLeft(res.message)
+
+                    if(res.message == Consts.error.blk1d) this.props.logout()
+                }
                 else {
+                    this.props.updateBalance(res.data.balance)
                     this.props.navigation.navigate('TransactionReceipt',{
                         ...params,
+                        ...res.data,
                         transaction: {
                             ...this.state
                         },
@@ -135,7 +144,7 @@ class Scrn extends React.Component {
                         <TextInput
                             disabled
                             label="Partner's Name"
-                            value={partner && partner.name}
+                            value={partner && partner.bank_name}
                             rightContent={<Icon name='ios-list' color={Colors.gray} size={Metrics.icon.rg} />}
                         />
                     </TouchableOpacity>
@@ -163,4 +172,9 @@ const mapStateToProps = state => ({
     user: state.user.data
 })
 
-export default connect(mapStateToProps)(Scrn)
+const mapDispatchToProps = dispatch => ({
+    updateBalance: newBalance => dispatch(Creators.updateBalance(newBalance)),
+    logout: () => dispatch(Creators.logout())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

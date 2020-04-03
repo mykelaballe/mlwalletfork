@@ -8,7 +8,7 @@ import {API} from '../services'
 class Scrn extends React.Component {
 
     static navigationOptions = ({navigation}) => ({
-        title:Consts.tcn[navigation.state.params.type].short_desc
+        title:Consts.tcn.rmd.short_desc
     })
 
     state = {
