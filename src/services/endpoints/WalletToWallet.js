@@ -23,9 +23,9 @@ export default {
         let res = await Fetch.post('sendout/wallettowallet',{
             ...payload,
             currency:'PHP',
-            latitude:'1.1',
-            longitude:'1.2',
-            location:'cebu',
+            //latitude:'1.1',
+            //longitude:'1.2',
+            location:'',
             version:Consts.appVersion,
             deviceid:Consts.deviceId
         })

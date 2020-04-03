@@ -9,9 +9,9 @@ export default {
     sendKP: async payload => {
         return await Fetch.post('kp/sendMoney',{
             ...payload,
-            mlat:'1',
-            mlong:'1',
-            location:'cebu'
+            //mlat:'1',
+            //mlong:'1',
+            location:''
         })
     },
 

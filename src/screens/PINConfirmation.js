@@ -70,9 +70,15 @@ class Scrn extends React.Component {
 
         try {
 
+            const checkForGeolocation = [
+                Consts.tcn.stw.code,
+                Consts.tcn.skp.code,
+                Consts.tcn.wdc.code,
+                Consts.tcn.bul.code
+            ]
             let latitude = '', longitude = ''
 
-            if(type == Consts.tcn.wdc.code) {
+            if(checkForGeolocation.indexOf(type) >= 0) {
                 const locationRes = await Func.getLocation()
                 if(locationRes.error) return false
                 else {
@@ -112,14 +118,18 @@ class Scrn extends React.Component {
                             receiverMobileNo:transaction.receiver.mobileno,
                             principal:transaction.amount,
                             charge:transaction.charges,
-                            notes:transaction.notes
+                            notes:transaction.notes,
+                            latitude,
+                            longitude
                         })
                     }
                     else if(type == Consts.tcn.skp.code) {
                         res = await API.sendKP({
                             walletno,
                             receiverno:transaction.receiver.receiverno,
-                            principal:transaction.amount
+                            principal:transaction.amount,
+                            mlat:latitude,
+                            mlong:longitude
                         })
                     }
                     else if(type == Consts.tcn.stb.code) {
@@ -145,7 +155,9 @@ class Scrn extends React.Component {
                             walletNo:walletno,
                             amount:transaction.amount,
                             mobileNo:transaction.contact_no,
-                            networkId:transaction.network.id
+                            networkId:transaction.network.id,
+                            latitude,
+                            longitude
                         }
 
                         if(transaction.promo) {

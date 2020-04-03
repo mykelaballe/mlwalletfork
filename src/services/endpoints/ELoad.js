@@ -6,9 +6,9 @@ export default {
         let res = await Fetch.post('LoadSIM',{
             ...payload,
             deviceid:Consts.deviceId,
-            latitude:'1.1',
-            longitude:'1.1',
-            location:'cebu'
+            //latitude:'1.1',
+            //longitude:'1.1',
+            location:''
         })
 
         if(!res.error) {
