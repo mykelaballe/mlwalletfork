@@ -1,191 +1,183 @@
 import React from 'react'
 import {TouchableOpacity} from 'react-native'
 import {connect} from 'react-redux'
-import {Screen, Footer, Headline, Text, Row, Spacer, Button, TextInput, Switch} from '../components'
+import {Creators} from '../actions'
+import {Screen, Footer, Button, StaticInput, HeaderRight, Outline, Switch, Row, Text} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_, Consts, Say} from '../utils'
+import {_, Say} from '../utils'
 import {API} from '../services'
 import Icon from 'react-native-vector-icons/Ionicons'
+import {Menu} from 'react-native-paper'
 
 class Scrn extends React.Component {
 
-    static navigationOptions = {
-        title:'Pay Bill'
+    static navigationOptions = ({navigation}) => {
+        const {params = {}} = navigation.state
+
+        return {
+            title:'Saved Biller',
+            headerRight:(
+                <Menu
+                    visible={params.menuOpen}
+                    onDismiss={params.handleToggleMenu}
+                    anchor={
+                    <HeaderRight>
+                        <TouchableOpacity onPress={params.handleToggleMenu}>
+                            <Icon name='ios-more' color={Colors.light} size={Metrics.icon.rg} />
+                        </TouchableOpacity>
+                    </HeaderRight>
+                    }
+                >
+                    <Menu.Item onPress={params.handleEdit} title='Edit Biller' />
+                    <Menu.Item onPress={params.handleDelete} title="Delete Biller" />
+                </Menu>
+            )
+        }
     }
 
     state = {
-        account_no:this.props.navigation.state.params.biller.bill_partner_accountid,
-        account_name:this.props.navigation.state.params.biller.bill_partner_name,
-        email:this.props.navigation.state.params.biller.email,
-        reminder:"Don't Remind Me",
-        add_to_favorites:this.props.navigation.state.params.biller.add_to_favorites,
-        processing:false
+        ...this.props.navigation.state.params.biller
     }
 
-    handleChangeAccountNo = account_no => this.setState({account_no})
-
-    handleChangeAccountName = account_name => this.setState({account_name})
-
-    handleChangeEmail = email => this.setState({email})
-
-    handleFocusAccountName = () => this.refs.account_name.focus()
-
-    handleFocusEmail = () => this.refs.email.focus()
-
-    handleSelectReminder = () => this.props.navigation.navigate('Reminders')
-
-    handleToggleAddToFavorites = async () => {
-        const {walletno} = this.props.user
-        const {id, partnersid} = this.props.navigation.state.params.biller
-        const {account_no, account_name, email, add_to_favorites} = this.state
-
-        try {
-            if(add_to_favorites) {
-                let res = await API.removeFavoriteBiller({
-                    id,
-                    walletno
-                })
-                if(!res.error) Say.ok("You've successfully removed a Biller from Favorites")
-            }
-            else {
-                let res = await API.addFavoriteBiller({
-                    walletno,
-                    partnersid,
-                    id,
-                    account_no,
-                    account_name,
-                    email
-                })
-                if(!res.error) Say.ok("You've successfully added a Biller to Favorites")
-            }
-    
-            this.setState({add_to_favorites:!add_to_favorites})
-        }
-        catch(err) {
-            Say.err(_('500'))
-        }
-    }
-
-    handleUpdate = async () => {
-        const {id} = this.props.navigation.state.params.biller
-        let {account_no, account_name, email, reminder, processing} = this.state
-
-        if(processing) return false
-
-        try {
-            this.setState({processing:true})
-
-            account_no = account_no.trim()
-            account_name = account_name.trim()
-            email = email.trim()
-
-            if(!account_no || !account_name) Say.some(_('8'))
-            else {
-                let res = await API.updateFavoriteBiller({
-                    id,
-                    account_no,
-                    account_name,
-                    email
-                })
-            }
-        }
-        catch(err) {
-            Say.err(_('500'))
-        }
-
-        this.setState({processing:false})
-    }
-
-    handlePay = () => {
-        const {navigate} = this.props.navigation
-        const {biller} = this.props.navigation.state.params
-        const {account_no, account_name, email, add_to_favorites} = this.state
-
-        navigate('PayBill',{
-            type:Consts.tcn.bpm.code,
-            biller: {
-                ...biller,
-                account_no,
-                account_name,
-                email,
-                add_to_favorites
-            }
+    componentDidMount = () => {
+        this.props.navigation.setParams({
+            menuOpen:false,
+            handleToggleMenu:this.handleToggleMenu,
+            handleEdit:this.handleEdit,
+            handleDelete:this.handleDelete
         })
+    }
+
+    componentDidUpdate = (prevProps, prevState) => {
+        const {newProp} = this.props
+        if(newProp) {
+            this.props.updatePartner(null)
+            this.setState({...newProp})
+        }
+    }
+
+    handleToggleMenu = () => {
+        let {menuOpen} = this.props.navigation.state.params
+        menuOpen = !menuOpen
+        this.props.navigation.setParams({menuOpen})
+    }
+
+    handleEdit = () => {
+        const {navigate, state} = this.props.navigation
+        const {index, biller} = state.params
+        this.handleToggleMenu()
+        navigate('UpdateBiller',{index, biller})
+    }
+
+    handleDelete = () => {
+        this.handleToggleMenu()
+        Say.ask(
+            'You are about to delete a biller. This action cannot be undone',
+            null,
+            {
+                onConfirm:this.handleConfirmDelete
+            }
+        )
+    }
+
+    handleConfirmDelete = async () => {
+        const {walletno} = this.props.user
+        const {classId} = this.state
+        try {
+            await API.deleteBiller({
+                walletno,
+                id:classId
+            })
+            //this.props.refreshAll(true)
+            //this.props.refreshFavorites(true)
+            //this.props.refreshRecent(true)
+            this.props.navigation.pop()
+            Say.ok('Biller successfully deleted')
+        }
+        catch(err) {
+            Say.err(_('500'))
+        }
+    }
+
+    handleSelect = () => this.props.navigation.navigate('PayBill',{biller:this.state})
+
+    handleToggleFavorite = async () => {
+        const {walletno} = this.props.user
+        const {classId, isFavorite} = this.state
+        
+        try {
+            let payload = {
+                walletno,
+                id:classId
+            }
+
+            if(isFavorite) await API.removeFavoriteBiller(payload)
+            else await API.addFavoriteBiller(payload)
+
+            //this.props.refreshAll(true)
+            //this.props.refreshFavorites(true)
+            //this.props.refreshRecent(true)
+            
+            this.setState({isFavorite:!isFavorite})
+        }
+        catch(err) {
+            Say.err(_('500'))
+        }
     }
 
     render() {
 
-        const {biller} = this.props.navigation.state.params
-        const {account_no, account_name, email, reminder, add_to_favorites, processing} = this.state
-        let ready = false
-
-        if(account_no && account_name) ready = true
+        const {bill_partner_name, account_name, account_no, email, isFavorite} = this.state
 
         return (
             <>
                 <Screen>
-                    <Headline title={biller.name} />
-
-                    <TextInput
-                        ref='account_no'
-                        label='Account Number'
-                        value={account_no}
-                        onChangeText={this.handleChangeAccountNo}
-                        onSubmitEditing={this.handleFocusAccountName}
-                        autoCapitalize='none'
-                        returnKeyType='next'
+                    <StaticInput
+                        label='Biller'
+                        value={bill_partner_name}
                     />
 
-                    <TextInput
-                        ref='account_name'
+                    <StaticInput
                         label='Account Name'
                         value={account_name}
-                        onChangeText={this.handleChangeAccountName}
-                        onSubmitEditing={this.handleFocusEmail}
-                        autoCapitalize='words'
-                        returnKeyType='next'
                     />
 
-                    <TextInput
-                        ref='email'
-                        label='Email address (Optional)'
+                    <StaticInput
+                        label='Account No.'
+                        value={account_no}
+                    />
+
+                    <StaticInput
+                        label='Email'
                         value={email}
-                        onChangeText={this.handleChangeEmail}
-                        keyboardType='email-address'
-                        autoCapitalize='none'
                     />
-
-                    {/*<TouchableOpacity onPress={this.handleSelectReminder}>
-                        <TextInput
-                            disabled
-                            label='Remind Me Every'
-                            value={reminder}
-                            rightContent={
-                                <Icon name='ios-arrow-forward' color={Colors.gray} size={Metrics.icon.sm} />
-                            }
-                        />
-                    </TouchableOpacity>*/}
-
-                    <Spacer sm />
-
-                    <Row bw>
-                        <Text mute md>{add_to_favorites ? 'Remove from Favorites' : 'Add to Favorites'}</Text>
-                        <Switch value={add_to_favorites} onValueChange={this.handleToggleAddToFavorites} />
-                    </Row>
+                    
+                    <Outline>
+                        <Row bw>
+                            <Text>{isFavorite ? 'Remove from' : 'Add to'} favorite</Text>
+                            <Switch value={isFavorite} onValueChange={this.handleToggleFavorite} />
+                        </Row>
+                    </Outline>
                 </Screen>
-                
+
                 <Footer>
-                    <Button disabled={!ready} mode='outlined' t='Update' onPress={this.handleUpdate} loading={processing} />
-                    <Spacer sm />
-                    <Button disabled={!ready} t='Pay' onPress={this.handlePay} />
+                    <Button t='Select Biller' onPress={this.handleSelect} />
                 </Footer>
             </>
         )
     }
 }
 
-const mapStateToprops = state => ({
-    user: state.user.data
+const mapStateToProps = state => ({
+    user: state.user.data,
+    ...state.bankTransfer
 })
 
-export default connect(mapStateToprops)(Scrn)
+const mapDispatchToProps = dispatch => ({
+    updatePartner:newProp => dispatch(Creators.updateBankPartner(newProp)),
+    refreshAll:refresh => dispatch(Creators.refreshBankAllPartners(refresh)),
+    refreshFavorites:refresh => dispatch(Creators.refreshBankFavorites(refresh)),
+    refreshRecent:refresh => dispatch(Creators.refreshBankRecent(refresh))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

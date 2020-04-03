@@ -9,8 +9,27 @@ const moment = require('moment')
 
 class ReceiveMoneyInternational extends React.Component {
 
+    state = {
+        amount:Func.formatToCurrency(this.props.data.amount),
+        date:this.props.data.date,
+        time:this.props.data.time,
+        type:Consts.tcn.rmi.long_desc
+    }
+
     componentDidMount = () => {
-        const {sender, currency, amount} = this.props.data
+        const {sender, partner, currency} = this.props.data
+        const {amount} = this.state
+
+        this.props.onExport(`
+            <h4 style="color:#6A6A6A;line-height:0">Sender</h4>
+            <h3>${sender}</h3>
+
+            <h4 style="color:#6A6A6A;line-height:0">Partner</h4>
+            <h3 style="margin-top:0">PHP ${partner.name}</h3>
+
+            <h4 style="color:#6A6A6A;line-height:0">Amount</h4>
+            <h3 style="margin-top:0">${currency} ${amount}</h3>
+        `)
 
         Say.ok(
             null,
@@ -21,7 +40,7 @@ class ReceiveMoneyInternational extends React.Component {
                         <Text mute md>You have successfully received {currency} {Func.formatToCurrency(amount)} from {sender}.</Text>
                         <Spacer lg />
                         <Text mute>Your new balance is</Text>
-                        <Text xl b>Php 1000</Text>
+                        <Text xl b>Php {Func.formatToRealCurrency(balance)}</Text>
                     </>
                 )
             }
@@ -32,7 +51,8 @@ class ReceiveMoneyInternational extends React.Component {
 
     render() {
 
-        const {_from, tcn, timestamp, transaction_no, currency, amount, partner, sender, } = this.props.data
+        const {_from, tcn, currency, partner, sender} = this.props.data
+        const {amount, date, time, type} = this.state
 
         return (
             <>
@@ -54,22 +74,22 @@ class ReceiveMoneyInternational extends React.Component {
                         <Spacer />
 
                         <Text sm mute>Amount</Text>
-                        <Text>{currency} {Func.formatToCurrency(amount)}</Text>
+                        <Text>{currency} {amount}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Date</Text>
-                        <Text>{moment(timestamp).format('MMMM DD, YYYY')}</Text>
+                        <Text>{date}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Time</Text>
-                        <Text>{moment(timestamp).format('hh:mm:ss a')}</Text>
+                        <Text>{time}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Type</Text>
-                        <Text>{Consts.tcn.rmi.long_desc}</Text>
+                        <Text>{type}</Text>
                     </View>
                 </Screen>
 

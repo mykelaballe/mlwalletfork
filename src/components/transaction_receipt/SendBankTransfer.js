@@ -9,7 +9,43 @@ const moment = require('moment')
 
 class SendBankTransfer extends React.Component {
 
+    state = {
+        amount:Func.formatToCurrency(this.props.data.amount),
+        fixed_charge:Func.formatToCurrency(this.props.data.fixed_charge),
+        convenience_fee:Func.formatToCurrency(this.props.data.convenience_fee),
+        total:Func.formatToCurrency(this.props.data.total),
+        date:this.props.data.date,
+        time:this.props.data.time,
+        type:Consts.tcn.stb.long_desc
+    }
+
     componentDidMount = () => {
+        const {bank, account_name, account_number, balance} = this.props.data
+        const {amount, fixed_charge, convenience_fee, total} = this.state
+
+        this.props.onExport(`
+            <h4 style="color:#6A6A6A;line-height:0">Partner's Name</h4>
+            <h3>${bank}</h3>
+
+            <h4 style="color:#6A6A6A;line-height:0">Account Name</h4>
+            <h3 style="margin-top:0">PHP ${account_name}</h3>
+
+            <h4 style="color:#6A6A6A;line-height:0">Account No.</h4>
+            <h3 style="margin-top:0">PHP ${account_number}</h3>
+
+            <h4 style="color:#6A6A6A;line-height:0">Amount</h4>
+            <h3 style="margin-top:0">PHP ${amount}</h3>
+
+            <h4 style="color:#6A6A6A;line-height:0">Fixed Charge</h4>
+            <h3 style="margin-top:0">PHP ${fixed_charge}</h3>
+
+            <h4 style="color:#6A6A6A;line-height:0">Convenience Fee</h4>
+            <h3 style="margin-top:0">PHP ${convenience_fee}</h3>
+
+            <h4 style="color:#6A6A6A;line-height:0">Amount</h4>
+            <h3 style="margin-top:0">PHP ${total}</h3>
+        `)
+
         Say.ok(
             null,
             'Success',
@@ -19,7 +55,7 @@ class SendBankTransfer extends React.Component {
                         <Text mute md>You successfully transferred money to bank. Expect 2-3 banking days for your new balance to reflect.</Text>
                         <Spacer lg />
                         <Text mute>Your new balance is</Text>
-                        <Text xl b>Php 1000</Text>
+                        <Text xl b>Php {Func.formatToRealCurrency(balance)}</Text>
                     </>
                 )
             }
@@ -30,7 +66,8 @@ class SendBankTransfer extends React.Component {
 
     render() {
 
-        const {_from, tcn, timestamp, bank, account_name, account_number, amount, fixed_charge, convenience_fee, total} = this.props.data
+        const {_from, tcn, bank, account_name, account_number} = this.props.data
+        const {amount, fixed_charge, convenience_fee, total, date, time, type} = this.state
 
         return (
             <>
@@ -54,37 +91,37 @@ class SendBankTransfer extends React.Component {
                         <Spacer />
 
                         <Text sm mute>Amount</Text>
-                        <Text>PHP {Func.formatToCurrency(amount)}</Text>
+                        <Text>PHP {amount}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Fixed Charge</Text>
-                        <Text>PHP {Func.formatToCurrency(fixed_charge)}</Text>
+                        <Text>PHP {fixed_charge}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Convenience Fee</Text>
-                        <Text>PHP {Func.formatToCurrency(convenience_fee)}</Text>
+                        <Text>PHP {convenience_fee}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Total</Text>
-                        <Text>PHP {Func.formatToCurrency(total)}</Text>
+                        <Text>PHP {total}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Date</Text>
-                        <Text>{moment(timestamp).format('MMMM DD, YYYY')}</Text>
+                        <Text>{date}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Time</Text>
-                        <Text>{moment(timestamp).format('hh:mm:ss a')}</Text>
+                        <Text>{time}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Type</Text>
-                        <Text>{Consts.tcn.stb.long_desc}</Text>
+                        <Text>{type}</Text>
                     </View>
                 </Screen>
 

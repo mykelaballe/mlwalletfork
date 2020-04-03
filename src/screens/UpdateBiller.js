@@ -1,32 +1,26 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Screen, Footer, Headline, TextInput, Button, StaticInput} from '../components'
-import {_, Say, Consts, Func} from '../utils'
+import {Screen, Button, TextInput, Footer, StaticInput} from '../components'
+import {_, Say} from '../utils'
 import {API} from '../services'
 
 class Scrn extends React.Component {
 
     static navigationOptions = {
-        title:'Add Biller'
+        title:'Edit Biller'
     }
 
     state = {
         ...this.props.navigation.state.params.biller,
-        account_name:'Jones Perez',
-        account_no:'445566',
-        email:'jonesperez@gmail.com',
-        error_email:false,
         processing:false
     }
 
-    handleChangeAccountNo = account_no => this.setState({account_no})
-
     handleChangeAccountName = account_name => this.setState({account_name})
 
-    handleChangeEmail = email => this.setState({email, error_email:false})
+    handleChangeAccountNo = account_no => this.setState({account_no})
 
-    handleFocusAccountName = () => this.refs.account_name.focus()
+    handleChangeEmail = email => this.setState({email})
 
     handleFocusAccountNo = () => this.refs.account_no.focus()
 
@@ -46,34 +40,32 @@ class Scrn extends React.Component {
             email = email.trim()
 
             if(!account_name || !account_no) Say.some(_('8'))
-            else if(email && !Func.hasEmailSpecialCharsOnly(email)) {
-                this.setState({error_email:true})
-                Say.warn(Consts.error.notAllowedChar)
-            }
             else {
 
                 let payload = {
                     walletno,
                     partnersid:bill_partner_accountid,
                     id:classId,
-                    account_no,
                     account_name,
+                    account_no,
                     email
                 }
     
-                let res = await API.addBiller(payload)
+                let res = await API.updateBiller(payload)
 
                 if(res.error) Say.warn(res.message)
                 else {
-                    /*this.props.addPartner({
-                        ...res,
-                        ...payload,
-                        old_account_no:account_no,
-                        old_account_name:account_name
+                    /*this.props.updatePartner({
+                        bankname,
+                        account_name,
+                        account_no,
+                        old_account_name:account_name,
+                        old_account_no:account_no
                     })*/
-                    //his.props.refreshAll(true)
-                    Say.ok('Biller successfully added')
-                    this.props.navigation.pop()
+                    this.props.refreshAll(true)
+                    this.props.refreshFavorites(true)
+                    this.props.refreshRecent(true)
+                    Say.ok('Biller successfully updated')
                 }
             }
         }
@@ -86,7 +78,7 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {bill_partner_name, account_name, account_no, email, error_email, processing} = this.state
+        const {bill_partner_name, account_name, account_no, email, processing} = this.state
         let ready = false
 
         if(account_name && account_no) ready = true
@@ -94,8 +86,6 @@ class Scrn extends React.Component {
         return (
             <>
                 <Screen>
-                    <Headline subtext='Please ensure that all of the information inputted is correct.' />
-
                     <StaticInput
                         label='Biller'
                         value={bill_partner_name}
@@ -125,13 +115,12 @@ class Scrn extends React.Component {
                         ref='email'
                         label='Email'
                         value={email}
-                        error={error_email}
                         onChangeText={this.handleChangeEmail}
-                        autoCapitalize='none'
                         keyboardType='email-address'
+                        autoCapitalize='none'
                     />
                 </Screen>
-
+            
                 <Footer>
                     <Button disabled={!ready} t='Save Biller' onPress={this.handleSubmit} loading={processing} />
                 </Footer>
@@ -145,8 +134,10 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    //addPartner:newPartner => dispatch(Creators.addBankPartner(newPartner)),
+    updatePartner:newProp => dispatch(Creators.updateBankPartner(newProp)),
     refreshAll:refresh => dispatch(Creators.refreshBankAllPartners(refresh)),
+    refreshFavorites:refresh => dispatch(Creators.refreshBankFavorites(refresh)),
+    refreshRecent:refresh => dispatch(Creators.refreshBankRecent(refresh))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

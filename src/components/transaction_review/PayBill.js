@@ -3,11 +3,11 @@ import {Text, Spacer} from '../'
 import {Func} from '../../utils'
 
 export default props => {
-    const {biller, account_no, account_name, amount, email, fixed_charge, convenience_fee, total} = props.data
+    const {biller_partner_name, account_no, account_name, amount, email, fixed_charge, convenience_fee, total} = props.data
 
     return (
         <>
-            <Text center lg b>{biller.name}</Text>
+            <Text center lg b>{biller_partner_name}</Text>
 
             <Spacer lg />
 

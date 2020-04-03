@@ -106,6 +106,7 @@ export default createStackNavigator({
     AddBillerFavorite: Scrn.AddBillerFavoriteScrn,
     BillerProfile: Scrn.BillerProfileScrn,
     AddBiller: Scrn.AddBillerScrn,
+    UpdateBiller: Scrn.UpdateBillerScrn,
     FavoriteBillers: Scrn.FavoriteBillersScrn,
     PayBill: Scrn.PayBillScrn,
     PayBillsIndex: {

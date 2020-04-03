@@ -11,11 +11,11 @@ const ItemUI = props => (
     <>
         <Ripple onPress={() => props.onPress(props.index)} style={style.item}>
             <Row>
-                <Initial text={props.data.fullname} />
+                <Initial text={props.data.bill_partner_name} />
                 <Spacer h sm />
                 <View>
-                    <Text b>{Func.cleanName(props.data.fullname)}</Text>
-                    <Text>{props.data.mobileno}</Text>
+                    <Text b>{props.data.bill_partner_name}</Text>
+                    <Text>{props.data.account_name}</Text>
                 </View>
             </Row>
         </Ripple>
@@ -40,7 +40,7 @@ class Scrn extends React.Component {
     componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
 
     componentDidUpdate = (prevProps, prevState) => {
-        const {newReceiver, deletedIndex, addReceiver, deleteReceiver} = this.props
+        /*const {newReceiver, deletedIndex, addReceiver, deleteReceiver} = this.props
         if(newReceiver) {
             addReceiver(null)
             let list = prevState.list.slice()
@@ -53,7 +53,7 @@ class Scrn extends React.Component {
             let list = this.state.list.slice()
             list.splice(deletedIndex,1)
             this.setState({list})
-        }
+        }*/
     }
 
     getData = async () => {
@@ -78,17 +78,17 @@ class Scrn extends React.Component {
 
     handleViewReceiver = index => {
         const {list} = this.state
-        this.props.navigation.navigate('ReceiverLoadReceiver',{index, receiver:list[index]})
+        this.props.navigation.navigate('BillerProfile',{index, biller:list[index]})
     }
 
     handleRefresh = () => this.setState({refreshing:true},this.getData)
 
-    handleAddReceiver = () => this.props.navigation.navigate('AddBiller')
+    //handleAddReceiver = () => this.props.navigation.navigate('AddBiller')
 
     handleChangeSearch = search => this.setState({search:this.search(search)})
 
     search = searchText => {
-        const list = this.listHolder.filter(item => item.fullname.toUpperCase().indexOf(searchText.toUpperCase()) > -1)
+        const list = this.listHolder.filter(item => item.bill_partner_name.toUpperCase().indexOf(searchText.toUpperCase()) > -1)
         this.setState({list})
     }
 
@@ -106,11 +106,11 @@ class Scrn extends React.Component {
                         value={search}
                     />
 
-                    <Spacer sm />
+                    {/*<Spacer sm />
 
                     <View style={{alignItems:'flex-end'}}>
                         <ButtonText icon='plus' t='Add Biller' onPress={this.handleAddReceiver} color={Colors.brand} />
-                    </View>
+                    </View>*/}
 
                     <Spacer sm />
 

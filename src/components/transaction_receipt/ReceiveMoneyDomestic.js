@@ -9,8 +9,24 @@ const moment = require('moment')
 
 class ReceiveMoneyDomestic extends React.Component {
 
+    state = {
+        amount:Func.formatToCurrency(this.props.data.amount),
+        date:this.props.data.date,
+        time:this.props.data.time,
+        type:Consts.tcn.rmd.long_desc
+    }
+
     componentDidMount = () => {
-        const {sender, amount, balance, firstname, lastname} = this.props.data
+        const {balance, firstname, lastname} = this.props.data
+        const {amount} = this.state
+
+        this.props.onExport(`
+            <h4 style="color:#6A6A6A;line-height:0">Sender</h4>
+            <h3>${firstname} ${lastname}</h3>
+
+            <h4 style="color:#6A6A6A;line-height:0">Amount</h4>
+            <h3 style="margin-top:0">PHP ${amount}</h3>
+        `)
 
         Say.ok(
             null,
@@ -32,7 +48,8 @@ class ReceiveMoneyDomestic extends React.Component {
 
     render() {
 
-        const {_from, timestamp, transaction_no, amount, sender, firstname, lastname} = this.props.data
+        const {_from, transaction_no, firstname, lastname} = this.props.data
+        const {amount, date, time, type} = this.state
 
         return (
             <>
@@ -49,22 +66,22 @@ class ReceiveMoneyDomestic extends React.Component {
                         <Spacer />
 
                         <Text sm mute>Amount</Text>
-                        <Text>PHP {Func.formatToCurrency(amount)}</Text>
+                        <Text>PHP {amount}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Date</Text>
-                        <Text>{moment(timestamp).format('MMMM DD, YYYY')}</Text>
+                        <Text>{date}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Time</Text>
-                        <Text>{moment(timestamp).format('hh:mm:ss a')}</Text>
+                        <Text>{time}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Type</Text>
-                        <Text>{Consts.tcn.rmd.long_desc}</Text>
+                        <Text>{type}</Text>
                     </View>
                 </Screen>
 

@@ -9,7 +9,43 @@ const moment = require('moment')
 
 class PayBill extends React.Component {
 
+    state = {
+        amount:Func.formatToCurrency(this.props.data.amount),
+        charges:Func.formatToCurrency(this.props.data.fixed_charge),
+        convenience_fee:Func.formatToCurrency(this.props.data.convenience_fee),
+        total:Func.formatToCurrency(this.props.data.total),
+        date:this.props.data.date,
+        time:this.props.data.time,
+        type:Consts.tcn.bpm.long_desc
+    }
+
     componentDidMount = () => {
+        const {biller_partner_name, account_no, account_name, balance} = this.props.data
+        const {amount, fixed_charge, convenience_fee, total} = this.state
+
+        this.props.onExport(`
+            <h4 style="color:#6A6A6A;line-height:0">Biller</h4>
+            <h3>${biller_partner_name}</h3>
+
+            <h4 style="color:#6A6A6A;line-height:0">Account No.</h4>
+            <h3 style="margin-top:0">PHP ${account_no}</h3>
+
+            <h4 style="color:#6A6A6A;line-height:0">Account Name</h4>
+            <h3 style="margin-top:0">PHP ${account_name}</h3>
+
+            <h4 style="color:#6A6A6A;line-height:0">Amount</h4>
+            <h3 style="margin-top:0">PHP ${amount}</h3>
+
+            <h4 style="color:#6A6A6A;line-height:0">Fixed Charge</h4>
+            <h3 style="margin-top:0">PHP ${fixed_charge}</h3>
+
+            <h4 style="color:#6A6A6A;line-height:0">Convenience Fee</h4>
+            <h3 style="margin-top:0">PHP ${convenience_fee}</h3>
+
+            <h4 style="color:#6A6A6A;line-height:0">Total</h4>
+            <h3 style="margin-top:0">PHP ${total}</h3>
+        `)
+
         Say.ok(
             null,
             'Success',
@@ -19,7 +55,7 @@ class PayBill extends React.Component {
                         <Text mute md>You successfully transferred money to bank. Expect 2-3 banking days for your new balance to reflect.</Text>
                         <Spacer lg />
                         <Text mute>Your new balance is</Text>
-                        <Text xl b>Php 1000</Text>
+                        <Text xl b>Php {Func.formatToRealCurrency(balance)}</Text>
                     </>
                 )
             }
@@ -30,7 +66,8 @@ class PayBill extends React.Component {
 
     render() {
 
-        const {_from, tcn, timestamp, biller, account_no, account_name, amount, email, fixed_charge, convenience_fee, total} = this.props.data
+        const {_from, tcn, biller_partner_name, account_no, account_name, email} = this.props.data
+        const {amount, fixed_charge, convenience_fee, total, date, time} = this.state
 
         return (
             <>
@@ -42,7 +79,7 @@ class PayBill extends React.Component {
 
                     <View style={{padding:Metrics.lg}}>
                         <Text sm mute>Biller</Text>
-                        <Text>{biller.name}</Text>
+                        <Text>{biller_partner_name}</Text>
 
                         <Spacer />
 
@@ -57,37 +94,37 @@ class PayBill extends React.Component {
                         <Spacer />
 
                         <Text sm mute>Amount</Text>
-                        <Text>PHP {Func.formatToCurrency(amount)}</Text>
+                        <Text>PHP {amount}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Fixed Charge</Text>
-                        <Text>PHP {Func.formatToCurrency(fixed_charge)}</Text>
+                        <Text>PHP {fixed_charge}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Convenience Fee</Text>
-                        <Text>PHP {Func.formatToCurrency(convenience_fee)}</Text>
+                        <Text>PHP {convenience_fee}</Text>
 
                         <Spacer />
 
-                        <Text sm mute>Total Amount</Text>
-                        <Text>PHP {Func.formatToCurrency(total)}</Text>
+                        <Text sm mute>Total</Text>
+                        <Text>PHP {total}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Date</Text>
-                        <Text>{moment(timestamp).format('MMMM DD, YYYY')}</Text>
+                        <Text>{date}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Time</Text>
-                        <Text>{moment(timestamp).format('hh:mm:ss a')}</Text>
+                        <Text>{time}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Type</Text>
-                        <Text>{Consts.tcn.bpm.long_desc}</Text>
+                        <Text>{type}</Text>
                     </View>
                 </Screen>
 

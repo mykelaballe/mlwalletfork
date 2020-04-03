@@ -1,4 +1,6 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import {Creators} from '../actions'
 import {Screen, Footer, Headline, Text, Spacer, Button, TextInput, Row, Switch} from '../components'
 import {_, Consts, Func} from '../utils'
 import {API} from '../services'
@@ -10,11 +12,11 @@ class Scrn extends React.Component {
     }
 
     state = {
-        account_no:'',
         account_name:'',
-        amount:'',
+        account_no:'',
         email:'',
-        add_to_favorites:false,
+        ...this.props.navigation.state.params.biller,
+        amount:'',
         fixed_charge:'15',
         convenience_fee:'7',
         total:'',
@@ -29,8 +31,7 @@ class Scrn extends React.Component {
             this.setState({
                 account_no:biller.account_no,
                 account_name:biller.account_name,
-                email:biller.email,
-                add_to_favorites:biller.add_to_favorites
+                email:biller.email
             })
         }
     }
@@ -38,6 +39,8 @@ class Scrn extends React.Component {
     handleChangeAccountNo = account_no => this.setState({account_no})
 
     handleChangeAccountName = account_name => this.setState({account_name})
+
+    handleChangeEmail = email => this.setState({email})
 
     handleChangeAmount = amount => {
         const {fixed_charge, convenience_fee} = this.state
@@ -47,20 +50,17 @@ class Scrn extends React.Component {
         })
     }
 
-    handleChangeEmail = email => this.setState({email})
-
     handleFocusAccountName = () => this.refs.account_name.focus()
 
     handleFocusAmount = () => this.refs.amount.focus()
 
     handleFocusEmail = () => this.refs.email.focus()
 
-    handleToggleAddToFavorites = () => this.setState(prevState => ({add_to_favorites:!prevState.add_to_favorites}))
-
     handlePay = async () => {
         const {params} = this.props.navigation.state
         this.props.navigation.navigate('TransactionReview',{
             ...params,
+            type:Consts.tcn.bpm.code,
             transaction: {
                 ...this.state,
                 biller:params.biller
@@ -72,8 +72,7 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {type, biller} = this.props.navigation.state.params
-        const {account_no, account_name, amount, email, add_to_favorites} = this.state
+        const {biller_partner_name, account_no, account_name, amount, email} = this.state
         let ready = false
 
         if(account_no && account_name && amount) ready = true
@@ -81,7 +80,7 @@ class Scrn extends React.Component {
         return (
             <>
                 <Screen>
-                    <Headline title={biller.name} />
+                    <Headline title={biller_partner_name} />
 
                     <TextInput
                         ref='account_no'
@@ -89,7 +88,7 @@ class Scrn extends React.Component {
                         value={account_no}
                         onChangeText={this.handleChangeAccountNo}
                         onSubmitEditing={this.handleFocusAccountName}
-                        autoCapitalize='none'
+                        keyboardType='numeric'
                         returnKeyType='next'
                     />
 
@@ -115,29 +114,26 @@ class Scrn extends React.Component {
 
                     <TextInput
                         ref='email'
-                        label='Email address (Optional)'
+                        label='Email address'
                         value={email}
                         onChangeText={this.handleChangeEmail}
                         autoCapitalize='none'
                         keyboardType='email-address'
                     />
-
-                    <Spacer sm />
-
-                    <Row bw>
-                        <Text mute md>{add_to_favorites ? 'Remove from Favorites' : 'Add to Favorites'}</Text>
-                        <Switch value={add_to_favorites} onValueChange={this.handleToggleAddToFavorites} />
-                    </Row>
                 </Screen>
                 
                 <Footer>
                     <Text mute center>Note: Fees and charges may apply.</Text>
                     <Spacer />
-                    <Button disabled={!ready} t={Consts.tcn[type].submit_text} onPress={this.handlePay} />
+                    <Button disabled={!ready} t={Consts.tcn.bpm.submit_text} onPress={this.handlePay} />
                 </Footer>
             </>
         )
     }
 }
 
-export default Scrn
+const mapDispatchToProps = dispatch => ({
+
+})
+
+export default connect(null, mapDispatchToProps)(Scrn)

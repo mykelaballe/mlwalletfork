@@ -94,6 +94,7 @@ import BillerProfileScrn from './BillerProfile'
 import FavoriteBillersScrn from './FavoriteBillers'
 import PayBillScrn from './PayBill'
 import AddBillerScrn from './AddBiller'
+import UpdateBillerScrn from './UpdateBiller'
 import AllBillsPartnersScrn from './AllBillsPartners'
 import FavoriteBillsPartnersScrn from './FavoriteBillsPartners'
 import RecentBillsPartnersScrn from './RecentBillsPartners'
@@ -241,6 +242,7 @@ export {
     FavoriteBillersScrn,
     PayBillScrn,
     AddBillerScrn,
+    UpdateBillerScrn,
     AllBillsPartnersScrn,
     FavoriteBillsPartnersScrn,
     RecentBillsPartnersScrn,
