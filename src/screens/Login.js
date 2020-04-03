@@ -155,7 +155,10 @@ class Scrn extends React.Component {
 
     handleGoToForgotPassword = () => this.props.navigation.navigate('ForgotPassword')
 
-    handleGoToSignUp = () => this.props.navigation.navigate('SignUpUsername')
+    handleGoToSignUp = async () => {
+        const locationRes = await Func.getLocation()
+        if(!locationRes.error) this.props.navigation.navigate('SignUpUsername')
+    }
 
     handleChangeUsername = username => this.setState({username})
 
