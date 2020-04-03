@@ -144,12 +144,12 @@ class Scrn extends React.Component {
                 to = `${year_to}-${month_to}-${day_to}`
             }
 
-            /*list = await API.getTransactionHistory({
+            list = await API.getTransactionHistory({
                 walletno,
-                from:,
-                to:,
+                from,
+                to,
                 type:selected_type.value || ''
-            })*/
+            })
         }
         catch(err) {
             Say.err(_('500'))
