@@ -72,7 +72,7 @@ class Scrn extends React.Component {
                         old_account_name:account_name
                     })*/
                     //his.props.refreshAll(true)
-                    Say.ok('Bank Partner successfully added')
+                    Say.ok('Biller successfully added')
                     this.props.navigation.pop()
                 }
             }

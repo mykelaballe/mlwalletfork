@@ -10,9 +10,9 @@ export default {
 
     getAllBillers: async category => {
         let data = {}
-        //let res = await Fetch.get(`bill_partners/all?category=${category}`)
+        let res = await Fetch.get(`bill_partners/all?category=${category}`)
 
-        let res = {
+        /*let res = {
             data: [
                 {
                     bill_partner_accountid:'MLBPP170388',
@@ -25,7 +25,7 @@ export default {
                     classId:'CID081684154611'
                 }
             ]
-        }
+        }*/
         
         if(res.data) {
             for(let d in res.data) {
