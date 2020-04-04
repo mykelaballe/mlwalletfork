@@ -173,6 +173,7 @@ class Scrn extends React.Component {
                         if(type == Consts.tcn.stw.code) this.props.refreshWalletRecent(true)
                         else if(type == Consts.tcn.skp.code) this.props.refreshKPRecent(true)
                         else if(type == Consts.tcn.stb.code) this.props.refreshBankRecent(true)
+                        else if(type == Consts.tcn.bpm.code) this.props.refreshBillersRecent(true)
                         else if(type == Consts.tcn.bul.code) this.props.refreshELoadRecent(true)
 
                         replace('TransactionReceipt',{
@@ -349,7 +350,8 @@ const mapDispatchToProps = dispatch => ({
     refreshWalletRecent:refresh => dispatch(Creators.refreshWalletRecent(refresh)),
     refreshKPRecent:refresh => dispatch(Creators.refreshKPRecent(refresh)),
     refreshBankRecent:refresh => dispatch(Creators.refreshBankRecent(refresh)),
-    refreshELoadRecent:refresh => dispatch(Creators.refreshELoadRecent(refresh))
+    refreshELoadRecent:refresh => dispatch(Creators.refreshELoadRecent(refresh)),
+    refreshBillersRecent:refresh => dispatch(Creators.refreshBillersRecent(refresh))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

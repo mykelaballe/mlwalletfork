@@ -1,10 +1,8 @@
 import React from 'react'
 import {View, StyleSheet, TouchableOpacity, Image, Dimensions} from 'react-native'
-import {connect} from 'react-redux'
-import Actions from '../actions/Creators'
-import {Screen, Footer, Text, ButtonText, ButtonIcon, Spacer, Row, HR, ActivityIndicator} from '../components'
+import {ButtonText, ButtonIcon, Row, ActivityIndicator} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_, Say} from '../utils'
+import {_} from '../utils'
 import {RNCamera} from 'react-native-camera'
 import AntDesignIcon from 'react-native-vector-icons/AntDesign'
 import FoundationIcon from 'react-native-vector-icons/Foundation'
@@ -50,7 +48,8 @@ class Scrn extends React.Component {
                     width: 720,
                     height: 540,
                     quality: 0.7,
-                    base64: true
+                    base64: true,
+                    orientation: 'portrait'
                 })
 
                 //source.base64 = `data:image/jpeg;base64,${source.bsae64}`
