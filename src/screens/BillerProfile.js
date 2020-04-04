@@ -64,9 +64,9 @@ class Scrn extends React.Component {
 
     handleEdit = () => {
         const {navigate, state} = this.props.navigation
-        const {index, biller} = state.params
+        const {biller} = state.params
         this.handleToggleMenu()
-        navigate('UpdateBiller',{index, biller})
+        navigate('UpdateBiller',{biller})
     }
 
     handleDelete = () => {
@@ -127,14 +127,14 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {bill_partner_name, account_name, account_no, email, isFavorite} = this.state
+        const {partner, account_name, account_no, email, isFavorite} = this.state
 
         return (
             <>
                 <Screen>
                     <StaticInput
                         label='Biller'
-                        value={bill_partner_name}
+                        value={partner}
                     />
 
                     <StaticInput

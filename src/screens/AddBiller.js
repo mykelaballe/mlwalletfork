@@ -13,9 +13,9 @@ class Scrn extends React.Component {
 
     state = {
         ...this.props.navigation.state.params.biller,
-        account_name:'Jones Perez',
-        account_no:'445566',
-        email:'jonesperez@gmail.com',
+        account_name:'',
+        account_no:'',
+        email:'',
         error_email:false,
         processing:false
     }
