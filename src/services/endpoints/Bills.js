@@ -69,7 +69,7 @@ export default {
     },
 
     getFavoriteBillers: async walletno => {
-        return []
+        /*return []
         return [
             {
                 id:1,
@@ -95,8 +95,9 @@ export default {
                 account_no:'3333',
                 email:'john@gmail.com'
             }
-        ]
-        return await Fetch.get(`partners/getBillerAccounts?walletno=${walletno}`)
+        ]*/
+        let res = await Fetch.get(`partners/getFavoriteAccounts?walletno=${walletno}`)
+        return res.data || []
     },
 
     getRecentBillers: async walletno => {
