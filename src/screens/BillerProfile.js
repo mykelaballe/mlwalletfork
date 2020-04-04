@@ -82,11 +82,11 @@ class Scrn extends React.Component {
 
     handleConfirmDelete = async () => {
         const {walletno} = this.props.user
-        const {classId} = this.state
+        const {id} = this.state
         try {
             await API.deleteBiller({
                 walletno,
-                id:classId
+                id
             })
             //this.props.refreshAll(true)
             //this.props.refreshFavorites(true)
@@ -103,12 +103,12 @@ class Scrn extends React.Component {
 
     handleToggleFavorite = async () => {
         const {walletno} = this.props.user
-        const {classId, isFavorite} = this.state
+        const {id, isFavorite} = this.state
         
         try {
             let payload = {
                 walletno,
-                id:classId
+                id
             }
 
             if(isFavorite) await API.removeFavoriteBiller(payload)

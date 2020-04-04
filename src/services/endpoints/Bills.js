@@ -46,7 +46,7 @@ export default {
     },
 
     getBillers: async walletno => {
-        return [
+        /*return [
             {
                 bill_partner_accountid:'MLBPP170388',
                 bill_partner_name:'API RIA',
@@ -63,8 +63,8 @@ export default {
                 account_no:'9982742',
                 email:''
             }
-        ]
-        return await Fetch.get(`bill_partners/${walletno}`)
+        ]*/
+        return await Fetch.get(`partners/getBillerAccounts?walletno=${walletno}`)
     },
 
     getFavoriteBillers: async walletno => {
