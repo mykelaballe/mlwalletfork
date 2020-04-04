@@ -72,7 +72,7 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {biller_partner_name, account_no, account_name, amount, email} = this.state
+        const {partner, account_no, account_name, amount, email} = this.state
         let ready = false
 
         if(account_no && account_name && amount) ready = true
@@ -80,7 +80,7 @@ class Scrn extends React.Component {
         return (
             <>
                 <Screen>
-                    <Headline title={biller_partner_name} />
+                    <Headline title={partner} />
 
                     <TextInput
                         ref='account_no'
