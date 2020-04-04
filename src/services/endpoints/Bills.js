@@ -119,7 +119,7 @@ export default {
     },
 
     addFavoriteBiller: async payload => {
-        alert(id)
+        alert(payload.id)
         return await Fetch.put(`partners/addToFavorite?walletno=${payload.walletno}&id=${payload.id}`)
     },
 
