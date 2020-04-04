@@ -71,7 +71,7 @@ class Scrn extends React.Component {
                         old_account_no:account_no,
                         old_account_name:account_name
                     })*/
-                    //his.props.refreshAll(true)
+                    this.props.refreshAll(true)
                     Say.ok('Biller successfully added')
                     this.props.navigation.pop()
                 }
@@ -146,7 +146,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     //addPartner:newPartner => dispatch(Creators.addBankPartner(newPartner)),
-    refreshAll:refresh => dispatch(Creators.refreshBankAllPartners(refresh)),
+    refreshAll:refresh => dispatch(Creators.refreshBillersAll(refresh)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

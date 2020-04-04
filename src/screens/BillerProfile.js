@@ -51,7 +51,7 @@ class Scrn extends React.Component {
     componentDidUpdate = (prevProps, prevState) => {
         const {newProp} = this.props
         if(newProp) {
-            this.props.updatePartner(null)
+            this.props.updateBiller(null)
             this.setState({...newProp})
         }
     }
@@ -88,9 +88,9 @@ class Scrn extends React.Component {
                 walletno,
                 id
             })
-            //this.props.refreshAll(true)
-            //this.props.refreshFavorites(true)
-            //this.props.refreshRecent(true)
+            this.props.refreshAll(true)
+            this.props.refreshFavorites(true)
+            this.props.refreshRecent(true)
             this.props.navigation.pop()
             Say.ok('Biller successfully deleted')
         }
@@ -114,9 +114,9 @@ class Scrn extends React.Component {
             if(isFavorite) await API.removeFavoriteBiller(payload)
             else await API.addFavoriteBiller(payload)
 
-            //this.props.refreshAll(true)
-            //this.props.refreshFavorites(true)
-            //this.props.refreshRecent(true)
+            this.props.refreshAll(true)
+            this.props.refreshFavorites(true)
+            this.props.refreshRecent(true)
             
             this.setState({isFavorite:!isFavorite})
         }
@@ -170,14 +170,14 @@ class Scrn extends React.Component {
 
 const mapStateToProps = state => ({
     user: state.user.data,
-    ...state.bankTransfer
+    ...state.billsPayment
 })
 
 const mapDispatchToProps = dispatch => ({
-    updatePartner:newProp => dispatch(Creators.updateBankPartner(newProp)),
-    refreshAll:refresh => dispatch(Creators.refreshBankAllPartners(refresh)),
-    refreshFavorites:refresh => dispatch(Creators.refreshBankFavorites(refresh)),
-    refreshRecent:refresh => dispatch(Creators.refreshBankRecent(refresh))
+    updateBiller:newProp => dispatch(Creators.updateBiller(newProp)),
+    refreshAll:refresh => dispatch(Creators.refreshBillersAll(refresh)),
+    refreshFavorites:refresh => dispatch(Creators.refreshBillersFavorites(refresh)),
+    refreshRecent:refresh => dispatch(Creators.refreshBillersRecent(refresh))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

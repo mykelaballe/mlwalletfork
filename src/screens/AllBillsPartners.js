@@ -40,6 +40,10 @@ class Scrn extends React.Component {
     componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
 
     componentDidUpdate = (prevProps, prevState) => {
+        if(this.props.refreshAllBillers) {
+            this.props.refreshScreen(false)
+            this.handleRefresh()
+        }
         /*const {newReceiver, deletedIndex, addReceiver, deleteReceiver} = this.props
         if(newReceiver) {
             addReceiver(null)
@@ -136,12 +140,13 @@ const style = StyleSheet.create({
 
 const mapStateToProps = state => ({
     user: state.user.data,
-    ...state.walletToWallet
+    ...state.billsPayment
 })
 
 const mapDispatchToProps = dispatch => ({
-    addReceiver:newReceiver => dispatch(Creators.addWalletReceiver(newReceiver)),
-    deleteReceiver:deletedIndex => dispatch(Creators.deleteWalletReceiver(deletedIndex))
+    //addReceiver:newReceiver => dispatch(Creators.addWalletReceiver(newReceiver)),
+    //deleteReceiver:deletedIndex => dispatch(Creators.deleteWalletReceiver(deletedIndex)),
+    refreshScreen:refresh => dispatch(Creators.refreshBillersAll(refresh))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

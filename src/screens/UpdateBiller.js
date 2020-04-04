@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Screen, Button, TextInput, Footer, StaticInput} from '../components'
-import {_, Say} from '../utils'
+import {_, Say, Func, Consts} from '../utils'
 import {API} from '../services'
 
 class Scrn extends React.Component {
@@ -13,6 +13,7 @@ class Scrn extends React.Component {
 
     state = {
         ...this.props.navigation.state.params.biller,
+        error_email:false,
         processing:false
     }
 
@@ -20,7 +21,7 @@ class Scrn extends React.Component {
 
     handleChangeAccountNo = account_no => this.setState({account_no})
 
-    handleChangeEmail = email => this.setState({email})
+    handleChangeEmail = email => this.setState({email, error_email:false})
 
     handleFocusAccountNo = () => this.refs.account_no.focus()
 
@@ -40,6 +41,10 @@ class Scrn extends React.Component {
             email = email.trim()
 
             if(!account_name || !account_no) Say.some(_('8'))
+            else if(email && !Func.hasEmailSpecialCharsOnly(email)) {
+                this.setState({error_email:true})
+                Say.warn(Consts.error.notAllowedChar)
+            }
             else {
 
                 let payload = {
@@ -55,13 +60,11 @@ class Scrn extends React.Component {
 
                 if(res.error) Say.warn(res.message)
                 else {
-                    /*this.props.updatePartner({
-                        bankname,
+                    this.props.updateBiller({
                         account_name,
                         account_no,
-                        old_account_name:account_name,
-                        old_account_no:account_no
-                    })*/
+                        email
+                    })
                     this.props.refreshAll(true)
                     this.props.refreshFavorites(true)
                     this.props.refreshRecent(true)
@@ -78,7 +81,7 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {partner, account_name, account_no, email, processing} = this.state
+        const {partner, account_name, account_no, email, error_email, processing} = this.state
         let ready = false
 
         if(account_name && account_no) ready = true
@@ -115,6 +118,7 @@ class Scrn extends React.Component {
                         ref='email'
                         label='Email'
                         value={email}
+                        error={error_email}
                         onChangeText={this.handleChangeEmail}
                         keyboardType='email-address'
                         autoCapitalize='none'
@@ -134,10 +138,10 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    updatePartner:newProp => dispatch(Creators.updateBankPartner(newProp)),
-    refreshAll:refresh => dispatch(Creators.refreshBankAllPartners(refresh)),
-    refreshFavorites:refresh => dispatch(Creators.refreshBankFavorites(refresh)),
-    refreshRecent:refresh => dispatch(Creators.refreshBankRecent(refresh))
+    updateBiller:newProp => dispatch(Creators.updateBiller(newProp)),
+    refreshAll:refresh => dispatch(Creators.refreshBillersAll(refresh)),
+    refreshFavorites:refresh => dispatch(Creators.refreshBillersFavorites(refresh)),
+    refreshRecent:refresh => dispatch(Creators.refreshBillersRecent(refresh))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

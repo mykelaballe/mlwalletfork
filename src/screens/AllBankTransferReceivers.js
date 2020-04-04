@@ -146,8 +146,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    addReceiver:newReceiver => dispatch(Creators.addWalletReceiver(newReceiver)),
-    deleteReceiver:deletedIndex => dispatch(Creators.deleteWalletReceiver(deletedIndex)),
+    //addReceiver:newReceiver => dispatch(Creators.addWalletReceiver(newReceiver)),
+    //deleteReceiver:deletedIndex => dispatch(Creators.deleteWalletReceiver(deletedIndex)),
     refreshScreen:refresh => dispatch(Creators.refreshBankAllPartners(refresh))
 })
 
