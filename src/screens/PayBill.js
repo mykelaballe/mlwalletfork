@@ -80,7 +80,7 @@ class Scrn extends React.Component {
         return (
             <>
                 <Screen>
-                    <Headline title={partner} />
+                    <Headline subtext={partner} />
 
                     <TextInput
                         ref='account_no'
