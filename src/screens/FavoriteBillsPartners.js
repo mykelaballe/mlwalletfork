@@ -11,11 +11,11 @@ const ItemUI = props => (
     <>
         <Ripple onPress={() => props.onPress(props.index)} style={style.item}>
             <Row>
-                <Initial text={props.data.fullname} />
+                <Initial text={props.data.partner} />
                 <Spacer h sm />
                 <View>
-                    <Text b>{Func.cleanName(props.data.fullname)}</Text>
-                    <Text>{props.data.mobileno}</Text>
+                    <Text b>{props.data.partner}</Text>
+                    <Text>{props.data.account_no}</Text>
                 </View>
             </Row>
         </Ripple>
@@ -88,7 +88,7 @@ class Scrn extends React.Component {
     handleChangeSearch = search => this.setState({search:this.search(search)})
 
     search = searchText => {
-        const list = this.listHolder.filter(item => item.fullname.toUpperCase().indexOf(searchText.toUpperCase()) > -1)
+        const list = this.listHolder.filter(item => item.partner.toUpperCase().indexOf(searchText.toUpperCase()) > -1)
         this.setState({list})
     }
 
