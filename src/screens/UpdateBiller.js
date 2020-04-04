@@ -29,7 +29,7 @@ class Scrn extends React.Component {
     handleSubmit = async () => {
         try {
             const {walletno} = this.props.user
-            let {bill_partner_accountid, id, account_name, account_no, email, processing} = this.state
+            let {partnersid, id, account_name, account_no, email, processing} = this.state
 
             if(processing) return false
 
@@ -44,7 +44,7 @@ class Scrn extends React.Component {
 
                 let payload = {
                     walletno,
-                    partnersid:bill_partner_accountid,
+                    partnersid,
                     id,
                     account_name,
                     account_no,
