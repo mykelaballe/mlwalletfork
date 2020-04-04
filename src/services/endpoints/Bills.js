@@ -64,7 +64,8 @@ export default {
                 email:''
             }
         ]*/
-        return await Fetch.get(`partners/getBillerAccounts?walletno=${walletno}`)
+        let res = await Fetch.get(`partners/getBillerAccounts?walletno=${walletno}`)
+        return res.data || []
     },
 
     getFavoriteBillers: async walletno => {
