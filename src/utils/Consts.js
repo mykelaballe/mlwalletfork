@@ -42,6 +42,7 @@ export default {
 		notAllowedChar:'You used an invalid character',
 		email:'Invalid Email Address',
 		birthdate:'Invalid Birthdate',
+		pwdNotMatch:'Passwords do not match',
 		atl1:'1attempt_left',
 		atl2:'2attempt_left',
 		blk1d:'block_account_1day',

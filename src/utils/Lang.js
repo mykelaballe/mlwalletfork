@@ -1,4 +1,3 @@
-import Consts from './Consts'
 import Storage from './Storage'
 
 import en from '../lang/en.json'

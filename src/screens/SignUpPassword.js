@@ -40,7 +40,7 @@ export default class Scrn extends React.Component {
                 this.setState({error:true})
                 Say.warn(Consts.error.notAllowedChar)
             }
-            else if(password != confirm_password) Say.some('Password do not match')
+            else if(password != confirm_password) Say.some(Consts.error.pwdNotMatch)
             else {
 
                 let passwordValidation = Func.validate(password, Consts.password_criteria)

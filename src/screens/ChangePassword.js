@@ -59,7 +59,7 @@ class Scrn extends React.Component {
                 this.setState({error_new:true})
                 Say.warn(Consts.error.notAllowedChar)
             }
-            else if(new_password != confirm_password) Say.warn('Passwords do not match')
+            else if(new_password != confirm_password) Say.some(Consts.error.pwdNotMatch)
             else {
                 let validation = Func.validate(new_password, Consts.password_criteria)
 
