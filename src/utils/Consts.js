@@ -40,6 +40,7 @@ export default {
 		onlyAlphaNum:'Letters and Numbers only',
 		noSpecialChars:'Letters and Numbers only',
 		notAllowedChar:'You used an invalid character',
+		email:'Invalid Email Address',
 		birthdate:'Invalid Birthdate',
 		atl1:'1attempt_left',
 		atl2:'2attempt_left',

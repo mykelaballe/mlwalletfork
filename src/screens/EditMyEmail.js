@@ -32,6 +32,7 @@ class Scrn extends React.Component {
 
             if(!emailaddress) Say.some(_('8'))
             else if(!Func.hasEmailSpecialCharsOnly(emailaddress)) Say.warn(Consts.error.notAllowedChar)
+            else if(!Func.isEmail(emailaddress)) Say.warn(Consts.error.email)
             else {
                 this.props.navigation.navigate('SecurityQuestion',{
                     walletno,
