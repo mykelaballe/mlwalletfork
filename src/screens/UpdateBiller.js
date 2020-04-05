@@ -47,7 +47,7 @@ class Scrn extends React.Component {
             }
             else if(email && !Func.isEmail(email)) {
                 this.setState({error_email:true})
-                Say.warn(Consts.error.error)
+                Say.warn(Consts.error.email)
             }
             else {
 
