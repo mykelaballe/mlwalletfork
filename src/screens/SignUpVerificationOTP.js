@@ -18,6 +18,9 @@ class Scrn extends React.Component {
         digit4:'',
         digit5:'',
         digit6:'',
+        latitude:'',
+        longitude:'',
+        location:'',
         processing:false,
         reprocessing:false
     }
@@ -63,12 +66,23 @@ class Scrn extends React.Component {
 
     handleSubmit = async () => {
         const {processing, reprocessing} = this.state
+
         if(processing || reprocessing) return false
 
-        const locationRes = await Func.getLocation()
-        if(locationRes.error) return false
+        let latitude = '', longitude = '', location = ''
 
-        this.setState({processing:true},this.submit)
+        const locationRes = await Func.getLocation()
+        if(!locationRes.error) {
+            latitude = locationRes.data.latitude
+            longitude = locationRes.data.longitude
+        }
+
+        this.setState({
+            latitude,
+            longitude,
+            location,
+            processing:true
+        },this.submit)
     }
 
     handleResend = async () => {
@@ -101,7 +115,7 @@ class Scrn extends React.Component {
 
     submit = async () => {
         const {username, password, pincode, firstname, middlename, lastname, suffix, gender, birthday, email, nationality, source_of_income, house, street, country, province, provincecode, city, barangay, zip_code, ids, question1, answer1, question2, answer2, question3, answer3, mobile_no, validID, profilepic} = this.props.navigation.state.params
-        const {digit1, digit2, digit3, digit4, digit5, digit6} = this.state
+        const {digit1, digit2, digit3, digit4, digit5, digit6, latitude, longitude, location} = this.state
 
         try {
 
@@ -145,7 +159,10 @@ class Scrn extends React.Component {
                         secanswer3:answer3,
                         mobileno:mobile_no,
                         validID,
-                        profilepic
+                        profilepic,
+                        latitude,
+                        longitude,
+                        location
                     }
 
                     let res = await API.register(payload)
