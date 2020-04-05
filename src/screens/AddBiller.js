@@ -50,6 +50,10 @@ class Scrn extends React.Component {
                 this.setState({error_email:true})
                 Say.warn(Consts.error.notAllowedChar)
             }
+            else if(email && !Func.isEmail(email)) {
+                this.setState({error_email:true})
+                Say.warn(Consts.error.error)
+            }
             else {
 
                 let payload = {
