@@ -244,13 +244,13 @@ class Scrn extends React.Component {
         <>
             <Row bw style={style.item}>
                 <View>
-                    <Text mute>{item.status !== 'success' ? item.status.toUpperCase() : ''}</Text>
-                    <Text b md>{item.label}</Text>
-                    <Text mute>{moment(item.date).format('MM/DD/YYYY')}</Text>
+                    {item.status == 0 && <Text mute>PENDING</Text>}
+                    <Text b md>{Consts.tcn[item.transtype].short_desc}</Text>
+                    <Text mute>{moment(item.transdate).format('MM/DD/YYYY')}</Text>
                 </View>
 
                 <View>
-                    <Text b md right>{item.code === Consts.tcn.rmd.code || item.action === Consts.tcn.rmi.code ? '' : '-'}PHP {Func.formatToCurrency(item.amount)}</Text>
+                    <Text b md right>{item.transtype === Consts.tcn.rmd.code || item.transtype === Consts.tcn.rmi.code ? '' : '-'}PHP {Func.formatToRealCurrency(item.amount)}</Text>
                     <TouchableOpacity onPress={() => this.handleViewDetails(item)}>
                         <Text brand right>View details</Text>
                     </TouchableOpacity>
