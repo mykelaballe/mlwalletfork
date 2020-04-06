@@ -48,14 +48,14 @@ class ReceiveMoneyDomestic extends React.Component {
 
     render() {
 
-        const {_from, transaction_no, sender} = this.props.data
+        const {_from, kptn, sender} = this.props.data
         const {amount, date, time, type} = this.state
 
         return (
             <>
                 <Screen compact>
                     <Header
-                        tcn={transaction_no}
+                        tcn={kptn}
                         status='success'
                     />
 
