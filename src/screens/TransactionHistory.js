@@ -13,6 +13,28 @@ const NOW = moment()
 const CURRENT_YEAR = parseInt(NOW.format('YYYY'))
 const MIN_YEAR = CURRENT_YEAR - 12
 
+const ItemUI = ({data, onPress}) => (
+    <>
+        <Row bw style={style.item}>
+            <View>
+                {((data.transtype === Consts.tcn.skp.code || data.transtype === Consts.tcn.wdc.code) && data.status == 0) && <Text mute>PENDING</Text>}
+                {((data.transtype === Consts.tcn.skp.code || data.transtype === Consts.tcn.wdc.code) && data.iscancelled == 1) && <Text mute>CANCELLED</Text>}
+                <Text b md>{Consts.tcn[data.transtype].short_desc}</Text>
+                <Text mute>{moment(data.transdate).format('MM/DD/YYYY')}</Text>
+            </View>
+
+            <View>
+                <Text b md right>{data.transtype === Consts.tcn.rmd.code || data.transtype === Consts.tcn.rmi.code ? '' : '-'}PHP {Func.formatToRealCurrency(data.amount)}</Text>
+                <TouchableOpacity onPress={() => onPress(data)}>
+                    <Text brand right>View details</Text>
+                </TouchableOpacity>
+            </View>
+        </Row>
+
+        <HR />
+    </>
+)
+
 class Scrn extends React.Component {
 
     static navigationOptions = ({navigation}) => {
@@ -203,12 +225,19 @@ class Scrn extends React.Component {
     handleSelectTypeFilter = (selected_type = {}) => this.setState({selected_type},this.handleRefresh)
 
     handleViewDetails = item => {
-        return false
         this.props.navigation.navigate('TransactionReceipt',{
-            type:Consts.tcn.stw.code,
-            amount:item.amount,
-            status:'success',
-            _from:'history'
+            _from:'history',
+            type:item.transtype,
+            kptn:item.transactionno,
+            transaction: {
+                contact_no:item.mobileno,
+                amount:item.amount,
+                charges:item.charge,
+                fixed_charge:item.fixedcharge,
+                convenience_fee:item.conveniencefee,
+                total:item.totalamount,
+            },
+            transdate:item.transdate
         })
     }
 
@@ -252,26 +281,7 @@ class Scrn extends React.Component {
 
     renderItem_ = () => <View />
 
-    renderItem = ({item}) => (
-        <>
-            <Row bw style={style.item}>
-                <View>
-                    {item.status == 0 && <Text mute>PENDING</Text>}
-                    <Text b md>{Consts.tcn[item.transtype].short_desc}</Text>
-                    <Text mute>{moment(item.transdate).format('MM/DD/YYYY')}</Text>
-                </View>
-
-                <View>
-                    <Text b md right>{item.transtype === Consts.tcn.rmd.code || item.transtype === Consts.tcn.rmi.code ? '' : '-'}PHP {Func.formatToRealCurrency(item.amount)}</Text>
-                    <TouchableOpacity onPress={() => this.handleViewDetails(item)}>
-                        <Text brand right>View details</Text>
-                    </TouchableOpacity>
-                </View>
-            </Row>
-
-            <HR />
-        </>
-    )
+    renderItem = ({item}) => <ItemUI data={item} onPress={this.handleViewDetails} />
 
     render() {
 

@@ -17,7 +17,7 @@ class BuyLoad extends React.Component {
     }
 
     componentDidMount = () => {
-        const {contact_no, promo, balance} = this.props.data
+        const {_from, contact_no, promo, balance} = this.props.data
         const {amount} = this.state
 
         this.props.onExport(`
@@ -31,20 +31,22 @@ class BuyLoad extends React.Component {
             <h3 style="margin-top:0">PHP ${amount}</h3>
         `)
 
-        Say.ok(
-            null,
-            'Success',
-            {
-                customMessage:(
-                    <>
-                        <Text mute md>You successfully sent load worth PHP {Func.formatToCurrency(amount)} to {contact_no}</Text>
-                        <Spacer lg />
-                        <Text mute>Your new balance is</Text>
-                        <Text xl b>Php {Func.formatToRealCurrency(balance)}</Text>
-                    </>
-                )
-            }
-        )
+        if(_from != 'history') {
+            Say.ok(
+                null,
+                'Success',
+                {
+                    customMessage:(
+                        <>
+                            <Text mute md>You successfully sent load worth PHP {Func.formatToCurrency(amount)} to {contact_no}</Text>
+                            <Spacer lg />
+                            <Text mute>Your new balance is</Text>
+                            <Text xl b>Php {Func.formatToRealCurrency(balance)}</Text>
+                        </>
+                    )
+                }
+            )
+        }
     }
 
     handleBackToHome = () => this.props.navigation.navigate('Home')

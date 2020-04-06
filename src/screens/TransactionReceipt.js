@@ -41,8 +41,8 @@ export default class Scrn extends React.Component {
     }
 
     getData = async () => {
-
-        let now = moment()
+        const {params = {}} = this.props.navigation.state
+        let now = params.transdate || moment()
 
         try {
             
@@ -108,7 +108,7 @@ export default class Scrn extends React.Component {
         if(loading) return <ActivityIndicator />
 
         let data = {
-            timestamp,
+            //timestamp,
             date,
             time,
             ...transaction,
