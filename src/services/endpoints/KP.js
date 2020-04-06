@@ -11,7 +11,7 @@ export default {
             ...payload,
             //mlat:'1',
             //mlong:'1',
-            location:'philippines'
+            location:''
         })
     },
 
