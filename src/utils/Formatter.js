@@ -19,6 +19,7 @@ const formatToRealCurrency = value => {
 }
 
 const cleanName = str => {
+    if(str === null) return ''
     str = str.replace(' WAIVED ', ' ')
     str = str.replace(' NONE', ' ')
 
