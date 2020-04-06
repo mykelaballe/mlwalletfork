@@ -148,7 +148,7 @@ class Scrn extends React.Component {
                 walletno,
                 from,
                 to,
-                type:selected_type.value || ''
+                type:selected_type.value == 'all_types' || ''
             })
         }
         catch(err) {
