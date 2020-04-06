@@ -9,7 +9,7 @@ import RNHTMLtoPDF from 'react-native-html-to-pdf'
 
 const moment = require('moment')
 
-class Scrn extends React.Component {
+export default class Scrn extends React.Component {
 
     static navigationOptions = ({navigation}) => {
         const {params = {}} = navigation.state
@@ -139,5 +139,3 @@ class Scrn extends React.Component {
         return null
     }
 }
-
-export default Scrn
