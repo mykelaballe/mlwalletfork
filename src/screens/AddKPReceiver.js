@@ -90,9 +90,9 @@ class Scrn extends React.Component {
                 let res = await API.addKPReceiver({
                     walletno,
                     Fname:firstname,
-                    Mname:middlename === _('50') ? '' : middlename,
+                    Mname:middlename == _('50') ? '' : middlename,
                     Lname:lastname,
-                    Suffix:suffix === _('51') ? '' : suffix,
+                    Suffix:suffix == _('51') ? '' : suffix,
                     ContactNo:contact_no
                 })
 

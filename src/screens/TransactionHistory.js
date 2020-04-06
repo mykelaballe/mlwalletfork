@@ -249,7 +249,10 @@ class Scrn extends React.Component {
             if(item.status == 1 || item.isclaimed == 1) params.transaction.status == 'success'
             if(item.isclaimed == 0) {
                 if(item.cancelled == 0) params.cancellable = true
-                else params.cancellable = false
+                else {
+                    params.cancellable = false
+                    params.status = 'cancelled'
+                }
             }
         }
 
