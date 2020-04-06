@@ -42,7 +42,7 @@ export default class Scrn extends React.Component {
 
     getData = async () => {
         const {params = {}} = this.props.navigation.state
-        let now = params.transdate || moment()
+        let now = moment(params.transdate) || moment()
 
         try {
             
