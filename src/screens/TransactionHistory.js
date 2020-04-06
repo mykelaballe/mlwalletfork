@@ -241,11 +241,12 @@ class Scrn extends React.Component {
                     lname:this.props.user.lname
                 }
             },
+            cancellable:false,
             transdate:item.transdate
         }
 
         if(params.type == Consts.tcn.skp.code || params.type == Consts.tcn.wdc.code) {
-            if(item.status == 1) params.transaction.status == 'success'
+            if(item.status == 1 || item.isclaimed == 1) params.transaction.status == 'success'
             if(item.isclaimed == 0 && item.iscancelled == 0) params.cancellable = true
         }
 
