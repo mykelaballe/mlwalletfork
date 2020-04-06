@@ -91,9 +91,9 @@ class Scrn extends React.Component {
                 let payload = {
                     receiverNumVal:receiver.receiverno,
                     Fname:firstname,
-                    Mname:middlename === _('50') ? null : middlename,
+                    Mname:middlename === _('50') ? '' : middlename,
                     Lname:lastname,
-                    Suffix:suffix == _('51') ? null : suffix,
+                    Suffix:suffix == _('51') ? '' : suffix,
                     ContactNo:contact_no
                 }
     
