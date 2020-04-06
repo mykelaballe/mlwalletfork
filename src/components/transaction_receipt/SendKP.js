@@ -137,7 +137,7 @@ class SendKP extends React.Component {
 
                             <View style={{flex:1}}>
                                 <Text mute sm>Middle Name</Text>
-                                <Text md>{receiver.middlename}</Text>
+                                <Text md>{receiver.middlename || _('50')}</Text>
                             </View>
                         </Row>
 
@@ -153,7 +153,7 @@ class SendKP extends React.Component {
 
                             <View style={{flex:1}}>
                                 <Text mute sm>Suffix</Text>
-                                <Text md>{receiver.suffix}</Text>
+                                <Text md>{receiver.suffix || _('51')}</Text>
                             </View>
                         </Row>
 
