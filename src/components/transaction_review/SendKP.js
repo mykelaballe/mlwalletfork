@@ -1,7 +1,7 @@
 import React from 'react'
 import {View} from 'react-native'
 import {Text, Spacer, Row} from '../'
-import {Func} from '../../utils'
+import {Func, _} from '../../utils'
 
 export default props => {
     const {receiver, amount, charges, total} = props.data
@@ -24,7 +24,7 @@ export default props => {
 
                 <View style={{flex:1}}>
                     <Text mute sm>Middle Name</Text>
-                    <Text md>{receiver.middlename}</Text>
+                    <Text md>{receiver.middlename || _('50')}</Text>
                 </View>
             </Row>
 
@@ -40,7 +40,7 @@ export default props => {
 
                 <View style={{flex:1}}>
                     <Text mute sm>Suffix</Text>
-                    <Text md>{receiver.suffix}</Text>
+                    <Text md>{receiver.suffix || _('51')}</Text>
                 </View>
             </Row>
 
