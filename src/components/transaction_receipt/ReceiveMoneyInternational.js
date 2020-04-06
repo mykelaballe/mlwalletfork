@@ -51,14 +51,14 @@ class ReceiveMoneyInternational extends React.Component {
 
     render() {
 
-        const {_from, tcn, currency, partner, sender} = this.props.data
+        const {_from, kptn, currency, partner, sender} = this.props.data
         const {amount, date, time, type} = this.state
 
         return (
             <>
                 <Screen compact>
                     <Header
-                        tcn={tcn}
+                        tcn={kptn}
                         status='success'
                     />
 

@@ -90,6 +90,7 @@ class Scrn extends React.Component {
                             ...this.state,
                             partner:partner.bank_name
                         },
+                        kptn:transaction_no,
                         status:'success'
                     })
                 }
