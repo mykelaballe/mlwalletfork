@@ -143,7 +143,8 @@ export default {
     },
 
     getTransactionHistory: async payload => {
-        return await Fetch.get(`transactionhistory?walletno=${walletno}&dfrom=${payload.from}&dto=${payload.to}&type=${payload.type}`)
+        let res = await Fetch.get(`transactionhistory?walletno=${walletno}&dfrom=${payload.from}&dto=${payload.to}&type=${payload.type}`)
+        return res.listTransaction || []
     },
 
     getBranches: async () => {
