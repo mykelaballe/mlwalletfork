@@ -15,38 +15,40 @@ class ReceiveMoneyDomestic extends React.Component {
     }
 
     componentDidMount = () => {
-        const {balance, firstname, lastname} = this.props.data
+        const {_from, balance, sender} = this.props.data
         const {amount} = this.state
 
         this.props.onExport(`
             <h4 style="color:#6A6A6A;line-height:0">Sender</h4>
-            <h3>${firstname} ${lastname}</h3>
+            <h3>${Func.cleanName(sender)}</h3>
 
             <h4 style="color:#6A6A6A;line-height:0">Amount</h4>
             <h3 style="margin-top:0">PHP ${amount}</h3>
         `)
 
-        Say.ok(
-            null,
-            'Success',
-            {
-                customMessage:(
-                    <>
-                        <Text mute md>You have successfully received Php {Func.formatToCurrency(amount)} from {Func.cleanName(`${firstname} ${lastname}`)}.</Text>
-                        <Spacer lg />
-                        <Text mute>Your new balance is</Text>
-                        <Text xl b>Php {Func.formatToCurrency(balance)}</Text>
-                    </>
-                )
-            }
-        )
+        if(_from != 'history') {
+            Say.ok(
+                null,
+                'Success',
+                {
+                    customMessage:(
+                        <>
+                            <Text mute md>You have successfully received Php {Func.formatToCurrency(amount)} from {Func.cleanName(`${sender}`)}.</Text>
+                            <Spacer lg />
+                            <Text mute>Your new balance is</Text>
+                            <Text xl b>Php {Func.formatToCurrency(balance)}</Text>
+                        </>
+                    )
+                }
+            )
+        }
     }
 
     handleBackToHome = () => this.props.navigation.navigate('Home')
 
     render() {
 
-        const {_from, transaction_no, firstname, lastname} = this.props.data
+        const {_from, transaction_no, sender} = this.props.data
         const {amount, date, time, type} = this.state
 
         return (
@@ -59,7 +61,7 @@ class ReceiveMoneyDomestic extends React.Component {
 
                     <View style={{padding:Metrics.lg}}>
                         <Text sm mute>Sender</Text>
-                        <Text>{Func.cleanName(`${firstname} ${lastname}`)}</Text>
+                        <Text>{Func.cleanName(`${sender}`)}</Text>
 
                         <Spacer />
 

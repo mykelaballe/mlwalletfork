@@ -233,7 +233,17 @@ class Scrn extends React.Component {
                 walletno:item.receiverwalletno,
                 contact_no:item.mobileno,
                 receiver: {
-                    fullname:item.receiverfullname
+                    fullname:item.receiverfullname,
+                    firstname:item.receiverfirstname,
+                    lastname:item.receiverlastname,
+                    middlename:item.receivermiddlename,
+                    bill_partner_name:partnername,
+                    bank:item.partnername,
+                    partner:item.partnername,
+                    account_name:item.accountname,
+                    account_no:item.accountno,
+                    sender:item.sendername,
+                    currency:item.currency
                 },
                 notes:item.notes,
                 amount:item.amount,

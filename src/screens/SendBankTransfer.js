@@ -17,28 +17,16 @@ class Scrn extends React.Component {
     state = {
         bank:this.props.navigation.state.params.bank.bankname,
         account_name:this.props.navigation.state.params.bank.old_account_name,
-        account_number:this.props.navigation.state.params.bank.old_account_no,
+        account_no:this.props.navigation.state.params.bank.old_account_no,
         amount:'',
         fixed_charge:'100',
         convenience_fee:'15',
         total:''
     }
 
-    /*componentDidUpdate = (prevProps, prevState) => {
-        const {params = {}} = this.props.navigation.state
-        if(params.bank && params.bank.name !== prevState.bank) {
-            this.props.navigation.setParams({bank:null})
-            this.setState({
-                bank:params.bank.name,
-                account_name:params.bank.account_name,
-                account_number:params.bank.account_no
-            })
-        }
-    }*/
-
     handleChangeAccountName = account_name => this.setState({account_name})
 
-    handleChangeAccountNumber = account_number => this.setState({account_number})
+    handleChangeAccountNumber = account_no => this.setState({account_no})
 
     handleChangeAmount = amount => {
         const {fixed_charge, convenience_fee} = this.state
@@ -62,10 +50,10 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {bank, account_name, account_number, amount, fixed_charge, convenience_fee, total} = this.state
+        const {bank, account_name, account_no, amount, fixed_charge, convenience_fee, total} = this.state
         let ready = false
 
-        if(bank && account_name && account_number && amount) ready = true
+        if(bank && account_name && account_no && amount) ready = true
 
         return (
             <>
@@ -91,7 +79,7 @@ class Scrn extends React.Component {
                     <TextInput
                         disabled
                         label='Account Number'
-                        value={account_number}
+                        value={account_no}
                         onChangeText={this.handleChangeAccountNumber}
                         keyboardType='numeric'
                     />

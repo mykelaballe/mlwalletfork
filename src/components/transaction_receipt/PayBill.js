@@ -20,7 +20,7 @@ class PayBill extends React.Component {
     }
 
     componentDidMount = () => {
-        const {biller_partner_name, account_no, account_name, balance} = this.props.data
+        const {_from, biller_partner_name, account_no, account_name, balance} = this.props.data
         const {amount, fixed_charge, convenience_fee, total} = this.state
 
         this.props.onExport(`
@@ -46,20 +46,22 @@ class PayBill extends React.Component {
             <h3 style="margin-top:0">PHP ${total}</h3>
         `)
 
-        Say.ok(
-            null,
-            'Success',
-            {
-                customMessage:(
-                    <>
-                        <Text mute md>You successfully transferred money to bank. Expect 2-3 banking days for your new balance to reflect.</Text>
-                        <Spacer lg />
-                        <Text mute>Your new balance is</Text>
-                        <Text xl b>Php {Func.formatToRealCurrency(balance)}</Text>
-                    </>
-                )
-            }
-        )
+        if(_from != 'history') {
+            Say.ok(
+                null,
+                'Success',
+                {
+                    customMessage:(
+                        <>
+                            <Text mute md>You successfully transferred money to bank. Expect 2-3 banking days for your new balance to reflect.</Text>
+                            <Spacer lg />
+                            <Text mute>Your new balance is</Text>
+                            <Text xl b>Php {Func.formatToRealCurrency(balance)}</Text>
+                        </>
+                    )
+                }
+            )
+        }
     }
 
     handleBackToHome = () => this.props.navigation.navigate('Home')

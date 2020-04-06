@@ -17,14 +17,13 @@ class SendKP extends React.Component {
         date:this.props.data.date,
         time:this.props.data.time,
         status:this.props.data.status,
-        statusMessage:'Your money is waiting to be claimed',
         cancellable:this.props.data.cancellable,
         cancelling:false,
         type:Consts.tcn.skp.long_desc
     }
 
     componentDidMount = () => {
-        const {receiver, balance} = this.props.data
+        const {_from, receiver, balance} = this.props.data
         const {amount, charges, total} = this.state
 
         this.props.onExport(`
@@ -50,20 +49,22 @@ class SendKP extends React.Component {
             <h3 style="margin-top:0">PHP ${total}</h3>
         `)
 
-        Say.ok(
-            null,
-            'Success',
-            {
-                customMessage:(
-                    <>
-                        <Text mute md>Share the transaction number to {Func.formatName(receiver)} to complete this transaction.</Text>
-                        <Spacer lg />
-                        <Text mute>Your new balance is</Text>
-                        <Text xl b>Php {Func.formatToCurrency(balance)}</Text>
-                    </>
-                )
-            }
-        )
+        if(_from != 'history') {
+            Say.ok(
+                null,
+                'Success',
+                {
+                    customMessage:(
+                        <>
+                            <Text mute md>Share the transaction number to {Func.formatName(receiver)} to complete this transaction.</Text>
+                            <Spacer lg />
+                            <Text mute>Your new balance is</Text>
+                            <Text xl b>Php {Func.formatToCurrency(balance)}</Text>
+                        </>
+                    )
+                }
+            )
+        }
     }
 
     handleCancelTransaction = () => {
@@ -97,8 +98,7 @@ class SendKP extends React.Component {
                 this.props.updateBalance(res.data.balance)
                 this.setState({
                     cancellable:false,
-                    status:'cancelled',
-                    statusMessage:''
+                    status:'cancelled'
                 })
                 Say.ok(`Your transaction ${Consts.tcn.skp.short_desc} has been cancelled`)
             }
@@ -115,7 +115,7 @@ class SendKP extends React.Component {
     render() {
 
         const {_from, kptn, receiver} = this.props.data
-        const {amount, charges, total, date, time, status, statusMessage, cancellable, cancelling, type} = this.state
+        const {amount, charges, total, date, time, status, cancellable, cancelling, type} = this.state
 
         return (
             <>
@@ -123,7 +123,6 @@ class SendKP extends React.Component {
                     <Header
                         tcn={kptn}
                         status={status}
-                        statusMessage={statusMessage}
                         cancellable={cancellable}
                     />
 

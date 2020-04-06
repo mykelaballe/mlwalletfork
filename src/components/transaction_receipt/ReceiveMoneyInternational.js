@@ -15,7 +15,7 @@ class ReceiveMoneyInternational extends React.Component {
     }
 
     componentDidMount = () => {
-        const {sender, partner, currency} = this.props.data
+        const {_from, sender, partner, currency} = this.props.data
         const {amount} = this.state
 
         this.props.onExport(`
@@ -23,26 +23,28 @@ class ReceiveMoneyInternational extends React.Component {
             <h3>${sender}</h3>
 
             <h4 style="color:#6A6A6A;line-height:0">Partner</h4>
-            <h3 style="margin-top:0">PHP ${partner.name}</h3>
+            <h3 style="margin-top:0">PHP ${partner}</h3>
 
             <h4 style="color:#6A6A6A;line-height:0">Amount</h4>
             <h3 style="margin-top:0">${currency} ${amount}</h3>
         `)
 
-        Say.ok(
-            null,
-            'Success',
-            {
-                customMessage:(
-                    <>
-                        <Text mute md>You have successfully received {currency} {Func.formatToCurrency(amount)} from {sender}.</Text>
-                        <Spacer lg />
-                        <Text mute>Your new balance is</Text>
-                        <Text xl b>Php {Func.formatToRealCurrency(balance)}</Text>
-                    </>
-                )
-            }
-        )
+        if(_from != 'history') {
+            Say.ok(
+                null,
+                'Success',
+                {
+                    customMessage:(
+                        <>
+                            <Text mute md>You have successfully received {currency} {Func.formatToCurrency(amount)} from {sender}.</Text>
+                            <Spacer lg />
+                            <Text mute>Your new balance is</Text>
+                            <Text xl b>Php {Func.formatToRealCurrency(balance)}</Text>
+                        </>
+                    )
+                }
+            )
+        }
     }
 
     handleBackToHome = () => this.props.navigation.navigate('Home')
@@ -67,7 +69,7 @@ class ReceiveMoneyInternational extends React.Component {
                         <Spacer />
 
                         <Text sm mute>Partner</Text>
-                        <Text>{partner.name}</Text>
+                        <Text>{partner}</Text>
 
                         <Spacer />
 

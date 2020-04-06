@@ -89,7 +89,8 @@ class Scrn extends React.Component {
                         ...params,
                         ...res.data,
                         transaction: {
-                            ...this.state
+                            ...this.state,
+                            sender:`${firstname} ${lastname}`
                         },
                         status:'success'
                     })

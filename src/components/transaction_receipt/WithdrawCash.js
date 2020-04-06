@@ -80,8 +80,7 @@ class WithdrawCash extends React.Component {
                 this.props.updateBalance(res.data.balance)
                 this.setState({
                     cancellable:false,
-                    status:'cancelled',
-                    statusMessage:''
+                    status:'cancelled'
                 })
                 Say.ok(`Your transaction ${Consts.tcn.wdc.short_desc} has been cancelled`)
             }

@@ -18,7 +18,7 @@ class SendBankTransfer extends React.Component {
     }
 
     componentDidMount = () => {
-        const {bank, account_name, account_number, balance} = this.props.data
+        const {_from, bank, account_name, account_no, balance} = this.props.data
         const {amount, fixed_charge, convenience_fee, total} = this.state
 
         this.props.onExport(`
@@ -29,7 +29,7 @@ class SendBankTransfer extends React.Component {
             <h3 style="margin-top:0">PHP ${account_name}</h3>
 
             <h4 style="color:#6A6A6A;line-height:0">Account No.</h4>
-            <h3 style="margin-top:0">PHP ${account_number}</h3>
+            <h3 style="margin-top:0">PHP ${account_no}</h3>
 
             <h4 style="color:#6A6A6A;line-height:0">Amount</h4>
             <h3 style="margin-top:0">PHP ${amount}</h3>
@@ -44,27 +44,29 @@ class SendBankTransfer extends React.Component {
             <h3 style="margin-top:0">PHP ${total}</h3>
         `)
 
-        Say.ok(
-            null,
-            'Success',
-            {
-                customMessage:(
-                    <>
-                        <Text mute md>You successfully transferred money to bank. Expect 2-3 banking days for your new balance to reflect.</Text>
-                        <Spacer lg />
-                        <Text mute>Your new balance is</Text>
-                        <Text xl b>Php {Func.formatToRealCurrency(balance)}</Text>
-                    </>
-                )
-            }
-        )
+        if(_from != 'history') {
+            Say.ok(
+                null,
+                'Success',
+                {
+                    customMessage:(
+                        <>
+                            <Text mute md>You successfully transferred money to bank. Expect 2-3 banking days for your new balance to reflect.</Text>
+                            <Spacer lg />
+                            <Text mute>Your new balance is</Text>
+                            <Text xl b>Php {Func.formatToRealCurrency(balance)}</Text>
+                        </>
+                    )
+                }
+            )
+        }
     }
 
     handleBackToHome = () => this.props.navigation.navigate('Home')
 
     render() {
 
-        const {_from, tcn, bank, account_name, account_number} = this.props.data
+        const {_from, tcn, bank, account_name, account_no} = this.props.data
         const {amount, fixed_charge, convenience_fee, total, date, time, type} = this.state
 
         return (
@@ -84,7 +86,7 @@ class SendBankTransfer extends React.Component {
                         <Spacer />
 
                         <Text sm mute>Account No.</Text>
-                        <Text>{account_number}</Text>
+                        <Text>{account_no}</Text>
 
                         <Spacer />
 

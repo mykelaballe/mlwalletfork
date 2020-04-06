@@ -3,7 +3,7 @@ import {Text, Spacer} from '../'
 import {Func} from '../../utils'
 
 export default props => {
-    const {bank, account_name, account_number, amount, fixed_charge, convenience_fee, total} = props.data
+    const {bank, account_name, account_no, amount, fixed_charge, convenience_fee, total} = props.data
 
     return (
         <>
@@ -24,7 +24,7 @@ export default props => {
             <Spacer />
 
             <Text mute sm>Account No.</Text>
-            <Text md>{account_number}</Text>
+            <Text md>{account_no}</Text>
 
             <Spacer />
 
