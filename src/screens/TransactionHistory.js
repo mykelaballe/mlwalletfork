@@ -251,7 +251,7 @@ class Scrn extends React.Component {
                 if(item.cancelled == 0) params.cancellable = true
                 else {
                     params.cancellable = false
-                    params.status = 'cancelled'
+                    params.transaction.status = 'cancelled'
                 }
             }
         }
