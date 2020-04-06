@@ -14,10 +14,10 @@ function compute() {
     let total = 0
 
     for(i = 0; i < arguments.length; i++) {
-        total += parseFloat(formatToCurrency(arguments[i]))
+        total += parseFloat(Formatter.formatToCurrency(arguments[i]))
       }
 
-    return formatToCurrency(total)
+    return Formatter.formatToCurrency(total)
 }
 
 const randomize = list => list[Math.floor(Math.random() * list.length)]

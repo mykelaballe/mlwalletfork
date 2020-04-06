@@ -235,6 +235,7 @@ class Scrn extends React.Component {
                 receiver: {
                     fullname:item.receiverfullname
                 },
+                notes:item.notes,
                 amount:item.amount,
                 charges:item.charge,
                 fixed_charge:item.fixedcharge,

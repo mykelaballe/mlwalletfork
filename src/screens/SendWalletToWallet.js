@@ -27,17 +27,6 @@ class Scrn extends React.Component {
         processing:false
     }
 
-    /*componentDidUpdate = (prevProps, prevState) => {
-        const {params = {}} = this.props.navigation.state
-        if(params.receiver && params.receiver.walletno !== prevState.walletno) {
-            this.props.navigation.setParams({receiver:null})
-            this.setState({
-                walletno:params.receiver.walletno,
-                receiver:params.receiver.fullname
-            })
-        }
-    }*/
-
     handleChangeReceiverWalletID = receiver_wallet_id => this.setState({receiver_wallet_id})
 
     handleChangeAmount = amount => {
@@ -90,8 +79,7 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {type} = this.props.navigation.state.params
-        const {walletno, receiver, amount, notes, charges, total, points, processing} = this.state
+        const {walletno, amount, notes, charges, total, processing} = this.state
         let ready = false
 
         if(walletno && amount) ready = true
