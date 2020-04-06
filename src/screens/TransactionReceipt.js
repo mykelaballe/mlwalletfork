@@ -26,7 +26,6 @@ export default class Scrn extends React.Component {
     }
 
     state = {
-        timestamp:null,
         date:'',
         time:'',
         loading:true,
@@ -52,7 +51,6 @@ export default class Scrn extends React.Component {
         }
 
         this.setState({
-            timestamp:moment(),
             date:now.format('MMMM DD, YYYY'),
             time:now.format('hh:mm:ss a'),
             loading:false
@@ -102,13 +100,12 @@ export default class Scrn extends React.Component {
 
     render() {
         const {type, _from, cancellable, transaction, kptn, controlno, balance} = this.props.navigation.state.params
-        const {timestamp, date, time, loading} = this.state
+        const {date, time, loading} = this.state
         let tcn = ''
 
         if(loading) return <ActivityIndicator />
 
         let data = {
-            //timestamp,
             date,
             time,
             ...transaction,
