@@ -5,9 +5,9 @@ import Storage from '../utils/Storage'
 const qs = require('querystring')
 
 let headers = {
-  //'Accept': 'application/json',
-  //'Content-Type': 'application/json',
-  'Content-Type': 'application/x-www-form-urlencoded'
+  'Accept': 'application/json',
+  'Content-Type': 'application/json',
+  //'Content-Type': 'application/x-www-form-urlencoded'
 }
 
 export default {
@@ -25,7 +25,8 @@ export default {
       method: 'post',
       url,
       headers,
-      data: qs.stringify(data)
+      data
+      //data: qs.stringify(data)
     })
 
     return response.data
@@ -44,7 +45,8 @@ export default {
       method: 'put',
       url,
       headers,
-      data: qs.stringify(data)
+      data
+      //data: qs.stringify(data)
     })
 
     return response.data
@@ -63,7 +65,8 @@ export default {
       method: 'delete',
       url,
       headers,
-      data: qs.stringify(data)
+      data
+      //data: qs.stringify(data)
     })
 
     return response.data
