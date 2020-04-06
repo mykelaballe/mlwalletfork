@@ -230,7 +230,11 @@ class Scrn extends React.Component {
             type:item.transtype,
             kptn:item.transactionno,
             transaction: {
+                walletno:item.receiverwalletno,
                 contact_no:item.mobileno,
+                receiver: {
+                    fullname:item.receiverfullname
+                },
                 amount:item.amount,
                 charges:item.charge,
                 fixed_charge:item.fixedcharge,

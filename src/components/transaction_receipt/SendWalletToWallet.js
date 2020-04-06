@@ -17,7 +17,7 @@ class SendWalletToWallet extends React.Component {
     }
 
     componentDidMount = () => {
-        const {walletno, receiver, notes, balance} = this.props.data
+        const {_from, walletno, receiver, notes, balance} = this.props.data
         const {amount, charges, total} = this.state
 
         this.props.onExport(`
@@ -40,20 +40,22 @@ class SendWalletToWallet extends React.Component {
             <h3 style="margin-top:0">PHP ${total}</h3>
         `)
 
-        Say.ok(
-            null,
-            'Success',
-            {
-                customMessage:(
-                    <>
-                        <Text mute md>You successfully sent money worth PHP {amount} to {walletno}</Text>
-                        <Spacer lg />
-                        <Text mute>Your new balance is</Text>
-                        <Text xl b>Php {Func.formatToCurrency(balance)}</Text>
-                    </>
-                )
-            }
-        )
+        if(_from != 'history') {
+            Say.ok(
+                null,
+                'Success',
+                {
+                    customMessage:(
+                        <>
+                            <Text mute md>You successfully sent money worth PHP {amount} to {walletno}</Text>
+                            <Spacer lg />
+                            <Text mute>Your new balance is</Text>
+                            <Text xl b>Php {Func.formatToCurrency(balance)}</Text>
+                        </>
+                    )
+                }
+            )
+        }
     }
 
     handleBackToHome = () => this.props.navigation.navigate('Home')

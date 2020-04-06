@@ -34,7 +34,7 @@ export default {
     addKPReceiver: async payload => {
         let res = await Fetch.post('kp/addkwartapadalareceiver',payload)
         return {
-            error:res.respcode === 1,
+            error:res.respcode === 0,
             message:res.respmessage
         }
     },
