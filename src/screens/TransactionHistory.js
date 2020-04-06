@@ -237,7 +237,7 @@ class Scrn extends React.Component {
                     firstname:item.receiverfirstname,
                     lastname:item.receiverlastname,
                     middlename:item.receivermiddlename,
-                    bill_partner_name:partnername,
+                    bill_partner_name:item.partnername,
                     bank:item.partnername,
                     partner:item.partnername,
                     account_name:item.accountname,
