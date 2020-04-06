@@ -5,8 +5,6 @@ import {Screen, Footer, Text, Spacer, Button, View} from '../'
 import {Metrics} from '../../themes'
 import {_, Consts, Func, Say} from '../../utils'
 
-const moment = require('moment')
-
 class SendBankTransfer extends React.Component {
 
     state = {

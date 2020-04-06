@@ -5,8 +5,6 @@ import {Screen, Footer, View, Text, Spacer, Button} from '../'
 import {Metrics} from '../../themes'
 import {_, Consts, Func, Say} from '../../utils'
 
-const moment = require('moment')
-
 class SendWalletToWallet extends React.Component {
 
     state = {

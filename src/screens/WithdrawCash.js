@@ -53,7 +53,7 @@ class Scrn extends React.Component {
                 })
             }
             else {
-                Say.some(res.message)
+                Say.warn(res.message)
             }
         }
         catch(err) {

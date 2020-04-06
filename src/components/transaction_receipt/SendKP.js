@@ -8,8 +8,6 @@ import {Metrics} from '../../themes'
 import {_, Consts, Func, Say} from '../../utils'
 import {API} from '../../services'
 
-const moment = require('moment')
-
 class SendKP extends React.Component {
     
     state = {

@@ -8,8 +8,6 @@ import {Metrics} from '../../themes'
 import {_, Consts, Func, Say} from '../../utils'
 import {API} from '../../services'
 
-const moment = require('moment')
-
 class WithdrawCash extends React.Component {
     
     state = {
@@ -23,8 +21,7 @@ class WithdrawCash extends React.Component {
     }
 
     componentDidMount = () => {
-        const {user} = this.props.data
-        const {balance} = this.props.navigation.state.params
+        const {_from, user, balance} = this.props.data
         const {amount} = this.state
 
         this.props.onExport(`
@@ -35,20 +32,22 @@ class WithdrawCash extends React.Component {
             <h3 style="margin-top:0">PHP ${amount}</h3>
         `)
 
-        Say.ok(
-            null,
-            'Success',
-            {
-                customMessage:(
-                    <>
-                        <Text mute md>Your transaction is pending. Go to the nearest M Lhuillier branch to complete your withdraw</Text>
-                        <Spacer lg />
-                        <Text mute>Your new balance is</Text>
-                        <Text xl b>Php {Func.formatToCurrency(balance)}</Text>
-                    </>
-                )
-            }
-        )
+        if(_from != 'history') {
+            Say.ok(
+                null,
+                'Success',
+                {
+                    customMessage:(
+                        <>
+                            <Text mute md>Your transaction is pending. Go to the nearest M Lhuillier branch to complete your withdraw</Text>
+                            <Spacer lg />
+                            <Text mute>Your new balance is</Text>
+                            <Text xl b>Php {Func.formatToCurrency(balance)}</Text>
+                        </>
+                    )
+                }
+            )
+        }
     }
 
     handleCancelTransaction = () => {

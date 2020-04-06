@@ -225,7 +225,7 @@ class Scrn extends React.Component {
     handleSelectTypeFilter = (selected_type = {}) => this.setState({selected_type},this.handleRefresh)
 
     handleViewDetails = item => {
-        this.props.navigation.navigate('TransactionReceipt',{
+        let params = {
             _from:'history',
             type:item.transtype,
             kptn:item.transactionno,
@@ -236,9 +236,20 @@ class Scrn extends React.Component {
                 fixed_charge:item.fixedcharge,
                 convenience_fee:item.conveniencefee,
                 total:item.totalamount,
+                user:{
+                    fname:this.props.user.fname,
+                    lname:this.props.user.lname
+                }
             },
             transdate:item.transdate
-        })
+        }
+
+        if(params.type == Consts.tcn.skp.code || params.type == Consts.tcn.wdc.code) {
+            if(params.status == 1) params.transaction.status == 'success'
+            if(params.isclaimed == 0 && params.iscancelled == 0) params.cancellable = true
+        }
+
+        this.props.navigation.navigate('TransactionReceipt',params)
     }
 
     handleChangeMonthFrom = () => this.setState({showMonthFrom:true})
@@ -278,8 +289,6 @@ class Scrn extends React.Component {
     handleHideYearToPicker = () => this.setState({showYearTo:false})
 
     handleRefresh = () => this.setState({refreshing:true},this.getData)
-
-    renderItem_ = () => <View />
 
     renderItem = ({item}) => <ItemUI data={item} onPress={this.handleViewDetails} />
 
