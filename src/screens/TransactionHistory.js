@@ -247,7 +247,10 @@ class Scrn extends React.Component {
 
         if(params.type == Consts.tcn.skp.code || params.type == Consts.tcn.wdc.code) {
             if(item.status == 1 || item.isclaimed == 1) params.transaction.status == 'success'
-            if(item.isclaimed == 0 && item.iscancelled == 0) params.cancellable = true
+            if(item.isclaimed == 0) {
+                if(item.cancelled == 0) params.cancellable = true
+                else params.cancellable = false
+            }
         }
 
         this.props.navigation.navigate('TransactionReceipt',params)
