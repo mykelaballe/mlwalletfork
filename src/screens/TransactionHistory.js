@@ -70,27 +70,27 @@ class Scrn extends React.Component {
             },
             {
                 value:Consts.tcn.stw.code,
-                label:Consts.tcn.stw.submit_text
+                label:Consts.tcn.stw.short_desc
             },
             {
                 value:Consts.tcn.skp.code,
-                label:Consts.tcn.skp.submit_text
+                label:Consts.tcn.skp.short_desc
             },
             {
                 value:Consts.tcn.stb.code,
-                label:Consts.tcn.stb.submit_text
+                label:Consts.tcn.stb.short_desc
             },
             {
                 value:Consts.tcn.rmd.code,
-                label:Consts.tcn.rmd.submit_text
+                label:Consts.tcn.rmd.long_desc
             },
             {
                 value:Consts.tcn.rmi.code,
-                label:Consts.tcn.rmi.submit_text
+                label:Consts.tcn.rmi.long_desc
             },
             {
                 value:Consts.tcn.wdc.code,
-                label:Consts.tcn.wdc.submit_text
+                label:Consts.tcn.wdc.short_desc
             }
         ],
         selected_type:{
