@@ -1,11 +1,10 @@
 import React from 'react'
-import {connect} from 'react-redux'
 import {Screen, Headline, Spacer, Button, ButtonText, View} from '../components'
 import {_} from '../utils'
 import {Colors, Metrics} from '../themes'
 import Icon from 'react-native-vector-icons/Feather'
 
-class Scrn extends React.Component {
+export default class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Add Money'
@@ -40,9 +39,3 @@ class Scrn extends React.Component {
         )
     }
 }
-
-const mapStateToProps = state => ({
-    user: state.user.data
-})
-
-export default connect(mapStateToProps)(Scrn)

@@ -1,7 +1,6 @@
 import React from 'react'
-import {TouchableOpacity} from 'react-native'
 import {connect} from 'react-redux'
-import {Screen, Footer, Headline, Text, Spacer, Button, ButtonText, TextInput, Icon, HeaderRight, View} from '../components'
+import {Screen, Footer, Text, Spacer, Button, ButtonText, TextInput, Icon, HeaderRight} from '../components'
 import {Colors} from '../themes'
 import {_, Consts, Func, Say} from '../utils'
 import {API} from '../services'
@@ -25,14 +24,6 @@ class Scrn extends React.Component {
         processing:false
     }
 
-    /*componentDidUpdate = (prevProps, prevState) => {
-        const {params = {}} = this.props.navigation.state
-        if(params.receiver && params.receiver !== prevState.receiver) {
-            this.props.navigation.setParams({receiver:null})
-            this.setState({receiver:params.receiver})
-        }
-    }*/
-
     handleChangeAmount = amount => {
         this.setState({
             amount,
@@ -43,7 +34,7 @@ class Scrn extends React.Component {
     handleAddNewReceiver = () => this.props.navigation.navigate('SavedKPReceivers')
 
     handleSendMoney = async () => {
-        const {receiver, amount, total, processing} = this.state
+        const {total, processing} = this.state
         const {params} = this.props.navigation.state
 
         if(processing) return false

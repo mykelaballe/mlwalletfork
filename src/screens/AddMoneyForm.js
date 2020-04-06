@@ -19,7 +19,6 @@ class Scrn extends React.Component {
 
     render() {
 
-        //const {walletno, fname, mname, lname, suffix, barangay, city, province, country, mobile_no, email} = this.props
         const {user} = this.props
 
         return (
