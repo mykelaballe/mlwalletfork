@@ -42,7 +42,7 @@ export default {
     updateKPReceiver: async payload => {
         let res = await Fetch.put('kp/updateKwartaPadalaReceiver',payload)
         return {
-            error:res.respcode === 1,
+            error:res.respcode === 0,
             message:res.respmessage
         }
     },
