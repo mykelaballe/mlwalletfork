@@ -2,18 +2,10 @@ import Fetch from '../../utils/Fetch'
 
 export default {
     withdrawCashValidate: async payload => {
-        //return {error:false}
         return await Fetch.post('withdrawcash/validate',payload)
     },
 
     withdrawCash: async payload => {
-        /*return {
-            error:false,
-            data:{
-                kptn:'12345',
-                balance:'30000'
-            }
-        }*/
         return await Fetch.post('withdrawcash/withdraw',{
             ...payload,
             location:'',
@@ -23,12 +15,6 @@ export default {
     },
 
     withdrawCashCancel: async payload => {
-        /*return {
-            error:false,
-            data:{
-                balance:'60000'
-            }
-        }*/
         return await Fetch.post('withdrawcash/cancel',payload)
     }
 }

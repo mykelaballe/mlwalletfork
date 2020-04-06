@@ -228,7 +228,7 @@ class Scrn extends React.Component {
         let params = {
             _from:'history',
             type:item.transtype,
-            controlno:item.idtrans,
+            controlno:item.transactionno,
             kptn:item.transactionno,
             transaction: {
                 walletno:item.receiverwalletno,
