@@ -73,8 +73,20 @@ class Scrn extends React.Component {
                 label:Consts.tcn.stw.submit_text
             },
             {
+                value:Consts.tcn.skp.code,
+                label:Consts.tcn.skp.submit_text
+            },
+            {
+                value:Consts.tcn.stb.code,
+                label:Consts.tcn.stb.submit_text
+            },
+            {
                 value:Consts.tcn.rmd.code,
                 label:Consts.tcn.rmd.submit_text
+            },
+            {
+                value:Consts.tcn.rmi.code,
+                label:Consts.tcn.rmi.submit_text
             },
             {
                 value:Consts.tcn.wdc.code,
