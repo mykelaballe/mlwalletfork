@@ -96,11 +96,12 @@ class Scrn extends React.Component {
                     ContactNo:contact_no
                 })
 
-                if(res.walletno) {
+                if(!res.error) {
                     this.props.refreshAll(true)
                     Say.ok('Successfully added KP receiver')
                     this.props.navigation.pop()
                 }
+                else Say.warn(res.message)
             }
         }
         catch(err) {
