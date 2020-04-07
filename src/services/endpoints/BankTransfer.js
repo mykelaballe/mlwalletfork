@@ -15,7 +15,7 @@ export default {
 
         if(res.data) {
             for(let d in res.data) {
-                let letter = res.data[d].bank_name[0]
+                let letter = res.data[d].PartnersName[0]
 
                 if(typeof data[letter] === 'undefined') {
                     data[letter] = {
