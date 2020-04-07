@@ -93,7 +93,7 @@ class Scrn extends React.Component {
                 }
                 else {
                     this.setState({error_new:true})
-                    Say.warn('Invalid format')
+                    //Say.warn('Invalid format')
                 }
 
                 this.setState({errors})
