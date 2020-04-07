@@ -1,11 +1,13 @@
 import React from 'react'
 import {StyleSheet, InteractionManager} from 'react-native'
+import {connect} from 'react-redux'
+import {Creators} from '../actions'
 import {Screen, Text, Row, FlatList, Spacer} from '../components'
 import {Metrics} from '../themes'
 import {_, Say, Consts} from '../utils'
 import {API} from '../services'
 
-export default class Scrn extends React.Component {
+class Scrn extends React.Component {
 
     static navigationOptions = {
         title:`${Consts.tcn.skp.short_desc} Rates`
@@ -24,6 +26,8 @@ export default class Scrn extends React.Component {
 
         try {
             list = await API.getRates()
+
+            this.props.setRates(list)
         }
         catch(err) {
             Say.err(_('500'))
@@ -75,3 +79,9 @@ const style = StyleSheet.create({
         paddingVertical:Metrics.sm
     }
 })
+
+const mapDispatchToProps = dispatch => ({
+    setRates: rates => dispatch(Creators.setKPRates(rates))
+})
+
+export default connect(null, mapDispatchToProps)(Scrn)

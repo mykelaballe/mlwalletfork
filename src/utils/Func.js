@@ -25,6 +25,8 @@ const calculateKPRate = (amount, rates) => {
             return rates[r].chargeValue
         }
     }
+
+    return 0
 }
 
 const randomize = list => list[Math.floor(Math.random() * list.length)]

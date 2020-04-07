@@ -68,6 +68,9 @@ class Scrn extends React.Component {
         const {walletno} = this.props.user
 
         try {
+            let rates = await API.getRates()
+            this.props.setRates(rates)
+
             let res = await API.getAccountInfo(walletno)
             if(!res.error) {
                 this.props.updateInfo({
@@ -76,6 +79,8 @@ class Scrn extends React.Component {
                     email:res.data.EmailAdd
                 })
             }
+
+            
         }
         catch(err) {
 
@@ -198,7 +203,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    updateInfo:newInfo => dispatch(Creators.updateUserInfo(newInfo))
+    updateInfo:newInfo => dispatch(Creators.updateUserInfo(newInfo)),
+    setRates: rates => dispatch(Creators.setKPRates(rates))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

@@ -20,7 +20,7 @@ class Scrn extends React.Component {
     state = {
         receiver:this.props.navigation.state.params.receiver,
         amount:'',
-        charges:'25',
+        charges:'',
         total:'',
         processing:false
     }
@@ -38,17 +38,18 @@ class Scrn extends React.Component {
     }
 
     handleChangeAmount = amount => {
+        let charges = Func.calculateKPRate(amount, this.props.rates)
         this.setState({
             amount,
-            //charges:Func.calculateKPRate(amount),
-            //total:Func.compute(this.state.charges, amount)
+            charges,
+            total:Func.compute(charges, amount)
         })
     }
 
     handleAddNewReceiver = () => this.props.navigation.navigate('SavedKPReceivers')
 
     handleSendMoney = async () => {
-        const {amount, total, processing} = this.state
+        const {total, processing} = this.state
         const {params} = this.props.navigation.state
 
         if(processing) return false
@@ -62,13 +63,6 @@ class Scrn extends React.Component {
             })
 
             if(!res.error) {
-
-                let charges = Func.calculateKPRate(amount, this.props.rates)
-
-                this.setState({
-                    charges,
-                    total:Func.compute(this.state.charges, amount)
-                })
 
                 this.props.navigation.navigate('TransactionReview',{
                     type:Consts.tcn.skp.code,
@@ -117,15 +111,15 @@ class Scrn extends React.Component {
                 </Screen>
                 
                 <Footer>
-                    {/*<Text mute>Charge</Text>
+                    <Text mute>Charge</Text>
                     <Text md>PHP {Func.formatToCurrency(charges)}</Text>
 
-                    <Spacer />*/}
+                    <Spacer />
 
-                    {/*<Text mute>Total</Text>
+                    <Text mute>Total</Text>
                     <Text md>PHP {Func.formatToCurrency(total)}</Text>
 
-                    <Spacer />*/}
+                    <Spacer />
                     
                     <Button disabled={!ready} t={Consts.tcn.skp.submit_text} onPress={this.handleSendMoney} loading={processing} />
                 </Footer>
