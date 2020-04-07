@@ -147,7 +147,7 @@ class Scrn extends React.Component {
                         <TextInput
                             disabled
                             label="Partner's Name"
-                            value={partner && partner.bank_name}
+                            value={partner && partner.PartnersName}
                             rightContent={<Icon name='ios-list' color={Colors.gray} size={Metrics.icon.rg} />}
                         />
                     </TouchableOpacity>

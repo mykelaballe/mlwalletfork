@@ -2,7 +2,7 @@ import axios from 'axios'
 import Consts from '../utils/Consts'
 import Storage from '../utils/Storage'
 
-const qs = require('querystring')
+//const qs = require('querystring')
 
 let headers = {
   'Accept': 'application/json',

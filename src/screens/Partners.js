@@ -8,7 +8,7 @@ import {API} from '../services'
 const ItemUI = props => (
     <>
         <Ripple onPress={() => props.onPress(props.data)} style={style.item}>
-            <Text md>{props.data.bank_name}</Text>
+            <Text md>{props.data.PartnersName}</Text>
         </Ripple>
         <HR />
     </>
@@ -56,7 +56,7 @@ class Scrn extends React.Component {
         let list = []
 
         this.listHolder.map(section => {
-            let data = section.data.filter(item => item.bank_name.toUpperCase().indexOf(searchText.toUpperCase()) > -1)
+            let data = section.data.filter(item => item.PartnersName.toUpperCase().indexOf(searchText.toUpperCase()) > -1)
             
             if(data.length > 0) {
                 list = list.concat({
