@@ -50,7 +50,7 @@ const answer3 = (
 
 const answer4 = (
     <>
-        <Text>Fully verifying your ML Wallet account allows users to increase wallet size, cash in, cash out and send money limits. See transaction limits below according to each level:</Text>
+        <Text>Fully verifying your ML Wallet account allows users to increase wallet size, cash in, cash out and send money limits.</Text>
     </>
 )
 
@@ -105,9 +105,7 @@ const answer10 = (
 )
 
 const answer11 = (
-    <Text>Yes, M Lhuillier has over 2500 branches nationwide for you to choose from. Find the closest branch near you
-        <Text b onPress={() => NavigationService.navigate('Locator')}> here</Text>
-    </Text>
+    <Text>Yes, M Lhuillier has over 2500 branches nationwide for you to choose from</Text>
 )
 
 const answer15 = (
