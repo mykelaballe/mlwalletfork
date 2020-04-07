@@ -25,7 +25,7 @@ class Scrn extends React.Component {
         processing:false
     }
 
-    componentDidMount = () => getData()
+    componentDidMount = () => this.getData()
 
     getData = async () => {
         try {
