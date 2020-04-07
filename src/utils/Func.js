@@ -9,15 +9,22 @@ import Validator from './Validator'
 import {request, PERMISSIONS, RESULTS} from 'react-native-permissions'
 import Geolocation from 'react-native-geolocation-service'
 
-
 function compute() {
     let total = 0
 
     for(i = 0; i < arguments.length; i++) {
         total += parseFloat(Formatter.formatToCurrency(arguments[i]))
-      }
+    }
 
     return Formatter.formatToCurrency(total)
+}
+
+const calculateKPRate = (amount, rates) => {
+    for(let r in rates) {
+        if(amount >= rates[r].minAmount && amount <= rates[r].maxAmount) {
+            return rates[r].chargeValue
+        }
+    }
 }
 
 const randomize = list => list[Math.floor(Math.random() * list.length)]
@@ -94,6 +101,7 @@ export default {
     ...Formatter,
     ...Validator,
     compute,
+    calculateKPRate,
     randomize,
     getLocation,
 }

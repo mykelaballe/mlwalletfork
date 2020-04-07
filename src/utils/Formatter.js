@@ -1,6 +1,8 @@
 import _ from './Lang'
 
 const formatToCurrency = value => {
+    if(value === undefined) return '0.00'
+
     value = parseFloat(value).toFixed(2)
     return isNaN(value) ? '0.00' : value
 }

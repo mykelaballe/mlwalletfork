@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Creators} from '../actions'
 import {Screen, Footer, Text, Spacer, Button, ButtonText, TextInput, Icon, HeaderRight} from '../components'
 import {Colors} from '../themes'
 import {_, Consts, Func, Say} from '../utils'
@@ -24,17 +25,30 @@ class Scrn extends React.Component {
         processing:false
     }
 
+    componentDidMount = () => getData()
+
+    getData = async () => {
+        try {
+            let rates = await API.getRates()
+            this.props.setRates(rates)
+        }
+        catch(err) {
+
+        }
+    }
+
     handleChangeAmount = amount => {
         this.setState({
             amount,
-            total:Func.compute(this.state.charges, amount)
+            //charges:Func.calculateKPRate(amount),
+            //total:Func.compute(this.state.charges, amount)
         })
     }
 
     handleAddNewReceiver = () => this.props.navigation.navigate('SavedKPReceivers')
 
     handleSendMoney = async () => {
-        const {total, processing} = this.state
+        const {amount, total, processing} = this.state
         const {params} = this.props.navigation.state
 
         if(processing) return false
@@ -48,6 +62,14 @@ class Scrn extends React.Component {
             })
 
             if(!res.error) {
+
+                let charges = Func.calculateKPRate(amount, this.props.rates)
+
+                this.setState({
+                    charges,
+                    total:Func.compute(this.state.charges, amount)
+                })
+
                 this.props.navigation.navigate('TransactionReview',{
                     type:Consts.tcn.skp.code,
                     ...params,
@@ -100,10 +122,10 @@ class Scrn extends React.Component {
 
                     <Spacer />*/}
 
-                    <Text mute>Total</Text>
+                    {/*<Text mute>Total</Text>
                     <Text md>PHP {Func.formatToCurrency(total)}</Text>
 
-                    <Spacer />
+                    <Spacer />*/}
                     
                     <Button disabled={!ready} t={Consts.tcn.skp.submit_text} onPress={this.handleSendMoney} loading={processing} />
                 </Footer>
@@ -113,7 +135,12 @@ class Scrn extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    user: state.user.data
+    user: state.user.data,
+    ...state.kp
 })
 
-export default connect(mapStateToProps)(Scrn)
+const mapDispatchToProps = dispatch => ({
+    setRates: rates => dispatch(Creators.setKPRates(rates))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

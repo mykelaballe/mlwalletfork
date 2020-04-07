@@ -90,7 +90,7 @@ class SendKP extends React.Component {
             let res = await API.sendKPCancel({
                 walletno,
                 kptn,
-                controlno
+                //controlno
             })
             
             if(res.error) Say.warn(res.message)

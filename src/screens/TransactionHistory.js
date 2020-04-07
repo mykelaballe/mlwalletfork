@@ -143,6 +143,14 @@ class Scrn extends React.Component {
         InteractionManager.runAfterInteractions(this.getData)
     }
 
+    componentDidUpdate = (prevProps, prevState) => {
+        const {params = {}} = this.props.navigation.state
+        if(params.refresh) {
+            this.props.navigation.setParams({refresh:false})
+            this.handleRefresh()
+        }
+    }
+
     handleDownload = async () => {
         let file = await RNHTMLtoPDF.convert({
             html: "<img src='' />",
@@ -228,7 +236,7 @@ class Scrn extends React.Component {
         let params = {
             _from:'history',
             type:item.transtype,
-            controlno:item.transactionno,
+            //controlno:item.transactionno,
             kptn:item.transactionno,
             transaction: {
                 walletno:item.receiverwalletno,

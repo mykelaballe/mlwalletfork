@@ -71,6 +71,7 @@ import Types from './Types'
  KP
  ----------------------------------------------------------------------*/
 
+ const setKPRates = rates => ({ type: Types.SET_KP_RATES, rates })
  const addKPReceiver = newReceiver => ({ type: Types.ADD_KP_RECEIVER, newReceiver })
  const updateKPReceiver = newProp => ({ type: Types.UPDATE_KP_RECEIVER, newProp})
  const deleteKPReceiver = deletedIndex => ({ type: Types.DELETE_KP_RECEIVER, deletedIndex })
@@ -128,6 +129,7 @@ export default {
   refreshWalletFavorites,
   refreshWalletRecent,
 
+  setKPRates,
   addKPReceiver,
   updateKPReceiver,
   deleteKPReceiver,

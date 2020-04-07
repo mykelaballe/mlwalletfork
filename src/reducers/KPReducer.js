@@ -3,6 +3,7 @@ import Immutable from 'seamless-immutable'
 import {createReducer} from 'reduxsauce'
 
 export const INITIAL_STATE = Immutable({
+  rates:[],
   newReceiver: null,
   receiverIndex: null,
   newProp: null,
@@ -11,6 +12,8 @@ export const INITIAL_STATE = Immutable({
   refreshFavorites: false,
   refreshRecent: false
 })
+
+const setKPRates = (state, action) => state.merge({ rates:action.rates })
 
 const addKPReceiver = (state, action) => state.merge({ newReceiver:action.newReceiver })
 
@@ -25,6 +28,7 @@ const refreshKPFavorites = (state, action) => state.merge({ refreshFavorites:act
 const refreshKPRecent = (state, action) => state.merge({ refreshRecent:action.refresh })
   
 const ACTION_HANDLERS = {
+  [Types.SET_KP_RATES]: setKPRates,
   [Types.ADD_KP_RECEIVER]: addKPReceiver,
   [Types.UPDATE_KP_RECEIVER]: updateKPReceiver,
   [Types.DELETE_KP_RECEIVER]: deleteKPReceiver,
