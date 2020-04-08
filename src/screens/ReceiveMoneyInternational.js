@@ -122,7 +122,7 @@ class Scrn extends React.Component {
                         value={transaction_no}
                         onChangeText={this.handleChangeTransactionNo}
                         onSubmitEditing={this.handleFocusAmount}
-                        autoCapitalize='characters'
+                        autoCapitalize='none'
                         returnKeyType='next'
                     />
 
