@@ -89,7 +89,7 @@ class Scrn extends React.Component {
 
             this.setState({processing:true})
 
-            const {walletno, fname, lname} = this.props.user
+            const {walletno, fname, mname, lname} = this.props.user
             const {digit1, digit2, digit3, digit4, digit5, digit6} = this.state
 
             let pin = `${digit1}${digit2}${digit3}${digit4}${digit5}${digit6}`
@@ -110,12 +110,10 @@ class Scrn extends React.Component {
                     
                     if(type == Consts.tcn.stw.code) {
                         res = await API.sendWalletToWallet({
-                            senderWalletNo:walletno,
-                            senderName:`${fname} ${lname}`,
-                            receivernoVal:transaction.receiver.receiverno,
-                            receiverName:transaction.receiver.fullname,
-                            receiverWalletNo:transaction.receiver.walletno,
-                            receiverMobileNo:transaction.receiver.mobileno,
+                            walletno,
+                            receiverno:transaction.receiver.receiverno,
+                            //receiverWalletNo:transaction.receiver.walletno,
+                            //receiverMobileNo:transaction.receiver.mobileno,
                             principal:transaction.amount,
                             charge:transaction.charges,
                             notes:transaction.notes,

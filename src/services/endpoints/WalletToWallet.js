@@ -20,7 +20,7 @@ export default {
     },
 
     sendWalletToWallet: async payload => {
-        let res = await Fetch.post('sendout/wallettowallet',{
+        let res = await Fetch.post('sendmoney/wallettowallet',{
             ...payload,
             currency:'PHP',
             //latitude:'1.1',
