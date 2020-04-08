@@ -65,7 +65,7 @@ const hasSpecialChar = value => {
 }
 
 const isLettersOnly = str => {
-    const regex = /^[a-zA-Z]+$/
+    const regex = /^[a-zA-Z\s]+$/
     return regex.test(str)
 }
 

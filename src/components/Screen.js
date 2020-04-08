@@ -1,6 +1,6 @@
 import React from 'react'
-import {KeyboardAvoidingView, View} from 'react-native'
-import {ScrollView} from './'
+import {View} from 'react-native'
+import {ScrollFix} from './'
 import {Metrics} from '../themes'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 
@@ -19,24 +19,17 @@ export default props => {
         )
     }
 
+    if(props.fix) {
+        <KeyboardAwareScrollView style={style} showsVerticalScrollIndicator={false}>
+                <ScrollFix>
+                    {props.children}
+                </ScrollFix>
+        </KeyboardAwareScrollView>
+    }
+
     return (
         <KeyboardAwareScrollView style={style} showsVerticalScrollIndicator={false}>
                 {props.children}
         </KeyboardAwareScrollView>
-    )
-
-    return (
-        <ScrollView keyboardShouldPersistTaps='handled'>
-            <KeyboardAvoidingView style={style} behavior='padding'>
-                {props.children}
-                <View style={{height:10}} />
-            </KeyboardAvoidingView>
-        </ScrollView>
-    )
-
-    return (
-        <KeyboardAvoidingView style={style}>
-            {props.ns ? props.children : <ScrollView keyboardShouldPersistTaps='handled'>{props.children}</ScrollView>}
-        </KeyboardAvoidingView>
     )
 }

@@ -59,12 +59,12 @@ export default class Scrn extends React.Component {
 
         return (
             <View style={style.container}>
-                <SearchInput
+                {/*<SearchInput
                     onChangeText={this.handleChangeSearch}
                     value={search}
                 />
 
-                <Spacer />
+                <Spacer />*/}
 
                 <SectionList
                     sections={list}

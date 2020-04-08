@@ -1,7 +1,7 @@
 import React from 'react'
 import {View, StyleSheet, InteractionManager, TouchableOpacity} from 'react-native'
 import {connect} from 'react-redux'
-import {Provider, FlatList, Text, Row, HeaderRight, HR, Spacer, ButtonText, ButtonIcon, StaticInput, Picker, MonthPicker, DayPicker, YearPicker} from '../components'
+import {Provider, FlatList, Text, Row, HeaderRight, ScrollFix, HR, Spacer, ButtonText, ButtonIcon, StaticInput, Picker, MonthPicker, DayPicker, YearPicker} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Consts, Say, Func} from '../utils'
 import {API} from '../services'
@@ -24,7 +24,7 @@ const ItemUI = ({data, onPress}) => (
             </View>
 
             <View>
-                <Text b md right>{data.transtype === Consts.tcn.rmd.code || data.transtype === Consts.tcn.rmi.code ? '' : '-'}PHP {Func.formatToRealCurrency(data.amount)}</Text>
+                <Text b md right>{data.transtype === Consts.tcn.rmd.code || data.transtype === Consts.tcn.rmi.code ? '' : '-'}{data.currency} {Func.formatToRealCurrency(data.amount)}</Text>
                 <TouchableOpacity onPress={() => onPress(data)}>
                     <Text brand right>View details</Text>
                 </TouchableOpacity>
@@ -321,7 +321,11 @@ class Scrn extends React.Component {
 
     handleRefresh = () => this.setState({refreshing:true},this.getData)
 
-    renderItem = ({item}) => <ItemUI data={item} onPress={this.handleViewDetails} />
+    renderItem = ({item}) => (
+        <ScrollFix>
+            <ItemUI data={item} onPress={this.handleViewDetails} />
+        </ScrollFix>
+    )
 
     render() {
 

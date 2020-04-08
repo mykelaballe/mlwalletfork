@@ -1,7 +1,7 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager} from 'react-native'
+import {View, StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
-import {Screen, Text, Row, Spacer, Avatar, TopBuffer, Button, Outline} from '../components'
+import {Screen, Text, Row, Spacer, Avatar, Button, Outline} from '../components'
 import {Metrics} from '../themes'
 import {_, Func, Consts} from '../utils'
 
@@ -20,8 +20,7 @@ class Scrn extends React.Component {
         const {user} = this.props
 
         return (
-            <Screen>
-                <TopBuffer sm />
+            <Screen fix>
 
                 <View style={style.topContainer}>
                     <Avatar source={user.profilepic ? `${Consts.baseURL}wallet/image?walletno=${user.walletno}` : null} size={Metrics.image.lg} />

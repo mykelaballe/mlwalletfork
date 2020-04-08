@@ -37,6 +37,7 @@ import Responder from './Responder'
 import Ripple from './Ripple'
 import Row from './Row'
 import Screen from './Screen'
+import ScrollFix from './ScrollFix'
 import ScrollView from './ScrollView'
 import SearchInput from './SearchInput'
 import SectionList from './SectionList'
@@ -92,6 +93,7 @@ export {
     Ripple,
     Row,
     Screen,
+    ScrollFix,
     ScrollView,
     SearchInput,
     SectionList,
