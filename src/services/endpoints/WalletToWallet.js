@@ -41,8 +41,8 @@ export default {
             error:false,
             message:res.respmessage,
             data: {
-                kptn:res.kptnVal,
-                balance:res.BalanceVal
+                kptn:res.kptn,
+                balance:res.Balance
             }
         }
     },
