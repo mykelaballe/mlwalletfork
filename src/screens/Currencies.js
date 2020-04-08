@@ -36,6 +36,10 @@ class Currencies extends React.Component {
         try {
             list = [
                 {
+                    name:'Philippine Peso',
+                    abbr:'PHP',
+                },
+                {
                     name:'Australian Dollar',
                     abbr:'AUD',
                 },
