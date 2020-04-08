@@ -111,9 +111,15 @@ class Scrn extends React.Component {
                     if(type == Consts.tcn.stw.code) {
                         res = await API.sendWalletToWallet({
                             walletno,
+                            senderfname:fname,
+                            sendermname:mname,
+                            senderlname:lname,
                             receiverno:transaction.receiver.receiverno,
-                            //receiverWalletNo:transaction.receiver.walletno,
-                            //receiverMobileNo:transaction.receiver.mobileno,
+                            receiverfname:transaction.receiver.fname,
+                            receivermname:transaction.receiver.mname,
+                            receiverlname:transaction.receiver.lname,
+                            receiverWalletNo:transaction.receiver.walletno,
+                            receiverMobileNo:transaction.receiver.mobileno,
                             principal:transaction.amount,
                             charge:transaction.charges,
                             notes:transaction.notes,

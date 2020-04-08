@@ -59,6 +59,8 @@ class Scrn extends React.Component {
         if(processing) return false
         
         try {
+            this.setState({processing:true})
+
             transaction_no = transaction_no.trim()
             amount = amount.trim()
             sender = sender.trim()
