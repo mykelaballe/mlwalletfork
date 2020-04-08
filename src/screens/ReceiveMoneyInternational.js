@@ -74,6 +74,7 @@ class Scrn extends React.Component {
                     currency,
                     amount,
                     accountid:partner.PartnersID,
+                    partnersname:partner.PartnersName,
                     sendername:sender
                 })
 
