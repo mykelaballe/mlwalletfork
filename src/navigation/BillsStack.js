@@ -6,7 +6,7 @@ export default createMaterialTopTabNavigator({
   BillsCategory: {
     screen: Scrn.BillsCategoryScrn,
     navigationOptions:() => ({
-      tabBarLabel: 'Categories'
+      tabBarLabel: 'Category'
     })
   },
   AllBillsPartners: {
