@@ -35,7 +35,8 @@ class Scrn extends React.Component {
             const now = moment().format('YYYY-MM-DD HH:mm:ss')
             let payload = {
                 walletno,
-                qrcode:`${walletno}-${now}`
+                qrcode:`${walletno}-${now}`,
+                qrdate:now
             }
 
             let res = await API.updateQR(payload)
