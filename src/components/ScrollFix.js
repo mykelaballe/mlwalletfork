@@ -6,7 +6,7 @@ export default props => {
     if(!Consts.is_android) {
         return (
             <TouchableWithoutFeedback>
-                <View>
+                <View style={props.style}>
                     {props.children}
                 </View>
             </TouchableWithoutFeedback>
