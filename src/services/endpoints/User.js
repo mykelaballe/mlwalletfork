@@ -17,5 +17,5 @@ export default {
 
     getAccountInfo: async walletno => await Fetch.get(`wallet/info?walletno=${walletno}`),
 
-    updateQR: async payload => await Fetch.put('updateQR',payload)
+    updateQR: async payload => await Fetch.put('update/qrcode',payload)
 }
