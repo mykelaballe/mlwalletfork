@@ -1,7 +1,7 @@
 import React from 'react'
 import {View, StyleSheet, InteractionManager} from 'react-native'
 import {connect} from 'react-redux'
-import {Screen, Text, Row, Spacer, FlatList, Bullet} from '../components'
+import {Screen, Text, Row, Spacer, FlatList, Bullet, ScrollFix} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_} from '../utils'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -126,29 +126,31 @@ class Scrn extends React.Component {
     }
 
     renderItem = ({item, index}) => (
-        <Row ar style={style.item}>
-            <View style={style.cell}>
-                <Text center sm>{item.feature}</Text>
-            </View>
+        <ScrollFix>
+            <Row ar style={style.item}>
+                <View style={style.cell}>
+                    <Text center sm>{item.feature}</Text>
+                </View>
 
-            <View style={style.cell}>
-                {typeof item.semi_verified.value === 'string' && <Text center sm>{item.semi_verified.value}</Text>}
-                {item.semi_verified.value === true && <Icon name='ios-checkmark' size={Metrics.icon.md} color={Colors.mute} />}
-                {item.semi_verified.value === false && <Icon name='ios-close' size={Metrics.icon.md} color={Colors.mute} />}
-                {item.semi_verified.note && <Text xs center mute>{item.semi_verified.note}</Text>}
-            </View>
+                <View style={style.cell}>
+                    {typeof item.semi_verified.value === 'string' && <Text center sm>{item.semi_verified.value}</Text>}
+                    {item.semi_verified.value === true && <Icon name='ios-checkmark' size={Metrics.icon.md} color={Colors.mute} />}
+                    {item.semi_verified.value === false && <Icon name='ios-close' size={Metrics.icon.md} color={Colors.mute} />}
+                    {item.semi_verified.note && <Text xs center mute>{item.semi_verified.note}</Text>}
+                </View>
 
-            <View style={style.cell}>
-                {typeof item.verified.value === 'string' && <Text center sm>{item.verified.value}</Text>}
-                {item.verified.value === true && <Icon name='ios-checkmark' size={Metrics.icon.md} color={Colors.mute} />}
-                {item.verified.value === false && <Icon name='ios-close' size={Metrics.icon.md} color={Colors.mute} />}
-                {item.verified.note && <Text xs center mute>{item.verified.note}</Text>}
-            </View>
+                <View style={style.cell}>
+                    {typeof item.verified.value === 'string' && <Text center sm>{item.verified.value}</Text>}
+                    {item.verified.value === true && <Icon name='ios-checkmark' size={Metrics.icon.md} color={Colors.mute} />}
+                    {item.verified.value === false && <Icon name='ios-close' size={Metrics.icon.md} color={Colors.mute} />}
+                    {item.verified.note && <Text xs center mute>{item.verified.note}</Text>}
+                </View>
 
-            <View style={style.cell}>
-                <Text sm center mute>{item.sme.value}</Text>
-            </View>
-        </Row>
+                <View style={style.cell}>
+                    <Text sm center mute>{item.sme.value}</Text>
+                </View>
+            </Row>
+        </ScrollFix>
     )
 
     render() {

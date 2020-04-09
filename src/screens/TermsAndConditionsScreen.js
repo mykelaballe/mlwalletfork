@@ -1,6 +1,6 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import {FlatList, Text, Icon, Spacer} from '../components'
+import {FlatList, Text, Icon, Spacer, ScrollFix} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_} from '../utils'
 import data from '../services/terms'
@@ -16,9 +16,11 @@ class TermsAndConditionsScreen extends React.Component {
     }
 
     renderItem = ({item, index}) => (
-        <View style={style.item}>
-            <Text md>{index + 1}. {item}</Text>
-        </View>
+        <ScrollFix>
+            <View style={style.item}>
+                <Text md>{index + 1}. {item}</Text>
+            </View>
+        </ScrollFix>
     )
 
     render() {
