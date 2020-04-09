@@ -158,12 +158,23 @@ class Scrn extends React.Component {
                     else if(type == Consts.tcn.bpm.code) {
                         res = await API.payBill({
                             walletno,
-                            partnersId:transaction.accountid,
+                            partnersId:transaction.biller.partnersid,
                             accountNo:transaction.account_no,
                             accountName:transaction.account_name,
                             email:transaction.email,
                             amountpaid:transaction.total
                         })
+
+                        alert(`
+                        ${walletno}
+                        ${transaction.biller.partnersid}
+                        ${transaction.account_no}
+                        ${transaction.account_name}
+                        ${transaction.email}
+                        ${transaction.total}
+                        ${res.error}
+                        ${res.message}
+                        `)
                     }
                     else if(type == Consts.tcn.bul.code) {
                         let payload = {
