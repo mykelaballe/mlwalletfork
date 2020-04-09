@@ -74,7 +74,8 @@ class Scrn extends React.Component {
                 Consts.tcn.stw.code,
                 Consts.tcn.skp.code,
                 Consts.tcn.wdc.code,
-                Consts.tcn.bul.code
+                Consts.tcn.bul.code,
+                Consts.tcn.bpm.code
             ]
             let latitude = '', longitude = ''
 
@@ -165,7 +166,7 @@ class Scrn extends React.Component {
                             amountpaid:transaction.total
                         })
 
-                        alert(`
+                        /*alert(`
                         ${walletno}
                         ${transaction.biller.partnersid}
                         ${transaction.account_no}
@@ -174,7 +175,7 @@ class Scrn extends React.Component {
                         ${transaction.total}
                         ${res.error}
                         ${res.message}
-                        `)
+                        `)*/
                     }
                     else if(type == Consts.tcn.bul.code) {
                         let payload = {

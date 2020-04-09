@@ -64,9 +64,9 @@ class Scrn extends React.Component {
 
     handleEdit = () => {
         const {navigate, state} = this.props.navigation
-        const {biller} = state.params
+        //onst {biller} = this.state
         this.handleToggleMenu()
-        navigate('UpdateBiller',{biller})
+        navigate('UpdateBiller',{biller:this.state})
     }
 
     handleDelete = () => {
