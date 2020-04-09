@@ -44,7 +44,12 @@ const formatAddress = userObject => {
         userObject.country
     ]
 
-    if(userObject.province) data.push(userObject.province.province || userObject.province)
+    let province = ''
+
+    if(typeof userObject.province === 'string') province = userObject.province
+    else if(typeof userObject.province === 'object') province = userObject.province.province
+
+    if(province) data.push(province)
     if(userObject.city) data.push(userObject.city)
     if(userObject.barangay) data.push(userObject.barangay)
     if(userObject.street) data.push(userObject.street)
