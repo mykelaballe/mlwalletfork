@@ -44,16 +44,19 @@ const formatAddress = userObject => {
         userObject.country
     ]
 
-    let province = ''
+    let province = '', house = ''
 
     if(typeof userObject.province === 'string') province = userObject.province
     else if(typeof userObject.province === 'object') province = userObject.province.province
+
+    if(userObject.house) house = userObject.house
+    else if(userObject.houseno) house = userObject.houseno
 
     if(province) data.push(province)
     if(userObject.city) data.push(userObject.city)
     if(userObject.barangay) data.push(userObject.barangay)
     if(userObject.street) data.push(userObject.street)
-    if(userObject.houseno) data.push(userObject.houseno)
+    if(house) data.push(house)
     if(userObject.zipcode) data.push(userObject.zipcode)
 
     return data.reverse().join(', ')
