@@ -1,31 +1,20 @@
-import { Fetch } from "../../utils"
+import Consts from '../../utils/Consts'
+import Fetch from '../../utils/Fetch'
 
 export default {
     payBill: async payload => {
-        return {
-            error:false
-        }
-        return await Fetch.post('',payload)
+        return await Fetch.post('paybills',{
+            ...payload,
+            currency:'PHP',
+            location:'',
+            deviceid:Consts.deviceId,
+            isRTA:''
+        })
     },
 
     getAllBillers: async category => {
         let data = {}
         let res = await Fetch.get(`bill_partners/all?category=${category}`)
-
-        /*let res = {
-            data: [
-                {
-                    bill_partner_accountid:'MLBPP170388',
-                    bill_partner_name:'API RIA',
-                    classId:'CID081684154611'
-                },
-                {
-                    bill_partner_accountid:'MLBPP130014',
-                    bill_partner_name:'CEBU INSTITUTE OF TECHNOLOGY',
-                    classId:'CID081684154611'
-                }
-            ]
-        }*/
         
         if(res.data) {
             for(let d in res.data) {
@@ -46,56 +35,11 @@ export default {
     },
 
     getBillers: async walletno => {
-        /*return [
-            {
-                bill_partner_accountid:'MLBPP170388',
-                bill_partner_name:'API RIA',
-                classId:'CID081684154611',
-                account_name:'John Smith',
-                account_no:'334455',
-                email:'johnsmith@gmail.com'
-            },
-            {
-                bill_partner_accountid:'MLBPP130014',
-                bill_partner_name:'CEBU INSTITUTE OF TECHNOLOGY',
-                classId:'CID081684154611',
-                account_name:'Jones Smith',
-                account_no:'9982742',
-                email:''
-            }
-        ]*/
         let res = await Fetch.get(`partners/getBillerAccounts?walletno=${walletno}`)
         return res.data || []
     },
 
     getFavoriteBillers: async walletno => {
-        /*return []
-        return [
-            {
-                id:1,
-                partnersid:'MLB22324',
-                partner:'CBN ASIA / 700 CLUB',
-                account_name:'john',
-                account_no:'1234',
-                email:'john@gmail.com'
-            },
-            {
-                id:2,
-                partnersid:'MLB22324',
-                partner:'CBN ASIA',
-                account_name:'john',
-                account_no:'222',
-                email:'john@gmail.com'
-            },
-            {
-                id:3,
-                partnersid:'MLB22324',
-                partner:'700 CLUB',
-                account_name:'john',
-                account_no:'3333',
-                email:'john@gmail.com'
-            }
-        ]*/
         let res = await Fetch.get(`partners/getFavoriteAccounts?walletno=${walletno}`)
         return res.data || []
     },

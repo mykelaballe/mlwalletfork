@@ -69,12 +69,6 @@ class Scrn extends React.Component {
 
                 if(res.error) Say.warn(res.message)
                 else {
-                    /*this.props.addPartner({
-                        ...res,
-                        ...payload,
-                        old_account_no:account_no,
-                        old_account_name:account_name
-                    })*/
                     this.props.refreshAll(true)
                     Say.ok('Biller successfully added')
                     this.props.navigation.pop()

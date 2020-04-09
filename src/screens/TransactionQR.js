@@ -8,7 +8,6 @@ import QRCode from 'react-native-qrcode-svg'
 
 const {width} = Dimensions.get('window')
 const QR_SIZE = width * .80
-const moment = require('moment')
 
 class Scrn extends React.Component {
 
