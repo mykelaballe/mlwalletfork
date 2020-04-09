@@ -65,7 +65,6 @@ class Scrn extends React.Component {
                 ...this.state,
                 biller:params.biller
             },
-            type:Consts.tcn.bpm.code,
             status:'success'
         })
     }

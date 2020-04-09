@@ -1,6 +1,7 @@
 import React from 'react'
 import {View, Dimensions} from 'react-native'
 import {connect} from 'react-redux'
+import {Creators} from '../actions'
 import {Screen, Footer, Spacer, Button, Text} from '../components'
 import {_, Say} from '../utils'
 import {Metrics} from '../themes'
@@ -31,16 +32,16 @@ class Scrn extends React.Component {
         this.setState({processing:true})
 
         try {
+            const now = moment().format('YYYY-MM-DD HH:mm:ss')
             let payload = {
-                data:`${walletno}-${moment()}`
+                data:`${walletno}-${now}`,
+                date:now
             }
 
-            //let res = await API.updateQR(payload)
-            let res = {
-                error:false
-            }
-            if(res.error) Say.some('Error saving new QR')
+            let res = await API.updateQR(payload)
+            if(res.error) Say.warn('Error saving new QR')
             else {
+                this.props.updateInfo({qrcode:payload.data})
                 this.setState({data:payload.data})
             }
         }
@@ -82,4 +83,8 @@ const mapStateToProps = state => ({
     user: state.user.data
 })
 
-export default connect(mapStateToProps)(Scrn)
+const mapDispatchToProps = dispatch => ({
+    updateInfo:newInfo => dispatch(Creators.updateUserInfo(newInfo))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Scrn)
