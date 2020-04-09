@@ -1,7 +1,7 @@
 import React from 'react'
 import {withNavigation} from 'react-navigation'
 import {Header} from './'
-import {Screen, Footer, Text, Spacer, Button, View} from '../'
+import {Screen, Footer, Text, Spacer, Button, View, ScrollFix} from '../'
 import {Metrics} from '../../themes'
 import {_, Consts, Func, Say} from '../../utils'
 
@@ -74,7 +74,7 @@ class SendBankTransfer extends React.Component {
                 <Screen compact>
                     <Header tcn={tcn} />
                     
-                    <View style={{padding:Metrics.lg}}>
+                    <ScrollFix style={{padding:Metrics.lg}}>
                         <Text sm mute>Partner's Name</Text>
                         <Text>{bank}</Text>
 
@@ -122,7 +122,7 @@ class SendBankTransfer extends React.Component {
 
                         <Text sm mute>Type</Text>
                         <Text>{type}</Text>
-                    </View>
+                    </ScrollFix>
                 </Screen>
 
                 <Footer>

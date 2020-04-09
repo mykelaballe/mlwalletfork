@@ -1,7 +1,7 @@
 import React from 'react'
 import {withNavigation} from 'react-navigation'
 import {Header} from './'
-import {Screen, Footer, View, Text, Spacer, Button} from '../'
+import {Screen, Footer, View, Text, Spacer, Button, ScrollFix} from '../'
 import {Metrics} from '../../themes'
 import {Consts, Func, Say} from '../../utils'
 
@@ -62,7 +62,7 @@ class BuyLoad extends React.Component {
                         status='success'
                     />
 
-                    <View style={{padding:Metrics.lg}}>
+                    <ScrollFix style={{padding:Metrics.lg}}>
                         <Text sm mute>Mobile Number</Text>
                         <Text>{contact_no}</Text>
 
@@ -95,7 +95,7 @@ class BuyLoad extends React.Component {
 
                         <Text sm mute>Type</Text>
                         <Text>{type}</Text>
-                    </View>
+                    </ScrollFix>
                 </Screen>
 
                 <Footer>

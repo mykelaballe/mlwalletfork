@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Creators} from '../../actions'
 import {withNavigation} from 'react-navigation'
 import {Header} from './'
-import {Screen, Footer, Text, Spacer, Button, View, Row} from '../'
+import {Screen, Footer, Text, Spacer, Button, View, Row, ScrollFix} from '../'
 import {Metrics} from '../../themes'
 import {_, Consts, Func, Say} from '../../utils'
 import {API} from '../../services'
@@ -126,7 +126,7 @@ class SendKP extends React.Component {
                         cancellable={cancellable}
                     />
 
-                    <View style={{padding:Metrics.lg}}>
+                    <ScrollFix style={{padding:Metrics.lg}}>
                         <Row>
                             <View style={{flex:1}}>
                                 <Text mute sm>First Name</Text>
@@ -186,7 +186,7 @@ class SendKP extends React.Component {
 
                         <Text sm mute>Type</Text>
                         <Text>{type}</Text>
-                    </View>
+                    </ScrollFix>
                 </Screen>
 
                 <Footer>

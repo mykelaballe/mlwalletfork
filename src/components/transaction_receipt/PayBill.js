@@ -1,7 +1,7 @@
 import React from 'react'
 import {withNavigation} from 'react-navigation'
 import {Header} from './'
-import {Screen, Footer, View, Text, Spacer, Prompt, Button} from '../'
+import {Screen, Footer, View, Text, Spacer, Prompt, Button, ScrollFix} from '../'
 import {Metrics} from '../../themes'
 import {_, Consts, Func, Say} from '../../utils'
 
@@ -79,7 +79,7 @@ class PayBill extends React.Component {
                         status='success'
                     />
 
-                    <View style={{padding:Metrics.lg}}>
+                    <ScrollFix style={{padding:Metrics.lg}}>
                         <Text sm mute>Biller</Text>
                         <Text>{biller_partner_name}</Text>
 
@@ -127,7 +127,7 @@ class PayBill extends React.Component {
 
                         <Text sm mute>Type</Text>
                         <Text>{type}</Text>
-                    </View>
+                    </ScrollFix>
                 </Screen>
 
                 <Footer>

@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Creators} from '../../actions'
 import {withNavigation} from 'react-navigation'
 import {Header} from './'
-import {Screen, Footer, Text, Spacer, Button, View} from '../'
+import {Screen, Footer, Text, Spacer, Button, View, ScrollFix} from '../'
 import {Metrics} from '../../themes'
 import {_, Consts, Func, Say} from '../../utils'
 import {API} from '../../services'
@@ -110,7 +110,7 @@ class WithdrawCash extends React.Component {
                         tcn={kptn}
                     />
 
-                    <View style={{padding:Metrics.lg}}>
+                    <ScrollFix style={{padding:Metrics.lg}}>
                         <Text sm mute>Full Legal Name</Text>
                         <Text>{user.fname} {user.lname}</Text>
 
@@ -133,7 +133,7 @@ class WithdrawCash extends React.Component {
 
                         <Text sm mute>Type</Text>
                         <Text>{type}</Text>
-                    </View>
+                    </ScrollFix>
                 </Screen>
 
                 <Footer>
