@@ -335,7 +335,7 @@ class Scrn extends React.Component {
 
         return (
             <Provider>
-                <Screen>
+                <View>
                     <View style={style.toolbar}>
                         <ButtonText icon='filter-variant' t='Filters' onPress={this.handleToggleFilters} />
                     </View>
@@ -436,7 +436,7 @@ class Scrn extends React.Component {
                     <DayPicker month={month_to} visible={showDayTo} onSelect={this.handleSelectDayTo} onDismiss={this.handleHideDayToPicker} />
 
                     <YearPicker visible={showYearTo} max={CURRENT_YEAR} min={MIN_YEAR} onSelect={this.handleSelectYearTo} onDismiss={this.handleHideYearToPicker} />   
-                </Screen>
+                </View>
             </Provider>
         )
     }
