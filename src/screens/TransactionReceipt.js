@@ -60,12 +60,10 @@ export default class Scrn extends React.Component {
     handleSetExportData = exportData => this.setState({exportData})
 
     handleExport = async () => {
-        const {type} = this.props.navigation.state.params
+        const {type, kptn} = this.props.navigation.state.params
         const {date, time, exportData} = this.state
 
         if(!exportData) return false
-
-        let kptn = 'MLW121324234'
 
         let html = `
             <div style="background-color:#323232;padding:3px 15px 3px 15px;margin-top:3px">
