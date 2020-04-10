@@ -335,7 +335,7 @@ class Scrn extends React.Component {
 
         return (
             <Provider>
-                <Screen ns>
+                <Screen>
                     <View style={style.toolbar}>
                         <ButtonText icon='filter-variant' t='Filters' onPress={this.handleToggleFilters} />
                     </View>
