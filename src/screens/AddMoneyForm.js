@@ -10,12 +10,7 @@ class Scrn extends React.Component {
         title:'Add Money'
     }
 
-    componentDidMount = () => {
-        Say.some(
-            "This is sensitive personal information.\nPlease be careful in sharing these for your account's security",
-            'Attention!'
-        )
-    }
+    componentDidMount = () => Say.some(_('88'),'Attention!')
 
     render() {
 

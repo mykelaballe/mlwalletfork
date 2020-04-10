@@ -14,7 +14,7 @@ export default class Scrn extends React.Component {
 
     handleUseForm = () => this.props.navigation.navigate('AddMoneyForm')
 
-    handleLocateBranch = () => this.props.navigation.navigate('Locator')
+    handleLocateBranch = () => this.props.navigation.navigate('Locator',{is_nearest:true})
 
     render() {
 

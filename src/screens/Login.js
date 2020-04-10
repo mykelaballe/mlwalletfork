@@ -76,15 +76,20 @@ class Scrn extends React.Component {
 
         if(processing) return false
 
-        let locationRes = await Func.getLocation()
-        if(locationRes.error) return false
-        else {
-            latitude = locationRes.data.latitude
-            longitude = locationRes.data.longitude
-        }
-
         try {
             this.setState({processing:true})
+
+            let locationRes = await Func.getLocation()
+            if(locationRes.error) {
+                this.setState({processing:false})
+                return false
+            }
+            else {
+                latitude = locationRes.data.latitude
+                longitude = locationRes.data.longitude
+
+                alert(`${latitude} ${longitude}`)
+            }
 
             username = username.trim()
             password = password.trim()
@@ -134,6 +139,10 @@ class Scrn extends React.Component {
                     else if(res.message === 'server_error') throw new Error()
                 }
                 else {
+                    
+                    res.data.latitude = latitude
+                    res.data.longitude = longitude
+
                     if(res.data.isresetpass === 1) {
                         this.props.navigation.navigate('CreatePassword',{
                             walletno:res.data.walletno,

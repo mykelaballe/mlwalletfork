@@ -1,6 +1,7 @@
 import React from 'react'
 import {View, StyleSheet, TouchableOpacity} from 'react-native'
 import {connect} from 'react-redux'
+import {withNavigationFocus} from 'react-navigation'
 import {ScrollView, Text, Row, Spacer, HR, Avatar, TopBuffer, Button} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say, Func, Consts} from '../utils'
@@ -13,12 +14,15 @@ class Scrn extends React.Component {
         title:'My Account'
     }
 
-    componentDidMount = () => {
-        Say.some(
-            "This is sensitive personal information.\nPlease be careful in sharing these for your account's security",
-            'Attention!'
-        )
+    state = {
+        isFocused:this.props.isFocused
     }
+
+    componentDidMount = () => Say.some(_('88'),'Attention!')
+
+    /*componentDidUpdate = (prevProps, prevState) => {
+        if(this.props.isFocused) Say.some(_('88'),'Attention!')
+    }*/
 
     handleGoToVerificationLevels = () => this.props.navigation.navigate('VerificationLevels')
 
@@ -122,4 +126,4 @@ const mapStateToProps = state => ({
     user: state.user.data
 })
 
-export default connect(mapStateToProps)(Scrn)
+export default withNavigationFocus(connect(mapStateToProps)(Scrn))
