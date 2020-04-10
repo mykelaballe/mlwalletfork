@@ -18,7 +18,7 @@ import User from './endpoints/User'
 
 export default {
     login: async payload => {
-        return {
+        /*return {
             error:false,
             data: {
                 username:'johnsmith',
@@ -54,7 +54,7 @@ export default {
                 qrcode:'14040000000020',
                 error:payload.username == 'newphone' ? 'registered_anotherdevice' : null
             }
-        }
+        }*/
         let res = await Fetch.post('wallet/login', {
             ...payload,
             //latitude:'1',

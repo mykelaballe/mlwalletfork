@@ -87,8 +87,6 @@ class Scrn extends React.Component {
             else {
                 latitude = locationRes.data.latitude
                 longitude = locationRes.data.longitude
-
-                alert(`${latitude} ${longitude}`)
             }
 
             username = username.trim()

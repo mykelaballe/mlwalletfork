@@ -36,29 +36,7 @@ class Scrn extends React.Component {
         let branches = []
 
         try {
-            //branches = await API.getBranches()
-            branches = [
-                {
-                    branchname:'Dumlog',
-                    latitude:10.241600,
-                    longitude:123.836940,
-                    addres:'Dumlog'
-                },
-                {
-                    
-                    branchname:'Basak',
-                    latitude:10.287020,
-                    longitude:123.861560,
-                    addres:'Basak'
-                },
-                {
-                    
-                    branchname:'Cansojong',
-                    latitude:10.255290,
-                    longitude:123.846470,
-                    addres:'Cansojong'
-                }
-            ]
+            branches = await API.getBranches()
 
             let location = await Func.getCurrentPosition()
             if(!location.error) {
