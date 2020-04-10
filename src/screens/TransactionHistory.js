@@ -1,7 +1,7 @@
 import React from 'react'
 import {View, StyleSheet, InteractionManager, TouchableOpacity} from 'react-native'
 import {connect} from 'react-redux'
-import {Provider, Screen, FlatList, Text, Row, HeaderRight, ScrollFix, HR, Spacer, ButtonText, ButtonIcon, StaticInput, Picker, MonthPicker, DayPicker, YearPicker} from '../components'
+import {Provider, FlatList, Text, Row, HeaderRight, ScrollFix, HR, Spacer, ButtonText, ButtonIcon, StaticInput, Picker, MonthPicker, DayPicker, YearPicker} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Consts, Say, Func} from '../utils'
 import {API} from '../services'
@@ -335,108 +335,106 @@ class Scrn extends React.Component {
 
         return (
             <Provider>
-                <View>
-                    <View style={style.toolbar}>
-                        <ButtonText icon='filter-variant' t='Filters' onPress={this.handleToggleFilters} />
+                <View style={style.toolbar}>
+                    <ButtonText icon='filter-variant' t='Filters' onPress={this.handleToggleFilters} />
+                </View>
+
+                <HR />
+
+                {show_filters &&
+                <>
+                    <View style={{paddingHorizontal:Metrics.md,paddingVertical:Metrics.rg}}>
+                        <Picker
+                            selected={selected_timeframe.label}
+                            items={timeframe_filters}
+                            placeholder='Transaction Timeframe'
+                            onChoose={this.handleSelectTimeframeFilter}
+                        />
+
+                        {selected_timeframe.value === 'custom' &&
+                        <ScrollFix style={{marginVertical:Metrics.rg}}>
+                            <Text sm mute>From</Text>
+                            <Row bw>
+                                <StaticInput
+                                    label='Month'
+                                    value={month_from ? moment(month_from,'M').format('MMM') : null}
+                                    onPress={this.handleChangeMonthFrom}
+                                    style={{flex:2}}
+                                />
+                                <Spacer h xs/>
+                                <StaticInput
+                                    label='Day'
+                                    value={day_from}
+                                    onPress={this.handleChangeDayFrom}
+                                    style={{flex:1}}
+                                />
+                                <Spacer h xs/>
+                                <StaticInput
+                                    label='Year'
+                                    value={year_from}
+                                    onPress={this.handleChangeYearFrom}
+                                    style={{flex:1}}
+                                />
+                            </Row>
+
+                            <Text sm mute>To</Text>
+                            <Row bw>
+                                <StaticInput
+                                    label='Month'
+                                    value={month_to ? moment(month_to,'M').format('MMM') : null}
+                                    onPress={this.handleChangeMonthTo}
+                                    style={{flex:2}}
+                                />
+                                <Spacer h xs/>
+                                <StaticInput
+                                    label='Day'
+                                    value={day_to}
+                                    onPress={this.handleChangeDayTo}
+                                    style={{flex:1}}
+                                />
+                                <Spacer h xs/>
+                                <StaticInput
+                                    label='Year'
+                                    value={year_to}
+                                    onPress={this.handleChangeYearTo}
+                                    style={{flex:1}}
+                                />
+                            </Row>
+                        </ScrollFix>
+                        }
+
+                        <Picker
+                            selected={selected_type.label}
+                            items={type_filters}
+                            placeholder='Transaction Type'
+                            onChoose={this.handleSelectTypeFilter}
+                        />
                     </View>
 
                     <HR />
+                </>
+                }
 
-                    {show_filters &&
-                    <>
-                        <View style={{paddingHorizontal:Metrics.md,paddingVertical:Metrics.rg}}>
-                            <Picker
-                                selected={selected_timeframe.label}
-                                items={timeframe_filters}
-                                placeholder='Transaction Timeframe'
-                                onChoose={this.handleSelectTimeframeFilter}
-                            />
+                <FlatList
+                    data={list}
+                    renderItem={this.renderItem}
+                    loading={loading}
+                    refreshing={refreshing}
+                    onRefresh={this.handleRefresh}
+                    placeholder={{}}
+                />
 
-                            {selected_timeframe.value === 'custom' &&
-                            <View style={{marginVertical:Metrics.rg}}>
-                                <Text sm mute>From</Text>
-                                <Row bw>
-                                    <StaticInput
-                                        label='Month'
-                                        value={month_from ? moment(month_from,'M').format('MMM') : null}
-                                        onPress={this.handleChangeMonthFrom}
-                                        style={{flex:2}}
-                                    />
-                                    <Spacer h xs/>
-                                    <StaticInput
-                                        label='Day'
-                                        value={day_from}
-                                        onPress={this.handleChangeDayFrom}
-                                        style={{flex:1}}
-                                    />
-                                    <Spacer h xs/>
-                                    <StaticInput
-                                        label='Year'
-                                        value={year_from}
-                                        onPress={this.handleChangeYearFrom}
-                                        style={{flex:1}}
-                                    />
-                                </Row>
+                <MonthPicker visible={showMonthFrom} onSelect={this.handleSelectMonthFrom} onDismiss={this.handleHideMonthFromPicker} />
 
-                                <Text sm mute>To</Text>
-                                <Row bw>
-                                    <StaticInput
-                                        label='Month'
-                                        value={month_to ? moment(month_to,'M').format('MMM') : null}
-                                        onPress={this.handleChangeMonthTo}
-                                        style={{flex:2}}
-                                    />
-                                    <Spacer h xs/>
-                                    <StaticInput
-                                        label='Day'
-                                        value={day_to}
-                                        onPress={this.handleChangeDayTo}
-                                        style={{flex:1}}
-                                    />
-                                    <Spacer h xs/>
-                                    <StaticInput
-                                        label='Year'
-                                        value={year_to}
-                                        onPress={this.handleChangeYearTo}
-                                        style={{flex:1}}
-                                    />
-                                </Row>
-                            </View>
-                            }
+                <DayPicker month={month_from} visible={showDayFrom} onSelect={this.handleSelectDayFrom} onDismiss={this.handleHideDayFromPicker} />
 
-                            <Picker
-                                selected={selected_type.label}
-                                items={type_filters}
-                                placeholder='Transaction Type'
-                                onChoose={this.handleSelectTypeFilter}
-                            />
-                        </View>
+                <YearPicker visible={showYearFrom} max={CURRENT_YEAR} min={MIN_YEAR} onSelect={this.handleSelectYearFrom} onDismiss={this.handleHideYearFromPicker} />
 
-                        <HR />
-                    </>
-                    }
+                <MonthPicker visible={showMonthTo} onSelect={this.handleSelectMonthTo} onDismiss={this.handleHideMonthToPicker} />
 
-                    <FlatList
-                        data={list}
-                        renderItem={this.renderItem}
-                        loading={loading}
-                        refreshing={refreshing}
-                        onRefresh={this.handleRefresh}
-                        placeholder={{}}
-                    />
+                <DayPicker month={month_to} visible={showDayTo} onSelect={this.handleSelectDayTo} onDismiss={this.handleHideDayToPicker} />
 
-                    <MonthPicker visible={showMonthFrom} onSelect={this.handleSelectMonthFrom} onDismiss={this.handleHideMonthFromPicker} />
-
-                    <DayPicker month={month_from} visible={showDayFrom} onSelect={this.handleSelectDayFrom} onDismiss={this.handleHideDayFromPicker} />
-
-                    <YearPicker visible={showYearFrom} max={CURRENT_YEAR} min={MIN_YEAR} onSelect={this.handleSelectYearFrom} onDismiss={this.handleHideYearFromPicker} />
-
-                    <MonthPicker visible={showMonthTo} onSelect={this.handleSelectMonthTo} onDismiss={this.handleHideMonthToPicker} />
-
-                    <DayPicker month={month_to} visible={showDayTo} onSelect={this.handleSelectDayTo} onDismiss={this.handleHideDayToPicker} />
-
-                    <YearPicker visible={showYearTo} max={CURRENT_YEAR} min={MIN_YEAR} onSelect={this.handleSelectYearTo} onDismiss={this.handleHideYearToPicker} />   
-                </View>
+                <YearPicker visible={showYearTo} max={CURRENT_YEAR} min={MIN_YEAR} onSelect={this.handleSelectYearTo} onDismiss={this.handleHideYearToPicker} />
             </Provider>
         )
     }
