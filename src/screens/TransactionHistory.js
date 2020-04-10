@@ -197,7 +197,7 @@ class Scrn extends React.Component {
             Say.err(_('500'))
         }
 
-        list = list.contact(list, list, list, list, list)
+        list = list.concat(list, list, list, list, list)
 
         this.setState({
             list,
