@@ -128,12 +128,12 @@ class Scrn extends React.Component {
         showDayTo:false,
         showYearFrom:false,
         showYearTo:false,
-        month_from:null,
-        month_to:null,
-        day_from:null,
-        day_to:null,
-        year_from:null,
-        year_to:null,
+        month_from:'',
+        month_to:'',
+        day_from:'',
+        day_to:'',
+        year_from:'',
+        year_to:'',
         loading:true,
         refreshing:false
     }
