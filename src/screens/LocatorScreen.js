@@ -7,8 +7,6 @@ import {_, Say, Consts, Func} from '../utils'
 import {API} from '../services'
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps'
 
-//ios api key = AIzaSyCxoT1ORnihAKC1FZe5FHYCXA_56CUjfkM
-
 class Scrn extends React.Component {
 
     static navigationOptions = {
