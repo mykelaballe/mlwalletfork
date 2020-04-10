@@ -335,7 +335,6 @@ class Scrn extends React.Component {
 
         return (
             <Provider>
-                <ScrollFix>
                 <View style={style.toolbar}>
                     <ButtonText icon='filter-variant' t='Filters' onPress={this.handleToggleFilters} />
                 </View>
@@ -343,7 +342,7 @@ class Scrn extends React.Component {
                 <HR />
 
                 {show_filters &&
-                <>
+                <ScrollFix>
                     <View style={{paddingHorizontal:Metrics.md,paddingVertical:Metrics.rg}}>
                         <Picker
                             selected={selected_timeframe.label}
@@ -413,7 +412,7 @@ class Scrn extends React.Component {
                     </View>
 
                     <HR />
-                </>
+                </ScrollFix>
                 }
 
                 <FlatList
@@ -436,7 +435,6 @@ class Scrn extends React.Component {
                 <DayPicker month={month_to} visible={showDayTo} onSelect={this.handleSelectDayTo} onDismiss={this.handleHideDayToPicker} />
 
                 <YearPicker visible={showYearTo} max={CURRENT_YEAR} min={MIN_YEAR} onSelect={this.handleSelectYearTo} onDismiss={this.handleHideYearToPicker} />
-            </ScrollFix>
             </Provider>
         )
     }
