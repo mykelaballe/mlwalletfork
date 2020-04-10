@@ -342,7 +342,7 @@ class Scrn extends React.Component {
                 <HR />
 
                 {show_filters &&
-                <ScrollFix>
+                <>
                     <View style={{paddingHorizontal:Metrics.md,paddingVertical:Metrics.rg}}>
                         <Picker
                             selected={selected_timeframe.label}
@@ -359,14 +359,13 @@ class Scrn extends React.Component {
                                     label='Month'
                                     value={month_from ? moment(month_from,'M').format('MMM') : null}
                                     onPress={this.handleChangeMonthFrom}
-                                    style={{flex:2}}
+                                    style={{flex:1}}
                                 />
                                 <Spacer h xs/>
                                 <StaticInput
                                     label='Day'
                                     value={day_from}
                                     onPress={this.handleChangeDayFrom}
-                                    style={{flex:1}}
                                 />
                                 <Spacer h xs/>
                                 <StaticInput
@@ -383,14 +382,13 @@ class Scrn extends React.Component {
                                     label='Month'
                                     value={month_to ? moment(month_to,'M').format('MMM') : null}
                                     onPress={this.handleChangeMonthTo}
-                                    style={{flex:2}}
+                                    style={{flex:1}}
                                 />
                                 <Spacer h xs/>
                                 <StaticInput
                                     label='Day'
                                     value={day_to}
                                     onPress={this.handleChangeDayTo}
-                                    style={{flex:1}}
                                 />
                                 <Spacer h xs/>
                                 <StaticInput
@@ -412,7 +410,7 @@ class Scrn extends React.Component {
                     </View>
 
                     <HR />
-                </ScrollFix>
+                </>
                 }
 
                 <FlatList
