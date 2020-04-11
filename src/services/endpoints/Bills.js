@@ -8,6 +8,7 @@ export default {
             currency:'PHP',
             location:'',
             deviceid:Consts.deviceId,
+            version:Consts.appVersion,
             isRTA:''
         })
     },
