@@ -3,7 +3,7 @@ import Fetch from '../../utils/Fetch'
 
 export default {
     payBill: async payload => {
-        return await Fetch.post('paybills',{
+        let res = await Fetch.post('paybills',{
             ...payload,
             currency:'PHP',
             location:'',
@@ -11,6 +11,12 @@ export default {
             version:Consts.appVersion,
             isRTA:''
         })
+
+        return {
+            error:res.respcode == 1 ? false : true,
+            message:res.respmessage,
+            ...res
+        }
     },
 
     getAllBillers: async category => {
