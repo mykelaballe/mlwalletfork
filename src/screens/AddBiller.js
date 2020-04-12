@@ -32,6 +32,8 @@ class Scrn extends React.Component {
 
     handleFocusEmail = () => this.refs.email.focus()
 
+    handlePay = () => this.props.navigation.navigate('PayBill',{biller:this.state})
+
     handleSubmit = async () => {
         try {
             const {walletno} = this.props.user
@@ -131,6 +133,8 @@ class Scrn extends React.Component {
                 </Screen>
 
                 <Footer>
+                    <Button disabled={!ready} t='Pay' onPress={this.handlePay} />
+                    <Spacer xs />
                     <Button disabled={!ready} t='Save Biller' onPress={this.handleSubmit} loading={processing} />
                 </Footer>
             </>
@@ -143,7 +147,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    //addPartner:newPartner => dispatch(Creators.addBankPartner(newPartner)),
     refreshAll:refresh => dispatch(Creators.refreshBillersAll(refresh)),
 })
 
