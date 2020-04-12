@@ -1,12 +1,9 @@
 import Fetch from '../../utils/Fetch'
 
 export default {
-    updateProfile: async payload => {
-        return await Fetch.put('editProfile',payload)
-    },
+    updateProfile: async payload => await Fetch.put('editProfile',payload),
 
     requestUpdateProfile: async payload => {
-        //return {error:false}
         return await Fetch.post('send_wallet_request',{
             ...payload,
             reason:payload.reasons ? payload.reasons.join(';') : ''

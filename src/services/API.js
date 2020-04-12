@@ -91,21 +91,9 @@ export default {
 
     updateDevice: async payload => await Fetch.put('updateDevice',{username:payload.username, deviceid:Consts.deviceId}),
 
-    validateUsername: async username => {
-        /*return {
-            error:true,
-            data:{
-                walletno:'1234',
-                secquestion1:'one',
-                secquestion2:'two',
-                secquestion3:'three'
-            }
-        }*/
-        return await Fetch.post('validateUsername',{username})
-    },
+    validateUsername: async username => await Fetch.post('validateUsername',{username}),
 
     validateSecurityQuestion: async payload => {
-        //return {error:false}
         if(payload.key) {
             return await Fetch.post('validate_answers',{
                 walletno:payload.wallet_no,
@@ -129,7 +117,6 @@ export default {
     ...WithdrawCash,
     ...Bills,
     ...ELoad,
-
     ...OTP,
     ...PIN,
     ...User,

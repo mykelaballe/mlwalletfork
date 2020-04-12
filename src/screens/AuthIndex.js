@@ -5,7 +5,6 @@ import {Creators} from '../actions'
 import {Text, Button, Spacer} from '../components'
 import {Colors} from '../themes'
 import {_, Storage, Consts} from '../utils'
-import RNRestart from 'react-native-restart'
 
 class Scrn extends React.Component {
 
@@ -19,17 +18,12 @@ class Scrn extends React.Component {
         let db = await Storage.doLoad(Consts.db.app)
         db.lang = lang
         await Storage.doSave(Consts.db.app,db)
-        RNRestart.Restart()
+        //RNRestart.Restart()
     }
 
-    handleGoToLogin = () => {
-        this.props.setIsFirstTime(false)
-        //this.props.navigation.navigate('Login')
-    }
+    handleGoToLogin = () => this.props.setIsFirstTime(false)
 
-    handleGoToSignUp = () => {
-        this.props.navigation.navigate('SignUpUsername')
-    }
+    handleGoToSignUp = () => this.props.navigation.navigate('SignUpUsername')
 
     render() {
 
@@ -56,7 +50,7 @@ class Scrn extends React.Component {
             </View>
         )
 
-        return (
+        /*return (
             <ImageBackground source={require('../res/bg.png')} style={style.imgBg}>
 
                 <View style={style.backdrop} />
@@ -76,7 +70,7 @@ class Scrn extends React.Component {
                     <Button sm t='English' onPress={this.handleChangeToEnglish} />
                 </View>
             </ImageBackground>
-        )
+        )*/
     }
 }
 

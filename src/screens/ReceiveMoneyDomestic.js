@@ -5,19 +5,6 @@ import {Screen, Footer, Text, Spacer, Button, TextInput} from '../components'
 import {_, Consts, Say} from '../utils'
 import {API} from '../services'
 
-/*
-785112191406368803
-390
-gelit
-de GuzMan
-*/
-
-/*
-MLX001061704701430219
-100
-abigail
-gerona
-*/
 class Scrn extends React.Component {
 
     static navigationOptions = {
@@ -27,7 +14,6 @@ class Scrn extends React.Component {
     state = {
         transaction_no:'',
         amount:'',
-        sender:'',
         firstname:'',
         lastname:'',
         processing:false
@@ -37,15 +23,11 @@ class Scrn extends React.Component {
 
     handleChangeAmount = amount => this.setState({amount})
 
-    handleChangeSender = sender => this.setState({sender})
-
     handleChangeFirstName = firstname => this.setState({firstname})
 
     handleChangeLastName = lastname => this.setState({lastname})
 
     handleFocusAmount = () => this.refs.amount.focus()
-
-    handleFocusSender = () => this.refs.sender.focus()
 
     handleFocusFirstName = () => this.refs.firstname.focus()
 
@@ -54,7 +36,7 @@ class Scrn extends React.Component {
     handleSubmit = async () => {
         const {walletno} = this.props.user
         const {params} = this.props.navigation.state
-        let {transaction_no, amount, sender, firstname, lastname, processing} = this.state
+        let {transaction_no, amount, firstname, lastname, processing} = this.state
 
         if(processing) return false
         
@@ -63,7 +45,6 @@ class Scrn extends React.Component {
 
             transaction_no = transaction_no.trim()
             amount = amount.trim()
-            //sender = sender.trim()
             firstname = firstname.trim()
             lastname = lastname.trim()
 
@@ -73,7 +54,6 @@ class Scrn extends React.Component {
                     walletno,
                     kptn:transaction_no,
                     principal:amount,
-                    //sender,
                     sender_firstname:firstname,
                     sender_lastname:lastname
                 })
@@ -108,7 +88,7 @@ class Scrn extends React.Component {
     render() {
 
         const {type} = this.props.navigation.state.params
-        const {transaction_no, amount, sender, firstname, lastname, processing} = this.state
+        const {transaction_no, amount, firstname, lastname, processing} = this.state
         let ready = false
 
         if(transaction_no && amount && firstname && lastname) ready = true
@@ -135,14 +115,6 @@ class Scrn extends React.Component {
                         keyboardType='numeric'
                         returnKeyType='next'
                     />
-
-                    {/*<TextInput
-                        ref='sender'
-                        label="Sender's Name"
-                        value={sender}
-                        onChangeText={this.handleChangeSender}
-                        autoCapitalize='words'
-                    />*/}
 
                     <TextInput
                         ref='firstname'

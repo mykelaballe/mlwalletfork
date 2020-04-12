@@ -52,35 +52,22 @@ export default {
     },
 
     getRecentBillers: async walletno => {
-        return []
-        let res = await Fetch.get(`partners/recentreceiverlist?walletno=${walletno}`)
-        return res.recieverlists || []
+        let res = await Fetch.get(`recent/${Consts.tcn.bpm.code}/${walletno}`)
+        return res.data || []
     },
 
-    addBiller: async payload => {
-        return await Fetch.post(`partners/addBillerAccount`,payload)
-    },
+    addBiller: async payload => await Fetch.post(`partners/addBillerAccount`,payload),
 
-    updateBiller: async payload => {
-        return await Fetch.put(`partners/updateBillerAccount`,payload)
-    },
+    updateBiller: async payload => await Fetch.put(`partners/updateBillerAccount`,payload),
 
-    deleteBiller: async payload => {
-        return await Fetch.delete(`partners/deleteBillerAccount?walletno=${payload.walletno}&id=${payload.id}`)
-    },
+    deleteBiller: async payload => await Fetch.delete(`partners/deleteBillerAccount?walletno=${payload.walletno}&id=${payload.id}`),
 
-    addFavoriteBiller: async payload => {
-        return await Fetch.put(`partners/addToFavorite?walletno=${payload.walletno}&id=${payload.id}`)
-    },
+    addFavoriteBiller: async payload => await Fetch.put(`partners/addToFavorite?walletno=${payload.walletno}&id=${payload.id}`),
 
-    removeFavoriteBiller: async payload => {
-        return await Fetch.delete(`partners/removeFromFavorite?walletno=${payload.walletno}&id=${payload.id}`)
-    },
+    removeFavoriteBiller: async payload => await Fetch.delete(`partners/removeFromFavorite?walletno=${payload.walletno}&id=${payload.id}`),
 
     updateFavoriteBiller: async payload => {
-        return {
-            error:false
-        }
+        return {error:false}
         return await Fetch.put('',payload)
     },
 }

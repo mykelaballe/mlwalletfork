@@ -78,18 +78,6 @@ class Scrn extends React.Component {
                     sendername:sender
                 })
 
-                alert(`
-                    ${walletno}
-                    ${transaction_no}
-                    ${currency}
-                    ${amount} - ${typeof amount}
-                    ${partner.PartnersID}
-                    ${partner.PartnersName}
-                    ${sender}
-                    ${res.error}
-                    ${res.message}
-                `)
-
                 if(res.error) {
                     Say.attemptLeft(res.message)
 

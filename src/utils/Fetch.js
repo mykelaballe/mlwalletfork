@@ -2,12 +2,9 @@ import axios from 'axios'
 import Consts from '../utils/Consts'
 import Storage from '../utils/Storage'
 
-//const qs = require('querystring')
-
 let headers = {
   'Accept': 'application/json',
-  'Content-Type': 'application/json',
-  //'Content-Type': 'application/x-www-form-urlencoded'
+  'Content-Type': 'application/json'
 }
 
 export default {
@@ -26,7 +23,6 @@ export default {
       url,
       headers,
       data
-      //data: qs.stringify(data)
     })
 
     return response.data
@@ -46,7 +42,6 @@ export default {
       url,
       headers,
       data
-      //data: qs.stringify(data)
     })
 
     return response.data
@@ -66,7 +61,6 @@ export default {
       url,
       headers,
       data
-      //data: qs.stringify(data)
     })
 
     return response.data
