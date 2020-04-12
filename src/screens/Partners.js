@@ -1,20 +1,20 @@
 import React from 'react'
 import {View, StyleSheet, InteractionManager} from 'react-native'
-import {SectionList, Text, Spacer, HR, Ripple, SearchInput} from '../components'
-import {Colors, Metrics} from '../themes'
+import {SectionList, Spacer, SearchInput, SectionHeader, ListItem} from '../components'
+import {Metrics} from '../themes'
 import {_, Say} from '../utils'
 import {API} from '../services'
 
 const ItemUI = props => (
-    <>
-        <Ripple onPress={() => props.onPress(props.data)} style={style.item}>
-            <Text md>{props.data.PartnersName}</Text>
-        </Ripple>
-        <HR />
-    </>
+    <ListItem
+        big
+        initial={false}
+        primaryText={props.data.PartnersName}
+        onPress={() => props.onPress(props.data)}
+    />
 )
 
-class Scrn extends React.Component {
+export default class Scrn extends React.Component {
 
     static navigationOptions = {
         title:"Partner's Name"
@@ -71,11 +71,7 @@ class Scrn extends React.Component {
 
     handleRefresh = () => this.setState({refreshing:true},this.getData)
 
-    renderSectionHeader = ({section}) => (
-        <View style={style.itemHeader}>
-            <Text mute>{section.letter}</Text>
-        </View>
-    )
+    renderSectionHeader = ({section}) => <SectionHeader text={section.letter} />
 
     renderItem = ({item, index}) => <ItemUI index={index} data={item} onPress={this.handleSelect} />
 
@@ -111,14 +107,5 @@ const style = StyleSheet.create({
     container: {
         flex:1,
         padding:Metrics.lg
-    },
-    itemHeader: {
-        backgroundColor:Colors.lightgray,
-        padding:Metrics.rg,
-    },
-    item: {
-        padding:Metrics.rg
     }
 })
-
-export default Scrn

@@ -6,6 +6,7 @@ import {_, Say} from '../utils'
 
 const ItemUI = props => (
     <ListItem
+        big
         initial={false}
         primaryText={props.data.name}
         onPress={() => props.onPress(props.data.name)}

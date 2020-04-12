@@ -1,20 +1,20 @@
 import React from 'react'
 import {View, StyleSheet, InteractionManager} from 'react-native'
-import {SectionList, Text, Spacer, HR, Ripple, SearchInput} from '../components'
-import {Colors, Metrics} from '../themes'
-import {_, Say, Consts} from '../utils'
+import {SectionList, Spacer, SearchInput, SectionHeader, ListItem} from '../components'
+import {Metrics} from '../themes'
+import {_, Say} from '../utils'
 import {API} from '../services'
 
 const ItemUI = props => (
-    <>
-        <Ripple onPress={() => props.onPress(props.data)} style={style.item}>
-            <Text md>{props.data.bill_partner_name}</Text>
-        </Ripple>
-        <HR />
-    </>
+    <ListItem
+        big
+        initial={false}
+        primaryText={props.data.bill_partner_name}
+        onPress={() => props.onPress(props.data)}
+    />
 )
 
-class Scrn extends React.Component {
+export default class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Billers'
@@ -49,15 +49,7 @@ class Scrn extends React.Component {
         })
     }
 
-    handleSelectBiller = biller => {
-        //const {state, navigate, pop} = this.props.navigation
-        //const {params = {}} = state
-
-        this.props.navigation.navigate('AddBiller',{biller})
-
-        //if(params.category) navigate('PayBill',{type:Consts.tcn.bpm.code, biller})
-        //else navigate('AddBillerFavorite',{biller})
-    }
+    handleSelectBiller = biller => this.props.navigation.navigate('AddBiller',{biller})
 
     handleChangeSearch = search => this.setState({search:this.search(search)})
 
@@ -78,11 +70,7 @@ class Scrn extends React.Component {
         this.setState({list})
     }
 
-    renderSectionHeader = ({section}) => (
-        <View style={style.itemHeader}>
-            <Text b>{section.letter}</Text>
-        </View>
-    )
+    renderSectionHeader = ({section}) => <SectionHeader text={section.letter} />
 
     handleRefresh = () => this.setState({refreshing:true},this.getData)
 
@@ -121,13 +109,4 @@ const style = StyleSheet.create({
         flex:1,
         padding:Metrics.lg
     },
-    itemHeader: {
-        backgroundColor:Colors.lightgray,
-        padding:Metrics.rg,
-    },
-    item: {
-        padding:Metrics.rg
-    }
 })
-
-export default Scrn

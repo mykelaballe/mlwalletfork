@@ -7,6 +7,7 @@ import {API} from '../services'
 
 const ItemUI = props => (
     <ListItem
+        big
         initial={false}
         primaryText={props.data.province}
         onPress={() => props.onPress(props.data)}

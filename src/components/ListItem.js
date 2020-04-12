@@ -3,7 +3,7 @@ import {View, StyleSheet} from 'react-native'
 import {Ripple, Row, Initial, Text, HR, Spacer} from './'
 import {Metrics} from '../themes'
 
-export default ({initial, primaryText, subText, onPress}) => {
+export default ({initial, primaryText, subText, big, onPress}) => {
 
     let baseUI = (
         <Row>
@@ -14,7 +14,7 @@ export default ({initial, primaryText, subText, onPress}) => {
             </>
             }
             <View>
-                <Text b>{primaryText}</Text>
+                <Text b size={big ? Metrics.font.md : Metrics.font.rg}>{primaryText}</Text>
                 {subText && <Text>{subText}</Text>}
             </View>
         </Row>

@@ -10,6 +10,7 @@ import transactional_questions from '../services/transactional_security_question
 
 const ItemUI = props => (
     <ListItem
+        big
         initial={false}
         primaryText={props.data.text || props.data}
         onPress={() => props.onPress(props.data)}

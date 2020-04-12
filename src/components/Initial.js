@@ -7,7 +7,7 @@ const SIZE = 50
 
 export default props => (
 	<View style={style.container}>
-		<Text light center>{props.text[0]}</Text>
+		<Text light center>{props.text[0].toUpperCase()}</Text>
 	</View>
 )
 
