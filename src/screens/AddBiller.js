@@ -50,7 +50,8 @@ class Scrn extends React.Component {
                 biller:{
                     ...this.state,
                     email,
-                    partner:bill_partner_name
+                    partner:bill_partner_name,
+                    partnersid:biller.bill_partner_accountid
                 }
             })
         }
