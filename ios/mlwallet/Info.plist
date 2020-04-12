@@ -4,6 +4,7 @@
 <dict>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>app-settings</string>
 		<string>tel</string>
 		<string>mailto</string>
 	</array>
