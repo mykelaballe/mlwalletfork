@@ -51,7 +51,10 @@ const getCurrentPosition = () => {
                 })
             },
             err => {
-                resolve({error:true})
+                resolve({
+                    error:true,
+                    ...err
+                })
             },
             {...config}
         )
@@ -92,7 +95,17 @@ const getLocation = () => {
         return (
             getCurrentPosition()
             .then(res => {
-                if(res.error) Say.warn(message)
+                if(res.error) {
+                    if(res.code === 1) {
+                        request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
+                        .then(reqRes => {
+                            if(reqRes === RESULTS.UNAVAILABLE || reqRes === RESULTS.DENIED) {
+                                Say.warn(message)
+                            }
+                        })
+                    }
+                    else Say.warn(message)
+                }
                 return res
             })
         )
