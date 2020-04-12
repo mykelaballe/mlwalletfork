@@ -33,7 +33,7 @@ class Scrn extends React.Component {
     handleFocusEmail = () => this.refs.email.focus()
 
     handlePay = () => {
-        let {email} = this.state
+        let {bill_partner_name, email} = this.state
 
         email = email.trim()
 
@@ -45,7 +45,15 @@ class Scrn extends React.Component {
             this.setState({error_email:true})
             Say.warn(Consts.error.email)
         }
-        else this.props.navigation.navigate('PayBill',{biller:this.state})
+        else {
+            this.props.navigation.navigate('PayBill',{
+                biller:{
+                    ...this.state,
+                    email,
+                    partner:bill_partner_name
+                }
+            })
+        }
     }
 
     handleSubmit = async () => {
