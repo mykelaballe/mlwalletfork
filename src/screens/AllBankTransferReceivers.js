@@ -2,7 +2,7 @@ import React from 'react'
 import {View, StyleSheet, InteractionManager} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Screen, Footer, FlatList, Initial, Text, Row, Button, ButtonText, Spacer, HR, Ripple, SearchInput} from '../components'
+import {Screen, FlatList, Initial, Text, Row, ButtonText, Spacer, HR, Ripple, SearchInput} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
 import {API} from '../services'
@@ -44,20 +44,6 @@ class Scrn extends React.Component {
             this.props.refreshScreen(false)
             this.handleRefresh()
         }
-        /*const {newReceiver, deletedIndex, addReceiver, deleteReceiver} = this.props
-        if(newReceiver) {
-            addReceiver(null)
-            let list = prevState.list.slice()
-            list.push(newReceiver)
-            this.setState({list})
-        }
-
-        if(deletedIndex !== null) {
-            deleteReceiver(null)
-            let list = this.state.list.slice()
-            list.splice(deletedIndex,1)
-            this.setState({list})
-        }*/
     }
 
     getData = async () => {
@@ -146,8 +132,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    //addReceiver:newReceiver => dispatch(Creators.addWalletReceiver(newReceiver)),
-    //deleteReceiver:deletedIndex => dispatch(Creators.deleteWalletReceiver(deletedIndex)),
     refreshScreen:refresh => dispatch(Creators.refreshBankAllPartners(refresh))
 })
 

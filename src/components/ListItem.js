@@ -1,28 +1,39 @@
 import React from 'react'
 import {View, StyleSheet} from 'react-native'
-import {Ripple} from './'
-import {Colors, Metrics} from '../themes'
+import {Ripple, Row, Initial, Text, HR, Spacer} from './'
+import {Metrics} from '../themes'
 
-export default props => {
+export default ({initial, primaryText, subText, onPress}) => {
+
+    let baseUI = (
+        <Row>
+            <Initial text={initial || primaryText[0]} />
+            <Spacer h sm />
+            <View>
+                <Text b>{primaryText}</Text>
+                <Text>{subText}</Text>
+            </View>
+        </Row>
+    )
+
     if(props.onPress) {
-        return (
-            <Ripple onPress={props.onPress} style={style.container}>
-                {props.children}
+        baseUI = (
+            <Ripple onPress={onPress} style={style.item}>
+                {baseUI}
             </Ripple>
         )
     }
 
     return (
-        <View style={style.container}>
-            {props.children}
-        </View>
+        <>
+            {baseUI}
+            <HR m={Metrics.sm} />
+        </>
     )
 }
 
 const style = StyleSheet.create({
     container: {
-        padding:Metrics.md,
-        borderBottomWidth:StyleSheet.hairlineWidth,
-        borderColor:Colors.gray
+        padding:Metrics.rg
     }
 })
