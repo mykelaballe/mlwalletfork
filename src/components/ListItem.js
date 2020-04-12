@@ -16,7 +16,7 @@ export default ({initial, primaryText, subText, onPress}) => {
         </Row>
     )
 
-    if(props.onPress) {
+    if(onPress) {
         baseUI = (
             <Ripple onPress={onPress} style={style.item}>
                 {baseUI}
