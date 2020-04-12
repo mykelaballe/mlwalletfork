@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Screen, Footer, Headline, TextInput, Button, StaticInput} from '../components'
+import {Screen, Footer, Headline, TextInput, Button, StaticInput, Spacer} from '../components'
 import {_, Say, Consts, Func} from '../utils'
 import {API} from '../services'
 
