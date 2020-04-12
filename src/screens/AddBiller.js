@@ -133,7 +133,7 @@ class Scrn extends React.Component {
                 </Screen>
 
                 <Footer>
-                    <Button disabled={!ready} t='Pay' onPress={this.handlePay} />
+                    <Button disabled={!ready} mode='outlined' t='Pay' onPress={this.handlePay} />
                     <Spacer xs />
                     <Button disabled={!ready} t='Save Biller' onPress={this.handleSubmit} loading={processing} />
                 </Footer>
