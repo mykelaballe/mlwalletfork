@@ -33,7 +33,7 @@ class Scrn extends React.Component {
     handleFocusEmail = () => this.refs.email.focus()
 
     handlePay = () => {
-        let {bill_partner_name, email} = this.state
+        let {bill_partner_name, bill_partner_accountid, email} = this.state
 
         email = email.trim()
 
@@ -51,7 +51,7 @@ class Scrn extends React.Component {
                     ...this.state,
                     email,
                     partner:bill_partner_name,
-                    partnersid:biller.bill_partner_accountid
+                    partnersid:bill_partner_accountid
                 }
             })
         }
