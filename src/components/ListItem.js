@@ -14,7 +14,9 @@ export default ({initial, primaryText, subText, big, onPress}) => {
             </>
             }
             <View>
-                <Text b size={big ? Metrics.font.md : Metrics.font.rg}>{primaryText}</Text>
+                {big && <Text mute md>{primaryText}</Text>}
+                {!big && <Text b>{primaryText}</Text>}
+
                 {subText && <Text>{subText}</Text>}
             </View>
         </Row>
