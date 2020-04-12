@@ -24,7 +24,7 @@ export default ({initial, primaryText, subText, big, onPress}) => {
 
     if(onPress) {
         baseUI = (
-            <Ripple onPress={onPress} style={style.item}>
+            <Ripple onPress={onPress} style={style.container}>
                 {baseUI}
             </Ripple>
         )
