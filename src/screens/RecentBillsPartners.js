@@ -1,27 +1,17 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager} from 'react-native'
+import {InteractionManager} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Screen, FlatList, Initial, Text, Row, ButtonText, Spacer, HR, Ripple, SearchInput} from '../components'
-import {Colors, Metrics} from '../themes'
-import {_, Say, Func} from '../utils'
+import {Screen, FlatList, Spacer, SearchInput, ListItem} from '../components'
+import {_, Say} from '../utils'
 import {API} from '../services'
 
 const ItemUI = props => (
-    <>
-        <Ripple onPress={() => props.onPress(props.index)} style={style.item}>
-            <Row>
-                <Initial text={props.data.fullname} />
-                <Spacer h sm />
-                <View>
-                    <Text b>{Func.cleanName(props.data.fullname)}</Text>
-                    <Text>{props.data.mobileno}</Text>
-                </View>
-            </Row>
-        </Ripple>
-
-        <HR m={Metrics.sm} />
-    </>
+    <ListItem
+        primaryText={props.data.partner}
+        subText={props.data.account_no}
+        onPress={() => props.onPress(props.index)}
+    />
 )
 
 class Scrn extends React.Component {
@@ -40,19 +30,9 @@ class Scrn extends React.Component {
     componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
 
     componentDidUpdate = (prevProps, prevState) => {
-        const {newReceiver, deletedIndex, addReceiver, deleteReceiver} = this.props
-        if(newReceiver) {
-            addReceiver(null)
-            let list = prevState.list.slice()
-            list.push(newReceiver)
-            this.setState({list})
-        }
-
-        if(deletedIndex !== null) {
-            deleteReceiver(null)
-            let list = this.state.list.slice()
-            list.splice(deletedIndex,1)
-            this.setState({list})
+        if(this.props.refreshRecent) {
+            this.props.refreshScreen(false)
+            this.handleRefresh()
         }
     }
 
@@ -122,20 +102,13 @@ class Scrn extends React.Component {
     }
 }
 
-const style = StyleSheet.create({
-    item: {
-        padding:Metrics.rg
-    }
-})
-
 const mapStateToProps = state => ({
     user: state.user.data,
-    ...state.walletToWallet
+    ...state.billsPayment
 })
 
 const mapDispatchToProps = dispatch => ({
-    addReceiver:newReceiver => dispatch(Creators.addWalletReceiver(newReceiver)),
-    deleteReceiver:deletedIndex => dispatch(Creators.deleteWalletReceiver(deletedIndex))
+    refreshScreen:refresh => dispatch(Creators.refreshBillersRecent(refresh))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

@@ -16,23 +16,6 @@ const ItemUI = props => (
     />
 )
 
-/*const ItemUI = props => (
-    <>
-        <Ripple onPress={() => props.onPress(props.index)} style={style.item}>
-            <Row>
-                <Initial text={props.data.firstname} />
-                <Spacer h sm />
-                <View>
-                    <Text b>{Func.formatName(props.data)}</Text>
-                    <Text>{props.data.ContactNo}</Text>
-                </View>
-            </Row>
-        </Ripple>
-
-        <HR m={Metrics.sm} />
-    </>
-)*/
-
 class Scrn extends React.Component {
 
     static navigationOptions = {

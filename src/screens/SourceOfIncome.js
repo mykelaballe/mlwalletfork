@@ -1,16 +1,15 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager} from 'react-native'
-import {FlatList, Text, Spacer, HR, Ripple, SearchInput} from '../components'
-import {Colors, Metrics} from '../themes'
+import {InteractionManager} from 'react-native'
+import {FlatList, ListItem} from '../components'
+import {Metrics} from '../themes'
 import {_, Say} from '../utils'
 
 const ItemUI = props => (
-    <>
-        <Ripple onPress={() => props.onPress(props.data.name)} style={style.item}>
-            <Text md>{props.data.name}</Text>
-        </Ripple>
-        <HR />
-    </>
+    <ListItem
+        initial={false}
+        primaryText={props.data.name}
+        onPress={() => props.onPress(props.data.name)}
+    />
 )
 
 export default class Scrn extends React.Component {
@@ -21,7 +20,6 @@ export default class Scrn extends React.Component {
 
     state = {
         list:[],
-        search:'',
         loading:true
     }
 
@@ -61,44 +59,19 @@ export default class Scrn extends React.Component {
         this.props.navigation.navigate(sourceRoute,{source_of_income})
     }
 
-    handleChangeSearch = search => this.setState({search})
-
     renderItem = ({item, index}) => <ItemUI data={item} onPress={this.handleSelect} />
 
     render() {
 
-        const {list, search, loading} = this.state
+        const {list, loading} = this.state
 
         return (
-            <View style={style.container}>
-                {/*<SearchInput
-                    placeholder='Search Nationality'
-                    onChangeText={this.handleChangeSearch}
-                    value={search}
-                />
-
-                <Spacer />*/}
-
-                <FlatList
-                    data={list}
-                    renderItem={this.renderItem}
-                    loading={loading}
-                />
-            </View>
+            <FlatList
+                data={list}
+                renderItem={this.renderItem}
+                loading={loading}
+                style={{padding:Metrics.md}}
+            />
         )
     }
 }
-
-const style = StyleSheet.create({
-    container: {
-        flex:1,
-        padding:Metrics.lg
-    },
-    itemHeader: {
-        backgroundColor:Colors.lightgray,
-        padding:Metrics.rg,
-    },
-    item: {
-        padding:Metrics.rg
-    }
-})

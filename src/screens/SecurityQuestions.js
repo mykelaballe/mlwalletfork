@@ -1,12 +1,20 @@
 import React from 'react'
-import {StyleSheet, InteractionManager} from 'react-native'
-import {FlatList, Text, Ripple, HR} from '../components'
+import {InteractionManager} from 'react-native'
+import {FlatList, ListItem} from '../components'
 import {Metrics} from '../themes'
 import {_} from '../utils'
 
 import registered_questions from '../services/registered_security_questions'
 import personal_questions from '../services/personal_security_questions'
 import transactional_questions from '../services/transactional_security_questions'
+
+const ItemUI = props => (
+    <ListItem
+        initial={false}
+        primaryText={props.data.text || props.data}
+        onPress={() => props.onPress(props.data)}
+    />
+)
 
 export default class Scrn extends React.Component {
 
@@ -53,15 +61,7 @@ export default class Scrn extends React.Component {
         this.props.navigation.navigate(sourceRoute,{question, _for})
     }
 
-    renderItem = ({item, index}) => (
-        <>
-            <Ripple onPress={() => this.handleSelect(item)} style={style.item}>
-                <Text md>{item.text || item}</Text>
-            </Ripple>
-
-            <HR />
-        </>
-    )
+    renderItem = ({item, index}) => <ItemUI data={item} onPress={this.handleSelect} />
 
     render() {
 
@@ -77,9 +77,3 @@ export default class Scrn extends React.Component {
         )
     }
 }
-
-const style = StyleSheet.create({
-    item: {
-        paddingVertical:Metrics.rg
-    }
-})

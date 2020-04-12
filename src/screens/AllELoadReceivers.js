@@ -1,27 +1,18 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager} from 'react-native'
+import {View, InteractionManager} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Screen, FlatList, Initial, Text, Row, ButtonText, Spacer, HR, Ripple, SearchInput} from '../components'
-import {Colors, Metrics} from '../themes'
+import {Screen, FlatList, ButtonText, Spacer, SearchInput, ListItem} from '../components'
+import {Colors} from '../themes'
 import {_, Say, Func} from '../utils'
 import {API} from '../services'
 
 const ItemUI = props => (
-    <>
-        <Ripple onPress={() => props.onPress(props.index)} style={style.item}>
-            <Row>
-                <Initial text={props.data.fullname} />
-                <Spacer h sm />
-                <View>
-                    <Text b>{Func.cleanName(props.data.fullname)}</Text>
-                    <Text>{props.data.mobileno}</Text>
-                </View>
-            </Row>
-        </Ripple>
-
-        <HR m={Metrics.sm} />
-    </>
+    <ListItem
+        primaryText={Func.cleanName(props.data.fullname)}
+        subText={props.data.mobileno}
+        onPress={() => props.onPress(props.index)}
+    />
 )
 
 class Scrn extends React.Component {
@@ -44,20 +35,6 @@ class Scrn extends React.Component {
             this.props.refreshScreen(false)
             this.handleRefresh()
         }
-        /*const {newReceiver, deletedIndex, addReceiver, deleteReceiver} = this.props
-        if(newReceiver) {
-            addReceiver(null)
-            let list = prevState.list.slice()
-            list.push(newReceiver)
-            this.setState({list})
-        }
-
-        if(deletedIndex !== null) {
-            deleteReceiver(null)
-            let list = this.state.list.slice()
-            list.splice(deletedIndex,1)
-            this.setState({list})
-        }*/
     }
 
     getData = async () => {
@@ -134,20 +111,12 @@ class Scrn extends React.Component {
     }
 }
 
-const style = StyleSheet.create({
-    item: {
-        padding:Metrics.rg
-    }
-})
-
 const mapStateToProps = state => ({
     user: state.user.data,
     ...state.eLoad
 })
 
 const mapDispatchToProps = dispatch => ({
-    addReceiver:newReceiver => dispatch(Creators.addWalletReceiver(newReceiver)),
-    deleteReceiver:deletedIndex => dispatch(Creators.deleteWalletReceiver(deletedIndex)),
     refreshScreen:refresh => dispatch(Creators.refreshELoadAllReceivers(refresh))
 })
 

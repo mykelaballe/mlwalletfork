@@ -1,27 +1,18 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager} from 'react-native'
+import {View, InteractionManager} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Screen, FlatList, Initial, Text, Row, ButtonText, Spacer, HR, Ripple, SearchInput} from '../components'
-import {Colors, Metrics} from '../themes'
+import {Screen, FlatList, ButtonText, Spacer, SearchInput, ListItem} from '../components'
+import {Colors} from '../themes'
 import {_, Say} from '../utils'
 import {API} from '../services'
 
 const ItemUI = props => (
-    <>
-        <Ripple onPress={() => props.onPress(props.index)} style={style.item}>
-            <Row>
-                <Initial text={props.data.bankname} />
-                <Spacer h sm />
-                <View>
-                    <Text b>{props.data.bankname}</Text>
-                    <Text>{props.data.old_account_no}</Text>
-                </View>
-            </Row>
-        </Ripple>
-
-        <HR m={Metrics.sm} />
-    </>
+    <ListItem
+        primaryText={props.data.bankname}
+        subText={props.data.old_account_no}
+        onPress={() => props.onPress(props.index)}
+    />
 )
 
 class Scrn extends React.Component {
@@ -119,12 +110,6 @@ class Scrn extends React.Component {
         )
     }
 }
-
-const style = StyleSheet.create({
-    item: {
-        padding:Metrics.rg
-    }
-})
 
 const mapStateToProps = state => ({
     user: state.user.data,

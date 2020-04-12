@@ -1,27 +1,17 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager} from 'react-native'
+import {InteractionManager} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Screen, Footer, FlatList, Initial, Text, Row, Button, ButtonText, Spacer, HR, Ripple, SearchInput} from '../components'
-import {Colors, Metrics} from '../themes'
+import {Screen, FlatList, Spacer, SearchInput, ListItem} from '../components'
 import {_, Say, Func} from '../utils'
 import {API} from '../services'
 
 const ItemUI = props => (
-    <>
-        <Ripple onPress={() => props.onPress(props.index)} style={style.item}>
-            <Row>
-                <Initial text={props.data.fullname} />
-                <Spacer h sm />
-                <View>
-                    <Text b>{Func.cleanName(props.data.fullname)}</Text>
-                    <Text>{props.data.mobileno}</Text>
-                </View>
-            </Row>
-        </Ripple>
-
-        <HR m={Metrics.sm} />
-    </>
+    <ListItem
+        primaryText={Func.cleanName(props.data.fullname)}
+        subText={props.data.mobileno}
+        onPress={() => props.onPress(props.index)}
+    />
 )
 
 class Scrn extends React.Component {
@@ -44,13 +34,6 @@ class Scrn extends React.Component {
             this.props.refreshScreen(false)
             this.handleRefresh()
         }
-        /*const {refresh, addReceiver} = this.props
-        if(newReceiver) {
-            addReceiver(null)
-            let list = prevState.list.slice()
-            list.push(newReceiver)
-            this.setState({list})
-        }*/
     }
 
     getData = async () => {
@@ -87,8 +70,6 @@ class Scrn extends React.Component {
 
     handleRefresh = () => this.setState({refreshing:true},this.getData)
 
-    //handleAddReceiver = () => this.props.navigation.navigate('AddWalletReceiver')
-
     renderItem = ({item, index}) => <ItemUI index={index} data={item} onPress={this.handleViewReceiver} />
 
     render() {
@@ -102,12 +83,6 @@ class Scrn extends React.Component {
                         onChangeText={this.handleChangeSearch}
                         value={search}
                     />
-
-                    <Spacer sm />
-
-                    {/*<View style={{alignItems:'flex-end'}}>
-                        <ButtonText icon='plus' t='Add Receiver' onPress={this.handleAddReceiver} color={Colors.brand} />
-                    </View>*/}
 
                     <Spacer sm />
 
@@ -125,19 +100,12 @@ class Scrn extends React.Component {
     }
 }
 
-const style = StyleSheet.create({
-    item: {
-        padding:Metrics.rg
-    }
-})
-
 const mapStateToProps = state => ({
     user: state.user.data,
     ...state.eLoad
 })
 
 const mapDispatchToProps = dispatch => ({
-    //addReceiver:refresh => dispatch(Creators.refreshWalletFavorites(refresh)),
     refreshScreen:refresh => dispatch(Creators.refreshELoadFavorites(refresh))
 })
 

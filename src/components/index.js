@@ -40,6 +40,7 @@ import Screen from './Screen'
 import ScrollFix from './ScrollFix'
 import ScrollView from './ScrollView'
 import SearchInput from './SearchInput'
+import SectionHeader from './SectionHeader'
 import SectionList from './SectionList'
 import SignUpStepsTracker from './SignUpStepsTracker'
 import Spacer from './Spacer'
@@ -96,6 +97,7 @@ export {
     ScrollFix,
     ScrollView,
     SearchInput,
+    SectionHeader,
     SectionList,
     SignUpStepsTracker,
     Spacer,

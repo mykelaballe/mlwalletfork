@@ -7,11 +7,15 @@ export default ({initial, primaryText, subText, onPress}) => {
 
     let baseUI = (
         <Row>
-            <Initial text={initial || primaryText[0]} />
-            <Spacer h sm />
+            {initial !== false &&
+            <>
+                <Initial text={initial || primaryText} />
+                <Spacer h sm />
+            </>
+            }
             <View>
                 <Text b>{primaryText}</Text>
-                <Text>{subText}</Text>
+                {subText && <Text>{subText}</Text>}
             </View>
         </Row>
     )

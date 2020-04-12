@@ -1,27 +1,17 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager} from 'react-native'
+import {InteractionManager} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Screen, Footer, FlatList, Initial, Text, Row, Button, ButtonText, Spacer, HR, Ripple, SearchInput} from '../components'
-import {Colors, Metrics} from '../themes'
+import {Screen, FlatList, Spacer, SearchInput, ListItem} from '../components'
 import {_, Say} from '../utils'
 import {API} from '../services'
 
 const ItemUI = props => (
-    <>
-        <Ripple onPress={() => props.onPress(props.index)} style={style.item}>
-            <Row>
-                <Initial text={props.data.bankname} />
-                <Spacer h sm />
-                <View>
-                    <Text b>{props.data.bankname}</Text>
-                    <Text>{props.data.old_account_no}</Text>
-                </View>
-            </Row>
-        </Ripple>
-
-        <HR m={Metrics.sm} />
-    </>
+    <ListItem
+        primaryText={props.data.bankname}
+        subText={props.data.old_account_no}
+        onPress={() => props.onPress(props.index)}
+    />
 )
 
 class Scrn extends React.Component {
@@ -44,13 +34,6 @@ class Scrn extends React.Component {
             this.props.refreshScreen(false)
             this.handleRefresh()
         }
-        /*const {refresh, addReceiver} = this.props
-        if(newReceiver) {
-            addReceiver(null)
-            let list = prevState.list.slice()
-            list.push(newReceiver)
-            this.setState({list})
-        }*/
     }
 
     getData = async () => {
@@ -107,12 +90,6 @@ class Scrn extends React.Component {
 
                     <Spacer sm />
 
-                    {/*<View style={{alignItems:'flex-end'}}>
-                        <ButtonText icon='plus' t='Add Receiver' onPress={this.handleAddReceiver} color={Colors.brand} />
-                    </View>*/}
-
-                    <Spacer sm />
-
                     <FlatList
                         data={list}
                         renderItem={this.renderItem}
@@ -127,19 +104,12 @@ class Scrn extends React.Component {
     }
 }
 
-const style = StyleSheet.create({
-    item: {
-        padding:Metrics.rg
-    }
-})
-
 const mapStateToProps = state => ({
     user: state.user.data,
     ...state.bankTransfer
 })
 
 const mapDispatchToProps = dispatch => ({
-    //addReceiver:refresh => dispatch(Creators.refreshWalletFavorites(refresh)),
     refreshScreen:refresh => dispatch(Creators.refreshBankFavorites(refresh))
 })
 

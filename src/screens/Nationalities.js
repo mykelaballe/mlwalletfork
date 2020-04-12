@@ -1,17 +1,16 @@
 import React from 'react'
 import {View, StyleSheet, InteractionManager} from 'react-native'
-import {FlatList, Text, Spacer, HR, Ripple, SearchInput} from '../components'
-import {Colors, Metrics} from '../themes'
+import {FlatList, Spacer, SearchInput, ListItem} from '../components'
+import {Metrics} from '../themes'
 import {_, Say} from '../utils'
 import nationalities from '../services/nationalities'
 
 const ItemUI = props => (
-    <>
-        <Ripple onPress={() => props.onPress(props.data.name)} style={style.item}>
-            <Text md>{props.data.name}</Text>
-        </Ripple>
-        <HR />
-    </>
+    <ListItem
+        initial={false}
+        primaryText={props.data.name}
+        onPress={() => props.onPress(props.data.name)}
+    />
 )
 
 export default class Scrn extends React.Component {
@@ -88,12 +87,5 @@ export default class Scrn extends React.Component {
 const style = StyleSheet.create({
     container: {
         padding:Metrics.lg
-    },
-    itemHeader: {
-        backgroundColor:Colors.lightgray,
-        padding:Metrics.rg,
-    },
-    item: {
-        padding:Metrics.rg
     }
 })

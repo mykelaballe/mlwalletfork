@@ -1,17 +1,16 @@
 import React from 'react'
 import {View, StyleSheet, InteractionManager} from 'react-native'
-import {SectionList, Text, Spacer, HR, Ripple, SearchInput} from '../components'
-import {Colors, Metrics} from '../themes'
+import {SectionList, Spacer, SearchInput, SectionHeader, ListItem} from '../components'
+import {Metrics} from '../themes'
 import {_, Say} from '../utils'
 import {API} from '../services'
 
 const ItemUI = props => (
-    <>
-        <Ripple onPress={() => props.onPress(props.data)} style={style.item}>
-            <Text md>{props.data.city}</Text>
-        </Ripple>
-        <HR />
-    </>
+    <ListItem
+        initial={false}
+        primaryText={props.data.city}
+        onPress={() => props.onPress(props.data)}
+    />
 )
 
 export default class Scrn extends React.Component {
@@ -71,11 +70,7 @@ export default class Scrn extends React.Component {
         this.setState({list})
     }
 
-    renderSectionHeader = ({section}) => (
-        <View style={style.itemHeader}>
-            <Text mute>{section.letter}</Text>
-        </View>
-    )
+    renderSectionHeader = ({section}) => <SectionHeader text={section.letter} />
 
     renderItem = ({item, index}) => <ItemUI data={item} onPress={this.handleSelect} />
 
@@ -108,12 +103,5 @@ const style = StyleSheet.create({
     container: {
         flex:1,
         padding:Metrics.lg
-    },
-    itemHeader: {
-        backgroundColor:Colors.lightgray,
-        padding:Metrics.rg,
-    },
-    item: {
-        padding:Metrics.rg
     }
 })
