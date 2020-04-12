@@ -137,6 +137,7 @@ export default {
 
     getBranches: async () => {
         let res = await Fetch.get('ml_branches')
+        if(res.error) return []
         return res.data || []
     },
 
