@@ -64,7 +64,7 @@ export default class Scrn extends React.Component {
             Say.ok("You've successfully saved your Profile details")
         }
         catch(err) {
-            Say.err(_('500'))
+            Say.err(err)
         }
 
         this.setState({processing:false})

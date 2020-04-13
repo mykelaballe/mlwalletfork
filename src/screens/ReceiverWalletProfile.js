@@ -42,7 +42,6 @@ class Scrn extends React.Component {
         this.props.navigation.setParams({
             menuOpen:false,
             handleToggleMenu:this.handleToggleMenu,
-            handleEdit:this.handleEdit,
             handleDelete:this.handleDelete
         })
     }
@@ -67,7 +66,6 @@ class Scrn extends React.Component {
     handleConfirmDelete = async () => {
         const {index, receiver} = this.props.navigation.state.params
         try {
-            //this.props.deleteReceiver(index)
             await API.deleteWalletReceiver({walletno:receiver.receiverno})
             this.props.refreshAll(true)
             this.props.refreshFavorites(true)
@@ -76,15 +74,8 @@ class Scrn extends React.Component {
             Say.ok('Receiver successfully deleted')
         }
         catch(err) {
-            Say.err(_('500'))
+            Say.err(err)
         }
-    }
-
-    handleEdit = () => {
-        const {navigate, state} = this.props.navigation
-        const {receiver} = state.params
-        this.handleToggleMenu()
-        navigate('UpdateWalletReceiver',{receiver})
     }
 
     handleSelect = () => {
@@ -103,11 +94,6 @@ class Scrn extends React.Component {
                 receiverno:receiver.receiverno,
             }
 
-            /*this.props.updateReceiver(index, {
-                ...receiver,
-                is_favorite:!is_favorite
-            })*/
-
             if(is_favorite) await API.removeFavoriteWalletReceiver(payload)
             else await API.addFavoriteWalletReceiver(payload)
 
@@ -117,7 +103,7 @@ class Scrn extends React.Component {
             this.setState({is_favorite:!is_favorite})
         }
         catch(err) {
-            Say.err(_('500'))
+            Say.err(err)
         }
     }
 

@@ -45,7 +45,6 @@ import SendWalletToWalletScrn from './SendWalletToWallet'
 import SavedWalletReceiversScrn from './SavedWalletReceivers'
 import ReceiverWalletProfileScrn from './ReceiverWalletProfile'
 import AddWalletReceiverScrn from './AddWalletReceiver'
-import UpdateWalletReceiverScrn from './UpdateWalletReceiver'
 import AllSavedWalletReceiversScrn from './AllSavedWalletReceivers'
 import FavoriteWalletReceiversScrn from './FavoriteWalletReceivers'
 import RecentWalletReceiversScrn from './RecentWalletReceivers'
@@ -100,8 +99,6 @@ import FavoriteBillsPartnersScrn from './FavoriteBillsPartners'
 import RecentBillsPartnersScrn from './RecentBillsPartners'
 
 import PartnersScrn from './Partners'
-import MyContactsScrn from './MyContacts'
-import MyContactProfileScrn from './MyContactProfile'
 
 import TransactionReviewScrn from './TransactionReview'
 import TransactionReceiptScrn from './TransactionReceipt'
@@ -197,7 +194,6 @@ export {
     SavedWalletReceiversScrn,
     ReceiverWalletProfileScrn,
     AddWalletReceiverScrn,
-    UpdateWalletReceiverScrn,
     AllSavedWalletReceiversScrn,
     FavoriteWalletReceiversScrn,
     RecentWalletReceiversScrn,
@@ -248,8 +244,6 @@ export {
     RecentBillsPartnersScrn,
 
     PartnersScrn,
-    MyContactsScrn,
-    MyContactProfileScrn,
     
     TransactionReviewScrn,
     TransactionReceiptScrn,

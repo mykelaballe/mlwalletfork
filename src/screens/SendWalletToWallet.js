@@ -71,7 +71,7 @@ class Scrn extends React.Component {
             else Say.warn(res.message)
         }
         catch(err) {
-            Say.err(_('500'))
+            Say.err(err)
         }
 
         this.setState({processing:false})

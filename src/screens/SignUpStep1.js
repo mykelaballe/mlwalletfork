@@ -17,19 +17,10 @@ class Scrn extends React.Component {
         middlename:'',
         has_middlename:true,
         lastname:'',
-        suffix:'NONE',
+        suffix:_('51'),
         other_suffix:'',
         has_suffix:false,
-        suffix_options:[
-            {label:'Jr.'},
-            {label:'Sr.'},
-            {label:'I'},
-            {label:'II'},
-            {label:'III'},
-            {label:'IV'},
-            {label:'V'},
-            {label:'Others'}
-        ],
+        suffix_options:Consts.suffixOptions,
         bday_month:'',
         bday_day:'',
         bday_year:'',
@@ -203,7 +194,7 @@ class Scrn extends React.Component {
             }
         }
         catch(err) {
-            Say.err(_('500'))
+            Say.err(err)
         }
     }
 

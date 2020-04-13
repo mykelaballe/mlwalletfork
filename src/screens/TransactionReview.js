@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import {Screen, Footer, Text, Button, Spacer} from '../components'
 import {SendWalletToWallet, SendKP, SendBankTransfer, WithdrawCash, PayBill, BuyLoad} from '../components/transaction_review'
 import {_, Consts, Say} from '../utils'
-import {API} from '../services'
 
 class Scrn extends React.Component {
 
@@ -19,16 +18,10 @@ class Scrn extends React.Component {
         const {navigate, state} = this.props.navigation
         try {
             this.setState({processing:true})
-            
-            /*let res = await API.requestOTP({
-                _walletno:this.props.user.walletno
-            })
-    
-            if(!res.error)*/
             navigate('PINConfirmation',{...state.params})
         }
         catch(err) {
-            Say.err(_('500'))
+            Say.err(err)
         }
         
         this.setState({processing:false})

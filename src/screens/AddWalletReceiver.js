@@ -83,7 +83,7 @@ class Scrn extends React.Component {
             }
         }
         catch(err) {
-            Say.err(_('500'))
+            Say.err(err)
         }
 
         this.setState({processing:false})
@@ -101,18 +101,12 @@ class Scrn extends React.Component {
             if(res.error) Say.warn(res.message)
             else {
                 this.props.refreshAll(true)
-                /*this.props.addReceiver({
-                    receiverno:res.data,
-                    walletno,
-                    fullname:`${firstname} ${lastname}`,
-                    mobileno:mobile_no
-                })*/
                 Say.ok('Receiver added successfully')
                 this.props.navigation.pop()
             }
         }
         catch(err) {
-            Say.err(_('500'))
+            Say.err(err)
         }
 
         this.setState({processing:false})

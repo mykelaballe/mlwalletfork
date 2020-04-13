@@ -2,7 +2,7 @@ import React from 'react'
 import {StyleSheet, InteractionManager} from 'react-native'
 import {FlatList, Text, Row, HR, Ripple} from '../components'
 import {Metrics} from '../themes'
-import {_} from '../utils'
+import {_, Say} from '../utils'
 
 const ItemUI = props => (
     <>
@@ -62,7 +62,7 @@ class Currencies extends React.Component {
             ]
         }
         catch(err) {
-
+            Say.err(err)
         }
 
         this.setState({

@@ -37,7 +37,7 @@ export default class Scrn extends React.Component {
             if(reasons.length > 0) this.props.navigation.navigate('EditMyBirthday',{reasons})
         }
         catch(err) {
-            Say.err(_('500'))
+            Say.err(err)
         }
     }
 

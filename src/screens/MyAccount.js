@@ -20,10 +20,6 @@ class Scrn extends React.Component {
 
     componentDidMount = () => Say.some(_('88'),'Attention!')
 
-    /*componentDidUpdate = (prevProps, prevState) => {
-        if(this.props.isFocused) Say.some(_('88'),'Attention!')
-    }*/
-
     handleGoToVerificationLevels = () => this.props.navigation.navigate('VerificationLevels')
 
     handlePressProfile = () => this.props.navigation.navigate('Profile')

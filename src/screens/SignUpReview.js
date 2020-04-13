@@ -252,7 +252,7 @@ export default class Scrn extends React.Component {
             }
         }
         catch(err) {
-            Say.err(_('500'))
+            Say.err(err)
         }
     }
 
@@ -285,7 +285,7 @@ export default class Scrn extends React.Component {
                     <Headline subtext='Make sure all the details are correct.' />
 
                     {!editable &&
-                    <ScrollFix style={{paddingBottom:Metrics.xl}}>
+                    <ScrollFix>
                         <Text sm mute center>First Name</Text>
                         <Text md center>{firstname}</Text>
 
@@ -332,12 +332,12 @@ export default class Scrn extends React.Component {
                         <Text md center>{Func.formatAddress(this.state)}</Text>
                         
                         {country == Consts.country.PH &&
-                        <>
+                        <View style={{marginBottom:Metrics.lg}}>
                             <Spacer sm />
                             
                             <Text sm mute center>Zip Code</Text>
                             <Text md center>{zip_code}</Text>
-                        </>
+                        </View>
                         }
                     </ScrollFix>
                     }

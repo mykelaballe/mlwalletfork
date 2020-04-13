@@ -1,5 +1,6 @@
 import SomeModal from '../components/SomeModal'
 import Consts from './Consts'
+import _ from './Lang'
 
 const some = (message, title = null, options = {}) => {
     SomeModal.show({
@@ -27,7 +28,7 @@ const warn = (message, title = null, options = {}) => {
 
 const err = (message, title = null, options = {}) => {
     SomeModal.show({
-        message,
+        message:Consts.is_dev ? message.message : _('500'),
         title:title || 'Error',
         options
     })

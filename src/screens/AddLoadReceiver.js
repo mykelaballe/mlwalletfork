@@ -49,11 +49,6 @@ class Scrn extends React.Component {
                 let res = await API.addELoadReceiver(payload)
 
                 if(!res.error) {
-                    /*this.props.addReceiver({
-                        ...res,
-                        fullname,
-                        mobileno
-                    })*/
                     this.props.refreshAll(true)
                     this.props.navigation.pop()
                     Say.ok('New ELoad receiver successfully added')
@@ -64,7 +59,7 @@ class Scrn extends React.Component {
             }
         }
         catch(err) {
-            Say.err(_('500'))
+            Say.err(err)
         }
 
         this.setState({processing:false})

@@ -2,7 +2,7 @@ import React from 'react'
 import {View, StyleSheet, Dimensions, TouchableOpacity, ScrollView} from 'react-native'
 import {Screen, Footer, Headline, FlatList, Text, Row, Spacer, Button, TextInput, LoadPromo} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_, Func} from '../utils'
+import {_, Func, Say} from '../utils'
 import {API} from '../services'
 
 const {width} = Dimensions.get('window')
@@ -88,7 +88,7 @@ class LoadOptions extends React.Component {
             promo_codes = await API.getLoadPromoCodes(network.value)
         }
         catch(err) {
-
+            Say.err(err)
         }
 
         this.setState({

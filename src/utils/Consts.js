@@ -10,6 +10,7 @@ const CODEPUSH_ANDROID_DEV = 'CJCm4qx0UJ_WyXFXQWFpTY03yjcZEv-_9OipV'
 const CODEPUSH_IOS_DEV = 'CJCm4qx0UJ_WyXFXQWFpTY03yjcZEv-_9OipV'
 
 export default {
+	is_dev:true,
 	is_android:IS_ANDROID,
 	baseURL:'http://192.168.19.30/api/',
 	deviceId:DeviceInfo.getDeviceId(),
@@ -59,6 +60,16 @@ export default {
 			'.','-',',','&','/','\\',' '
 		]
 	},
+	suffixOptions:[
+		{label:'Jr.'},
+		{label:'Sr.'},
+		{label:'I'},
+		{label:'II'},
+		{label:'III'},
+		{label:'IV'},
+		{label:'V'},
+		{label:'Others'}
+	],
 	tcn: {
 		stw: {
 			code:'stw',

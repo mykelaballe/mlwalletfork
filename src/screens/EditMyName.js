@@ -19,16 +19,7 @@ class Scrn extends React.Component {
         suffix:this.props.user.suffix || _('51'),
         other_suffix:'',
         has_suffix:this.props.user.suffix ? true : false,
-        suffix_options:[
-            {label:'Jr.'},
-            {label:'Sr.'},
-            {label:'I'},
-            {label:'II'},
-            {label:'III'},
-            {label:'IV'},
-            {label:'V'},
-            {label:'Others'}
-        ],
+        suffix_options:Consts.suffixOptions,
         error_fname:false,
         error_mname:false,
         error_lname:false,
@@ -124,7 +115,7 @@ class Scrn extends React.Component {
             }
         }
         catch(err) {
-            Say.err(_('500'))
+            Say.err(err)
         }
 
         this.setState({processing:false})

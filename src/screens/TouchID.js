@@ -16,6 +16,8 @@ class Scrn extends React.Component {
     handleActivate = async () => {
         const {processing} = this.state
 
+        if(processing) return false
+
         try {
             this.setState({processing:true})
 
@@ -30,7 +32,7 @@ class Scrn extends React.Component {
             }
         }
         catch(err) {
-            Say.err(_('500'))
+            Say.err(err)
         }
 
         this.setState({processing:false})     

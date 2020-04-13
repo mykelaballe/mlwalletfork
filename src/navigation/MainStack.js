@@ -33,7 +33,6 @@ export default createStackNavigator({
     SavedWalletReceivers: Scrn.SavedWalletReceiversScrn,
     ReceiverWalletProfile: Scrn.ReceiverWalletProfileScrn,
     AddWalletReceiver: Scrn.AddWalletReceiverScrn,
-    UpdateWalletReceiver: Scrn.UpdateWalletReceiverScrn,
     SendWalletToWalletIndex: {
         screen:WalletToWalletStack,
         navigationOptions:({navigation}) => ({
@@ -117,8 +116,6 @@ export default createStackNavigator({
     },
 
     Partners: Scrn.PartnersScrn,
-    MyContacts: Scrn.MyContactsScrn,
-    MyContactProfile: Scrn.MyContactProfileScrn,
 
     Currencies: Scrn.CurrenciesScrn,
     Reminders: Scrn.RemindersScrn,

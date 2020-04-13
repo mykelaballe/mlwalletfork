@@ -111,7 +111,7 @@ class Scrn extends React.Component {
             favorites = await API.getFavoriteBillers()
         }
         catch(err) {
-            Say.err(_('500'))
+            Say.err(err)
         }
 
         this.setState({

@@ -67,7 +67,7 @@ class FavoriteBillers extends React.Component {
             ]
         }
         catch(err) {
-            Say.err(_('500'))
+            Say.err(err)
         }
 
         this.setState({

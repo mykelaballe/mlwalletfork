@@ -30,7 +30,7 @@ class Scrn extends React.Component {
             this.props.setRates(list)
         }
         catch(err) {
-            Say.err(_('500'))
+            Say.err(err)
         }
 
         this.setState({

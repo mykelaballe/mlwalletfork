@@ -39,7 +39,7 @@ export default class Scrn extends React.Component {
             this.listHolder = list
         }
         catch(err) {
-            Say.err(_('500'))
+            Say.err(err)
         }
 
         this.setState({

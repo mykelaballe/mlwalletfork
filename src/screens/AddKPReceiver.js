@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Screen, Footer, Headline, TextInput, Button, Checkbox, Picker} from '../components'
 import {Metrics} from '../themes'
-import {_, Say} from '../utils'
+import {_, Say, Consts} from '../utils'
 import {API} from '../services'
 
 class Scrn extends React.Component {
@@ -20,16 +20,7 @@ class Scrn extends React.Component {
         suffix:'',
         other_suffix:'',
         has_suffix:true,
-        suffix_options:[
-            {label:'Jr.'},
-            {label:'Sr.'},
-            {label:'I'},
-            {label:'II'},
-            {label:'III'},
-            {label:'IV'},
-            {label:'V'},
-            {label:'Others'}
-        ],
+        suffix_options:Consts.suffixOptions,
         contact_no:'',
         processing:false
     }
@@ -105,7 +96,7 @@ class Scrn extends React.Component {
             }
         }
         catch(err) {
-            Say.err(_('500'))
+            Say.err(err)
         }
 
         this.setState({processing:false})

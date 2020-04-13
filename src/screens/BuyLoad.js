@@ -1,11 +1,10 @@
 import React from 'react'
-import {View, StyleSheet, TouchableOpacity} from 'react-native'
+import {View} from 'react-native'
 import {Screen, Footer, Headline, Spacer, Button, TextInput, StaticInput, Icon, Picker} from '../components'
 import {Metrics} from '../themes'
 import {_, Consts, Func, Say} from '../utils'
-import {API} from '../services'
 
-class Scrn extends React.Component {
+export default class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Buy eLoad'
@@ -44,17 +43,6 @@ class Scrn extends React.Component {
         name:this.props.navigation.state.params.receiver.fullname,
         contact_no:this.props.navigation.state.params.receiver.mobileno,
     }
-
-    /*componentDidUpdate = (prevProps, prevState) => {
-        const {params = {}} = this.props.navigation.state
-        if(params.receiver && params.receiver.mobileno !== prevState.contact_no) {
-            this.props.navigation.setParams({receiver:null})
-            this.setState({
-                contact_no:params.receiver.mobileno,
-                name:params.receiver.fullname
-            })
-        }
-    }*/
 
     handleChangeContactNo = contact_no => this.setState({contact_no})
 
@@ -111,17 +99,7 @@ class Scrn extends React.Component {
                         value={contact_no}
                         keyboardType='numeric'
                         onChangeText={this.handleChangeContactNo}
-                        /*rightContent={
-                            <TouchableOpacity onPress={this.handleSelectReceiver}>
-                                <Icon name='phonebook' style={{width:30,height:30}} />
-                            </TouchableOpacity>
-                        }*/
                     />
-
-                    {/*<StaticInput
-                        label='Mobile Number'
-                        value={contact_no}
-                    />*/}
 
                     <StaticInput
                         label='Name'
@@ -136,11 +114,3 @@ class Scrn extends React.Component {
         )
     }
 }
-
-const style = StyleSheet.create({
-    textarea: {
-        height:130
-    }
-})
-
-export default Scrn

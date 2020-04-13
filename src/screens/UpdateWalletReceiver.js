@@ -34,11 +34,11 @@ class Scrn extends React.Component {
 
             if(!wallet_id || !fullname) Say.some(_('8'))
             else {
-                Say.some('Receiver updated')
+                Say.ok('Receiver updated')
             }
         }
         catch(err) {
-            Say.err(_('500'))
+            Say.err(err)
         }
     }
 

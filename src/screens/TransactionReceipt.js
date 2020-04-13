@@ -43,13 +43,6 @@ export default class Scrn extends React.Component {
         const {params = {}} = this.props.navigation.state
         let now = moment(params.transdate) || moment()
 
-        try {
-            
-        }
-        catch(err) {
-            Say.err(_('500'))
-        }
-
         this.setState({
             date:now.format('MMMM DD, YYYY'),
             time:now.format('hh:mm:ss a'),

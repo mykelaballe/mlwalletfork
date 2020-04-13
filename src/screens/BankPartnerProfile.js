@@ -97,7 +97,7 @@ class Scrn extends React.Component {
             Say.ok('Partner successfully deleted')
         }
         catch(err) {
-            Say.err(_('500'))
+            Say.err(err)
         }
     }
 
@@ -125,7 +125,7 @@ class Scrn extends React.Component {
             this.setState({isFavorite:!isFavorite})
         }
         catch(err) {
-            Say.err(_('500'))
+            Say.err(err)
         }
     }
 

@@ -64,7 +64,7 @@ class Scrn extends React.Component {
             list = await API.getWalletReceivers({walletno})
         }
         catch(err) {
-            Say.err(_('500'))
+            Say.err(err)
         }
 
         this.setState({
