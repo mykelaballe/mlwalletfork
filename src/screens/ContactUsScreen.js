@@ -101,7 +101,7 @@ class Scrn extends React.Component {
 
                     <Spacer sm />
 
-                    <RippleItem onPress={this.handleCall} value={'1-800-1-0572-3252'} style={style.item}>
+                    <RippleItem onPress={this.handleCall} value={'032-260-9290'} style={style.item}>
                         <Row>
                             <Icon name='phone' style={style.icon} />
                             <Spacer h sm />
@@ -115,7 +115,7 @@ class Scrn extends React.Component {
 
                     <Spacer sm />
 
-                    <RippleItem onPress={this.handleCall} value={'1-800-1-0572-3252'} style={style.item}>
+                    <RippleItem onPress={this.handleCall} value={'0947-999-0337'} style={style.item}>
                         <Row>
                             <Icon name='phone' style={style.icon} />
                             <Spacer h sm />
@@ -123,7 +123,7 @@ class Scrn extends React.Component {
                         </Row>
                     </RippleItem>
 
-                    <RippleItem onPress={this.handleCall} value={'1-800-1-0572-3252'} style={style.item}>
+                    <RippleItem onPress={this.handleCall} value={'0917-871-2973'} style={style.item}>
                         <Row>
                             <Icon name='phone' style={style.icon} />
                             <Spacer h sm />
@@ -135,7 +135,7 @@ class Scrn extends React.Component {
                 <Card style={style.card}>
                     <Text b lg>Email</Text>
                     <Spacer sm />
-                    <RippleItem onPress={this.handleEmail} value={'1-800-1-0572-3252'} style={style.item}>
+                    <RippleItem onPress={this.handleEmail} value={'customercare@mlhuillier.com'} style={style.item}>
                         <Row>
                             <Icon name='mail' style={style.icon} />
                             <Spacer h sm />

@@ -23,7 +23,7 @@ export default {
         let data = {}
         let res = await Fetch.get(`bill_partners/all?category=${category}`)
         
-        if(res.data) {
+        if(!res.error) {
             for(let d in res.data) {
                 let letter = res.data[d].bill_partner_name[0]
 

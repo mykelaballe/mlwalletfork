@@ -131,7 +131,7 @@ class Scrn extends React.Component {
                         })
                     }
                     else if(type == Consts.tcn.stb.code) {
-                        res = await API.sendBankTransfer({
+                        /*res = await API.sendBankTransfer({
                             walletno,
                             account_no:transaction.account_no,
                             account_name:transaction.account_name,
@@ -139,6 +139,14 @@ class Scrn extends React.Component {
                             fixed_charge:transaction.fixed_charge,
                             convenience_fee:transaction.convenience_fee,
                             amount:transaction.amount
+                        })*/
+                        res = await API.payBill({
+                            walletno,
+                            partnersId:transaction.accountid,
+                            accountNo:transaction.account_no,
+                            accountName:transaction.account_name,
+                            amountpaid:transaction.amount,
+                            conveniencefee:transaction.convenience_fee
                         })
                     }
                     else if(type == Consts.tcn.wdc.code) {

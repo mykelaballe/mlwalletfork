@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import Actions from '../actions/Creators'
 import {Text, Spacer, FlatList, Ripple, Icon} from '../components'
 import {Metrics} from '../themes'
-import {_} from '../utils'
+import {_, Say} from '../utils'
 
 const {width} = Dimensions.get('window')
 const ITEM_WIDTH = (width / 3) - (Metrics.xl)
@@ -76,7 +76,15 @@ class More extends React.Component {
 
     handlePressContactUs = () => this.props.navigation.navigate('ContactUs')
 
-    handlePressLogout = () => this.props.logout()
+    handlePressLogout = () => {
+        Say.ask(
+            'Are you sure?',
+            'Logout',
+            {
+                onConfirm:() => this.props.logout()
+            }
+        )
+    }
 
     renderItems = ({item, index}) => (
         <Ripple style={style.item} onPress={item.onPress}>
