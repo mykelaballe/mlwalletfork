@@ -53,13 +53,21 @@ export default {
     },
 
     getFavoriteBillers: async walletno => {
+        let data = []
         let res = await Fetch.get(`partners/getFavoriteAccounts?walletno=${walletno}`)
-        return res.data || []
+
+        if(!res.error) data = res.data
+
+        return data
     },
 
     getRecentBillers: async walletno => {
+        let data = []
         let res = await Fetch.get(`recent/${Consts.tcn.bpm.code}/${walletno}`)
-        return res.data || []
+
+        if(!res.error) data = res.data
+
+        return data
     },
 
     addBiller: async payload => await Fetch.post(`partners/addBillerAccount`,payload),
