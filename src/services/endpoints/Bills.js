@@ -20,7 +20,7 @@ export default {
     },
 
     getAllBillers: async category => {
-        let data = {}
+        let data = []
         let res = await Fetch.get(`bill_partners/all?category=${category}`)
         
         if(!res.error) {
@@ -36,9 +36,11 @@ export default {
 
                 data[letter].data.push(res.data[d])
             }
+
+            data = data.concat(Object.values(data))
         }
         
-        return Object.values(data)
+        return data
     },
 
     getBillers: async walletno => {
