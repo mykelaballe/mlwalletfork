@@ -41,6 +41,7 @@ class Scrn extends React.Component {
     handleSendMoney = async () => {
         const {params} = this.props.navigation.state
         this.props.navigation.navigate('TransactionReview',{
+            type:Consts.tcn.stb.code,
             ...params,
             transaction: {
                 ...this.state

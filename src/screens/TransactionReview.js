@@ -18,10 +18,7 @@ class Scrn extends React.Component {
         const {navigate, state} = this.props.navigation
         try {
             this.setState({processing:true})
-            navigate('PINConfirmation',{
-                type:Consts.tcn.stb.code,
-                ...state.params
-            })
+            navigate('PINConfirmation',{...state.params})
         }
         catch(err) {
             Say.err(err)
