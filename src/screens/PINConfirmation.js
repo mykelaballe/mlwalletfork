@@ -140,6 +140,7 @@ class Scrn extends React.Component {
                             convenience_fee:transaction.convenience_fee,
                             amount:transaction.amount
                         })*/
+                        console.warn(transaction.bank)
                         res = await API.payBill({
                             walletno,
                             partnersId:transaction.accountid,
