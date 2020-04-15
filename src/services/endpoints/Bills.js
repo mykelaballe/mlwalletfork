@@ -44,8 +44,12 @@ export default {
     },
 
     getBillers: async walletno => {
+        let data = []
         let res = await Fetch.get(`partners/getBillerAccounts?walletno=${walletno}`)
-        return res.data || []
+
+        if(!res.error) data = res.data
+
+        return data
     },
 
     getFavoriteBillers: async walletno => {
