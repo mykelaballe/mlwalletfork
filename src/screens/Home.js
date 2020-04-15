@@ -173,8 +173,7 @@ const style = StyleSheet.create({
         alignItems:'center',
         width:ITEM_WIDTH,
         height:ITEM_HEIGHT,
-        padding:Metrics.sm,
-        marginHorizontal:Metrics.md
+        marginHorizontal:Metrics.rg
     },
     icon: {
         width:40,
