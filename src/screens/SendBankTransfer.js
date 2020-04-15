@@ -15,7 +15,7 @@ class Scrn extends React.Component {
     })
 
     state = {
-        bank:this.props.navigation.state.params.bank.bankname,
+        bank:this.props.navigation.state.params.bank,
         account_name:this.props.navigation.state.params.bank.old_account_name,
         account_no:this.props.navigation.state.params.bank.old_account_no,
         amount:'',
@@ -67,7 +67,7 @@ class Scrn extends React.Component {
                     <TextInput
                         disabled
                         label='Bank Name'
-                        value={bank}
+                        value={bank.bankname}
                     />
 
                     <TextInput
