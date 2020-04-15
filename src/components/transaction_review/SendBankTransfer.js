@@ -14,7 +14,7 @@ export default props => {
             <Spacer lg />
 
             <Text mute sm>Partner Bank</Text>
-            <Text md>{bank}</Text>
+            <Text md>{bank.bankname}</Text>
 
             <Spacer />
 
