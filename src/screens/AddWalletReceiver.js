@@ -152,8 +152,6 @@ class Scrn extends React.Component {
                             returnKeyType='next'
                         />
 
-                        <Spacer h xs />
-
                         <TextInput
                             ref='lastname'
                             label='Last Name'
