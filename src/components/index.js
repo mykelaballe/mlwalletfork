@@ -14,7 +14,6 @@ import DynamicStaticInput from './DynamicStaticInput'
 import Errors from './Errors'
 import FlatList from './FlatList'
 import Footer from './Footer'
-import Hamburger from './Hamburger'
 import HeaderRight from './HeaderRight'
 import Headline from './Headline'
 import HR from './HR'
@@ -71,7 +70,6 @@ export {
     Errors,
     FlatList,
     Footer,
-    Hamburger,
     HeaderRight,
     Headline,
     HR,
