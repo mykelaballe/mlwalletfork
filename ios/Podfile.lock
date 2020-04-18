@@ -48,20 +48,9 @@ PODS:
     - GoogleMaps/Base
   - JWT (3.0.0-beta.12):
     - Base64 (~> 1.1.2)
-  - libwebp (1.1.0):
-    - libwebp/demux (= 1.1.0)
-    - libwebp/mux (= 1.1.0)
-    - libwebp/webp (= 1.1.0)
-  - libwebp/demux (1.1.0):
-    - libwebp/webp
-  - libwebp/mux (1.1.0):
-    - libwebp/demux
-  - libwebp/webp (1.1.0)
   - Permission-LocationWhenInUse (2.0.10):
     - RNPermissions
   - RCTRequired (0.61.2)
-  - RCTRestart (0.0.13):
-    - React
   - RCTTypeSafety (0.61.2):
     - FBLazyVector (= 0.61.2)
     - Folly (= 2018.10.22.00)
@@ -232,8 +221,6 @@ PODS:
     - React
   - react-native-camera/RN (3.17.0):
     - React
-  - react-native-fingerprint-scanner (3.0.2):
-    - React
   - react-native-geolocation (1.4.2):
     - React
   - react-native-google-maps (0.26.1):
@@ -283,16 +270,10 @@ PODS:
     - React-cxxreact (= 0.61.2)
     - React-jsi (= 0.61.2)
     - ReactCommon/jscallinvoker (= 0.61.2)
-  - rn-fetch-blob (0.11.2):
-    - React-Core
   - RNCAsyncStorage (1.6.2):
     - React
   - RNDeviceInfo (4.0.1):
     - React
-  - RNFastImage (7.0.2):
-    - React
-    - SDWebImage (~> 5.0)
-    - SDWebImageWebPCoder (~> 0.2.3)
   - RNGestureHandler (1.4.1):
     - React
   - RNPermissions (2.0.10):
@@ -301,18 +282,10 @@ PODS:
     - React
   - RNScreens (1.0.0-alpha.23):
     - React
-  - RNSnackbar (2.0.3):
-    - React
   - RNSVG (11.0.1):
     - React
   - RNVectorIcons (6.6.0):
     - React
-  - SDWebImage (5.5.2):
-    - SDWebImage/Core (= 5.5.2)
-  - SDWebImage/Core (5.5.2)
-  - SDWebImageWebPCoder (0.2.5):
-    - libwebp (~> 1.0)
-    - SDWebImage/Core (~> 5.0)
   - SSZipArchive (2.2.2)
   - TouchID (4.4.1):
     - React
@@ -329,7 +302,6 @@ DEPENDENCIES:
   - GoogleMaps
   - Permission-LocationWhenInUse (from `../node_modules/react-native-permissions/ios/LocationWhenInUse.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
-  - RCTRestart (from `../node_modules/react-native-restart/ios`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
   - React (from `../node_modules/react-native/`)
   - React-Core (from `../node_modules/react-native/`)
@@ -341,7 +313,6 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-camera (from `../node_modules/react-native-camera`)
-  - react-native-fingerprint-scanner (from `../node_modules/react-native-fingerprint-scanner`)
   - "react-native-geolocation (from `../node_modules/@react-native-community/geolocation`)"
   - react-native-google-maps (from `../node_modules/react-native-maps`)
   - react-native-html-to-pdf (from `../node_modules/react-native-html-to-pdf`)
@@ -359,34 +330,25 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - ReactCommon/jscallinvoker (from `../node_modules/react-native/ReactCommon`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
-  - rn-fetch-blob (from `../node_modules/rn-fetch-blob`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
-  - RNFastImage (from `../node_modules/react-native-fast-image`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
-  - RNSnackbar (from `../node_modules/react-native-snackbar`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - TouchID (from `../node_modules/react-native-touch-id`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
-    - Google-Maps-iOS-Utils
-    - GoogleMaps
-    - SSZipArchive
   trunk:
     - Base64
     - boost-for-react-native
     - Google-Maps-iOS-Utils
     - GoogleMaps
     - JWT
-    - libwebp
-    - SDWebImage
-    - SDWebImageWebPCoder
+    - SSZipArchive
 
 EXTERNAL SOURCES:
   CodePush:
@@ -405,8 +367,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-permissions/ios/LocationWhenInUse.podspec"
   RCTRequired:
     :path: "../node_modules/react-native/Libraries/RCTRequired"
-  RCTRestart:
-    :path: "../node_modules/react-native-restart/ios"
   RCTTypeSafety:
     :path: "../node_modules/react-native/Libraries/TypeSafety"
   React:
@@ -425,8 +385,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   react-native-camera:
     :path: "../node_modules/react-native-camera"
-  react-native-fingerprint-scanner:
-    :path: "../node_modules/react-native-fingerprint-scanner"
   react-native-geolocation:
     :path: "../node_modules/@react-native-community/geolocation"
   react-native-google-maps:
@@ -459,14 +417,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/Libraries/Vibration"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
-  rn-fetch-blob:
-    :path: "../node_modules/rn-fetch-blob"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-community/async-storage"
   RNDeviceInfo:
     :path: "../node_modules/react-native-device-info"
-  RNFastImage:
-    :path: "../node_modules/react-native-fast-image"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNPermissions:
@@ -475,8 +429,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
-  RNSnackbar:
-    :path: "../node_modules/react-native-snackbar"
   RNSVG:
     :path: "../node_modules/react-native-svg"
   RNVectorIcons:
@@ -498,10 +450,8 @@ SPEC CHECKSUMS:
   Google-Maps-iOS-Utils: c32891ff472eaaa1fca032beedafa1a013af7875
   GoogleMaps: 5046d7edfe381c1a0b20fdaf293915a375c3122b
   JWT: 9b5c05abbcc1a0e69c3c91e1655b3387fc7e581d
-  libwebp: 946cb3063cea9236285f7e9a8505d806d30e07f3
   Permission-LocationWhenInUse: 4a2764d2efe09a1f6c7a00dfbbb863149240311a
   RCTRequired: c639d59ed389cfb1f1203f65c2ea946d8ec586e2
-  RCTRestart: dd19aab87fc1118e05b6b5b91b959105647f56b4
   RCTTypeSafety: dc23fb655d6c77667c78e327bf661bc11e3b8aec
   React: 7e586e5d7bec12b91c1a096826b0fc9ab1da7865
   React-Core: 8ddb9770b4a30a6ab4a754e6ed5ec76454e3d699
@@ -511,7 +461,6 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 8909917ff7d8f21a57e443a866fd8d4560e50c65
   React-jsinspector: 111d7d342b07a904c400592e02a2b958f1098b60
   react-native-camera: c549d50495c989688ef1819dab49441c7dc7c17d
-  react-native-fingerprint-scanner: 388acb4969b681a3f63fbec0c4b740d2b775a1dc
   react-native-geolocation: a7b94614afbd5fd8350e0233a2025c8228fc8041
   react-native-google-maps: 2e2e697dab576abd5809d78cd74e775865b62bf7
   react-native-html-to-pdf: 1d1199917f56a98377d431bce84c2f275e48eb71
@@ -528,19 +477,14 @@ SPEC CHECKSUMS:
   React-RCTText: e3ef6191cdb627855ff7fe8fa0c1e14094967fb8
   React-RCTVibration: fb54c732fd20405a76598e431aa2f8c2bf527de9
   ReactCommon: 5848032ed2f274fcb40f6b9ec24067787c42d479
-  rn-fetch-blob: f525a73a78df9ed5d35e67ea65e79d53c15255bc
   RNCAsyncStorage: 60a80e72d95bf02a01cace55d3697d9724f0d77f
   RNDeviceInfo: 687c1b2ab6d86ff1ca1208783320cd144138c7f2
-  RNFastImage: 9b0c22643872bb7494c8d87bbbb66cc4c0d9e7a2
   RNGestureHandler: 4cb47a93019c1a201df2644413a0a1569a51c8aa
   RNPermissions: 1008d3511fee0e25739cf81c4af0d1b2248f1053
   RNReanimated: 6abbbae2e5e72609d85aabd92a982a94566885f1
   RNScreens: f28b48b8345f2f5f39ed6195518291515032a788
-  RNSnackbar: 5ce7c6c100fde59068e9135397760d7cee299c2a
   RNSVG: 67f1f12dae2cef6ed59a42cae74a6b8f5a9e7b46
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
-  SDWebImage: 4d5c027c935438f341ed33dbac53ff9f479922ca
-  SDWebImageWebPCoder: 947093edd1349d820c40afbd9f42acb6cdecd987
   SSZipArchive: fa16b8cc4cdeceb698e5e5d9f67e9558532fbf23
   TouchID: ba4c656d849cceabc2e4eef722dea5e55959ecf4
   Yoga: 14927e37bd25376d216b150ab2a561773d57911f
