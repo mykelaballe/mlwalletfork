@@ -11,6 +11,7 @@ import Types from './Types'
  ----------------------------------------------------------------------*/
  
  const setIsFirstTime = isFirstTime => ({ type: Types.SET_IS_FIRST_TIME, isFirstTime })
+ const setIsTouchIDSupported = isSupported => ({ type: Types.SET_IS_TOUCH_ID_SUPPORTED, isSupported })
  const setIsUsingTouchID = isUsing => ({ type: Types.SET_IS_USING_TOUCH_ID, isUsing })
  const setHasSeenSendMoneyOnboarding = hasSeen => ({ type: Types.SET_HAS_SEEN_SENDMONEY_ONBOARDING, hasSeen })
  const setHasSeenReceiveMoneyOnboarding = hasSeen => ({ type: Types.SET_HAS_SEEN_RECEIVEMONEY_ONBOARDING, hasSeen })
@@ -114,6 +115,7 @@ export default {
   startup,
 
   setIsFirstTime,
+  setIsTouchIDSupported,
   setIsUsingTouchID,
   setHasSeenSendMoneyOnboarding,
   setHasSeenReceiveMoneyOnboarding,

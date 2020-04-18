@@ -2,9 +2,9 @@ import React from 'react'
 import {View} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Screen, Footer, Headline, TextInput, Text, Button, Spacer, Avatar, Row} from '../components'
+import {Screen, Footer, Headline, TextInput, Text, Button, Spacer, Avatar} from '../components'
 import {Metrics} from '../themes'
-import {_, Say} from '../utils'
+import {_, Say, Consts} from '../utils'
 import {API} from '../services'
 
 class Scrn extends React.Component {
@@ -19,6 +19,7 @@ class Scrn extends React.Component {
         firstname:'',
         lastname:'',
         mobile_no:'',
+        profilepic:null,
         processing:false,
         found:false
     }
@@ -72,7 +73,8 @@ class Scrn extends React.Component {
                         walletno:res.walletno,
                         firstname:res.firstName,
                         lastname:res.lastName,
-                        mobile_no:res.mobileno
+                        mobile_no:res.mobileno,
+                        profilepic:res.profilepic
                     })
 
                     Say.ok('Search successful')
@@ -91,7 +93,7 @@ class Scrn extends React.Component {
 
     addReceiver = async () => {
         try {
-            const {walletno, firstname, lastname, mobile_no} = this.state
+            const {walletno} = this.state
 
             let res = await API.addWalletReceiver({
                 senderWalletNum:this.props.user.walletno,
@@ -114,7 +116,7 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {walletno, firstname, lastname, mobile_no, processing, found} = this.state
+        const {walletno, firstname, lastname, mobile_no, profilepic, processing, found} = this.state
         let ready = false
 
         if(walletno && ((firstname && lastname) || mobile_no)) ready = true
@@ -125,7 +127,7 @@ class Scrn extends React.Component {
                     <Headline subtext='Please ensure that the ML Wallet account number entered is correct' />
 
                     <View style={{alignItems:'center'}}>
-                        <Avatar source={null} size={Metrics.image.lg} />
+                        <Avatar source={profilepic ? `${Consts.baseURL}wallet/image?walletno=${walletno}` : null} size={Metrics.image.lg} />
 
                         <Spacer />
 

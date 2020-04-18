@@ -4,6 +4,7 @@ import {createReducer} from 'reduxsauce'
 
 export const INITIAL_STATE = Immutable({
   isFirstTime: true,
+  isTouchIDSupported: false,
   isUsingTouchID: false,
   hasSeenSendMoneyOnboarding: false,
   hasSeenReceiveMoneyOnboarding: false,
@@ -14,6 +15,8 @@ export const INITIAL_STATE = Immutable({
 })
 
 const setIsFirstTime = (state, action) => state.merge({ isFirstTime:action.isFirstTime })
+
+const setIsTouchIDSupported = (state, action) => state.merge({ isTouchIDSupported:action.isSupported })
 
 const setIsUsingTouchID = (state, action) => state.merge({ isUsingTouchID:action.isUsing })
 
@@ -31,6 +34,7 @@ const setIsLocationEnabled = (state, action) => state.merge({ isLocationEnabled:
 
 const ACTION_HANDLERS = {
   [Types.SET_IS_FIRST_TIME]: setIsFirstTime,
+  [Types.SET_IS_TOUCH_ID_SUPPORTED]: setIsTouchIDSupported,
   [Types.SET_IS_USING_TOUCH_ID]: setIsUsingTouchID,
   [Types.SET_HAS_SEEN_SENDMONEY_ONBOARDING]: setHasSeenSendMoneyOnboarding,
   [Types.SET_HAS_SEEN_RECEIVEMONEY_ONBOARDING]: setHasSeenReceiveMoneyOnboarding,
