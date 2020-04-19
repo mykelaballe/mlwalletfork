@@ -42,6 +42,7 @@ import SearchInput from './SearchInput'
 import SectionHeader from './SectionHeader'
 import SectionList from './SectionList'
 import SignUpStepsTracker from './SignUpStepsTracker'
+import SkeletonLoader from './SkeletonLoader'
 import Spacer from './Spacer'
 import StaticInput from './StaticInput'
 import Switch from './Switch'
@@ -98,6 +99,7 @@ export {
     SectionHeader,
     SectionList,
     SignUpStepsTracker,
+    SkeletonLoader,
     Spacer,
     StaticInput,
     Switch,

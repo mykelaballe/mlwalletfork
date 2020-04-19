@@ -1,6 +1,6 @@
 import React from 'react'
 import {ScrollView, StyleSheet, SectionList as List, RefreshControl, Image} from 'react-native'
-import {ActivityIndicator, Text} from './'
+import {ActivityIndicator, Text, SkeletonLoader} from './'
 import {Colors, Res} from '../themes'
 
 export default class SectionList extends React.Component {
@@ -11,10 +11,13 @@ export default class SectionList extends React.Component {
 
     render() {
 
-        const {sections, loading, refreshing, onRefresh, placeholder} = this.props
+        const {sections, loading, refreshing, onRefresh, placeholder, skeleton} = this.props
         const useRefresh = typeof onRefresh !== 'undefined'
 
-        if(loading) return <ActivityIndicator />
+        if(loading) {
+            if(typeof skeleton !== 'undefined') return <SkeletonLoader template={skeleton} />
+            return <ActivityIndicator />
+        }
 
         if(useRefresh && sections.length == 0) {
             return (

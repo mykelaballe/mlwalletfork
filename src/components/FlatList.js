@@ -1,6 +1,6 @@
 import React from 'react'
 import {ScrollView, View, StyleSheet, FlatList as List, RefreshControl, Image} from 'react-native'
-import {ActivityIndicator, Text} from './'
+import {ActivityIndicator, Text, SkeletonLoader} from './'
 import {Colors, Metrics, Res} from '../themes'
 
 export default class FlatList extends React.Component {
@@ -11,10 +11,13 @@ export default class FlatList extends React.Component {
 
     render() {
 
-        const {data, loading, refreshing, onRefresh, placeholder} = this.props
+        const {data, loading, refreshing, onRefresh, placeholder, skeleton} = this.props
         const useRefresh = typeof onRefresh !== 'undefined'
 
-        if(loading) return <ActivityIndicator />
+        if(loading) {
+            if(typeof skeleton !== 'undefined') return <SkeletonLoader template={skeleton} />
+            return <ActivityIndicator />
+        }
 
         if(data.length == 0) {
             let placeholderUI = null
