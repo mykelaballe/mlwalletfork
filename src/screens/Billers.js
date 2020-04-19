@@ -98,6 +98,7 @@ export default class Scrn extends React.Component {
                     refreshing={refreshing}
                     onRefresh={this.handleRefresh}
                     placeholder={{text:'No Billers found'}}
+                    skeleton
                 />
             </View>
         )

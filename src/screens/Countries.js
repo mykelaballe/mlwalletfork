@@ -93,6 +93,7 @@ export default class Scrn extends React.Component {
                     renderSectionHeader={this.renderSectionHeader}
                     renderItem={this.renderItem}
                     loading={loading}
+                    skeleton
                 />
             </View>
         )

@@ -79,6 +79,7 @@ export default class Scrn extends React.Component {
                     data={list}
                     renderItem={this.renderItem}
                     loading={loading}
+                    skeleton
                 />
             </View>
         )

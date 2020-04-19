@@ -70,6 +70,7 @@ class Scrn extends React.Component {
                     loading={loading}
                     refreshing={refreshing}
                     onRefresh={this.handleRefresh}
+                    skeleton='b'
                 />
             </Screen>
         )

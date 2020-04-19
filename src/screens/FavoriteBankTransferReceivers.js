@@ -97,6 +97,7 @@ class Scrn extends React.Component {
                         refreshing={refreshing}
                         onRefresh={this.handleRefresh}
                         placeholder={{}}
+                        skeleton='a'
                     />
                 </Screen>
             </>
