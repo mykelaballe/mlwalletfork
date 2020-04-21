@@ -22,29 +22,55 @@ class Scrn extends React.Component {
     handleChangeDigit1 = digit1 => {
         this.setState({digit1})
         if(digit1) this.refs.digit2.focus()
+
+        if(!digit1) this.clearAll()
     }
     
     handleChangeDigit2 = digit2 => {
         this.setState({digit2})
         if(digit2) this.refs.digit3.focus()
+
+        if(!digit2) this.clearAll()
     }
 
     handleChangeDigit3 = digit3 => {
         this.setState({digit3})
         if(digit3) this.refs.digit4.focus()
+
+        if(!digit3) this.clearAll()
     }
 
     handleChangeDigit4 = digit4 => {
         this.setState({digit4})
         if(digit4) this.refs.digit5.focus()
+
+        if(!digit4) this.clearAll()
     }
 
     handleChangeDigit5 = digit5 => {
         this.setState({digit5})
         if(digit5) this.refs.digit6.focus()
+
+        if(!digit5) this.clearAll()
     }
 
-    handleChangeDigit6 = digit6 => this.setState({digit6})
+    handleChangeDigit6 = digit6 => {
+        this.setState({digit6})
+
+        if(!digit6) this.clearAll()
+    }
+
+    clearAll = () => {
+        this.setState({
+            digit1:'',
+            digit2:'',
+            digit3:'',
+            digit4:'',
+            digit5:'',
+            digit6:''
+        })
+        this.refs.digit1.focus()
+    }
 
     handleResendOTP = async () => this.setState({reprocessing:true})
 

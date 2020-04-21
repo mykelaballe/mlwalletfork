@@ -21,13 +21,16 @@ class Scrn extends React.Component {
             }
         }
     }
+
     state = {
         source:null,
         viewType:RNCamera.Constants.Type.back,
+        eyes:[],
         processing:false
     }
 
     handleChangeViewType = () => {
+        if(this.state.processing) return false
         this.setState(prevState => ({
             viewType:prevState.viewType === RNCamera.Constants.Type.back ? RNCamera.Constants.Type.front : RNCamera.Constants.Type.back
         }))
@@ -45,21 +48,28 @@ class Scrn extends React.Component {
 
                 //base64, width, height, pictureOrientation, deviceOrientation
                 let source = await this.camera.takePictureAsync({
-                    width: 720,
-                    height: 540,
+                    //width: 480,
+                    //height: 720,
                     quality: 0.7,
                     base64: true,
-                    orientation: 'portrait'
+                    orientation: 'portrait',
+                    skipProcessing:true,
+                    mirrorImage:true,
+
+                    //Android
+                    fixOrientation:true,
+
+                    //iOS
+                    forceUpOrientation:true
                 })
 
                 //source.base64 = `data:image/jpeg;base64,${source.bsae64}`
 
-                this.setState({
-                    source,
-                    //processing:false
-                })
+                this.setState({source})
             }
             catch(err) {
+                this.camera.pausePreview()
+                this.camera.resumePreview()
                 Say.err(err)
             }
 
@@ -73,9 +83,45 @@ class Scrn extends React.Component {
         this.props.navigation.navigate(this.props.navigation.state.params.sourceRoute,{source:this.state.source.base64})
     }
 
-    render() {
+    handleFaceDetected = async data => {
+        if(this.state.processing) return false
 
+        if(data.faces.length > 0) {
+            const leftEye = data.faces[0].leftEyeOpenProbability
+            const rightEye = data.faces[0].rightEyeOpenProbability
+
+            let bothEyes = (leftEye + rightEye) / 2
+            bothEyes = parseFloat(bothEyes.toFixed(2))
+
+            let eyes = this.state.eyes.slice()
+
+            eyes.push(bothEyes)
+
+            let hasClose = false
+
+            for(let e in eyes) {
+                let eye = eyes[e]
+                
+                if(eye <= 0.3) hasClose = true
+            }
+
+            if(hasClose) {
+                eyes = []
+                this.handleCapture()
+            }
+
+            this.setState({eyes})
+        }
+    }
+
+    handleFaceDetectionError = () => alert('Face Detection Error')
+
+    render() {
+        
+        const {params = {}} = this.props.navigation.state
         const {source, viewType, processing} = this.state
+
+        const useFaceDetection = false//params.title === 'Live Photo'
 
         return (
             <> 
@@ -94,6 +140,11 @@ class Scrn extends React.Component {
                             buttonPositive: 'Ok',
                             buttonNegative: 'Cancel',
                         }}
+                        faceDetectionMode={RNCamera.Constants.FaceDetection.Mode.accurate}
+                        faceDetectionLandmarks={RNCamera.Constants.FaceDetection.Landmarks.all}
+                        faceDetectionClassifications={RNCamera.Constants.FaceDetection.Classifications.all}
+                        onFacesDetected={useFaceDetection ? this.handleFaceDetected : undefined}
+                        onFaceDetectionError={useFaceDetection ? this.handleFaceDetectionError : undefined}
                     />
                     }
                 </View>

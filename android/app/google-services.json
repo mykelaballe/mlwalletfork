@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "476052892501",
+    "firebase_url": "https://mlwallet.firebaseio.com",
+    "project_id": "mlwallet",
+    "storage_bucket": "mlwallet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:476052892501:android:0e590c2918f62e4b77dddc",
+        "android_client_info": {
+          "package_name": "com.mlwallet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "476052892501-eiqrrt4qbo3e7qt1fe54ic59259gh5p4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZ0lawMs1ZgON5OeSOYknMeie1AkshIKo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "476052892501-eiqrrt4qbo3e7qt1fe54ic59259gh5p4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
