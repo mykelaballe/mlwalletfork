@@ -44,47 +44,47 @@ class Scrn extends React.Component {
 
         request(PERMISSIONS.IOS.CAMERA)
         .then(res => {
-            alert(res)
-        })
+            if(res == RESULTS.GRANTED) {
+                if(this.camera) {
 
-        return false
-
-        if(this.camera) {
-
-            try {
-                this.setState({processing:true})
-
-                //base64, width, height, pictureOrientation, deviceOrientation
-                let source = await this.camera.takePictureAsync({
-                    //width: 480,
-                    //height: 720,
-                    quality: 0.7,
-                    base64: true,
-                    orientation: 'portrait',
-                    skipProcessing:true,
-                    mirrorImage:true,
-
-                    //Android
-                    fixOrientation:true,
-
-                    //iOS
-                    forceUpOrientation:true
-                })
-
-                //source.base64 = `data:image/jpeg;base64,${source.bsae64}`
-
-                this.setState({source})
-            }
-            catch(err) {
-                if(Consts.is_android) {
-                    this.camera.pausePreview()
-                    this.camera.resumePreview()
+                    try {
+                        this.setState({processing:true})
+        
+                        //base64, width, height, pictureOrientation, deviceOrientation
+                        let source = await this.camera.takePictureAsync({
+                            //width: 480,
+                            //height: 720,
+                            quality: 0.7,
+                            base64: true,
+                            orientation: 'portrait',
+                            skipProcessing:true,
+                            mirrorImage:true,
+        
+                            //Android
+                            fixOrientation:true,
+        
+                            //iOS
+                            forceUpOrientation:true
+                        })
+        
+                        //source.base64 = `data:image/jpeg;base64,${source.bsae64}`
+        
+                        this.setState({source})
+                    }
+                    catch(err) {
+                        if(Consts.is_android) {
+                            this.camera.pausePreview()
+                            this.camera.resumePreview()
+                        }
+                        Say.err(err)
+                    }
+        
+                    this.setState({processing:false})
                 }
-                Say.err(err)
             }
-
-            this.setState({processing:false})
-        }
+            else if(res == RESULTS.UNAVAILABLE) Say.warn('This feature is not available')
+            else Say.warn('Please allow the app to use the camera')
+        })
     }
 
     handleRetake = () => this.setState({source:null})
