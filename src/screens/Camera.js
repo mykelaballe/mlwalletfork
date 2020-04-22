@@ -42,7 +42,9 @@ class Scrn extends React.Component {
 
         if(processing) return false
 
-        request(PERMISSIONS.IOS.CAMERA)
+        const PERMISSION = Consts.is_android ? PERMISSIONS.ANDROID.CAMERA : PERMISSIONS.IOS.CAMERA
+
+        request(PERMISSION)
         .then(res => {
             if(res == RESULTS.GRANTED) {
                 if(this.camera) {
