@@ -3,7 +3,7 @@ import {View, StyleSheet, TouchableOpacity, Image, Dimensions} from 'react-nativ
 import {ButtonText, ButtonIcon, Row, ActivityIndicator} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say, Consts} from '../utils'
-import {RNCamera} from 'react-native-camera'
+import {RNCamera, refreshAuthorizationStatus} from 'react-native-camera'
 import AntDesignIcon from 'react-native-vector-icons/AntDesign'
 import FoundationIcon from 'react-native-vector-icons/Foundation'
 
@@ -73,7 +73,7 @@ class Scrn extends React.Component {
                     this.camera.resumePreview()
                 }
 
-                RNCamera.refreshAuthorizationStatus()
+                refreshAuthorizationStatus()
                 console.warn(err)
                 Say.err(err)
             }
