@@ -47,6 +47,8 @@ class Scrn extends React.Component {
             alert(res)
         })
 
+        return false
+
         if(this.camera) {
 
             try {
