@@ -4,7 +4,7 @@ import {ButtonText, ButtonIcon, Row, ActivityIndicator} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say, Consts} from '../utils'
 import {RNCamera} from 'react-native-camera'
-import {PERMISSIONS, RESULTS} from 'react-native-permissions'
+import {request, PERMISSIONS, RESULTS} from 'react-native-permissions'
 import AntDesignIcon from 'react-native-vector-icons/AntDesign'
 import FoundationIcon from 'react-native-vector-icons/Foundation'
 
