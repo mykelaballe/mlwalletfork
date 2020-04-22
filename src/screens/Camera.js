@@ -37,7 +37,7 @@ class Scrn extends React.Component {
         }))
     }
 
-    handleCapture = async () => {
+    handleCapture = () => {
         const {processing} = this.state
 
         if(processing) return false
@@ -45,7 +45,7 @@ class Scrn extends React.Component {
         const PERMISSION = Consts.is_android ? PERMISSIONS.ANDROID.CAMERA : PERMISSIONS.IOS.CAMERA
 
         request(PERMISSION)
-        .then(res => {
+        .then(async res => {
             if(res == RESULTS.GRANTED) {
                 if(this.camera) {
 
