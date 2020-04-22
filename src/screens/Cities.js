@@ -33,9 +33,14 @@ export default class Scrn extends React.Component {
         let list = []
 
         try {
-            list = await API.getCities(provCode)
+            if(provCode) {
+                list = await API.getCities(provCode)
 
-            this.listHolder = list
+                this.listHolder = list
+            }
+            else {
+                Say.warn('Please select a province')
+            }
         }
         catch(err) {
             Say.err(err)
