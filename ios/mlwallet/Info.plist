@@ -4,6 +4,8 @@
 <dict>
 	<key>CodePushDeploymentKey</key>
 	<string>xrDgtv_6EVJV48O9ZA-swKnVMhASgK7GaZPCD</string>
+	<key>NSHumanReadableCopyright</key>
+	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>app-settings</string>
