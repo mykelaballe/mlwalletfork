@@ -43,6 +43,7 @@ target 'mlwallet' do
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
   pod 'react-native-geolocation', path: '../node_modules/@react-native-community/geolocation'
   pod 'Permission-LocationWhenInUse', :path => '../node_modules/react-native-permissions/ios/LocationWhenInUse.podspec'
+  pod 'Permission-Camera', :path => '../node_modules/react-native-permissions/ios/Camera.podspec'
   pod 'RNPermissions', :path => '../node_modules/react-native-permissions'
 
   target 'mlwalletTests' do

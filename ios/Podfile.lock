@@ -48,6 +48,8 @@ PODS:
     - GoogleMaps/Base
   - JWT (3.0.0-beta.12):
     - Base64 (~> 1.1.2)
+  - Permission-Camera (2.0.10):
+    - RNPermissions
   - Permission-LocationWhenInUse (2.0.10):
     - RNPermissions
   - RCTRequired (0.61.2)
@@ -300,6 +302,7 @@ DEPENDENCIES:
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - Google-Maps-iOS-Utils
   - GoogleMaps
+  - Permission-Camera (from `../node_modules/react-native-permissions/ios/Camera.podspec`)
   - Permission-LocationWhenInUse (from `../node_modules/react-native-permissions/ios/LocationWhenInUse.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
@@ -342,13 +345,16 @@ DEPENDENCIES:
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - Google-Maps-iOS-Utils
+    - GoogleMaps
+    - SSZipArchive
   trunk:
     - Base64
     - boost-for-react-native
     - Google-Maps-iOS-Utils
     - GoogleMaps
     - JWT
-    - SSZipArchive
 
 EXTERNAL SOURCES:
   CodePush:
@@ -363,6 +369,8 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/Folly.podspec"
   glog:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
+  Permission-Camera:
+    :path: "../node_modules/react-native-permissions/ios/Camera.podspec"
   Permission-LocationWhenInUse:
     :path: "../node_modules/react-native-permissions/ios/LocationWhenInUse.podspec"
   RCTRequired:
@@ -450,6 +458,7 @@ SPEC CHECKSUMS:
   Google-Maps-iOS-Utils: c32891ff472eaaa1fca032beedafa1a013af7875
   GoogleMaps: 5046d7edfe381c1a0b20fdaf293915a375c3122b
   JWT: 9b5c05abbcc1a0e69c3c91e1655b3387fc7e581d
+  Permission-Camera: a8f6007d17b02ed8a2d6bac1c37c2fd5df9b4e8a
   Permission-LocationWhenInUse: 4a2764d2efe09a1f6c7a00dfbbb863149240311a
   RCTRequired: c639d59ed389cfb1f1203f65c2ea946d8ec586e2
   RCTTypeSafety: dc23fb655d6c77667c78e327bf661bc11e3b8aec
@@ -489,6 +498,6 @@ SPEC CHECKSUMS:
   TouchID: ba4c656d849cceabc2e4eef722dea5e55959ecf4
   Yoga: 14927e37bd25376d216b150ab2a561773d57911f
 
-PODFILE CHECKSUM: 30ec93f5b0e1164242cfc42845a195638b9f0201
+PODFILE CHECKSUM: 5d1d42239c4d0bdc51c53c92472370edb7daa7c8
 
 COCOAPODS: 1.8.0.beta.1
