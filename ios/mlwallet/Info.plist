@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CodePushDeploymentKey</key>
+	<string>xrDgtv_6EVJV48O9ZA-swKnVMhASgK7GaZPCD</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>app-settings</string>
