@@ -7,7 +7,7 @@ const PLAYSTORE_URL = 'https://play.google.com/store/apps/details?id=com.mlhuill
 const APPSTORE_URL = 'https://apps.apple.com/ph/app/ml-wallet/id962204987'
 
 const CODEPUSH_ANDROID_DEV = 'CJCm4qx0UJ_WyXFXQWFpTY03yjcZEv-_9OipV'
-const CODEPUSH_IOS_DEV = 'CJCm4qx0UJ_WyXFXQWFpTY03yjcZEv-_9OipV'
+const CODEPUSH_IOS_DEV = 'xrDgtv_6EVJV48O9ZA-swKnVMhASgK7GaZPCD'
 
 export default {
 	is_dev:true,
