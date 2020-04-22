@@ -2,7 +2,7 @@ import React from 'react'
 import {View, StyleSheet, TouchableOpacity, Image, Dimensions} from 'react-native'
 import {ButtonText, ButtonIcon, Row, ActivityIndicator} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_, Say} from '../utils'
+import {_, Say, Consts} from '../utils'
 import {RNCamera} from 'react-native-camera'
 import AntDesignIcon from 'react-native-vector-icons/AntDesign'
 import FoundationIcon from 'react-native-vector-icons/Foundation'
@@ -68,7 +68,7 @@ class Scrn extends React.Component {
                 this.setState({source})
             }
             catch(err) {
-                if(this.camera) {
+                if(this.camera && Consts.is_android) {
                     this.camera.pausePreview()
                     this.camera.resumePreview()
                 }
