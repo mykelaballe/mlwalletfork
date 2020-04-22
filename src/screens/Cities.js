@@ -39,7 +39,13 @@ export default class Scrn extends React.Component {
                 this.listHolder = list
             }
             else {
-                Say.warn('Please select a province')
+                Say.warn(
+                    'Please select a province',
+                    null,
+                    {
+                        onDismiss:() => this.props.navigation.pop()
+                    }
+                )
             }
         }
         catch(err) {
