@@ -72,13 +72,13 @@ class Scrn extends React.Component {
                     this.camera.pausePreview()
                     this.camera.resumePreview()
                 }
+
+                RNCamera.refreshAuthorizationStatus()
+                console.warn(err)
                 Say.err(err)
             }
 
             this.setState({processing:false})
-        }
-        else {
-            RNCamera.refreshAuthorizationStatus()
         }
     }
 
