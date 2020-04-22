@@ -140,9 +140,9 @@ class Scrn extends React.Component {
                             buttonPositive: 'Ok',
                             buttonNegative: 'Cancel',
                         }}
-                        faceDetectionMode={RNCamera.Constants.FaceDetection.Mode.accurate}
-                        faceDetectionLandmarks={RNCamera.Constants.FaceDetection.Landmarks.all}
-                        faceDetectionClassifications={RNCamera.Constants.FaceDetection.Classifications.all}
+                        faceDetectionMode={useFaceDetection ? RNCamera.Constants.FaceDetection.Mode.accurate : undefined}
+                        faceDetectionLandmarks={useFaceDetection ? RNCamera.Constants.FaceDetection.Landmarks.all : undefined}
+                        faceDetectionClassifications={useFaceDetection ? RNCamera.Constants.FaceDetection.Classifications.all : undefined}
                         onFacesDetected={useFaceDetection ? this.handleFaceDetected : undefined}
                         onFaceDetectionError={useFaceDetection ? this.handleFaceDetectionError : undefined}
                     />
