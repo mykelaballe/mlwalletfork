@@ -3,7 +3,8 @@ import {View, StyleSheet, TouchableOpacity, Image, Dimensions} from 'react-nativ
 import {ButtonText, ButtonIcon, Row, ActivityIndicator} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say, Consts} from '../utils'
-import {RNCamera, refreshAuthorizationStatus} from 'react-native-camera'
+import {RNCamera} from 'react-native-camera'
+import {PERMISSIONS, RESULTS} from 'react-native-permissions'
 import AntDesignIcon from 'react-native-vector-icons/AntDesign'
 import FoundationIcon from 'react-native-vector-icons/Foundation'
 
@@ -41,6 +42,11 @@ class Scrn extends React.Component {
 
         if(processing) return false
 
+        request(PERMISSIONS.IOS.CAMERA)
+        .then(res => {
+            alert(res)
+        })
+
         if(this.camera) {
 
             try {
@@ -72,9 +78,6 @@ class Scrn extends React.Component {
                     this.camera.pausePreview()
                     this.camera.resumePreview()
                 }
-
-                this.camera.refreshAuthorizationStatus()
-                console.warn(err)
                 Say.err(err)
             }
 
