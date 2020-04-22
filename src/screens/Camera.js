@@ -68,8 +68,10 @@ class Scrn extends React.Component {
                 this.setState({source})
             }
             catch(err) {
-                this.camera.pausePreview()
-                this.camera.resumePreview()
+                if(this.camera) {
+                    this.camera.pausePreview()
+                    this.camera.resumePreview()
+                }
                 Say.err(err)
             }
 
