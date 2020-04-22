@@ -72,6 +72,7 @@ class Scrn extends React.Component {
                     this.camera.pausePreview()
                     this.camera.resumePreview()
                 }
+                console.warn(err)
                 Say.err(err)
             }
 
