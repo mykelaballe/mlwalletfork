@@ -43,7 +43,7 @@ class Responder extends React.Component {
   }
 
   startTimer() {
-    return false
+    //return false
     if(this.state.isLoggedIn) {
       this.timer = setTimeout(this.showPrompt,Consts.allowed_idle_time)
     }
