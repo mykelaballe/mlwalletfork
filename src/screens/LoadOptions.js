@@ -100,17 +100,22 @@ class LoadOptions extends React.Component {
     handleChangeAmount = amount => this.setState({amount})
 
     handleSubmit = async load => {
+        const {amount} = this.state
         const {navigate, state: {params}} = this.props.navigation
-        navigate('TransactionReview',{
-            ...params,
-            load,
-            transaction: {
-                ...this.state,
-                network:params.network,
-                contact_no:params.contact_no
-            },
-            status:'success'
-        })
+
+        if(Func.formatToCurrency(amount) <= 0) Say.warn(_('89'))
+        else {
+            navigate('TransactionReview',{
+                ...params,
+                load,
+                transaction: {
+                    ...this.state,
+                    network:params.network,
+                    contact_no:params.contact_no
+                },
+                status:'success'
+            })
+        }
     }
 
     handleShowRegulars = () => this.setState({show_regulars:true})
