@@ -49,7 +49,7 @@ class Scrn extends React.Component {
     handleAddNewReceiver = () => this.props.navigation.navigate('SavedKPReceivers')
 
     handleSendMoney = async () => {
-        const {total, processing} = this.state
+        const {amount, total, processing} = this.state
         const {params} = this.props.navigation.state
 
         if(processing) return false
