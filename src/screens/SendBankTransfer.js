@@ -1,7 +1,7 @@
 import React from 'react'
 import {Screen, Footer, Headline, Text, Spacer, Button, ButtonText, TextInput, HeaderRight} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_, Consts, Func} from '../utils'
+import {_, Consts, Func, Say} from '../utils'
 
 class Scrn extends React.Component {
 
@@ -39,14 +39,19 @@ class Scrn extends React.Component {
     handleSelectPartner = () => this.props.navigation.navigate('SavedBankPartners')
 
     handleSendMoney = async () => {
+        const {amount} = this.state
         const {params} = this.props.navigation.state
-        this.props.navigation.navigate('TransactionReview',{
-            type:Consts.tcn.stb.code,
-            ...params,
-            transaction: {
-                ...this.state
-            }
-        })
+
+        if(Func.formatToCurrency(amount) <= 0) Say.warn(_('89'))
+        else {
+            this.props.navigation.navigate('TransactionReview',{
+                type:Consts.tcn.stb.code,
+                ...params,
+                transaction: {
+                    ...this.state
+                }
+            })
+        }
     }
 
     render() {

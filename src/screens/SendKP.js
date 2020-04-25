@@ -56,25 +56,28 @@ class Scrn extends React.Component {
 
         try {
             this.setState({processing:true})
-
-            let res = await API.sendKPValidate({
-                walletno:this.props.user.walletno,
-                principal:total
-            })
-
-            if(!res.error) {
-
-                this.props.navigation.navigate('TransactionReview',{
-                    type:Consts.tcn.skp.code,
-                    ...params,
-                    transaction: {
-                        ...this.state
-                    },
-                    cancellable:true
-                })
-            }
+            
+            if(Func.formatToCurrency(amount) <= 0) Say.warn(_('89'))
             else {
-                Say.warn(res.message)
+                let res = await API.sendKPValidate({
+                    walletno:this.props.user.walletno,
+                    principal:total
+                })
+    
+                if(!res.error) {
+    
+                    this.props.navigation.navigate('TransactionReview',{
+                        type:Consts.tcn.skp.code,
+                        ...params,
+                        transaction: {
+                            ...this.state
+                        },
+                        cancellable:true
+                    })
+                }
+                else {
+                    Say.warn(res.message)
+                }
             }
         }
         catch(err) {

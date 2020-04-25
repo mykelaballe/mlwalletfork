@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Screen, Footer, Text, Spacer, Button, TextInput} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_, Consts, Say} from '../utils'
+import {_, Consts, Say, Func} from '../utils'
 import {API} from '../services'
 import Icon from 'react-native-vector-icons/Ionicons'
 
@@ -66,6 +66,7 @@ class Scrn extends React.Component {
             sender = sender.trim()
 
             if(!transaction_no || !currency || !amount || !partner || !sender) Say.some(_('8'))
+            else if(Func.formatToCurrency(amount) <= 0) Say.warn(_('89'))
             else {
    
                 let res = await API.receiveMoneyInternational({

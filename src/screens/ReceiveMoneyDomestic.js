@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Screen, Footer, Text, Spacer, Button, TextInput} from '../components'
-import {_, Consts, Say} from '../utils'
+import {_, Consts, Say, Func} from '../utils'
 import {API} from '../services'
 
 class Scrn extends React.Component {
@@ -49,6 +49,7 @@ class Scrn extends React.Component {
             lastname = lastname.trim()
 
             if(!transaction_no || !amount || !firstname || !lastname) Say.some(_('8'))
+            else if(Func.formatToCurrency(amount) <= 0) Say.warn(_('89'))
             else {
                 let res = await API.receiveMoneyDomestic({
                     walletno,

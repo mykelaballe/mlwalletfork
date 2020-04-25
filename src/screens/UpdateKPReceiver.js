@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Screen, Footer, Headline, TextInput, Button, Checkbox, Picker} from '../components'
 import {Metrics} from '../themes'
-import {_, Say, Consts} from '../utils'
+import {_, Say, Func, Consts} from '../utils'
 import {API} from '../services'
 
 class Scrn extends React.Component {
@@ -77,6 +77,10 @@ class Scrn extends React.Component {
             suffix = other_suffix || suffix
 
             if(!firstname || !middlename || !lastname || !suffix || !contact_no) Say.some(_('8'))
+            else if(!Func.isLettersOnly(firstname)) Say.warn(Consts.error.onlyLetters)
+            else if(!Func.isLettersOnly(middlename)) Say.warn(Consts.error.onlyLetters)
+            else if(!Func.isLettersOnly(lastname)) Say.warn(Consts.error.onlyLetters)
+            else if(!Func.isLettersOnly(suffix)) Say.warn(Consts.error.onlyLetters)
             else {
 
                 let payload = {

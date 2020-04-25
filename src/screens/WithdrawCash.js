@@ -36,24 +36,27 @@ class Scrn extends React.Component {
         try {
             this.setState({processing:true})
 
-            let res = await API.withdrawCashValidate({
-                walletno:this.props.user.walletno,
-                amount
-            })
-    
-            if(!res.error) {
-                this.props.navigation.navigate('TransactionReview',{
-                    type:this.state.type,
-                    ...params,
-                    transaction: {
-                        user:this.props.user,
-                        ...this.state
-                    },
-                    cancellable:true
-                })
-            }
+            if(Func.formatToCurrency(amount) <= 0) Say.warn(_('89'))
             else {
-                Say.warn(res.message)
+                let res = await API.withdrawCashValidate({
+                    walletno:this.props.user.walletno,
+                    amount
+                })
+        
+                if(!res.error) {
+                    this.props.navigation.navigate('TransactionReview',{
+                        type:this.state.type,
+                        ...params,
+                        transaction: {
+                            user:this.props.user,
+                            ...this.state
+                        },
+                        cancellable:true
+                    })
+                }
+                else {
+                    Say.warn(res.message)
+                }
             }
         }
         catch(err) {

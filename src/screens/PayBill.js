@@ -1,11 +1,8 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {Creators} from '../actions'
-import {Screen, Footer, Headline, Text, Spacer, Button, TextInput, Row, Switch} from '../components'
-import {_, Consts, Func} from '../utils'
-import {API} from '../services'
+import {Screen, Footer, Headline, Text, Spacer, Button, TextInput} from '../components'
+import {_, Consts, Func, Say} from '../utils'
 
-class Scrn extends React.Component {
+export default class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Pay Bill'
@@ -57,16 +54,21 @@ class Scrn extends React.Component {
     handleFocusEmail = () => this.refs.email.focus()
 
     handlePay = async () => {
+        const {amount} = this.state
         const {params} = this.props.navigation.state
-        this.props.navigation.navigate('TransactionReview',{
-            ...params,
-            type:Consts.tcn.bpm.code,
-            transaction: {
-                ...this.state,
-                biller:params.biller
-            },
-            status:'success'
-        })
+
+        if(Func.formatToCurrency(amount) <= 0) Say.warn(_('89'))
+        else {
+            this.props.navigation.navigate('TransactionReview',{
+                ...params,
+                type:Consts.tcn.bpm.code,
+                transaction: {
+                    ...this.state,
+                    biller:params.biller
+                },
+                status:'success'
+            })
+        }
     }
 
     render() {
@@ -130,9 +132,3 @@ class Scrn extends React.Component {
         )
     }
 }
-
-const mapDispatchToProps = dispatch => ({
-
-})
-
-export default connect(null, mapDispatchToProps)(Scrn)

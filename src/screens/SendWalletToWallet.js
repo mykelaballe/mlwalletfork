@@ -45,7 +45,7 @@ class Scrn extends React.Component {
     handleChangePoints = points => this.setState({points})
 
     handleSendMoney = async () => {
-        const {total, processing} = this.state
+        const {amount, total, processing} = this.state
         const {params} = this.props.navigation.state
 
         if(processing) return false
@@ -53,22 +53,25 @@ class Scrn extends React.Component {
         try {
             this.setState({processing:true})
 
-            let res = await API.sendWalletToWalletValidate({
-                walletno:this.props.user.walletno,
-                amount:total
-            })
-
-            if(!res.error) {
-                this.props.navigation.navigate('TransactionReview',{
-                    ...params,
-                    type:Consts.tcn.stw.code,
-                    transaction: {
-                        ...this.state
-                    },
-                    status:'success'
+            if(Func.formatToCurrency(amount) <= 0) Say.warn(_('89'))
+            else {
+                let res = await API.sendWalletToWalletValidate({
+                    walletno:this.props.user.walletno,
+                    amount:total
                 })
+    
+                if(!res.error) {
+                    this.props.navigation.navigate('TransactionReview',{
+                        ...params,
+                        type:Consts.tcn.stw.code,
+                        transaction: {
+                            ...this.state
+                        },
+                        status:'success'
+                    })
+                }
+                else Say.warn(res.message)
             }
-            else Say.warn(res.message)
         }
         catch(err) {
             Say.err(err)
