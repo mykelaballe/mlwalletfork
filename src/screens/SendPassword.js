@@ -47,7 +47,7 @@ export default class Scrn extends React.Component {
                 msg += methods.join(' & ')
 
                 Say.ok(
-                    '',
+                    msg,
                     null,
                     {
                         OkBtnLabel:'Back to Login',
