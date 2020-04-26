@@ -126,10 +126,11 @@ class Scrn extends React.Component {
                         this.setState({data:res.data})
 
                         Say.ask(
-                            'Oh no! You can only access your ML Wallet account in one device. To transfer your ML Wallet account to this device, click OK',
+                            'Oh no! You can only access your ML Wallet account in one device. To transfer your ML Wallet account to this device, click YES',
                             'New Device',
                             {
                                 noBtnLabel:'CANCEL',
+                                okBtnLabel:'YES',
                                 onConfirm:this.handleRegisterNewDevice
                             }
                         )
