@@ -26,7 +26,11 @@ export default class Scrn extends React.Component {
             else {
                 let res = await API.validateUsername(username)
 
-                if(res.error) Say.warn('Oops! This is not your registered Username')
+                if(res.error) {
+                    Say.attemptLeft(res.message,{
+                        frontMsg:'Oops! This is not your registered Username'
+                    })
+                }
                 else {
                     this.props.navigation.navigate('SecurityQuestion',{
                         walletno:res.data.walletno,

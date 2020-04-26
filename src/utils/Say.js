@@ -53,9 +53,11 @@ const ask = (message, title = null, options = {}) => {
     })
 }
 
-const attemptLeft = error => {
-    if(error === Consts.error.atl1) warn('Oops! You entered the wrong information. You only have 1 attempt left.')
-    else if(error === Consts.error.atl2) warn('Oops! You entered the wrong information. You only have 2 attempts left')
+const attemptLeft = (error,options = {}) => {
+    let frontMsg = options.frontMsg || 'Oops! You entered the wrong information'
+
+    if(error === Consts.error.atl1) warn(`${frontMsg}. You only have 1 attempt left.`)
+    else if(error === Consts.error.atl2) warn(`${frontMsg}. You only have 2 attempts left`)
     else if(error === 'reach_maximum_attempts' || error === Consts.error.blk1d) {
         warn(
             `Your account will be blocked for 24 hours. Please contact our Customer Care for assistance.
@@ -65,7 +67,7 @@ const attemptLeft = error => {
             null
         )
     }
-    else warn('Oops! You entered the wrong information')
+    else warn(`${frontMsg}.`)
 }
 
 const logout = () => SomeModal.sayLogout()
