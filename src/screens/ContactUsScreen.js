@@ -41,6 +41,8 @@ class Scrn extends React.Component {
         })
     }
 
+    handleFB = () => Linking.openURL('https://www.facebook.com/watch/?v=632222424300721')
+
     handleShowModal = contact => this.setState({contact,showModal:true})
 
     handleCloseModal = () => this.setState({showModal:false})
@@ -147,13 +149,13 @@ class Scrn extends React.Component {
                 <Card style={style.card}>
                     <Text b lg>Facebook Page</Text>
                     <Spacer sm />
-                    <View style={style.item}>
+                    <RippleItem onPress={this.handleFB} value={'customercare@mlhuillier.com'} style={style.item}>
                         <Row>
                             <Icon name='fb' style={style.icon} />
                             <Spacer h sm />
                             <Text md>M Lhuillier Financial Services Inc.</Text>
                         </Row>
-                    </View>
+                    </RippleItem>
                 </Card>
             </ScrollView>
         )
