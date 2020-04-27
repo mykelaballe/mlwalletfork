@@ -41,7 +41,7 @@ class Scrn extends React.Component {
         })
     }
 
-    handleFB = () => Linking.openURL('https://www.youtube.com/')
+    handleFB = () => Linking.openURL('https://www.facebook.com/mlhuillier.official')
 
     handleShowModal = contact => this.setState({contact,showModal:true})
 
