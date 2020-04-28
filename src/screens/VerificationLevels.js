@@ -183,7 +183,7 @@ class Scrn extends React.Component {
 
                     <View style={style.cell}>
                         {status == 1 ? <Bullet size={9} /> : <Icon name='ios-checkmark-circle' color={Colors.brand} size={Metrics.icon.sm} />}
-                        <Text center sm>Semi-Verified</Text>
+                        <Text center sm>{'Semi-\nVerified'}</Text>
                     </View>
 
                     <View style={style.cell}>
