@@ -17,7 +17,6 @@ class Scrn extends React.Component {
     }
 
     handleChangeFullName = fullname => this.setState({fullname})
-
     handleChangeContactNo = mobileno => this.setState({mobileno})
 
     handleFocusFullName = () => this.refs.fullname.focus()
@@ -37,6 +36,7 @@ class Scrn extends React.Component {
 
             if(!fullname || !mobileno) Say.some(_('8'))
             else if(!Func.isLettersOnly(fullname)) Say.warn(Consts.error.onlyLetters)
+            else if(!Func.isPHMobileNumber(mobileno)) Say.warn(Consts.error.mobile)
             else {
 
                 let payload = {

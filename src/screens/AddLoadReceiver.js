@@ -2,7 +2,6 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Screen, Footer, TextInput, Button} from '../components'
-import {Metrics} from '../themes'
 import {_, Say, Func, Consts} from '../utils'
 import {API} from '../services'
 
@@ -19,7 +18,6 @@ class Scrn extends React.Component {
     }
 
     handleChangeFullName = fullname => this.setState({fullname})
-
     handleChangeContactNo = mobileno => this.setState({mobileno})
 
     handleFocusFullName = () => this.refs.fullname.focus()
@@ -38,6 +36,7 @@ class Scrn extends React.Component {
 
             if(!fullname || !mobileno) Say.some(_('8'))
             else if(!Func.isLettersOnly(fullname)) Say.warn(Consts.error.onlyLetters)
+            else if(!Func.isPHMobileNumber(mobileno)) Say.warn(Consts.error.mobile)
             else {
 
                 let payload = {
@@ -108,7 +107,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    //addReceiver:newReceiver => dispatch(Creators.addELoadReceiver(newReceiver)),
     refreshAll:refresh => dispatch(Creators.refreshELoadAllReceivers(refresh)),
 })
 

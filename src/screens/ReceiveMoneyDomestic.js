@@ -37,8 +37,16 @@ class Scrn extends React.Component {
         const {walletno} = this.props.user
         const {params} = this.props.navigation.state
         let {transaction_no, amount, firstname, lastname, processing} = this.state
+        let latitude = '', longitude = ''
 
         if(processing) return false
+
+        const locationRes = await Func.getLocation()
+        if(locationRes.error) return false
+        else {
+            latitude = locationRes.data.latitude
+            longitude = locationRes.data.longitude
+        }
         
         try {
             this.setState({processing:true})
@@ -56,7 +64,9 @@ class Scrn extends React.Component {
                     kptn:transaction_no,
                     principal:amount,
                     sender_firstname:firstname,
-                    sender_lastname:lastname
+                    sender_lastname:lastname,
+                    latitude,
+                    longitude
                 })
 
                 if(res.error) {

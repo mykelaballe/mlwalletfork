@@ -117,6 +117,11 @@ const isEmail = str => {
     return regex.test(String(str).toLowerCase())
 }
 
+const isPHMobileNumber = value => {
+    const regex = /^(09|\+639)\d{9}$/
+    return !regex.test(value)
+}
+
 export default {
     validate,
     isLettersOnly,
@@ -126,5 +131,6 @@ export default {
     hasCommonSpecialCharsOnly,
     hasEmailSpecialCharsOnly,
     hasAddressSpecialCharsOnly,
-    isEmail
+    isEmail,
+    isPHMobileNumber
 }

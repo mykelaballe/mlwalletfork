@@ -12,33 +12,7 @@ export default class Scrn extends React.Component {
 
     state = {
         type:Consts.tcn.bul.code,
-        networks:[
-            {
-                label:'Globe/TM',
-                value:'globe',
-                id:'MLNET17030007'
-            },
-            {
-                label:'Smart/TNT',
-                value:'smart eload',
-                id:'MLNET16060001'
-            },
-            {
-                label:'Smart Dealer',
-                value:'smart dealer',
-                id:'MLNET17030003'
-            },
-            {
-                label:'Sun Cellular',
-                value:'sun cellular',
-                id:'MLNET16080001'
-            },
-            {
-                label:'PLDT Global Corp',
-                value:'pldt',
-                id:''
-            }
-        ],
+        networks:Consts.cellular_networks,
         network:'',
         name:this.props.navigation.state.params.receiver.fullname,
         contact_no:this.props.navigation.state.params.receiver.mobileno,
@@ -52,7 +26,7 @@ export default class Scrn extends React.Component {
 
     handleNext = async () => {
         const {params} = this.props.navigation.state
-        const {network} = this.state
+        const {network, contact_no} = this.state
         
         if(network.value == 'globe') {
             Say.info('Sorry! We are currently fixing some supplier issues.')
@@ -60,6 +34,7 @@ export default class Scrn extends React.Component {
         else if(network.value == 'pldt') {
             Say.info('Coming Soon!')
         }
+        else if(!Func.isPHMobileNumber(contact_no)) Say.warn(Consts.error.mobile)
         else {
             this.props.navigation.navigate('LoadOptions',{
                 ...params,

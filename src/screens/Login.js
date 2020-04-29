@@ -79,7 +79,7 @@ class Scrn extends React.Component {
         try {
             this.setState({processing:true})
 
-            let locationRes = await Func.getLocation()
+            /*let locationRes = await Func.getLocation()
             if(locationRes.error) {
                 this.setState({processing:false})
                 return false
@@ -87,7 +87,7 @@ class Scrn extends React.Component {
             else {
                 latitude = locationRes.data.latitude
                 longitude = locationRes.data.longitude
-            }
+            }*/
 
             username = username.trim()
             password = password.trim()

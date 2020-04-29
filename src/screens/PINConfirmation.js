@@ -99,6 +99,7 @@ class Scrn extends React.Component {
             const checkForGeolocation = [
                 Consts.tcn.stw.code,
                 Consts.tcn.skp.code,
+                Consts.tcn.stb.code,
                 Consts.tcn.wdc.code,
                 Consts.tcn.bul.code,
                 Consts.tcn.bpm.code

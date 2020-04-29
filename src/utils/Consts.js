@@ -43,6 +43,7 @@ export default {
 		notAllowedChar:'You used an invalid character',
 		email:'Invalid Email Address',
 		birthdate:'Invalid Birthdate',
+		mobile:'Invalid mobile number',
 		pwdNotMatch:'Passwords do not match',
 		atl1:'1attempt_left',
 		atl2:'2attempt_left',
@@ -69,6 +70,33 @@ export default {
 		{label:'IV'},
 		{label:'V'},
 		{label:'Others'}
+	],
+	cellular_networks:[
+		{
+			label:'Globe/TM',
+			value:'globe',
+			id:'MLNET17030007'
+		},
+		{
+			label:'Smart/TNT',
+			value:'smart eload',
+			id:'MLNET16060001'
+		},
+		{
+			label:'Smart Dealer',
+			value:'smart dealer',
+			id:'MLNET17030003'
+		},
+		{
+			label:'Sun Cellular',
+			value:'sun cellular',
+			id:'MLNET16080001'
+		},
+		{
+			label:'PLDT Global Corp',
+			value:'pldt',
+			id:''
+		}
 	],
 	tcn: {
 		stw: {
