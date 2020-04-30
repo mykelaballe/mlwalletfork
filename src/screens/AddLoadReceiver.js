@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Screen, Footer, TextInput, Button} from '../components'
+import {Screen, Footer, TextInput, Button, Text, Row, Spacer} from '../components'
 import {_, Say, Func, Consts} from '../utils'
 import {API} from '../services'
 
@@ -75,15 +75,20 @@ class Scrn extends React.Component {
         return (
             <>
                 <Screen>
-                    <TextInput
-                        ref='contact_no'
-                        label='Contact No.'
-                        value={mobileno}
-                        onChangeText={this.handleChangeContactNo}
-                        onSubmitEditing={this.handleFocusFullName}
-                        keyboardType='numeric'
-                        returnKeyType='next'
-                    />
+                    <Row>
+                        <Text>+639</Text>
+                        <Spacer h sm />
+                        <TextInput
+                            ref='contact_no'
+                            label='Contact No.'
+                            value={mobileno}
+                            onChangeText={this.handleChangeContactNo}
+                            onSubmitEditing={this.handleFocusFullName}
+                            keyboardType='numeric'
+                            returnKeyType='next'
+                            maxLength={9}
+                        />
+                    </Row>
 
                     <TextInput
                         ref='fullname'

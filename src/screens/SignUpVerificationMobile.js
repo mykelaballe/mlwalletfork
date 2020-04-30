@@ -27,7 +27,7 @@ export default class Scrn extends React.Component {
             mobile_no = mobile_no.trim()
 
             if(!mobile_no) Say.some(_('8'))
-            else if(!Func.isNumbersOnly(mobile_no)) Say.warn(Consts.error.onlyNumbers)
+            else if(!Func.isPHMobileNumber(mobile_no)) Say.warn(Consts.error.mobile)
             else {
 
                 let res = await API.requestOTP({
@@ -70,6 +70,7 @@ export default class Scrn extends React.Component {
                         value={mobile_no}
                         onChangeText={this.handleChangeMobile}
                         keyboardType='numeric'
+                        maxLength={9}
                     />
                 </Screen>
             
