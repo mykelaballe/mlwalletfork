@@ -13,11 +13,14 @@ class Scrn extends React.Component {
 
     state = {
         ...this.props.navigation.state.params.receiver,
+        //mobileno:this.props.navigation.state.params.receiver.mobileno,
         processing:false
     }
 
     handleChangeFullName = fullname => this.setState({fullname})
-    handleChangeContactNo = mobileno => this.setState({mobileno})
+    handleChangeContactNo = mobileno => {
+        if(mobileno.length >= 5) this.setState({mobileno})
+    }
 
     handleFocusFullName = () => this.refs.fullname.focus()
 
@@ -81,13 +84,13 @@ class Scrn extends React.Component {
                 <Screen>
                     <TextInput
                         ref='contact_no'
-                        label='Contact No.'
+                        placeholder='Contact No.'
                         value={mobileno}
                         onChangeText={this.handleChangeContactNo}
                         onSubmitEditing={this.handleFocusFullName}
                         keyboardType='numeric'
                         returnKeyType='next'
-                        maxLength={9}
+                        maxLength={14}
                     />
 
                     <TextInput

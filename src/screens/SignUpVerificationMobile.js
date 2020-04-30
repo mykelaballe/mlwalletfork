@@ -10,11 +10,13 @@ export default class Scrn extends React.Component {
     }
 
     state = {
-        mobile_no:'',
+        mobile_no:'+639 ',
         processing:false
     }
 
-    handleChangeMobile = mobile_no => this.setState({mobile_no})
+    handleChangeMobile = mobile_no => {
+        if(mobile_no.length >= 5) this.setState({mobile_no})
+    }
 
     handleSubmit = async () => {
         let {mobile_no, processing} = this.state
@@ -66,11 +68,11 @@ export default class Scrn extends React.Component {
                     <Headline subtext='Please enter your mobile number for the verification code.' />
 
                     <TextInput
-                        label={'Mobile No.'}
+                        placeholder={'Mobile No.'}
                         value={mobile_no}
                         onChangeText={this.handleChangeMobile}
                         keyboardType='numeric'
-                        maxLength={9}
+                        maxLength={14}
                     />
                 </Screen>
             
