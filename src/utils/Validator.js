@@ -119,6 +119,7 @@ const isEmail = str => {
 
 const isPHMobileNumber = value => {
     if(value.length !== 11 || !isNumbersOnly(value)) return false
+    return true
 
     //const regex = /^(09|\+639)\d{9}$/
     //return !regex.test(value)
