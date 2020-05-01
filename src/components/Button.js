@@ -1,7 +1,6 @@
 import React from 'react'
 import {Button as Btn} from 'react-native-paper'
 import {Colors, Metrics} from '../themes'
-import {debounce} from 'underscore'
 
 export default class Button extends React.Component {
 
