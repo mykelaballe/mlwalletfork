@@ -1,5 +1,5 @@
 import React from 'react'
-import {Text, Spacer} from '../'
+import {ScrollFix, Text, Spacer} from '../'
 import {Func} from '../../utils'
 import {Metrics} from '../../themes'
 
