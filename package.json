@@ -49,8 +49,7 @@
     "redux-persist": "3.5.0",
     "redux-saga": "1.1.1",
     "reduxsauce": "1.1.1",
-    "seamless-immutable": "7.1.4",
-    "underscore": "1.10.2"
+    "seamless-immutable": "7.1.4"
   },
   "devDependencies": {
     "@babel/core": "7.6.4",
