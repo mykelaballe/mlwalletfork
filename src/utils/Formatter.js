@@ -62,10 +62,15 @@ const formatAddress = userObject => {
     return data.reverse().join(', ')
 }
 
+const formatToPHMobileNumber = str => {
+    return str.replace('+639 ', '09')
+}
+
 export default {
     formatToCurrency,
     formatToRealCurrency,
     cleanName,
     formatName,
-    formatAddress
+    formatAddress,
+    formatToPHMobileNumber
 }

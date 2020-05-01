@@ -28,7 +28,7 @@ export default class Scrn extends React.Component {
         try {
             mobile_no = mobile_no.trim()
 
-            mobile_no = mobile_no.replace('+639 ', '09')
+            mobile_no = Func.formatToPHMobileNumber(mobile_no)
 
             if(!mobile_no) Say.some(_('8'))
             else if(!Func.isPHMobileNumber(mobile_no)) Say.warn(Consts.error.mobile)
