@@ -151,9 +151,9 @@ class Scrn extends React.Component {
             this.handleRefresh()
         }*/
 
-        if(prevProps.user.data.balance != this.props.user.data.balance) {
+        if(prevProps.user.balance != this.props.user.balance) {
             alert('updated!')
-            this.setState({balance:this.props.user.data.balance})
+            this.setState({balance:this.props.user.balance})
             this.handleRefresh()
         }
     }
