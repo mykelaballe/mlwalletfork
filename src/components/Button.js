@@ -13,7 +13,7 @@ export default class Button extends React.Component {
         const {processing} = this.state
         
         if(!processing) {
-            this.setState({processing:true},await this.props.onPress)
+            this.setState({processing:true},async () => await this.props.onPress())
         }
 
         this.setState({processing:false})
