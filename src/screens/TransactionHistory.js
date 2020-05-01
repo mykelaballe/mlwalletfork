@@ -152,7 +152,6 @@ class Scrn extends React.Component {
         }*/
 
         if(prevProps.user.balance != this.props.user.balance) {
-            alert('updated!')
             this.setState({balance:this.props.user.balance})
             this.handleRefresh()
         }
@@ -425,6 +424,7 @@ class Scrn extends React.Component {
                     refreshing={refreshing}
                     onRefresh={this.handleRefresh}
                     placeholder={{}}
+                    skeleton
                 />
 
                 <MonthPicker visible={showMonthFrom} onSelect={this.handleSelectMonthFrom} onDismiss={this.handleHideMonthFromPicker} />
