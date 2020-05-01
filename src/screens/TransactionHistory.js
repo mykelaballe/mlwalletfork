@@ -197,8 +197,6 @@ class Scrn extends React.Component {
             Say.err(err)
         }
 
-        list = list.concat(list, list, list, list, list)
-
         this.setState({
             list,
             loading:false,
