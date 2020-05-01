@@ -1,14 +1,22 @@
 import React from 'react'
-import {StyleSheet} from 'react-native'
 import {Button as Btn} from 'react-native-paper'
 import {Colors, Metrics} from '../themes'
 import {debounce} from 'underscore'
 
 export default class Button extends React.Component {
 
+    state = {
+        processing:false
+    }
+
     handlePress = () => {
-        const {onPress} = this.props
-        debounce(onPress, 500, true)
+        const {processing} = this.state
+        
+        if(!processing) {
+            this.setState({processing:true},await this.props.onPress)
+        }
+
+        this.setState({processing:false})
     }
 
     render() {
