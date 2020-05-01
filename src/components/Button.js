@@ -13,6 +13,8 @@ export default class Button extends React.Component {
 
     render() {
 
+        const {props} = this
+
         let customStyle = {
             backgroundColor:Colors.brand
         }
