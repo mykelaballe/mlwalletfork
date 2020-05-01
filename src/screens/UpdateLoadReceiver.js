@@ -13,7 +13,7 @@ class Scrn extends React.Component {
 
     state = {
         ...this.props.navigation.state.params.receiver,
-        mobileno:this.props.navigation.state.params.receiver.mobileno.slice(2, this.props.navigation.state.params.receiver.mobileno.length),
+        mobileno:`+639 ${this.props.navigation.state.params.receiver.mobileno.slice(2, this.props.navigation.state.params.receiver.mobileno.length)}`,
         processing:false
     }
 
