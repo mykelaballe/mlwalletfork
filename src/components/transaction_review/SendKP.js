@@ -2,6 +2,7 @@ import React from 'react'
 import {View} from 'react-native'
 import {ScrollFix, Text, Spacer, Row} from '../'
 import {Func, _} from '../../utils'
+import {Metrics} from '../../themes'
 
 export default props => {
     const {receiver, amount, charges, total} = props.data
