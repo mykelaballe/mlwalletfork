@@ -49,7 +49,7 @@ export default props => {
             disabled={props.loading || props.disabled}
             mode={props.mode || 'contained'}
             color={customStyle.backgroundColor}
-            onPress={() => debounce(props.onPress, 500, true)}
+            onPress={props.onPress}
             uppercase={false}
         >
             {props.t}
