@@ -2,6 +2,7 @@ import React from 'react'
 import {StyleSheet} from 'react-native'
 import {Button as Btn} from 'react-native-paper'
 import {Colors, Metrics} from '../themes'
+import {debounce} from 'underscore'
 
 export default props => {
 
@@ -48,7 +49,7 @@ export default props => {
             disabled={props.loading || props.disabled}
             mode={props.mode || 'contained'}
             color={customStyle.backgroundColor}
-            onPress={props.onPress}
+            onPress={() => debounce(props.onPress, 500, true)}
             uppercase={false}
         >
             {props.t}
