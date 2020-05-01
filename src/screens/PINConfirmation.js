@@ -89,8 +89,9 @@ class Scrn extends React.Component {
     handleFocusDigit6 = () => this.refs.digit6.focus()
 
     handleSubmit = async () => {
-        const {replace, state, processing} = this.props.navigation
+        const {replace, state} = this.props.navigation
         const {type, transaction} = this.props.navigation.state.params
+        const {processing} = this.state
 
         if(processing) return false
 
