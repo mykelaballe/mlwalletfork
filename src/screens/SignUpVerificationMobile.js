@@ -70,7 +70,7 @@ export default class Scrn extends React.Component {
                     <Headline subtext='Please enter your mobile number for the verification code.' />
 
                     <TextInput
-                        placeholder={'Mobile No.'}
+                        label={'Mobile No.'}
                         value={mobile_no}
                         onChangeText={this.handleChangeMobile}
                         keyboardType='numeric'

@@ -86,7 +86,7 @@ class Scrn extends React.Component {
                 <Screen>
                     <TextInput
                         ref='contact_no'
-                        placeholder='Contact No.'
+                        label='Contact No.'
                         value={mobileno}
                         onChangeText={this.handleChangeContactNo}
                         onSubmitEditing={this.handleFocusFullName}

@@ -1,13 +1,13 @@
 import React from 'react'
 import {View} from 'react-native'
-import {Text, Spacer, Row} from '../'
+import {ScrollFix, Text, Spacer, Row} from '../'
 import {Func, _} from '../../utils'
 
 export default props => {
     const {receiver, amount, charges, total} = props.data
 
     return (
-        <>
+        <ScrollFix style={{padding:Metrics.lg}}>
             <Text mute center>You are about to send</Text>
 
             <Text center xl b>PHP {Func.formatToCurrency(amount)}</Text>
@@ -58,6 +58,6 @@ export default props => {
 
             <Text mute sm>Total</Text>
             <Text md>PHP {Func.formatToCurrency(total)}</Text>
-        </>
+        </ScrollFix>
     )
 }
