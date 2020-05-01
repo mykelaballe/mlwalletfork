@@ -50,6 +50,7 @@ class Scrn extends React.Component {
     }
 
     state = {
+        balance:this.props.user.balance,
         list:[],
         timeframe_filters:[
             {
@@ -144,9 +145,15 @@ class Scrn extends React.Component {
     }
 
     componentDidUpdate = (prevProps, prevState) => {
-        const {params = {}} = this.props.navigation.state
+        /*const {params = {}} = this.props.navigation.state
         if(params.refresh) {
             this.props.navigation.setParams({refresh:false})
+            this.handleRefresh()
+        }*/
+
+        if(prevProps.user.data.balance != this.props.user.data.balance) {
+            alert('updated!')
+            this.setState({balance:this.props.user.data.balance})
             this.handleRefresh()
         }
     }
