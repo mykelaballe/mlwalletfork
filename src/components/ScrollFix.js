@@ -12,6 +12,13 @@ export default props => {
             </TouchableWithoutFeedback>
         )
     }
+    else {
+        return (
+            <View style={props.style}>
+                {props.children}
+            </View>
+        )
+    }
 
     return props.children
 }

@@ -1,12 +1,13 @@
 import React from 'react'
 import {Text, Spacer} from '../'
 import {Func} from '../../utils'
+import {Metrics} from '../../themes'
 
 export default props => {
     const {user, amount, charges, total} = props.data
 
     return (
-        <>
+        <ScrollFix style={{padding:Metrics.lg}}>
             <Text mute center>You are about to withdraw</Text>
             
             <Text center xl b>PHP {Func.formatToCurrency(amount)}</Text>
@@ -30,6 +31,6 @@ export default props => {
 
             <Text mute sm>Total</Text>
             <Text md>PHP {Func.formatToCurrency(total)}</Text>
-        </>
+        </ScrollFix>
     )
 }

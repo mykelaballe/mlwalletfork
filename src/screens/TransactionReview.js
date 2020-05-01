@@ -34,7 +34,7 @@ class Scrn extends React.Component {
 
         return (
             <>
-                <Screen>
+                <Screen compact>
                     {type === Consts.tcn.stw.code && <SendWalletToWallet data={transaction} />}
                     {type === Consts.tcn.skp.code && <SendKP data={transaction} />}
                     {type === Consts.tcn.stb.code && <SendBankTransfer data={transaction} />}
