@@ -22,7 +22,8 @@ class Scrn extends React.Component {
         digit6:'',
         processing:false,
         has_requested:false,
-        reprocessing:false
+        reprocessing:false,
+        done:false
     }
 
     handleChangeDigit1 = digit1 => {
@@ -91,9 +92,9 @@ class Scrn extends React.Component {
     handleSubmit = async () => {
         const {replace, state} = this.props.navigation
         const {type, transaction} = this.props.navigation.state.params
-        const {processing} = this.state
+        const {processing, done} = this.state
 
-        if(processing) return false
+        if(processing || done) return false
 
         try {
 
@@ -224,6 +225,8 @@ class Scrn extends React.Component {
                         else if(type == Consts.tcn.stb.code) this.props.refreshBankRecent(true)
                         else if(type == Consts.tcn.bpm.code) this.props.refreshBillersRecent(true)
                         else if(type == Consts.tcn.bul.code) this.props.refreshELoadRecent(true)
+
+                        this.setState({done:true})
 
                         replace('TransactionReceipt',{
                             ...state.params,
