@@ -98,6 +98,8 @@ class Scrn extends React.Component {
 
         try {
 
+            this.setState({processing:true})
+
             const checkForGeolocation = [
                 Consts.tcn.stw.code,
                 Consts.tcn.skp.code,
@@ -110,14 +112,15 @@ class Scrn extends React.Component {
 
             if(checkForGeolocation.indexOf(type) >= 0) {
                 const locationRes = await Func.getLocation()
-                if(locationRes.error) return false
+                if(locationRes.error) {
+                    this.setState({processing:false})
+                    return false
+                }
                 else {
                     latitude = locationRes.data.latitude
                     longitude = locationRes.data.longitude
                 }
             }
-
-            this.setState({processing:true})
 
             const {walletno, fname, mname, lname} = this.props.user
             const {digit1, digit2, digit3, digit4, digit5, digit6} = this.state
