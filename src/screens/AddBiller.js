@@ -97,7 +97,7 @@ class Scrn extends React.Component {
                     this.props.refreshAll(true)
                     Say.ok('Biller successfully added')
                     //this.props.navigation.pop()
-                    this.props.navigation.replace('AllBillsPartners')
+                    this.props.navigation.navigate('AllBillsPartners')
                 }
             }
         }
