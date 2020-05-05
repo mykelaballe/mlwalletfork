@@ -30,6 +30,7 @@ export default class Scrn extends React.Component {
     componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
 
     getData = async () => {
+        this.listHolder = []
         let list = []
 
         try {

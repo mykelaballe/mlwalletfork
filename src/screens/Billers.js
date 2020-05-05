@@ -31,6 +31,7 @@ export default class Scrn extends React.Component {
 
     getData = async () => {
         const {params = {}} = this.props.navigation.state
+        this.listHolder = []
         let list = []
 
         try {
