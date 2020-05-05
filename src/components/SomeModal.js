@@ -25,8 +25,9 @@ class SomeModal extends React.Component {
 
     static sayLogout() {
         SomeModal.__singletonRef.showModal({
-            message:`We are logging you out because you were idle for more than ${Consts.allowed_idle_time / 60000} minutes`,
-            title:'You are idle'
+           // message:`We are logging you out because you were idle for more than ${Consts.allowed_idle_time / 60000} minutes`,
+           message:'Please re-login to your account.',
+            title:'Session Expired'
         })
     }
   
