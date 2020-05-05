@@ -39,6 +39,7 @@ class Scrn extends React.Component {
 
     getData = async () => {
         const {walletno} = this.props.user
+        this.listHolder = []
         let list = []
 
         try {

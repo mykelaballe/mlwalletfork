@@ -30,6 +30,7 @@ export default class Scrn extends React.Component {
 
     getData = async () => {
         const {provCode} = this.props.navigation.state.params.province
+        this.listHolder = []
         let list = []
 
         try {
