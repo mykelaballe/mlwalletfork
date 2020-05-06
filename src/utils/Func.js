@@ -96,7 +96,7 @@ const getLocation = () => {
             getCurrentPosition()
             .then(res => {
                 if(res.error) {
-                    if(res.code === 1) {
+                    if(res.code == 1 || res.code == 5) {
                         request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
                         .then(reqRes => {
                             if(reqRes === RESULTS.UNAVAILABLE || reqRes === RESULTS.DENIED) {
