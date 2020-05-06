@@ -104,6 +104,8 @@ const getLocation = () => {
                             }
                         })
                     }
+                    else if(res.code == 3) Say.warn('Location request timed out')
+                    else if(res.code == 4) Say.warn('Google play service is not installed or has an older version')
                     else Say.warn(message)
                 }
                 return res
