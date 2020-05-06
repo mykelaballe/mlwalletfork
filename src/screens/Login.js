@@ -135,7 +135,7 @@ class Scrn extends React.Component {
                             }
                         )
                     }
-                    else if(res.message === 'server_error') throw new Error()
+                    else if(res.message === 'server_error') throw new Error(res)
                 }
                 else {
                     
