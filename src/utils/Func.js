@@ -33,7 +33,8 @@ const randomize = list => list[Math.floor(Math.random() * list.length)]
 
 const getCurrentPosition = () => {
     const config = {
-        enableHighAccuracy:true,
+        enableHighAccuracy:false,
+        distanceFilter:0,
         timeout:15000,
         maximumAge:10000
     }
