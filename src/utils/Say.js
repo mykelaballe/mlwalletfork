@@ -27,7 +27,6 @@ const warn = (message, title = null, options = {}) => {
 }
 
 const err = (message, title = null, options = {}) => {
-    console.warn(message)
     SomeModal.show({
         message:Consts.is_dev ? message.message : _('500'),
         title:title || 'Error',
