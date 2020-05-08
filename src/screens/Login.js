@@ -280,6 +280,8 @@ class Scrn extends React.Component {
                         <Icon name='fingerprint' size={Metrics.icon.rg} />
                         <ButtonText t={isUsingTouchID ? _('46') : _('45')} onPress={this.handleTouchID} />
                     </Row>
+
+                    <Spacer md />
                 </Screen>
             </>
         )
