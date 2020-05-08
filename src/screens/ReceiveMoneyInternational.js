@@ -58,16 +58,21 @@ class Scrn extends React.Component {
         let latitude = '', longitude = ''
 
         if(processing) return false
-
-        const locationRes = await Func.getLocation()
-        if(locationRes.error) return false
-        else {
-            latitude = locationRes.data.latitude
-            longitude = locationRes.data.longitude
-        }
         
         try {
             this.setState({processing:true})
+
+            if(Consts.checkLocation) {
+                const locationRes = await Func.getLocation()
+                if(locationRes.error) {
+                    this.setState({processing:false})
+                    return false
+                }
+                else {
+                    latitude = locationRes.data.latitude
+                    longitude = locationRes.data.longitude
+                }
+            }
 
             transaction_no = transaction_no.trim()
             amount = amount.trim()

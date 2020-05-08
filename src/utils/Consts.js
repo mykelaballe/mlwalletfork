@@ -27,6 +27,7 @@ export default {
 	user_max_age:100,
 	user_min_age:16,
 	allowed_idle_time:5 * 60000,
+	checkLocation:true,
 	password_criteria: {
 		minLength:8,
 		hasNum:true,

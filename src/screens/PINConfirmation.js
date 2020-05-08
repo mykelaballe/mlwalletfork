@@ -110,7 +110,7 @@ class Scrn extends React.Component {
             ]
             let latitude = '', longitude = ''
 
-            if(checkForGeolocation.indexOf(type) >= 0) {
+            if(Consts.checkLocation && checkForGeolocation.indexOf(type) >= 0) {
                 const locationRes = await Func.getLocation()
                 if(locationRes.error) {
                     this.setState({processing:false})
