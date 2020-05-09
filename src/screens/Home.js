@@ -184,7 +184,7 @@ class Scrn extends React.Component {
                                 <Text center sm>{`Receive\nMoney`}</Text>
                             </Ripple>
 
-                            <Ripple onPress={this.handleGoToBuyLoad} style={style.item}>
+                            <Ripple onPress={this.handleGoToWithdrawCash} style={style.item}>
                                 <Icon name='withdraw_cash' style={style.icon} />
                                 <Spacer sm />
                                 <Text center sm>{`Withdraw\nMoney`}</Text>
