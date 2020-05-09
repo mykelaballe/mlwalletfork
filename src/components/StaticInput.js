@@ -14,6 +14,7 @@ export default props => {
 
 				{props.rightContent}
 			</Row>
+			{props.bottomContent}
 		</Outline>
 	)
 

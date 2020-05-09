@@ -1,13 +1,15 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager, TouchableOpacity} from 'react-native'
+import {View, StyleSheet, InteractionManager, TouchableOpacity, Dimensions} from 'react-native'
 import {connect} from 'react-redux'
-import {Provider, FlatList, Text, Row, Modal, Ripple, HeaderRight, ScrollFix, HR, Spacer, ButtonText, ButtonIcon, StaticInput, Picker, MonthPicker, DayPicker, YearPicker} from '../components'
+import {Provider, FlatList, Text, Row, Modal, Ripple, HeaderRight, ScrollFix, HR, Spacer, Button, ButtonText, ButtonIcon, StaticInput, Picker, MonthPicker, DayPicker, YearPicker} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Consts, Say, Func} from '../utils'
 import {API} from '../services'
 import Icon from 'react-native-vector-icons/AntDesign'
 //import RNHTMLtoPDF from 'react-native-html-to-pdf'
 
+const {height} = Dimensions.get('window')
+const MAX_LIST_HEIGHT = parseInt(height / 3)
 const moment = require('moment')
 //const NOW = moment()
 const CURRENT_YEAR = parseInt(moment().format('YYYY'))
@@ -67,7 +69,7 @@ class Scrn extends React.Component {
             },
             {
                 value:'past_year',
-                label:'This Past year'
+                label:'This Past Year'
             },
             {
                 value:'custom',
@@ -124,6 +126,7 @@ class Scrn extends React.Component {
         },
         show_filters:false,
         show_timeframe_filter:false,
+        show_timeframe_custom_filter:false,
         show_type_filter:false,
         showMonthFrom:false,
         showMonthTo:false,
@@ -195,13 +198,6 @@ class Scrn extends React.Component {
                 to = `${year_to}-${month_to}-${day_to}`
             }
 
-            /*alert(`
-                ${selected_type.value}
-                ${from}
-                ${to}
-            `)
-            return false*/
-
             list = await API.getTransactionHistory({
                 walletno,
                 from,
@@ -224,16 +220,21 @@ class Scrn extends React.Component {
 
     handleSelectTimeframeFilter = (selected_timeframe = {}) => {
         const now = moment()
-        let month_from = '', day_from = '', year_from = ''
-        let month_to = '', day_to = '', year_to = ''
+        let {month_from, day_from, year_from, month_to, day_to, year_to} = this.state
+        //let month_from = '', day_from = '', year_from = ''
+        //let month_to = '', day_to = '', year_to = ''
 
         if(selected_timeframe.value == 'custom') {
-            month_from = now.format('MM')
-            day_from = now.format('DD')
-            year_from = CURRENT_YEAR
-            month_to = now.format('MM')
-            day_to = now.format('DD')
-            year_to = CURRENT_YEAR
+            if(this.state.selected_timeframe.value != 'custom') {
+                month_from = now.format('MM')
+                day_from = now.format('DD')
+                year_from = CURRENT_YEAR
+                month_to = now.format('MM')
+                day_to = now.format('DD')
+                year_to = CURRENT_YEAR
+            }
+
+            this.setState({show_timeframe_custom_filter:true})
         }
 
         this.setState({
@@ -244,7 +245,9 @@ class Scrn extends React.Component {
             day_to,
             year_to,
             selected_timeframe
-        },this.handleRefresh)
+        },() => {
+            if(selected_timeframe.value != 'custom') this.handleRefresh()
+        })
     }
 
     handleSelectTypeFilter = (selected_type = {}) => this.setState({selected_type},this.handleRefresh)
@@ -306,11 +309,11 @@ class Scrn extends React.Component {
 
     handleChangeYearFrom = () => this.setState({showYearFrom:true})
 
-    handleSelectMonthFrom = month_from => this.setState({month_from,day_from:1},this.handleRefresh)
+    handleSelectMonthFrom = month_from => this.setState({month_from,day_from:1})
 
-    handleSelectDayFrom = day_from => this.setState({day_from},this.handleRefresh)
+    handleSelectDayFrom = day_from => this.setState({day_from})
 
-    handleSelectYearFrom = year_from => this.setState({year_from},this.handleRefresh)
+    handleSelectYearFrom = year_from => this.setState({year_from})
 
     handleHideMonthFromPicker = () => this.setState({showMonthFrom:false})
 
@@ -324,11 +327,11 @@ class Scrn extends React.Component {
 
     handleChangeYearTo= () => this.setState({showYearTo:true})
 
-    handleSelectMonthTo= month_to => this.setState({month_to,day_to:1},this.handleRefresh)
+    handleSelectMonthTo= month_to => this.setState({month_to,day_to:1})
 
-    handleSelectDayTo = day_to => this.setState({day_to},this.handleRefresh)
+    handleSelectDayTo = day_to => this.setState({day_to})
 
-    handleSelectYearTo= year_to => this.setState({year_to},this.handleRefresh)
+    handleSelectYearTo= year_to => this.setState({year_to})
 
     handleHideMonthToPicker = () => this.setState({showMonthTo:false})
 
@@ -346,7 +349,7 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {list, timeframe_filters, type_filters, selected_type, selected_timeframe, show_filters, show_timeframe_filter, show_type_filter, showMonthFrom, showMonthTo, showDayFrom, showDayTo, showYearFrom, showYearTo, month_from, month_to, day_from, day_to, year_from, year_to, loading, refreshing} = this.state
+        const {list, timeframe_filters, type_filters, selected_type, selected_timeframe, show_filters, show_timeframe_filter, show_timeframe_custom_filter, show_type_filter, showMonthFrom, showMonthTo, showDayFrom, showDayTo, showYearFrom, showYearTo, month_from, month_to, day_from, day_to, year_from, year_to, loading, refreshing} = this.state
 
         return (
             <Provider>
@@ -361,17 +364,19 @@ class Scrn extends React.Component {
                     title='Transaction Type'
                     onDismiss={() => this.setState({show_type_filter:false})}
                     content={
-                        <FlatList
-                            data={type_filters}
-                            renderItem={({item}) => (
-                                <Ripple onPress={() => {
-                                    this.setState({show_type_filter:false})
-                                    this.handleSelectTypeFilter(item)
-                                }} style={{paddingVertical:Metrics.rg}}>
-                                    <Text md center>{item.label}</Text>
-                                </Ripple>
-                            )}
-                        />
+                            <FlatList
+                                style={{maxHeight:MAX_LIST_HEIGHT}}
+                                data={type_filters}
+                                showsVerticalScrollIndicator
+                                renderItem={({item}) => (
+                                    <Ripple onPress={() => {
+                                        this.setState({show_type_filter:false})
+                                        this.handleSelectTypeFilter(item)
+                                    }} style={{paddingVertical:Metrics.rg}}>
+                                        <Text md center>{item.label}</Text>
+                                    </Ripple>
+                                )}
+                            />
                     }
                 />
 
@@ -381,7 +386,9 @@ class Scrn extends React.Component {
                     onDismiss={() => this.setState({show_timeframe_filter:false})}
                     content={
                         <FlatList
+                            style={{maxHeight:400}}
                             data={timeframe_filters}
+                            showsVerticalScrollIndicator
                             renderItem={({item}) => (
                                 <Ripple onPress={() => {
                                     this.setState({show_timeframe_filter:false})
@@ -391,6 +398,62 @@ class Scrn extends React.Component {
                                 </Ripple>
                             )}
                         />
+                    }
+                />
+
+                <Modal
+                    visible={show_timeframe_custom_filter}
+                    title='Custom Transaction Timeframe'
+                    onDismiss={() => this.setState({show_timeframe_custom_filter:false})}
+                    content={
+                        <>
+                            <Text sm mute>From</Text>
+                            <Row bw>
+                                <StaticInput
+                                    label='Month'
+                                    value={month_from ? moment(month_from,'M').format('MMM') : null}
+                                    onPress={this.handleChangeMonthFrom}
+                                    style={{flex:1}}
+                                />
+                                <Spacer h xs />
+                                <StaticInput
+                                    label='Day'
+                                    value={day_from}
+                                    onPress={this.handleChangeDayFrom}
+                                />
+                                <Spacer h xs />
+                                <StaticInput
+                                    label='Year'
+                                    value={year_from}
+                                    onPress={this.handleChangeYearFrom}
+                                    style={{flex:1}}
+                                />
+                            </Row>
+
+                            <Text sm mute>To</Text>
+                            <Row bw>
+                                <StaticInput
+                                    label='Month'
+                                    value={month_to ? moment(month_to,'M').format('MMM') : null}
+                                    onPress={this.handleChangeMonthTo}
+                                    style={{flex:1}}
+                                />
+                                <Spacer h xs />
+                                <StaticInput
+                                    label='Day'
+                                    value={day_to}
+                                    onPress={this.handleChangeDayTo}
+                                />
+                                <Spacer h xs />
+                                <StaticInput
+                                    label='Year'
+                                    value={year_to}
+                                    onPress={this.handleChangeYearTo}
+                                    style={{flex:1}}
+                                />
+                            </Row>
+                            <Button t='Apply' onPress={() => this.setState({show_timeframe_custom_filter:false},this.handleRefresh)} />
+                        </>
                     }
                 />
 
@@ -412,9 +475,14 @@ class Scrn extends React.Component {
                                     <Icon name='closecircle' color={Colors.gray} size={Metrics.icon.sm} />
                                 </TouchableOpacity> : null
                             }
+                            bottomContent={
+                                selected_timeframe.value == 'custom' ? <Text>
+                                    {`${day_from} ${moment(month_from,'M').format('MMM')} ${year_from} - ${day_to} ${moment(month_to,'M').format('MMM')} ${year_to}`}
+                                </Text> : null
+                            }
                         />
 
-                        {selected_timeframe.value === 'custom' &&
+                        {/*selected_timeframe.value === 'custom' &&
                         <View style={{marginVertical:Metrics.rg}}>
                             <Text sm mute>From</Text>
                             <Row bw>
@@ -462,7 +530,7 @@ class Scrn extends React.Component {
                                 />
                             </Row>
                         </View>
-                        }
+                        */}
 
                         {/*<Picker
                             selected={selected_type.label}

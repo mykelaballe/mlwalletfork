@@ -60,7 +60,7 @@ export default class FlatList extends React.Component {
 
 const style = StyleSheet.create({
     scrollContainer: {
-        flex:1,
+        //flex:1,
         justifyContent:'center',
         alignItems:'center'
     },

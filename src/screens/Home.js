@@ -1,13 +1,13 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager, TouchableOpacity, Dimensions, Image} from 'react-native'
+import {View, StyleSheet, InteractionManager, TouchableOpacity, Dimensions, Image, RefreshControl} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Text, Spacer, FlatList, Ripple, Icon, Balance} from '../components'
+import {ScrollView, Text, Spacer, FlatList, Ripple, Icon, Balance, Row} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
 import {API} from '../services'
 
-const {width} = Dimensions.get('window')
+const {width, height} = Dimensions.get('window')
 const ITEM_WIDTH = (width / 4) - (Metrics.xl)
 const ITEM_HEIGHT = 130
 
@@ -58,7 +58,8 @@ class Scrn extends React.Component {
         ],
         show_balance:true,
         promo:null,
-        loading:true
+        loading:true,
+        refreshing:false
     }
 
     componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
@@ -82,7 +83,13 @@ class Scrn extends React.Component {
         catch(err) {
             Say.err(err)
         }
+
+        this.setState({
+            refreshing:false
+        })
     }
+
+    handleRefresh = () => this.setState({refreshing:true},this.getData)
 
     handleGoToAddMoney = () => {
         const {navigation: {navigate}} = this.props
@@ -134,7 +141,7 @@ class Scrn extends React.Component {
     render() {
 
         const {status} = this.props.user
-        const {services} = this.state
+        const {services, refreshing} = this.state
 
         return (
             <>
@@ -144,20 +151,75 @@ class Scrn extends React.Component {
 
                 <Balance />
 
-                <Spacer sm />
+                <Spacer />
 
-                <FlatList
+                {/*<FlatList
                     data={services}
                     renderItem={this.renderServices}
                     numColumns={4}
                     columnWrapperStyle={{justifyContent:'center'}}
-                />
+                />*/}
+                <ScrollView
+                    refreshControl={
+                        <RefreshControl colors={[Colors.brand]} refreshing={refreshing} onRefresh={this.handleRefresh} />
+                    }
+                >
+                    <View style={{flex:1}}>
+                        <Row ar>
+                            <Ripple onPress={this.handleGoToAddMoney} style={style.item}>
+                                <Icon name='add_money' style={style.icon} />
+                                <Spacer sm />
+                                <Text center sm>{`Add\nMoney`}</Text>
+                            </Ripple>
 
-                <Spacer />
+                            <Ripple onPress={this.handleGoToAddMoney} style={style.item}>
+                                <Icon name='send_money' style={style.icon} />
+                                <Spacer sm />
+                                <Text center sm>{`Send\nMoney`}</Text>
+                            </Ripple>
 
-                <View style={style.footer}>
-                    <Image source={require('../res/promo_placeholder.png')} style={style.promo} resizeMode='contain' />
-                </View>
+                            <Ripple onPress={this.handleGoToAddMoney} style={style.item}>
+                                <Icon name='receive_money' style={style.icon} />
+                                <Spacer sm />
+                                <Text center sm>{`Receive\nMoney`}</Text>
+                            </Ripple>
+
+                            <Ripple onPress={this.handleGoToAddMoney} style={style.item}>
+                                <Icon name='withdraw_cash' style={style.icon} />
+                                <Spacer sm />
+                                <Text center sm>{`Withdraw\nMoney`}</Text>
+                            </Ripple>
+                        </Row>
+
+                        <View style={{alignItems:'center'}}>
+                            <Row>
+                                <Ripple onPress={this.handleGoToAddMoney} style={style.item}>
+                                    <Icon name='pay_bills' style={style.icon} />
+                                    <Spacer sm />
+                                    <Text center sm>{`Pay\nBills`}</Text>
+                                </Ripple>
+
+                                <Ripple onPress={this.handleGoToAddMoney} style={style.item}>
+                                    <Icon name='buy_load' style={style.icon} />
+                                    <Spacer sm />
+                                    <Text center sm>{`Buy\neLoad`}</Text>
+                                </Ripple>
+
+                                <Ripple onPress={this.handleGoToAddMoney} style={style.item}>
+                                    <Icon name='buy_items' style={style.icon} />
+                                    <Spacer sm />
+                                    <Text center sm>{`Buy\nItems`}</Text>
+                                </Ripple>
+                            </Row>
+                        </View>
+                    </View>
+
+                    <Spacer />
+
+                    <View style={style.footer}>
+                        <Image source={require('../res/promo_placeholder.png')} style={style.promo} resizeMode='contain' />
+                    </View>
+                </ScrollView>
             </>
         )
     }
@@ -173,14 +235,18 @@ const style = StyleSheet.create({
         alignItems:'center',
         width:ITEM_WIDTH,
         height:ITEM_HEIGHT,
-        marginHorizontal:Metrics.rg
+        marginHorizontal:Metrics.xs
     },
     icon: {
         width:40,
         height:40
     },
     footer: {
+        //backgroundColor:'blue',
+        //flex:1,
+        justifyContent:'flex-end',
         alignItems:'center',
+        height:parseInt(height * .27),
         paddingVertical:Metrics.md
     },
     promo: {
