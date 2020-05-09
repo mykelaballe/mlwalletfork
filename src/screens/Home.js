@@ -172,19 +172,19 @@ class Scrn extends React.Component {
                                 <Text center sm>{`Add\nMoney`}</Text>
                             </Ripple>
 
-                            <Ripple onPress={this.handleGoToAddMoney} style={style.item}>
+                            <Ripple onPress={this.handleGoToSendMoney} style={style.item}>
                                 <Icon name='send_money' style={style.icon} />
                                 <Spacer sm />
                                 <Text center sm>{`Send\nMoney`}</Text>
                             </Ripple>
 
-                            <Ripple onPress={this.handleGoToAddMoney} style={style.item}>
+                            <Ripple onPress={this.handleGoToReceiveMoney} style={style.item}>
                                 <Icon name='receive_money' style={style.icon} />
                                 <Spacer sm />
                                 <Text center sm>{`Receive\nMoney`}</Text>
                             </Ripple>
 
-                            <Ripple onPress={this.handleGoToAddMoney} style={style.item}>
+                            <Ripple onPress={this.handleGoToBuyLoad} style={style.item}>
                                 <Icon name='withdraw_cash' style={style.icon} />
                                 <Spacer sm />
                                 <Text center sm>{`Withdraw\nMoney`}</Text>
@@ -193,19 +193,19 @@ class Scrn extends React.Component {
 
                         <View style={{alignItems:'center'}}>
                             <Row>
-                                <Ripple onPress={this.handleGoToAddMoney} style={style.item}>
+                                <Ripple onPress={this.handleGoToPayBills} style={style.item}>
                                     <Icon name='pay_bills' style={style.icon} />
                                     <Spacer sm />
                                     <Text center sm>{`Pay\nBills`}</Text>
                                 </Ripple>
 
-                                <Ripple onPress={this.handleGoToAddMoney} style={style.item}>
+                                <Ripple onPress={this.handleGoToBuyLoad} style={style.item}>
                                     <Icon name='buy_load' style={style.icon} />
                                     <Spacer sm />
                                     <Text center sm>{`Buy\neLoad`}</Text>
                                 </Ripple>
 
-                                <Ripple onPress={this.handleGoToAddMoney} style={style.item}>
+                                <Ripple onPress={this.handleGoToBuyItems} style={style.item}>
                                     <Icon name='buy_items' style={style.icon} />
                                     <Spacer sm />
                                     <Text center sm>{`Buy\nItems`}</Text>
