@@ -15,6 +15,7 @@ export default createStackNavigator({
     
     ForgotPassword: {
         screen:Scrn.ForgotPasswordScrn,
+        //screen:Scrn.TransactionHistoryScrn,
         navigationOptions:AppStyles.noHeaderNavigationOptions
     },
     CreatePassword: {

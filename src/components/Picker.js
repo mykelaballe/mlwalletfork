@@ -69,7 +69,8 @@ export default class Picker extends React.Component {
 
 const style = StyleSheet.create({
     menu: {
-        width:Dimensions.get('window').width - (Metrics.md * 2)
+        width:Dimensions.get('window').width - (Metrics.md * 2),
+        height:200
     },
     btn: {
         borderWidth:StyleSheet.hairlineWidth,
