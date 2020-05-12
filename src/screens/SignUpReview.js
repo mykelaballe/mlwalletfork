@@ -198,6 +198,7 @@ export default class Scrn extends React.Component {
             natureofwork = other_natureofwork || natureofwork
 
             if(suffix == 'Others') suffix = ''
+            if(natureofwork == 'Others') natureofwork = ''
 
             let birthday = `${bday_year}-${bday_month}-${bday_day}`
 
