@@ -15,7 +15,7 @@ class Scrn extends React.Component {
         nationality:this.props.user.nationality,
         sourceofincome:this.props.user.sourceofincome,
         natureofwork:this.props.user.natureofwork || '',
-        other_natureofwork:this.props.user.other_natureofwork,
+        other_natureofwork:'',
         country:this.props.user.country,
         province:{
             province:this.props.user.province || '',
