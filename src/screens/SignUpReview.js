@@ -320,6 +320,11 @@ export default class Scrn extends React.Component {
                         
                         <Spacer sm />
 
+                        <Text sm mute center>Nature of Work</Text>
+                        <Text md center>{natureofwork}</Text>
+                        
+                        <Spacer sm />
+
                         <Text sm mute center>Address</Text>
                         <Text md center>{Func.formatAddress(this.state)}</Text>
                         
