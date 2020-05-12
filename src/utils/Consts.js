@@ -165,7 +165,7 @@ export default {
 			otp:'Verify'
 		},
 		rtw: {
-			code:'stw',
+			code:'rtw',
 			action:'send',
 			short_desc:'Wallet To Wallet',
 			long_desc:'Send Money - Wallet to Wallet',
