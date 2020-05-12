@@ -113,6 +113,7 @@ import ProvincesScrn from './Provinces'
 import NationalitiesScrn from './Nationalities'
 import CitiesScrn from './Cities'
 import SourceOfIncomeScrn from './SourceOfIncome'
+import NatureOfWorkScrn from './NatureOfWork'
 import RegionsScrn from './Regions'
 import SecurityQuestionsScrn from './SecurityQuestions'
 import CameraScrn from './Camera'
@@ -258,6 +259,7 @@ export {
     CitiesScrn,
     NationalitiesScrn,
     SourceOfIncomeScrn,
+    NatureOfWorkScrn,
     RegionsScrn,
     SecurityQuestionsScrn,
     CameraScrn,

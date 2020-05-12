@@ -8,8 +8,8 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
-    "pad": "code-push release-react MLWallet-Android android --deploymentName dev",
-    "pid": "code-push release-react MLWallet-iOS ios --deploymentName dev"
+    "pad": "code-push release-react MLWallet-Android android --deploymentName dev -t *",
+    "pid": "code-push release-react MLWallet-iOS ios --deploymentName dev -t *"
   },
   "dependencies": {
     "@react-native-community/async-storage": "1.6.2",

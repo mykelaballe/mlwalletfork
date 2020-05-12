@@ -14,6 +14,8 @@ class Scrn extends React.Component {
     state = {
         nationality:this.props.user.nationality,
         sourceofincome:this.props.user.sourceofincome,
+        natureofwork:this.props.user.natureofwork || '',
+        other_natureofwork:this.props.user.other_natureofwork,
         country:this.props.user.country,
         province:{
             province:this.props.user.province || '',
@@ -67,6 +69,11 @@ class Scrn extends React.Component {
             this.props.navigation.setParams({source_of_income:null})
             this.setState({sourceofincome:params.source_of_income})
         }
+
+        else if(params.natureofwork && params.natureofwork !== prevState.natureofwork) {
+            this.props.navigation.setParams({natureofwork:null})
+            this.setState({natureofwork:params.natureofwork})
+        }
     }
 
     handleSelectNationality = () => this.props.navigation.navigate('Nationalities',{sourceRoute:this.props.navigation.state.routeName})
@@ -90,6 +97,13 @@ class Scrn extends React.Component {
         navigate('SourceOfIncome',{sourceRoute:state.routeName})
     }
 
+    handleSelectNatureOfWork = () => {
+        const {state, navigate} = this.props.navigation
+        navigate('NatureOfWork',{sourceRoute:state.routeName})
+    }
+
+    handleChangeOtherNatureOfWork = other_natureofwork => this.setState({other_natureofwork})
+
     handleFocusBarangay = () => this.refs.barangay.focus()
 
     handleFocusStreet = () => this.refs.street.focus()
@@ -99,7 +113,7 @@ class Scrn extends React.Component {
     handleSubmit = async () => {
         try {
             const {walletno} = this.props.user
-            let {nationality, sourceofincome, country, province, city, barangay, houseno, street, zipcode, processing} = this.state
+            let {nationality, sourceofincome, natureofwork, other_natureofwork, country, province, city, barangay, houseno, street, zipcode, processing} = this.state
 
             if(processing) return false
 
@@ -110,8 +124,12 @@ class Scrn extends React.Component {
             street = street.trim()
             houseno = houseno.trim()
             zipcode = zipcode.trim()
+            natureofwork = natureofwork.trim()
+            other_natureofwork = other_natureofwork.trim()
 
-            if(!sourceofincome) Say.some(_('8'))
+            natureofwork = other_natureofwork || natureofwork
+
+            if(!sourceofincome || !natureofwork) Say.some(_('8'))
             else if(country == Consts.country.PH && (!province.province || !city || !barangay || !zipcode)) Say.some(_('8'))
             else if(barangay && !Func.hasAddressSpecialCharsOnly(barangay)) Say.warn(Consts.error.notAllowedChar + '\n\nBarangay')
             else if(street && !Func.hasAddressSpecialCharsOnly(street)) Say.warn(Consts.error.notAllowedChar + '\n\nStreet')
@@ -122,6 +140,7 @@ class Scrn extends React.Component {
                     walletno,
                     nationality,
                     sourceofincome,
+                    natureofwork,
                     country,
                     province:province.province,
                     provincecode:province.provCode,
@@ -150,10 +169,10 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {nationality, sourceofincome, country, province, city, barangay, houseno, street, zipcode, processing} = this.state
+        const {nationality, sourceofincome, country, province, city, barangay, houseno, street, zipcode, natureofwork, other_natureofwork, processing} = this.state
         let ready = true
 
-        if(!sourceofincome) ready = false
+        if(!sourceofincome || !natureofwork) ready = false
         if(country == Consts.country.PH && (!province.province || !city || !barangay || !zipcode)) ready = false
 
         return (
@@ -172,6 +191,20 @@ class Scrn extends React.Component {
                         value={sourceofincome}
                         onPress={this.handleSelectSourceOfIncome}
                     />
+
+                    <StaticInput
+                        label='Nature of Work'
+                        value={natureofwork}
+                        onPress={this.handleSelectNatureOfWork}
+                    />
+
+                    {natureofwork === 'Others' &&
+                    <TextInput
+                        label={'Enter Nature of Work'}
+                        value={other_natureofwork}
+                        onChangeText={this.handleChangeOtherNatureOfWork}
+                    />
+                    }
 
                     <StaticInput
                         label='Country'

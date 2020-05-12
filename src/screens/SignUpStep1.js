@@ -28,6 +28,8 @@ class Scrn extends React.Component {
         email:'',
         nationality:'Filipino',
         source_of_income:'',
+        natureofwork:'',
+        other_natureofwork:'',
         showMonthPicker:false,
         showDayPicker:false,
         showYearPicker:false,
@@ -39,21 +41,31 @@ class Scrn extends React.Component {
         error_bday_month:false,
         error_bday_day:false,
         error_bday_year:false,
-        error_source_of_income:false
+        error_source_of_income:false,
+        error_natureofwork:false
     }
 
     componentDidUpdate = (prevProps, prevState) => {
         const {params = {}} = this.props.navigation.state
+        
         if(params.nationality && params.nationality !== prevState.nationality) {
             this.props.navigation.setParams({nationality:null})
             this.setState({nationality:params.nationality})
         }
 
-        if(params.source_of_income && params.source_of_income !== prevState.source_of_income) {
+        else if(params.source_of_income && params.source_of_income !== prevState.source_of_income) {
             this.props.navigation.setParams({source_of_income:null})
             this.setState({
                 source_of_income:params.source_of_income,
                 error_source_of_income:false
+            })
+        }
+        
+        else if(params.natureofwork && params.natureofwork !== prevState.natureofwork) {
+            this.props.navigation.setParams({natureofwork:null})
+            this.setState({
+                natureofwork:params.natureofwork,
+                error_natureofwork:false
             })
         }
     }
@@ -112,6 +124,13 @@ class Scrn extends React.Component {
         navigate('SourceOfIncome',{sourceRoute:state.routeName})
     }
 
+    handleSelectNatureOfWork = () => {
+        const {state, navigate} = this.props.navigation
+        navigate('NatureOfWork',{sourceRoute:state.routeName})
+    }
+
+    handleChangeOtherNatureOfWork = other_natureofwork => this.setState({other_natureofwork,error_natureofwork:false})
+
     handleFocusMiddlename = () => this.state.has_middlename ? this.refs.middlename.focus() : this.refs.lastname.focus()
 
     handleFocusLastname = () => this.refs.lastname.focus()
@@ -129,7 +148,7 @@ class Scrn extends React.Component {
     handleSelectYear = bday_year => this.setState({bday_year, error_bday_year:false})
 
     handleSubmit = async () => {
-        let {firstname, middlename, has_middlename, lastname, suffix, other_suffix, has_suffix, suffix_options, bday_month, bday_day, bday_year, gender, email, nationality, source_of_income} = this.state
+        let {firstname, middlename, has_middlename, lastname, suffix, other_suffix, has_suffix, suffix_options, bday_month, bday_day, bday_year, gender, email, nationality, source_of_income, natureofwork, other_natureofwork} = this.state
 
         try {
             firstname = firstname.trim()
@@ -140,12 +159,16 @@ class Scrn extends React.Component {
             source_of_income = source_of_income.trim()
             suffix = suffix.trim()
             other_suffix = other_suffix.trim()
+            natureofwork = natureofwork.trim()
+            other_natureofwork = other_natureofwork.trim()
 
             suffix = other_suffix || suffix
+            natureofwork = other_natureofwork || natureofwork
 
             if(suffix == 'Others') suffix = ''
+            if(natureofwork == 'Others') natureofwork = ''
 
-            if(!firstname || !middlename || !lastname || !suffix || !bday_month || !bday_day || !bday_year || !source_of_income) {
+            if(!firstname || !middlename || !lastname || !suffix || !bday_month || !bday_day || !bday_year || !source_of_income || !natureofwork) {
                 if(!firstname) this.setState({error_firstname:true})
                 if(!middlename) this.setState({error_middlename:true})
                 if(!lastname) this.setState({error_lastname:true})
@@ -154,6 +177,7 @@ class Scrn extends React.Component {
                 if(!bday_day) this.setState({error_bday_day:true})
                 if(!bday_year) this.setState({error_bday_year:true})
                 if(!source_of_income) this.setState({error_source_of_income:true})
+                if(!natureofwork) this.setState({error_natureofwork:true})
 
                 Say.some('Fill-out missing fields to proceed')
             }
@@ -183,6 +207,8 @@ class Scrn extends React.Component {
                     email,
                     nationality,
                     source_of_income,
+                    natureofwork,
+                    other_natureofwork,
                     suffix,
                     other_suffix,
                     has_suffix,
@@ -200,8 +226,8 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {firstname, middlename, has_middlename, lastname, suffix, other_suffix, has_suffix, suffix_options, bday_month, bday_day, bday_year, gender, email, nationality, source_of_income, showMonthPicker, showDayPicker, showYearPicker, processing} = this.state
-        const {error_firstname, error_middlename, error_lastname, error_suffix, error_bday_month, error_bday_day, error_bday_year, error_source_of_income} = this.state
+        const {firstname, middlename, has_middlename, lastname, suffix, other_suffix, has_suffix, suffix_options, bday_month, bday_day, bday_year, gender, email, nationality, source_of_income, natureofwork, other_natureofwork, showMonthPicker, showDayPicker, showYearPicker, processing} = this.state
+        const {error_firstname, error_middlename, error_lastname, error_suffix, error_bday_month, error_bday_day, error_bday_year, error_source_of_income, error_natureofwork} = this.state
         //let ready = false
         let ready = true
 
@@ -346,6 +372,21 @@ class Scrn extends React.Component {
                         error={error_source_of_income}
                         onPress={this.handleSelectSourceOfIncome}
                     />
+
+                    <StaticInput
+                        label='Nature of Work'
+                        value={natureofwork}
+                        error={error_natureofwork}
+                        onPress={this.handleSelectNatureOfWork}
+                    />
+
+                    {natureofwork === 'Others' &&
+                    <TextInput
+                        label={'Enter Nature of Work'}
+                        value={other_natureofwork}
+                        onChangeText={this.handleChangeOtherNatureOfWork}
+                    />
+                    }
 
                 </Screen>
             

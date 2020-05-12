@@ -53,6 +53,11 @@ class Scrn extends React.Component {
                     </Outline>
 
                     <Outline>
+                        <Text sm mute>Nature of Work</Text>
+                        <Text>{user.natureofwork}</Text>
+                    </Outline>
+
+                    <Outline>
                         <Text md>Birthday</Text>
                         <Row ar>
                             <View>

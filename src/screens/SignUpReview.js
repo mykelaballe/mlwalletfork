@@ -29,7 +29,8 @@ export default class Scrn extends React.Component {
             country:null,
             province:null,
             city:null,
-            source_of_income:null
+            source_of_income:null,
+            natureofwork:null
         })
     }
 
@@ -75,10 +76,14 @@ export default class Scrn extends React.Component {
             this.props.navigation.setParams({source_of_income:null})
             this.setState({source_of_income:params.source_of_income})
         }
+
+        else if(params.natureofwork && params.natureofwork !== prevState.natureofwork) {
+            this.props.navigation.setParams({natureofwork:null})
+            this.setState({natureofwork:params.natureofwork})
+        }
     }
 
     handleChangeFirstname = firstname => this.setState({firstname})
-
     handleChangeMiddlename = middlename => this.setState({middlename})
 
     handleToggleHasMiddlename = () => {
@@ -89,9 +94,7 @@ export default class Scrn extends React.Component {
     }
 
     handleChangeLastname = lastname => this.setState({lastname})
-
     handleChangeSuffix = (option = {}) => this.setState({suffix:option.label || ''})
-
     handleChangeSuffixOthers = other_suffix => this.setState({other_suffix})
 
     handleToggleHasSuffix = () => {
@@ -102,21 +105,13 @@ export default class Scrn extends React.Component {
     }
 
     handleChangeMonth = () => this.setState({showMonthPicker:true})
-
     handleHideMonthPicker = () => this.setState({showMonthPicker:false})
-
     handleChangeDay = () => this.setState({showDayPicker:true})
-
     handleHideDayPicker = () => this.setState({showDayPicker:false})
-
     handleChangeYear = () => this.setState({showYearPicker:true})
-
     handleHideYearPicker = () => this.setState({showYearPicker:false})
-
     handleSelectGender = gender => this.setState({gender})
-
     handleChangeEmail = email => this.setState({email})
-
     handleChangeNationality = nationality => this.setState({nationality})
 
     handleSelectNationality = () => {
@@ -129,28 +124,22 @@ export default class Scrn extends React.Component {
         navigate('SourceOfIncome',{sourceRoute:state.routeName})
     }
 
-    handleChangeSourceOfIncome = source_of_income => this.setState({source_of_income})
+    handleSelectNatureOfWork = () => {
+        const {state, navigate} = this.props.navigation
+        navigate('NatureOfWork',{sourceRoute:state.routeName})
+    }
 
+    handleChangeOtherNatureOfWork = other_natureofwork => this.setState({other_natureofwork})
     handleFocusMiddlename = () => this.state.has_middlename ? this.refs.middlename.focus() : this.refs.lastname.focus()
-
     handleFocusLastname = () => this.refs.lastname.focus()
-
     handleFocusEmail = () => this.refs.email.focus()
-
     handleFocusNationality = () => this.refs.nationality.focus()
-
     handleFocusSourceOfIncome = () => this.refs.source_of_income.focus()
-
     handleSelectMonth = bday_month => this.setState({bday_month, bday_day:''})
-
     handleSelectDay = bday_day => this.setState({bday_day})
-
     handleSelectYear = bday_year => this.setState({bday_year})
-
     handleChangeHouse = house => this.setState({house})
-
     handleChangeStreet = street => this.setState({street})
-
     handleSelectCountry = () => {
         const {state, navigate} = this.props.navigation
         navigate('Countries',{sourceRoute:state.routeName})
@@ -167,15 +156,12 @@ export default class Scrn extends React.Component {
     }
 
     handleChangeBarangay = barangay => this.setState({barangay})
-
     handleFocusBarangay = () => this.refs.barangay.focus()
-
     handleFocusStreet = () => this.refs.street.focus()
-
     handleFocusHouse = () => this.refs.houseno.focus()
 
     handleViewTerms = () => this.props.navigation.navigate('TermsAndConditions')
-
+    
     handleToggleTerms = () => this.setState(prevState => ({agree:!prevState.agree}))
 
     handleToggleEdit = () => {
@@ -191,7 +177,7 @@ export default class Scrn extends React.Component {
     }
 
     validate = () => {
-        let {firstname, middlename, lastname, suffix, other_suffix, bday_month, bday_day, bday_year, gender, email, nationality, source_of_income, house, street, country, province, city, barangay, zip_code, question1, answer1, question2, answer2, question3, answer3} = this.state
+        let {firstname, middlename, lastname, suffix, other_suffix, bday_month, bday_day, bday_year, gender, email, nationality, source_of_income, natureofwork, other_natureofwork, house, street, country, province, city, barangay, zip_code, question1, answer1, question2, answer2, question3, answer3} = this.state
 
         try {
             firstname = firstname.trim()
@@ -205,13 +191,17 @@ export default class Scrn extends React.Component {
             street = street.trim()
             barangay = barangay.trim()
             zip_code = zip_code.trim()
+            natureofwork = natureofwork.trim()
+            other_natureofwork = other_natureofwork.trim()
 
             suffix = other_suffix || suffix
+            natureofwork = other_natureofwork || natureofwork
 
             if(suffix == 'Others') suffix = ''
+
             let birthday = `${bday_year}-${bday_month}-${bday_day}`
 
-            if(!firstname || !middlename || !lastname || !bday_day || !source_of_income) Say.some(_('8'))
+            if(!firstname || !middlename || !lastname || !bday_day || !source_of_income || !natureofwork) Say.some(_('8'))
             else if(country == Consts.country.PH && (!province.province || !city || !barangay || !zip_code)) Say.some(_('8'))
             else if(!Func.isLettersOnly(firstname)) Say.warn(Consts.error.onlyLetters + '\n\nFirst Name')
             else if(!Func.isLettersOnly(middlename)) Say.warn(Consts.error.onlyLetters + '\n\nMiddle Name')
@@ -232,6 +222,7 @@ export default class Scrn extends React.Component {
                     email,
                     gender,
                     source_of_income,
+                    natureofwork,
                     birthday,
                     nationality,
                     house,
@@ -264,15 +255,15 @@ export default class Scrn extends React.Component {
     render() {  
 
         const {firstname, middlename, has_middlename, lastname, suffix, other_suffix, has_suffix, suffix_options, bday_month, bday_day, bday_year, gender, email, nationality, source_of_income,
-            country, province, city, barangay, house, street, zip_code, editable, showMonthPicker, showDayPicker, showYearPicker, agree, processing} = this.state
+            natureofwork, other_natureofwork, country, province, city, barangay, house, street, zip_code, editable, showMonthPicker, showDayPicker, showYearPicker, agree, processing} = this.state
 
         let ready = true
 
-        if(firstname && middlename && lastname && suffix && bday_day && nationality && source_of_income && barangay && zip_code && agree) {
+        if(firstname && middlename && lastname && suffix && bday_day && nationality && source_of_income && natureofwork && barangay && zip_code && agree) {
             ready = true
         }
 
-        if(!firstname || !middlename || !lastname || !suffix || !bday_day || !source_of_income || !agree) ready = false
+        if(!firstname || !middlename || !lastname || !suffix || !bday_day || !source_of_income || !natureofwork || !agree) ready = false
 
         if(country == Consts.country.PH && (!province.province || !city || !barangay || !zip_code)) ready = false
 
@@ -467,6 +458,20 @@ export default class Scrn extends React.Component {
                             value={source_of_income}
                             onPress={this.handleSelectSourceOfIncome}
                         />
+
+                        <StaticInput
+                            label='Nature of Work'
+                            value={natureofwork}
+                            onPress={this.handleSelectNatureOfWork}
+                        />
+
+                        {natureofwork === 'Others' &&
+                        <TextInput
+                            label={'Enter Nature of Work'}
+                            value={other_natureofwork}
+                            onChangeText={this.handleChangeOtherNatureOfWork}
+                        />
+                        }
 
                         <StaticInput
                             label='Country'

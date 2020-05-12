@@ -28,6 +28,7 @@ export default {
     Cities: Scrn.CitiesScrn,
     Nationalities: Scrn.NationalitiesScrn,
     SourceOfIncome: Scrn.SourceOfIncomeScrn,
+    NatureOfWork: Scrn.NatureOfWorkScrn,
     SecurityQuestions: Scrn.SecurityQuestionsScrn,
     TermsAndConditions: Scrn.TermsAndConditionsScreen,
     Camera: Scrn.CameraScrn,
