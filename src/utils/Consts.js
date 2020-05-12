@@ -163,6 +163,14 @@ export default {
 			long_desc:'Buy E-Load',
 			submit_text:'Buy E-Load',
 			otp:'Verify'
-		}
+		},
+		rtw: {
+			code:'stw',
+			action:'send',
+			short_desc:'Wallet To Wallet',
+			long_desc:'Send Money - Wallet to Wallet',
+			submit_text:'Send Money',
+			otp:'Send Money'
+		},
 	}
 }

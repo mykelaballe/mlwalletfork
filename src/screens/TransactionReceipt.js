@@ -108,7 +108,7 @@ export default class Scrn extends React.Component {
             cancellable
         }
 
-        if(type === Consts.tcn.stw.code) return <SendWalletToWallet data={data} onExport={this.handleSetExportData} />
+        if(type === Consts.tcn.stw.code || type === Consts.tcn.rtw.code) return <SendWalletToWallet data={data} onExport={this.handleSetExportData} />
 
         if(type === Consts.tcn.skp.code) return <SendKP data={data} onExport={this.handleSetExportData} />
 
