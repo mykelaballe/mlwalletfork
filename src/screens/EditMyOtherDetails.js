@@ -129,6 +129,8 @@ class Scrn extends React.Component {
 
             natureofwork = other_natureofwork || natureofwork
 
+            if(natureofwork == 'Others') natureofwork = ''
+
             if(!sourceofincome || !natureofwork) Say.some(_('8'))
             else if(country == Consts.country.PH && (!province.province || !city || !barangay || !zipcode)) Say.some(_('8'))
             else if(barangay && !Func.hasAddressSpecialCharsOnly(barangay)) Say.warn(Consts.error.notAllowedChar + '\n\nBarangay')
