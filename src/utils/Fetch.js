@@ -1,6 +1,6 @@
 import axios from 'axios'
-import Consts from '../utils/Consts'
-import Storage from '../utils/Storage'
+import Consts from './Consts'
+import Storage from './Storage'
 
 let headers = {
   'Accept': 'application/json',

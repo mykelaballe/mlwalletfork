@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Text, Button, ButtonText, Spacer, TextInput, Row, Icon, Screen, MLBanner} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_, Say, Consts, Func} from '../utils'
+import {_, Say, Consts, Func, Crypt} from '../utils'
 import {API} from '../services'
 import TouchID from 'react-native-touch-id'
 
@@ -26,15 +26,28 @@ class Scrn extends React.Component {
 
     state = {
         data:null,
-        username:'',
-        password:'',
+        username:'mykel ANGELO',
+        password:'1234@../?!*&,:123456789',
         show_password:false,
         processing:false
     }
 
     handleLogin = async () => {
         const {username, password} = this.state
-        this.login({username, password})
+        let encrypted = await Crypt.en(
+            JSON.stringify({
+                username,
+                password
+            })
+        )
+        let decrypted = await Crypt.de(encrypted)
+        decrypted = JSON.parse(decrypted)
+        alert(decrypted.username + '\n' + decrypted.password)
+        /*alert(`
+            ${decrypted.username}
+            ${decrypted.password}
+        `)*/
+        //this.login({username, password})
     }
 
     handleTouchID = () => {
