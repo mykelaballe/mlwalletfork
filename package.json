@@ -20,7 +20,6 @@
     "react": "16.9.0",
     "react-content-loader": "5.0.4",
     "react-native": "0.61.2",
-    "react-native-aes": "^1.0.0",
     "react-native-app-intro-slider": "3.0.0",
     "react-native-camera": "3.17.0",
     "react-native-code-push": "5.7.0",
