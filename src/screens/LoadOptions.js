@@ -224,6 +224,7 @@ class LoadOptions extends React.Component {
                         data={promo_codes}
                         renderItem={this.renderPromoCodes}
                         loading={loading}
+                        skeleton='a'
                     />
                 </>
                 }
