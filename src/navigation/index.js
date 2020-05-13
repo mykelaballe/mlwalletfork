@@ -15,8 +15,6 @@ class Navigation extends React.Component {
 
         const {isFirstTime, isLoggedIn} = this.props
 
-        return <AppIntroContainer />
-
         if(isFirstTime) return <AppIntroContainer />
 
         if(isLoggedIn) return <MainAppContainer />
