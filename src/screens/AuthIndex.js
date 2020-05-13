@@ -27,7 +27,7 @@ class Scrn extends React.Component {
 
     render() {
 
-        return (
+        /*return (
             <View style={style.imgBg}>
 
                 <View style={style.backdrop} />
@@ -42,35 +42,30 @@ class Scrn extends React.Component {
                     <Button light mode='outlined' contentStyle={style.btnContent} style={style.btn} t={_('5')} onPress={this.handleGoToLogin} />
                     <Spacer />
                     <Button light t={_('18')} mode='outlined' contentStyle={style.btnContent} style={style.btn} onPress={this.handleGoToSignUp} />
-
-                    {/*<Button t='Cebuano' onPress={() => this.handleChangeLang('ceb')} />
-                    <Button t='Tagalog' onPress={() => this.handleChangeLang('tgl')} />
-                    <Button t='English' onPress={() => this.handleChangeLang('en')} />*/}
                 </View>
             </View>
-        )
+        )*/
 
-        /*return (
+        return (
             <ImageBackground source={require('../res/bg.png')} style={style.imgBg}>
 
                 <View style={style.backdrop} />
+
+                <Spacer />
 
                 <View style={{alignItems:'center'}}>
                     <Image source={require('../res/logo_white.png')} style={style.logo} resizeMode='contain' />
                 </View>
 
-                <Text md light center>Withdraw, send cash and pay your bills anytime, from virtually anywhere!</Text>
+                <Text md light center>{_('6')}</Text>
 
                 <View>
-                    <Button light mode='outlined' contentStyle={style.btnContent} style={style.btn} t='Login' onPress={this.handleGoToLogin} />
+                    <Button light mode='outlined' contentStyle={style.btnContent} style={style.btn} t={_('5')} onPress={this.handleGoToLogin} />
                     <Spacer />
-                    <Button light t='Create Account' mode='outlined' contentStyle={style.btnContent} style={style.btn} onPress={this.handleGoToSignUp} />
-                
-                    <Button sm t='Tagalog' onPress={this.handleChangeToTagalog} />
-                    <Button sm t='English' onPress={this.handleChangeToEnglish} />
+                    <Button light t={_('18')} mode='outlined' contentStyle={style.btnContent} style={style.btn} onPress={this.handleGoToSignUp} />
                 </View>
             </ImageBackground>
-        )*/
+        )
     }
 }
 
@@ -82,7 +77,8 @@ const style = StyleSheet.create({
     },
     backdrop: {
         ...StyleSheet.absoluteFill,
-        backgroundColor:Colors.brand
+        backgroundColor:Colors.brand,
+        opacity:.8
     },
     logo: {
         width:300
