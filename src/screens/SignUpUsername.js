@@ -54,7 +54,7 @@ export default class Scrn extends React.Component {
                     }
                 }
                 else {
-                    Say.warn('Invalid format')
+                    //Say.warn('Invalid format')
                     this.setState({error:true})
                 }
             }

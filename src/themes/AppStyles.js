@@ -28,7 +28,7 @@ export default {
         tabBarOptions: {
             activeTintColor: Colors.light,
             labelStyle: {
-              fontSize:11
+              fontSize:10
             },
             style: {
               backgroundColor:Colors.brand

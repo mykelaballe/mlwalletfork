@@ -7,7 +7,7 @@ import {Metrics} from '../themes'
 import {_, Say} from '../utils'
 
 const {width} = Dimensions.get('window')
-const ITEM_WIDTH = (width / 3) - (Metrics.xl)
+const ITEM_WIDTH = (width / 3) - (Metrics.lg)
 const ITEM_HEIGHT = 120
 
 class More extends React.Component {
@@ -112,7 +112,7 @@ class More extends React.Component {
 
 const style = StyleSheet.create({
     columnWrapper: {
-        padding:Metrics.rg
+        //padding:Metrics.rg
     },
     item: {
         justifyContent:'center',
@@ -120,7 +120,7 @@ const style = StyleSheet.create({
         width:ITEM_WIDTH,
         height:ITEM_HEIGHT,
         padding:Metrics.sm,
-        marginHorizontal:Metrics.rg
+        margin:Metrics.rg
     }
 })
 

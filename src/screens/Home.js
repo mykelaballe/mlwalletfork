@@ -8,7 +8,7 @@ import {_, Say} from '../utils'
 import {API} from '../services'
 
 const {width, height} = Dimensions.get('window')
-const ITEM_WIDTH = (width / 4) - (Metrics.xl)
+const ITEM_WIDTH = (width / 4) - (Metrics.lg)
 const ITEM_HEIGHT = 130
 
 class Scrn extends React.Component {
