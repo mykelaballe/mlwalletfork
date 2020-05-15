@@ -1,3 +1,4 @@
+import Consts from '../../utils/Consts'
 import Fetch from '../../utils/Fetch'
 
 export default {
@@ -6,7 +7,8 @@ export default {
     withdrawCash: async payload => {
         return await Fetch.post('withdrawcash/withdraw',{
             ...payload,
-            location:''
+            location:'',
+            deviceid:Consts.deviceId
         })
     },
 

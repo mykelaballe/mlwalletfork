@@ -7,7 +7,8 @@ export default {
     sendKP: async payload => {
         return await Fetch.post('kp/sendMoney',{
             ...payload,
-            location:''
+            location:'',
+            deviceid:Consts.deviceId
         })
     },
 
