@@ -80,13 +80,9 @@ class Scrn extends React.Component {
     }
 
     handleFocusDigit2 = () => this.refs.digit2.focus()
-
     handleFocusDigit3 = () => this.refs.digit3.focus()
-
     handleFocusDigit4 = () => this.refs.digit4.focus()
-
     handleFocusDigit5 = () => this.refs.digit5.focus()
-
     handleFocusDigit6 = () => this.refs.digit6.focus()
 
     handleSubmit = async () => {
