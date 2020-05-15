@@ -82,8 +82,8 @@ class Scrn extends React.Component {
                 label:'All Types'
             },
             {
-                value:'add_money',
-                label:'Add Money'
+                value:Consts.tcn.adm.code,
+                label:Consts.tcn.adm.short_desc
             },
             {
                 value:Consts.tcn.bpm.code,

@@ -172,5 +172,13 @@ export default {
 			submit_text:'Send Money',
 			otp:'Send Money'
 		},
+		adm: {
+			code:'adm',
+			action:'deposit',
+			short_desc:'Add Money',
+			long_desc:'Add Money',
+			submit_text:'Add Money',
+			otp:'Add Money'
+		},
 	}
 }
