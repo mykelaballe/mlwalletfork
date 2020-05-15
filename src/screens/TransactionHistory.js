@@ -342,8 +342,8 @@ class Scrn extends React.Component {
     handleRefresh = () => this.setState({refreshing:true},this.getData)
 
     renderItem = ({item}) => {
-        if(typeof Consts.tcn[data.transtype] === 'undefined') return null
-        
+        if(typeof Consts.tcn[item.transtype] === 'undefined') return null
+
         return (
             <ScrollFix>
                 <ItemUI data={item} onPress={this.handleViewDetails} />
