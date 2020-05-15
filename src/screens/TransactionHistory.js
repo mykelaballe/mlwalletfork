@@ -341,11 +341,15 @@ class Scrn extends React.Component {
 
     handleRefresh = () => this.setState({refreshing:true},this.getData)
 
-    renderItem = ({item}) => (
-        <ScrollFix>
-            <ItemUI data={item} onPress={this.handleViewDetails} />
-        </ScrollFix>
-    )
+    renderItem = ({item}) => {
+        if(typeof Consts.tcn[data.transtype] === 'undefined') return null
+        
+        return (
+            <ScrollFix>
+                <ItemUI data={item} onPress={this.handleViewDetails} />
+            </ScrollFix>
+        )
+    }
 
     render() {
 
