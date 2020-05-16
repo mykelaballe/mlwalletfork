@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Screen, Text, Row, FlatList, Spacer, ScrollFix} from '../components'
 import {Metrics} from '../themes'
-import {_, Say, Consts} from '../utils'
+import {_, Say, Consts, Func} from '../utils'
 import {API} from '../services'
 
 class Scrn extends React.Component {
@@ -45,8 +45,8 @@ class Scrn extends React.Component {
     renderItems = ({item}) => (
         <ScrollFix>
             <Row style={style.item}>
-                <Text center style={{flex:1}}>{item.minAmount} - {item.maxAmount}</Text>
-                <Text center style={{flex:1}}>{item.chargeValue}</Text>
+                <Text center style={{flex:1}}>{Func.formatToRealCurrency(item.minAmount)} - {Func.formatToRealCurrency(item.maxAmount)}</Text>
+                <Text center style={{flex:1}}>{Func.formatToRealCurrency(item.chargeValue)}</Text>
             </Row>
         </ScrollFix>
     )

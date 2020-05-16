@@ -3,15 +3,18 @@ import Consts from './Consts'
 import _ from './Lang'
 
 const some = (message, title = null, options = {}) => {
-    let lastIdx = message.length - 1
+    if(message[message.length - 1] != '.') message = `${message}.`
+
     SomeModal.show({
-        message:message[lastIdx] == '.' ? message : `${message}.`,
+        message,
         title:title || 'Oops!',
         options
     })
 }
 
 const ok = (message, title = null, options = {}) => {
+    if(message[message.length - 1] != '.') message = `${message}.`
+
     SomeModal.show({
         message,
         title:title || 'Success!',
@@ -20,6 +23,8 @@ const ok = (message, title = null, options = {}) => {
 }
 
 const warn = (message, title = null, options = {}) => {
+    if(message[message.length - 1] != '.') message = `${message}.`
+
     SomeModal.show({
         message,
         title:title || 'Warning',
@@ -28,14 +33,21 @@ const warn = (message, title = null, options = {}) => {
 }
 
 const err = (message, title = null, options = {}) => {
+    if(Consts.is_dev) message = message.message
+    else message = _('500')
+
+    if(message[message.length - 1] != '.') message = `${message}.`
+
     SomeModal.show({
-        message:Consts.is_dev ? message.message : _('500'),
+        message,
         title:title || 'Error',
         options
     })
 }
 
 const info = (message, title = null, options = {}) => {
+    if(message[message.length - 1] != '.') message = `${message}.`
+
     SomeModal.show({
         message,
         title:title || 'Information',
@@ -44,6 +56,8 @@ const info = (message, title = null, options = {}) => {
 }
 
 const ask = (message, title = null, options = {}) => {
+    if(message[message.length - 1] != '.') message = `${message}.`
+
     SomeModal.show({
         message,
         title:title || 'Are you sure?',

@@ -2,7 +2,7 @@ import React from 'react'
 import {StyleSheet} from 'react-native'
 import {Screen, Text, Row, FlatList, Spacer} from '../components'
 import {Metrics} from '../themes'
-import {_, Consts} from '../utils'
+import {_, Consts, Func} from '../utils'
 
 export default class Scrn extends React.Component {
 
@@ -15,15 +15,15 @@ export default class Scrn extends React.Component {
             {
                 minAmount:'0.01',
                 maxAmount:'50000',
-                chargeValue:'25.00'
+                chargeValue:'25'
             }
         ]
     }
 
     renderItems = ({item}) => (
         <Row style={style.item}>
-            <Text center style={{flex:1}}>{item.minAmount} - {item.maxAmount}</Text>
-            <Text center style={{flex:1}}>{item.chargeValue}</Text>
+            <Text center style={{flex:1}}>{Func.formatToRealCurrency(item.minAmount)} - {Func.formatToRealCurrency(item.maxAmount)}</Text>
+            <Text center style={{flex:1}}>{Func.formatToRealCurrency(item.chargeValue)}</Text>
         </Row>
     )
 
