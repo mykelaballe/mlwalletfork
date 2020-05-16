@@ -153,6 +153,121 @@ const answer2 = (
     </>
 )
 
+const answer3 = (
+    <>
+        <Text>Depending on our relationship and/or the products or services availed or will be availed from us, we collect and process <Text b>Personal Information</Text> (any information from which the identity of an individual is apparent of can be reasonably and directly ascertained, or when put together with other information would directly and certainly identify an individual) and <Text b>Sensitive Personal Information</Text> (information about an individual’s race, ethnic origin, marital status, age, color, and religious, philosophical or political affiliations, health, education, genetic or sexual life, proceeding for any offense committed or alleged to have been committed by an individual, government issued IDs and those established by an executive order or an act of Congress to be kept classified) such as but not limited to the following:</Text>
+        <Spacer sm />
+        {
+            [
+                'Name',
+                'Address',
+                'Date and place of birth',
+                'Nationality',
+                'Civil status',
+                'Gender',
+                'Contact details',
+                'Identification card/document',
+                'Photograph',
+                'Specimen signature or biometric of the person'
+            ]
+            .map((item, i) => (
+                <>
+                    <Row key={i}>
+                        <Bullet />
+                        <Text>{item}</Text>
+                    </Row>
+                    <Spacer xs />
+                </>
+            ))
+        }
+        <Spacer sm />
+        <Text>And when or where necessary:</Text>
+        <Spacer sm />
+        {
+            [
+                'Nature of Work or Activity',
+                'School',
+                'Source of Income',
+                'Link, which refers to either relation or connection to a party or the other party to the transaction, where applicable'
+            ]
+            .map((item, i) => (
+                <>
+                    <Row key={i}>
+                        <Bullet />
+                        <Text>{item}</Text>
+                    </Row>
+                    <Spacer xs />
+                </>
+            ))
+        }
+    </>
+)
+
+const answer4 = (
+    <>
+        <Text>As non-bank financial institution, regulated by the Bangko Sentral ng Pilipinas (BSP), we collect your information....</Text>
+        <Spacer sm />
+        {
+            [
+                'To establish, identify and confirm or verify the identity that you represented or hold out to M Lhuillier.',
+                'To process your transaction/s for or application/s of a product or service.',
+                'To assist you of your inquiries, concerns or even complaints.',
+                'To comply with any legal and regulatory obligations as mandated by the BSP, the Anti-Money Laundering Council (AMLC) and other regulatory bodies.'
+            ]
+            .map((item, i) => (
+                <>
+                    <Row key={i}>
+                        <Bullet />
+                        <Text>{item}</Text>
+                    </Row>
+                    <Spacer xs />
+                </>
+            ))
+        }
+        <Spacer sm />
+        <Text>We also collect your information....</Text>
+        <Spacer sm />
+        {
+            [
+                'To understand your need better and to protect your interest and your transaction.',
+                'To make sure that the data we hold about you is correct and up-to-date.',
+                'To inform you about our new offer/promotions of products and services and to tailor the delivery of our marketing campaigns.'
+            ]
+            .map((item, i) => (
+                <>
+                    <Row key={i}>
+                        <Bullet />
+                        <Text>{item}</Text>
+                    </Row>
+                    <Spacer xs />
+                </>
+            ))
+        }
+    </>
+)
+
+const answer5 = (
+    <>
+        <Text>We require you to fill up forms or obtain your information in any electronic means and request submission of your identification document to avail of our products and services and other applications (for employment or tie-up agreement).</Text>
+    
+        <Spacer xs />
+
+        <Text>If you contact us via telephone or customer service hotlines or via websites or thru social media sites to request information about our products and service</Text>
+
+        <Spacer xs />
+
+        <Text>M Lhuillier also collects your information from people acting on your behalf/or duly authorized representative.</Text>
+
+        <Spacer xs />
+
+        <Text>Your personal data may be processed manually and /or electronically.</Text>
+
+        <Spacer xs />
+
+        <Text>M Lhuillier collects personal data only for predefined and lawful purposes.</Text>
+    </>
+)
+
 export default [
     {
         question:'Our Products and Services',
@@ -164,15 +279,15 @@ export default [
     },
     {
         question:'What We Collect and Process',
-        answer:''
+        answer:answer3
     },
     {
         question:'Why We Collect and Process',
-        answer:''
+        answer:answer4
     },
     {
         question:'How We Collect and Process',
-        answer:''
+        answer:answer5
     },
     {
         question:'How We Use, Store, Retain and Dispose',
