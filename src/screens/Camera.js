@@ -1,6 +1,6 @@
 import React from 'react'
 import {View, StyleSheet, TouchableOpacity, Image, Dimensions} from 'react-native'
-import {ButtonText, ButtonIcon, Row, ActivityIndicator} from '../components'
+import {ButtonText, ButtonIcon, Row, ActivityIndicator, Text} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say, Consts} from '../utils'
 import {RNCamera} from 'react-native-camera'
@@ -165,6 +165,8 @@ class Scrn extends React.Component {
                     {!source && 
                     <View style={{alignItems:'center'}}>
                         {processing && <ActivityIndicator />}
+
+                        <Text center sm>{params.title == 'Live Photo' ? 'Take a clear selfie' : 'Place your ID within the frame and take a picture'}</Text>
 
                         {!processing &&
                         <TouchableOpacity onPress={this.handleCapture}>

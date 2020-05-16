@@ -27,7 +27,7 @@ const warn = (message, title = null, options = {}) => {
 
     SomeModal.show({
         message,
-        title:title || 'Warning',
+        title:title || 'Oops!',
         options
     })
 }

@@ -19,20 +19,33 @@ class Scrn extends React.Component {
         return (
             <Screen>
                 <View style={{paddingHorizontal:Metrics.md}}>
-                    <Headline title='Ask a teller for an ML Kwarta Padala form' size={Metrics.font.lg} />
+                    <Headline title='Ask a teller for an ML Kwarta Padala Form.' size={Metrics.font.lg} />
 
                     <Text center md>Here are your account details:</Text>
 
                     <Spacer xl />
 
+                    <Text center>Registered Name</Text>
                     <Text center md>{Func.formatName(user)}</Text>
+
                     <Spacer sm />
-                    <Text center md>Wallet Account Number: {user.walletno}</Text>
+
+                    <Text center>Wallet Account Number</Text>
+                    <Text center md>{user.walletno}</Text>
+
                     <Spacer sm />
+
+                    <Text center>Registered Address</Text>
                     <Text center md>{Func.formatAddress(user)}</Text>
+
                     <Spacer sm />
+
+                    <Text center>Registered Mobile Number</Text>
                     <Text center md>{user.mobileno}</Text>
+
                     <Spacer sm />
+
+                    <Text center>Registered Email Address</Text>
                     <Text center md>{user.emailaddress}</Text>
                 </View>
             </Screen>

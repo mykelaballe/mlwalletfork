@@ -134,7 +134,7 @@ class Scrn extends React.Component {
 
                     <TextInput
                         ref='firstname'
-                        label="First Name"
+                        label="Sender's First Name"
                         value={firstname}
                         onChangeText={this.handleChangeFirstName}
                         onSubmitEditing={this.handleFocusLastName}
@@ -144,7 +144,7 @@ class Scrn extends React.Component {
 
                     <TextInput
                         ref='lastname'
-                        label="Last Name"
+                        label="Sender's Last Name"
                         value={lastname}
                         onChangeText={this.handleChangeLastName}
                         autoCapitalize='words'

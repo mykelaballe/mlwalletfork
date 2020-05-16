@@ -25,42 +25,46 @@ export default class Scrn extends React.Component {
         list:[
             {
                 id:1,
-                name:'SSS UMID Card'
+                name:'SSS ID'
             },
             {
                 id:2,
-                name:'Passport'
+                name:'UMID'
             },
             {
                 id:3,
-                name:"Driver's License"
+                name:'Passport'
             },
             {
                 id:4,
-                name:'PhilHealth ID'
+                name:"Driver's License"
             },
             {
                 id:5,
-                name:'Postal ID'
+                name:'PhilHealth ID'
             },
             {
                 id:6,
-                name:"Voter's ID"
+                name:'Postal ID'
             },
             {
                 id:7,
-                name:'PRC ID'
+                name:"Voter's ID"
             },
             {
                 id:8,
-                name:"Senior Citizen's ID"
+                name:'PRC ID'
             },
             {
                 id:9,
-                name:"Student ID"
+                name:"Senior Citizen's ID"
             },
             {
                 id:10,
+                name:"Student ID"
+            },
+            {
+                id:11,
                 name:"Company ID"
             }
         ],

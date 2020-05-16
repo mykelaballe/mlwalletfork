@@ -210,7 +210,7 @@ export default class Scrn extends React.Component {
             else if(!Func.isLettersOnly(middlename)) Say.warn(Consts.error.onlyLetters + '\n\nMiddle Name')
             else if(!Func.isLettersOnly(lastname)) Say.warn(Consts.error.onlyLetters + '\n\nLast Name')
             else if(!Func.isDateValid(birthday)) Say.warn(Consts.error.birthdate)
-            else if(email && !Func.hasEmailSpecialCharsOnly(email)) Say.warn(Consts.error.notAllowedChar + '\n\nEmail')
+            else if(email && !Func.hasEmailSpecialCharsOnly(email)) Say.warn(Consts.error.emailNotAllowedChar)
             else if(email && !Func.isEmail(email)) Say.warn(Consts.error.email)
             else if(barangay && !Func.hasAddressSpecialCharsOnly(barangay)) Say.warn(Consts.error.notAllowedChar + '\n\nBarangay')
             else if(street && !Func.hasAddressSpecialCharsOnly(street)) Say.warn(Consts.error.notAllowedChar + '\n\nStreet')
@@ -556,15 +556,17 @@ export default class Scrn extends React.Component {
 
                         <Row c>
                             <Checkbox status={agree} onPress={this.handleToggleTerms} />
-                            <Text sm>I have read and agree to the </Text>
+                            <Text sm>I have read and accepted the</Text>
                         </Row>
 
                         <TouchableOpacity onPress={this.handleViewPrivacy}>
                             <Text brand b center>Privacy Notice,</Text>
                         </TouchableOpacity>
 
+                        <Spacer xs />
+
                         <TouchableOpacity onPress={this.handleViewTerms}>
-                            <Text brand b center>Terms and Conditions</Text>
+                            <Text brand b center>Terms and Conditions.</Text>
                         </TouchableOpacity>
 
                         <Spacer />

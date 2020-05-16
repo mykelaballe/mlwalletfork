@@ -90,7 +90,7 @@ export default class Scrn extends React.Component {
             `Receipt exported in:\n ${file.filePath}`,
             'Success!',
             {
-                yesBtnLabel:'View',
+                yesBtnLabel:'View File',
                 noBtnLabel:'Close',
                 onConfirm:() => this.props.navigation.navigate('PDFViewer',{
                     title:kptn,

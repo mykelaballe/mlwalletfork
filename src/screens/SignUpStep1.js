@@ -194,7 +194,7 @@ class Scrn extends React.Component {
                 Say.warn(Consts.error.onlyLetters)
             }
             else if(!Func.isDateValid(`${bday_year}-${bday_month}-${bday_day}`)) Say.warn(Consts.error.birthdate)
-            else if(email && !Func.hasEmailSpecialCharsOnly(email)) Say.warn(Consts.error.notAllowedChar + '\n\nEmail')
+            else if(email && !Func.hasEmailSpecialCharsOnly(email)) Say.warn(Consts.error.emailNotAllowedChar)
             else if(email && !Func.isEmail(email)) Say.warn(Consts.error.email)
             else {
                 this.props.navigation.navigate('SignUpStep2',{
