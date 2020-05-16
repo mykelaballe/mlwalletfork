@@ -61,11 +61,11 @@ class Scrn extends React.Component {
                 label:'Loan',
                 value:'loan'
             },
-            {
+            /*{
                 icon:'memorial',
                 label:'Memorial',
                 value:'memorial'
-            },
+            },*/
             {
                 icon:'online_business',
                 label:'Online Businesses',

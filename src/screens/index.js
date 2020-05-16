@@ -117,6 +117,7 @@ import NatureOfWorkScrn from './NatureOfWork'
 import RegionsScrn from './Regions'
 import SecurityQuestionsScrn from './SecurityQuestions'
 import CameraScrn from './Camera'
+import PDFViewerScrn from './PDFViewer'
 
 import ProfileScrn from './Profile'
 import EditProfileIndexScrn from './EditProfileIndex'
@@ -263,6 +264,7 @@ export {
     RegionsScrn,
     SecurityQuestionsScrn,
     CameraScrn,
+    PDFViewerScrn,
 
     ProfileScrn,
     EditProfileIndexScrn,

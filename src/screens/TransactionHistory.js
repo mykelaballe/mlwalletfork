@@ -42,7 +42,7 @@ class Scrn extends React.Component {
     static navigationOptions = ({navigation}) => {
         const {params = {}} = navigation.state
         return {
-            title:'Transactions',
+            title:'Transaction History',
             /*headerRight: (
                 <HeaderRight>
                     <ButtonIcon icon={<Icon name='download' color={Colors.light} size={Metrics.icon.sm} />} onPress={params.downloadHistory} />
@@ -57,7 +57,7 @@ class Scrn extends React.Component {
         timeframe_filters:[
             {
                 value:'all_time',
-                label:'All Time'
+                label:'All Transactions'
             },
             {
                 value:'past_week',

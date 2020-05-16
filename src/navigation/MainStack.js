@@ -125,6 +125,7 @@ export default createStackNavigator({
     Nationalities: Scrn.NationalitiesScrn,
     SourceOfIncome: Scrn.SourceOfIncomeScrn,
     NatureOfWork: Scrn.NatureOfWorkScrn,
+    PDFViewer: Scrn.PDFViewerScrn,
 
     TransactionReview: Scrn.TransactionReviewScrn,
     TransactionReceipt: Scrn.TransactionReceiptScrn,

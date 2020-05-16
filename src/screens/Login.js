@@ -26,6 +26,7 @@ class Scrn extends React.Component {
 
     state = {
         data:null,
+        real_username:'',
         username:'',
         password:'',
         show_password:false,
@@ -175,7 +176,13 @@ class Scrn extends React.Component {
         if(!locationRes.error) this.props.navigation.navigate('SignUpUsername')
     }
 
-    handleChangeUsername = username => this.setState({username})
+    handleChangeUsername = username => {
+        /*this.setState({
+            username: username.length <= 3 ? username : username.replace(/.{3}$/,'•••')
+        })*/
+
+        this.setState({username})
+    }
 
     handleChangePassword = password => this.setState({password})
 
@@ -214,7 +221,7 @@ class Scrn extends React.Component {
     render() {
 
         const {isUsingTouchID} = this.props
-        const {username, password, show_password, processing} = this.state
+        let {username, password, show_password, processing} = this.state
         let ready = false
 
         if(username && password) ready = true

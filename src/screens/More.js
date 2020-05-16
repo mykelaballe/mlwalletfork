@@ -21,7 +21,7 @@ class More extends React.Component {
         items:[
             {
                 icon:'transaction_history',
-                label:'Transactions',
+                label:'Transaction History',
                 onPress:() => this.handlePressTransactionHistory()
             },
             {

@@ -31,7 +31,7 @@ export default class Scrn extends React.Component {
 
         try {
             list = [
-                {name:'Salary/Wage/Page'},
+                {name:'Salary/Wage'},
                 {name:'Commission'},
                 {name:'Pension'},
                 {name:'Allowance'},

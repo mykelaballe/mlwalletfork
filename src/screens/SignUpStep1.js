@@ -245,7 +245,7 @@ class Scrn extends React.Component {
 
                     <TextInput
                         ref='firstname'
-                        label={'First Name'}
+                        label={'First Name*'}
                         value={firstname}
                         error={error_firstname}
                         onChangeText={this.handleChangeFirstname}
@@ -275,7 +275,7 @@ class Scrn extends React.Component {
 
                     <TextInput
                         ref='lastname'
-                        label={'Last Name'}
+                        label={'Last Name*'}
                         value={lastname}
                         error={error_lastname}
                         onChangeText={this.handleChangeLastname}
@@ -310,7 +310,7 @@ class Scrn extends React.Component {
 
                     <Spacer sm />
 
-                    <Text md mute>Birthday</Text>
+                    <Text md mute>Birthday*</Text>
                     <Spacer xs />
                     <Row bw>
                         <StaticInput
@@ -340,7 +340,7 @@ class Scrn extends React.Component {
 
                     <Spacer />
 
-                    <Text md mute>Gender</Text>
+                    <Text md mute>Gender*</Text>
                     <RadioButton.Group onValueChange={this.handleSelectGender} value={gender}>
                         <Row>
                             <Radio value='Male' label={_('43')} />
@@ -361,20 +361,20 @@ class Scrn extends React.Component {
                     />
 
                     <StaticInput
-                        label='Nationality'
+                        label='Nationality*'
                         value={nationality}
                         onPress={this.handleSelectNationality}
                     />
 
                     <StaticInput
-                        label='Source of Income'
+                        label='Source of Income*'
                         value={source_of_income}
                         error={error_source_of_income}
                         onPress={this.handleSelectSourceOfIncome}
                     />
 
                     <StaticInput
-                        label='Nature of Work'
+                        label='Nature of Work*'
                         value={natureofwork}
                         error={error_natureofwork}
                         onPress={this.handleSelectNatureOfWork}

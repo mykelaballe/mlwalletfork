@@ -31,5 +31,6 @@ export default {
     NatureOfWork: Scrn.NatureOfWorkScrn,
     SecurityQuestions: Scrn.SecurityQuestionsScrn,
     TermsAndConditions: Scrn.TermsAndConditionsScreen,
+    PrivacyNotice: Scrn.PrivacyNoticeScrn,
     Camera: Scrn.CameraScrn,
 }

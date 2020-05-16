@@ -3,9 +3,10 @@ import Consts from './Consts'
 import _ from './Lang'
 
 const some = (message, title = null, options = {}) => {
+    let lastIdx = message.length - 1
     SomeModal.show({
-        message,
-        title:title || 'Alert',
+        message:message[lastIdx] == '.' ? message : `${message}.`,
+        title:title || 'Oops!',
         options
     })
 }
@@ -13,7 +14,7 @@ const some = (message, title = null, options = {}) => {
 const ok = (message, title = null, options = {}) => {
     SomeModal.show({
         message,
-        title:title || 'Success',
+        title:title || 'Success!',
         options
     })
 }
@@ -54,10 +55,10 @@ const ask = (message, title = null, options = {}) => {
 }
 
 const attemptLeft = (error,options = {}) => {
-    let frontMsg = options.frontMsg || 'Oops! You entered the wrong information'
+    let frontMsg = options.frontMsg || 'Oops! You entered the wrong information.'
 
     if(error === Consts.error.atl1) warn(`${frontMsg}. You only have 1 attempt left.`)
-    else if(error === Consts.error.atl2) warn(`${frontMsg}. You only have 2 attempts left`)
+    else if(error === Consts.error.atl2) warn(`${frontMsg}. You only have 2 attempts left.`)
     else if(error === 'reach_maximum_attempts' || error === Consts.error.blk1d) {
         warn(
             `Your account will be blocked for 24 hours. Please contact our Customer Care for assistance.

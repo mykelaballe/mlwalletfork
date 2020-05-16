@@ -128,7 +128,7 @@ export default class Scrn extends React.Component {
                     <SignUpStepsTracker step={2} />
 
                     <StaticInput
-                        label='Country'
+                        label='Country*'
                         value={country}
                         onPress={this.handleSelectCountry}
                     />
@@ -136,20 +136,20 @@ export default class Scrn extends React.Component {
                     {country === Consts.country.PH &&
                     <>
                         <StaticInput
-                            label='Province'
+                            label='Province*'
                             value={province.province}
                             onPress={this.handleSelectProvince}
                         />
 
                         <StaticInput
-                            label='City/Municipality'
+                            label='City/Municipality*'
                             value={city}
                             onPress={this.handleSelectCity}
                         />
 
                         <TextInput
                             ref='barangay'
-                            label={'Barangay'}
+                            label={'Barangay*'}
                             value={barangay}
                             onChangeText={this.handleChangeBarangay}
                             onSubmitEditing={this.handleFocusStreet}
@@ -178,7 +178,7 @@ export default class Scrn extends React.Component {
 
                     {country == Consts.country.PH &&
                     <StaticInput
-                        label='Zip Code'
+                        label='Zip Code*'
                         value={zip_code}
                     />
                     }

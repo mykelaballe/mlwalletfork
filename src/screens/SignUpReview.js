@@ -161,6 +161,8 @@ export default class Scrn extends React.Component {
     handleFocusHouse = () => this.refs.houseno.focus()
 
     handleViewTerms = () => this.props.navigation.navigate('TermsAndConditions')
+
+    handleViewPrivacy = () => this.props.navigation.navigate('PrivacyNotice')
     
     handleToggleTerms = () => this.setState(prevState => ({agree:!prevState.agree}))
 
@@ -349,7 +351,7 @@ export default class Scrn extends React.Component {
                     <>
                         <TextInput
                             ref='firstname'
-                            label={'First Name'}
+                            label={'First Name*'}
                             value={firstname}
                             onChangeText={this.handleChangeFirstname}
                             onSubmitEditing={this.handleFocusMiddlename}
@@ -377,7 +379,7 @@ export default class Scrn extends React.Component {
 
                         <TextInput
                             ref='lastname'
-                            label={'Last Name'}
+                            label={'Last Name*'}
                             value={lastname}
                             onChangeText={this.handleChangeLastname}
                             onSubmitEditing={this.handleFocusEmail}
@@ -410,7 +412,7 @@ export default class Scrn extends React.Component {
 
                         <Spacer sm />
 
-                        <Text md mute>Birthday</Text>
+                        <Text md mute>Birthday*</Text>
                         <Spacer xs />
                         <Row bw>
                             <StaticInput
@@ -437,7 +439,7 @@ export default class Scrn extends React.Component {
 
                         <Spacer />
 
-                        <Text md mute>Gender</Text>
+                        <Text md mute>Gender*</Text>
                         <RadioButton.Group onValueChange={this.handleSelectGender} value={gender}>
                             <Row>
                                 <Radio value='Male' label={_('43')} />
@@ -460,19 +462,19 @@ export default class Scrn extends React.Component {
                         />
 
                         <StaticInput
-                            label='Nationality'
+                            label='Nationality*'
                             value={nationality}
                             onPress={this.handleSelectNationality}
                         />
 
                         <StaticInput
-                            label='Source of Income'
+                            label='Source of Income*'
                             value={source_of_income}
                             onPress={this.handleSelectSourceOfIncome}
                         />
 
                         <StaticInput
-                            label='Nature of Work'
+                            label='Nature of Work*'
                             value={natureofwork}
                             onPress={this.handleSelectNatureOfWork}
                         />
@@ -486,7 +488,7 @@ export default class Scrn extends React.Component {
                         }
 
                         <StaticInput
-                            label='Country'
+                            label='Country*'
                             value={country}
                             onPress={this.handleSelectCountry}
                         />
@@ -494,20 +496,20 @@ export default class Scrn extends React.Component {
                         {country == Consts.country.PH &&
                         <>
                             <StaticInput
-                                label='Province'
+                                label='Province*'
                                 value={province.province}
                                 onPress={this.handleSelectProvince}
                             />
 
                             <StaticInput
-                                label='City/Municipality'
+                                label='City/Municipality*'
                                 value={city}
                                 onPress={this.handleSelectCity}
                             />
 
                             <TextInput
                                 ref='barangay'
-                                label={'Barangay'}
+                                label={'Barangay*'}
                                 value={barangay}
                                 onChangeText={this.handleChangeBarangay}
                                 onSubmitEditing={this.handleFocusStreet}
@@ -538,7 +540,7 @@ export default class Scrn extends React.Component {
 
                         {country === Consts.country.PH &&
                         <StaticInput
-                            label='Zip Code'
+                            label='Zip Code*'
                             value={zip_code}
                         />
                         }
@@ -556,6 +558,10 @@ export default class Scrn extends React.Component {
                             <Checkbox status={agree} onPress={this.handleToggleTerms} />
                             <Text sm>I have read and agree to the </Text>
                         </Row>
+
+                        <TouchableOpacity onPress={this.handleViewPrivacy}>
+                            <Text brand b center>Privacy Notice,</Text>
+                        </TouchableOpacity>
 
                         <TouchableOpacity onPress={this.handleViewTerms}>
                             <Text brand b center>Terms and Conditions</Text>
