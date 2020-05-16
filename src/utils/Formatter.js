@@ -56,7 +56,7 @@ const formatAddress = userObject => {
     if(userObject.city) data.push(userObject.city)
     if(province) data.push(province)
     data.push(userObject.country)
-    if(userObject.zipcode) data.push(userObject.zipcode)
+    if(userObject.zipcode && userObject.zipcode != '0') data.push(userObject.zipcode)
 
     return data.join(', ')
 }
