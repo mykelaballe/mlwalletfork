@@ -87,7 +87,7 @@ class Scrn extends React.Component {
                         onSubmitEditing={this.handleFocusFullName}
                         keyboardType='numeric'
                         returnKeyType='next'
-                        maxLength={14}
+                        maxLength={13}
                     />
 
                     <TextInput
