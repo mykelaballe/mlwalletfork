@@ -62,7 +62,7 @@ const formatAddress = userObject => {
 }
 
 const formatToPHMobileNumber = str => {
-    return str.replace('+639 ', '09')
+    return str.replace('+63 ', '0')
 }
 
 export default {

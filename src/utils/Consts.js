@@ -36,6 +36,7 @@ export default {
 	country: {
 		PH:'Philippines'
 	},
+	mobilePrefixPH:'+63',
 	error: {
 		onlyLetters:'Letters only.',
 		onlyNumbers:'Numbers only.',

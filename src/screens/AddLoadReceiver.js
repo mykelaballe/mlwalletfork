@@ -12,14 +12,14 @@ class Scrn extends React.Component {
     }
 
     state = {
-        mobileno:'+639 ',
+        mobileno:`${Consts.mobilePrefixPH} `,
         fullname:'',
         processing:false
     }
 
     handleChangeFullName = fullname => this.setState({fullname})
     handleChangeContactNo = mobileno => {
-        if(mobileno.length >= 5) this.setState({mobileno})
+        if(mobileno.length >= 4) this.setState({mobileno})
     }
 
     handleFocusFullName = () => this.refs.fullname.focus()
