@@ -40,9 +40,7 @@ const formatName = userObject => {
 }
 
 const formatAddress = userObject => {
-    const data = [
-        userObject.country
-    ]
+    const data = []
 
     let province = '', house = ''
 
@@ -52,14 +50,15 @@ const formatAddress = userObject => {
     if(userObject.house) house = userObject.house
     else if(userObject.houseno) house = userObject.houseno
 
-    if(userObject.zipcode) data.push(userObject.zipcode)
-    if(province) data.push(province)
-    if(userObject.city) data.push(userObject.city)
-    if(userObject.barangay) data.push(userObject.barangay)
-    if(userObject.street) data.push(userObject.street)
     if(house) data.push(house)
+    if(userObject.street) data.push(userObject.street)
+    if(userObject.barangay) data.push(userObject.barangay)
+    if(userObject.city) data.push(userObject.city)
+    if(province) data.push(province)
+    data.push(userObject.country)
+    if(userObject.zipcode) data.push(userObject.zipcode)
 
-    return data.reverse().join(', ')
+    return data.join(', ')
 }
 
 const formatToPHMobileNumber = str => {
