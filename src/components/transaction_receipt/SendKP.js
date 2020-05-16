@@ -56,7 +56,8 @@ class SendKP extends React.Component {
                 {
                     customMessage:(
                         <>
-                            <Text mute md>Share the transaction number to {Func.formatName(receiver)} to complete this transaction.</Text>
+                            {/*<Text mute md>Share the transaction number to {Func.formatName(receiver)} to complete this transaction.</Text>*/}
+                            <Text mute md>You and your receiver will get a text message about this transaction.</Text>
                             <Spacer lg />
                             <Text mute>Your new balance is</Text>
                             <Text xl b>Php {Func.formatToCurrency(balance)}</Text>
@@ -69,7 +70,7 @@ class SendKP extends React.Component {
 
     handleCancelTransaction = () => {
         Say.ask(
-            'Are you sure you want to cancel this transaction?',
+            'Are you sure you want to cancel this transaction? Balance will be returned except for the transaction fee',
             'Cancel Transaction',
             {
                 onConfirm:this.cancelTransaction
