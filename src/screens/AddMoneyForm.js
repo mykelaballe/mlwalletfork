@@ -25,27 +25,27 @@ class Scrn extends React.Component {
 
                     <Spacer xl />
 
-                    <Text center>Registered Name</Text>
+                    <Text center mute>Registered Name</Text>
                     <Text center md>{Func.formatName(user)}</Text>
 
                     <Spacer sm />
 
-                    <Text center>Wallet Account Number</Text>
+                    <Text center mute>Wallet Account Number</Text>
                     <Text center md>{user.walletno}</Text>
 
                     <Spacer sm />
 
-                    <Text center>Registered Address</Text>
+                    <Text center mute>Registered Address</Text>
                     <Text center md>{Func.formatAddress(user)}</Text>
 
                     <Spacer sm />
 
-                    <Text center>Registered Mobile Number</Text>
+                    <Text center mute>Registered Mobile Number</Text>
                     <Text center md>{user.mobileno}</Text>
 
                     <Spacer sm />
 
-                    <Text center>Registered Email Address</Text>
+                    <Text center mute>Registered Email Address</Text>
                     <Text center md>{user.emailaddress}</Text>
                 </View>
             </Screen>
