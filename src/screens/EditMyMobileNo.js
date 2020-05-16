@@ -12,11 +12,13 @@ class Scrn extends React.Component {
     }
 
     state = {
-        mobileno:this.props.user.mobileno,
+        mobileno:`${Consts.mobilePrefixPH} ${this.props.user.mobileno.slice(1, this.props.user.mobileno.length)}`,
         processing:false
     }
 
-    handleChangeMobileNo = mobileno => this.setState({mobileno})
+    handleChangeMobileNo = mobileno => {
+        if(mobileno.length >= 4) this.setState({mobileno})
+    }
 
     handleSubmit = async () => {
         try {
@@ -30,8 +32,10 @@ class Scrn extends React.Component {
 
             mobileno = mobileno.trim()
 
+            mobileno = Func.formatToPHMobileNumber(mobileno)
+
             if(!mobileno) Say.some(_('8'))
-            else if(!Func.isNumbersOnly(mobileno)) Say.warn(Consts.error.onlyNumbers)
+            else if(!Func.isPHMobileNumber(mobileno)) Say.warn(Consts.error.mobile)
             else {
                 this.props.navigation.navigate('SecurityQuestion',{
                     walletno,
@@ -81,6 +85,7 @@ class Scrn extends React.Component {
                         value={mobileno}
                         onChangeText={this.handleChangeMobileNo}
                         keyboardType='numeric'
+                        maxLength={14}
                     />
                 </Screen>
 

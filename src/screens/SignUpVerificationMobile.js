@@ -10,12 +10,12 @@ export default class Scrn extends React.Component {
     }
 
     state = {
-        mobile_no:'+639 ',
+        mobile_no:`${Consts.mobilePrefixPH} `,
         processing:false
     }
 
     handleChangeMobile = mobile_no => {
-        if(mobile_no.length >= 5) this.setState({mobile_no})
+        if(mobile_no.length >= 4) this.setState({mobile_no})
     }
 
     handleSubmit = async () => {
