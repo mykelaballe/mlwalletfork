@@ -8,7 +8,7 @@ import {request, PERMISSIONS, RESULTS} from 'react-native-permissions'
 import AntDesignIcon from 'react-native-vector-icons/AntDesign'
 import FoundationIcon from 'react-native-vector-icons/Foundation'
 
-const {width} = Dimensions.get('window')
+const {width, height} = Dimensions.get('window')
 
 class Scrn extends React.Component {
 
@@ -132,8 +132,9 @@ class Scrn extends React.Component {
         
         const {params = {}} = this.props.navigation.state
         const {source, viewType, processing} = this.state
+        const isLivePhoto = params.title == 'Live Photo'
 
-        const useFaceDetection = false//params.title === 'Live Photo'
+        const useFaceDetection = false
 
         return (
             <> 
@@ -157,7 +158,9 @@ class Scrn extends React.Component {
                         faceDetectionClassifications={useFaceDetection ? RNCamera.Constants.FaceDetection.Classifications.all : undefined}
                         onFacesDetected={useFaceDetection ? this.handleFaceDetected : undefined}
                         onFaceDetectionError={useFaceDetection ? this.handleFaceDetectionError : undefined}
-                    />
+                    >
+                        {!isLivePhoto && <View style={style.guide} />}
+                    </RNCamera>
                     }
                 </View>
 
@@ -165,8 +168,10 @@ class Scrn extends React.Component {
                     {!source && 
                     <View style={{alignItems:'center'}}>
                         {processing && <ActivityIndicator />}
-
-                        <Text center sm>{params.title == 'Live Photo' ? 'Take a clear selfie' : 'Place your ID within the frame and take a picture'}</Text>
+                        
+                        {!processing &&
+                        <Text center sm>{isLivePhoto ? 'Take a clear selfie' : 'Place your ID within the frame and take a picture'}</Text>
+                        }
 
                         {!processing &&
                         <TouchableOpacity onPress={this.handleCapture}>
@@ -201,8 +206,14 @@ const style = StyleSheet.create({
     },
     preview: {
         flex: 1,
-        justifyContent: 'flex-end',
+        justifyContent: 'center',//'flex-end',
         alignItems: 'center',
+    },
+    guide: {
+        width:width * .9,
+        height:height * .4,
+        borderWidth:2,
+        borderColor:Colors.success
     },
     footer: {
         paddingVertical: Metrics.xl

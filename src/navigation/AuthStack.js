@@ -14,8 +14,7 @@ export default createStackNavigator({
     ...SignUpRoutes,
     
     ForgotPassword: {
-        //screen:Scrn.ForgotPasswordScrn,
-        screen:Scrn.AddKPReceiverScrn,
+        screen:Scrn.ForgotPasswordScrn,
         navigationOptions:AppStyles.noHeaderNavigationOptions
     },
     CreatePassword: {
