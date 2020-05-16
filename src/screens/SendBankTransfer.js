@@ -1,6 +1,6 @@
 import React from 'react'
-import {Screen, Footer, Headline, Text, Spacer, Button, ButtonText, TextInput, HeaderRight} from '../components'
-import {Colors, Metrics} from '../themes'
+import {Screen, Footer, Text, Spacer, Button, ButtonText, TextInput, HeaderRight} from '../components'
+import {Colors} from '../themes'
 import {_, Consts, Func, Say} from '../utils'
 
 class Scrn extends React.Component {
@@ -64,11 +64,6 @@ class Scrn extends React.Component {
         return (
             <>
                 <Screen>
-
-                    {/*<View style={{alignItems:'flex-end'}}>
-                        <ButtonText color={Colors.brand} icon='plus' t='Add Bank Partner' onPress={this.handleSelectPartner} />
-                    </View>*/}
-
                     <TextInput
                         disabled
                         label='Bank Name'

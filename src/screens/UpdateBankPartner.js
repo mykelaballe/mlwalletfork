@@ -90,6 +90,11 @@ class Scrn extends React.Component {
             <>
                 <Screen>
                     <TextInput
+                        disabled
+                        label='Bank Name'
+                        value={bankname}
+                    />
+                    {/*<TextInput
                         ref='bankname'
                         label='Bank Name'
                         value={bankname}
@@ -97,7 +102,7 @@ class Scrn extends React.Component {
                         onSubmitEditing={this.handleFocusAccountName}
                         autoCapitalize='words'
                         returnKeyType='next'
-                    />
+                    />*/}
 
                     <TextInput
                         ref='account_name'

@@ -36,6 +36,11 @@ const err = (message, title = null, options = {}) => {
     if(Consts.is_dev) message = message.message
     else message = _('500')
 
+    if(message.toLowerCase() == 'network error') {
+        title = 'Uh-oh!'
+        message = Consts.error.network
+    }
+
     if(message[message.length - 1] != '.') message = `${message}.`
 
     SomeModal.show({

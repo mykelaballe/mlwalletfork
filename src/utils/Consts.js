@@ -39,6 +39,7 @@ export default {
 	mobilePrefixPH:'+63',
 	error: {
 		onlyLetters:'Only letters are accepted',
+		onlyLettersInName:'Only letters are accepted in the name field',
 		onlyNumbers:'Numbers only',
 		onlyAlphaNum:'Letters and Numbers only',
 		noSpecialChars:'Letters and Numbers only',
@@ -48,6 +49,7 @@ export default {
 		birthdate:'Invalid Birthdate',
 		mobile:'Invalid mobile number',
 		pwdNotMatch:'Passwords do not match',
+		network:'You have slow internet connection',
 		atl1:'1attempt_left',
 		atl2:'2attempt_left',
 		blk1d:'block_account_1day',

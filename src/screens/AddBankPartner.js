@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Screen, Footer, Headline, TextInput, Button} from '../components'
+import {Screen, Footer, Headline, TextInput, Button, Picker} from '../components'
 import {_, Say} from '../utils'
 import {API} from '../services'
 
@@ -12,13 +12,16 @@ class Scrn extends React.Component {
     }
 
     state = {
+        partners:[
+            {label:'CHINABANK RTA',value:'CHINABANK RTA'}
+        ],
         name:'',
         account_name:'',
         account_no:'',
         processing:false
     }
 
-    handleChangeName = name => this.setState({name})
+    handleChangeName = (name = {}) => this.setState({name:name.value})
 
     handleChangeAccountName = account_name => this.setState({account_name})
 
@@ -70,7 +73,7 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {name, account_name, account_no, processing} = this.state
+        const {partners, name, account_name, account_no, processing} = this.state
         let ready = false
 
         if(name && account_name && account_no) ready = true
@@ -80,7 +83,13 @@ class Scrn extends React.Component {
                 <Screen>
                     <Headline subtext='Please ensure that all of the information inputted is correct.' />
 
-                    <TextInput
+                    <Picker
+                        selected={name}
+                        items={partners}
+                        placeholder='Bank Name'
+                        onChoose={this.handleChangeName}
+                    />
+                    {/*<TextInput
                         ref='name'
                         label='Bank Name'
                         value={name}
@@ -88,7 +97,7 @@ class Scrn extends React.Component {
                         onSubmitEditing={this.handleFocusAccountName}
                         autoCapitalize='words'
                         returnKeyType='next'
-                    />
+                    />*/}
 
                     <TextInput
                         ref='account_name'
