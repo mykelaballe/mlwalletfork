@@ -192,6 +192,6 @@ export default [
     },
     {
         question:'Confidentiality and Security',
-        answer:''
+        answer:`M Lhuillier implements reasonable and appropriate organizational, physical and technical security measures, to maintain the availability, integrity and confidentiality, and for the protection of personal data collected, processed and stored against any accidental or unlawful destruction, alteration, disclosure and processing.\n\nM Lhuillier makes sure that only authorized personnel shall have access on your personal data: that there is proper orientation and training program for employees, agents or representatives, regarding privacy and security policies and as regards the extent of their obligations thereunder.`
     }
 ]
