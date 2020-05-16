@@ -31,13 +31,13 @@ class SendKP extends React.Component {
             <h3>${receiver.firstname}</h3>
 
             <h4 style="color:#6A6A6A;line-height:0">Middle Name</h4>
-            <h3>${receiver.middlename}</h3>
+            <h3>${receiver.middlename || _('50')}</h3>
 
             <h4 style="color:#6A6A6A;line-height:0">Last Name</h4>
             <h3>${receiver.lastname}</h3>
 
             <h4 style="color:#6A6A6A;line-height:0">Suffix</h4>
-            <h3>${receiver.suffix}</h3>
+            <h3>${receiver.suffix || _('51')}</h3>
 
             <h4 style="color:#6A6A6A;line-height:0">Amount</h4>
             <h3 style="margin-top:0">PHP ${amount}</h3>
