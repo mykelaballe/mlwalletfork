@@ -249,7 +249,6 @@ class Scrn extends React.Component {
                             onSubmitEditing={this.handleFocusPassword}
                             autoCapitalize='none'
                             returnKeyType='next'
-                            mask='[0000] [0000] [0000] [00]'
                         />
 
                         <Spacer sm />
