@@ -1,7 +1,7 @@
 import React from 'react'
 import {withNavigation} from 'react-navigation'
 import {Header} from './'
-import {Screen, Footer, View, Text, Spacer, Button, ScrollFix} from '../'
+import {Screen, Footer, Text, Spacer, Button, ScrollFix} from '../'
 import {Metrics} from '../../themes'
 import {_, Consts, Func, Say} from '../../utils'
 
@@ -22,7 +22,7 @@ class SendWalletToWallet extends React.Component {
 
         this.props.onExport(`
             <h4 style="color:#6A6A6A;line-height:0">Wallet Account Number</h4>
-            <h3>${walletno}</h3>
+            <h3>${Func.formatWalletNo(walletno)}</h3>
 
             <h4 style="color:#6A6A6A;line-height:0">Receiver</h4>
             <h3>${receiver.fullname}</h3>
@@ -47,7 +47,7 @@ class SendWalletToWallet extends React.Component {
                 {
                     customMessage:(
                         <>
-                            <Text mute md>You successfully sent money worth PHP {amount} to {walletno}</Text>
+                            <Text mute md>You successfully sent money worth PHP {amount} to {Func.formatWalletNo(walletno)}</Text>
                             <Spacer lg />
                             <Text mute>Your new balance is</Text>
                             <Text xl b>Php {Func.formatToCurrency(balance)}</Text>
@@ -75,7 +75,7 @@ class SendWalletToWallet extends React.Component {
 
                     <ScrollFix style={{padding:Metrics.lg}}>
                         <Text sm mute>Wallet Account Number</Text>
-                        <Text>{walletno}</Text>
+                        <Text>{Func.formatWalletNo(walletno)}</Text>
 
                         <Spacer />
 

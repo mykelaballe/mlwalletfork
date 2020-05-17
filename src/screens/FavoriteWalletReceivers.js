@@ -9,7 +9,7 @@ import {API} from '../services'
 const ItemUI = props => (
     <ListItem
         initial={props.data.fullname}
-        primaryText={props.data.walletno}
+        primaryText={Func.formatWalletNo(props.data.walletno)}
         subText={Func.cleanName(props.data.fullname)}
         onPress={() => props.onPress(props.index)}
     />

@@ -15,7 +15,7 @@ export default props => {
             <Spacer lg />
 
             <Text mute sm>Wallet Account Number</Text>
-            <Text md>{walletno}</Text>
+            <Text md>{Func.formatWalletNo(walletno)}</Text>
 
             <Spacer />
 

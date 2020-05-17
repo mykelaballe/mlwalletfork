@@ -31,7 +31,7 @@ class Scrn extends React.Component {
                     <Spacer sm />
 
                     <Text center mute>Wallet Account Number</Text>
-                    <Text center md>{user.walletno}</Text>
+                    <Text center md>{Func.formatWalletNo(user.walletno)}</Text>
 
                     <Spacer sm />
 

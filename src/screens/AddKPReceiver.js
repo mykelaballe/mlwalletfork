@@ -21,40 +21,31 @@ class Scrn extends React.Component {
         other_suffix:'',
         has_suffix:true,
         suffix_options:Consts.suffixOptions,
-        contact_no:'',
+        contact_no:Consts.mobilePrefixPH,
         processing:false
     }
 
     handleChangeFirstName = firstname => this.setState({firstname})
-
     handleChangeMiddleName = middlename => this.setState({middlename})
-
     handleToggleHasMiddlename = () => {
         this.setState(prevState => ({
             middlename:prevState.has_middlename ? _('50') : '',
             has_middlename:!prevState.has_middlename
         }))
     }
-
     handleChangeLastName = lastname => this.setState({lastname})
-
     handleChangeSuffix = (option = {}) => this.setState({suffix:option.label})
-
     handleChangeSuffixOthers = other_suffix => this.setState({other_suffix})
-
     handleToggleHasSuffix = () => {
         this.setState(prevState => ({
             suffix:prevState.has_suffix ? _('51') : '',
             has_suffix:!prevState.has_suffix
         }))
     }
-
     handleChangeContactNo = contact_no => this.setState({contact_no})
 
     handleFocusMiddleName = () => this.state.has_middlename ? this.refs.middlename.focus() : this.refs.lastname.focus()
-
     handleFocusLastName = () => this.refs.lastname.focus()
-
     handleFocusContactNo = () => this.refs.contact_no.focus()
 
     handleSubmit = async () => {
@@ -75,11 +66,14 @@ class Scrn extends React.Component {
 
             suffix = other_suffix || suffix
 
+            contact_no = Func.formatToPHMobileNumber(contact_no)
+
             if(!firstname || !middlename || !lastname || !suffix || !contact_no) Say.some(_('8'))
             else if(!Func.isLettersOnly(firstname)) Say.warn(Consts.error.onlyLetters)
             else if(!Func.isLettersOnly(middlename)) Say.warn(Consts.error.onlyLetters)
             else if(!Func.isLettersOnly(lastname)) Say.warn(Consts.error.onlyLetters)
             else if(!Func.isLettersOnly(suffix)) Say.warn(Consts.error.onlyLetters)
+            else if(!Func.isPHMobileNumber(contact_no)) Say.warn(Consts.error.mobile)
             else {
     
                 let res = await API.addKPReceiver({
@@ -184,6 +178,7 @@ class Scrn extends React.Component {
                         value={contact_no}
                         onChangeText={this.handleChangeContactNo}
                         keyboardType='numeric'
+                        mask={Consts.mobileMaskPH}
                     />
                 </Screen>
 

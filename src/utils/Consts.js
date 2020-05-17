@@ -36,7 +36,9 @@ export default {
 	country: {
 		PH:'Philippines'
 	},
+	walletNoMask:'[0000] [0000] [0000] [00]',
 	mobilePrefixPH:'+63',
+	mobileMaskPH:'+63 [000] [000] [0000]',
 	error: {
 		onlyLetters:'Only letters are accepted',
 		onlyLettersInName:'Only letters are accepted in the name field',
