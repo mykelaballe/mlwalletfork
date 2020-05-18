@@ -60,7 +60,7 @@ class Scrn extends React.Component {
                             base64: true,
                             orientation: 'portrait',
                             skipProcessing:true,
-                            mirrorImage:true,
+                            mirrorImage:false,
         
                             //Android
                             fixOrientation:true,
