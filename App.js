@@ -23,7 +23,7 @@ class App extends React.Component {
   componentDidMount() {
 
     codePush.sync({
-      deploymentKey:Consts.codepush_key,
+      deploymentKey: Consts.codepush_key,
       installMode: codePush.InstallMode.IMMEDIATE
     })
 
@@ -41,7 +41,7 @@ class App extends React.Component {
       else networkFailure()
     })
 
-    if(Platform.OS == 'android') this.requestPermissions()
+    if(Consts.is_android) this.requestPermissions()
 
     this.createLocalDBs().then(this.checkUser)
 
@@ -51,6 +51,7 @@ class App extends React.Component {
   componentWillUnmount = () => {
     this.updateLastActiveTimestamp()
     this.networkSubscribe()
+    this.props.logout()
     AppState.removeEventListener('change', this.handleAppStateChange)
   }
 
@@ -76,7 +77,6 @@ class App extends React.Component {
 
       if(m > Consts.allowed_idle_time) {
         this.props.logout()
-        //SomeModal.sayLogout()
         return true
       }
       return false
@@ -95,11 +95,11 @@ class App extends React.Component {
   }
 
   checkUser = async () => {
-    const {setUser, login, logout} = this.props
+    const {setUser, login, logout, isLoggedIn} = this.props
 
     let userData = await Storage.doLoad(Consts.db.user)
 
-    if(userData) {
+    if(userData && isLoggedIn) {
       if(!this.isIdle(userData)) {
         setUser(userData)
         login()

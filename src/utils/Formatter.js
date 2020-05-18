@@ -62,7 +62,12 @@ const formatAddress = userObject => {
 }
 
 const formatToPHMobileNumber = str => {
-    return str.replace('+63 ', '0')
+    str = str.replace('+63 ', '0')
+    return str.replace(/ /g, '')
+}
+
+const formatWalletNo = str => {
+    return str.replace(/^(\d{4})(\d{4})(\d{4})(\d{2}).*/, '$1 $2 $3 $4')
 }
 
 export default {
@@ -71,5 +76,6 @@ export default {
     cleanName,
     formatName,
     formatAddress,
-    formatToPHMobileNumber
+    formatToPHMobileNumber,
+    formatWalletNo
 }

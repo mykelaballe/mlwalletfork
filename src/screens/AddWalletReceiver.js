@@ -56,6 +56,8 @@ class Scrn extends React.Component {
             lastname = lastname.trim()
             mobile_no = mobile_no.trim()
 
+            walletno = walletno.replace(/ /g, '')
+
             if(walletno && ((firstname && lastname) || mobile_no)) {
                 let payload = {
                     walletno,
@@ -138,6 +140,7 @@ class Scrn extends React.Component {
                             onSubmitEditing={this.handleFocusFirstName}
                             keyboardType='numeric'
                             returnKeyType='next'
+                            mask={Consts.walletNoMask}
                         />
 
                         <Spacer />

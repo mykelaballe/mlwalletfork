@@ -1,109 +1,5 @@
 import React from 'react'
-import {TouchableOpacity} from 'react-native'
 import {Text, Row, Spacer, Bullet} from '../components'
-import {Colors} from '../themes'
-import * as NavigationService from '../utils/NavigationService'
-
-/*const answer22 = (
-    <>
-        <Text>With the ML Wallet App, you can access the following services with limitations depending on your verification level:</Text>
-        <Spacer sm />
-        {
-            ['Send Money', 'Receive Money', 'Withdraw Cash', 'Pay Bills', 'Buy Load', 'Buy Items']
-            .map((item, i) => (
-                <Row key={i}>
-                    <Bullet />
-                    <Text>{item}</Text>
-                </Row>
-            ))
-        }
-        <Spacer sm />
-        <Text>Aside from these core services, ML Wallet users can also check their account balance, view transaction history, and check mobile send-out rates.</Text>
-    </>
-)
-
-const answer4 = (
-    <>
-        <Text>Fully verifying your ML Wallet account allows users to increase wallet size, cash in, cash out and send money limits. See transaction limits below according to each level:</Text>
-    </>
-)
-
-const answer5 = (
-    <>
-        {
-            [
-                'Visit any of the 2500+ M. Lhuillier branches nationwide for the verification process.',
-                'Show Valid IDs to the branch personnel and deposit between Php 1.00 - Php 50,000.00 to your account to complete verification process.'
-            ]
-            .map((item, i) => (
-                <>
-                    <Text key={i}>Step {i+1}: {item}</Text>
-                    <Spacer xs />
-                </>
-            ))
-        }
-    </>
-)
-
-const answer8 = (
-    <>
-        <Text>The maximum send out amount per transaction depends on your verification level. Please see Transaction Limits Chart below:</Text>
-    </>
-)
-
-const answer10 = (
-    <>
-        <Text>The ML Wallet App is regulated by BSP. In addition, ML Wallet ensures the protection and safety of your account through the following:</Text>
-        <Spacer sm />
-        {
-            [
-                'One-Device Policy',
-                'Three-Factor Authentication Processes',
-                'Strong security question process',
-                'Username, Pin and Password',
-                'Account Lock-in after five failed password attempts',
-                'Five-minute idle time that logs out the ML Wallet Account automatically.',
-                'Device ID, Transaction Locations and IP addresses are recorded'
-            ]
-            .map((item, i) => (
-                <>
-                    <Row key={i}>
-                        <Bullet />
-                        <Text>{item}</Text>
-                    </Row>
-                    <Spacer xs />
-                </>
-            ))
-        }
-    </>
-)
-
-const answer11 = (
-    <Text>Yes, M Lhuillier has over 2500 branches nationwide for you to choose from. Find the closest branch near you
-        <Text b onPress={() => NavigationService.navigate('Locator')}> here</Text>
-    </Text>
-)
-
-const answer15 = (
-    <>
-        <Text>Call ML Wallet Customer Care team immediately or go to a physical M Lhuillier branch. Reach the ML Wallet Customer Care through the following:</Text>
-        <Spacer sm />
-
-        <Text><Text b>Phone</Text> 1-800-105-723-252</Text>
-        <Text><Text b>E-mail</Text> customercare@mlhuillier.com</Text>
-    </>
-)
-
-const answer18 = (
-    <>
-        <Text>You can reach the ML Wallet Customer Care through the following:</Text>
-        <Spacer sm />
-
-        <Text><Text b>Mobile</Text> Globe 0917-871-2973, Smart 0947-999-0337</Text>
-        <Spacer sm />
-        <Text><Text b>E-mail</Text> customercare@mlhuillier.com</Text>
-    </>
-)*/
 
 const answer1 = (
     <>
@@ -121,7 +17,7 @@ const answer1 = (
             .map((item, i) => (
                 <>
                     <Row key={i}>
-                        <Bullet color={Colors.brand} />
+                        <Bullet />
                         <Text>{item}</Text>
                     </Row>
                     <Spacer xs />
@@ -268,6 +164,144 @@ const answer5 = (
     </>
 )
 
+const answer6 = (
+    <>
+        <Text>M Lhuillier uses your personal data to process your transaction, to carry out our obligations to our licensing government institution/s, and to you, as part of our agreement, and to maintain and manage your records with us.</Text>
+    
+        <Spacer xs />
+
+        <Text>When we contact/send you communication about the transaction/product or services you availed of.</Text>
+
+        <Spacer xs />
+
+        <Text>When we use your information to comply with our legal obligations with regulatory  or law enforcement bodies.</Text>
+
+        <Spacer xs />
+
+        <Text>We store, maintain and retain your personal data in a secured and safe place for a period of five (5) years from your last transaction and contact with us, and for as long as required by AMLA, BSP rules, and relevant laws and regulations.</Text>
+
+        <Spacer xs />
+
+        <Text>For  job applicants, who did not qualify or pursue their employment, application records are retained for one (1) year.</Text>
+
+        <Spacer xs />
+
+        <Text>We may keep your information longer than indicated if deemed necessary for legal, regulatory, or technical reasons.</Text>
+
+        <Spacer xs />
+
+        <Text>We may also keep it for research or statistical purposes.  If we do so for these reasons, we make sure that your privacy is protected and only use it for such specified purposes. The company is committed to taking good care of your personal data with stringent security measures in place.</Text>
+
+        <Spacer xs />
+
+        <Text>We dispose of it/them in a secure manner through shredding, burning and/or anonymization of data where applicable, and after clearance from proper department within the company.</Text>
+    </>
+)
+
+const answer8 = (
+    <>
+        {
+            [
+                {
+                    id:1,
+                    mainText:'Right to be informed.',
+                    subText:'To be informed as to reason of collecting, processing, use and storing of your personal data.'
+                },
+                {
+                    id:2,
+                    mainText:'Right to object on how your information was used.',
+                    subText:'To object to the use of your information for legitimate interests including automated processing or profiling and direct marketing. However, doing so may disallow M Lhuillier to provide you with the service requested, or with the appropriate advice needed. Except that processing of data pursuant to a subpoena, when necessary or desirable in the context of an employer-employee relationship, or as a result of legal obligation, where consent of customer is not necessary.'
+                }
+            ]
+            .map((item, i) => (
+                <>
+                    <Text key={i}>{item.id}. <Text b>{item.mainText}</Text> {item.subText}</Text>
+                    <Spacer xs />
+                </>
+            ))
+        }
+
+        <Spacer xs />
+        <Text>If you wish, M Lhuillier may stop sending you marketing messages tailored to your need. However, you might still see some general marketing messages from us, but these won’t be targeted to you. In any event, such promotional email or SMS communication contain instructions on how to unsubscribe.</Text>
+        <Spacer xs />
+
+        {
+            [
+                {
+                    id:3,
+                    mainText:'Right to access your information.',
+                    subText:'To ask M Lhuillier for a copy of any information we hold of you. This is called a Data Subject Access Request (DSAR). This will also help M Lhuillier to ensure and maintain the accuracy of the information collected and being used.'
+                },
+                {
+                    id:4,
+                    mainText:'Right to rectification.',
+                    subText:'To ask M Lhuillier to correct your information held by it that you feel inaccurate or incomplete or both. M Lhuillier will immediately and accordingly act on it unless it finds the request unreasonable.'
+                }
+            ]
+            .map((item, i) => (
+                <>
+                    <Text key={i}>{item.id}. <Text b>{item.mainText}</Text> {item.subText}</Text>
+                    <Spacer xs />
+                </>
+            ))
+        }
+
+        <Spacer xs />
+        <Text>M Lhuillier will cause the rectification or updating of your data to the organization whom it shared your personal data with.</Text>
+        <Spacer xs />
+
+        {
+            [
+                {
+                    id:5,
+                    mainText:'Right to data portability.',
+                    subText:'To obtain and reuse your personal data for your own purposes across different services. It allows you to move, copy or transfer personal data easily from one IT environment to another in a safe and secure way, without affecting its usability.'
+                },
+                {
+                    id:6,
+                    mainText:'Right to Erasure or Blocking.',
+                    subText:'To suspend, withdraw or order the blocking, removal or destruction of your personal data. You can exercise this right upon discovery and substantial proof that your personal data is incomplete, outdated, false, or unlawfully obtained or used; or where the right to use retention of what is otherwise proper, true and correct, has already ceased/expired.'
+                }
+            ]
+            .map((item, i) => (
+                <>
+                    <Text key={i}>{item.id}. <Text b>{item.mainText}</Text> {item.subText}</Text>
+                    <Spacer xs />
+                </>
+            ))
+        }
+
+        <Spacer xs />
+        <Text>M Lhuillier will update its data sharing and outsourcing agreement, if any, and where applicable, to effectuate this right and be consistent with this obligation.</Text>
+        <Spacer xs />
+
+        {
+            [
+                {
+                    id:7,
+                    mainText:'Right to damages.',
+                    subText:'To be indemnified for any damages sustained due to such inaccurate, incomplete, outdated, false, unlawfully obtained, or unauthorized use of, personal data.'
+                },
+                {
+                    id:8,
+                    mainText:'Right to complain.',
+                    subText:'You may seek assistance from any of M Lhuillier’s branch personnel, customer care hotline, or through the contact information provided herein.'
+                }
+            ]
+            .map((item, i) => (
+                <>
+                    <Text key={i}>{item.id}. <Text b>{item.mainText}</Text> {item.subText}</Text>
+                    <Spacer xs />
+                </>
+            ))
+        }
+
+        <Spacer xs />
+
+        <Text>Please note that our opinion pertaining to your request may differ for any legal, regulatory or technical issues.</Text>
+    </>
+)
+
 export default [
     {
         question:'Our Products and Services',
@@ -291,19 +325,19 @@ export default [
     },
     {
         question:'How We Use, Store, Retain and Dispose',
-        answer:''
+        answer:answer6
     },
     {
         question:'Who We Share Your Personal Data With',
-        answer:''
+        answer:'M Lhuillier discloses or shares your personal data, as required by law, rules or legal arrangements, to our affiliated companies, remittance and business tie-up/partners that support the operation of the business when required to do so under the data sharing or outsourcing agreement, financial and legal consultants, and as directed/required by law through legal processes.'
     },
     {
         question:'Know About Your Rights',
-        answer:''
+        answer:answer8
     },
     {
         question:'Limitation of Rights',
-        answer:''
+        answer:'The preceding rights in relation to processing of your personal data shall not apply if such is being used for the purpose of scientific/statistical research, or investigations in relation to criminal, administrative or tax liabilities that you are involved with and provided that M Lhuillier only processes the same when it is deemed necessary to the maximum extent, to achieve the purpose of research and or investigation.'
     },
     {
         question:'Confidentiality and Security',

@@ -18,9 +18,7 @@ class Scrn extends React.Component {
     }
 
     handleChangeFullName = fullname => this.setState({fullname})
-    handleChangeContactNo = mobileno => {
-        if(mobileno.length >= 4) this.setState({mobileno})
-    }
+    handleChangeContactNo = mobileno => this.setState({mobileno})
 
     handleFocusFullName = () => this.refs.fullname.focus()
 
@@ -92,7 +90,7 @@ class Scrn extends React.Component {
                         onSubmitEditing={this.handleFocusFullName}
                         keyboardType='numeric'
                         returnKeyType='next'
-                        maxLength={14}
+                        mask={Consts.mobileMaskPH}
                     />
 
                     <TextInput

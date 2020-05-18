@@ -1,8 +1,9 @@
 import React from 'react'
-import {View, StyleSheet} from 'react-native'
+import {View, StyleSheet, TextInput as TextInputDefault} from 'react-native'
 import {Row, Text} from './'
 import {Colors, Metrics} from '../themes'
 import {TextInput as TxtInput} from 'react-native-paper'
+import TextInputMask from 'react-native-text-input-mask'
 
 export default React.forwardRef((props, ref) => (
     <>
@@ -41,6 +42,7 @@ export default React.forwardRef((props, ref) => (
                         primary:Colors.mute
                     }
                 }}
+                render={props => props.mask ? <TextInputMask {...props} mask={props.mask} /> : <TextInputDefault {...props} />}
             />
 
             {props.rightContent &&

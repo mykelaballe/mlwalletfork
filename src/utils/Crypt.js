@@ -9,7 +9,7 @@ const generateKey = (password, salt, cost, length) => Aes.pbkdf2(password, salt,
 
 const encryptData = (text, key) => {
     return Aes.randomKey(16).then(iv => {
-        return Aes.encrypt(text, key, iv).then(cipher => ({
+        return Aes.encrypt(text, key).then(cipher => ({
             cipher,
             iv,
         }))
@@ -19,8 +19,8 @@ const encryptData = (text, key) => {
 const en = async text => {
     try {
         generateKey('Arnold', 'salt', 5000, 256).then(key => {
-            console.log('Key:', key)
-            encryptData('These violent delights have violent ends', key)
+            //console.log('Key:', key)
+            encryptData('These violent delights have violent ends', PASSWORD)
                 .then(({ cipher, iv }) => {
                     console.log('Encrypted:', cipher)
     

@@ -3,7 +3,7 @@ import {View, Image} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Screen, Footer, Headline, Text, Button, Spacer} from '../components'
-import {_, Consts} from '../utils'
+import {_, Consts, Func} from '../utils'
 import {Res} from '../themes'
 
 class Scrn extends React.Component {
@@ -43,7 +43,7 @@ class Scrn extends React.Component {
 
                     <Spacer sm />
 
-                    <Text center b lg>{walletno}</Text>
+                    <Text center b lg>{Func.formatWalletNo(walletno)}</Text>
                 </Screen>
             
                 <Footer>

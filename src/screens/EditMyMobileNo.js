@@ -16,9 +16,7 @@ class Scrn extends React.Component {
         processing:false
     }
 
-    handleChangeMobileNo = mobileno => {
-        if(mobileno.length >= 4) this.setState({mobileno})
-    }
+    handleChangeMobileNo = mobileno => this.setState({mobileno})
 
     handleSubmit = async () => {
         try {
@@ -85,7 +83,7 @@ class Scrn extends React.Component {
                         value={mobileno}
                         onChangeText={this.handleChangeMobileNo}
                         keyboardType='numeric'
-                        maxLength={14}
+                        mask={Consts.mobileMaskPH}
                     />
                 </Screen>
 

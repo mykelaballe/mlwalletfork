@@ -183,15 +183,15 @@ class Scrn extends React.Component {
             }
             else if(!Func.isLettersOnly(firstname)) {
                 this.setState({error_firstname:true})
-                Say.warn(Consts.error.onlyLetters)
+                Say.warn(Consts.error.onlyLettersInName)
             }
             else if(!Func.isLettersOnly(middlename)) {
                 this.setState({error_middlename:true})
-                Say.warn(Consts.error.onlyLetters)
+                Say.warn(Consts.error.onlyLettersInName)
             }
             else if(!Func.isLettersOnly(lastname)) {
                 this.setState({error_lastname:true})
-                Say.warn(Consts.error.onlyLetters)
+                Say.warn(Consts.error.onlyLettersInName)
             }
             else if(!Func.isDateValid(`${bday_year}-${bday_month}-${bday_day}`)) Say.warn(Consts.error.birthdate)
             else if(email && !Func.hasEmailSpecialCharsOnly(email)) Say.warn(Consts.error.emailNotAllowedChar)

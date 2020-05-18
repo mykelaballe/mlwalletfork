@@ -1,7 +1,5 @@
 import React from 'react'
-import {TouchableOpacity} from 'react-native'
 import {Text, Row, Spacer, Bullet} from '../components'
-import * as NavigationService from '../utils/NavigationService'
 
 const answer2 = (
     <>
@@ -47,12 +45,6 @@ const answer3 = (
         <Text>You will receive a 6-digit authentication code via SMS in the device authentication page. Enter the code to authenticate your device.</Text>
         <Spacer sm />
         <Text>You are now registered as a semi-verified user. To upgrade to a fully-verified user, see FAQ number 4 below.</Text>
-    </>
-)
-
-const answer4 = (
-    <>
-        <Text>Fully verifying your ML Wallet account allows users to increase wallet size, add money, withdraw money and send money limits.</Text>
     </>
 )
 
@@ -154,7 +146,7 @@ export default [
         data:[
             {
                 question:'4. What are verification levels?',
-                answer:answer4
+                answer:'Fully verifying your ML Wallet account allows users to increase wallet size, add money, withdraw money and send money limits.'
             },
             {
                 question:'5. How can I upgrade from semi-verified user to a fully-verified user?',

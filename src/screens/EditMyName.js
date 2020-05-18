@@ -87,15 +87,15 @@ class Scrn extends React.Component {
             }
             else if(!Func.isLettersOnly(fname)) {
                 this.setState({error_fname:true})
-                Say.warn(Consts.error.onlyLetters)
+                Say.warn(Consts.error.onlyLettersInName)
             }
             else if(!Func.isLettersOnly(mname)) {
                 this.setState({error_mname:true})
-                Say.warn(Consts.error.onlyLetters)
+                Say.warn(Consts.error.onlyLettersInName)
             }
             else if(!Func.isLettersOnly(lname)) {
                 this.setState({error_lname:true})
-                Say.warn(Consts.error.onlyLetters)
+                Say.warn(Consts.error.onlyLettersInName)
             }
             else {
     

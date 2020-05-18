@@ -1,5 +1,5 @@
 import React from 'react'
-import {StyleSheet, View, Linking} from 'react-native'
+import {StyleSheet, View, Linking, TouchableOpacity} from 'react-native'
 import {Text, Card, Ripple, Spacer, Row, ScrollView, Icon} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
@@ -43,15 +43,58 @@ class Scrn extends React.Component {
 
     handleFB = () => Linking.openURL('https://www.facebook.com/mlhuillier.official')
 
+    handleGovPrivacy = () => Linking.openURL('https://www.privacy.gov.ph')
+
     handleShowModal = contact => this.setState({contact,showModal:true})
 
     handleCloseModal = () => this.setState({showModal:false})
 
     render() {
 
-        const {contact, showModal} = this.state
+        //const {contact, showModal} = this.state
 
         return (
+            <ScrollView style={style.container}>
+                <Card style={style.card}>
+                    <Text b lg>For concerns on our products and services:</Text>
+
+                    <Spacer sm />
+
+                    <RippleItem onPress={this.handleCall} value={'+63 (32) 348-9400-09'} style={style.item}>
+                        <Text md>Tel. No.: +63 (32) 348-9400-09</Text>
+                    </RippleItem>
+
+                    <RippleItem onPress={this.handleEmail} value={'customercare@mlhuillier1.com'} style={style.item}>
+                        <Text md>Email us at: customercare@mlhuillier1.com</Text>
+                    </RippleItem>
+                </Card>
+
+                <Spacer />
+
+                <Card style={style.card}>
+                    <Text b lg>For concerns on data privacy:</Text>
+
+                    <Spacer sm />
+
+                    <RippleItem onPress={this.handleCall} value={'+63 (32) 415-3977'} style={style.item}>
+                        <Text md>Tel. No.: +63 (32) 415-3977</Text>
+                    </RippleItem>
+
+                    <RippleItem onPress={this.handleEmail} value={'mldpo@mlhuillier.com'} style={style.item}>
+                        <Text md>Email us: mldpo@mlhuillier.com</Text>
+                    </RippleItem>
+                </Card>
+
+                <Spacer />
+
+                <Text b lg>TO KNOW MORE ABOUT R.A. 10173 or DPA and its RIRR, please visit the website of the National Privacy Commission</Text>
+                <TouchableOpacity onPress={this.handleGovPrivacy}>
+                    <Text md>(https://www.privacy.gov.ph)</Text>
+                </TouchableOpacity>
+            </ScrollView>
+        )
+
+        /*return (
             <ScrollView style={style.container}>
                 <Portal>
                     <Modal visible={showModal} onDismiss={this.handleCloseModal}>
@@ -158,7 +201,7 @@ class Scrn extends React.Component {
                     </RippleItem>
                 </Card>
             </ScrollView>
-        )
+        )*/
     }
 }
 
