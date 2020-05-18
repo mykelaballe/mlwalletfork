@@ -39,6 +39,7 @@ class Scrn extends React.Component {
     handleToggleHasSuffix = () => {
         this.setState(prevState => ({
             suffix:prevState.has_suffix ? _('51') : '',
+            other_suffix:'',
             has_suffix:!prevState.has_suffix
         }))
     }
