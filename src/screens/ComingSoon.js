@@ -14,18 +14,23 @@ export default class Scrn extends React.Component {
 
     render() {
 
+        const {params = {}} = this.props.navigation.state
+
         return (
             <View style={style.container}>
-                <Image source={Res.coming_soon} resizeMode='contain' style={style.img} />
+                {!params.icon && <Image source={Res.coming_soon} resizeMode='contain' style={style.img} />}
+                {params.icon || null}
 
                 <Spacer />
 
                 <Text center b xl>COMING SOON!</Text>
                 
-                {/*<Spacer sm />
-
-                <Text center mute>We're working on our store.</Text>
-                <Text center mute>Stay tuned for updates.</Text>*/}
+                {params.phrase &&
+                <>
+                    <Spacer sm />
+                    <Text center mute>{params.phrase}</Text>
+                </>
+                }
             </View>
         )
     }

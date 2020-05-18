@@ -126,7 +126,7 @@ class Scrn extends React.Component {
         else navigate('BuyLoadOnBoarding')
     }
 
-    handleGoToBuyItems = () => this.props.navigation.navigate('ComingSoon')
+    handleGoToBuyItems = () => this.props.navigation.navigate('ComingSoon',{phrase:"We're working on our store.\nStay tuned for updates."})
 
     handleViewVerificationLevels = () => this.props.navigation.navigate('VerificationLevels')
 
