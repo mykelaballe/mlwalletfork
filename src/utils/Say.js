@@ -3,7 +3,7 @@ import Consts from './Consts'
 import _ from './Lang'
 
 const some = (message, title = null, options = {}) => {
-    if(message[message.length - 1] != '.') message = `${message}.`
+    if(message && message[message.length - 1] != '.') message = `${message}.`
 
     SomeModal.show({
         message,
@@ -13,7 +13,7 @@ const some = (message, title = null, options = {}) => {
 }
 
 const ok = (message, title = null, options = {}) => {
-    if(message[message.length - 1] != '.') message = `${message}.`
+    if(message && message[message.length - 1] != '.') message = `${message}.`
 
     SomeModal.show({
         message,
@@ -23,7 +23,7 @@ const ok = (message, title = null, options = {}) => {
 }
 
 const warn = (message, title = null, options = {}) => {
-    if(message[message.length - 1] != '.') message = `${message}.`
+    if(message && message[message.length - 1] != '.') message = `${message}.`
 
     SomeModal.show({
         message,
@@ -36,12 +36,14 @@ const err = (message, title = null, options = {}) => {
     if(Consts.is_dev) message = message.message
     else message = _('500')
 
-    if(message.toLowerCase() == 'network error') {
-        title = 'Uh-oh!'
-        message = Consts.error.network
+    if(message) {
+        if(message.toLowerCase() == 'network error') {
+            title = 'Uh-oh!'
+            message = Consts.error.network
+        }
+    
+        if(message[message.length - 1] != '.') message = `${message}.`
     }
-
-    if(message[message.length - 1] != '.') message = `${message}.`
 
     SomeModal.show({
         message,
@@ -51,7 +53,7 @@ const err = (message, title = null, options = {}) => {
 }
 
 const info = (message, title = null, options = {}) => {
-    if(message[message.length - 1] != '.') message = `${message}.`
+    if(message && message[message.length - 1] != '.') message = `${message}.`
 
     SomeModal.show({
         message,
@@ -61,7 +63,7 @@ const info = (message, title = null, options = {}) => {
 }
 
 const ask = (message, title = null, options = {}) => {
-    if(message[message.length - 1] != '.') message = `${message}.`
+    if(message && message[message.length - 1] != '.') message = `${message}.`
 
     SomeModal.show({
         message,
