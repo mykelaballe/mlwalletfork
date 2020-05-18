@@ -41,7 +41,7 @@ class Scrn extends React.Component {
 
     handleChangeLastName = lname => this.setState({lname,error_lname:false})
 
-    handleChangeSuffix = (option = {}) => this.setState({suffix:option.label || '',error_suffix:false})
+    handleChangeSuffix = (option = {}) => this.setState({suffix:option.label || '',other_suffix:'',error_suffix:false})
 
     handleChangeSuffixOthers = other_suffix => this.setState({other_suffix,error_suffix:false})
 
