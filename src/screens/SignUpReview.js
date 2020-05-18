@@ -335,15 +335,17 @@ export default class Scrn extends React.Component {
 
                         <Text sm mute center>Address</Text>
                         <Text md center>{Func.formatAddress(this.state)}</Text>
-                        
+
                         {country == Consts.country.PH &&
-                        <View style={{marginBottom:Metrics.lg}}>
+                        <>
                             <Spacer sm />
                             
                             <Text sm mute center>Zip Code</Text>
                             <Text md center>{zip_code}</Text>
-                        </View>
+                        </>
                         }
+
+                        <Spacer />
                     </ScrollFix>
                     }
 
