@@ -94,7 +94,7 @@ class Scrn extends React.Component {
                     <TextInput
                         disabled
                         label='Receiver'
-                        value={walletno}
+                        value={Func.formatWalletNo(walletno)}
                         rightContent={<Icon name='user_plus' size={20} />}
                     />
 
