@@ -65,6 +65,7 @@ class Scrn extends React.Component {
             this.props.navigation.setParams({natureofwork:null})
             this.setState({
                 natureofwork:params.natureofwork,
+                other_natureofwork:'',
                 error_natureofwork:false
             })
         }
