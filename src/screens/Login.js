@@ -4,9 +4,10 @@ import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Text, Button, ButtonText, Spacer, TextInput, Row, Icon, Screen, MLBanner} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_, Say, Consts, Func, Crypt} from '../utils'
+import {_, Say, Consts, Func} from '../utils'
 import {API} from '../services'
 import TouchID from 'react-native-touch-id'
+//import ReactAES from 'react-native-aes-encryption'
 
 const TOUCHID_IGNORED_ERRORS = [
     'USER_CANCELED',
@@ -34,10 +35,66 @@ class Scrn extends React.Component {
 
     handleLogin = async () => {
         const {username, password} = this.state
+        //this.test()
         //let encrypted = await Crypt.en(username)
         //alert(encrypted)
         this.login({username, password})
     }
+
+    /*test() {
+        const key="hell@123456";
+    
+        //128bit
+        ReactAES.generateRandomIV(16).then(
+            result=>{
+                console.log("random iv result is: ", result);
+            }
+        ).catch(
+            error => {
+                console.log(error);
+            }
+        );
+    
+        ReactAES.md5("hello")
+            .then(result => {
+                console.log("md5 result is: ", result);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    
+        //32 bit length--"d13feb0b7ed7395ccb96e3b603d24705"
+        ReactAES.sha256(key, 32).then(
+            result => {
+                console.log("sha256 is: ", result);
+            }
+        ).catch(
+            error=>{
+                console.log(error);
+            }
+        );
+    
+        const password = "abcd";
+    
+        ReactAES.encrypt(password,"d13feb0b7ed7395ccb96e3b603d24705","RHmr7oOkWR+Zhqg=").then(
+            result=>{
+                console.log("encrypt str is:"+result);
+                ReactAES.decrypt(result,"d13feb0b7ed7395ccb96e3b603d24705","RHmr7oOkWR+Zhqg=").then(
+                    result=>{
+                        console.log("plain str is:"+result);
+                    }
+                ).catch(
+                    error => {
+                        console.log(error);
+                    }
+                );
+            }
+        ).catch(
+            error => {
+                console.log(error);
+            }
+        );
+    }*/
 
     handleTouchID = () => {
         const {isUsingTouchID} = this.props

@@ -1,5 +1,5 @@
 import {NativeModules} from 'react-native'
-import RNCryptor from 'react-native-rncryptor'
+//import RNCryptor from 'react-native-rncryptor'
 
 var Aes = NativeModules.Aes
 

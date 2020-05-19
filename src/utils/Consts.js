@@ -12,7 +12,8 @@ const CODEPUSH_IOS_DEV = 'yBJeaL3P77cjjC3pZROSybtcceBSmqCXcOKst'
 export default {
 	is_dev:true,
 	is_android:IS_ANDROID,
-	baseURL:'http://192.168.19.30/api/',
+	//baseURL:'http://192.168.19.30/api/',
+	baseURL:'http://ccv078g234jk.mlhuillier1.com/api/',
 	deviceId:DeviceInfo.getDeviceId(),
 	deviceType:'Handset',
 	appName:DeviceInfo.getApplicationName(),
