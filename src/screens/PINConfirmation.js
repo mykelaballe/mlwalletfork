@@ -171,6 +171,8 @@ class Scrn extends React.Component {
                             amount:transaction.amount
                         })*/
 
+                        //alert(`${transaction.bank.old_partnersid}\n${transaction.account_no}\n${transaction.account_name}`)
+
                         res = await API.payBill({
                             walletno,
                             partnersId:transaction.bank.old_partnersid,

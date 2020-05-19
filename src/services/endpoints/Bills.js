@@ -12,10 +12,20 @@ export default {
             isRTA:''
         })
 
+        if(res.respcode != 1) {
+            return {
+                error:true,
+                message:res.respmessage
+            }
+        }
+
         return {
-            error:res.respcode == 1 ? false : true,
+            error:false,
             message:res.respmessage,
-            ...res
+            data: {
+                kptn:res.Kptn,
+                balance:res.Balance
+            }
         }
     },
 
