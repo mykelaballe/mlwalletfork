@@ -145,9 +145,7 @@ class Scrn extends React.Component {
                         label='Last Name'
                         value={lastname}
                         onChangeText={this.handleChangeLastName}
-                        onSubmitEditing={this.handleFocusContactNo}
                         autoCapitalize='words'
-                        returnKeyType='next'
                     />
 
                     <Picker
