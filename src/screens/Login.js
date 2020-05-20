@@ -49,18 +49,18 @@ class Scrn extends React.Component {
             keySize:128 / 8
         }
 
-        let ciphertext = AES.encrypt(JSON.stringify({
+        /*let ciphertext = AES.encrypt(JSON.stringify({
             username,
             password
-        }), key, config).toString()
+        }), key, config).toString()*/
 
         //Clipboard.setString(ciphertext)
 
-        /*let encrypted = 'WEIZtuEPmpzJb0IvsENpaw=='
+        let encrypted = 'WEIZtuEPmpzJb0IvsENpaw=='
         let bytes  = AES.decrypt(encrypted, key, config)
-        let originalText = JSON.parse(bytes.toString(CryptoJS.enc.Utf8))*/
+        let originalText = bytes.toString(CryptoJS.enc.Utf8)
 
-        alert(ciphertext)
+        alert(originalText)
 
         //this.login({username, password})
     }
