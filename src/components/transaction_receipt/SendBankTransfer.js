@@ -23,7 +23,7 @@ class SendBankTransfer extends React.Component {
 
         this.props.onExport(`
             <h4 style="color:#6A6A6A;line-height:0">Partner's Name</h4>
-            <h3>${bank.bankname}</h3>
+            <h3>${bank.bankname || bank}</h3>
 
             <h4 style="color:#6A6A6A;line-height:0">Account Name</h4>
             <h3 style="margin-top:0">PHP ${account_name}</h3>
@@ -66,17 +66,17 @@ class SendBankTransfer extends React.Component {
 
     render() {
 
-        const {_from, tcn, bank, account_name, account_no} = this.props.data
+        const {_from, kptn, bank, account_name, account_no} = this.props.data
         const {amount, fixed_charge, convenience_fee, total, date, time, type} = this.state
 
         return (
             <>
                 <Screen compact>
-                    <Header tcn={tcn} />
+                    <Header tcn={kptn} />
                     
                     <ScrollFix style={{padding:Metrics.lg}}>
                         <Text sm mute>Partner's Name</Text>
-                        <Text>{bank.bankname}</Text>
+                        <Text>{bank.bankname || bank}</Text>
 
                         <Spacer />
 

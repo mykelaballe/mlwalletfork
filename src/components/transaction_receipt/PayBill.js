@@ -11,7 +11,7 @@ class PayBill extends React.Component {
 
     state = {
         amount:Func.formatToCurrency(this.props.data.amount),
-        charges:Func.formatToCurrency(this.props.data.fixed_charge),
+        fixed_charge:Func.formatToCurrency(this.props.data.fixed_charge),
         convenience_fee:Func.formatToCurrency(this.props.data.convenience_fee),
         total:Func.formatToCurrency(this.props.data.total),
         date:this.props.data.date,
@@ -68,14 +68,14 @@ class PayBill extends React.Component {
 
     render() {
 
-        const {_from, tcn, biller_partner_name, account_no, account_name, email} = this.props.data
-        const {amount, fixed_charge, convenience_fee, total, date, time} = this.state
+        const {_from, kptn, biller_partner_name, account_no, account_name, email} = this.props.data
+        const {amount, fixed_charge, convenience_fee, total, date, time, type} = this.state
 
         return (
             <>
                 <Screen compact>
                     <Header
-                        tcn={tcn}
+                        tcn={kptn}
                         status='success'
                     />
 

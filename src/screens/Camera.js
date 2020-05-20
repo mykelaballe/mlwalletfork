@@ -38,7 +38,7 @@ class Scrn extends React.Component {
     }
 
     handleCapture = () => {
-        const {processing} = this.state
+        const {viewType, processing} = this.state
 
         if(processing) return false
 
@@ -60,7 +60,7 @@ class Scrn extends React.Component {
                             base64: true,
                             orientation: 'portrait',
                             skipProcessing:true,
-                            mirrorImage:false,
+                            mirrorImage:viewType == RNCamera.Constants.Type.back ? false : true,
         
                             //Android
                             fixOrientation:true,

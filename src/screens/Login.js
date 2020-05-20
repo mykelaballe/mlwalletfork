@@ -8,6 +8,7 @@ import {_, Say, Consts, Func} from '../utils'
 import {API} from '../services'
 import TouchID from 'react-native-touch-id'
 //import ReactAES from 'react-native-aes-encryption'
+import CryptoJS from "react-native-crypto-js"
 
 const TOUCHID_IGNORED_ERRORS = [
     'USER_CANCELED',
@@ -27,18 +28,25 @@ class Scrn extends React.Component {
 
     state = {
         data:null,
-        username:'',
-        password:'',
+        username:'mykel',
+        password:'1212',
         show_password:false,
         processing:false
     }
 
     handleLogin = async () => {
         const {username, password} = this.state
+        let ciphertext = CryptoJS.AES.encrypt(JSON.stringify({
+            username,
+            password
+        }), 'secret key 123').toString()
+        let bytes  = CryptoJS.AES.decrypt(ciphertext, 'secret key 123')
+        let originalText = JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
+        alert(`${originalText.username} : ${originalText.password}`)
         //this.test()
         //let encrypted = await Crypt.en(username)
         //alert(encrypted)
-        this.login({username, password})
+        //this.login({username, password})
     }
 
     /*test() {

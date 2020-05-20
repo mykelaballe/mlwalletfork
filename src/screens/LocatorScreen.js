@@ -2,7 +2,7 @@ import React from 'react'
 import {StyleSheet, Image, InteractionManager} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {ActivityIndicator} from '../components'
+import {Screen, Button, Text, Spacer, ActivityIndicator} from '../components'
 import {_, Say, Consts, Func} from '../utils'
 import {API} from '../services'
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps'
@@ -23,34 +23,46 @@ class Scrn extends React.Component {
         branches:[],
         loading:true,
         refreshing:false,
-        error:false
+        error:false,
+        locationAllowed:false
     }
 
     componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
 
     getData = async () => {
         const {params = {}} = this.props.navigation.state
-        const {initialCoords} = this.state
+        let {initialCoords, locationAllowed} = this.state
         let branches = []
 
         try {
             branches = await API.getBranches()
 
-            let location = await Func.getCurrentPosition()
-            if(!location.error) {
-                let newCoords = {
-                    latitude:location.data.latitude,
-                    longitude:location.data.longitude
-                }
+            const locationRes = await Func.getLocation()
 
-                this.props.updateInfo(newCoords)
-                this.setState({
-                    initialCoords: {
-                        ...initialCoords,
-                        latitude:newCoords.latitude,
-                        longitude:newCoords.longitude
+            if(!locationRes.error) {
+
+                locationAllowed = true
+                
+                let location = await Func.getCurrentPosition()
+
+                if(!location.error) {
+                    let newCoords = {
+                        latitude:location.data.latitude,
+                        longitude:location.data.longitude
                     }
-                })
+
+                    this.props.updateInfo(newCoords)
+                    this.setState({
+                        initialCoords: {
+                            ...initialCoords,
+                            latitude:newCoords.latitude,
+                            longitude:newCoords.longitude
+                        }
+                    })
+                }
+            }
+            else {
+                locationAllowed = false
             }
 
             if(params.is_nearest) {
@@ -63,15 +75,28 @@ class Scrn extends React.Component {
 
         this.setState({
             branches,
+            locationAllowed,
             loading:false
         })
     }
 
+    handleRefresh = () => this.setState({loading:true},this.getData)
+
     render() {
 
-        const {initialCoords, branches, loading} = this.state
+        const {initialCoords, branches, loading, locationAllowed} = this.state
 
         if(loading) return <ActivityIndicator />
+
+        if(!locationAllowed) {
+            return (
+                <Screen>
+                    <Text center lg>Please turn on location</Text>
+                    <Spacer />
+                    <Button t='Reload' onPress={this.handleRefresh} />
+                </Screen>
+            )
+        }
 
         return (
             <MapView

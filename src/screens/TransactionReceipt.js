@@ -61,7 +61,7 @@ export default class Scrn extends React.Component {
         let html = `
             <div style="background-color:#323232;padding:3px 15px 3px 15px;margin-top:3px">
                 <h2 style="textAlign:center;color:#fff">Transaction Receipt</h2>
-                <h4 style="color:#fff;line-height:0">Transaction No: ${kptn}</h4>
+                <h4 style="color:#fff;line-height:0">${kptn}</h4>
             </div>
             
             <hr />
