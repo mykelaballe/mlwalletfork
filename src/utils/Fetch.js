@@ -2,6 +2,8 @@ import axios from 'axios'
 import Consts from './Consts'
 import Storage from './Storage'
 
+//import CryptoJS from 'react-native-crypto-js'
+
 let headers = {
   'Accept': 'application/json',
   'Content-Type': 'application/json'
@@ -81,6 +83,11 @@ export default {
       headers,
     })
 
-    return response.data
+    let responseData = response.data
+
+    //let bytes = CryptoJS.AES.decrypt(responseData.ciphertext, 'mlinc12345678900', 'mlinc12345678900')
+    //return JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
+
+    return responseData
   }
 }

@@ -122,7 +122,7 @@ export default {
     ...User,
 
     checkBalance: async () => await Fetch.get('checkBalance'),
-
+    //getchargevalues
     getRates: async () => await Fetch.get('getchargevalues'),
 
     getNotifications: async params => {

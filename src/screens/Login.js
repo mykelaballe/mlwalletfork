@@ -1,14 +1,18 @@
 import React from 'react'
-import {View, StyleSheet, Linking} from 'react-native'
+import {View, StyleSheet, Linking, Clipboard} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Text, Button, ButtonText, Spacer, TextInput, Row, Icon, Screen, MLBanner} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say, Consts, Func} from '../utils'
+import Parser from '../utils/Parser'
 import {API} from '../services'
 import TouchID from 'react-native-touch-id'
-//import ReactAES from 'react-native-aes-encryption'
-import CryptoJS from "react-native-crypto-js"
+//import CryptoJS from 'react-native-crypto-js'
+
+const CryptoJS = require('crypto-js')
+const AES = require('crypto-js/aes')
+const Pkcs7 = require('crypto-js/pad-pkcs7')
 
 const TOUCHID_IGNORED_ERRORS = [
     'USER_CANCELED',
@@ -28,81 +32,38 @@ class Scrn extends React.Component {
 
     state = {
         data:null,
-        username:'mykel',
-        password:'1212',
+        username:'yol2020',
+        password:'p@ssword1',
         show_password:false,
         processing:false
     }
 
     handleLogin = async () => {
         const {username, password} = this.state
-        let ciphertext = CryptoJS.AES.encrypt(JSON.stringify({
+
+        let key = CryptoJS.enc.Utf8.parse('mlinc12345678900')
+        let iv = CryptoJS.enc.Utf8.parse('mlinc12345678900')
+
+        const config = {
+            iv,
+            keySize:128 / 8
+        }
+
+        let ciphertext = AES.encrypt(JSON.stringify({
             username,
             password
-        }), 'secret key 123').toString()
-        let bytes  = CryptoJS.AES.decrypt(ciphertext, 'secret key 123')
-        let originalText = JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
-        alert(`${originalText.username} : ${originalText.password}`)
-        //this.test()
-        //let encrypted = await Crypt.en(username)
-        //alert(encrypted)
+        }), key, config).toString()
+
+        //Clipboard.setString(ciphertext)
+
+        /*let encrypted = 'WEIZtuEPmpzJb0IvsENpaw=='
+        let bytes  = AES.decrypt(encrypted, key, config)
+        let originalText = JSON.parse(bytes.toString(CryptoJS.enc.Utf8))*/
+
+        alert(ciphertext)
+
         //this.login({username, password})
     }
-
-    /*test() {
-        const key="hell@123456";
-    
-        //128bit
-        ReactAES.generateRandomIV(16).then(
-            result=>{
-                console.log("random iv result is: ", result);
-            }
-        ).catch(
-            error => {
-                console.log(error);
-            }
-        );
-    
-        ReactAES.md5("hello")
-            .then(result => {
-                console.log("md5 result is: ", result);
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    
-        //32 bit length--"d13feb0b7ed7395ccb96e3b603d24705"
-        ReactAES.sha256(key, 32).then(
-            result => {
-                console.log("sha256 is: ", result);
-            }
-        ).catch(
-            error=>{
-                console.log(error);
-            }
-        );
-    
-        const password = "abcd";
-    
-        ReactAES.encrypt(password,"d13feb0b7ed7395ccb96e3b603d24705","RHmr7oOkWR+Zhqg=").then(
-            result=>{
-                console.log("encrypt str is:"+result);
-                ReactAES.decrypt(result,"d13feb0b7ed7395ccb96e3b603d24705","RHmr7oOkWR+Zhqg=").then(
-                    result=>{
-                        console.log("plain str is:"+result);
-                    }
-                ).catch(
-                    error => {
-                        console.log(error);
-                    }
-                );
-            }
-        ).catch(
-            error => {
-                console.log(error);
-            }
-        );
-    }*/
 
     handleTouchID = () => {
         const {isUsingTouchID} = this.props
