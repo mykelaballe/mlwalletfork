@@ -23,7 +23,7 @@ class Scrn extends React.Component {
 
                     <Text center md>Here are your account details:</Text>
 
-                    <Spacer xl />
+                    <Spacer />
 
                     <Text center mute>Registered Name</Text>
                     <Text center md>{Func.formatName(user)}</Text>
@@ -48,6 +48,8 @@ class Scrn extends React.Component {
                     <Text center mute>Registered Email Address</Text>
                     <Text center md>{user.emailaddress}</Text>
                 </View>
+
+                <Spacer lg />
             </Screen>
         )
     }

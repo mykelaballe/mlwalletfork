@@ -5,14 +5,8 @@ import {Creators} from '../actions'
 import {Text, Button, ButtonText, Spacer, TextInput, Row, Icon, Screen, MLBanner} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say, Consts, Func} from '../utils'
-import Parser from '../utils/Parser'
 import {API} from '../services'
 import TouchID from 'react-native-touch-id'
-//import CryptoJS from 'react-native-crypto-js'
-
-const CryptoJS = require('crypto-js')
-const AES = require('crypto-js/aes')
-const Pkcs7 = require('crypto-js/pad-pkcs7')
 
 const TOUCHID_IGNORED_ERRORS = [
     'USER_CANCELED',
@@ -32,37 +26,15 @@ class Scrn extends React.Component {
 
     state = {
         data:null,
-        username:'yol2020',
-        password:'p@ssword1',
+        username:'',
+        password:'',
         show_password:false,
         processing:false
     }
 
     handleLogin = async () => {
         const {username, password} = this.state
-
-        let key = CryptoJS.enc.Utf8.parse('mlinc12345678900')
-        let iv = CryptoJS.enc.Utf8.parse('mlinc12345678900')
-
-        const config = {
-            iv,
-            keySize:128 / 8
-        }
-
-        /*let ciphertext = AES.encrypt(JSON.stringify({
-            username,
-            password
-        }), key, config).toString()*/
-
-        //Clipboard.setString(ciphertext)
-
-        let encrypted = 'WEIZtuEPmpzJb0IvsENpaw=='
-        let bytes  = AES.decrypt(encrypted, key, config)
-        let originalText = bytes.toString(CryptoJS.enc.Utf8)
-
-        alert(originalText)
-
-        //this.login({username, password})
+        this.login({username, password})
     }
 
     handleTouchID = () => {

@@ -14,6 +14,10 @@ export default {
 	is_android:IS_ANDROID,
 	//baseURL:'http://192.168.19.30/api/',
 	baseURL:'http://ccv078g234jk.mlhuillier1.com/api/',
+	cipher:{
+		key:'mlinc12345678900',
+		iv:'mlinc12345678900'
+	},
 	deviceId:DeviceInfo.getDeviceId(),
 	deviceType:'Handset',
 	appName:DeviceInfo.getApplicationName(),

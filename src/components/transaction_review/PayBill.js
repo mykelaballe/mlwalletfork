@@ -27,7 +27,7 @@ export default props => {
 
             <Spacer />
 
-            <Text mute sm>Fixed Charge</Text>
+            {/*<Text mute sm>Fixed Charge</Text>
             <Text md>PHP {Func.formatToCurrency(fixed_charge)}</Text>
 
             <Spacer />
@@ -38,7 +38,7 @@ export default props => {
             <Spacer />
 
             <Text mute sm>Total</Text>
-            <Text md>PHP {Func.formatToCurrency(total)}</Text>
+            <Text md>PHP {Func.formatToCurrency(total)}</Text>*/}
         </ScrollFix>
     )
 }

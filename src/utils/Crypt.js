@@ -1,65 +1,24 @@
-import {NativeModules} from 'react-native'
-//import RNCryptor from 'react-native-rncryptor'
+import Consts from './Consts'
 
-var Aes = NativeModules.Aes
+const CryptoJS = require('crypto-js')
+const AES = require('crypto-js/aes')
 
-const PASSWORD = 'test'
+let key = CryptoJS.enc.Utf8.parse(Consts.cipher.key)
+let iv = CryptoJS.enc.Utf8.parse(Consts.cipher.iv)
 
-const generateKey = (password, salt, cost, length) => Aes.pbkdf2(password, salt, cost, length)
-
-const encryptData = (text, key) => {
-    return Aes.randomKey(16).then(iv => {
-        return Aes.encrypt(text, key).then(cipher => ({
-            cipher,
-            iv,
-        }))
-    })
+const config = {
+    iv,
+    keySize:128 / 8
 }
 
-const en = async text => {
-    try {
-        generateKey('Arnold', 'salt', 5000, 256).then(key => {
-            //console.log('Key:', key)
-            encryptData('These violent delights have violent ends', PASSWORD)
-                .then(({ cipher, iv }) => {
-                    console.log('Encrypted:', cipher)
-    
-                    /*decryptData({ cipher, iv }, key)
-                        .then(text => {
-                            console.log('Decrypted:', text)
-                        })
-                        .catch(error => {
-                            console.log(error)
-                        })
-    
-                    Aes.hmac256(cipher, key).then(hash => {
-                        console.log('HMAC', hash)
-                    })*/
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-        })
-    } catch (e) {
-        console.error(e)
-    }
-    /*return RNCryptor.encrypt(text, PASSWORD)
-    .then(encryptedbase64 => {
-        return encryptedbase64
-    })
-    .catch(err => {
-        console.log(err)
-    })*/
+const en = async data => {
+    if(typeof data === 'object') data = JSON.stringify(data)
+    return AES.encrypt(data, key, config).toString()
 }
 
-const de = async base64 => {
-    return RNCryptor.decrypt(base64, PASSWORD)
-    .then(text => {
-        return text
-    })
-    .catch(err => {
-        console.log(err)
-    })
+const de = async encryptedData => {
+    let bytes  = AES.decrypt(encryptedData, key, config)
+    return JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
 }
 
 export default {
