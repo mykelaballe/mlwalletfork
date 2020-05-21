@@ -5,8 +5,6 @@ import {Screen, Footer, View, Text, Spacer, Prompt, Button, ScrollFix} from '../
 import {Metrics} from '../../themes'
 import {_, Consts, Func, Say} from '../../utils'
 
-const moment = require('moment')
-
 class PayBill extends React.Component {
 
     state = {
@@ -20,12 +18,12 @@ class PayBill extends React.Component {
     }
 
     componentDidMount = () => {
-        const {_from, biller_partner_name, account_no, account_name, balance} = this.props.data
+        const {_from, biller, biller_partner_name, account_no, account_name, balance} = this.props.data
         const {amount, fixed_charge, convenience_fee, total} = this.state
 
         this.props.onExport(`
             <h4 style="color:#6A6A6A;line-height:0">Biller</h4>
-            <h3>${biller_partner_name}</h3>
+            <h3>${biller ? biller.partner : biller_partner_name}</h3>
 
             <h4 style="color:#6A6A6A;line-height:0">Account No.</h4>
             <h3 style="margin-top:0">PHP ${account_no}</h3>
@@ -68,7 +66,7 @@ class PayBill extends React.Component {
 
     render() {
 
-        const {_from, kptn, biller_partner_name, account_no, account_name, email} = this.props.data
+        const {_from, kptn, biller, biller_partner_name, account_no, account_name, email} = this.props.data
         const {amount, fixed_charge, convenience_fee, total, date, time, type} = this.state
 
         return (
@@ -81,7 +79,7 @@ class PayBill extends React.Component {
 
                     <ScrollFix style={{padding:Metrics.lg}}>
                         <Text sm mute>Biller</Text>
-                        <Text>{biller_partner_name}</Text>
+                        <Text>{biller ? biller.partner : biller_partner_name}</Text>
 
                         <Spacer />
 

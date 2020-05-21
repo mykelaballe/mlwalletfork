@@ -19,12 +19,14 @@ export default {
             }
         }
 
+        console.warn(res)
+
         return {
             error:false,
             message:res.respmessage,
             data: {
                 kptn:res.Kptn,
-                balance:res.Balance
+                balance:res.balance
             }
         }
     },

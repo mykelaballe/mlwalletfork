@@ -164,7 +164,7 @@ class Scrn extends React.Component {
                         res = await API.payBill({
                             walletno,
                             partnersId:transaction.bank.old_partnersid,
-                            partner_name:transaction.biller.partner,
+                            PartnerName:transaction.bank.bankname,
                             accountNo:transaction.account_no,
                             accountName:transaction.account_name,
                             amountpaid:transaction.amount,
@@ -183,7 +183,7 @@ class Scrn extends React.Component {
                         res = await API.payBill({
                             walletno,
                             partnersId:transaction.biller.partnersid,
-                            partner_name:transaction.biller.partner,
+                            PartnerName:transaction.biller.partner,
                             accountNo:transaction.account_no,
                             accountName:transaction.account_name,
                             email:transaction.email,
