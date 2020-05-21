@@ -1,6 +1,6 @@
 import React from 'react'
 import {View} from 'react-native'
-import {ScrollFix} from './'
+import {ScrollFix, Spacer} from './'
 import {Metrics} from '../themes'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 
@@ -30,6 +30,7 @@ export default props => {
     return (
         <KeyboardAwareScrollView style={style} showsVerticalScrollIndicator={false}>
                 {props.children}
+                <Spacer />
         </KeyboardAwareScrollView>
     )
 }
