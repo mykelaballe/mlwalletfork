@@ -27,4 +27,4 @@ export default combineReducers({
 
 export const persistentStoreBlacklist = []
 
-export const persistentStoreWhitelist = ['app', 'auth','user']
+export const persistentStoreWhitelist = ['app','user']
