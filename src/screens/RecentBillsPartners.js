@@ -58,7 +58,7 @@ class Scrn extends React.Component {
 
     handleViewReceiver = index => {
         const {list} = this.state
-        this.props.navigation.navigate('ReceiverLoadReceiver',{index, receiver:list[index]})
+        this.props.navigation.navigate('BillerProfile',{index, biller:list[index]})
     }
 
     handleRefresh = () => this.setState({refreshing:true},this.getData)

@@ -45,7 +45,7 @@ export default class Scrn extends React.Component {
                 if(usernameValidation.ok) {
                     let res = await API.validateUsername(username)
 
-                    if(!res.error) Say.some('Oops! Username already exists. Please type another')
+                    if(!res.error) Say.some('Username already exists. Please type another')
                     else {
                         let payload = {
                             username

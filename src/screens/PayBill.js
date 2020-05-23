@@ -14,8 +14,8 @@ export default class Scrn extends React.Component {
         email:'',
         ...this.props.navigation.state.params.biller,
         amount:'',
-        fixed_charge:'15',
-        convenience_fee:'7',
+        fixed_charge:this.props.navigation.state.params.biller.charge,
+        convenience_fee:'15',
         total:'',
         processing:false
     }
@@ -34,11 +34,8 @@ export default class Scrn extends React.Component {
     }
 
     handleChangeAccountNo = account_no => this.setState({account_no})
-
     handleChangeAccountName = account_name => this.setState({account_name})
-
     handleChangeEmail = email => this.setState({email})
-
     handleChangeAmount = amount => {
         const {fixed_charge, convenience_fee} = this.state
         this.setState({
@@ -48,9 +45,7 @@ export default class Scrn extends React.Component {
     }
 
     handleFocusAccountName = () => this.refs.account_name.focus()
-
     handleFocusAmount = () => this.refs.amount.focus()
-
     handleFocusEmail = () => this.refs.email.focus()
 
     handlePay = async () => {

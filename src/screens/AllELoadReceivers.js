@@ -10,7 +10,7 @@ import {API} from '../services'
 const ItemUI = props => (
     <ListItem
         primaryText={Func.cleanName(props.data.fullname)}
-        subText={props.data.mobileno}
+        subText={Func.formatToPHMobileNumberFull(props.data.mobileno)}
         onPress={() => props.onPress(props.index)}
     />
 )

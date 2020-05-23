@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Screen, Footer, Text, Row, Button, HeaderRight, StaticInput, Outline, Switch} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_, Say} from '../utils'
+import {_, Say, Func} from '../utils'
 import {API} from '../services'
 import Icon from 'react-native-vector-icons/Ionicons'
 import {Menu} from 'react-native-paper'
@@ -152,7 +152,7 @@ class Scrn extends React.Component {
 
                     <StaticInput
                         label='Contact No.'
-                        value={ContactNo}
+                        value={Func.formatToPHMobileNumberFull(ContactNo)}
                     />
 
                     <Outline>

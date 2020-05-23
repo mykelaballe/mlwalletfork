@@ -116,6 +116,14 @@ class Scrn extends React.Component {
             {
                 value:Consts.tcn.wdc.code,
                 label:Consts.tcn.wdc.short_desc
+            },
+            {
+                value:'pending',
+                label:'Pending'
+            },
+            {
+                value:'',
+                label:'ML Express'
             }
         ],
         selected_type:{
@@ -202,7 +210,7 @@ class Scrn extends React.Component {
                 walletno,
                 from,
                 to,
-                type:selected_type.value == 'all_types' ? '' : selected_type.value
+                type:!selected_type.value || selected_type.value == 'all_types' ? '' : selected_type.value
             })
         }
         catch(err) {

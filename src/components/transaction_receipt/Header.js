@@ -2,6 +2,7 @@ import React from 'react'
 import {StyleSheet} from 'react-native'
 import {View, Row, Text, Spacer} from '../'
 import {Colors, Metrics} from '../../themes'
+import {Func} from '../../utils'
 import Icon from 'react-native-vector-icons/AntDesign'
 
 export default props => {
@@ -39,7 +40,7 @@ export default props => {
 
             <View style={style.bigBanner}>
                 <Text center light>Transaction No.</Text>
-                <Text b lg center light>{tcn}</Text>
+                <Text b lg center light>{Func.formatKPTN(tcn)}</Text>
             </View>
         </>
     )

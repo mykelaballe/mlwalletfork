@@ -28,9 +28,7 @@ class Scrn extends React.Component {
     }
 
     handleChangeFirstName = fname => this.setState({fname,error_fname:false})
-
     handleChangeMiddleName = mname => this.setState({mname,error_mname:false})
-
     handleToggleHasMiddlename = () => {
         this.setState(prevState => ({
             mname:prevState.has_middlename ? _('50') : '',
@@ -38,13 +36,9 @@ class Scrn extends React.Component {
             error_mname:false
         }))
     }
-
     handleChangeLastName = lname => this.setState({lname,error_lname:false})
-
     handleChangeSuffix = (option = {}) => this.setState({suffix:option.label || '',other_suffix:'',error_suffix:false})
-
     handleChangeSuffixOthers = other_suffix => this.setState({other_suffix,error_suffix:false})
-
     handleToggleHasSuffix = () => {
         this.setState(prevState => ({
             suffix:prevState.has_suffix ? _('51') : '',
@@ -55,7 +49,6 @@ class Scrn extends React.Component {
     }
 
     handleFocusMiddleName = () => this.state.has_middlename ? this.refs.mname.focus() : this.refs.lname.focus()
-
     handleFocusLastName = () => this.refs.lname.focus()
 
     handleSubmit = async () => {

@@ -21,15 +21,11 @@ class Scrn extends React.Component {
     }
 
     handleChangeAccountNo = account_no => this.setState({account_no})
-
     handleChangeAccountName = account_name => this.setState({account_name})
-
     handleChangeEmail = email => this.setState({email, error_email:false})
 
     handleFocusAccountName = () => this.refs.account_name.focus()
-
     handleFocusAccountNo = () => this.refs.account_no.focus()
-
     handleFocusEmail = () => this.refs.email.focus()
 
     handlePay = () => {

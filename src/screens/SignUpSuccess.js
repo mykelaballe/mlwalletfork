@@ -39,7 +39,7 @@ class Scrn extends React.Component {
                     <Spacer />
 
                     <Text center md>Please remember your</Text>
-                    <Text center md>{Consts.companyName} Account number</Text>
+                    <Text center md>{_('90')}</Text>
 
                     <Spacer sm />
 

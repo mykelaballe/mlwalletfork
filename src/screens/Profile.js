@@ -39,7 +39,7 @@ class Scrn extends React.Component {
 
                     <Outline>
                         <Text sm mute>Mobile No.</Text>
-                        <Text>{user.mobileno}</Text>
+                        <Text>{Func.formatToPHMobileNumberFull(user.mobileno)}</Text>
                     </Outline>
                 
                     <Outline>

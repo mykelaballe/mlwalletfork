@@ -95,7 +95,7 @@ class Scrn extends React.Component {
 
                     <TextInput
                         ref='fullname'
-                        label='Full Name'
+                        label='Name/Nickname'
                         value={fullname}
                         onChangeText={this.handleChangeFullName}
                         autoCapitalize='words'

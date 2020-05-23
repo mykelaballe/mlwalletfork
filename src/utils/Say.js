@@ -76,7 +76,7 @@ const ask = (message, title = null, options = {}) => {
 }
 
 const attemptLeft = (error,options = {}) => {
-    let frontMsg = options.frontMsg || 'Oops! You entered the wrong information.'
+    let frontMsg = options.frontMsg || 'You entered the wrong information.'
 
     if(error === Consts.error.atl1) warn(`${frontMsg}. You only have 1 attempt left.`)
     else if(error === Consts.error.atl2) warn(`${frontMsg}. You only have 2 attempts left.`)
@@ -89,7 +89,10 @@ const attemptLeft = (error,options = {}) => {
             null
         )
     }
-    else warn(`${frontMsg}.`)
+    else {
+        if(options.frontMsg) warn(`${frontMsg}.`)
+        else warn(error)
+    }
 }
 
 const logout = () => SomeModal.sayLogout()

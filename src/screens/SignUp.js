@@ -16,17 +16,13 @@ class Scrn extends React.Component {
     }
 
     handleChangeUsername = username => this.setState({username})
-
     handleChangePassword = password => this.setState({password})
-
     handleChangeConfirmPassword = confirm_password => this.setState({confirm_password})
 
     handleFocusPassword = () => this.refs.password.focus()
-
     handleFocusConfirmPassword = () => this.refs.confirm_password.focus()
 
     handleTogglePassword = () => this.setState(prevState => ({show_password:!prevState.show_password}))
-
     handleToggleConfirmPassword = () => this.setState(prevState => ({show_confirm_password:!prevState.show_confirm_password}))
 
     handleSubmit = async () => {

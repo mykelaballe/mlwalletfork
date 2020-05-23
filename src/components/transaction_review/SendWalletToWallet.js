@@ -1,6 +1,6 @@
 import React from 'react'
 import {ScrollFix, Text, Spacer} from '../'
-import {Func} from '../../utils'
+import {_, Func} from '../../utils'
 import {Metrics} from '../../themes'
 
 export default props => {
@@ -14,7 +14,7 @@ export default props => {
 
             <Spacer lg />
 
-            <Text mute sm>Wallet Account Number</Text>
+            <Text mute sm>{_('90')}</Text>
             <Text md>{Func.formatWalletNo(walletno)}</Text>
 
             <Spacer />

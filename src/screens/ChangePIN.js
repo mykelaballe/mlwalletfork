@@ -25,19 +25,14 @@ class Scrn extends React.Component {
     }
 
     handleChangeOldPIN = old_pin => this.setState({old_pin,error_old:false})
-
     handleChangeNewPIN = new_pin => this.setState({new_pin,error_new:false})
-
     handleChangeConfirmPIN = confirm_pin => this.setState({confirm_pin})
 
     handleToggleOldPIN = () => this.setState(prevState => ({show_old_pin:!prevState.show_old_pin}))
-
     handleToggleNewPIN= () => this.setState(prevState => ({show_new_pin:!prevState.show_new_pin}))
-
     handleToggleConfirmPIN = () => this.setState(prevState => ({show_confirm_pin:!prevState.show_confirm_pin}))
 
     handleFocusNewPIN = () => this.refs.new_pin.focus()
-
     handleFocusConfirmPIN = () => this.refs.confirm_pin.focus()
 
     handleSubmit = async () => {
@@ -74,7 +69,7 @@ class Scrn extends React.Component {
                     this.setState({error_old:true})
 
                     Say.attemptLeft(res.message,{
-                        frontMsg:'Oops! This is not your current PIN'
+                        frontMsg:'This is not your current PIN'
                     })
                     
                     if(res.message == Consts.error.blk1d) this.props.logout()

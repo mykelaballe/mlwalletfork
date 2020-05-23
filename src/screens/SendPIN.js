@@ -14,7 +14,6 @@ class Scrn extends React.Component {
     }
 
     handleToggleEmail = () => this.setState(prevState => ({email:!prevState.email}))
-
     handleToggleSMS = () => this.setState(prevState => ({sms:!prevState.sms}))
 
     handleProceed = async () => {

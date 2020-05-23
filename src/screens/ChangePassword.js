@@ -26,19 +26,14 @@ class Scrn extends React.Component {
     }
 
     handleChangeOldPassword = old_password => this.setState({old_password,error_old:false})
-
     handleChangeNewPassword = new_password => this.setState({new_password,error_new:false})
-
     handleChangeConfirmPassword = confirm_password => this.setState({confirm_password})
 
     handleToggleOldPassword = () => this.setState(prevState => ({show_old_password:!prevState.show_old_password}))
-
     handleToggleNewPassword = () => this.setState(prevState => ({show_new_password:!prevState.show_new_password}))
-
     handleToggleConfirmPassword = () => this.setState(prevState => ({show_confirm_password:!prevState.show_confirm_password}))
 
     handleFocusNewPassword = () => this.refs.new_password.focus()
-
     handleFocusConfirmPassword = () => this.refs.confirm_password.focus()
 
     handleSubmit = async () => {
@@ -77,7 +72,7 @@ class Scrn extends React.Component {
                     if(res.error) {
                         this.setState({error_old:true})
                         Say.attemptLeft(res.message,{
-                            frontMsg:'Oops! This is not your current password'
+                            frontMsg:'This is not your current password'
                         })
 
                         if(res.message == Consts.error.blk1d) this.props.logout()

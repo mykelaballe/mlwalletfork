@@ -25,17 +25,12 @@ class Scrn extends React.Component {
     }
 
     handleChangeWalletNo = walletno => this.setState({walletno})
-
     handleChangeFirstName = firstname => this.setState({firstname})
-
     handleChangeLastName = lastname => this.setState({lastname})
-
     handleChangeMobileNo = mobile_no => this.setState({mobile_no})
 
     handleFocusFirstName = () => this.refs.firstname.focus()
-
     handleFocusLastName = () => this.refs.lastname.focus()
-
     handleFocusMobileNo = () => this.refs.mobile_no.focus()
 
     handleSearch = async () => {
@@ -134,7 +129,7 @@ class Scrn extends React.Component {
                         <Spacer />
 
                         <TextInput
-                            label='Wallet Account Number'
+                            label={_('90')}
                             value={walletno}
                             onChangeText={this.handleChangeWalletNo}
                             onSubmitEditing={this.handleFocusFirstName}

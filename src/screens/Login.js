@@ -26,13 +26,13 @@ class Scrn extends React.Component {
 
     state = {
         data:null,
-        username:'testone23',
-        password:'mlinc123!',
+        username:'',
+        password:'',
         show_password:false,
         processing:false
     }
 
-    handleLogin = async () => {
+    handleLogin = () => {
         const {username, password} = this.state
         this.login({username, password})
     }
@@ -109,7 +109,7 @@ class Scrn extends React.Component {
                     }
                     else if(res.message === Consts.error.blk) Say.warn(res.message)
                     else if(res.message === 'invalid_grant' || res.message === 'username_notexists' || res.message === 'wrong_password') {
-                        Say.warn('Oops! You entered the wrong information')
+                        Say.warn('You entered the wrong information')
                     }
                     else if(res.message === 'version_outofdate') {
                         Say.warn(

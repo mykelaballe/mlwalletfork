@@ -31,7 +31,7 @@ class Scrn extends React.Component {
                     },
                     verified:{
                         value:'PHP 200,000',
-                        note:'PHP 50,000 per transaction'
+                        note:'PHP 50,000 limit per transaction'
                     },
                     sme:{
                         value:''
@@ -44,7 +44,7 @@ class Scrn extends React.Component {
                     },
                     verified:{
                         value:'PHP 200,000',
-                        note:'PHP 50,000 per transaction'
+                        note:'PHP 50,000 limit per transaction'
                     },
                     sme:{
                         value:''
@@ -57,7 +57,7 @@ class Scrn extends React.Component {
                     },
                     verified:{
                         value:'PHP 200,000',
-                        note:'PHP 25,000-50,000 per transaction'
+                        note:'PHP 50,000 limit per transaction'
                     },
                     sme:{
                         value:''
@@ -70,7 +70,7 @@ class Scrn extends React.Component {
                     },
                     verified:{
                         value:'PHP 200,000',
-                        note:'PHP 40,000 per transaction'
+                        note:'PHP 40,000 limit per transaction, per day'
                     },
                     sme:{
                         value:'Coming Soon'
@@ -83,7 +83,7 @@ class Scrn extends React.Component {
                     },
                     verified:{
                         value:'PHP 200,000',
-                        note:'PHP 50,000 per transaction'
+                        note:'PHP 50,000 limit per transaction'
                     },
                     sme:{
                         value:''
@@ -96,6 +96,7 @@ class Scrn extends React.Component {
                     },
                     verified:{
                         value:'PHP 200,000',
+                        note:'No limit per transaction'
                     },
                     sme:{
                         value:''
@@ -108,6 +109,7 @@ class Scrn extends React.Component {
                     },
                     verified:{
                         value:'PHP 200,000',
+                        note:'No limit per transaction'
                     },
                     sme:{
                         value:''

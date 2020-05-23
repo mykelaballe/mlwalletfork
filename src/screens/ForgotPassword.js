@@ -28,7 +28,7 @@ export default class Scrn extends React.Component {
 
                 if(res.error) {
                     Say.attemptLeft(res.message,{
-                        frontMsg:'Oops! This is not your registered Username'
+                        frontMsg:'This is not your registered Username'
                     })
                 }
                 else {

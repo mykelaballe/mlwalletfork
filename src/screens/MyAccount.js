@@ -44,9 +44,9 @@ class Scrn extends React.Component {
                         <Avatar source={user.profilepic ? `${Consts.baseURL}wallet/image?walletno=${user.walletno}` : null} size={Metrics.image.lg} />
 
                         <Text b lg center mute>{Func.formatName(user)}</Text>
-                        <Text center mute>Wallet Account No: {Func.formatWalletNo(user.walletno)}</Text>
+                        <Text center mute>{_('90')}: {Func.formatWalletNo(user.walletno)}</Text>
                         <Text center mute>{Func.formatAddress(user)}</Text>
-                        <Text center mute>{user.mobileno}</Text>
+                        <Text center mute>{Func.formatToPHMobileNumberFull(user.mobileno)}</Text>
                         <Text center mute>{user.emailaddress}</Text>
 
                         <Spacer />

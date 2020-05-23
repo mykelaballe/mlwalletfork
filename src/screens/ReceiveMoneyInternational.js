@@ -38,17 +38,12 @@ class Scrn extends React.Component {
     }
 
     handleChangeTransactionNo = transaction_no => this.setState({transaction_no})
-
     handleChooseCurrency = () => this.props.navigation.navigate('Currencies')
-
     handleChangeAmount = amount => this.setState({amount})
-
     handleChoosePartner = () => this.props.navigation.navigate('Partners')
-
     handleChangeSender = sender => this.setState({sender})
 
     handleFocusAmount = () => this.refs.amount.focus()
-
     handleFocusSender = () => this.refs.sender.focus()
 
     handleSubmit = async () => {

@@ -20,7 +20,7 @@ class BuyLoad extends React.Component {
 
         this.props.onExport(`
             <h4 style="color:#6A6A6A;line-height:0">Mobile Number</h4>
-            <h3>${contact_no}</h3>
+            <h3>${Func.formatToPHMobileNumberFull(contact_no)}</h3>
 
             ${promo && `<h4 style="color:#6A6A6A;line-height:0">Promo Code</h4>`}
             ${promo && `<h3 style="margin-top:0">PHP ${promo.promoCode}</h3>`}
@@ -36,7 +36,7 @@ class BuyLoad extends React.Component {
                 {
                     customMessage:(
                         <>
-                            <Text mute md>You successfully sent load worth PHP {Func.formatToCurrency(amount)} to {contact_no}</Text>
+                            <Text mute md>You successfully sent load worth PHP {Func.formatToCurrency(amount)} to {Func.formatToPHMobileNumberFull(contact_no)}</Text>
                             <Spacer lg />
                             <Text mute>Your new balance is</Text>
                             <Text xl b>Php {Func.formatToRealCurrency(balance)}</Text>
@@ -64,7 +64,7 @@ class BuyLoad extends React.Component {
 
                     <ScrollFix style={{padding:Metrics.lg}}>
                         <Text sm mute>Mobile Number</Text>
-                        <Text>{contact_no}</Text>
+                        <Text>{Func.formatToPHMobileNumberFull(contact_no)}</Text>
 
                         
                         {promo &&

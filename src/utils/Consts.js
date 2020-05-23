@@ -44,6 +44,7 @@ export default {
 	walletNoMask:'[0000] [0000] [0000] [00]',
 	mobilePrefixPH:'+63',
 	mobileMaskPH:'+63 [000] [000] [0000]',
+	kptnMask:'[000] [0000]-[0000]-[0000]-[0000]-[00]',
 	error: {
 		onlyLetters:'Only letters are accepted',
 		onlyLettersInName:'Only letters are accepted in the name field',
@@ -52,7 +53,7 @@ export default {
 		noSpecialChars:'Letters and Numbers only',
 		notAllowedChar:'You used an invalid character',
 		email:'Invalid Email Address',
-		emailNotAllowedChar:'Numbers, letters, periods (.), underscores (_) and at signs (@) are the only characters allowed',
+		emailNotAllowedChar:'Numbers, letters, periods (.), underscores (_) and at signs (@) are the only characters allowed for the email address',
 		birthdate:'Invalid Birthdate',
 		mobile:'Invalid mobile number',
 		pwdNotMatch:'Passwords do not match',
@@ -74,8 +75,8 @@ export default {
 		]
 	},
 	suffixOptions:[
-		{label:'Jr.'},
-		{label:'Sr.'},
+		{label:'Jr'},
+		{label:'Sr'},
 		{label:'I'},
 		{label:'II'},
 		{label:'III'},

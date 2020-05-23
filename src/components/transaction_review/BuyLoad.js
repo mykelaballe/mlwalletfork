@@ -15,7 +15,7 @@ export default props => {
             <Spacer lg />
 
             <Text mute sm>Mobile Number</Text>
-            <Text md>{contact_no}</Text>
+            <Text md>{Func.formatToPHMobileNumberFull(contact_no)}</Text>
 
             {promo &&
             <>

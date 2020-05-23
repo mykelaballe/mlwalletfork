@@ -293,7 +293,7 @@ export default class Scrn extends React.Component {
                         <Spacer sm />
 
                         <Text sm mute center>Middle Name</Text>
-                        <Text md center>{middlename}</Text>
+                        <Text md center>{!middlename || middlename == _('50') ? 'No Middle Name' : middlename}</Text>
 
                         <Spacer sm />
 

@@ -179,7 +179,7 @@ class LoadOptions extends React.Component {
             <>
 
                 <Screen ns>
-                    <Text b xl center>{contact_no}</Text>
+                    <Text b xl center>{Func.formatToPHMobileNumberFull(contact_no)}</Text>
                     <Text b center>{network.label}</Text>
 
                     <Spacer />

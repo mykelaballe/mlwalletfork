@@ -11,7 +11,7 @@ const ItemUI = props => (
     <ListItem
         initial={props.data.firstname}
         primaryText={Func.formatName(props.data)}
-        subText={props.data.ContactNo}
+        subText={Func.formatToPHMobileNumberFull(props.data.ContactNo)}
         onPress={() => props.onPress(props.index)}
     />
 )

@@ -13,7 +13,7 @@ class Scrn extends React.Component {
 
     state = {
         partners:[
-            {label:'CHINABANK RTA',value:'Chinabank'}
+            {label:'CHINABANK RTA',value:'CHINABANK'}
         ],
         name:'',
         account_name:'',
@@ -22,13 +22,10 @@ class Scrn extends React.Component {
     }
 
     handleChangeName = (name = {}) => this.setState({name:name.value})
-
     handleChangeAccountName = account_name => this.setState({account_name})
-
     handleChangeAccountNo = account_no => this.setState({account_no})
 
     handleFocusAccountName = () => this.refs.account_name.focus()
-
     handleFocusAccountNo = () => this.refs.account_no.focus()
 
     handleSubmit = async () => {

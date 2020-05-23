@@ -116,7 +116,7 @@ class Scrn extends React.Component {
             <>
                 <Screen>
                     <StaticInput
-                        label='Wallet Account Number'
+                        label={_('90')}
                         value={Func.formatWalletNo(walletno)}
                     />
 

@@ -41,6 +41,7 @@ class Scrn extends React.Component {
         error_bday_month:false,
         error_bday_day:false,
         error_bday_year:false,
+        error_email:false,
         error_source_of_income:false,
         error_natureofwork:false
     }
@@ -72,9 +73,7 @@ class Scrn extends React.Component {
     }
 
     handleChangeFirstname = firstname => this.setState({firstname,error_firstname:false})
-
     handleChangeMiddlename = middlename => this.setState({middlename,error_middlename:false})
-
     handleToggleHasMiddlename = () => {
         this.setState(prevState => ({
             middlename:prevState.has_middlename ? _('50') : '',
@@ -82,13 +81,9 @@ class Scrn extends React.Component {
             error_middlename:false
         }))
     }
-
     handleChangeLastname = lastname => this.setState({lastname,error_lastname:false})
-
     handleChangeSuffix = (option = {}) => this.setState({suffix:option.label || '',other_suffix:'',error_suffix:false})
-
     handleChangeSuffixOthers = other_suffix => this.setState({other_suffix,error_suffix:false})
-
     handleToggleHasSuffix = () => {
         this.setState(prevState => ({
             suffix:prevState.has_suffix ? _('51') : '',
@@ -99,21 +94,13 @@ class Scrn extends React.Component {
     }
 
     handleChangeMonth = () => this.setState({showMonthPicker:true})
-
     handleHideMonthPicker = () => this.setState({showMonthPicker:false})
-
     handleChangeDay = () => this.setState({showDayPicker:true})
-
     handleHideDayPicker = () => this.setState({showDayPicker:false})
-
     handleChangeYear = () => this.setState({showYearPicker:true})
-
     handleHideYearPicker = () => this.setState({showYearPicker:false})
-
     handleSelectGender = gender => this.setState({gender})
-
-    handleChangeEmail = email => this.setState({email})
-
+    handleChangeEmail = email => this.setState({email,error_email:false})
     handleChangeNationality = nationality => this.setState({nationality})
 
     handleSelectNationality = () => {
@@ -134,19 +121,13 @@ class Scrn extends React.Component {
     handleChangeOtherNatureOfWork = other_natureofwork => this.setState({other_natureofwork,error_natureofwork:false})
 
     handleFocusMiddlename = () => this.state.has_middlename ? this.refs.middlename.focus() : this.refs.lastname.focus()
-
     handleFocusLastname = () => this.refs.lastname.focus()
-
     handleFocusEmail = () => this.refs.email.focus()
-
     handleFocusNationality = () => this.refs.nationality.focus()
-
     handleFocusSourceOfIncome = () => this.refs.source_of_income.focus()
 
     handleSelectMonth = bday_month => this.setState({bday_month, bday_day:'', error_bday_month:false})
-
     handleSelectDay = bday_day => this.setState({bday_day, error_bday_day:false})
-
     handleSelectYear = bday_year => this.setState({bday_year, error_bday_year:false})
 
     handleSubmit = async () => {
@@ -196,8 +177,14 @@ class Scrn extends React.Component {
                 Say.warn(Consts.error.onlyLettersInName)
             }
             else if(!Func.isDateValid(`${bday_year}-${bday_month}-${bday_day}`)) Say.warn(Consts.error.birthdate)
-            else if(email && !Func.hasEmailSpecialCharsOnly(email)) Say.warn(Consts.error.emailNotAllowedChar)
-            else if(email && !Func.isEmail(email)) Say.warn(Consts.error.email)
+            else if(email && !Func.hasEmailSpecialCharsOnly(email)) {
+                this.setState({error_email:true})
+                Say.warn(Consts.error.emailNotAllowedChar)
+            }
+            else if(email && !Func.isEmail(email)) {
+                this.setState({error_email:true})
+                Say.warn(Consts.error.email)
+            }
             else {
                 this.props.navigation.navigate('SignUpStep2',{
                     ...this.props.navigation.state.params,
@@ -229,7 +216,7 @@ class Scrn extends React.Component {
     render() {
 
         const {firstname, middlename, has_middlename, lastname, suffix, other_suffix, has_suffix, suffix_options, bday_month, bday_day, bday_year, gender, email, nationality, source_of_income, natureofwork, other_natureofwork, showMonthPicker, showDayPicker, showYearPicker, processing} = this.state
-        const {error_firstname, error_middlename, error_lastname, error_suffix, error_bday_month, error_bday_day, error_bday_year, error_source_of_income, error_natureofwork} = this.state
+        const {error_firstname, error_middlename, error_lastname, error_suffix, error_bday_month, error_bday_day, error_bday_year, error_email, error_source_of_income, error_natureofwork} = this.state
         //let ready = false
         let ready = true
 
@@ -357,6 +344,7 @@ class Scrn extends React.Component {
                         ref='email'
                         label={'Email address'}
                         value={email}
+                        error={error_email}
                         onChangeText={this.handleChangeEmail}
                         autoCapitalize='none'
                         keyboardType='email-address'

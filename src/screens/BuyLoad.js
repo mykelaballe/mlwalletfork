@@ -71,7 +71,7 @@ export default class Scrn extends React.Component {
                     <TextInput
                         editable={false}
                         label='Mobile Number'
-                        value={contact_no}
+                        value={Func.formatToPHMobileNumberFull(contact_no)}
                         keyboardType='numeric'
                         onChangeText={this.handleChangeContactNo}
                     />

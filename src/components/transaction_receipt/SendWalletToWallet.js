@@ -21,7 +21,7 @@ class SendWalletToWallet extends React.Component {
         const {amount, charges, total} = this.state
 
         this.props.onExport(`
-            <h4 style="color:#6A6A6A;line-height:0">Wallet Account Number</h4>
+            <h4 style="color:#6A6A6A;line-height:0">${_('90')}</h4>
             <h3>${Func.formatWalletNo(walletno)}</h3>
 
             <h4 style="color:#6A6A6A;line-height:0">Receiver</h4>
@@ -74,7 +74,7 @@ class SendWalletToWallet extends React.Component {
                     />
 
                     <ScrollFix style={{padding:Metrics.lg}}>
-                        <Text sm mute>Wallet Account Number</Text>
+                        <Text sm mute>{_('90')}</Text>
                         <Text>{Func.formatWalletNo(walletno)}</Text>
 
                         <Spacer />

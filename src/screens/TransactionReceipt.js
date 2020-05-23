@@ -3,7 +3,7 @@ import {InteractionManager} from 'react-native'
 import {View, ButtonIcon, HeaderRight, ActivityIndicator} from '../components'
 import {SendWalletToWallet, SendKP, SendBankTransfer, ReceiveMoneyDomestic, ReceiveMoneyInternational, WithdrawCash, PayBill, BuyLoad} from '../components/transaction_receipt'
 import {Colors, Metrics} from '../themes'
-import {_, Say, Consts} from '../utils'
+import {_, Say, Consts, Func} from '../utils'
 import Icon from 'react-native-vector-icons/AntDesign'
 import RNHTMLtoPDF from 'react-native-html-to-pdf'
 
@@ -61,7 +61,7 @@ export default class Scrn extends React.Component {
         let html = `
             <div style="background-color:#323232;padding:3px 15px 3px 15px;margin-top:3px">
                 <h2 style="textAlign:center;color:#fff">Transaction Receipt</h2>
-                <h4 style="color:#fff;line-height:0">${kptn}</h4>
+                <h4 style="color:#fff;line-height:0">${Func.formatKPTN(kptn)}</h4>
             </div>
             
             <hr />

@@ -127,11 +127,11 @@ class Scrn extends React.Component {
 
                     <StaticInput
                         label='Contact No.'
-                        value={mobileno}
+                        value={Func.formatToPHMobileNumberFull(mobileno)}
                     />
 
                     <StaticInput
-                        label='Full Name'
+                        label='Name/Nickname'
                         value={Func.cleanName(fullname)}
                     />
 

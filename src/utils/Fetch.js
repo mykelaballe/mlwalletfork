@@ -16,6 +16,11 @@ const callAPI = async (method, url, data = null) => {
 
   url = `${Consts.baseURL}${url}`
 
+  /*if(url.indexOf('?') >= 0) {
+    let url_pieces = url.split('?')
+    url = `${url_pieces[0]}?${Crypt.en(url_pieces[1])}`
+  }*/
+
   let response = await axios({
     method,
     url,
