@@ -29,7 +29,7 @@ const callAPI = async (method, url, data = null) => {
 
   if(data) {
     //config.data = Crypt.en(data)
-    config.data = data
+    config.data = JSON.stringify(data)
   }
 
   let response = await axios(config)
