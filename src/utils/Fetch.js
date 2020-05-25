@@ -21,12 +21,18 @@ const callAPI = async (method, url, data = null) => {
     url = `${url_pieces[0]}?${Crypt.en(url_pieces[1])}`
   }*/
 
-  let response = await axios({
+  let config = {
     method,
     url,
-    headers,
-    data
-  })
+    headers
+  }
+
+  if(data) {
+    //config.data = Crypt.en(data)
+    config.data = data
+  }
+
+  let response = await axios(config)
 
   return response.data.ciphertext ? Crypt.de(response.data.ciphertext) : response.data
 }
