@@ -53,6 +53,7 @@ class Scrn extends React.Component {
             let birthdate = `${bday_year}-${bday_month}-${bday_day}`
 
             if(!Func.isDateValid(birthdate)) Say.warn(Consts.error.birthdate)
+            else if(!Func.isAgeAllowed(birthdate)) Say.warn(Consts.error.notAllowedAge)
             else {
                 let res = await API.requestUpdateProfile({
                     walletno,

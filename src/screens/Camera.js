@@ -23,11 +23,15 @@ class Scrn extends React.Component {
         }
     }
 
-    state = {
-        source:null,
-        viewType:RNCamera.Constants.Type.back,
-        eyes:[],
-        processing:false
+    constructor(props) {
+        super(props)
+        const {params = {}} = props.navigation.state
+        this.state = {
+            source:null,
+            viewType:params.title != 'Live Photo' ? RNCamera.Constants.Type.back : RNCamera.Constants.Type.front,
+            eyes:[],
+            processing:false
+        }
     }
 
     handleChangeViewType = () => {

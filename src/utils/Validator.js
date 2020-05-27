@@ -122,6 +122,13 @@ const isPHMobileNumber = value => {
     return true
 }
 
+const isAgeAllowed = birthdate => {
+    const currentDate = moment()
+    let duration = moment.duration(currentDate.diff(moment(birthdate, 'YYYY-MM-DD')))
+    let years = duration.asYears()
+    return years >= Consts.user_min_age && years <= Consts.user_max_age ? true : false
+}
+
 export default {
     validate,
     isLettersOnly,
@@ -132,5 +139,6 @@ export default {
     hasEmailSpecialCharsOnly,
     hasAddressSpecialCharsOnly,
     isEmail,
-    isPHMobileNumber
+    isPHMobileNumber,
+    isAgeAllowed
 }

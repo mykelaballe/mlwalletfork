@@ -177,6 +177,7 @@ class Scrn extends React.Component {
                 Say.warn(Consts.error.onlyLettersInName)
             }
             else if(!Func.isDateValid(`${bday_year}-${bday_month}-${bday_day}`)) Say.warn(Consts.error.birthdate)
+            else if(!Func.isAgeAllowed(`${bday_year}-${bday_month}-${bday_day}`)) Say.warn(Consts.error.notAllowedAge)
             else if(email && !Func.hasEmailSpecialCharsOnly(email)) {
                 this.setState({error_email:true})
                 Say.warn(Consts.error.emailNotAllowedChar)

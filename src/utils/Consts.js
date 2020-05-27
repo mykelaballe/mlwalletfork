@@ -55,6 +55,7 @@ export default {
 		email:'Invalid Email Address',
 		emailNotAllowedChar:'Numbers, letters, periods (.), underscores (_) and at signs (@) are the only characters allowed for the email address',
 		birthdate:'Invalid Birthdate',
+		notAllowedAge:`You have not reached the minimum age requirement of 16 years old`,
 		mobile:'Invalid mobile number',
 		pwdNotMatch:'Passwords do not match',
 		network:'You have slow internet connection',
