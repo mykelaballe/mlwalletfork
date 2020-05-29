@@ -20,7 +20,7 @@ const ItemUI = ({data, onPress}) => (
         <Row bw style={style.item}>
             <View>
                 {((data.transtype === Consts.tcn.skp.code || data.transtype === Consts.tcn.wdc.code) && (data.isclaimed == 0 && data.iscancelled == 0)) && <Text mute>PENDING</Text>}
-                {((data.transtype === Consts.tcn.skp.code || data.transtype === Consts.tcn.wdc.code) && data.iscancelled == 1) && <Text mute>CANCELLED</Text>}
+                {((data.transtype === Consts.tcn.skp.code || data.transtype === Consts.tcn.wdc.code) && data.iscancelled > 0) && <Text mute>CANCELLED</Text>}
                 <Text b md>{Consts.tcn[data.transtype].short_desc}</Text>
                 <Text mute>{moment(data.transdate).format('MM/DD/YYYY')}</Text>
             </View>
