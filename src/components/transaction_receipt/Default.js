@@ -8,7 +8,7 @@ import {_, Func, Say} from '../../utils'
 class Default extends React.Component {
 
     state = {
-        amount:Func.formatToCurrency(this.props.data.amount),
+        total:Func.formatToCurrency(this.props.data.total),
         date:this.props.data.date,
         time:this.props.data.time,
         type:this.props.data.type
@@ -16,14 +16,14 @@ class Default extends React.Component {
 
     componentDidMount = () => {
         const {_from, walletno, balance} = this.props.data
-        const {amount} = this.state
+        const {total} = this.state
 
         this.props.onExport(`
             <h4 style="color:#6A6A6A;line-height:0">${_('90')}</h4>
             <h3>${Func.formatWalletNo(walletno)}</h3>
 
-            <h4 style="color:#6A6A6A;line-height:0">Amount</h4>
-            <h3 style="margin-top:0">PHP ${amount}</h3>
+            <h4 style="color:#6A6A6A;line-height:0">Total</h4>
+            <h3 style="margin-top:0">PHP ${total}</h3>
         `)
 
         if(_from != 'history') {
@@ -47,7 +47,7 @@ class Default extends React.Component {
     render() {
 
         const {_from, kptn, walletno} = this.props.data
-        const {amount, date, time, type} = this.state
+        const {total, date, time, type} = this.state
 
         return (
             <>
@@ -63,8 +63,8 @@ class Default extends React.Component {
 
                         <Spacer />
 
-                        <Text sm mute>Amount</Text>
-                        <Text>PHP {amount}</Text>
+                        <Text sm mute>Total</Text>
+                        <Text>PHP {total}</Text>
 
                         <Spacer />
 
