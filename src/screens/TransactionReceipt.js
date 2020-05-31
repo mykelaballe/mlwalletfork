@@ -1,7 +1,7 @@
 import React from 'react'
 import {InteractionManager} from 'react-native'
 import {View, ButtonIcon, HeaderRight, ActivityIndicator} from '../components'
-import {SendWalletToWallet, SendKP, SendBankTransfer, ReceiveMoneyDomestic, ReceiveMoneyInternational, WithdrawCash, PayBill, BuyLoad} from '../components/transaction_receipt'
+import {Default, SendWalletToWallet, SendKP, SendBankTransfer, ReceiveMoneyDomestic, ReceiveMoneyInternational, WithdrawCash, PayBill, BuyLoad} from '../components/transaction_receipt'
 import {Colors, Metrics} from '../themes'
 import {_, Say, Consts, Func} from '../utils'
 import Icon from 'react-native-vector-icons/AntDesign'
@@ -75,7 +75,7 @@ export default class Scrn extends React.Component {
             <h3 style="margin-top:0">${time}</h3>
 
             <h4 style="color:#6A6A6A;line-height:0">Type</h4>
-            <h3 style="margin-top:0">${Consts.tcn[type].long_desc}</h3>
+            <h3 style="margin-top:0">${Consts.tcn[type] ? Consts.tcn[type].long_desc : type}</h3>
         `
       
         let file = await RNHTMLtoPDF.convert({
@@ -121,20 +121,22 @@ export default class Scrn extends React.Component {
 
         if(type === Consts.tcn.stw.code || type === Consts.tcn.rtw.code) return <SendWalletToWallet data={data} onExport={this.handleSetExportData} />
 
-        if(type === Consts.tcn.skp.code) return <SendKP data={data} onExport={this.handleSetExportData} />
+        else if(type === Consts.tcn.skp.code) return <SendKP data={data} onExport={this.handleSetExportData} />
 
-        if(type === Consts.tcn.stb.code) return <SendBankTransfer data={data} onExport={this.handleSetExportData} />
+        else if(type === Consts.tcn.stb.code) return <SendBankTransfer data={data} onExport={this.handleSetExportData} />
 
-        if(type === Consts.tcn.rmd.code) return <ReceiveMoneyDomestic data={data} onExport={this.handleSetExportData} />
+        else if(type === Consts.tcn.rmd.code) return <ReceiveMoneyDomestic data={data} onExport={this.handleSetExportData} />
 
-        if(type === Consts.tcn.rmi.code) return <ReceiveMoneyInternational data={data} onExport={this.handleSetExportData} />
+        else if(type === Consts.tcn.rmi.code) return <ReceiveMoneyInternational data={data} onExport={this.handleSetExportData} />
 
-        if(type === Consts.tcn.wdc.code) return <WithdrawCash data={data} onExport={this.handleSetExportData} />
+        else if(type === Consts.tcn.wdc.code) return <WithdrawCash data={data} onExport={this.handleSetExportData} />
 
-        if(type === Consts.tcn.bpm.code) return <PayBill data={data} onExport={this.handleSetExportData} />
+        else if(type === Consts.tcn.bpm.code) return <PayBill data={data} onExport={this.handleSetExportData} />
 
-        if(type === Consts.tcn.bul.code) return <BuyLoad data={data} onExport={this.handleSetExportData} />
+        else if(type === Consts.tcn.bul.code) return <BuyLoad data={data} onExport={this.handleSetExportData} />
 
-        return null
+        else {
+            return <Default data={data} onExport={this.handleSetExportData} />
+        }
     }
 }

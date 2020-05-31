@@ -1,0 +1,94 @@
+import React from 'react'
+import {withNavigation} from 'react-navigation'
+import {Header} from './'
+import {Screen, Footer, Text, Spacer, Button, ScrollFix} from '../'
+import {Metrics} from '../../themes'
+import {_, Func, Say} from '../../utils'
+
+class Default extends React.Component {
+
+    state = {
+        amount:Func.formatToCurrency(this.props.data.amount),
+        date:this.props.data.date,
+        time:this.props.data.time,
+        type:this.props.data.type
+    }
+
+    componentDidMount = () => {
+        const {_from, walletno, balance} = this.props.data
+        const {amount} = this.state
+
+        this.props.onExport(`
+            <h4 style="color:#6A6A6A;line-height:0">${_('90')}</h4>
+            <h3>${Func.formatWalletNo(walletno)}</h3>
+
+            <h4 style="color:#6A6A6A;line-height:0">Amount</h4>
+            <h3 style="margin-top:0">PHP ${amount}</h3>
+        `)
+
+        if(_from != 'history') {
+            Say.ok(
+                null,
+                'Success',
+                {
+                    customMessage:(
+                        <>
+                            <Text mute>Your new balance is</Text>
+                            <Text xl b>Php {Func.formatToCurrency(balance)}</Text>
+                        </>
+                    )
+                }
+            )
+        }
+    }
+
+    handleBackToHome = () => this.props.navigation.navigate('Home')
+
+    render() {
+
+        const {_from, kptn, walletno} = this.props.data
+        const {amount, date, time, type} = this.state
+
+        return (
+            <>
+                <Screen compact>
+                    <Header
+                        tcn={kptn}
+                        status='success'
+                    />
+
+                    <ScrollFix style={{padding:Metrics.lg}}>
+                        <Text sm mute>{_('90')}</Text>
+                        <Text>{Func.formatWalletNo(walletno)}</Text>
+
+                        <Spacer />
+
+                        <Text sm mute>Amount</Text>
+                        <Text>PHP {amount}</Text>
+
+                        <Spacer />
+
+                        <Text sm mute>Date</Text>
+                        <Text>{date}</Text>
+
+                        <Spacer />
+
+                        <Text sm mute>Time</Text>
+                        <Text>{time}</Text>
+
+                        <Spacer />
+
+                        <Text sm mute>Type</Text>
+                        <Text>{type}</Text>
+                    </ScrollFix>
+                </Screen>
+
+                <Footer>
+                    {_from !== 'history' && <Button t='Back to Home' onPress={this.handleBackToHome} />}
+                </Footer>
+            </>
+        )
+    }
+}
+
+export default withNavigation(Default)
