@@ -1,6 +1,6 @@
 import React from 'react'
 import {StyleSheet, View, Linking, TouchableOpacity} from 'react-native'
-import {Text, Card, Ripple, Spacer, Row, ScrollView, Icon} from '../components'
+import {Text, Card, Ripple, Spacer, Row, ScrollView, Icon, HR} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
 import {Portal, Modal} from 'react-native-paper'
@@ -56,32 +56,36 @@ class Scrn extends React.Component {
         return (
             <ScrollView style={style.container}>
                 <Card style={style.card}>
-                    <Text b lg>For concerns on our products and services:</Text>
+                    <Text b md>For concerns on our products and services:</Text>
 
-                    <Spacer sm />
+                    <HR m={Metrics.rg} />
 
                     <RippleItem onPress={this.handleCall} value={'+63 (32) 348-9400-09'} style={style.item}>
-                        <Text md>Tel. No.: +63 (32) 348-9400-09</Text>
+                        <Text b>Tel. No.</Text>
+                        <Text>+63 (32) 348-9400-09</Text>
                     </RippleItem>
 
                     <RippleItem onPress={this.handleEmail} value={'customercare@mlhuillier1.com'} style={style.item}>
-                        <Text md>Email us at: customercare@mlhuillier1.com</Text>
+                        <Text b>Email us at</Text>
+                        <Text>customercare@mlhuillier1.com</Text>
                     </RippleItem>
                 </Card>
 
                 <Spacer />
 
                 <Card style={style.card}>
-                    <Text b lg>For concerns on data privacy:</Text>
+                    <Text b md>For concerns on data privacy:</Text>
 
-                    <Spacer sm />
+                    <HR m={Metrics.rg} />
 
                     <RippleItem onPress={this.handleCall} value={'+63 (32) 415-3977'} style={style.item}>
-                        <Text md>Tel. No.: +63 (32) 415-3977</Text>
+                        <Text b>Tel. No.</Text>
+                        <Text>+63 (32) 415-3977</Text>
                     </RippleItem>
 
                     <RippleItem onPress={this.handleEmail} value={'mldpo@mlhuillier.com'} style={style.item}>
-                        <Text md>Email us: mldpo@mlhuillier.com</Text>
+                        <Text b>Email us</Text>
+                        <Text>mldpo@mlhuillier.com</Text>
                     </RippleItem>
                 </Card>
 
