@@ -2,16 +2,16 @@ import Consts from '../../utils/Consts'
 import Fetch from '../../utils/Fetch'
 
 export default {
-    withdrawCashValidate: async payload => await Fetch.post('withdrawcash/validate',payload),
+    withdrawCashValidate: async payload => await Fetch.postc('withdrawcash/validate',payload),
 
     withdrawCash: async payload => {
-        return await Fetch.post('withdrawcash/withdraw',{
+        return await Fetch.postc('withdrawcash/withdraw',{
             ...payload,
             location:'',
             deviceid:Consts.deviceId
         })
     },
 
-    withdrawCashCancel: async payload => await Fetch.post('withdrawcash/cancel',payload)
+    withdrawCashCancel: async payload => await Fetch.postc('withdrawcash/cancel',payload)
 
 }

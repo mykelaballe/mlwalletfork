@@ -35,24 +35,24 @@ export default {
 
     updateELoadReceiver: async payload => await Fetch.put('updateLoadReceiver',payload),
     
-    deleteELoadReceiver: async payload => await Fetch.delete(`deleteLoadReceiver/${Crypt.en(payload.receiverno)}`),
+    deleteELoadReceiver: async payload => await Fetch.delete(`deleteLoadReceiver/${payload.receiverno}`),
 
     getFavoriteELoadReceivers: async walletno => {
-        let res = await Fetch.get(`eloadFavorites/${Crypt.en(walletno)}`)
+        let res = await Fetch.get(`eloadFavorites/${walletno}`)
         return res.data || []
     },
 
-    addFavoriteELoadReceiver: async payload => await Fetch.post(`eloadFavorites/${Crypt.en(payload.receiverno)}`),
+    addFavoriteELoadReceiver: async payload => await Fetch.post(`eloadFavorites/${payload.receiverno}`),
 
-    removeFavoriteELoadReceiver: async payload => await Fetch.delete(`eloadFavorites/${Crypt.en(payload.receiverno)}`),
+    removeFavoriteELoadReceiver: async payload => await Fetch.delete(`eloadFavorites/${payload.receiverno}`),
 
     getRecentELoadReceivers: async walletno => {
-        let res = await Fetch.get(`recent/${Consts.tcn.bul.code}/${Crypt.en(walletno)}`)
+        let res = await Fetch.get(`recent/${Consts.tcn.bul.code}/${walletno}`)
         return res.data || []
     },
 
     getLoadPromoCodes: async network => {
-        let res = await Fetch.get(`getPromos?network=${network}`)
+        let res = await Fetch.getc(`getPromos?network=${network}`)
         return res.data || []
     },
 }

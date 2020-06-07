@@ -33,25 +33,25 @@ export default {
     },
 
     getBankPartners: async walletno => {
-        let res = await Fetch.get(`bankAccount/all?walletno=${walletno}`)
+        let res = await Fetch.getc(`bankAccount/all?walletno=${walletno}`)
         return res.data || []
     },
 
     getFavoriteBankPartners: async walletno => {
-        let res = await Fetch.get(`bankFavorites/${Crypt.en(walletno)}`)
+        let res = await Fetch.get(`bankFavorites/${walletno}`)
         return res.data || []
     },
 
     getRecentBankPartners: async walletno => {
-        let res = await Fetch.get(`recent/${Consts.tcn.stb.code}/${Crypt.en(walletno)}`)
+        let res = await Fetch.get(`recent/${Consts.tcn.stb.code}/${walletno}`)
         return res.data || []
     },
 
-    addBankPartner: async payload => await Fetch.post('bankAccount/add',payload),
+    addBankPartner: async payload => await Fetch.postc('bankAccount/add',payload),
 
-    updateBankPartner: async payload => await Fetch.put('bankAccount/edit',payload),
+    updateBankPartner: async payload => await Fetch.putc('bankAccount/edit',payload),
 
-    deleteBankPartner: async payload => await Fetch.delete('bankAccount/delete',payload),
+    deleteBankPartner: async payload => await Fetch.deletec('bankAccount/delete',payload),
 
     addFavoriteBankPartner: async payload => {
         return await Fetch.post(`bankFavorites`,payload)

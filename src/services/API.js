@@ -56,7 +56,7 @@ export default {
                 error:payload.username == 'newphone' ? 'registered_anotherdevice' : null
             }
         }*/
-        let res = await Fetch.post('wallet/login', {
+        let res = await Fetch.postc('wallet/login', {
             ...payload,
             //latitude:'1',
             //longitude:'1',
@@ -74,10 +74,10 @@ export default {
 
     loginByTouchID: async () => await Fetch.get(`login/touchid?deviceId=${Consts.deviceId}`),
 
-    updateTouchIDStatus: async payload => await Fetch.put('update/touchid',payload),
+    updateTouchIDStatus: async payload => await Fetch.putc('update/touchid',payload),
 
     register: async payload => {
-        return await Fetch.post('wallet/registration',{
+        return await Fetch.postc('wallet/registration',{
             ...payload,
             deviceId:Consts.deviceId,
             version:Consts.appVersion,
@@ -91,19 +91,19 @@ export default {
         }
     },
 
-    forgotPassword: async payload => await Fetch.put('forgotPassword',payload),
+    forgotPassword: async payload => await Fetch.putc('forgotPassword',payload),
 
     checkVersion: async () => await Fetch.get(''),
 
     checkDeviceId: async () => await Fetch.get(`checkDeviceId?deviceId=${Consts.deviceId}`),
 
-    updateDevice: async payload => await Fetch.put('updateDevice',{username:payload.username, deviceid:Consts.deviceId}),
+    updateDevice: async payload => await Fetch.putc('updateDevice',{username:payload.username, deviceid:Consts.deviceId}),
 
-    validateUsername: async username => await Fetch.post('validateUsername',{username}),
+    validateUsername: async username => await Fetch.postc('validateUsername',{username}),
 
     validateSecurityQuestion: async payload => {
         if(payload.key) {
-            return await Fetch.post('validate_answers',{
+            return await Fetch.postc('validate_answers',{
                 walletno:payload.wallet_no,
                 type:payload.type,
                 key:payload.key,
@@ -111,7 +111,7 @@ export default {
             })
         }
 
-        return await Fetch.post('validateSecurityQuestion',{
+        return await Fetch.postc('validateSecurityQuestion',{
             wallet_no:payload.wallet_no,
             question:payload.question,
             answer:payload.answer
@@ -195,7 +195,7 @@ export default {
 
     getCities: async provinceCode => {
         let data = {}
-        let res = await Fetch.get(`getCities/${Crypt.en(provinceCode)}`)
+        let res = await Fetch.get(`getCities/${provinceCode}`)
 
         if(res.data) {
             for(let d in res.data) {

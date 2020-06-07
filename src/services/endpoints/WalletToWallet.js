@@ -45,12 +45,12 @@ export default {
     },
 
     getFavoriteWalletReceivers: async walletno => {
-        let res = await Fetch.get(`walletFavorites/${Crypt.en(walletno)}`)
+        let res = await Fetch.get(`walletFavorites/${walletno}`)
         return res.data || []
     },
 
     getRecentWalletReceivers: async walletno => {
-        let res = await Fetch.get(`recent/${Consts.tcn.stw.code}/${Crypt.en(walletno)}`)
+        let res = await Fetch.get(`recent/${Consts.tcn.stw.code}/${walletno}`)
         return res.data || []
     },
 

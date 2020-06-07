@@ -12,7 +12,7 @@ const config = {
 }
 
 const en = data => {
-    return data
+    //return data
     if(typeof data === 'object') data = JSON.stringify(data)
     return AES.encrypt(data, key, config).toString()
 }
