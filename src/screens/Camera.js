@@ -4,6 +4,7 @@ import {ButtonText, ButtonIcon, Row, ActivityIndicator, Text} from '../component
 import {Colors, Metrics} from '../themes'
 import {_, Say, Consts} from '../utils'
 import {RNCamera} from 'react-native-camera'
+import RNFetchBlob from 'rn-fetch-blob'
 import {request, PERMISSIONS, RESULTS} from 'react-native-permissions'
 import AntDesignIcon from 'react-native-vector-icons/AntDesign'
 import FoundationIcon from 'react-native-vector-icons/Foundation'
@@ -58,9 +59,9 @@ class Scrn extends React.Component {
         
                         //base64, width, height, pictureOrientation, deviceOrientation
                         let source = await this.camera.takePictureAsync({
-                            //width: 480,
-                            //height: 720,
-                            quality: 0.7,
+                            width: 720,
+                            height: 1280,
+                            //quality: 0.7,
                             base64: true,
                             orientation: 'portrait',
                             skipProcessing:true,
@@ -72,10 +73,15 @@ class Scrn extends React.Component {
                             //iOS
                             forceUpOrientation:true
                         })
+
+                        let fileStat = await RNFetchBlob.fs.stat(source.uri)
         
-                        //source.base64 = `data:image/jpeg;base64,${source.bsae64}`
-        
-                        this.setState({source})
+                        this.setState({
+                            source:{
+                                ...source,
+                                fileName:fileStat.filename
+                            }
+                        })
                     }
                     catch(err) {
                         if(Consts.is_android) {
@@ -95,9 +101,7 @@ class Scrn extends React.Component {
 
     handleRetake = () => this.setState({source:null})
 
-    handleConfirm = () => {
-        this.props.navigation.navigate(this.props.navigation.state.params.sourceRoute,{source:this.state.source.base64})
-    }
+    handleConfirm = () => this.props.navigation.navigate(this.props.navigation.state.params.sourceRoute,{source:this.state.source})
 
     handleFaceDetected = async data => {
         if(this.state.processing) return false

@@ -1,3 +1,4 @@
+import AddMoney from './AddMoney'
 import SendWalletToWallet from './SendWalletToWallet'
 import SendKP from './SendKP'
 import SendBankTransfer from './SendBankTransfer'
@@ -11,7 +12,7 @@ import Default from './Default'
 import Header from './Header'
 
 export {
-    Default,
+    AddMoney,
     SendWalletToWallet,
     SendKP,
     SendBankTransfer,
@@ -20,6 +21,7 @@ export {
     WithdrawCash,
     PayBill,
     BuyLoad,
+    Default,
 
     Header
 }

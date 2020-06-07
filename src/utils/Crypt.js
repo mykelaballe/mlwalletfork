@@ -11,12 +11,13 @@ const config = {
     keySize:128 / 8
 }
 
-const en = async data => {
+const en = data => {
+    return data
     if(typeof data === 'object') data = JSON.stringify(data)
     return AES.encrypt(data, key, config).toString()
 }
 
-const de = async encryptedData => {
+const de = encryptedData => {
     let bytes  = AES.decrypt(encryptedData, key, config)
     return JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
 }

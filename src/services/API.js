@@ -1,8 +1,9 @@
-import {Linking} from 'react-native'
+import axios from 'axios'
 
 import Consts from '../utils/Consts'
 import Fetch from '../utils/Fetch'
 import Storage from '../utils/Storage'
+import Crypt from '../utils/Crypt'
 
 import WalletToWallet from './endpoints/WalletToWallet'
 import KP from './endpoints/KP'
@@ -81,6 +82,13 @@ export default {
             deviceId:Consts.deviceId,
             version:Consts.appVersion,
         })
+    },
+
+    requestCustID: async () => {
+        //return await Fetch.get('')
+        return {
+            custid:'123'
+        }
     },
 
     forgotPassword: async payload => await Fetch.put('forgotPassword',payload),
@@ -187,7 +195,7 @@ export default {
 
     getCities: async provinceCode => {
         let data = {}
-        let res = await Fetch.get(`getCities/${provinceCode}`)
+        let res = await Fetch.get(`getCities/${Crypt.en(provinceCode)}`)
 
         if(res.data) {
             for(let d in res.data) {
@@ -206,4 +214,52 @@ export default {
 
         return Object.values(data)
     },
+
+    validateID: async payload => {
+        let data = new FormData()
+        data.append('id_type',payload.type)
+        data.append('id_image',payload.image)
+        data.append('is_base64',true)
+
+        let res = await axios({
+            method: 'post',
+            /*headers:{
+                'Content-Type':'multipart/form-data'
+            },*/
+            url: `https://ml-symph-ai.df.r.appspot.com/api/v1/id/validity`,
+            data
+        })
+
+        return res.data
+    },
+
+    compareFace: async payload => {
+        /*let response = await axios({
+            method:'POST',
+            url:'https://ml-symph-ai.df.r.appspot.com/v1/face/compare',
+            headers:{
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            data:JSON.stringify(payload)
+        })
+
+        return response*/
+
+        let data = new FormData()
+        data.append('id_image',payload.id)
+        data.append('face_image',payload.face)
+        data.append('is_base64',false)
+
+        let res = await axios({
+            method: 'post',
+            headers:{
+                'Content-Type':'application/json'
+            },
+            url: `https://ml-symph-ai.df.r.appspot.com/api/v1/face/compare`,
+            data
+        })
+
+        return res.data
+    }
 }

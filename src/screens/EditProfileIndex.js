@@ -3,7 +3,7 @@ import {StyleSheet, TouchableOpacity} from 'react-native'
 import {connect} from 'react-redux'
 import {Screen, Spacer, Avatar, ButtonText} from '../components'
 import {Metrics} from '../themes'
-import {_} from '../utils'
+import {_, Say, Consts} from '../utils'
 
 class Scrn extends React.Component {
 
@@ -11,11 +11,11 @@ class Scrn extends React.Component {
         title:'Edit Profile'
     }
 
-    handleEditName = () => this.props.navigation.navigate('EditMyNameIndex')
+    handleEditName = () => Say.warn(Consts.error.featureNotAvailable)//this.props.navigation.navigate('EditMyNameIndex')
 
-    handleEditBirthday = () => this.props.navigation.navigate('EditMyBirthdayIndex')
+    handleEditBirthday = () => Say.warn(Consts.error.featureNotAvailable)//this.props.navigation.navigate('EditMyBirthdayIndex')
 
-    handleEditGender = () => this.props.navigation.navigate('EditMyGender')
+    handleEditGender = () => Say.warn(Consts.error.featureNotAvailable)//this.props.navigation.navigate('EditMyGender')
 
     handleEditMobileNo = () => this.props.navigation.navigate('EditMyMobileNoIndex')
 

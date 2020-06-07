@@ -1,5 +1,6 @@
 import Consts from '../../utils/Consts'
 import Fetch from '../../utils/Fetch'
+import Crypt from '../../utils/Crypt'
 
 export default {
     buyLoad: async payload => {
@@ -34,19 +35,19 @@ export default {
 
     updateELoadReceiver: async payload => await Fetch.put('updateLoadReceiver',payload),
     
-    deleteELoadReceiver: async payload => await Fetch.delete(`deleteLoadReceiver/${payload.receiverno}`),
+    deleteELoadReceiver: async payload => await Fetch.delete(`deleteLoadReceiver/${Crypt.en(payload.receiverno)}`),
 
     getFavoriteELoadReceivers: async walletno => {
-        let res = await Fetch.get(`eloadFavorites/${walletno}`)
+        let res = await Fetch.get(`eloadFavorites/${Crypt.en(walletno)}`)
         return res.data || []
     },
 
-    addFavoriteELoadReceiver: async payload => await Fetch.post(`eloadFavorites/${payload.receiverno}`),
+    addFavoriteELoadReceiver: async payload => await Fetch.post(`eloadFavorites/${Crypt.en(payload.receiverno)}`),
 
-    removeFavoriteELoadReceiver: async payload => await Fetch.delete(`eloadFavorites/${payload.receiverno}`),
+    removeFavoriteELoadReceiver: async payload => await Fetch.delete(`eloadFavorites/${Crypt.en(payload.receiverno)}`),
 
     getRecentELoadReceivers: async walletno => {
-        let res = await Fetch.get(`recent/${Consts.tcn.bul.code}/${walletno}`)
+        let res = await Fetch.get(`recent/${Consts.tcn.bul.code}/${Crypt.en(walletno)}`)
         return res.data || []
     },
 

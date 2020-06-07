@@ -157,6 +157,7 @@ class Scrn extends React.Component {
 
                 if(!res.error) {
                     this.props.updateInfo(payload)
+                    this.props.navigation.navigate('EditProfileIndex')
                     Say.ok('Details updated')
                 }
                 else Say.warn(res.message)

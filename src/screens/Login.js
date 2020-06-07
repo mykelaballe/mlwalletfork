@@ -26,7 +26,8 @@ class Scrn extends React.Component {
 
     state = {
         data:null,
-        username:'',
+        username:this.props.username,
+        masked_username:'',
         password:'',
         show_password:false,
         processing:false
@@ -34,6 +35,7 @@ class Scrn extends React.Component {
 
     handleLogin = () => {
         const {username, password} = this.state
+        //alert(username)
         this.login({username, password})
     }
 
@@ -156,6 +158,7 @@ class Scrn extends React.Component {
                     else {
                         this.props.setIsUsingTouchID(res.data.fingerprintstat === 1)
                         this.props.setUser(res.data)
+                        this.props.rememberLoginCredentials({username})
                         this.props.login()
                     }
                 }
@@ -176,11 +179,15 @@ class Scrn extends React.Component {
     }
 
     handleChangeUsername = username => {
-        /*this.setState({
-            username: username.length <= 3 ? username : username.replace(/.{3}$/,'•••')
-        })*/
+        this.setState({
+            username,
+            //masked_username:this.mask(username)
+        })
+    }
 
-        this.setState({username})
+    mask = str => {
+        //return str.length <= 3 ? str : str.replace(/.{3}$/,'•••')
+        return str + '*'
     }
 
     handleChangePassword = password => this.setState({password})
@@ -220,7 +227,7 @@ class Scrn extends React.Component {
     render() {
 
         const {isUsingTouchID} = this.props
-        let {username, password, show_password, processing} = this.state
+        let {username, masked_username, password, show_password, processing} = this.state
         let ready = false
 
         if(username && password) ready = true
@@ -302,13 +309,15 @@ const style = StyleSheet.create({
 })
 
 const mapStateToProps = state => ({
-    isUsingTouchID: state.app.isUsingTouchID
+    isUsingTouchID: state.app.isUsingTouchID,
+    username: state.app.rememberedUsername
 })
 
 const mapDispatchToProps = dispatch => ({
     login:() => dispatch(Creators.login()),
     setUser:user => dispatch(Creators.setUser(user)),
-    setIsUsingTouchID:isUsing => dispatch(Creators.setIsUsingTouchID(isUsing))
+    setIsUsingTouchID:isUsing => dispatch(Creators.setIsUsingTouchID(isUsing)),
+    rememberLoginCredentials:credentials => dispatch(Creators.rememberLoginCredentials(credentials))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

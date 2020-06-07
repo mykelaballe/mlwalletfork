@@ -62,7 +62,8 @@ export default {
 		atl1:'1attempt_left',
 		atl2:'2attempt_left',
 		blk1d:'block_account_1day',
-		blk:'block_account'
+		blk:'block_account',
+		featureNotAvailable:'Sorry, this is not yet available. We are still updating this feature to make sure we provide the best experience for you'
 	},
 	allowedSpecialChars:{
 		common:[

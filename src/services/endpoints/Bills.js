@@ -1,5 +1,6 @@
 import Consts from '../../utils/Consts'
 import Fetch from '../../utils/Fetch'
+import Crypt from '../../utils/Crypt'
 
 export default {
     payBill: async payload => {
@@ -75,7 +76,7 @@ export default {
 
     getRecentBillers: async walletno => {
         let data = []
-        let res = await Fetch.get(`recent/${Consts.tcn.bpm.code}/${walletno}`)
+        let res = await Fetch.get(`recent/${Consts.tcn.bpm.code}/${Crypt.en(walletno)}`)
 
         if(!res.error) data = res.data
 

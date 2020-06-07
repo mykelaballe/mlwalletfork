@@ -11,7 +11,8 @@ export const INITIAL_STATE = Immutable({
   hasSeenWithdrawCashOnboarding: false,
   hasSeenPayBillsOnboarding: false,
   hasSeenBuyLoadOnboarding: false,
-  isLocationEnabled: false
+  isLocationEnabled: false,
+  rememberedUsername: ''
 })
 
 const setIsFirstTime = (state, action) => state.merge({ isFirstTime:action.isFirstTime })
@@ -32,6 +33,8 @@ const setHasSeenBuyLoadOnboarding = (state, action) => state.merge({ hasSeenBuyL
 
 const setIsLocationEnabled = (state, action) => state.merge({ isLocationEnabled:action.isEnabled })
 
+const rememberLoginCredentials = (state, action) => state.merge({ rememberedUsername:action.credentials.username })
+
 const ACTION_HANDLERS = {
   [Types.SET_IS_FIRST_TIME]: setIsFirstTime,
   [Types.SET_IS_TOUCH_ID_SUPPORTED]: setIsTouchIDSupported,
@@ -41,7 +44,8 @@ const ACTION_HANDLERS = {
   [Types.SET_HAS_SEEN_WITHDRAWCASH_ONBOARDING]: setHasSeenWithdrawCashOnboarding,
   [Types.SET_HAS_SEEN_PAYBILLS_ONBOARDING]: setHasSeenPayBillsOnboarding,
   [Types.SET_HAS_SEEN_BUYLOAD_ONBOARDING]: setHasSeenBuyLoadOnboarding,
-  [Types.SET_IS_LOCATION_ENABLED]: setIsLocationEnabled
+  [Types.SET_IS_LOCATION_ENABLED]: setIsLocationEnabled,
+  [Types.REMEMBER_LOGIN_CREDENTIALS]: rememberLoginCredentials
 }
 
 export default createReducer(INITIAL_STATE, ACTION_HANDLERS)

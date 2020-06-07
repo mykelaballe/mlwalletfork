@@ -51,8 +51,8 @@ class Scrn extends React.Component {
                         if(res.error) Say.warn(res.message)
                         else {
                             this.props.updateInfo({emailaddress})
-                            this.props.navigation.pop()
                             Say.ok('Your email has been successfully updated')
+                            this.props.navigation.navigate('EditProfileIndex')
                         }
                     }
                 })

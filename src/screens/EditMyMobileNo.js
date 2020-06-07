@@ -52,8 +52,8 @@ class Scrn extends React.Component {
                         if(res.error) Say.warn(res.message)
                         else {
                             this.props.updateInfo({mobileno})
-                            this.props.navigation.pop()
                             Say.ok('Your mobile number has been successfully updated')
+                            this.props.navigation.navigate('EditProfileIndex')
                         }
                     }
                 })

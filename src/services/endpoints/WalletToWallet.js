@@ -1,5 +1,6 @@
 import Consts from '../../utils/Consts'
 import Fetch from '../../utils/Fetch'
+import Crypt from '../../utils/Crypt'
 
 export default {
     sendWalletToWalletValidate: async payload => {
@@ -44,12 +45,12 @@ export default {
     },
 
     getFavoriteWalletReceivers: async walletno => {
-        let res = await Fetch.get(`walletFavorites/${walletno}`)
+        let res = await Fetch.get(`walletFavorites/${Crypt.en(walletno)}`)
         return res.data || []
     },
 
     getRecentWalletReceivers: async walletno => {
-        let res = await Fetch.get(`recent/${Consts.tcn.stw.code}/${walletno}`)
+        let res = await Fetch.get(`recent/${Consts.tcn.stw.code}/${Crypt.en(walletno)}`)
         return res.data || []
     },
 

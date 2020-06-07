@@ -8,7 +8,7 @@ let headers = {
   'Content-Type': 'application/json'
 }
 
-const callAPI = async (method, url, data = null) => {
+const callAPI = async (method, url, data = null, crypt = false) => {
   let user = await Storage.doLoad(Consts.db.user)
   if(user) {
     headers.Authorization = `Bearer ${user.access_token}`
@@ -16,10 +16,12 @@ const callAPI = async (method, url, data = null) => {
 
   url = `${Consts.baseURL}${url}`
 
-  /*if(url.indexOf('?') >= 0) {
-    let url_pieces = url.split('?')
-    url = `${url_pieces[0]}?${Crypt.en(url_pieces[1])}`
-  }*/
+  if(crypt) {
+    if(url.indexOf('?') >= 0) {
+      let url_pieces = url.split('?')
+      url = `${url_pieces[0]}?ciphertext=${Crypt.en(url_pieces[1])}`
+    }
+  }
 
   let config = {
     method,
@@ -28,8 +30,7 @@ const callAPI = async (method, url, data = null) => {
   }
 
   if(data) {
-    //config.data = Crypt.en(data)
-    config.data = JSON.stringify(data)
+    config.data = crypt ? Crypt.en(data) : JSON.stringify(data)
   }
 
   let response = await axios(config)
@@ -38,12 +39,20 @@ const callAPI = async (method, url, data = null) => {
 }
 
 export default {
-
   post: async (url, data = null) => callAPI('post', url, data),
 
   put: async(url, data = null) => callAPI('put', url, data),
 
   delete: async (url, data = null) => callAPI('delete', url, data),
 
-  get: async url => callAPI('get', url)
+  get: async url => callAPI('get', url),
+
+  //Crypt enabled
+  postc: async (url, data = null) => callAPI('post', url, data, true),
+
+  putc: async(url, data = null) => callAPI('put', url, data, true),
+
+  deletec: async (url, data = null) => callAPI('delete', url, data, true),
+
+  getc: async url => callAPI('get', url, null, true)
 }

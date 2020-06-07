@@ -1,7 +1,7 @@
 import React from 'react'
 import {InteractionManager} from 'react-native'
 import {View, ButtonIcon, HeaderRight, ActivityIndicator} from '../components'
-import {Default, SendWalletToWallet, SendKP, SendBankTransfer, ReceiveMoneyDomestic, ReceiveMoneyInternational, WithdrawCash, PayBill, BuyLoad} from '../components/transaction_receipt'
+import {AddMoney, Default, SendWalletToWallet, SendKP, SendBankTransfer, ReceiveMoneyDomestic, ReceiveMoneyInternational, WithdrawCash, PayBill, BuyLoad} from '../components/transaction_receipt'
 import {Colors, Metrics} from '../themes'
 import {_, Say, Consts, Func} from '../utils'
 import Icon from 'react-native-vector-icons/AntDesign'
@@ -135,8 +135,8 @@ export default class Scrn extends React.Component {
 
         else if(type === Consts.tcn.bul.code) return <BuyLoad data={data} onExport={this.handleSetExportData} />
 
-        else {
-            return <Default data={data} onExport={this.handleSetExportData} />
-        }
+        else if(type === Consts.tcn.adm.code) return <AddMoney data={data} onExport={this.handleSetExportData} />
+
+        else return <Default data={data} onExport={this.handleSetExportData} />
     }
 }

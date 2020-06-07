@@ -126,6 +126,8 @@ class Scrn extends React.Component {
 
                 if(!otpRes.error) {
 
+                    let custIDRes = await API.requestCustID()
+
                     let payload = {
                         uname:username,
                         password,
@@ -159,7 +161,8 @@ class Scrn extends React.Component {
                         profilepic,
                         latitude,
                         longitude,
-                        location
+                        location,
+                        //custid:custIDRes.custid || null
                     }
 
                     let res = await API.register(payload)
@@ -197,6 +200,8 @@ class Scrn extends React.Component {
         if(`${digit1}${digit2}${digit3}${digit4}${digit5}${digit6}`.length >= 6) {
             ready = true
         }
+
+        if(reprocessing) ready = false
 
         return (
             <>

@@ -1,8 +1,9 @@
 import React from 'react'
-import {StyleSheet, TouchableOpacity} from 'react-native'
+import {StyleSheet, TouchableOpacity, Clipboard} from 'react-native'
 import {Screen, Headline, Footer, FlatList, Text, Button, ButtonText, HR, SignUpStepsTracker, Row, Outline} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
+import {API} from '../services'
 
 const ItemUI = props => (
     <>
@@ -25,47 +26,58 @@ export default class Scrn extends React.Component {
         list:[
             {
                 id:1,
-                name:'SSS ID'
+                name:'SSS ID',
+                value:'sss'
             },
             {
                 id:2,
-                name:'UMID'
+                name:'UMID',
+                value:'umid'
             },
             {
                 id:3,
-                name:'Passport'
+                name:'Passport',
+                value:'passport'
             },
             {
                 id:4,
-                name:"Driver's License"
+                name:"Driver's License",
+                value:'license'
             },
             {
                 id:5,
-                name:'PhilHealth ID'
+                name:'PhilHealth ID',
+                value:'philhealth'
             },
             {
                 id:6,
-                name:'Postal ID'
+                name:'Postal ID',
+                value:'postal'
             },
             {
                 id:7,
-                name:"Voter's ID"
+                name:"Voter's ID",
+                value:'voter'
             },
             {
                 id:8,
-                name:'PRC ID'
+                name:'PRC ID',
+                value:'prc'
             },
             {
                 id:9,
-                name:"Senior Citizen's ID"
+                name:"Senior Citizen's ID",
+                value:'senior'
             },
             {
                 id:10,
-                name:"Student ID"
+                name:"Student ID",
+                value:'student'
             },
             {
                 id:11,
-                name:"Company ID"
+                name:"Company ID",
+                value:'company'
             }
         ],
         for:'',
@@ -123,24 +135,63 @@ export default class Scrn extends React.Component {
     }
 
     handleSubmit = async () => {
-        let {profilepic, validID} = this.state
+        let {profilepic, validID, list, selectedIDIndex, processing} = this.state
+
+        if(processing) return false
 
         try {
-            if(!profilepic) this.takeLivePhoto()
+            if(!profilepic) {
+                this.setState({processing:true})
+
+                /*let res = await API.validateID({
+                    type:list[selectedIDIndex].value,
+                    image:{
+                        uri:validID.uri,
+                        name:validID.fileName,
+                        type:'multipart/form-data'
+                    }
+                    image:validID.base64
+                    image:validID.base64.substring(4)
+                })*/
+                let res = {valid:true}
+                if(res.valid) this.takeLivePhoto()
+                else Say.err('Invalid')
+            }
             else {
-                this.props.navigation.navigate('SignUpStep4',{
-                    ...this.props.navigation.state.params,
-                    validID,
-                    profilepic
-                })
+                this.setState({processing:true})
+                /*let res = await API.compareFace({
+                    id:{
+                        uri:validID.uri,
+                        name:validID.fileName,
+                        type:'multipart/form-data'
+                    },
+                    face:{
+                        uri:profilepic.uri,
+                        name:profilepic.fileName,
+                        type:'multipart/form-data'
+                    }
+                })*/
+                let res = {valid:true}
+                if(res.valid) {
+                    this.props.navigation.navigate('SignUpStep4',{
+                        ...this.props.navigation.state.params,
+                        validID:validID.base64,
+                        profilepic:profilepic.base64
+                    })
+                }
+                else Say.err('Invalid')
             }
         }
         catch(err) {
             Say.err(err)
         }
+
+        this.setState({processing:false})
     }
 
     handleChangeValidID = () => {
+        if(this.state.processing) return false
+
         let list = this.state.list.slice()
         list.map(l => l.selected = false)
         this.setState({

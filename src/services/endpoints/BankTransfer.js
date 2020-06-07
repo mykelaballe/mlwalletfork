@@ -1,5 +1,6 @@
 import Consts from '../../utils/Consts'
 import Fetch from '../../utils/Fetch'
+import Crypt from '../../utils/Crypt'
 
 export default {
     sendBankTransfer: async payload => {
@@ -37,12 +38,12 @@ export default {
     },
 
     getFavoriteBankPartners: async walletno => {
-        let res = await Fetch.get(`bankFavorites/${walletno}`)
+        let res = await Fetch.get(`bankFavorites/${Crypt.en(walletno)}`)
         return res.data || []
     },
 
     getRecentBankPartners: async walletno => {
-        let res = await Fetch.get(`recent/${Consts.tcn.stb.code}/${walletno}`)
+        let res = await Fetch.get(`recent/${Consts.tcn.stb.code}/${Crypt.en(walletno)}`)
         return res.data || []
     },
 

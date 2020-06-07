@@ -86,6 +86,7 @@ class Scrn extends React.Component {
                         })
 
                         Say.ok("Your password has been successfully changed")
+                        this.props.navigation.pop()
                     }
                 }
                 else {

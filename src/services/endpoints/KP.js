@@ -1,5 +1,6 @@
 import Consts from '../../utils/Consts'
 import Fetch from '../../utils/Fetch'
+import Crypt from '../../utils/Crypt'
 
 export default {
     sendKPValidate: async payload => await Fetch.post('kp/validate',payload),
@@ -17,12 +18,12 @@ export default {
     getKPReceivers: async walletno => await Fetch.get(`kp/kplistreceivers?walletno=${walletno}`),
 
     getFavoriteKPReceivers: async walletno => {
-        let res = await Fetch.get(`kpFavorites/${walletno}`)
+        let res = await Fetch.get(`kpFavorites/${Crypt.en(walletno)}`)
         return res.data || []
     },
 
     getRecentKPReceivers: async walletno => {
-        let res = await Fetch.get(`recent/${Consts.tcn.skp.code}/${walletno}`)
+        let res = await Fetch.get(`recent/${Consts.tcn.skp.code}/${Crypt.en(walletno)}`)
         return res.data || []
     },
 
