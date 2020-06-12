@@ -6,8 +6,8 @@ import {_, Say, Func, Consts} from '../utils'
 export default class Scrn extends React.Component {
 
     state = {
-        password:'',
-        confirm_password:'',
+        password:'p@ssword1',
+        confirm_password:'p@ssword1',
         error:false,
         password_errors:[],
         processing:false

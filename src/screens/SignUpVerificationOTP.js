@@ -2,7 +2,7 @@ import React from 'react'
 import {StyleSheet} from 'react-native'
 import {Screen, Footer, Headline, Button, ButtonText, Spacer, TextInputFlat, Row, SignUpStepsTracker} from '../components'
 import {Metrics} from '../themes'
-import {_, Say, Consts, Func} from '../utils'
+import {_, Say, Consts, Func, Crypt} from '../utils'
 import {API} from '../services'
 
 class Scrn extends React.Component {
@@ -124,6 +124,10 @@ class Scrn extends React.Component {
                     _pin:otp
                 })
 
+                /*let test = Crypt.en(profilepic)
+                alert(test)
+                return false*/
+
                 if(!otpRes.error) {
 
                     //let custIDRes = await API.requestCustID()
@@ -157,8 +161,8 @@ class Scrn extends React.Component {
                         secquestion3:question3,
                         secanswer3:answer3,
                         mobileno:mobile_no,
-                        validID,
-                        profilepic,
+                        validID:`${validID}`,
+                        profilepic:`${profilepic}`,
                         latitude,
                         longitude,
                         location,

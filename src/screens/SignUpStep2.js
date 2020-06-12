@@ -9,7 +9,7 @@ export default class Scrn extends React.Component {
     }
 
     state = {
-        country:'Philippines',
+        country:'Japan',
         province:{
             province:'',
             provCode:''

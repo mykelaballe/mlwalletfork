@@ -61,7 +61,7 @@ class Scrn extends React.Component {
                         let source = await this.camera.takePictureAsync({
                             width: 720,
                             height: 1280,
-                            //quality: 0.7,
+                            //quality: 1.0,
                             base64: true,
                             orientation: 'portrait',
                             skipProcessing:true,
@@ -73,7 +73,8 @@ class Scrn extends React.Component {
                             //iOS
                             forceUpOrientation:true
                         })
-
+                        
+                        source.uri = source.uri.replace('file:///private', '')
                         let fileStat = await RNFetchBlob.fs.stat(source.uri)
         
                         this.setState({
