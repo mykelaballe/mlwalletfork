@@ -50,7 +50,7 @@ class Scrn extends React.Component {
         const {walletno} = this.props.user
         const {params} = this.props.navigation.state
         let {transaction_no, currency, amount, partner, sender, processing} = this.state
-        let latitude = '', longitude = ''
+        let latitude = '0.0', longitude = '0.0'
 
         if(processing) return false
         

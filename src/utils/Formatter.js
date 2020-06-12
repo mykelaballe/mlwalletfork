@@ -22,6 +22,7 @@ const formatToRealCurrency = value => {
 
 const cleanName = str => {
     if(str === null) return ''
+    
     str = str.replace(' WAIVED ', ' ')
     str = str.replace(' NONE', ' ')
 
@@ -62,11 +63,14 @@ const formatAddress = userObject => {
 }
 
 const formatToPHMobileNumber = str => {
+    if(!str) return ''
     str = str.replace('+63 ', '0')
     return str.replace(/ /g, '')
 }
 
 const formatToPHMobileNumberFull = str => {
+    if(!str) return ''
+    
     let piece1 = str.slice(1, 4)
     let piece2 = str.slice(4, 7)
     let piece3 = str.slice(7, 11)
@@ -74,10 +78,12 @@ const formatToPHMobileNumberFull = str => {
 }
 
 const formatWalletNo = str => {
+    if(!str) return ''
     return str.replace(/^(\d{4})(\d{4})(\d{4})(\d{2}).*/, '$1 $2 $3 $4')
 }
 
 const formatKPTN = str => {
+    if(!str) return ''
     return str.replace(/^(\w{3})(\d{4})(\d{4})(\d{4})(\d{4})(\d{2}).*/, '$1 $2-$3-$4-$5-$6')
 }
 

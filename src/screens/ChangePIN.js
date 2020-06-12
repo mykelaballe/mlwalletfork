@@ -82,6 +82,7 @@ class Scrn extends React.Component {
                     })
 
                     Say.ok("Your PIN has been successfully changed")
+                    this.props.navigation.pop()
                 }
             }
         }

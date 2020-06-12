@@ -4,7 +4,12 @@ import Crypt from '../../utils/Crypt'
 
 export default {
     sendWalletToWalletValidate: async payload => {
-        let res = await Fetch.get(`sendout/wallettowallet/validate?walletno=${payload.walletno}&principal=${payload.amount}&isMLP=1`)
+        //let res = await Fetch.get(`sendout/wallettowallet/validate?walletno=${payload.walletno}&principal=${payload.amount}&isMLP=1`)
+        let res = await Fetch.getc(`sendout/wallettowallet/validate?${JSON.stringify({
+            walletno:payload.walletno,
+            principal:payload.amount,
+            isMLP:1
+        })}`)
 
         return {
             ...res,
@@ -14,7 +19,7 @@ export default {
     },
 
     sendWalletToWallet: async payload => {
-        let res = await Fetch.post('sendmoney/wallettowallet',{
+        let res = await Fetch.postc('sendmoney/wallettowallet',{
             ...payload,
             currency:'PHP',
             location:'',
@@ -40,32 +45,47 @@ export default {
     },
 
     getWalletReceivers: async walletno => {
-        let res = await Fetch.get(`wallettowallet/receiverlist?walletno=${walletno}`)
+        //let res = await Fetch.get(`wallettowallet/receiverlist?walletno=${walletno}`)
+        let res = await Fetch.getc(`wallettowallet/receiverlist?${JSON.stringify({walletno})}`)
         return res.recieverlists || []
     },
 
     getFavoriteWalletReceivers: async walletno => {
-        let res = await Fetch.get(`walletFavorites/${walletno}`)
+        //let res = await Fetch.get(`walletFavorites/${walletno}`)
+        let res = await Fetch.getc(`walletFavorites?${JSON.stringify({walletno})}`)
         return res.data || []
     },
 
     getRecentWalletReceivers: async walletno => {
-        let res = await Fetch.get(`recent/${Consts.tcn.stw.code}/${walletno}`)
+        //let res = await Fetch.get(`recent/${Consts.tcn.stw.code}/${walletno}`)
+        let res = await Fetch.getc(`recent?${JSON.stringify({type:Consts.tcn.stw.code, walletno})}`)
         return res.data || []
     },
 
     searchWalletReceiver: async payload => {
-        let params = [
+        /*let params = [
             `${payload.mobile_no ? 'walletnum' : 'walletno'}=${payload.walletno}`
-        ]
+        ]*/
 
-        if(payload.firstname) params.push(`firstname=${payload.firstname}`)
+        let params = {
+            walletno:payload.walletno
+        }
+
+        //if(payload.mobile_no) params.walletnum = payload.walletno
+        //else params.walletno = payload.walletno
+
+        /*if(payload.firstname) params.push(`firstname=${payload.firstname}`)
         if(payload.lastname) params.push(`lastname=${payload.lastname}`)
-        if(payload.mobile_no) params.push(`mobileNum=${payload.mobile_no}`)
+        if(payload.mobile_no) params.push(`mobileNum=${payload.mobile_no}`)*/
 
-        let endpoint = payload.mobile_no ? 'searchreceiver/mobilenumber' : 'searchreceiver'
+        if(payload.firstname) params.firstname = payload.firstname
+        if(payload.lastname) params.lastname = payload.lastname
+        if(payload.mobile_no) params.mobileno = payload.mobile_no
 
-        let res = await Fetch.get(`wallettowallet/${endpoint}?${params.join('&')}`)
+        let endpoint = params.mobileNum ? 'searchreceiver/mobilenumber' : 'searchreceiver'
+
+        //let res = await Fetch.get(`wallettowallet/${endpoint}?${params.join('&')}`)
+        let res = await Fetch.getc(`wallettowallet/${endpoint}?${JSON.stringify(params)}`)
 
         return {
             ...res,
@@ -75,7 +95,7 @@ export default {
     },
 
     addWalletReceiver: async payload => {
-        let res = await Fetch.post('wallettowallet/addreceiver',payload)
+        let res = await Fetch.postc('wallettowallet/addreceiver',payload)
 
         return {
             ...res,
@@ -84,9 +104,17 @@ export default {
         }
     },
 
-    deleteWalletReceiver: async payload => await Fetch.delete(`wallettowallet/deletereceiver?receiverNo=${payload.walletno}`),
+    deleteWalletReceiver: async payload => {
+        let res = await Fetch.deletec(`wallettowallet/deletereceiver`,payload)
 
-    addFavoriteWalletReceiver: async payload => await Fetch.post(`walletFavorites`,payload),
+        return {
+            ...res,
+            error:res.respcode == 0,
+            message:res.respmessage
+        }
+    },
 
-    removeFavoriteWalletReceiver: async payload => await Fetch.delete(`walletFavorites`,payload)
+    addFavoriteWalletReceiver: async payload => await Fetch.postc(`walletFavorites`,payload),
+
+    removeFavoriteWalletReceiver: async payload => await Fetch.deletec(`walletFavorites`,payload)
 }

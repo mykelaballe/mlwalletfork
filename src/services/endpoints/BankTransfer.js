@@ -43,7 +43,8 @@ export default {
     },
 
     getRecentBankPartners: async walletno => {
-        let res = await Fetch.get(`recent/${Consts.tcn.stb.code}/${walletno}`)
+        //let res = await Fetch.get(`recent/${Consts.tcn.stb.code}/${walletno}`)
+        let res = await Fetch.getc(`recent?${JSON.stringify({type:Consts.tcn.stb.code, walletno})}`)
         return res.data || []
     },
 
@@ -53,11 +54,7 @@ export default {
 
     deleteBankPartner: async payload => await Fetch.deletec('bankAccount/delete',payload),
 
-    addFavoriteBankPartner: async payload => {
-        return await Fetch.post(`bankFavorites`,payload)
-    },
+    addFavoriteBankPartner: async payload => await Fetch.post(`bankFavorites`,payload),
 
-    removeFavoriteBankPartner: async payload => {
-        return await Fetch.delete(`bankFavorites`,payload)
-    }
+    removeFavoriteBankPartner: async payload => await Fetch.delete(`bankFavorites`,payload)
 }

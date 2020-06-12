@@ -3,7 +3,7 @@ import {withNavigation} from 'react-navigation'
 import {Header} from './'
 import {Screen, Footer, Text, Spacer, Button, ScrollFix} from '../'
 import {Metrics} from '../../themes'
-import {_, Func, Say} from '../../utils'
+import {_, Func, Say, Consts} from '../../utils'
 
 class AddMoney extends React.Component {
 
@@ -15,16 +15,10 @@ class AddMoney extends React.Component {
     }
 
     componentDidMount = () => {
-        const {_from, walletno, receiver, balance} = this.props.data
+        const {_from, walletno, balance} = this.props.data
         const {total} = this.state
 
         this.props.onExport(`
-            <h4 style="color:#6A6A6A;line-height:0">Sender</h4>
-            <h3>${receiver.fullname}</h3>
-
-            <h4 style="color:#6A6A6A;line-height:0">Receiver</h4>
-            <h3>${receiver.fullname}</h3>
-
             <h4 style="color:#6A6A6A;line-height:0">Total</h4>
             <h3 style="margin-top:0">PHP ${total}</h3>
         `)
@@ -49,7 +43,7 @@ class AddMoney extends React.Component {
 
     render() {
 
-        const {_from, kptn, walletno, receiver} = this.props.data
+        const {_from, kptn, walletno} = this.props.data
         const {total, date, time, type} = this.state
 
         return (
@@ -61,16 +55,6 @@ class AddMoney extends React.Component {
                     />
 
                     <ScrollFix style={{padding:Metrics.lg}}>
-                        <Text sm mute>Sender</Text>
-                        <Text>{receiver.fullname}</Text>
-
-                        <Spacer />
-
-                        <Text sm mute>Receiver</Text>
-                        <Text>{receiver.fullname}</Text>
-
-                        <Spacer />
-
                         <Text sm mute>Total</Text>
                         <Text>PHP {total}</Text>
 

@@ -36,7 +36,9 @@ class Scrn extends React.Component {
     }
 
     state = {
-        ...this.props.navigation.state.params.biller
+        ...this.props.navigation.state.params.biller,
+        deleting:false,
+        favoriting:false
     }
 
     componentDidMount = () => {
@@ -57,7 +59,11 @@ class Scrn extends React.Component {
     }
 
     handleToggleMenu = () => {
+        const {deleting} = this.state
         let {menuOpen} = this.props.navigation.state.params
+
+        if(deleting) return false
+
         menuOpen = !menuOpen
         this.props.navigation.setParams({menuOpen})
     }
@@ -81,8 +87,13 @@ class Scrn extends React.Component {
 
     handleConfirmDelete = async () => {
         const {walletno} = this.props.user
-        const {id} = this.state
+        const {id, deleting} = this.state
+
+        if(deleting) return false
+
         try {
+            this.setState({deleting:true})
+
             await API.deleteBiller({
                 walletno,
                 id
@@ -96,15 +107,21 @@ class Scrn extends React.Component {
         catch(err) {
             Say.err(err)
         }
+
+        this.setState({deleting:false})
     }
 
     handleSelect = () => this.props.navigation.navigate('PayBill',{biller:this.state})
 
     handleToggleFavorite = async () => {
         const {walletno} = this.props.user
-        const {id, isFavorite} = this.state
+        const {id, isFavorite, favoriting} = this.state
+
+        if(favoriting) return false
         
         try {
+            this.setState({favoriting:true})
+
             let payload = {
                 walletno,
                 id
@@ -122,11 +139,13 @@ class Scrn extends React.Component {
         catch(err) {
             Say.err(err)
         }
+
+        this.setState({favoriting:false})
     }
 
     render() {
 
-        const {partner, account_name, account_no, email, isFavorite} = this.state
+        const {partner, account_name, account_no, email, isFavorite, deleting, favoriting} = this.state
 
         return (
             <>
@@ -154,13 +173,13 @@ class Scrn extends React.Component {
                     <Outline>
                         <Row bw>
                             <Text>{isFavorite ? 'Remove from' : 'Add to'} favorite</Text>
-                            <Switch value={isFavorite} onValueChange={this.handleToggleFavorite} />
+                            <Switch value={isFavorite} onValueChange={this.handleToggleFavorite} loading={favoriting} />
                         </Row>
                     </Outline>
                 </Screen>
 
                 <Footer>
-                    <Button t='Select Biller' onPress={this.handleSelect} />
+                    <Button disabled={deleting} t={deleting ? _('91') : 'Select Biller'} onPress={this.handleSelect} loading={deleting} />
                 </Footer>
             </>
         )

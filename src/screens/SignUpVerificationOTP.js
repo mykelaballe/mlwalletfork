@@ -65,7 +65,7 @@ class Scrn extends React.Component {
 
         if(processing || reprocessing) return false
 
-        let latitude = '', longitude = '', location = ''
+        let latitude = '0.0', longitude = '0.0', location = ''
 
         const locationRes = await Func.getLocation()
         if(!locationRes.error) {
@@ -126,7 +126,7 @@ class Scrn extends React.Component {
 
                 if(!otpRes.error) {
 
-                    let custIDRes = await API.requestCustID()
+                    //let custIDRes = await API.requestCustID()
 
                     let payload = {
                         uname:username,

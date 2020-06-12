@@ -23,10 +23,11 @@ const ItemUI = ({data, onPress}) => (
                 {((data.transtype === Consts.tcn.skp.code || data.transtype === Consts.tcn.wdc.code) && data.iscancelled > 0) && <Text mute>CANCELLED</Text>}
                 <Text b md>{Consts.tcn[data.transtype] ? Consts.tcn[data.transtype].short_desc : data.transtype}</Text>
                 <Text mute>{moment(data.transdate).format('MM/DD/YYYY')}</Text>
+                {(data.runningbalance != '' && data.runningbalance) && <Text mute>Running Balance: {Func.formatToRealCurrency(data.runningbalance)}</Text>}
             </View>
 
             <View>
-                <Text b md right>{data.transtype === Consts.tcn.rmd.code || data.transtype === Consts.tcn.rmi.code ? '' : '-'}PHP {Func.formatToRealCurrency(data.amount)}</Text>
+                <Text b md right>{data.transtype === Consts.tcn.rmd.code || data.transtype === Consts.tcn.rmi.code || data.transtype === Consts.tcn.adm.code ? '' : '-'}PHP {Func.formatToRealCurrency(data.amount)}</Text>
                 <TouchableOpacity onPress={() => onPress(data)}>
                     <Text brand right>View details</Text>
                 </TouchableOpacity>
@@ -267,13 +268,14 @@ class Scrn extends React.Component {
             //controlno:item.transactionno,
             kptn:item.transactionno,
             transaction: {
-                walletno:item.receiverwalletno,
+                walletno:item.receiverwalletno || item.walletno,
                 contact_no:item.mobileno,
                 receiver: {
                     fullname:item.receiverfullname,
-                    firstname:item.receiverfirstname,
-                    lastname:item.receiverlastname,
-                    middlename:item.receivermiddlename,
+                    firstname:item.receiverfname,
+                    lastname:item.receiverlname,
+                    middlename:item.receivermname,
+                    suffix:item.receiversuffix,
                 },
                 biller_partner_name:item.partnername,
                 bank:item.partnername,

@@ -65,9 +65,23 @@ class Scrn extends React.Component {
                         <Text>+63 (32) 348-9400-09</Text>
                     </RippleItem>
 
-                    <RippleItem onPress={this.handleEmail} value={'customercare@mlhuillier1.com'} style={style.item}>
+                    <Spacer />
+
+                    <Text b>Mobile no.</Text>
+
+                    <RippleItem onPress={this.handleCall} value={'09479990337'} style={style.item}>
+                        <Text b>Smart</Text>
+                        <Text>0947-999-0337</Text>
+                    </RippleItem>
+
+                    <RippleItem onPress={this.handleCall} value={'09178712973'} style={style.item}>
+                        <Text b>Globe</Text>
+                        <Text>0917-871-2973</Text>
+                    </RippleItem>
+
+                    <RippleItem onPress={this.handleEmail} value={'customercare@mlhuillier.com'} style={style.item}>
                         <Text b>Email us at</Text>
-                        <Text>customercare@mlhuillier1.com</Text>
+                        <Text>customercare@mlhuillier.com</Text>
                     </RippleItem>
                 </Card>
 
@@ -95,6 +109,8 @@ class Scrn extends React.Component {
                 <TouchableOpacity onPress={this.handleGovPrivacy}>
                     <Text md>(https://www.privacy.gov.ph)</Text>
                 </TouchableOpacity>
+
+                <Spacer xl />
             </ScrollView>
         )
 

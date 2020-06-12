@@ -14,6 +14,7 @@ export default class Scrn extends React.Component {
         type:Consts.tcn.bul.code,
         networks:Consts.cellular_networks,
         network:'',
+        receiverno:this.props.navigation.state.params.receiver.receiverno,
         name:this.props.navigation.state.params.receiver.fullname,
         contact_no:this.props.navigation.state.params.receiver.mobileno,
     }

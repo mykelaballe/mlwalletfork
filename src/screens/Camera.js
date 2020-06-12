@@ -178,7 +178,10 @@ class Scrn extends React.Component {
                         {processing && <ActivityIndicator />}
                         
                         {!processing &&
-                        <Text center sm>{isLivePhoto ? 'Take a clear selfie' : 'Place your ID within the frame and take a picture'}</Text>
+                        <>
+                            <Text center sm>{isLivePhoto ? 'Blink once to take a live photo' : 'Place your ID within the frame and take a picture'}</Text>
+                            <Text center sm>Make sure you're in a well-lighted area.</Text>
+                        </>
                         }
 
                         {!processing &&

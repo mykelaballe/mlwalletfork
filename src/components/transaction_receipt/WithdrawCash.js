@@ -63,7 +63,7 @@ class WithdrawCash extends React.Component {
     cancelTransaction = async () => {
         const {cancelling} = this.state
         const {walletno} = this.props.user
-        const {kptn} = this.props.data
+        const {_from, kptn} = this.props.data
 
         if(cancelling) return false
 
@@ -83,6 +83,8 @@ class WithdrawCash extends React.Component {
                     status:'cancelled'
                 })
                 Say.ok(`Your transaction ${Consts.tcn.wdc.short_desc} has been cancelled`)
+                
+                if(_from == 'history') this.props.navigation.pop()
             }
         }
         catch(err) {

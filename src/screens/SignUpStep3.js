@@ -155,7 +155,7 @@ export default class Scrn extends React.Component {
                 })*/
                 let res = {valid:true}
                 if(res.valid) this.takeLivePhoto()
-                else Say.err('Invalid')
+                else Say.err('Type of ID submitted does not match with the selected ID type. Please try again or choose another ID.')
             }
             else {
                 this.setState({processing:true})
@@ -178,8 +178,8 @@ export default class Scrn extends React.Component {
                         validID:validID.base64,
                         profilepic:profilepic.base64
                     })
-                }
-                else Say.err('Invalid')
+                }//Details from the ID submitted does not match with your registered personal information. Please try again or choose another ID.
+                else Say.err('Photo from the ID submitted does not match with live photo taken. Please try again or choose another ID.')
             }
         }
         catch(err) {

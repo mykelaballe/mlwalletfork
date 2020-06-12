@@ -34,6 +34,7 @@ import Provider from './Provider'
 import Radio from './Radio'
 import Responder from './Responder'
 import Ripple from './Ripple'
+import RouteTitle from './RouteTitle'
 import Row from './Row'
 import Screen from './Screen'
 import ScrollFix from './ScrollFix'
@@ -91,6 +92,7 @@ export {
     Radio,
     Responder,
     Ripple,
+    RouteTitle,
     Row,
     Screen,
     ScrollFix,

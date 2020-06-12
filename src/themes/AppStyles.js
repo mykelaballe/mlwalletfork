@@ -37,6 +37,7 @@ export default {
         tabBarPosition: 'bottom',
         animationEnabled: false,
         swipeEnabled: false,
-        showIcon: false
+        showIcon: false,
+        lazy:true
     }
 }

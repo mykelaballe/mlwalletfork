@@ -104,7 +104,7 @@ class Scrn extends React.Component {
                 Consts.tcn.bul.code,
                 Consts.tcn.bpm.code
             ]
-            let latitude = '', longitude = ''
+            let latitude = '0.0', longitude = '0.0'
 
             if(Consts.checkLocation && checkForGeolocation.indexOf(type) >= 0) {
                 const locationRes = await Func.getLocation()
@@ -168,7 +168,8 @@ class Scrn extends React.Component {
                             accountNo:transaction.account_no,
                             accountName:transaction.account_name,
                             amountpaid:transaction.amount,
-                            conveniencefee:transaction.convenience_fee
+                            conveniencefee:transaction.convenience_fee,
+                            isRTA:1
                         })
                     }
                     else if(type == Consts.tcn.wdc.code) {
@@ -188,13 +189,16 @@ class Scrn extends React.Component {
                             accountName:transaction.account_name,
                             email:transaction.email,
                             amountpaid:transaction.amount,
-                            conveniencefee:transaction.convenience_fee
+                            conveniencefee:transaction.convenience_fee,
+                            isRTA:0
                         })
                     }
                     else if(type == Consts.tcn.bul.code) {
                         let payload = {
                             walletNo:walletno,
                             amount:transaction.amount,
+                            receiverno:transaction.receiverno,
+                            receiverFullname:transaction.name,
                             mobileNo:transaction.contact_no,
                             networkId:transaction.network.id,
                             latitude,

@@ -74,7 +74,7 @@ class Scrn extends React.Component {
         let username = payload.username
         let password = payload.password
 
-        let latitude = '', longitude = ''
+        let latitude = '0.0', longitude = '0.0'
 
         if(processing) return false
 

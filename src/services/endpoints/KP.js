@@ -15,15 +15,21 @@ export default {
 
     sendKPCancel: async payload => await Fetch.postc('kp/cancelSendMoney',payload),
 
-    getKPReceivers: async walletno => await Fetch.getc(`kp/kplistreceivers?walletno=${walletno}`),
+    getKPReceivers: async walletno => {
+        //let res = await Fetch.get(`kp/kplistreceivers?walletno=${walletno}`)
+        let res = await Fetch.getc(`kp/kplistreceivers?${JSON.stringify({walletno})}`)
+        return res
+    },
 
     getFavoriteKPReceivers: async walletno => {
-        let res = await Fetch.get(`kpFavorites/${walletno}`)
+        //let res = await Fetch.get(`kpFavorites/${walletno}`)
+        let res = await Fetch.getc(`kpFavorites?${JSON.stringify({walletno})}`)
         return res.data || []
     },
 
     getRecentKPReceivers: async walletno => {
-        let res = await Fetch.get(`recent/${Consts.tcn.skp.code}/${walletno}`)
+        //let res = await Fetch.get(`recent/${Consts.tcn.skp.code}/${walletno}`)
+        let res = await Fetch.getc(`recent?${JSON.stringify({type:Consts.tcn.skp.code, walletno})}`)
         return res.data || []
     },
 
@@ -45,7 +51,7 @@ export default {
 
     deleteKPReceiver: async payload => await Fetch.deletec('kp/deleteKwartaPadalaReceiver',payload),
 
-    addFavoriteKPReceiver: async payload => await Fetch.post(`kpFavorites`,payload),
+    addFavoriteKPReceiver: async payload => await Fetch.postc(`kpFavorites`,payload),
 
-    removeFavoriteKPReceiver: async payload => await Fetch.delete(`kpFavorites`,payload),
+    removeFavoriteKPReceiver: async payload => await Fetch.deletec(`kpFavorites`,payload),
 }

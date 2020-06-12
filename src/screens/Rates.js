@@ -2,7 +2,7 @@ import React from 'react'
 import {StyleSheet, InteractionManager} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Screen, Text, Row, FlatList, Spacer, ScrollFix} from '../components'
+import {Screen, Text, Row, FlatList, Spacer, ScrollFix, RouteTitle} from '../components'
 import {Metrics} from '../themes'
 import {_, Say, Consts, Func} from '../utils'
 import {API} from '../services'
@@ -10,7 +10,8 @@ import {API} from '../services'
 class Scrn extends React.Component {
 
     static navigationOptions = {
-        title:`${Consts.tcn.skp.short_desc} Rates`
+        //title:`${Consts.tcn.skp.short_desc} Rates`
+        headerTitle:<RouteTitle t={`${Consts.tcn.skp.short_desc} Rates`} />
     }
 
     state = {

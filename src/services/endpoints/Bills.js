@@ -4,13 +4,13 @@ import Crypt from '../../utils/Crypt'
 
 export default {
     payBill: async payload => {
-        let res = await Fetch.post('paybills',{
+        let res = await Fetch.postc('paybills',{
             ...payload,
             currency:'PHP',
             location:'',
             deviceid:Consts.deviceId,
             version:Consts.appVersion,
-            isRTA:''
+            isRTA:payload.isRTA
         })
 
         if(res.respcode != 1) {
@@ -19,8 +19,6 @@ export default {
                 message:res.respmessage
             }
         }
-
-        console.warn(res)
 
         return {
             error:false,
@@ -76,7 +74,8 @@ export default {
 
     getRecentBillers: async walletno => {
         let data = []
-        let res = await Fetch.get(`recent/${Consts.tcn.bpm.code}/${walletno}`)
+        //let res = await Fetch.get(`recent/${Consts.tcn.bpm.code}/${walletno}`)
+        let res = await Fetch.getc(`recent?${JSON.stringify({type:Consts.tcn.bpm.code, walletno})}`)
 
         if(!res.error) data = res.data
 

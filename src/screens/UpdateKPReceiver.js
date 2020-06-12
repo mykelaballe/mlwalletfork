@@ -102,6 +102,7 @@ class Scrn extends React.Component {
                     this.props.refreshFavorites(true)
                     this.props.refreshRecent(true)
                     Say.ok('KP receiver updated!')
+                    this.props.navigation.pop()
                 }
                 else Say.warn(res.message)
             }

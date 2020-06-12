@@ -35,7 +35,9 @@ class Scrn extends React.Component {
     }
 
     state = {
-        is_favorite:this.props.navigation.state.params.receiver.isFavorite
+        is_favorite:this.props.navigation.state.params.receiver.isFavorite,
+        deleting:false,
+        favoriting:false
     }
 
     componentDidMount = () => {
@@ -47,7 +49,11 @@ class Scrn extends React.Component {
     }
 
     handleToggleMenu = () => {
+        const {deleting} = this.state
         let {menuOpen} = this.props.navigation.state.params
+
+        if(deleting) return false
+
         menuOpen = !menuOpen
         this.props.navigation.setParams({menuOpen})
     }
@@ -64,9 +70,14 @@ class Scrn extends React.Component {
     }
 
     handleConfirmDelete = async () => {
-        const {index, receiver} = this.props.navigation.state.params
+        const {index, receiver, deleting} = this.props.navigation.state.params
+
+        if(deleting) return false
+
         try {
-            await API.deleteWalletReceiver({walletno:receiver.receiverno})
+            this.setState({deleting:true})
+
+            await API.deleteWalletReceiver({receiverno:receiver.receiverno})
             this.props.refreshAll(true)
             this.props.refreshFavorites(true)
             this.props.refreshRecent(true)
@@ -76,6 +87,8 @@ class Scrn extends React.Component {
         catch(err) {
             Say.err(err)
         }
+
+        this.setState({deleting:false})
     }
 
     handleSelect = () => {
@@ -86,9 +99,13 @@ class Scrn extends React.Component {
     handleToggleFavorite = async () => {
         const {walletno} = this.props.user
         let {index, receiver} = this.props.navigation.state.params
-        const {is_favorite} = this.state
+        const {is_favorite, favoriting} = this.state
+
+        if(favoriting) return false
         
         try {
+            this.setState({favoriting:true})
+
             let payload = {
                 walletno,
                 receiverno:receiver.receiverno,
@@ -105,12 +122,14 @@ class Scrn extends React.Component {
         catch(err) {
             Say.err(err)
         }
+
+        this.setState({favoriting:false})
     }
 
     render() {
 
         const {walletno, fullname} = this.props.navigation.state.params.receiver
-        const {is_favorite} = this.state
+        const {is_favorite, deleting, favoriting} = this.state
 
         return (
             <>
@@ -128,13 +147,13 @@ class Scrn extends React.Component {
                     <Outline>
                         <Row bw>
                             <Text>{is_favorite ? 'Remove from' : 'Add to'} favorite</Text>
-                            <Switch value={is_favorite} onValueChange={this.handleToggleFavorite} />
+                            <Switch value={is_favorite} onValueChange={this.handleToggleFavorite} loading={favoriting} />
                         </Row>
                     </Outline>
                 </Screen>
 
                 <Footer>
-                    <Button t={_('82')} onPress={this.handleSelect} />
+                    <Button disabled={deleting} t={deleting ? _('91') : _('82')} onPress={this.handleSelect} loading={deleting} />
                 </Footer>
             </>
         )

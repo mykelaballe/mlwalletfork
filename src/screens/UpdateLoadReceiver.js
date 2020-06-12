@@ -61,6 +61,7 @@ class Scrn extends React.Component {
                         mobileno
                     })
                     Say.ok('Receiver updated')
+                    this.props.navigation.pop()
                 }
                 else Say.warn(res.message)
             }

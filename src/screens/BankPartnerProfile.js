@@ -36,7 +36,9 @@ class Scrn extends React.Component {
     }
 
     state = {
-        ...this.props.navigation.state.params.receiver
+        ...this.props.navigation.state.params.receiver,
+        deleting:false,
+        favoriting:false
     }
 
     componentDidMount = () => {
@@ -57,7 +59,11 @@ class Scrn extends React.Component {
     }
 
     handleToggleMenu = () => {
+        const {deleting} = this.state
         let {menuOpen} = this.props.navigation.state.params
+
+        if(deleting) return false
+
         menuOpen = !menuOpen
         this.props.navigation.setParams({menuOpen})
     }
@@ -82,8 +88,13 @@ class Scrn extends React.Component {
 
     handleConfirmDelete = async () => {
         const {walletno} = this.props.user
-        const {old_partnersid, old_account_no, old_account_name} = this.state
+        const {old_partnersid, old_account_no, old_account_name, deleting} = this.state
+
+        if(deleting) return false
+
         try {
+            this.setState({deleting:true})
+
             await API.deleteBankPartner({
                 walletno,
                 partnersid:old_partnersid,
@@ -99,15 +110,21 @@ class Scrn extends React.Component {
         catch(err) {
             Say.err(err)
         }
+
+        this.setState({deleting:false})
     }
 
     handleSelect = () => this.props.navigation.navigate('SendBankTransfer',{bank:this.state})
 
     handleToggleFavorite = async () => {
         const {walletno} = this.props.user
-        const {bankname, old_partnersid, old_account_no, isFavorite} = this.state
+        const {bankname, old_partnersid, old_account_no, isFavorite, favoriting} = this.state
+
+        if(favoriting) return false
         
         try {
+            this.setState({favoriting:true})
+
             let payload = {
                 walletno,
                 partnersname:bankname,
@@ -127,11 +144,13 @@ class Scrn extends React.Component {
         catch(err) {
             Say.err(err)
         }
+
+        this.setState({favoriting:false})
     }
 
     render() {
 
-        const {bankname, old_account_name, old_account_no, isFavorite} = this.state
+        const {bankname, old_account_name, old_account_no, isFavorite, deleting, favoriting} = this.state
 
         return (
             <>
@@ -154,13 +173,13 @@ class Scrn extends React.Component {
                     <Outline>
                         <Row bw>
                             <Text>{isFavorite ? 'Remove from' : 'Add to'} favorite</Text>
-                            <Switch value={isFavorite} onValueChange={this.handleToggleFavorite} />
+                            <Switch value={isFavorite} onValueChange={this.handleToggleFavorite} loading={favoriting} />
                         </Row>
                     </Outline>
                 </Screen>
 
                 <Footer>
-                    <Button t='Select Bank Account' onPress={this.handleSelect} />
+                    <Button disabled={deleting} t={deleting ? _('91') : 'Select Bank Account'} onPress={this.handleSelect} loading={deleting} />
                 </Footer>
             </>
         )

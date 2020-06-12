@@ -69,6 +69,7 @@ class Scrn extends React.Component {
                     this.props.refreshFavorites(true)
                     this.props.refreshRecent(true)
                     Say.ok('Bank Partner successfully updated')
+                    this.props.navigation.pop()
                 }
             }
         }

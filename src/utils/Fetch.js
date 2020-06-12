@@ -2,6 +2,7 @@ import axios from 'axios'
 import Consts from './Consts'
 import Storage from './Storage'
 import Crypt from './Crypt'
+import {Clipboard} from 'react-native'
 
 let headers = {
   'Accept': 'application/json',
@@ -20,6 +21,7 @@ const callAPI = async (method, url, data = null, crypt = false) => {
     if(url.indexOf('?') >= 0) {
       let url_pieces = url.split('?')
       url = `${url_pieces[0]}?ciphertext=${Crypt.en(url_pieces[1])}`
+      //url = `${url_pieces[0]}?ciphertext=${Crypt.en(JSON.stringify(url_pieces[1]))}`
     }
   }
 
@@ -30,10 +32,15 @@ const callAPI = async (method, url, data = null, crypt = false) => {
   }
 
   if(data) {
-    config.data = crypt ? Crypt.en(data) : JSON.stringify(data)
+    config.data = crypt ? JSON.stringify({ciphertext:Crypt.en(data)}) : JSON.stringify(data)
   }
 
+  //Clipboard.setString(config.url)
+  //Clipboard.setString(config.data)
+
   let response = await axios(config)
+
+  //console.warn(response.data)
 
   return response.data.ciphertext ? Crypt.de(response.data.ciphertext) : response.data
 }

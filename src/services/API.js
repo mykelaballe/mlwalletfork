@@ -58,10 +58,8 @@ export default {
         }*/
         let res = await Fetch.postc('wallet/login', {
             ...payload,
-            //latitude:'1',
-            //longitude:'1',
             location:'',
-            deviceId:Consts.deviceId,
+            deviceid:Consts.deviceId,
             devicetype:Consts.deviceType,
             version:Consts.appVersion,
             grant_type:'password'
@@ -77,7 +75,7 @@ export default {
     updateTouchIDStatus: async payload => await Fetch.putc('update/touchid',payload),
 
     register: async payload => {
-        return await Fetch.postc('wallet/registration',{
+        return await Fetch.post('wallet/registration',{
             ...payload,
             deviceId:Consts.deviceId,
             version:Consts.appVersion,
@@ -131,7 +129,7 @@ export default {
 
     checkBalance: async () => await Fetch.get('checkBalance'),
 
-    getRates: async () => await Fetch.get('getchargevalues'),
+    getRates: async () => await Fetch.getc('getchargevalues'),
 
     getNotifications: async params => {
         let res = await Fetch.get(`getnotificationlist?walletno=${params.walletno}&start=${params.start}`)
@@ -139,7 +137,13 @@ export default {
     },
 
     getTransactionHistory: async payload => {
-        let res = await Fetch.get(`transactionhistory?walletno=${payload.walletno}&dfrom=${payload.from}&dto=${payload.to}&type=${payload.type}`)
+        //let res = await Fetch.get(`transactionhistory?walletno=${payload.walletno}&dfrom=${payload.from}&dto=${payload.to}&type=${payload.type}`)
+        let res = await Fetch.getc(`transactionhistory?${JSON.stringify({
+            walletno:payload.walletno,
+            dfrom:payload.dfrom,
+            dto:payload.dto,
+            type:payload.type
+        })}`)
         return res.listTransaction || []
     },
 
@@ -151,7 +155,7 @@ export default {
 
     getCountries: async () => {
         let data = {}
-        let res = await Fetch.get('getCountries')
+        let res = await Fetch.getc('getCountries')
 
         if(res.data) {
             for(let d in res.data) {
@@ -173,7 +177,7 @@ export default {
 
     getProvinces: async () => {
         let data = {}
-        let res = await Fetch.get('getProvinces')
+        let res = await Fetch.getc('getProvinces')
 
         if(res.data) {
             for(let d in res.data) {
@@ -193,9 +197,10 @@ export default {
         return Object.values(data)
     },
 
-    getCities: async provinceCode => {
+    getCities: async provCode => {
         let data = {}
-        let res = await Fetch.get(`getCities/${provinceCode}`)
+        //let res = await Fetch.get(`getCities/${provCode}`)
+        let res = await Fetch.getc(`getCities?${JSON.stringify({provCode})}`)
 
         if(res.data) {
             for(let d in res.data) {

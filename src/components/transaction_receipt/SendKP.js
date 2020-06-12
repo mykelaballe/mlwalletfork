@@ -81,7 +81,7 @@ class SendKP extends React.Component {
     cancelTransaction = async () => {
         const {cancelling} = this.state
         const {walletno} = this.props.user
-        const {kptn, controlno} = this.props.data
+        const {_from, kptn, controlno} = this.props.data
 
         if(cancelling) return false
 
@@ -102,6 +102,8 @@ class SendKP extends React.Component {
                     status:'cancelled'
                 })
                 Say.ok(`Your transaction ${Consts.tcn.skp.short_desc} has been cancelled`)
+
+                if(_from == 'history') this.props.navigation.pop()
             }
         }
         catch(err) {
