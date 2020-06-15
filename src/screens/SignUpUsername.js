@@ -11,7 +11,7 @@ const CRITERIA = {
 export default class Scrn extends React.Component {
 
     state = {
-        username:'tester12020',
+        username:'',
         error:false,
         username_errors:[],
         processing:false

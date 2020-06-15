@@ -77,7 +77,7 @@ export default {
         //let res = await Fetch.get(`recent/${Consts.tcn.bpm.code}/${walletno}`)
         let res = await Fetch.getc(`recent?${JSON.stringify({type:Consts.tcn.bpm.code, walletno})}`)
 
-        if(!res.error) data = res.data
+        if(res.data) data = res.data
 
         return data
     },

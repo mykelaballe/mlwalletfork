@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, StyleSheet, Linking, Clipboard} from 'react-native'
+import {View, StyleSheet, Linking} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Text, Button, ButtonText, Spacer, TextInput, Row, Icon, Screen, MLBanner} from '../components'
@@ -24,11 +24,13 @@ const touchIDConfig = {
 
 class Scrn extends React.Component {
 
+    //username = ''
+
     state = {
         data:null,
         username:this.props.username,
         masked_username:'',
-        password:'p@ssword1',
+        password:'',
         show_password:false,
         processing:false
     }
@@ -179,15 +181,16 @@ class Scrn extends React.Component {
     }
 
     handleChangeUsername = username => {
+        //this.username = username
         this.setState({
-            username,
+            username
+            //username:this.mask(username),
             //masked_username:this.mask(username)
         })
     }
 
     mask = str => {
-        //return str.length <= 3 ? str : str.replace(/.{3}$/,'•••')
-        return str + '*'
+        return str.length <= 3 ? str : str.replace(/.{3}$/,'•••')
     }
 
     handleChangePassword = password => this.setState({password})

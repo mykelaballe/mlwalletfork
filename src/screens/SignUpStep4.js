@@ -9,12 +9,12 @@ class Scrn extends React.Component {
     }
 
     state = {
-        question1:'In what city did you meet your partner/spouse?',
-        question2:'What was the name of your first pet?',
-        question3:'What was your childhood nickname?',
-        answer1:'1',
-        answer2:'1',
-        answer3:'1',
+        question1:'',
+        question2:'',
+        question3:'',
+        answer1:'',
+        answer2:'',
+        answer3:'',
         processing:false
     }
 

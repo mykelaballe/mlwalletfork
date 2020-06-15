@@ -124,10 +124,6 @@ class Scrn extends React.Component {
                     _pin:otp
                 })
 
-                /*let test = Crypt.en(profilepic)
-                alert(test)
-                return false*/
-
                 if(!otpRes.error) {
 
                     //let custIDRes = await API.requestCustID()
@@ -161,8 +157,8 @@ class Scrn extends React.Component {
                         secquestion3:question3,
                         secanswer3:answer3,
                         mobileno:mobile_no,
-                        validID:`${validID}`,
-                        profilepic:`${profilepic}`,
+                        validID,
+                        profilepic,
                         latitude,
                         longitude,
                         location,

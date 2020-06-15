@@ -75,7 +75,7 @@ export default {
     updateTouchIDStatus: async payload => await Fetch.putc('update/touchid',payload),
 
     register: async payload => {
-        return await Fetch.postc('wallet/registration',{
+        return await Fetch.post('wallet/registration',{
             ...payload,
             deviceId:Consts.deviceId,
             version:Consts.appVersion,
@@ -83,7 +83,7 @@ export default {
     },
 
     requestCustID: async () => {
-        //return await Fetch.get('')
+        //return await Fetch.get('http://192.168.19.96\c$\inetpub\wwwroot\WalletDomesticKYC')
         return {
             custid:'123'
         }
