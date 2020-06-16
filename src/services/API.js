@@ -225,45 +225,32 @@ export default {
         data.append('id_type',payload.type)
         data.append('id_image',payload.image)
         data.append('is_base64',true)
+        data.append('extract_details',true)
 
         let res = await axios({
             method: 'post',
-            /*headers:{
-                'Content-Type':'multipart/form-data'
-            },*/
             url: `https://ml-symph-ai.df.r.appspot.com/api/v1/id/validity`,
             data
         })
+
+        //console.warn(res.data)
 
         return res.data
     },
 
     compareFace: async payload => {
-        /*let response = await axios({
-            method:'POST',
-            url:'https://ml-symph-ai.df.r.appspot.com/v1/face/compare',
-            headers:{
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            data:JSON.stringify(payload)
-        })
-
-        return response*/
-
         let data = new FormData()
         data.append('id_image',payload.id)
         data.append('face_image',payload.face)
-        data.append('is_base64',false)
+        data.append('is_base64',true)
 
         let res = await axios({
             method: 'post',
-            headers:{
-                'Content-Type':'application/json'
-            },
             url: `https://ml-symph-ai.df.r.appspot.com/api/v1/face/compare`,
             data
         })
+
+        //console.warn(res.data)
 
         return res.data
     }

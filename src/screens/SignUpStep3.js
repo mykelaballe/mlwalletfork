@@ -1,5 +1,5 @@
 import React from 'react'
-import {StyleSheet, TouchableOpacity, Clipboard} from 'react-native'
+import {StyleSheet, TouchableOpacity} from 'react-native'
 import {Screen, Headline, Footer, FlatList, Text, Button, ButtonText, HR, SignUpStepsTracker, Row, Outline} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
@@ -140,45 +140,35 @@ export default class Scrn extends React.Component {
         if(processing) return false
 
         try {
-            if(!profilepic) {
-                this.setState({processing:true})
 
-                /*let res = await API.validateID({
+            this.setState({processing:true})
+
+            if(!profilepic) {
+                let res = await API.validateID({
                     type:list[selectedIDIndex].value,
-                    image:{
-                        uri:validID.uri,
-                        name:validID.fileName,
-                        type:'multipart/form-data'
-                    }
                     image:validID.base64
-                    image:validID.base64.substring(4)
-                })*/
-                let res = {valid:true}
-                if(res.valid) this.takeLivePhoto()
+                })
+                //let res = {valid:true}
+                if(res.valid) {
+                    //Say.ok('VALID')
+                    this.takeLivePhoto()
+                }
                 else Say.err('Type of ID submitted does not match with the selected ID type. Please try again or choose another ID.')
             }
             else {
-                this.setState({processing:true})
-                /*let res = await API.compareFace({
-                    id:{
-                        uri:validID.uri,
-                        name:validID.fileName,
-                        type:'multipart/form-data'
-                    },
-                    face:{
-                        uri:profilepic.uri,
-                        name:profilepic.fileName,
-                        type:'multipart/form-data'
-                    }
-                })*/
-                let res = {valid:true}
+                let res = await API.compareFace({
+                    id:validID.base64,
+                    face:profilepic.base64
+                })
+                //let res = {valid:true}
                 if(res.valid) {
+                   // Say.ok('MATCH')
                     this.props.navigation.navigate('SignUpStep4',{
                         ...this.props.navigation.state.params,
                         validID:validID.base64,
                         profilepic:profilepic.base64
                     })
-                }//Details from the ID submitted does not match with your registered personal information. Please try again or choose another ID.
+                }
                 else Say.err('Photo from the ID submitted does not match with live photo taken. Please try again or choose another ID.')
             }
         }

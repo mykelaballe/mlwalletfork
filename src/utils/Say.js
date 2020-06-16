@@ -33,7 +33,7 @@ const warn = (message, title = null, options = {}) => {
 }
 
 const err = (message, title = null, options = {}) => {
-    if(Consts.is_dev) message = message.message
+    if(Consts.is_dev) message = message.message || message
     else message = _('500')
 
     if(message) {
@@ -47,7 +47,7 @@ const err = (message, title = null, options = {}) => {
 
     SomeModal.show({
         message,
-        title:title || 'Error',
+        title:title || 'Oops!',
         options
     })
 }

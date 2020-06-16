@@ -35,6 +35,14 @@ class Scrn extends React.Component {
         processing:false
     }
 
+    componentDidUpdate = (prevProps, prevState) => {
+        const {params = {}} = this.props.navigation.state
+        if(params.clearPassword && prevState.password) {
+            this.setState({password:''})
+            this.props.navigation.setParams({clearPassword:null})
+        }
+    }
+
     handleLogin = () => {
         const {username, password} = this.state
         //alert(username)
