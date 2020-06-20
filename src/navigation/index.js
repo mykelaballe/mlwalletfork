@@ -4,27 +4,32 @@ import {connect} from 'react-redux'
 import AppIntroStack from './AppIntroStack'
 import AuthStack from './AuthStack'
 import MainStack from './MainStack'
+import ForceReenterDataStack from './ForceReenterDataStack'
 
 const AppIntroContainer = createAppContainer(AppIntroStack)
 const AuthAppContainer = createAppContainer(AuthStack)
 const MainAppContainer = createAppContainer(MainStack)
+const ForceReenterDataContainer = createAppContainer(ForceReenterDataStack)
 
 class Navigation extends React.Component {
 
     render() {
 
-        const {isFirstTime, isLoggedIn} = this.props
+        const {isFirstTime, isLoggedIn, user} = this.props
+
+        if(user && user.is_force) return <ForceReenterDataContainer />
 
         if(isFirstTime) return <AppIntroContainer />
 
-        if(isLoggedIn) return <MainAppContainer />
+        if(isLoggedIn && user) return <MainAppContainer />
         return <AuthAppContainer />
     }
 }
 
 const mapStateToProps = state => ({
     isFirstTime: state.app.isFirstTime,
-    isLoggedIn: state.auth.isLoggedIn
+    isLoggedIn: state.auth.isLoggedIn,
+    user: state.user.data
 })
 
 export default connect(mapStateToProps)(Navigation)

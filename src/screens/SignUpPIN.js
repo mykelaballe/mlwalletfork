@@ -2,10 +2,9 @@ import React from 'react'
 import {StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Screen, Footer, Headline, Button, TextInputFlat, Row, Text, SignUpStepsTracker} from '../components'
+import {Screen, Footer, Headline, Button, TextInputFlat, Row, Text, SignUpStepsTracker, Spacer} from '../components'
 import {Metrics} from '../themes'
 import {_, Say, Consts, Func} from '../utils'
-import {API} from '../services'
 
 class Scrn extends React.Component {
 
@@ -80,6 +79,8 @@ class Scrn extends React.Component {
     }
 
     handleSubmit = async () => {
+        const {user} = this.props
+        const {params = {}} = this.props.navigation.state
         const {digit1, digit2, digit3, digit4, digit5, digit6, processing} = this.state
 
         if(processing) return false
@@ -94,13 +95,26 @@ class Scrn extends React.Component {
             else {
 
                 let payload = {
-                    ...this.props.navigation.state.params.payload,
                     pincode:pin
                 }
 
-                this.props.navigation.replace('SignUpStep1',{
-                    ...payload
-                })
+                if(params.payload) {
+                    payload = {
+                        ...params.payload,
+                        ...payload
+                    }
+                }
+
+                if(user && user.is_force) {
+                    this.props.navigation.navigate('SignUpStep1',{
+                        ...payload
+                    })
+                }
+                else {
+                    this.props.navigation.replace('SignUpStep1',{
+                        ...payload
+                    })
+                }
             }
         }
         catch(err) {
@@ -110,8 +124,14 @@ class Scrn extends React.Component {
         this.setState({processing:false})
     }
 
+    handleLogin = () => {
+        this.props.clearUser()
+        this.props.login()
+    }
+
     render() {
 
+        const {user} = this.props
         const {digit1, digit2, digit3, digit4, digit5, digit6, processing} = this.state
         let ready = false
 
@@ -126,7 +146,7 @@ class Scrn extends React.Component {
                     {/*<SignUpStepsTracker step={5} />*/}
 
                     <Headline
-                        title='Registration'
+                        title={user && user.is_force ? '' : 'Registration'}
                         subtext='Create 6-digit Transaction PIN'
                     />
 
@@ -213,6 +233,12 @@ class Scrn extends React.Component {
             
                 <Footer>
                     <Button disabled={!ready} t={_('10')} onPress={this.handleSubmit} loading={processing} />
+                    {(user && user.is_force) &&
+                    <>
+                        <Spacer xs />
+                        <Button mode='outlined' t='Back to Login' onPress={this.handleLogin} />
+                    </>
+                    }
                 </Footer>
             </>
         )
@@ -227,10 +253,15 @@ const style = StyleSheet.create({
     }
 })
 
+const mapStateToProps = state => ({
+    user:state.user.data
+})
+
 const mapDispatchToProps = dispatch => ({
     login:() => dispatch(Creators.login()),
     setUser:user => dispatch(Creators.setUser(user)),
+    clearUser:() => dispatch(Creators.clearUser()),
     setIsUsingTouchID:isUsing => dispatch(Creators.setIsUsingTouchID(isUsing))
 })
 
-export default connect(null, mapDispatchToProps)(Scrn)
+export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

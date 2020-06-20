@@ -1,5 +1,7 @@
 import React from 'react'
 import {StyleSheet, TouchableOpacity} from 'react-native'
+import {connect} from 'react-redux'
+import {Creators} from '../actions'
 import {Screen, Headline, Footer, FlatList, Text, Button, ButtonText, HR, SignUpStepsTracker, Row, Outline} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
@@ -15,7 +17,7 @@ const ItemUI = props => (
     </>
 )
 
-export default class Scrn extends React.Component {
+class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Identification'
@@ -135,6 +137,7 @@ export default class Scrn extends React.Component {
     }
 
     handleSubmit = async () => {
+        const {user} = this.props
         let {profilepic, validID, list, selectedIDIndex, processing} = this.state
 
         if(processing) return false
@@ -144,11 +147,15 @@ export default class Scrn extends React.Component {
             this.setState({processing:true})
 
             if(!profilepic) {
-                let res = await API.validateID({
-                    type:list[selectedIDIndex].value,
-                    image:validID.base64
-                })
-                //let res = {valid:true}
+                let res = {valid:true}
+
+                if(list[selectedIDIndex].value != 'student' && list[selectedIDIndex].value != 'company') {
+                    res = await API.validateID({
+                        type:list[selectedIDIndex].value,
+                        image:validID.base64
+                    })
+                }
+
                 if(res.valid) {
                     //Say.ok('VALID')
                     this.takeLivePhoto()
@@ -160,14 +167,23 @@ export default class Scrn extends React.Component {
                     id:validID.base64,
                     face:profilepic.base64
                 })
-                //let res = {valid:true}
-                if(res.valid) {
+                //let res = {match:true}
+                if(res.match) {
                    // Say.ok('MATCH')
-                    this.props.navigation.navigate('SignUpStep4',{
-                        ...this.props.navigation.state.params,
-                        validID:validID.base64,
-                        profilepic:profilepic.base64
-                    })
+                    if(user && user.is_force) {
+                        /*await API.update({
+
+                        })*/
+                        this.props.updateUserInfo({is_force:false})
+                        this.props.login()
+                    }
+                    else {
+                        this.props.navigation.navigate('SignUpStep4',{
+                            ...this.props.navigation.state.params,
+                            validID:validID.base64,
+                            profilepic:profilepic.base64
+                        })
+                    }
                 }
                 else Say.err('Photo from the ID submitted does not match with live photo taken. Please try again or choose another ID.')
             }
@@ -252,3 +268,14 @@ const style = StyleSheet.create({
         paddingHorizontal:Metrics.rg
     }
 })
+
+const mapStateToProps = state => ({
+    user:state.user.data
+})
+
+const mapDispatchToProps = dispatch => ({
+    login:() => dispatch(Creators.login()),
+    updateUserInfo:newInfo => dispatch(Creators.updateUserInfo(newInfo))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

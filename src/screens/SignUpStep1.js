@@ -1,5 +1,6 @@
 import React from 'react'
 import {Provider, Screen, Headline, Text, Checkbox, Button, Spacer, TextInput, Row, Footer, Radio, DynamicStaticInput, StaticInput, SignUpStepsTracker, Picker, MonthPicker, DayPicker, YearPicker} from '../components'
+import {connect} from 'react-redux'
 import {_, Say, Func, Consts} from '../utils'
 import {RadioButton} from 'react-native-paper'
 import {Metrics} from '../themes'
@@ -214,8 +215,41 @@ class Scrn extends React.Component {
         }
     }
 
+    handleSubmitAlt = async () => {
+        let {source_of_income, natureofwork, other_natureofwork} = this.state
+
+        try {
+            source_of_income = source_of_income.trim()
+            natureofwork = natureofwork.trim()
+            other_natureofwork = other_natureofwork.trim()
+
+            natureofwork = other_natureofwork || natureofwork
+
+            if(natureofwork == 'Others') natureofwork = ''
+
+            if(!source_of_income || !natureofwork) {
+                if(!source_of_income) this.setState({error_source_of_income:true})
+                if(!natureofwork) this.setState({error_natureofwork:true})
+
+                Say.some('Fill-out missing fields to proceed')
+            }
+            else {
+                this.props.navigation.navigate('SignUpStep3',{
+                    ...this.props.navigation.state.params,
+                    source_of_income,
+                    natureofwork,
+                    other_natureofwork
+                })
+            }
+        }
+        catch(err) {
+            Say.err(err)
+        }
+    }
+
     render() {
 
+        const {user} = this.props
         const {firstname, middlename, has_middlename, lastname, suffix, other_suffix, has_suffix, suffix_options, bday_month, bday_day, bday_year, gender, email, nationality, source_of_income, natureofwork, other_natureofwork, showMonthPicker, showDayPicker, showYearPicker, processing} = this.state
         const {error_firstname, error_middlename, error_lastname, error_suffix, error_bday_month, error_bday_day, error_bday_year, error_email, error_source_of_income, error_natureofwork} = this.state
         //let ready = false
@@ -224,6 +258,40 @@ class Scrn extends React.Component {
         /*if(firstname && middlename && lastname && suffix && bday_month && bday_day && bday_year && nationality && source_of_income) {
             ready = true
         }*/
+
+        if(user && user.is_force) {
+            return (
+                <>
+                    <Screen>
+                        <StaticInput
+                            label='Source of Income*'
+                            value={source_of_income}
+                            error={error_source_of_income}
+                            onPress={this.handleSelectSourceOfIncome}
+                        />
+
+                        <StaticInput
+                            label='Nature of Work*'
+                            value={natureofwork}
+                            error={error_natureofwork}
+                            onPress={this.handleSelectNatureOfWork}
+                        />
+
+                        {natureofwork === 'Others' &&
+                        <TextInput
+                            label={'Enter Nature of Work'}
+                            value={other_natureofwork}
+                            onChangeText={this.handleChangeOtherNatureOfWork}
+                        />
+                        }
+                    </Screen>
+                    
+                    <Footer>
+                        <Button t='Next' onPress={this.handleSubmitAlt} loading={processing} />
+                    </Footer>
+                </>
+            )
+        }
 
         return (
             <Provider>
@@ -395,4 +463,8 @@ class Scrn extends React.Component {
     }
 }
 
-export default Scrn
+const mapStateToProps = state => ({
+    user:state.user.data
+})
+
+export default connect(mapStateToProps)(Scrn)

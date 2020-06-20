@@ -26,7 +26,7 @@ const updateUserInfo = (state, action) => {
   return state.merge({ data })
 }
 
-const clearUser = state => state.merge({ user:null })
+const clearUser = state => state.merge({ data:null })
   
 const ACTION_HANDLERS = {
   [Types.SET_USER]: setUser,

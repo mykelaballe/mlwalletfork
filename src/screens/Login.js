@@ -29,11 +29,13 @@ class Scrn extends React.Component {
     state = {
         data:null,
         username:this.props.username,
-        masked_username:'',
+        temp_username:this.props.username,
         password:'',
         show_password:false,
         processing:false
     }
+
+    //componentDidMount = () => this.formatUsername(this.state.temp_username)
 
     componentDidUpdate = (prevProps, prevState) => {
         const {params = {}} = this.props.navigation.state
@@ -154,6 +156,8 @@ class Scrn extends React.Component {
                     res.data.latitude = latitude
                     res.data.longitude = longitude
 
+                    //res.data.is_force = true
+
                     if(res.data.isresetpass === 1) {
                         this.props.navigation.navigate('CreatePassword',{
                             walletno:res.data.walletno,
@@ -166,10 +170,11 @@ class Scrn extends React.Component {
                         })
                     }
                     else {
-                        this.props.setIsUsingTouchID(res.data.fingerprintstat === 1)
                         this.props.setUser(res.data)
+                        this.props.setIsUsingTouchID(res.data.fingerprintstat === 1)
                         this.props.rememberLoginCredentials({username})
-                        this.props.login()
+                        
+                        if(!res.data.is_force) this.props.login()
                     }
                 }
             }
@@ -188,17 +193,37 @@ class Scrn extends React.Component {
         if(!locationRes.error) this.props.navigation.navigate('SignUpUsername')
     }
 
-    handleChangeUsername = username => {
-        //this.username = username
-        this.setState({
-            username
-            //username:this.mask(username),
-            //masked_username:this.mask(username)
-        })
-    }
+    handleChangeUsername = username => this.formatUsername(username)
 
-    mask = str => {
-        return str.length <= 3 ? str : str.replace(/.{3}$/,'•••')
+    formatUsername = username => {
+        this.setState({username})
+
+        return false
+
+        if(!username) return false
+
+        let len = username.length
+        let val = this.state.username.split('')
+
+        val.push(username[len - 1])
+
+        if(val.length > len) val.splice(len - 1, val.length - len)
+
+        let temp = []
+
+        for(let i = 0; i <= username.length - 1; ++i) {
+            if (username.length > 3) {
+                temp[i] = i <= username.length - 4 ? '•' : val[i]
+            }
+            else {
+                temp[i] = val[i]
+            }
+        }
+
+        this.setState({
+            username: val.join(''),
+            temp_username: temp.join('')
+        })
     }
 
     handleChangePassword = password => this.setState({password})
@@ -238,7 +263,7 @@ class Scrn extends React.Component {
     render() {
 
         const {isUsingTouchID} = this.props
-        let {username, masked_username, password, show_password, processing} = this.state
+        let {username, temp_username, password, show_password, processing} = this.state
         let ready = false
 
         if(username && password) ready = true

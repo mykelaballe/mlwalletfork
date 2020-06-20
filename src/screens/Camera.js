@@ -3,7 +3,7 @@ import {View, StyleSheet, TouchableOpacity, Image, Dimensions} from 'react-nativ
 import {ButtonText, ButtonIcon, Row, ActivityIndicator, Text} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say, Consts} from '../utils'
-import {RNCamera} from 'react-native-camera'
+import {RNCamera, Face} from 'react-native-camera'
 import RNFetchBlob from 'rn-fetch-blob'
 import {request, PERMISSIONS, RESULTS} from 'react-native-permissions'
 import AntDesignIcon from 'react-native-vector-icons/AntDesign'
@@ -27,10 +27,14 @@ export default class Scrn extends React.Component {
     constructor(props) {
         super(props)
         const {params = {}} = props.navigation.state
+        this.mode = params.title == 'Live Photo' ? 'face' : 'id'
         this.state = {
             source:null,
-            viewType:params.title != 'Live Photo' ? RNCamera.Constants.Type.back : RNCamera.Constants.Type.front,
+            viewType:this.mode == 'id' ? RNCamera.Constants.Type.back : RNCamera.Constants.Type.front,
             eyes:[],
+            hasStarted:false,
+            didCloseEyes:false,
+            hasBlinked:false,
             processing:false
         }
     }
@@ -61,31 +65,21 @@ export default class Scrn extends React.Component {
                         let source = await this.camera.takePictureAsync({
                             width: 1280,
                             height: 1920,
-                            //quality: 1.0,
+                            quality: 1.0,
                             base64: true,
                             orientation: 'portrait',
-                            skipProcessing:true,
-                            mirrorImage:viewType == RNCamera.Constants.Type.back ? false : true,
+                            skipProcessing: true,
+                            pauseAfterCapture: true,
+                            mirrorImage: viewType == RNCamera.Constants.Type.back ? false : true,
         
                             //Android
-                            fixOrientation:true,
+                            fixOrientation: true,
         
                             //iOS
-                            forceUpOrientation:true
+                            forceUpOrientation: true
                         })
-                        
-                        /*if(!Consts.is_android) {
-                            source.uri = source.uri.replace('file:///', '/')
-                        }
-
-                        let fileStat = await RNFetchBlob.fs.stat(source.uri)*/
         
-                        this.setState({
-                            source:{
-                                ...source,
-                                //fileName:fileStat.filename
-                            }
-                        })
+                        this.setState({source})
                     }
                     catch(err) {
                         if(Consts.is_android) {
@@ -103,50 +97,68 @@ export default class Scrn extends React.Component {
         })
     }
 
-    handleRetake = () => this.setState({source:null})
+    handleRetake = () => {
+        this.setState({
+            hasStarted:false,
+            didCloseEyes:false,
+            hasBlinked:false,
+            source:null
+        })
+    }
 
     handleConfirm = () => this.props.navigation.navigate(this.props.navigation.state.params.sourceRoute,{source:this.state.source})
 
-    handleFaceDetected = async data => {
-        if(this.state.processing) return false
+    handleFaceDetected = async event => {
+        const {faces} = event
+        
+        if(faces.length > 0) {
+            const face = faces[0]
+            const {hasStarted, isTakingPicture, didCloseEyes, hasBlinked} = this.state
 
-        if(data.faces.length > 0) {
-            const leftEye = data.faces[0].leftEyeOpenProbability
-            const rightEye = data.faces[0].rightEyeOpenProbability
-
-            let bothEyes = (leftEye + rightEye) / 2
-            bothEyes = parseFloat(bothEyes.toFixed(2))
-
-            let eyes = this.state.eyes.slice()
-
-            eyes.push(bothEyes)
-
-            let hasClose = false
-
-            for(let e in eyes) {
-                let eye = eyes[e]
-                
-                if(eye <= 0.3) hasClose = true
+            if(!isTakingPicture) {
+                if(!this.isFacingCamera) {
+                    //this.onResetAll()
+                    return
+                }
+                if(!hasStarted && !didCloseEyes && !hasBlinked && this.didBothEyesOpen(face)) {
+                    this.onStartProcess()
+                    return
+                }
+                if(hasStarted && !didCloseEyes && !hasBlinked && this.didBothEyesClose(face)) {
+                    this.setState({didCloseEyes: true})
+                    return
+                }
+                if(hasStarted && didCloseEyes && !hasBlinked && this.didBothEyesOpen(face)) {
+                    this.setState({hasBlinked:true})
+                    this.handleCapture()
+                    return
+                }
             }
-
-            if(hasClose) {
-                eyes = []
-                this.handleCapture()
-            }
-
-            this.setState({eyes})
         }
     }
 
-    handleFaceDetectionError = () => alert('Face Detection Error')
+    handleFaceDetectionError = () => Say.err('Face Detection Error')
+
+    isFacingCamera = face => {
+        const {noseBasePosition} = face
+        const {x, y} = noseBasePosition
+        const isNoseBaseInDesiredPosition = x >= 0.3 && x <= 0.7 && (y >= 0.2 && y <= 0.6)
+        return isNoseBaseInDesiredPosition
+    }
+
+    didBothEyesOpen = face => face.leftEyeOpenProbability >= 0.9 && face.rightEyeOpenProbability >= 0.9
+    
+    onStartProcess = () => this.setState({hasStarted:true})
+    
+    didBothEyesClose = face => face.leftEyeOpenProbability <= 0.1 && face.rightEyeOpenProbability <= 0.1
 
     render() {
         
         const {params = {}} = this.props.navigation.state
         const {source, viewType, processing} = this.state
-        const isLivePhoto = params.title == 'Live Photo'
+        const isLivePhoto = this.mode == 'face'
 
-        const useFaceDetection = false
+        const useFaceDetection = isLivePhoto
 
         return (
             <> 
@@ -159,6 +171,9 @@ export default class Scrn extends React.Component {
                         style={style.preview}
                         type={viewType}
                         captureAudio={false}
+                        autoFocus={RNCamera.Constants.AutoFocus.on}
+                        flashMode={RNCamera.Constants.FlashMode.off}
+                        pauseAfterCapture={true}
                         androidCameraPermissionOptions={{
                             title: 'Permission to use camera',
                             message: 'We need your permission to use your camera',
@@ -188,16 +203,18 @@ export default class Scrn extends React.Component {
                         </>
                         }
 
-                        {!processing &&
+                        {(!processing && !isLivePhoto) &&
                         <TouchableOpacity onPress={this.handleCapture}>
                             <FoundationIcon name='record' size={Metrics.icon.xl} color={Colors.brand} />
                         </TouchableOpacity>
                         }
 
+                        {!isLivePhoto &&
                         <ButtonIcon
                             icon={<AntDesignIcon name={viewType === RNCamera.Constants.Type.back ? 'camerao' : 'camera'} size={Metrics.icon.sm} />}
                             onPress={this.handleChangeViewType}
                         />
+                        }
                     </View>
                     }
                     

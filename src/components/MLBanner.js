@@ -19,6 +19,6 @@ const style = StyleSheet.create({
 	},
 	logo: {
 		width:undefined,
-		height:height * .08
+		height:height * .06
 	}
 })
