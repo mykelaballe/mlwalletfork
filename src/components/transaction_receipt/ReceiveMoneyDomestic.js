@@ -15,7 +15,7 @@ class ReceiveMoneyDomestic extends React.Component {
     }
 
     componentDidMount = () => {
-        const {_from, balance, sender} = this.props.data
+        const {_from, balance, sender, currency} = this.props.data
         const {amount} = this.state
 
         this.props.onExport(`
@@ -23,7 +23,7 @@ class ReceiveMoneyDomestic extends React.Component {
             <h3>${Func.cleanName(sender)}</h3>
 
             <h4 style="color:#6A6A6A;line-height:0">Amount</h4>
-            <h3 style="margin-top:0">PHP ${amount}</h3>
+            <h3 style="margin-top:0">${currency} ${amount}</h3>
         `)
 
         if(_from != 'history') {
@@ -33,7 +33,7 @@ class ReceiveMoneyDomestic extends React.Component {
                 {
                     customMessage:(
                         <>
-                            <Text mute md>You have successfully received Php {Func.formatToCurrency(amount)} from {Func.cleanName(`${sender}`)}.</Text>
+                            <Text mute md>You have successfully received {currency} {Func.formatToCurrency(amount)} from {Func.cleanName(`${sender}`)}.</Text>
                             <Spacer lg />
                             <Text mute>Your new balance is</Text>
                             <Text xl b>Php {Func.formatToCurrency(balance)}</Text>
@@ -48,7 +48,7 @@ class ReceiveMoneyDomestic extends React.Component {
 
     render() {
 
-        const {_from, kptn, sender} = this.props.data
+        const {_from, kptn, sender, currency} = this.props.data
         const {amount, date, time, type} = this.state
 
         return (
@@ -66,7 +66,7 @@ class ReceiveMoneyDomestic extends React.Component {
                         <Spacer />
 
                         <Text sm mute>Amount</Text>
-                        <Text>PHP {amount}</Text>
+                        <Text>{currency} {amount}</Text>
 
                         <Spacer />
 
