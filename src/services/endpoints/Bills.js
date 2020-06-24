@@ -30,7 +30,7 @@ export default {
         }
     },
 
-    getAllBillers: async category => {
+    getAllBillers: async (category = '') => {
         let data = {}
         let res = await Fetch.getc(`bill_partners/all?category=${category}`)
         

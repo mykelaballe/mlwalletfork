@@ -130,7 +130,7 @@ class Scrn extends React.Component {
     takeLivePhoto = () => {
         const {sourceRoute} = this.state
         this.setState({for:'profilepic'})
-        this.props.navigation.navigate('Camera',{
+        this.props.navigation.navigate('LivePhotoOnBoarding',{
             title:'Live Photo',
             sourceRoute,
         })
@@ -156,10 +156,7 @@ class Scrn extends React.Component {
                     })
                 }
 
-                if(res.valid) {
-                    //Say.ok('VALID')
-                    this.takeLivePhoto()
-                }
+                if(res.valid) this.takeLivePhoto()
                 else Say.err('Type of ID submitted does not match with the selected ID type. Please try again or choose another ID.')
             }
             else {
@@ -167,9 +164,7 @@ class Scrn extends React.Component {
                     id:validID.base64,
                     face:profilepic.base64
                 })
-                //let res = {match:true}
-                if(res.match) {
-                   // Say.ok('MATCH')
+                if(res.match || res.valid) {
                     if(user && user.is_force) {
                         /*await API.update({
 

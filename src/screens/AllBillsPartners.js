@@ -1,9 +1,10 @@
 import React from 'react'
-import {InteractionManager} from 'react-native'
+import {View, InteractionManager} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Screen, FlatList, Spacer, SearchInput, ListItem} from '../components'
+import {Screen, FlatList, Spacer, SearchInput, ListItem, ButtonText} from '../components'
 import {_, Say} from '../utils'
+import {Colors} from '../themes'
 import {API} from '../services'
 
 const ItemUI = props => (
@@ -71,6 +72,8 @@ class Scrn extends React.Component {
         this.setState({list})
     }
 
+    handleAddBiller = () => this.props.navigation.navigate('Billers')
+
     renderItem = ({item, index}) => <ItemUI index={index} data={item} onPress={this.handleViewReceiver} />
 
     render() {
@@ -84,6 +87,12 @@ class Scrn extends React.Component {
                         onChangeText={this.handleChangeSearch}
                         value={search}
                     />
+
+                    <Spacer sm />
+
+                    <View style={{alignItems:'flex-end'}}>
+                        <ButtonText icon='plus' t='Add Biller' onPress={this.handleAddBiller} color={Colors.brand} />
+                    </View>
 
                     <Spacer sm />
 

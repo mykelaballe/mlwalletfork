@@ -10,6 +10,8 @@ import AntDesignIcon from 'react-native-vector-icons/AntDesign'
 import FoundationIcon from 'react-native-vector-icons/Foundation'
 
 const {width, height} = Dimensions.get('window')
+const FRAME_WIDTH = width * .9
+const FRAME_HEIGHT = height * .4
 
 export default class Scrn extends React.Component {
 
@@ -186,7 +188,7 @@ export default class Scrn extends React.Component {
                         onFacesDetected={useFaceDetection ? this.handleFaceDetected : undefined}
                         onFaceDetectionError={useFaceDetection ? this.handleFaceDetectionError : undefined}
                     >
-                        {!isLivePhoto && <View style={style.guide} />}
+                        <View style={style[isLivePhoto ? 'guideFace' : 'guideID']} />
                     </RNCamera>
                     }
                 </View>
@@ -198,8 +200,21 @@ export default class Scrn extends React.Component {
                         
                         {!processing &&
                         <>
-                            <Text center sm>{isLivePhoto ? 'Blink once to take a live photo' : 'Place your ID within the frame and take a picture'}</Text>
-                            <Text center sm>Make sure you're in a well-lighted area.</Text>
+                            {!isLivePhoto &&
+                            <>
+                                <Text center sm>Place your ID within the frame and take a picture</Text>
+                                <Text center sm>Make sure you're in a well-lighted area.</Text>
+                            </>
+                            }
+
+                            {isLivePhoto &&
+                            <View style={{alignItems:'flex-start'}}>
+                                <Text brand b u sm>Friendly reminder:</Text>
+                                <Text sm left>Step 1: Make sure you're in a well-lighted area.</Text>
+                                <Text sm left>Step 2: Position your face within the frame.</Text>
+                                <Text sm left>Step 3: Blink both eyes to take a live photo.</Text>
+                            </View>
+                            }
                         </>
                         }
 
@@ -241,11 +256,18 @@ const style = StyleSheet.create({
         justifyContent: 'center',//'flex-end',
         alignItems: 'center',
     },
-    guide: {
-        width:width * .9,
-        height:height * .4,
+    guideID: {
+        width:FRAME_WIDTH,
+        height:FRAME_HEIGHT,
         borderWidth:2,
-        borderColor:Colors.success
+        borderColor:Colors.brand
+    },
+    guideFace: {
+        width:FRAME_WIDTH,
+        height:FRAME_WIDTH,
+        borderWidth:2,
+        borderRadius:FRAME_WIDTH / 2,
+        borderColor:Colors.brand
     },
     footer: {
         paddingVertical: Metrics.xl
