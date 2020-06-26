@@ -316,7 +316,7 @@ class Scrn extends React.Component {
                         ref='middlename'
                         editable={has_middlename}
                         label={'Middle Name'}
-                        value={middlename}
+                        value={middlename == _('50') ? _('92') : middlename}
                         error={error_middlename}
                         onChangeText={this.handleChangeMiddlename}
                         onSubmitEditing={this.handleFocusLastname}

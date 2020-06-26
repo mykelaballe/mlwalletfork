@@ -2,10 +2,10 @@ import React from 'react'
 import {StyleSheet} from 'react-native'
 import {Screen, Footer, Headline, Button, ButtonText, Spacer, TextInputFlat, Row, SignUpStepsTracker} from '../components'
 import {Metrics} from '../themes'
-import {_, Say, Consts, Func, Crypt} from '../utils'
+import {_, Say, Func} from '../utils'
 import {API} from '../services'
 
-class Scrn extends React.Component {
+export default class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Verification'
@@ -305,5 +305,3 @@ const style = StyleSheet.create({
         fontWeight:'bold'
     }
 })
-
-export default Scrn

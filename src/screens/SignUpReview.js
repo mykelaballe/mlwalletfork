@@ -294,7 +294,7 @@ export default class Scrn extends React.Component {
                         <Spacer sm />
 
                         <Text sm mute center>Middle Name</Text>
-                        <Text md center>{!middlename || middlename == _('50') ? 'No Middle Name' : middlename}</Text>
+                        <Text md center>{!middlename || middlename == _('50') ? _('92') : middlename}</Text>
 
                         <Spacer sm />
 
@@ -367,7 +367,7 @@ export default class Scrn extends React.Component {
                             ref='middlename'
                             editable={has_middlename}
                             label={'Middle Name'}
-                            value={middlename}
+                            value={middlename == _('50') ? _('92') : middlename}
                             onChangeText={this.handleChangeMiddlename}
                             onSubmitEditing={this.handleFocusLastname}
                             autoCapitalize='words'
