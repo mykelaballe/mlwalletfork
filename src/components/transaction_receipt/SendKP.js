@@ -69,16 +69,29 @@ class SendKP extends React.Component {
     }
 
     handleCancelTransaction = () => {
-        Say.ask(
-            'Are you sure you want to cancel this transaction? Balance will be returned except for the transaction fee',
-            'Cancel Transaction',
-            {
-                onConfirm:this.cancelTransaction
+        let latitude = Consts.defaultLatitude, longitude = Consts.defaultLongitude
+
+        if(Func.isCheckLocation('cskp')) {
+            const locationRes = await Func.getLocation()
+            if(!locationRes.error) {
+                latitude = locationRes.data.latitude
+                longitude = locationRes.data.longitude
+
+                Say.ask(
+                    'Are you sure you want to cancel this transaction? Balance will be returned except for the transaction fee',
+                    'Cancel Transaction',
+                    {
+                        onConfirm:() => this.cancelTransaction({
+                            latitude,
+                            longitude
+                        })
+                    }
+                )
             }
-        )
+        }
     }
 
-    cancelTransaction = async () => {
+    cancelTransaction = async payload => {
         const {cancelling} = this.state
         const {walletno} = this.props.user
         const {_from, kptn, controlno} = this.props.data
@@ -91,6 +104,7 @@ class SendKP extends React.Component {
             let res = await API.sendKPCancel({
                 walletno,
                 kptn,
+                ...payload
                 //controlno
             })
             

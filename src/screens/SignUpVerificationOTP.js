@@ -2,7 +2,7 @@ import React from 'react'
 import {StyleSheet} from 'react-native'
 import {Screen, Footer, Headline, Button, ButtonText, Spacer, TextInputFlat, Row, SignUpStepsTracker} from '../components'
 import {Metrics} from '../themes'
-import {_, Say, Func} from '../utils'
+import {_, Consts, Say, Func} from '../utils'
 import {API} from '../services'
 
 export default class Scrn extends React.Component {
@@ -65,12 +65,14 @@ export default class Scrn extends React.Component {
 
         if(processing || reprocessing) return false
 
-        let latitude = '0.0', longitude = '0.0', location = ''
+        let latitude = Consts.defaultLatitude, longitude = Consts.defaultLongitude, location = ''
 
-        const locationRes = await Func.getLocation()
-        if(!locationRes.error) {
-            latitude = locationRes.data.latitude
-            longitude = locationRes.data.longitude
+        if(Func.isCheckLocation('signup')) {
+            const locationRes = await Func.getLocation()
+            if(!locationRes.error) {
+                latitude = locationRes.data.latitude
+                longitude = locationRes.data.longitude
+            }
         }
 
         this.setState({

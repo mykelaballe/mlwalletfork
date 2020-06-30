@@ -33,6 +33,8 @@ export default {
 	user_min_age:16,
 	allowed_idle_time:5 * 60000,
 	checkLocation:true,
+	defaultLatitude:'0.0',
+	defaultLongitude:'0.0',
 	password_criteria: {
 		minLength:8,
 		hasNum:true,

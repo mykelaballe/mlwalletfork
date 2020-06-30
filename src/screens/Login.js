@@ -190,7 +190,9 @@ class Scrn extends React.Component {
 
     handleGoToSignUp = async () => {
         const locationRes = await Func.getLocation()
-        if(!locationRes.error) this.props.navigation.navigate('SignUpUsername')
+        if(Func.isCheckLocation('signup')) {
+            if(!locationRes.error) this.props.navigation.navigate('SignUpUsername')
+        }
     }
 
     handleChangeUsername = username => this.formatUsername(username)

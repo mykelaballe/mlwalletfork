@@ -51,16 +51,29 @@ class WithdrawCash extends React.Component {
     }
 
     handleCancelTransaction = () => {
-        Say.ask(
-            'Are you sure you want to cancel this transaction?',
-            'Cancel Transaction',
-            {
-                onConfirm:this.cancelTransaction
+        let latitude = Consts.defaultLatitude, longitude = Consts.defaultLongitude
+
+        if(Func.isCheckLocation('cwdc')) {
+            const locationRes = await Func.getLocation()
+            if(!locationRes.error) {
+                latitude = locationRes.data.latitude
+                longitude = locationRes.data.longitude
+
+                Say.ask(
+                    'Are you sure you want to cancel this transaction?',
+                    'Cancel Transaction',
+                    {
+                        onConfirm:() => this.cancelTransaction({
+                            latitude,
+                            longitude
+                        })
+                    }
+                )
             }
-        )
+        }
     }
 
-    cancelTransaction = async () => {
+    cancelTransaction = async payload => {
         const {cancelling} = this.state
         const {walletno} = this.props.user
         const {_from, kptn} = this.props.data
@@ -72,7 +85,8 @@ class WithdrawCash extends React.Component {
 
             let res = await API.withdrawCashCancel({
                 walletno,
-                kptn
+                kptn,
+                ...payload
             })
             
             if(res.error) Say.warn(res.message)
