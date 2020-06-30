@@ -50,7 +50,7 @@ class WithdrawCash extends React.Component {
         }
     }
 
-    handleCancelTransaction = () => {
+    handleCancelTransaction = async () => {
         let latitude = Consts.defaultLatitude, longitude = Consts.defaultLongitude
 
         if(Func.isCheckLocation('cwdc')) {
