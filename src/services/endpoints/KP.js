@@ -13,7 +13,11 @@ export default {
         })
     },
 
-    sendKPCancel: async payload => await Fetch.postc('kp/cancelSendMoney',payload),
+    sendKPCancel: async payload => await Fetch.postc('kp/cancelSendMoney',{
+        ...payload,
+        deviceid:Consts.deviceId,
+        location:''
+    }),
 
     getKPReceivers: async walletno => {
         //let res = await Fetch.get(`kp/kplistreceivers?walletno=${walletno}`)

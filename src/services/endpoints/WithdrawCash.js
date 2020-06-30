@@ -12,6 +12,10 @@ export default {
         })
     },
 
-    withdrawCashCancel: async payload => await Fetch.postc('withdrawcash/cancel',payload)
+    withdrawCashCancel: async payload => await Fetch.postc('withdrawcash/cancel',{
+        ...payload,
+        deviceid:Consts.deviceId,
+        location:''
+    })
 
 }
