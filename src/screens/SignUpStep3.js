@@ -138,6 +138,7 @@ class Scrn extends React.Component {
 
     handleSubmit = async () => {
         const {user} = this.props
+        const {firstname, lastname, bday_day, bday_month, bday_year} = this.props.navigation.state.params
         let {profilepic, validID, list, selectedIDIndex, processing} = this.state
 
         if(processing) return false
@@ -147,17 +148,34 @@ class Scrn extends React.Component {
             this.setState({processing:true})
 
             if(!profilepic) {
-                let res = {valid:true}
+                let res = {
+                    valid:true,
+                    first_name:true,
+                    last_name:true,
+                    birth_date:true,
+                    birth_month:true,
+                    birth_year:true
+                }
 
                 if(list[selectedIDIndex].value != 'student' && list[selectedIDIndex].value != 'company') {
                     res = await API.validateID({
                         type:list[selectedIDIndex].value,
-                        image:validID.base64
+                        image:validID.base64,
+                        first_name:firstname,
+                        last_name:lastname,
+                        birth_date:bday_day,
+                        birth_month:bday_month,
+                        birth_year:bday_year
                     })
                 }
 
                 if(res.valid) this.takeLivePhoto()
-                else Say.err('Type of ID submitted does not match with the selected ID type. Please try again or choose another ID.')
+                else if(!res.valid) {
+                    Say.err('Type of ID submitted does not match with the selected ID type. Please try again or choose another ID.')
+                }
+                else if(!res.first_name || !res.last_name || !res.birth_date || !res.birth_month || !res.birth_year) {
+                    Say.err('Details from the ID submitted does not match with the registered ML Wallet information. Please try again or choose another ID.')
+                }
             }
             else {
                 let res = await API.compareFace({
