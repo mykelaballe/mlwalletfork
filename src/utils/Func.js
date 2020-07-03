@@ -3,6 +3,8 @@ import Consts from './Consts'
 import _ from './Lang'
 import Say from './Say'
 
+const moment = require('moment')
+
 import Formatter from './Formatter'
 import Validator from './Validator'
 
@@ -170,6 +172,12 @@ const getNearestBranches = (branches, currentCoords) => {
     return near_branches
 }
 
+const getAge = birthdate => {
+    const currentDate = moment()
+    let duration = moment.duration(currentDate.diff(moment(birthdate, 'YYYY-MM-DD')))
+    return duration.asYears()
+}
+
 export default {
     ...Formatter,
     ...Validator,
@@ -180,5 +188,6 @@ export default {
     getCurrentPosition,
     getLocation,
     getDistance,
-    getNearestBranches
+    getNearestBranches,
+    getAge
 }

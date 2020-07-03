@@ -25,9 +25,15 @@ class Scrn extends React.Component {
         try {
             list = [
                 {
+                    type:'INCOMING',
+                    semi_verified:{value:null},
+                    verified:{value:null},
+                    sme:{value:''}
+                },
+                {
                     feature:'Add Money',
                     semi_verified:{
-                        value:'PHP 10,000 Monthly'
+                        value:'PHP 40,000'
                     },
                     verified:{
                         value:'PHP 200,000',
@@ -40,7 +46,7 @@ class Scrn extends React.Component {
                 {
                     feature:'Receive Money',
                     semi_verified:{
-                        value:'PHP 10,000 Monthly'
+                        value:'PHP 40,000'
                     },
                     verified:{
                         value:'PHP 200,000',
@@ -50,6 +56,39 @@ class Scrn extends React.Component {
                         value:''
                     }
                 },
+
+                {
+                    type:'OUTGOING',
+                    semi_verified:{value:null},
+                    verified:{value:null},
+                    sme:{value:''}
+                },
+                {
+                    feature:'Send Money',
+                    semi_verified:{
+                        value:'PHP 10,000 Monthly'
+                    },
+                    verified:{
+                        value:'PHP 200,000',
+                        note:'PHP 50,000 limit per transaction'
+                    },
+                    sme:{
+                        value:'Coming Soon'
+                    }
+                },
+                {
+                    feature:'Withdraw Money',
+                    semi_verified:{
+                        value:'PHP 5,000 per transaction, per day'
+                    },
+                    verified:{
+                        value:'PHP 200,000',
+                        note:'PHP 40,000 limit per transaction, per day'
+                    },
+                    sme:{
+                        value:''
+                    }
+                }, 
                 {
                     feature:'Pay Bills',
                     semi_verified:{
@@ -64,39 +103,13 @@ class Scrn extends React.Component {
                     }
                 },
                 {
-                    feature:'Withdraw Money',
+                    feature:'Buy eLoad',
                     semi_verified:{
-                        value:'PHP 10,000 Monthly'
-                    },
-                    verified:{
-                        value:'PHP 200,000',
-                        note:'PHP 40,000 limit per transaction, per day'
-                    },
-                    sme:{
-                        value:'Coming Soon'
-                    }
-                }, 
-                {
-                    feature:'Send Money',
-                    semi_verified:{
-                        value:'PHP 10,000 Monthly'
+                        value:'PHP 750 Monthly'
                     },
                     verified:{
                         value:'PHP 200,000',
                         note:'PHP 50,000 limit per transaction'
-                    },
-                    sme:{
-                        value:''
-                    }
-                },
-                {
-                    feature:'Buy eLoad',
-                    semi_verified:{
-                        value:'PHP 10,000 Monthly'
-                    },
-                    verified:{
-                        value:'PHP 200,000',
-                        note:'No limit per transaction'
                     },
                     sme:{
                         value:''
@@ -109,7 +122,7 @@ class Scrn extends React.Component {
                     },
                     verified:{
                         value:'PHP 200,000',
-                        note:'No limit per transaction'
+                        note:'Custom limit'
                     },
                     sme:{
                         value:''
@@ -131,20 +144,20 @@ class Scrn extends React.Component {
         <ScrollFix>
             <Row ar style={style.item}>
                 <View style={style.cell}>
-                    <Text center sm>{item.feature}</Text>
+                    {item.type ? <Text center sm b>{item.type}</Text> :  <Text center sm>{item.feature}</Text>}
                 </View>
 
                 <View style={style.cell}>
                     {typeof item.semi_verified.value === 'string' && <Text center sm>{item.semi_verified.value}</Text>}
-                    {item.semi_verified.value === true && <Icon name='ios-checkmark' size={Metrics.icon.md} color={Colors.mute} />}
-                    {item.semi_verified.value === false && <Icon name='ios-close' size={Metrics.icon.md} color={Colors.mute} />}
+                    {/*item.semi_verified.value === true && <Icon name='ios-checkmark' size={Metrics.icon.md} color={Colors.mute} />*/}
+                    {/*item.semi_verified.value === false && <Icon name='ios-close' size={Metrics.icon.md} color={Colors.mute} />*/}
                     {item.semi_verified.note && <Text xs center mute>{item.semi_verified.note}</Text>}
                 </View>
 
                 <View style={style.cell}>
                     {typeof item.verified.value === 'string' && <Text center sm>{item.verified.value}</Text>}
-                    {item.verified.value === true && <Icon name='ios-checkmark' size={Metrics.icon.md} color={Colors.mute} />}
-                    {item.verified.value === false && <Icon name='ios-close' size={Metrics.icon.md} color={Colors.mute} />}
+                    {/*item.verified.value === true && <Icon name='ios-checkmark' size={Metrics.icon.md} color={Colors.mute} />*/}
+                    {/*tem.verified.value === false && <Icon name='ios-close' size={Metrics.icon.md} color={Colors.mute} />*/}
                     {item.verified.note && <Text xs center mute>{item.verified.note}</Text>}
                 </View>
 
@@ -178,6 +191,10 @@ class Scrn extends React.Component {
                 </>
                 }
 
+                <Text><Text b>Tip: </Text> To start enjoying ML Wallet services, you can Add Money at any of 	the 2,500 M Lhuillier branches nationwide!</Text>
+
+                <Spacer sm />
+
                 <Row ar style={style.tableHeader}>
                     <View style={[style.cell,{alignItems:'flex-start'}]}>
                         <Text center b sm>FEATURES</Text>
@@ -185,12 +202,12 @@ class Scrn extends React.Component {
 
                     <View style={style.cell}>
                         {status == 1 ? <Bullet size={9} /> : <Icon name='ios-checkmark-circle' color={Colors.brand} size={Metrics.icon.sm} />}
-                        <Text center sm>{'Semi-\nVerified'}</Text>
+                        <Text center sm>{'Semi-\nVerified*'}</Text>
                     </View>
 
                     <View style={style.cell}>
                         {status == 0 ? <Bullet size={9} /> : <Icon name='ios-checkmark-circle' color={Colors.brand} size={Metrics.icon.sm} />}
-                        <Text center sm>Verified</Text>
+                        <Text center sm>{'Fully-\nVerified'}</Text>
                     </View>
 
                     <View style={style.cell}>
@@ -204,6 +221,12 @@ class Scrn extends React.Component {
                     renderItem={this.renderItem}
                     loading={loading}
                 />
+
+                <Spacer />
+
+                <Text sm>*Semi-Verified - maximum ML Wallet balance is PHP 50,000.00 (this information is for internal purposes only)</Text>
+
+                <Spacer />
             </Screen>
         )
     }

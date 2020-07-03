@@ -117,13 +117,31 @@ class Scrn extends React.Component {
     }
 
     handleSelectValidID = selectedIDIndex => {
+        const type = this.state.list[selectedIDIndex].value
+        
+        if(type == 'student' || type == 'company') {
+            Say.ask(
+                'Choosing a non-government issued ID lowers your transaction limits. Continue?',
+                'Hi there!',
+                {
+                    onConfirm:() => this.selectValidID(selectedIDIndex)
+                }
+            )
+        }
+        else {
+            this.selectValidID(selectedIDIndex)
+        }
+    }
+
+    selectValidID = selectedIDIndex => {
         this.setState({
             selectedIDIndex,
             for:'validID'
-        })
-        this.props.navigation.navigate('Camera',{
-            title:'Valid ID',
-            sourceRoute:this.state.sourceRoute
+        },() => {
+            this.props.navigation.navigate('Camera',{
+                title:'Valid ID',
+                sourceRoute:this.state.sourceRoute
+            })
         })
     }
 
@@ -157,7 +175,7 @@ class Scrn extends React.Component {
                     birth_year:true
                 }
 
-                if(list[selectedIDIndex].value != 'student' && list[selectedIDIndex].value != 'company') {
+                //if(list[selectedIDIndex].value != 'student' && list[selectedIDIndex].value != 'company') {
                     res = await API.validateID({
                         type:list[selectedIDIndex].value,
                         image:validID.base64,
@@ -167,14 +185,20 @@ class Scrn extends React.Component {
                         birth_month:bday_month,
                         birth_year:bday_year
                     })
-                }
+                //}
 
-                if(res.valid) this.takeLivePhoto()
-                else if(!res.valid) {
+                if(!res.valid) {
                     Say.err('Type of ID submitted does not match with the selected ID type. Please try again or choose another ID.')
                 }
-                else if(!res.first_name || !res.last_name || !res.birth_date || !res.birth_month || !res.birth_year) {
-                    Say.err('Details from the ID submitted does not match with the registered ML Wallet information. Please try again or choose another ID.')
+                else {
+                    if(
+                        !res.first_name ||
+                        !res.last_name ||
+                        (list[selectedIDIndex].value != 'student' && list[selectedIDIndex].value != 'company' && (!res.birth_date || !res.birth_month || !res.birth_year))
+                    ) {
+                        Say.err('Details from the ID submitted does not match with the registered ML Wallet information. Please try again or choose another ID.')
+                    }
+                    else this.takeLivePhoto()
                 }
             }
             else {
@@ -193,6 +217,7 @@ class Scrn extends React.Component {
                     else {
                         this.props.navigation.navigate('SignUpStep4',{
                             ...this.props.navigation.state.params,
+                            idType:list[selectedIDIndex].value,
                             validID:validID.base64,
                             profilepic:profilepic.base64
                         })
