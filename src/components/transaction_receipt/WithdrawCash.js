@@ -51,6 +51,8 @@ class WithdrawCash extends React.Component {
     }
 
     handleCancelTransaction = async () => {
+        const {walletno} = this.props.user
+        const {kptn} = this.props.data
         let latitude = Consts.defaultLatitude, longitude = Consts.defaultLongitude
 
         if(Func.isCheckLocation('cwdc')) {
@@ -58,6 +60,11 @@ class WithdrawCash extends React.Component {
             if(!locationRes.error) {
                 latitude = locationRes.data.latitude
                 longitude = locationRes.data.longitude
+
+                API.attemptWithdrawCashCancel({
+                    walletno,
+                    kptn
+                })
 
                 Say.ask(
                     'Are you sure you want to cancel this transaction?',

@@ -13,6 +13,8 @@ export default {
         })
     },
 
+    attemptKPCancel: async payload => await Fetch.postc('cancelattempt',payload),
+
     sendKPCancel: async payload => await Fetch.postc('kp/cancelSendMoney',{
         ...payload,
         deviceid:Consts.deviceId,

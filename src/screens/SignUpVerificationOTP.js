@@ -159,6 +159,7 @@ export default class Scrn extends React.Component {
                         secquestion3:question3,
                         secanswer3:answer3,
                         mobileno:mobile_no,
+                        idType,
                         validID,
                         profilepic,
                         latitude,
