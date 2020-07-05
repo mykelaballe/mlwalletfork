@@ -187,6 +187,8 @@ class Scrn extends React.Component {
                     })
                 //}
 
+                if(list[selectedIDIndex].value == 'student' || list[selectedIDIndex].value == 'company') res.valid = true
+
                 if(!res.valid) Say.err('Type of ID submitted does not match with the selected ID type. Please try again or choose another ID.')
                 else {
                     if(
