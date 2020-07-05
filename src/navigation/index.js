@@ -15,9 +15,9 @@ class Navigation extends React.Component {
 
     render() {
 
-        const {isFirstTime, isLoggedIn, user} = this.props
+        const {isFirstTime, isLoggedIn, isForceUpdate, user} = this.props
 
-        if(user && user.is_force) return <ForceReenterDataContainer />
+        //if(isForceUpdate) return <ForceReenterDataContainer />
 
         if(isFirstTime) return <AppIntroContainer />
 
@@ -29,6 +29,7 @@ class Navigation extends React.Component {
 const mapStateToProps = state => ({
     isFirstTime: state.app.isFirstTime,
     isLoggedIn: state.auth.isLoggedIn,
+    isForceUpdate: state.auth.isForceUpdate,
     user: state.user.data
 })
 

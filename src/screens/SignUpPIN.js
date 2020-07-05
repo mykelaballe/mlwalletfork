@@ -1,7 +1,6 @@
 import React from 'react'
 import {StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
-import {Creators} from '../actions'
 import {Screen, Footer, Headline, Button, TextInputFlat, Row, Text, SignUpStepsTracker, Spacer} from '../components'
 import {Metrics} from '../themes'
 import {_, Say, Consts, Func} from '../utils'
@@ -79,7 +78,7 @@ class Scrn extends React.Component {
     }
 
     handleSubmit = async () => {
-        const {user} = this.props
+        const {isForceUpdate} = this.props
         const {params = {}} = this.props.navigation.state
         const {digit1, digit2, digit3, digit4, digit5, digit6, processing} = this.state
 
@@ -94,27 +93,12 @@ class Scrn extends React.Component {
             else if(!Func.isNumbersOnly(pin)) Say.warn(Consts.error.onlyNumbers)
             else {
 
-                let payload = {
+                let payload = params.payload || {}
+
+                this.props.navigation[isForceUpdate ? 'navigate' : 'replace']('SignUpStep1',{
+                    ...payload,
                     pincode:pin
-                }
-
-                if(params.payload) {
-                    payload = {
-                        ...params.payload,
-                        ...payload
-                    }
-                }
-
-                if(user && user.is_force) {
-                    this.props.navigation.navigate('SignUpStep1',{
-                        ...payload
-                    })
-                }
-                else {
-                    this.props.navigation.replace('SignUpStep1',{
-                        ...payload
-                    })
-                }
+                })
             }
         }
         catch(err) {
@@ -124,20 +108,13 @@ class Scrn extends React.Component {
         this.setState({processing:false})
     }
 
-    handleLogin = () => {
-        this.props.clearUser()
-        this.props.login()
-    }
-
     render() {
 
-        const {user} = this.props
+        const {isForceUpdate} = this.props
         const {digit1, digit2, digit3, digit4, digit5, digit6, processing} = this.state
         let ready = false
 
-        if(`${digit1}${digit2}${digit3}${digit4}${digit5}${digit6}`.length >= 6) {
-            ready = true
-        }
+        if(`${digit1}${digit2}${digit3}${digit4}${digit5}${digit6}`.length >= 6) ready = true
 
         return (
             <>
@@ -146,7 +123,7 @@ class Scrn extends React.Component {
                     {/*<SignUpStepsTracker step={5} />*/}
 
                     <Headline
-                        title={user && user.is_force ? '' : 'Registration'}
+                        title={isForceUpdate ? '' : 'Registration'}
                         subtext='Create 6-digit Transaction PIN'
                     />
 
@@ -233,12 +210,6 @@ class Scrn extends React.Component {
             
                 <Footer>
                     <Button disabled={!ready} t={_('10')} onPress={this.handleSubmit} loading={processing} />
-                    {(user && user.is_force) &&
-                    <>
-                        <Spacer xs />
-                        <Button mode='outlined' t='Back to Login' onPress={this.handleLogin} />
-                    </>
-                    }
                 </Footer>
             </>
         )
@@ -254,14 +225,7 @@ const style = StyleSheet.create({
 })
 
 const mapStateToProps = state => ({
-    user:state.user.data
+    isForceUpdate: state.auth.isForceUpdate
 })
 
-const mapDispatchToProps = dispatch => ({
-    login:() => dispatch(Creators.login()),
-    setUser:user => dispatch(Creators.setUser(user)),
-    clearUser:() => dispatch(Creators.clearUser()),
-    setIsUsingTouchID:isUsing => dispatch(Creators.setIsUsingTouchID(isUsing))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Scrn)
+export default connect(mapStateToProps)(Scrn)

@@ -155,8 +155,8 @@ class Scrn extends React.Component {
     }
 
     handleSubmit = async () => {
-        const {user} = this.props
-        const {firstname, lastname, bday_day, bday_month, bday_year} = this.props.navigation.state.params
+        const {isForceUpdate, user} = this.props
+        const {password, pincode, firstname, middlename, lastname, suffix, source_of_income, natureofwork, bday_day, bday_month, bday_year} = this.props.navigation.state.params
         let {profilepic, validID, list, selectedIDIndex, processing} = this.state
 
         if(processing) return false
@@ -187,9 +187,7 @@ class Scrn extends React.Component {
                     })
                 //}
 
-                if(!res.valid) {
-                    Say.err('Type of ID submitted does not match with the selected ID type. Please try again or choose another ID.')
-                }
+                if(!res.valid) Say.err('Type of ID submitted does not match with the selected ID type. Please try again or choose another ID.')
                 else {
                     if(
                         !res.first_name ||
@@ -207,12 +205,28 @@ class Scrn extends React.Component {
                     face:profilepic.base64
                 })
                 if(res.match || res.valid) {
-                    if(user && user.is_force) {
-                        /*await API.update({
-
-                        })*/
-                        this.props.updateUserInfo({is_force:false})
-                        this.props.login()
+                    if(isForceUpdate) {
+                        let updateRes = await API.reupdateProfile({
+                            walletno:user.walletno,
+                            password,
+                            pincode,
+                            fname:firstname,
+                            mname:middlename,
+                            lname:lastname,
+                            suffix,
+                            sourceOfIncome:source_of_income,
+                            natureofwork,
+                            idType:list[selectedIDIndex].value,
+                            validID:validID.base64,
+                            profilepic:profilepic.base64
+                        })
+                        
+                        if(updateRes.error) Say.warn(updateRes.message)
+                        else {
+                            this.props.updateUserInfo(updateRes.data)
+                            this.props.setIsForceUpdate(false)
+                            this.props.login()
+                        }
                     }
                     else {
                         this.props.navigation.navigate('SignUpStep4',{
@@ -252,6 +266,7 @@ class Scrn extends React.Component {
 
     render() {
 
+        const {isForceUpdate} = this.props
         const {list, selectedIDIndex, validID, profilepic, processing} = this.state
         let ready = false
 
@@ -261,7 +276,7 @@ class Scrn extends React.Component {
             <>
                 <Screen ns>
                     
-                    <SignUpStepsTracker step={3} />
+                    {!isForceUpdate && <SignUpStepsTracker step={3} />}
 
                     <Headline subtext='Choose a valid ID you can provide from the list below' />
 
@@ -308,12 +323,14 @@ const style = StyleSheet.create({
 })
 
 const mapStateToProps = state => ({
-    user:state.user.data
+    isForceUpdate: state.auth.isForceUpdate,
+    user: state.user.data
 })
 
 const mapDispatchToProps = dispatch => ({
     login:() => dispatch(Creators.login()),
-    updateUserInfo:newInfo => dispatch(Creators.updateUserInfo(newInfo))
+    updateUserInfo:newInfo => dispatch(Creators.updateUserInfo(newInfo)),
+    setIsForceUpdate:isForceUpdate => dispatch(Creators.setIsForceUpdate(isForceUpdate))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

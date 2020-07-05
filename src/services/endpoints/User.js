@@ -3,6 +3,8 @@ import Fetch from '../../utils/Fetch'
 export default {
     updateProfile: async payload => await Fetch.putc('editProfile',payload),
 
+    reupdateProfile: async payload => await Fetch.put('updateInfo',payload),
+
     requestUpdateProfile: async payload => {
         return await Fetch.postc('send_wallet_request',{
             ...payload,

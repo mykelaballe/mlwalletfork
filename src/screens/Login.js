@@ -135,6 +135,11 @@ class Scrn extends React.Component {
                             }
                         )
                     }
+                    else if(res.message === 'old_user') {
+                        this.props.setUser(res.data)
+                        this.props.setIsForceUpdate(true)
+                        this.props.navigation.navigate('SignUpPassword')
+                    }
                     else if(res.message === 'registered_anotherdevice') {
 
                         this.setState({data:res.data})
@@ -156,8 +161,6 @@ class Scrn extends React.Component {
                     res.data.latitude = latitude
                     res.data.longitude = longitude
 
-                    //res.data.is_force = true
-
                     if(res.data.isresetpass === 1) {
                         this.props.navigation.navigate('CreatePassword',{
                             walletno:res.data.walletno,
@@ -173,8 +176,7 @@ class Scrn extends React.Component {
                         this.props.setUser(res.data)
                         this.props.setIsUsingTouchID(res.data.fingerprintstat === 1)
                         this.props.rememberLoginCredentials({username})
-                        
-                        if(!res.data.is_force) this.props.login()
+                        this.props.login()
                     }
                 }
             }
@@ -355,6 +357,7 @@ const mapDispatchToProps = dispatch => ({
     login:() => dispatch(Creators.login()),
     setUser:user => dispatch(Creators.setUser(user)),
     setIsUsingTouchID:isUsing => dispatch(Creators.setIsUsingTouchID(isUsing)),
+    setIsForceUpdate:isForceUpdate => dispatch(Creators.setIsForceUpdate(isForceUpdate)),
     rememberLoginCredentials:credentials => dispatch(Creators.rememberLoginCredentials(credentials))
 })
 

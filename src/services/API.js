@@ -20,6 +20,13 @@ import User from './endpoints/User'
 export default {
     login: async payload => {
         /*return {
+            error:true,
+            message:'old_user',
+            data:{
+                walletno:'123'
+            }
+        }*/
+        /*return {
             error:false,
             data: {
                 username:'johnsmith',

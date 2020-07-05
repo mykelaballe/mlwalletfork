@@ -1,9 +1,11 @@
 import React from 'react'
-import {Screen, Headline, Button, ButtonText, TextInput, Footer, Errors} from '../components'
+import {connect} from 'react-redux'
+import {Creators} from '../actions'
+import {Screen, Headline, Button, ButtonText, TextInput, Footer, Errors, Spacer} from '../components'
 import {Colors} from '../themes'
 import {_, Say, Func, Consts} from '../utils'
 
-export default class Scrn extends React.Component {
+class Scrn extends React.Component {
 
     state = {
         password:'',
@@ -21,6 +23,8 @@ export default class Scrn extends React.Component {
     handleToggleConfirmPassword = () => this.setState(prevState => ({show_confirm_password:!prevState.show_confirm_password}))
 
     handleSubmit = async () => {
+        const {isForceUpdate} = this.props
+        const {params = {}} = this.props.navigation.state
         let {password, confirm_password, processing} = this.state
         let password_errors = []
 
@@ -45,18 +49,14 @@ export default class Scrn extends React.Component {
                 password_errors = passwordValidation.errors
                 
                 if(passwordValidation.ok) {
-                    let payload = {
-                        ...this.props.navigation.state.params.payload,
+                    let payload = params.payload || {}
+
+                    this.props.navigation[isForceUpdate ? 'navigate' : 'replace']('SignUpPIN',{
+                        ...payload,
                         password
-                    }
-                    this.props.navigation.navigate('SignUpPIN',{
-                        payload
                     })
                 }
-                else {
-                    //Say.warn('Invalid format')
-                    this.setState({error:true})
-                }
+                else this.setState({error:true})
             }
         }
         catch(err) {
@@ -66,8 +66,11 @@ export default class Scrn extends React.Component {
         this.setState({processing:false})
     }
 
+    handleLogin = () => this.props.setIsForceUpdate(false)
+
     render() {
 
+        const {isForceUpdate} = this.props
         const {password, confirm_password, error, show_password, show_confirm_password, password_errors, processing} = this.state
         let ready = false
 
@@ -78,7 +81,7 @@ export default class Scrn extends React.Component {
                 <Screen>
                     
                     <Headline
-                        title='Registration'
+                        title={isForceUpdate ? '' : 'Registration'}
                         subtext='Create a strong password'
                     />
 
@@ -116,9 +119,25 @@ export default class Scrn extends React.Component {
                 </Screen>
             
                 <Footer>
-                    <Button disabled={!ready} t='Register' onPress={this.handleSubmit} loading={processing} />
+                    <Button disabled={!ready} t={isForceUpdate ? 'Next' : 'Register'} onPress={this.handleSubmit} loading={processing} />
+                    {/*isForceUpdate &&
+                    <>
+                        <Spacer xs />
+                        <Button mode='outlined' t='Back to Login' onPress={this.handleLogin} />
+                    </>
+                    */}
                 </Footer>
             </>
         )
     }
 }
+
+const mapStateToProps = state => ({
+    isForceUpdate: state.auth.isForceUpdate
+})
+
+const mapDispatchToProps = dispatch => ({
+    setIsForceUpdate:isForceUpdate => dispatch(Creators.setIsForceUpdate(isForceUpdate))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Scrn)
