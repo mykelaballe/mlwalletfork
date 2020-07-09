@@ -175,7 +175,7 @@ class Scrn extends React.Component {
 
         return (
             <Screen ns>
-                {status == 0 &&
+                {/*status == 0 &&
                 <>
                     <View style={style.statusContainer}>
                         <Text center b md>You are semi-verified. To get more benefits, get fully-verified now! Here's how:</Text>
@@ -189,9 +189,9 @@ class Scrn extends React.Component {
 
                     <Spacer sm />
                 </>
-                }
+                */}
 
-                <Text><Text b>Tip: </Text> To start enjoying ML Wallet services, you can Add Money at any of 	the 2,500 M Lhuillier branches nationwide!</Text>
+                <Text><Text b>Tip: </Text> To start enjoying ML Wallet services, you can Add Money at any of the 2,500 M Lhuillier branches nationwide!</Text>
 
                 <Spacer sm />
 
@@ -221,10 +221,6 @@ class Scrn extends React.Component {
                     renderItem={this.renderItem}
                     loading={loading}
                 />
-
-                <Spacer />
-
-                <Text sm>*Semi-Verified - maximum ML Wallet balance is PHP 50,000.00 (this information is for internal purposes only)</Text>
 
                 <Spacer />
             </Screen>
