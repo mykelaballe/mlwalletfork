@@ -27,7 +27,7 @@ const ItemUI = ({data, onPress}) => (
             </View>
 
             <View>
-                <Text b md right>{data.transtype === Consts.tcn.rmd.code || data.transtype === Consts.tcn.rmi.code || data.transtype === Consts.tcn.adm.code ? '' : '-'}PHP {Func.formatToRealCurrency(data.amount)}</Text>
+                <Text b md right>{data.transtype === Consts.tcn.rmd.code || data.transtype === Consts.tcn.rmi.code || data.transtype === Consts.tcn.adm.code ? '' : '-'}PHP {Func.formatToRealCurrency(data.totalamount)}</Text>
                 <TouchableOpacity onPress={() => onPress(data)}>
                     <Text brand right>View details</Text>
                 </TouchableOpacity>
