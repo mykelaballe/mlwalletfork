@@ -163,8 +163,8 @@ class WithdrawCash extends React.Component {
                     {cancellable &&
                     <>
                         <Button mode='outlined' t='Withdraw using QR Code' onPress={this.handleShowQR} />
-                        <Spacer sm />
-                        <Button mode='outlined' t='Cancel Transaction' onPress={this.handleCancelTransaction} loading={cancelling} />
+                        {/*<Spacer sm />
+                        <Button mode='outlined' t='Cancel Transaction' onPress={this.handleCancelTransaction} loading={cancelling} />*/}
 
                         <Spacer sm />
                     </>

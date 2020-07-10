@@ -214,8 +214,8 @@ class SendKP extends React.Component {
                 </Screen>
 
                 <Footer>
-                    {cancellable && <Button mode='outlined' t='Cancel Transaction' onPress={this.handleCancelTransaction} loading={cancelling} />}
-                    <Spacer sm />
+                    {/*cancellable && <Button mode='outlined' t='Cancel Transaction' onPress={this.handleCancelTransaction} loading={cancelling} />*/}
+                    {/*<Spacer sm />*/}
                     {_from !== 'history' && <Button t='Back to Home' onPress={this.handleBackToHome} />}
                 </Footer>
             </>
