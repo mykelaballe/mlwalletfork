@@ -231,6 +231,11 @@ export default {
         let data = new FormData()
         data.append('id_type',payload.type)
         data.append('id_image',payload.image)
+        data.append('first_name',payload.first_name)
+        data.append('last_name',payload.last_name)
+        data.append('birth_date',payload.birth_date)
+        data.append('birth_month',payload.birth_month)
+        data.append('birth_year',payload.birth_year)
         data.append('is_base64',true)
         data.append('extract_details',true)
 
