@@ -168,7 +168,7 @@ export default [
             },
             {
                 question:'7. Is there maximum wallet size?',
-                answer:'The ML Wallet App allows a maximum wallet size of Php 200,000.00 for fully-verified users and PHP 10,000.00 for semi-verified users.'
+                answer:'The ML Wallet App allows a maximum wallet size of Php 200,000.00 for fully-verified users and PHP 40,000.00 for semi-verified users.'
             },
             {
                 question:'8. What is the maximum amount per transaction?',
