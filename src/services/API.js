@@ -258,7 +258,7 @@ export default {
 
         let res = await axios({
             method: 'post',
-            url: `https://ml-symph-ai.df.r.appspot.com/api/v2/face/compare`,
+            url: `https://ml-symph-ai.df.r.appspot.com/api/v1/face/compare`,
             data
         })
 
