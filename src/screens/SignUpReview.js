@@ -395,7 +395,7 @@ export default class Scrn extends React.Component {
                             editable={has_suffix}
                             selected={suffix}
                             items={suffix_options}
-                            placeholder='Suffix'
+                            placeholder='Suffix (e.g Junior, Senior)'
                             onChoose={this.handleChangeSuffix}
                         />
 

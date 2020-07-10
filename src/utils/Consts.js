@@ -99,11 +99,11 @@ export default {
 			value:'smart eload',
 			id:'MLNET16060001'
 		},
-		{
+		/*{
 			label:'Smart Dealer',
 			value:'smart dealer',
 			id:'MLNET17030003'
-		},
+		},*/
 		{
 			label:'Sun Cellular',
 			value:'sun cellular',

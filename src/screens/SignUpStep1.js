@@ -348,7 +348,7 @@ class Scrn extends React.Component {
                         selected={suffix}
                         error={error_suffix}
                         items={suffix_options}
-                        placeholder='Suffix'
+                        placeholder='Suffix (e.g Junior, Senior)'
                         onChoose={this.handleChangeSuffix}
                     />
 
