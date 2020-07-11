@@ -109,7 +109,7 @@ class Scrn extends React.Component {
                     },
                     verified:{
                         value:'PHP 1,500 monthly',
-                        note:'PHP 50,000 limit per transaction'
+                        //note:'PHP 50,000 limit per transaction'
                     },
                     sme:{
                         value:''
