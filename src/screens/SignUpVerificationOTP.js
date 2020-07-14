@@ -28,29 +28,37 @@ export default class Scrn extends React.Component {
     handleChangeDigit1 = digit1 => {
         this.setState({digit1})
         if(digit1) this.refs.digit2.focus()
+        else this.clearAll()
     }
     
     handleChangeDigit2 = digit2 => {
         this.setState({digit2})
         if(digit2) this.refs.digit3.focus()
+        else this.clearAll()
     }
 
     handleChangeDigit3 = digit3 => {
         this.setState({digit3})
         if(digit3) this.refs.digit4.focus()
+        else this.clearAll()
     }
 
     handleChangeDigit4 = digit4 => {
         this.setState({digit4})
         if(digit4) this.refs.digit5.focus()
+        else this.clearAll()
     }
 
     handleChangeDigit5 = digit5 => {
         this.setState({digit5})
         if(digit5) this.refs.digit6.focus()
+        else this.clearAll()
     }
 
-    handleChangeDigit6 = digit6 => this.setState({digit6})
+    handleChangeDigit6 = digit6 => {
+        this.setState({digit6})
+        if(!digit6) this.clearAll()
+    }
 
     handleResendOTP = async () => this.setState({reprocessing:true})
 
@@ -59,6 +67,18 @@ export default class Scrn extends React.Component {
     handleFocusDigit4 = () => this.refs.digit4.focus()
     handleFocusDigit5 = () => this.refs.digit5.focus()
     handleFocusDigit6 = () => this.refs.digit6.focus()
+
+    clearAll = () => {
+        this.setState({
+            digit1:'',
+            digit2:'',
+            digit3:'',
+            digit4:'',
+            digit5:'',
+            digit6:''
+        })
+        this.refs.digit1.focus()
+    }
 
     handleSubmit = async () => {
         const {processing, reprocessing} = this.state
