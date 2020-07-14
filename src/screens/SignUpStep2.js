@@ -162,7 +162,7 @@ export default class Scrn extends React.Component {
 
                     <TextInput
                         ref='street'
-                        label={'Street'}
+                        label={'Street*'}
                         value={street}
                         onChangeText={this.handleChangeStreet}
                         onSubmitEditing={this.handleFocusHouse}
@@ -171,7 +171,7 @@ export default class Scrn extends React.Component {
 
                     <TextInput
                         ref='house'
-                        label={'House/Unit/Floor #, Bldg Name, Block or Lot #'}
+                        label={'House/Unit/Floor #, Bldg Name, Block or Lot #*'}
                         value={house}
                         onChangeText={this.handleChangeHouse}
                         autoCapitalize='none'
