@@ -18,7 +18,7 @@ class Scrn extends React.Component {
         middlename:'',
         has_middlename:true,
         lastname:'',
-        suffix:_('51'),
+        suffix:'',
         other_suffix:'',
         has_suffix:true,
         suffix_options:Consts.suffixOptions,

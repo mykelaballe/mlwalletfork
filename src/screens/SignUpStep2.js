@@ -19,6 +19,9 @@ export default class Scrn extends React.Component {
         street:'',
         house:'',
         zip_code:'',
+        error_barangay:false,
+        error_street:false,
+        error_house:false,
         processing:false
     }
 
@@ -56,9 +59,9 @@ export default class Scrn extends React.Component {
         }
     }
 
-    handleChangeHouse = house => this.setState({house})
+    handleChangeHouse = house => this.setState({house,error_house:false})
 
-    handleChangeStreet = street => this.setState({street})
+    handleChangeStreet = street => this.setState({street,error_street:false})
 
     handleSelectCountry = () => {
         const {state, navigate} = this.props.navigation
@@ -75,7 +78,7 @@ export default class Scrn extends React.Component {
         navigate('Cities',{sourceRoute:state.routeName, province:this.state.province})
     }
 
-    handleChangeBarangay = barangay => this.setState({barangay})
+    handleChangeBarangay = barangay => this.setState({barangay,error_barangay:false})
 
     handleFocusBarangay = () => this.refs.barangay.focus()
 
@@ -92,8 +95,16 @@ export default class Scrn extends React.Component {
             barangay = barangay.trim()
             zip_code = zip_code.trim()
 
-            if(country == Consts.country.PH && (!province.province || !city || !barangay || !zip_code)) Say.some(_('8'))
-            else if(!house || !street) Say.some(_('8'))
+            if(country == Consts.country.PH && (!province.province || !city || !barangay || !zip_code)) {
+                this.setState({error_barangay:true})
+                Say.some(_('8'))
+            }
+            else if(!house || !street) {
+                if(!house) this.setState({error_house:true})
+                if(!street) this.setState({error_street:true})
+
+                Say.some(_('8'))
+            }
             else if(barangay && !Func.hasAddressSpecialCharsOnly(barangay)) Say.warn(Consts.error.notAllowedChar + '\n\nBarangay')
             else if(street && !Func.hasAddressSpecialCharsOnly(street)) Say.warn(Consts.error.notAllowedChar + '\n\nStreet')
             else if(house && !Func.hasAddressSpecialCharsOnly(house)) Say.warn(Consts.error.notAllowedChar + '\n\nHouse/Unit/Floor...: ')
@@ -117,10 +128,12 @@ export default class Scrn extends React.Component {
 
     render() {
 
-        const {house, street, country, province, city, barangay, zip_code, processing} = this.state
+        const {house, street, country, province, city, barangay, zip_code, error_barangay, error_house, error_street, processing} = this.state
         let ready = true
 
         if(country == Consts.country.PH && (!province.province || !city || !barangay || !zip_code)) ready = false
+
+        if(!house || !street) ready = false
 
         return (
             <>
@@ -152,6 +165,7 @@ export default class Scrn extends React.Component {
                             ref='barangay'
                             label={'Barangay*'}
                             value={barangay}
+                            error={error_barangay}
                             onChangeText={this.handleChangeBarangay}
                             onSubmitEditing={this.handleFocusStreet}
                             autoCapitalize='words'
@@ -164,6 +178,7 @@ export default class Scrn extends React.Component {
                         ref='street'
                         label={'Street*'}
                         value={street}
+                        error={error_street}
                         onChangeText={this.handleChangeStreet}
                         onSubmitEditing={this.handleFocusHouse}
                         returnKeyType='next'
@@ -173,6 +188,7 @@ export default class Scrn extends React.Component {
                         ref='house'
                         label={'House/Unit/Floor #, Bldg Name, Block or Lot #*'}
                         value={house}
+                        error={error_house}
                         onChangeText={this.handleChangeHouse}
                         autoCapitalize='none'
                     />
