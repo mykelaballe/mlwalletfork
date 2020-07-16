@@ -60,7 +60,7 @@ const checkHasNum = value => {
 }
 
 const hasSpecialChar = value => {
-    const regex = /[!@#$%&]+/
+    const regex = /[!@#$%&+\(\)\]\[¥x÷€\‘=–“|£_:\/}{;^,˜´?*]+/
     return regex.test(value)
 }
 
