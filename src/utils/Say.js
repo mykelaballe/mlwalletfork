@@ -37,17 +37,17 @@ const err = (message, title = null, options = {}) => {
     else message = _('500')
 
     if(message) {
-        if(message.toLowerCase() == 'network error') {
+        /*if(message.toLowerCase() == 'network error') {
             title = 'Uh-oh!'
             message = Consts.error.network
-        }
+        }*/
     
         if(message[message.length - 1] != '.') message = `${message}.`
     }
 
     SomeModal.show({
         message,
-        title:title || 'Oops!',
+        title:title || 'Uh-oh!',
         options
     })
 }

@@ -10,7 +10,7 @@ const CODEPUSH_ANDROID_DEV = '4fqjYGW3KwXH_fdzzIaebsbvfYFBTEchWq_7i'
 const CODEPUSH_IOS_DEV = 'tBS7rLCqUBKL7wu-0atzZIGDXGWFt83_pWuPk'
 
 export default {
-	is_dev:true,
+	is_dev:false,
 	is_android:IS_ANDROID,
 	//baseURL:'http://192.168.19.30/api/',
 	baseURL:'https://mlwallet.mlhuillier1.com/publish/',
