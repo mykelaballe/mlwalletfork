@@ -60,8 +60,13 @@ const checkHasNum = value => {
 }
 
 const hasSpecialChar = value => {
-    const regex = /[!@#$%&+\(\)\]\[¥x÷€\‘=–“|£_:\/}{;^,˜´?*]+/
-    return regex.test(value)
+    const chars = ['.','!', '@', '#', '$', '%', '&', '+', '(', ')', '[', ']', '¥', 'x', '÷', '€', "‘", '“', '\\', '/', '=', '-', '|', '£', '_', ':', '{', '}', ';', ',', '^', '~', '?', '*', '`']
+
+    for(let v in value) {
+        if(chars.indexOf(value[v]) >= 0) return true
+    }
+
+    return false
 }
 
 const isLettersOnly = str => {
