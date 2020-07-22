@@ -13,7 +13,7 @@ export default {
 	is_dev:false,
 	is_android:IS_ANDROID,
 	//baseURL:'http://192.168.19.30/api/',
-	baseURL:'https://mlwallet.mlhuillier1.com/publish/',
+	baseURL:'https://mlwallet.mlhuillier1.com/Publish/api/',
 	cipher:{
 		key:'mlinc12345678900',
 		iv:'mlinc12345678900'
