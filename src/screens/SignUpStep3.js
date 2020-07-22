@@ -228,6 +228,7 @@ class Scrn extends React.Component {
                             this.props.updateUserInfo(updateRes.data)
                             this.props.setIsForceUpdate(false)
                             this.props.login()
+                            Say.ok(`Thanks for updating your profile, ${firstname}!\n\nExplore the new ML Wallet now`)
                         }
                     }
                     else {
