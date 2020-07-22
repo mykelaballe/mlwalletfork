@@ -183,6 +183,10 @@ class Scrn extends React.Component {
                 this.setState({error_middlename:true})
                 Say.warn(Consts.error.onlyLettersInName)
             }
+            else if(middlename.length < 2) {
+                this.setState({error_middlename:true})
+                Say.warn(Consts.error.incompleteMiddlename)
+            } 
             else if(!Func.isLettersOnly(lastname)) {
                 this.setState({error_lastname:true})
                 Say.warn(Consts.error.onlyLettersInName)
@@ -262,6 +266,10 @@ class Scrn extends React.Component {
                 this.setState({error_middlename:true})
                 Say.warn(Consts.error.onlyLettersInName)
             }
+            else if(middlename.length < 2) {
+                this.setState({error_middlename:true})
+                Say.warn(Consts.error.incompleteMiddlename)
+            } 
             else if(!Func.isLettersOnly(lastname)) {
                 this.setState({error_lastname:true})
                 Say.warn(Consts.error.onlyLettersInName)

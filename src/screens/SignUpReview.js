@@ -209,6 +209,7 @@ export default class Scrn extends React.Component {
             else if(country == Consts.country.PH && (!province.province || !city || !barangay || !zip_code)) Say.some(_('8'))
             else if(!Func.isLettersOnly(firstname)) Say.warn(Consts.error.onlyLettersInName)
             else if(!Func.isLettersOnly(middlename)) Say.warn(Consts.error.onlyLettersInName)
+            else if(middlename.length < 2) Say.warn(Consts.error.incompleteMiddlename)
             else if(!Func.isLettersOnly(lastname)) Say.warn(Consts.error.onlyLettersInName)
             else if(!Func.isDateValid(birthday)) Say.warn(Consts.error.birthdate)
             else if(!Func.isAgeAllowed(birthday)) Say.warn(Consts.error.notAllowedAge)
