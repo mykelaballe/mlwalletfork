@@ -19,7 +19,7 @@ class Scrn extends React.Component {
     }
 
     state = {
-        data:this.props.user.walletno,
+        data:this.props.user.qrcode,
         processing:false
     }
 
@@ -42,8 +42,8 @@ class Scrn extends React.Component {
             let res = await API.updateQR(payload)
             if(res.error) Say.warn('Error saving new QR')
             else {
-                this.props.updateInfo({qrcode:payload.data})
-                this.setState({data:payload.data})
+                this.props.updateInfo({qrcode:payload.qrcode})
+                this.setState({data:payload.qrcode})
             }
         }
         catch(err) {
