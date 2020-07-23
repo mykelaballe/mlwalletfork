@@ -189,14 +189,14 @@ class Scrn extends React.Component {
 
                 if(list[selectedIDIndex].value == 'student' || list[selectedIDIndex].value == 'company') res.valid = true
 
-                if(!res.valid) Say.err('Type of ID submitted does not match with the selected ID type. Please try again or choose another ID.')
+                if(!res.valid) Say.warn('Type of ID submitted does not match with the selected ID type. Please try again or choose another ID.')
                 else {
                     if(
                         !res.first_name ||
                         !res.last_name ||
                         (list[selectedIDIndex].value != 'student' && list[selectedIDIndex].value != 'company' && (!res.birth_date || !res.birth_month || !res.birth_year))
                     ) {
-                        Say.err('Details from the ID submitted does not match with the registered ML Wallet information. Please try again or choose another ID.')
+                        Say.warn('Details from the ID submitted does not match with the registered ML Wallet information. Please try again or choose another ID.')
                     }
                     else this.takeLivePhoto()
                 }
@@ -240,7 +240,7 @@ class Scrn extends React.Component {
                         })
                     }
                 }
-                else Say.err('Photo from the ID submitted does not match with live photo taken. Please try again or choose another ID.')
+                else Say.warn('Photo from the ID submitted does not match with live photo taken. Please try again or choose another ID.')
             }
         }
         catch(err) {

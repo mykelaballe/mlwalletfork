@@ -1,16 +1,11 @@
 import React from 'react'
 import {StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
-import {Screen, Footer, Headline, Button, TextInputFlat, Row, Text, SignUpStepsTracker, Spacer} from '../components'
+import {Screen, Footer, Headline, Button, TextInputFlat, Row, Text} from '../components'
 import {Metrics} from '../themes'
 import {_, Say, Consts, Func} from '../utils'
 
 class Scrn extends React.Component {
-
-    /*static navigationOptions = {
-        title:'Transaction PIN'
-        header:null
-    }*/
 
     state = {
         digit1:'',
@@ -119,8 +114,6 @@ class Scrn extends React.Component {
         return (
             <>
                 <Screen>
-
-                    {/*<SignUpStepsTracker step={5} />*/}
 
                     <Headline
                         title={isForceUpdate ? '' : 'Registration'}

@@ -81,7 +81,7 @@ export default class Scrn extends React.Component {
                             forceUpOrientation: true
                         })
                         
-                        source.uri = source.uri.replace('file:///', '/')
+                        if(!Consts.is_android) source.uri = source.uri.replace('file:///', '/')
                         //alert(RNFetchBlob.fs.dirs.DocumentDir)
                         //let fileStat = await RNFetchBlob.fs.stat(source.uri)
         
