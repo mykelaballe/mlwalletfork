@@ -137,8 +137,9 @@ class Scrn extends React.Component {
                     }
                     else if(res.message === 'old_user') {
                         this.props.setUser(res.data)
-                        this.props.setIsForceUpdate(true)
-                        this.props.navigation.navigate('SignUpPassword')
+                        this.props.login()
+                        //this.props.setIsForceUpdate(true)
+                        //this.props.navigation.navigate('SignUpPassword')
                     }
                     else if(res.message === 'registered_anotherdevice') {
 
