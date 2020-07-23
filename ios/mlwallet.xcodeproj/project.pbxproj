@@ -12,16 +12,17 @@
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		2619355D0F122B1777153D59 /* libPods-mlwallet-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B73A9D76011EDF21157874B /* libPods-mlwallet-tvOS.a */; };
+		2AE3E0D0D552748D94084F42 /* libPods-mlwalletTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 177E21AFE6730898D8F4795A /* libPods-mlwalletTests.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* mlwalletTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* mlwalletTests.m */; };
-		3AE8AAB723237D09CEE4D708 /* libPods-mlwallet-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EF49727F8E7D417C71C49E3 /* libPods-mlwallet-tvOSTests.a */; };
 		4962FFFD23FE621500ED249F /* Lato.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4962FFFC23FE621400ED249F /* Lato.ttf */; };
 		4965453723FBED88002F795C /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4965453623FBED88002F795C /* File.swift */; };
-		54CCFCDBE4931FA5B39A150E /* libPods-mlwallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E8DC29FF11EBEF20BEBA05E /* libPods-mlwallet.a */; };
-		C3BB6B54E43C156D8AB1003A /* libPods-mlwalletTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41559AC5FD50F6D64482B012 /* libPods-mlwalletTests.a */; };
+		497D89EC24C9955500A47528 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 497D89EB24C9955500A47528 /* GoogleService-Info.plist */; };
+		662CBB03AE2D466424CCC353 /* libPods-mlwallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 913FE922FAE60DE1D5517710 /* libPods-mlwallet.a */; };
+		A4F11CF2DDB4C9FDD419C370 /* libPods-mlwallet-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E549F0E60E27E1F586D4A0B /* libPods-mlwallet-tvOS.a */; };
+		C2E94E9DCB9C45F33B2FB9F7 /* libPods-mlwallet-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2807F3B6160E6B2468CDE35B /* libPods-mlwallet-tvOSTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,13 +43,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		001AB3449053E1A88D4C4FC5 /* Pods-mlwallet-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mlwallet-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-mlwallet-tvOS/Pods-mlwallet-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00E356EE1AD99517003FC87E /* mlwalletTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = mlwalletTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* mlwalletTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mlwalletTests.m; sourceTree = "<group>"; };
 		0BF3FA28BE4F4F21932C93F7 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
-		0C0DDE8624BE6B7897A1D1AC /* Pods-mlwallet-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mlwallet-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-mlwallet-tvOSTests/Pods-mlwallet-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* mlwallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mlwallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = mlwallet/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = mlwallet/AppDelegate.m; sourceTree = "<group>"; };
@@ -56,36 +55,39 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = mlwallet/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = mlwallet/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = mlwallet/main.m; sourceTree = "<group>"; };
-		17F63BB8ED55620D1D8A2796 /* Pods-mlwallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mlwallet.debug.xcconfig"; path = "Target Support Files/Pods-mlwallet/Pods-mlwallet.debug.xcconfig"; sourceTree = "<group>"; };
-		1869438F111848969752D855 /* Pods-mlwallet-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mlwallet-tvOS.release.xcconfig"; path = "Target Support Files/Pods-mlwallet-tvOS/Pods-mlwallet-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		177E21AFE6730898D8F4795A /* libPods-mlwalletTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mlwalletTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E549F0E60E27E1F586D4A0B /* libPods-mlwallet-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mlwallet-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2807F3B6160E6B2468CDE35B /* libPods-mlwallet-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mlwallet-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E47B1E0B4A5D006451C7 /* mlwallet-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mlwallet-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* mlwallet-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mlwallet-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3EF49727F8E7D417C71C49E3 /* libPods-mlwallet-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mlwallet-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		41559AC5FD50F6D64482B012 /* libPods-mlwalletTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mlwalletTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		37BB7547D70A73E0CE82EB45 /* Pods-mlwallet-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mlwallet-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-mlwallet-tvOSTests/Pods-mlwallet-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4962FFFC23FE621400ED249F /* Lato.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Lato.ttf; sourceTree = "<group>"; };
 		4965453523FBED88002F795C /* mlwallet-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "mlwallet-Bridging-Header.h"; sourceTree = "<group>"; };
 		4965453623FBED88002F795C /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		497D89EB24C9955500A47528 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4ED324AC921B41CBB7B52079 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
+		539E5454F278DB87DDF34912 /* Pods-mlwalletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mlwalletTests.release.xcconfig"; path = "Target Support Files/Pods-mlwalletTests/Pods-mlwalletTests.release.xcconfig"; sourceTree = "<group>"; };
 		6BD9DF760AD44C939B19F0E7 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		75110212F92B4B6197F9121A /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
+		75D3CE6F1F1FFE78F89B8414 /* Pods-mlwallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mlwallet.debug.xcconfig"; path = "Target Support Files/Pods-mlwallet/Pods-mlwallet.debug.xcconfig"; sourceTree = "<group>"; };
 		85D91E29B3594DDA9B25248D /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		8A09C87428D544FD99F51EE4 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		8C8508B3FC0B4034A1220A45 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
-		8E8DC29FF11EBEF20BEBA05E /* libPods-mlwallet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mlwallet.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		985D9F7787ADA05C611CB233 /* Pods-mlwalletTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mlwalletTests.debug.xcconfig"; path = "Target Support Files/Pods-mlwalletTests/Pods-mlwalletTests.debug.xcconfig"; sourceTree = "<group>"; };
-		9B73A9D76011EDF21157874B /* libPods-mlwallet-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mlwallet-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B7CB49C70E924FBEBD01EFE7 /* Pods-mlwallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mlwallet.release.xcconfig"; path = "Target Support Files/Pods-mlwallet/Pods-mlwallet.release.xcconfig"; sourceTree = "<group>"; };
+		913FE922FAE60DE1D5517710 /* libPods-mlwallet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mlwallet.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A6C35EF02A6EC7DD59EC86E7 /* Pods-mlwallet-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mlwallet-tvOS.release.xcconfig"; path = "Target Support Files/Pods-mlwallet-tvOS/Pods-mlwallet-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		AF0E51535A33F23DE9AC4F57 /* Pods-mlwalletTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mlwalletTests.debug.xcconfig"; path = "Target Support Files/Pods-mlwalletTests/Pods-mlwalletTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B705EA8CFFB7A621E2F83A6F /* Pods-mlwallet-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mlwallet-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-mlwallet-tvOSTests/Pods-mlwallet-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		BCECBB48CDAE42F2BB1ED8AD /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		BD914C31795B45C384906876 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		BEDCACCA37BD402CAC36014B /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		C2A296A124EDF2198F8F15CF /* Pods-mlwallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mlwallet.release.xcconfig"; path = "Target Support Files/Pods-mlwallet/Pods-mlwallet.release.xcconfig"; sourceTree = "<group>"; };
 		C6213247E9624DAD9B772715 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		C674E41F0ED44CCE83B8AC04 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
 		CC580B2DDCDE4469A93F9ECA /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		D9A0FB34619045029C326AC9 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
-		DBAFF4AEC7CE859E7FC78490 /* Pods-mlwallet-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mlwallet-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-mlwallet-tvOSTests/Pods-mlwallet-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		E32EB3665080760DA9AC82EC /* Pods-mlwallet-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mlwallet-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-mlwallet-tvOS/Pods-mlwallet-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		EDB707191AA767FDA5C4296E /* Pods-mlwalletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mlwalletTests.release.xcconfig"; path = "Target Support Files/Pods-mlwalletTests/Pods-mlwalletTests.release.xcconfig"; sourceTree = "<group>"; };
 		F3B19AF0E89944138EE6DF23 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		FA9DA2BAA5294D20887FD8CD /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -95,7 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3BB6B54E43C156D8AB1003A /* libPods-mlwalletTests.a in Frameworks */,
+				2AE3E0D0D552748D94084F42 /* libPods-mlwalletTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,7 +105,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				54CCFCDBE4931FA5B39A150E /* libPods-mlwallet.a in Frameworks */,
+				662CBB03AE2D466424CCC353 /* libPods-mlwallet.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,7 +113,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2619355D0F122B1777153D59 /* libPods-mlwallet-tvOS.a in Frameworks */,
+				A4F11CF2DDB4C9FDD419C370 /* libPods-mlwallet-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,7 +121,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AE8AAB723237D09CEE4D708 /* libPods-mlwallet-tvOSTests.a in Frameworks */,
+				C2E94E9DCB9C45F33B2FB9F7 /* libPods-mlwallet-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,14 +162,14 @@
 		17145CD86BBDE32E4A726523 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				17F63BB8ED55620D1D8A2796 /* Pods-mlwallet.debug.xcconfig */,
-				B7CB49C70E924FBEBD01EFE7 /* Pods-mlwallet.release.xcconfig */,
-				001AB3449053E1A88D4C4FC5 /* Pods-mlwallet-tvOS.debug.xcconfig */,
-				1869438F111848969752D855 /* Pods-mlwallet-tvOS.release.xcconfig */,
-				DBAFF4AEC7CE859E7FC78490 /* Pods-mlwallet-tvOSTests.debug.xcconfig */,
-				0C0DDE8624BE6B7897A1D1AC /* Pods-mlwallet-tvOSTests.release.xcconfig */,
-				985D9F7787ADA05C611CB233 /* Pods-mlwalletTests.debug.xcconfig */,
-				EDB707191AA767FDA5C4296E /* Pods-mlwalletTests.release.xcconfig */,
+				75D3CE6F1F1FFE78F89B8414 /* Pods-mlwallet.debug.xcconfig */,
+				C2A296A124EDF2198F8F15CF /* Pods-mlwallet.release.xcconfig */,
+				E32EB3665080760DA9AC82EC /* Pods-mlwallet-tvOS.debug.xcconfig */,
+				A6C35EF02A6EC7DD59EC86E7 /* Pods-mlwallet-tvOS.release.xcconfig */,
+				37BB7547D70A73E0CE82EB45 /* Pods-mlwallet-tvOSTests.debug.xcconfig */,
+				B705EA8CFFB7A621E2F83A6F /* Pods-mlwallet-tvOSTests.release.xcconfig */,
+				AF0E51535A33F23DE9AC4F57 /* Pods-mlwalletTests.debug.xcconfig */,
+				539E5454F278DB87DDF34912 /* Pods-mlwalletTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -177,10 +179,10 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				8E8DC29FF11EBEF20BEBA05E /* libPods-mlwallet.a */,
-				9B73A9D76011EDF21157874B /* libPods-mlwallet-tvOS.a */,
-				3EF49727F8E7D417C71C49E3 /* libPods-mlwallet-tvOSTests.a */,
-				41559AC5FD50F6D64482B012 /* libPods-mlwalletTests.a */,
+				913FE922FAE60DE1D5517710 /* libPods-mlwallet.a */,
+				1E549F0E60E27E1F586D4A0B /* libPods-mlwallet-tvOS.a */,
+				2807F3B6160E6B2468CDE35B /* libPods-mlwallet-tvOSTests.a */,
+				177E21AFE6730898D8F4795A /* libPods-mlwalletTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -195,6 +197,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				497D89EB24C9955500A47528 /* GoogleService-Info.plist */,
 				4962FFFC23FE621400ED249F /* Lato.ttf */,
 				4965453623FBED88002F795C /* File.swift */,
 				13B07FAE1A68108700A75B9A /* mlwallet */,
@@ -252,7 +255,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "mlwalletTests" */;
 			buildPhases = (
-				8B99C6D3A3A11B433B7BC939 /* [CP] Check Pods Manifest.lock */,
+				A6A545BA54B73B36AE5F955D /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
@@ -271,13 +274,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "mlwallet" */;
 			buildPhases = (
-				69B0535F2D30CA103D3C8301 /* [CP] Check Pods Manifest.lock */,
+				8BA7EE6F3D901EB99ED36508 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				A09DE5418457548E3E6B7A0D /* [CP] Copy Pods Resources */,
+				44762E74B9DCED0550B30439 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -292,7 +295,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "mlwallet-tvOS" */;
 			buildPhases = (
-				9B22AB972985A122964C9103 /* [CP] Check Pods Manifest.lock */,
+				680D5E6E885A104F0466C824 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F122414F3F0027D42C /* Start Packager */,
 				2D02E4771E0B4A5D006451C7 /* Sources */,
 				2D02E4781E0B4A5D006451C7 /* Frameworks */,
@@ -312,7 +315,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "mlwallet-tvOSTests" */;
 			buildPhases = (
-				1B5C7E86FD36B78F429F6F6A /* [CP] Check Pods Manifest.lock */,
+				D1D66BE28874B29BEEBDBC0F /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
 				2D02E48D1E0B4A5D006451C7 /* Frameworks */,
 				2D02E48E1E0B4A5D006451C7 /* Resources */,
@@ -392,6 +395,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4962FFFD23FE621500ED249F /* Lato.ttf in Resources */,
+				497D89EC24C9955500A47528 /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
@@ -429,28 +433,6 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		1B5C7E86FD36B78F429F6F6A /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-mlwallet-tvOSTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -465,79 +447,14 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		69B0535F2D30CA103D3C8301 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-mlwallet-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8B99C6D3A3A11B433B7BC939 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-mlwalletTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9B22AB972985A122964C9103 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-mlwallet-tvOS-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A09DE5418457548E3E6B7A0D /* [CP] Copy Pods Resources */ = {
+		44762E74B9DCED0550B30439 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-mlwallet/Pods-mlwallet-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseMLVisionFaceModel/GoogleMVFaceDetectorResources.bundle",
 				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
@@ -558,6 +475,7 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMVFaceDetectorResources.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
@@ -579,6 +497,94 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-mlwallet/Pods-mlwallet-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		680D5E6E885A104F0466C824 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-mlwallet-tvOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8BA7EE6F3D901EB99ED36508 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-mlwallet-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A6A545BA54B73B36AE5F955D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-mlwalletTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D1D66BE28874B29BEEBDBC0F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-mlwallet-tvOSTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -687,7 +693,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 985D9F7787ADA05C611CB233 /* Pods-mlwalletTests.debug.xcconfig */;
+			baseConfigurationReference = AF0E51535A33F23DE9AC4F57 /* Pods-mlwalletTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -718,7 +724,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EDB707191AA767FDA5C4296E /* Pods-mlwalletTests.release.xcconfig */;
+			baseConfigurationReference = 539E5454F278DB87DDF34912 /* Pods-mlwalletTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -741,13 +747,13 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 17F63BB8ED55620D1D8A2796 /* Pods-mlwallet.debug.xcconfig */;
+			baseConfigurationReference = 75D3CE6F1F1FFE78F89B8414 /* Pods-mlwallet.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 52;
+				CURRENT_PROJECT_VERSION = 53;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 3M956BCSGM;
 				INFOPLIST_FILE = mlwallet/Info.plist;
@@ -771,13 +777,13 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B7CB49C70E924FBEBD01EFE7 /* Pods-mlwallet.release.xcconfig */;
+			baseConfigurationReference = C2A296A124EDF2198F8F15CF /* Pods-mlwallet.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 52;
+				CURRENT_PROJECT_VERSION = 53;
 				DEVELOPMENT_TEAM = 3M956BCSGM;
 				INFOPLIST_FILE = mlwallet/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -799,7 +805,7 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 001AB3449053E1A88D4C4FC5 /* Pods-mlwallet-tvOS.debug.xcconfig */;
+			baseConfigurationReference = E32EB3665080760DA9AC82EC /* Pods-mlwallet-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -827,7 +833,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1869438F111848969752D855 /* Pods-mlwallet-tvOS.release.xcconfig */;
+			baseConfigurationReference = A6C35EF02A6EC7DD59EC86E7 /* Pods-mlwallet-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -855,7 +861,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DBAFF4AEC7CE859E7FC78490 /* Pods-mlwallet-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = 37BB7547D70A73E0CE82EB45 /* Pods-mlwallet-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -882,7 +888,7 @@
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0C0DDE8624BE6B7897A1D1AC /* Pods-mlwallet-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = B705EA8CFFB7A621E2F83A6F /* Pods-mlwallet-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
