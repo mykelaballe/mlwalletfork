@@ -74,7 +74,8 @@ class Scrn extends React.Component {
                             forceUpOrientation:true
                         })
                         
-                        source.uri = source.uri.replace('file:///private', '')
+                        source.uri = source.uri.replace('file:///', '/')
+                        //alert(RNFetchBlob.fs.dirs.DocumentDir)
                         let fileStat = await RNFetchBlob.fs.stat(source.uri)
         
                         this.setState({
