@@ -19,50 +19,6 @@ import User from './endpoints/User'
 
 export default {
     login: async payload => {
-        /*return {
-            error:true,
-            message:'old_user',
-            data:{
-                walletno:'123'
-            }
-        }*/
-        /*return {
-            error:false,
-            data: {
-                username:'johnsmith',
-                password:'123',
-                fname:'John',
-                mname:'WAIVED',
-                lname:'Smith',
-                suffix:'NONE',
-                birthdate:'1980-01-01',
-                gender:'Male',
-                emailaddress:'johnsmith@gmail.com',
-                nationality:'Filipino',
-                sourceofincome:'Business',
-                country:'Philippines',
-                province:'Cebu',
-                city:'Talisay City',
-                barangay:'Cansojong',
-                street:'Canton',
-                houseno:'123',
-                zipcode:'6000',
-                mobileno:'09326118146',
-                walletno:'14040000000020',
-                secquestion1:'What was the name of your first pet?',
-                secquestion2:'What elementary school did you attend in Grade 6?',
-                secquestion3:'What is the name of your childhood bestfriend?',
-                balance:'50000',
-                profilepic:null,
-                validID:null,
-                points:35,
-                status:0,
-                isresetpass:"0",
-                isresetpin:"0",
-                qrcode:'14040000000020',
-                error:payload.username == 'newphone' ? 'registered_anotherdevice' : null
-            }
-        }*/
         let res = await Fetch.postc('wallet/login', {
             ...payload,
             location:'',
@@ -90,7 +46,6 @@ export default {
     },
 
     requestCustID: async () => {
-        //return await Fetch.get('http://192.168.19.96\c$\inetpub\wwwroot\WalletDomesticKYC')
         return {
             custid:'123'
         }
@@ -144,7 +99,6 @@ export default {
     },
 
     getTransactionHistory: async payload => {
-        //let res = await Fetch.get(`transactionhistory?walletno=${payload.walletno}&dfrom=${payload.from}&dto=${payload.to}&type=${payload.type}`)
         let res = await Fetch.getc(`transactionhistory?${JSON.stringify({
             walletno:payload.walletno,
             dfrom:payload.dfrom,
@@ -206,7 +160,6 @@ export default {
 
     getCities: async provCode => {
         let data = {}
-        //let res = await Fetch.get(`getCities/${provCode}`)
         let res = await Fetch.getc(`getCities?${JSON.stringify({provCode})}`)
 
         if(res.data) {
@@ -245,8 +198,6 @@ export default {
             data
         })
 
-        //console.warn(res.data)
-
         return res.data
     },
 
@@ -261,8 +212,6 @@ export default {
             url: `https://ml-symph-ai.df.r.appspot.com/api/v1/face/compare`,
             data
         })
-
-        //console.warn(res.data)
 
         return res.data
     }

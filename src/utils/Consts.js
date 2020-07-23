@@ -12,7 +12,7 @@ const CODEPUSH_IOS_DEV = 'yBJeaL3P77cjjC3pZROSybtcceBSmqCXcOKst'
 export default {
 	is_dev:false,
 	is_android:IS_ANDROID,
-	baseURL:'http://mlwallet.mlhuillier1.com/api/',
+	baseURL:'https://ccv078g234jk.mlhuillier1.com/api/',
 	cipher:{
 		key:'mlinc12345678900',
 		iv:'mlinc12345678900'

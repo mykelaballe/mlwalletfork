@@ -1,6 +1,5 @@
 import Consts from '../../utils/Consts'
 import Fetch from '../../utils/Fetch'
-import Crypt from '../../utils/Crypt'
 
 export default {
     sendBankTransfer: async payload => {
@@ -43,7 +42,6 @@ export default {
     },
 
     getRecentBankPartners: async walletno => {
-        //let res = await Fetch.get(`recent/${Consts.tcn.stb.code}/${walletno}`)
         let res = await Fetch.getc(`recent?${JSON.stringify({type:Consts.tcn.stb.code, walletno})}`)
         return res.data || []
     },

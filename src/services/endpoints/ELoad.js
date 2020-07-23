@@ -38,7 +38,6 @@ export default {
     deleteELoadReceiver: async payload => await Fetch.deletec(`deleteLoadReceiver?${JSON.stringify({receiverno:payload.receiverno})}`),
 
     getFavoriteELoadReceivers: async walletno => {
-        //let res = await Fetch.get(`eloadFavorites/${walletno}`)
         let res = await Fetch.getc(`eloadFavorites?${JSON.stringify({walletno})}`)
         return res.data || []
     },
@@ -48,7 +47,6 @@ export default {
     removeFavoriteELoadReceiver: async payload => await Fetch.deletec(`eloadFavorites?${JSON.stringify({receiverno:payload.receiverno})}`),
 
     getRecentELoadReceivers: async walletno => {
-        //let res = await Fetch.get(`recent/${Consts.tcn.bul.code}/${walletno}`)
         let res = await Fetch.getc(`recent?${JSON.stringify({type:Consts.tcn.bul.code, walletno})}`)
         return res.data || []
     },
