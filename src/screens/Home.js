@@ -72,7 +72,7 @@ class Scrn extends React.Component {
             this.props.setRates(rates)
 
             let res = await API.getAccountInfo(walletno)
-            if(!res.error) {
+            if(!res.error && res.data) {
                 this.props.updateInfo({
                     ...res.data,
                     mobile_no:res.data.mobileNo,
@@ -81,7 +81,7 @@ class Scrn extends React.Component {
             }
         }
         catch(err) {
-            Say.err(err)
+            //Say.err(err)
         }
 
         this.setState({
