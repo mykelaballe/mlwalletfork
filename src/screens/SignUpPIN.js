@@ -1,11 +1,9 @@
 import React from 'react'
 import {StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
-import {Creators} from '../actions'
-import {Screen, Footer, Headline, Button, TextInputFlat, Row, Text, SignUpStepsTracker} from '../components'
+import {Screen, Footer, Headline, Button, TextInputFlat, Row, Text, SignUpStepsTracker, Spacer} from '../components'
 import {Metrics} from '../themes'
 import {_, Say, Consts, Func} from '../utils'
-import {API} from '../services'
 
 class Scrn extends React.Component {
 
@@ -15,12 +13,12 @@ class Scrn extends React.Component {
     }*/
 
     state = {
-        digit1:'1',
-        digit2:'1',
-        digit3:'1',
-        digit4:'1',
-        digit5:'1',
-        digit6:'1',
+        digit1:'',
+        digit2:'',
+        digit3:'',
+        digit4:'',
+        digit5:'',
+        digit6:'',
         processing:false
     }
 
@@ -80,6 +78,8 @@ class Scrn extends React.Component {
     }
 
     handleSubmit = async () => {
+        const {isForceUpdate} = this.props
+        const {params = {}} = this.props.navigation.state
         const {digit1, digit2, digit3, digit4, digit5, digit6, processing} = this.state
 
         if(processing) return false
@@ -93,13 +93,11 @@ class Scrn extends React.Component {
             else if(!Func.isNumbersOnly(pin)) Say.warn(Consts.error.onlyNumbers)
             else {
 
-                let payload = {
-                    ...this.props.navigation.state.params.payload,
-                    pincode:pin
-                }
+                let payload = params.payload || {}
 
-                this.props.navigation.replace('SignUpStep1',{
-                    ...payload
+                this.props.navigation[isForceUpdate ? 'navigate' : 'replace']('SignUpStep1',{
+                    ...payload,
+                    pincode:pin
                 })
             }
         }
@@ -112,12 +110,11 @@ class Scrn extends React.Component {
 
     render() {
 
+        const {isForceUpdate} = this.props
         const {digit1, digit2, digit3, digit4, digit5, digit6, processing} = this.state
         let ready = false
 
-        if(`${digit1}${digit2}${digit3}${digit4}${digit5}${digit6}`.length >= 6) {
-            ready = true
-        }
+        if(`${digit1}${digit2}${digit3}${digit4}${digit5}${digit6}`.length >= 6) ready = true
 
         return (
             <>
@@ -126,7 +123,7 @@ class Scrn extends React.Component {
                     {/*<SignUpStepsTracker step={5} />*/}
 
                     <Headline
-                        title='Registration'
+                        title={isForceUpdate ? '' : 'Registration'}
                         subtext='Create 6-digit Transaction PIN'
                     />
 
@@ -227,10 +224,8 @@ const style = StyleSheet.create({
     }
 })
 
-const mapDispatchToProps = dispatch => ({
-    login:() => dispatch(Creators.login()),
-    setUser:user => dispatch(Creators.setUser(user)),
-    setIsUsingTouchID:isUsing => dispatch(Creators.setIsUsingTouchID(isUsing))
+const mapStateToProps = state => ({
+    isForceUpdate: state.auth.isForceUpdate
 })
 
-export default connect(null, mapDispatchToProps)(Scrn)
+export default connect(mapStateToProps)(Scrn)

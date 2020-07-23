@@ -2,10 +2,10 @@ import React from 'react'
 import {StyleSheet} from 'react-native'
 import {Screen, Footer, Headline, Button, ButtonText, Spacer, TextInputFlat, Row, SignUpStepsTracker} from '../components'
 import {Metrics} from '../themes'
-import {_, Say, Consts, Func, Crypt} from '../utils'
+import {_, Consts, Say, Func} from '../utils'
 import {API} from '../services'
 
-class Scrn extends React.Component {
+export default class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Verification'
@@ -28,29 +28,37 @@ class Scrn extends React.Component {
     handleChangeDigit1 = digit1 => {
         this.setState({digit1})
         if(digit1) this.refs.digit2.focus()
+        else this.clearAll()
     }
     
     handleChangeDigit2 = digit2 => {
         this.setState({digit2})
         if(digit2) this.refs.digit3.focus()
+        else this.clearAll()
     }
 
     handleChangeDigit3 = digit3 => {
         this.setState({digit3})
         if(digit3) this.refs.digit4.focus()
+        else this.clearAll()
     }
 
     handleChangeDigit4 = digit4 => {
         this.setState({digit4})
         if(digit4) this.refs.digit5.focus()
+        else this.clearAll()
     }
 
     handleChangeDigit5 = digit5 => {
         this.setState({digit5})
         if(digit5) this.refs.digit6.focus()
+        else this.clearAll()
     }
 
-    handleChangeDigit6 = digit6 => this.setState({digit6})
+    handleChangeDigit6 = digit6 => {
+        this.setState({digit6})
+        if(!digit6) this.clearAll()
+    }
 
     handleResendOTP = async () => this.setState({reprocessing:true})
 
@@ -60,17 +68,31 @@ class Scrn extends React.Component {
     handleFocusDigit5 = () => this.refs.digit5.focus()
     handleFocusDigit6 = () => this.refs.digit6.focus()
 
+    clearAll = () => {
+        this.setState({
+            digit1:'',
+            digit2:'',
+            digit3:'',
+            digit4:'',
+            digit5:'',
+            digit6:''
+        })
+        this.refs.digit1.focus()
+    }
+
     handleSubmit = async () => {
         const {processing, reprocessing} = this.state
 
         if(processing || reprocessing) return false
 
-        let latitude = '0.0', longitude = '0.0', location = ''
+        let latitude = Consts.defaultLatitude, longitude = Consts.defaultLongitude, location = ''
 
-        const locationRes = await Func.getLocation()
-        if(!locationRes.error) {
-            latitude = locationRes.data.latitude
-            longitude = locationRes.data.longitude
+        if(Func.isCheckLocation('signup')) {
+            const locationRes = await Func.getLocation()
+            if(!locationRes.error) {
+                latitude = locationRes.data.latitude
+                longitude = locationRes.data.longitude
+            }
         }
 
         this.setState({
@@ -110,7 +132,7 @@ class Scrn extends React.Component {
     }
 
     submit = async () => {
-        const {username, password, pincode, firstname, middlename, lastname, suffix, gender, birthday, email, nationality, source_of_income, natureofwork, house, street, country, province, provincecode, city, barangay, zip_code, ids, question1, answer1, question2, answer2, question3, answer3, mobile_no, validID, profilepic} = this.props.navigation.state.params
+        const {username, password, pincode, firstname, middlename, lastname, suffix, gender, birthday, email, nationality, source_of_income, natureofwork, house, street, country, province, provincecode, city, barangay, zip_code, ids, question1, answer1, question2, answer2, question3, answer3, mobile_no, idType, validID, profilepic} = this.props.navigation.state.params
         const {digit1, digit2, digit3, digit4, digit5, digit6, latitude, longitude, location} = this.state
 
         try {
@@ -123,10 +145,6 @@ class Scrn extends React.Component {
                     _mobile_no:mobile_no,
                     _pin:otp
                 })
-
-                /*let test = Crypt.en(profilepic)
-                alert(test)
-                return false*/
 
                 if(!otpRes.error) {
 
@@ -161,8 +179,9 @@ class Scrn extends React.Component {
                         secquestion3:question3,
                         secanswer3:answer3,
                         mobileno:mobile_no,
-                        validID:`${validID}`,
-                        profilepic:`${profilepic}`,
+                        idType,
+                        validID,
+                        profilepic,
                         latitude,
                         longitude,
                         location,
@@ -173,6 +192,7 @@ class Scrn extends React.Component {
 
                     if(!res.error) {
                         this.props.navigation.replace('SignUpSuccess',{
+                            idType,
                             ...payload,
                             ...res.data
                         })
@@ -309,5 +329,3 @@ const style = StyleSheet.create({
         fontWeight:'bold'
     }
 })
-
-export default Scrn

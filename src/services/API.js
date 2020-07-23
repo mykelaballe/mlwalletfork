@@ -20,6 +20,13 @@ import User from './endpoints/User'
 export default {
     login: async payload => {
         /*return {
+            error:true,
+            message:'old_user',
+            data:{
+                walletno:'123'
+            }
+        }*/
+        /*return {
             error:false,
             data: {
                 username:'johnsmith',
@@ -75,7 +82,7 @@ export default {
     updateTouchIDStatus: async payload => await Fetch.putc('update/touchid',payload),
 
     register: async payload => {
-        return await Fetch.postc('wallet/registration',{
+        return await Fetch.post('wallet/registration',{
             ...payload,
             deviceId:Consts.deviceId,
             version:Consts.appVersion,
@@ -83,7 +90,7 @@ export default {
     },
 
     requestCustID: async () => {
-        //return await Fetch.get('')
+        //return await Fetch.get('http://192.168.19.96\c$\inetpub\wwwroot\WalletDomesticKYC')
         return {
             custid:'123'
         }
@@ -224,46 +231,38 @@ export default {
         let data = new FormData()
         data.append('id_type',payload.type)
         data.append('id_image',payload.image)
+        data.append('first_name',payload.first_name)
+        data.append('last_name',payload.last_name)
+        data.append('birth_date',payload.birth_date)
+        data.append('birth_month',payload.birth_month)
+        data.append('birth_year',payload.birth_year)
         data.append('is_base64',true)
+        data.append('extract_details',true)
 
         let res = await axios({
             method: 'post',
-            /*headers:{
-                'Content-Type':'multipart/form-data'
-            },*/
-            url: `https://ml-symph-ai.df.r.appspot.com/api/v1/id/validity`,
+            url: `https://ml-symph-ai.df.r.appspot.com/api/v2/id/validity`,
             data
         })
+
+        //console.warn(res.data)
 
         return res.data
     },
 
     compareFace: async payload => {
-        /*let response = await axios({
-            method:'POST',
-            url:'https://ml-symph-ai.df.r.appspot.com/v1/face/compare',
-            headers:{
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            data:JSON.stringify(payload)
-        })
-
-        return response*/
-
         let data = new FormData()
         data.append('id_image',payload.id)
         data.append('face_image',payload.face)
-        data.append('is_base64',false)
+        data.append('is_base64',true)
 
         let res = await axios({
             method: 'post',
-            headers:{
-                'Content-Type':'application/json'
-            },
             url: `https://ml-symph-ai.df.r.appspot.com/api/v1/face/compare`,
             data
         })
+
+        //console.warn(res.data)
 
         return res.data
     }

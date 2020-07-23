@@ -1,5 +1,7 @@
 import React from 'react'
-import {StyleSheet, TouchableOpacity, Clipboard} from 'react-native'
+import {StyleSheet, TouchableOpacity} from 'react-native'
+import {connect} from 'react-redux'
+import {Creators} from '../actions'
 import {Screen, Headline, Footer, FlatList, Text, Button, ButtonText, HR, SignUpStepsTracker, Row, Outline} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say} from '../utils'
@@ -15,7 +17,7 @@ const ItemUI = props => (
     </>
 )
 
-export default class Scrn extends React.Component {
+class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Identification'
@@ -115,70 +117,129 @@ export default class Scrn extends React.Component {
     }
 
     handleSelectValidID = selectedIDIndex => {
+        const type = this.state.list[selectedIDIndex].value
+        
+        if(type == 'student' || type == 'company') {
+            Say.ask(
+                'Choosing a non-government issued ID lowers your transaction limits. Continue?',
+                'Hi there!',
+                {
+                    onConfirm:() => this.selectValidID(selectedIDIndex)
+                }
+            )
+        }
+        else {
+            this.selectValidID(selectedIDIndex)
+        }
+    }
+
+    selectValidID = selectedIDIndex => {
         this.setState({
             selectedIDIndex,
             for:'validID'
-        })
-        this.props.navigation.navigate('Camera',{
-            title:'Valid ID',
-            sourceRoute:this.state.sourceRoute
+        },() => {
+            this.props.navigation.navigate('Camera',{
+                title:'Valid ID',
+                sourceRoute:this.state.sourceRoute
+            })
         })
     }
 
     takeLivePhoto = () => {
         const {sourceRoute} = this.state
         this.setState({for:'profilepic'})
-        this.props.navigation.navigate('Camera',{
+        this.props.navigation.navigate('LivePhotoOnBoarding',{
             title:'Live Photo',
             sourceRoute,
         })
     }
 
     handleSubmit = async () => {
+        const {isForceUpdate, user} = this.props
+        const {password, pincode, firstname, middlename, lastname, suffix, source_of_income, natureofwork, bday_day, bday_month, bday_year} = this.props.navigation.state.params
         let {profilepic, validID, list, selectedIDIndex, processing} = this.state
 
         if(processing) return false
 
         try {
-            if(!profilepic) {
-                this.setState({processing:true})
 
-                /*let res = await API.validateID({
-                    type:list[selectedIDIndex].value,
-                    image:{
-                        uri:validID.uri,
-                        name:validID.fileName,
-                        type:'multipart/form-data'
+            this.setState({processing:true})
+
+            if(!profilepic) {
+                let res = {
+                    valid:true,
+                    first_name:true,
+                    last_name:true,
+                    birth_date:true,
+                    birth_month:true,
+                    birth_year:true
+                }
+
+                //if(list[selectedIDIndex].value != 'student' && list[selectedIDIndex].value != 'company') {
+                    res = await API.validateID({
+                        type:list[selectedIDIndex].value,
+                        image:validID.base64,
+                        first_name:firstname,
+                        last_name:lastname,
+                        birth_date:bday_day,
+                        birth_month:bday_month,
+                        birth_year:bday_year
+                    })
+                //}
+
+                if(list[selectedIDIndex].value == 'student' || list[selectedIDIndex].value == 'company') res.valid = true
+
+                if(!res.valid) Say.err('Type of ID submitted does not match with the selected ID type. Please try again or choose another ID.')
+                else {
+                    if(
+                        !res.first_name ||
+                        !res.last_name ||
+                        (list[selectedIDIndex].value != 'student' && list[selectedIDIndex].value != 'company' && (!res.birth_date || !res.birth_month || !res.birth_year))
+                    ) {
+                        Say.err('Details from the ID submitted does not match with the registered ML Wallet information. Please try again or choose another ID.')
                     }
-                    image:validID.base64
-                    image:validID.base64.substring(4)
-                })*/
-                let res = {valid:true}
-                if(res.valid) this.takeLivePhoto()
-                else Say.err('Type of ID submitted does not match with the selected ID type. Please try again or choose another ID.')
+                    else this.takeLivePhoto()
+                }
             }
             else {
-                this.setState({processing:true})
-                /*let res = await API.compareFace({
-                    id:{
-                        uri:validID.uri,
-                        name:validID.fileName,
-                        type:'multipart/form-data'
-                    },
-                    face:{
-                        uri:profilepic.uri,
-                        name:profilepic.fileName,
-                        type:'multipart/form-data'
+                let res = await API.compareFace({
+                    id:validID.base64,
+                    face:profilepic.base64
+                })
+                if(res.match || res.valid) {
+                    if(isForceUpdate) {
+                        let updateRes = await API.reupdateProfile({
+                            walletno:user.walletno,
+                            password,
+                            pincode,
+                            fname:firstname,
+                            mname:middlename,
+                            lname:lastname,
+                            suffix,
+                            sourceOfIncome:source_of_income,
+                            natureofwork,
+                            idType:list[selectedIDIndex].value,
+                            validID:validID.base64,
+                            profilepic:profilepic.base64
+                        })
+                        
+                        if(updateRes.error) Say.warn(updateRes.message)
+                        else {
+                            this.props.updateUserInfo(updateRes.data)
+                            this.props.setIsForceUpdate(false)
+                            this.props.login()
+                            Say.ok(`Thanks for updating your profile, ${firstname}!\n\nExplore the new ML Wallet now`)
+                        }
                     }
-                })*/
-                let res = {valid:true}
-                if(res.valid) {
-                    this.props.navigation.navigate('SignUpStep4',{
-                        ...this.props.navigation.state.params,
-                        validID:validID.base64,
-                        profilepic:profilepic.base64
-                    })
-                }//Details from the ID submitted does not match with your registered personal information. Please try again or choose another ID.
+                    else {
+                        this.props.navigation.navigate('SignUpStep4',{
+                            ...this.props.navigation.state.params,
+                            idType:list[selectedIDIndex].value,
+                            validID:validID.base64,
+                            profilepic:profilepic.base64
+                        })
+                    }
+                }
                 else Say.err('Photo from the ID submitted does not match with live photo taken. Please try again or choose another ID.')
             }
         }
@@ -208,6 +269,7 @@ export default class Scrn extends React.Component {
 
     render() {
 
+        const {isForceUpdate} = this.props
         const {list, selectedIDIndex, validID, profilepic, processing} = this.state
         let ready = false
 
@@ -217,7 +279,7 @@ export default class Scrn extends React.Component {
             <>
                 <Screen ns>
                     
-                    <SignUpStepsTracker step={3} />
+                    {!isForceUpdate && <SignUpStepsTracker step={3} />}
 
                     <Headline subtext='Choose a valid ID you can provide from the list below' />
 
@@ -262,3 +324,16 @@ const style = StyleSheet.create({
         paddingHorizontal:Metrics.rg
     }
 })
+
+const mapStateToProps = state => ({
+    isForceUpdate: state.auth.isForceUpdate,
+    user: state.user.data
+})
+
+const mapDispatchToProps = dispatch => ({
+    login:() => dispatch(Creators.login()),
+    updateUserInfo:newInfo => dispatch(Creators.updateUserInfo(newInfo)),
+    setIsForceUpdate:isForceUpdate => dispatch(Creators.setIsForceUpdate(isForceUpdate))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

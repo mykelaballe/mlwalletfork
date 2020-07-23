@@ -3,11 +3,33 @@ import Consts from './Consts'
 import _ from './Lang'
 import Say from './Say'
 
+const moment = require('moment')
+
 import Formatter from './Formatter'
 import Validator from './Validator'
 
 import {request, PERMISSIONS, RESULTS} from 'react-native-permissions'
 import Geolocation from 'react-native-geolocation-service'
+
+function isCheckLocation(action) {
+    if(Consts.checkLocation) {
+        const actionsToCheckForLocation = [
+            'signup',
+            Consts.tcn.stw.code,
+            Consts.tcn.skp.code,
+            Consts.tcn.stb.code,
+            Consts.tcn.wdc.code,
+            Consts.tcn.bpm.code,
+            Consts.tcn.bul.code,
+            Consts.tcn.rmi.code,
+            Consts.tcn.rmd.code,
+            'cskp',
+            'cwdc'
+        ]
+
+        return actionsToCheckForLocation.indexOf(action) >= 0
+    }
+}
 
 function compute() {
     let total = 0
@@ -150,14 +172,22 @@ const getNearestBranches = (branches, currentCoords) => {
     return near_branches
 }
 
+const getAge = birthdate => {
+    const currentDate = moment()
+    let duration = moment.duration(currentDate.diff(moment(birthdate, 'YYYY-MM-DD')))
+    return duration.asYears()
+}
+
 export default {
     ...Formatter,
     ...Validator,
+    isCheckLocation,
     compute,
     calculateKPRate,
     randomize,
     getCurrentPosition,
     getLocation,
     getDistance,
-    getNearestBranches
+    getNearestBranches,
+    getAge
 }

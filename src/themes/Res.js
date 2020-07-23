@@ -59,5 +59,8 @@ export default {
 
     coming_soon:require('../res/coming_soon.png'),
 
-    trophy:require('../res/trophy.png')
+    trophy:require('../res/trophy.png'),
+
+    livephoto1:require('../res/live_photo_onboarding_1.png'),
+    livephoto2:require('../res/live_photo_onboarding_2.png')
 }

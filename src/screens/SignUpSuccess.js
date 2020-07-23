@@ -3,8 +3,8 @@ import {View, Image} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Screen, Footer, Headline, Text, Button, Spacer} from '../components'
-import {_, Consts, Func} from '../utils'
-import {Res} from '../themes'
+import {_, Func} from '../utils'
+import {Metrics, Res} from '../themes'
 
 class Scrn extends React.Component {
 
@@ -21,7 +21,11 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {walletno, fname} = this.props.navigation.state.params
+        const {walletno, fname, bdate, idType} = this.props.navigation.state.params
+        const age = Func.getAge(bdate)
+        let type = 'Fully'
+
+        if(idType == 'student' || idType == 'company' || age < 18) type = 'Semi'
 
         return (
             <>
@@ -33,8 +37,14 @@ class Scrn extends React.Component {
 
                     <Headline title={`Congratulations, ${fname}!`} />
                     
-                    <Text center md>You are now registered as a</Text>
-                    <Text center b md>Semi-Verified User.</Text>
+                    <Text center md>You are registered as a</Text>
+                    <Text center b md>{type}-Verified User.</Text>
+
+                    {age < 18 &&
+                    <View style={{padding:Metrics.md}}>
+                        <Text center md>All users under the age of 18 are automatically tagged as semi-	verified.</Text>
+                    </View>
+                    }
 
                     <Spacer />
 

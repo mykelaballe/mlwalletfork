@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, StyleSheet, Linking, Clipboard} from 'react-native'
+import {View, StyleSheet, Linking} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Text, Button, ButtonText, Spacer, TextInput, Row, Icon, Screen, MLBanner} from '../components'
@@ -24,13 +24,25 @@ const touchIDConfig = {
 
 class Scrn extends React.Component {
 
+    //username = ''
+
     state = {
         data:null,
         username:this.props.username,
-        masked_username:'',
-        password:'p@ssword1',
+        temp_username:this.props.username,
+        password:'',
         show_password:false,
         processing:false
+    }
+
+    //componentDidMount = () => this.formatUsername(this.state.temp_username)
+
+    componentDidUpdate = (prevProps, prevState) => {
+        const {params = {}} = this.props.navigation.state
+        if(params.clearPassword && prevState.password) {
+            this.setState({password:''})
+            this.props.navigation.setParams({clearPassword:null})
+        }
     }
 
     handleLogin = () => {
@@ -123,6 +135,11 @@ class Scrn extends React.Component {
                             }
                         )
                     }
+                    else if(res.message === 'old_user') {
+                        this.props.setUser(res.data)
+                        this.props.setIsForceUpdate(true)
+                        this.props.navigation.navigate('SignUpPassword')
+                    }
                     else if(res.message === 'registered_anotherdevice') {
 
                         this.setState({data:res.data})
@@ -156,8 +173,8 @@ class Scrn extends React.Component {
                         })
                     }
                     else {
-                        this.props.setIsUsingTouchID(res.data.fingerprintstat === 1)
                         this.props.setUser(res.data)
+                        this.props.setIsUsingTouchID(res.data.fingerprintstat === 1)
                         this.props.rememberLoginCredentials({username})
                         this.props.login()
                     }
@@ -175,19 +192,42 @@ class Scrn extends React.Component {
 
     handleGoToSignUp = async () => {
         const locationRes = await Func.getLocation()
-        if(!locationRes.error) this.props.navigation.navigate('SignUpUsername')
+        if(Func.isCheckLocation('signup')) {
+            if(!locationRes.error) this.props.navigation.navigate('SignUpUsername')
+        }
     }
 
-    handleChangeUsername = username => {
+    handleChangeUsername = username => this.formatUsername(username)
+
+    formatUsername = username => {
+        this.setState({username})
+
+        return false
+
+        if(!username) return false
+
+        let len = username.length
+        let val = this.state.username.split('')
+
+        val.push(username[len - 1])
+
+        if(val.length > len) val.splice(len - 1, val.length - len)
+
+        let temp = []
+
+        for(let i = 0; i <= username.length - 1; ++i) {
+            if (username.length > 3) {
+                temp[i] = i <= username.length - 4 ? '•' : val[i]
+            }
+            else {
+                temp[i] = val[i]
+            }
+        }
+
         this.setState({
-            username,
-            //masked_username:this.mask(username)
+            username: val.join(''),
+            temp_username: temp.join('')
         })
-    }
-
-    mask = str => {
-        //return str.length <= 3 ? str : str.replace(/.{3}$/,'•••')
-        return str + '*'
     }
 
     handleChangePassword = password => this.setState({password})
@@ -227,7 +267,7 @@ class Scrn extends React.Component {
     render() {
 
         const {isUsingTouchID} = this.props
-        let {username, masked_username, password, show_password, processing} = this.state
+        let {username, temp_username, password, show_password, processing} = this.state
         let ready = false
 
         if(username && password) ready = true
@@ -317,6 +357,7 @@ const mapDispatchToProps = dispatch => ({
     login:() => dispatch(Creators.login()),
     setUser:user => dispatch(Creators.setUser(user)),
     setIsUsingTouchID:isUsing => dispatch(Creators.setIsUsingTouchID(isUsing)),
+    setIsForceUpdate:isForceUpdate => dispatch(Creators.setIsForceUpdate(isForceUpdate)),
     rememberLoginCredentials:credentials => dispatch(Creators.rememberLoginCredentials(credentials))
 })
 

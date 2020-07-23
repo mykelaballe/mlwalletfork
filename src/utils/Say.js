@@ -33,21 +33,21 @@ const warn = (message, title = null, options = {}) => {
 }
 
 const err = (message, title = null, options = {}) => {
-    if(Consts.is_dev) message = message.message
+    if(Consts.is_dev) message = message.message || message
     else message = _('500')
 
     if(message) {
-        if(message.toLowerCase() == 'network error') {
+        /*if(message.toLowerCase() == 'network error') {
             title = 'Uh-oh!'
             message = Consts.error.network
-        }
+        }*/
     
         if(message[message.length - 1] != '.') message = `${message}.`
     }
 
     SomeModal.show({
         message,
-        title:title || 'Error',
+        title:title || 'Uh-oh!',
         options
     })
 }

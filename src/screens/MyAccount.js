@@ -20,7 +20,17 @@ class Scrn extends React.Component {
 
     componentDidMount = () => Say.some(_('88'),'Attention!')
 
-    handleGoToVerificationLevels = () => this.props.navigation.navigate('VerificationLevels')
+    handleGoToVerificationLevels = () => {
+        Say.ask(
+            'Upgrading of verification status via ML Wallet will be available SOON. Stay tuned!',
+            'Hi there!',
+            {
+                noBtnLabel:'OK',
+                yesBtnLabel:'Notify Me'
+            }
+        )
+        //this.props.navigation.navigate('VerificationLevels')
+    }
 
     handlePressProfile = () => this.props.navigation.navigate('Profile')
 

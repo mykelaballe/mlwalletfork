@@ -205,10 +205,11 @@ export default class Scrn extends React.Component {
 
             let birthday = `${bday_year}-${bday_month}-${bday_day}`
 
-            if(!firstname || !middlename || !lastname || !bday_day || !source_of_income || !natureofwork) Say.some(_('8'))
+            if(!firstname || !middlename || !lastname || !bday_day || !source_of_income || !natureofwork || !house || !street) Say.some(_('8'))
             else if(country == Consts.country.PH && (!province.province || !city || !barangay || !zip_code)) Say.some(_('8'))
             else if(!Func.isLettersOnly(firstname)) Say.warn(Consts.error.onlyLettersInName)
             else if(!Func.isLettersOnly(middlename)) Say.warn(Consts.error.onlyLettersInName)
+            else if(middlename.length < 2) Say.warn(Consts.error.incompleteMiddlename)
             else if(!Func.isLettersOnly(lastname)) Say.warn(Consts.error.onlyLettersInName)
             else if(!Func.isDateValid(birthday)) Say.warn(Consts.error.birthdate)
             else if(!Func.isAgeAllowed(birthday)) Say.warn(Consts.error.notAllowedAge)
@@ -294,7 +295,7 @@ export default class Scrn extends React.Component {
                         <Spacer sm />
 
                         <Text sm mute center>Middle Name</Text>
-                        <Text md center>{!middlename || middlename == _('50') ? 'No Middle Name' : middlename}</Text>
+                        <Text md center>{!middlename || middlename == _('50') ? _('92') : middlename}</Text>
 
                         <Spacer sm />
 
@@ -367,7 +368,7 @@ export default class Scrn extends React.Component {
                             ref='middlename'
                             editable={has_middlename}
                             label={'Middle Name'}
-                            value={middlename}
+                            value={middlename == _('50') ? _('92') : middlename}
                             onChangeText={this.handleChangeMiddlename}
                             onSubmitEditing={this.handleFocusLastname}
                             autoCapitalize='words'
@@ -395,7 +396,7 @@ export default class Scrn extends React.Component {
                             editable={has_suffix}
                             selected={suffix}
                             items={suffix_options}
-                            placeholder='Suffix'
+                            placeholder='Suffix (e.g. Jr, Sr)'
                             onChoose={this.handleChangeSuffix}
                         />
 

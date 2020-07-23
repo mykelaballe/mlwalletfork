@@ -44,17 +44,19 @@ const answer3 = (
         <Spacer sm />
         <Text>You will receive a 6-digit authentication code via SMS in the device authentication page. Enter the code to authenticate your device.</Text>
         <Spacer sm />
-        <Text>You are now registered as a semi-verified user. To upgrade to a fully-verified user, see FAQ number 4 below.</Text>
+        <Text>You are now registered and may start using the ML Wallet App.</Text>
     </>
 )
 
 const answer5 = (
     <>
+        <Text>To upgrade your verification status, follow the steps below</Text>
+        <Spacer sm />
         {
             [
-                'Visit any of the 2500+ M. Lhuillier branches nationwide for the verification process.',
-                'Present your ML Wallet account number to the branch personnel.',
-                'Add a minimum of PHP 100.00 to your ML Wallet account to complete verification process.'
+                'Open the ML Wallet App and log-in.',
+                'Access “My Account” and click the button “GET FULLY VERIFIED NOW”.',
+                'Upload a picture of your government-issued ID to finish full-verification!'
             ]
             .map((item, i) => (
                 <>
@@ -63,6 +65,8 @@ const answer5 = (
                 </>
             ))
         }
+        <Spacer sm />
+        <Text>Note that all users under the age of 18 years old are automatically tagged as semi-verified. Once the user turns 18 years old, he/she can now upgrade to a fully-verified status by uploading a government issued ID.</Text>
     </>
 )
 
@@ -164,7 +168,7 @@ export default [
             },
             {
                 question:'7. Is there maximum wallet size?',
-                answer:'The ML Wallet App allows a maximum wallet size of Php 200,000.00 for fully-verified users and PHP 10,000.00 for semi-verified users.'
+                answer:'The ML Wallet App allows a maximum wallet size of Php 200,000.00 for fully-verified users and PHP 40,000.00 for semi-verified users.'
             },
             {
                 question:'8. What is the maximum amount per transaction?',

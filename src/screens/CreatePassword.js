@@ -78,7 +78,7 @@ class Scrn extends React.Component {
                         })
 
                         Say.ok("Your password has been successfully changed",null,{
-                            onDismiss:() => this.props.navigation.navigate('Login')
+                            onDismiss:() => this.props.navigation.navigate('Login',{clearPassword:true})
                         })
                     }
                 }

@@ -3,15 +3,17 @@ import {View, StyleSheet, TouchableOpacity, Image, Dimensions} from 'react-nativ
 import {ButtonText, ButtonIcon, Row, ActivityIndicator, Text} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say, Consts} from '../utils'
-import {RNCamera} from 'react-native-camera'
+import {RNCamera, Face} from 'react-native-camera'
 import RNFetchBlob from 'rn-fetch-blob'
 import {request, PERMISSIONS, RESULTS} from 'react-native-permissions'
 import AntDesignIcon from 'react-native-vector-icons/AntDesign'
 import FoundationIcon from 'react-native-vector-icons/Foundation'
 
 const {width, height} = Dimensions.get('window')
+const FRAME_WIDTH = width * .9
+const FRAME_HEIGHT = height * .4
 
-class Scrn extends React.Component {
+export default class Scrn extends React.Component {
 
     static navigationOptions = ({navigation}) => {
         const {params = {}} = navigation.state
@@ -27,10 +29,14 @@ class Scrn extends React.Component {
     constructor(props) {
         super(props)
         const {params = {}} = props.navigation.state
+        this.mode = params.title == 'Live Photo' ? 'face' : 'id'
         this.state = {
             source:null,
-            viewType:params.title != 'Live Photo' ? RNCamera.Constants.Type.back : RNCamera.Constants.Type.front,
+            viewType:this.mode == 'id' ? RNCamera.Constants.Type.back : RNCamera.Constants.Type.front,
             eyes:[],
+            hasStarted:false,
+            didCloseEyes:false,
+            hasBlinked:false,
             processing:false
         }
     }
@@ -59,31 +65,27 @@ class Scrn extends React.Component {
         
                         //base64, width, height, pictureOrientation, deviceOrientation
                         let source = await this.camera.takePictureAsync({
-                            width: 720,
-                            height: 1280,
-                            //quality: 1.0,
+                            width: 1280,
+                            height: 1920,
+                            quality: 1.0,
                             base64: true,
                             orientation: 'portrait',
-                            skipProcessing:true,
-                            mirrorImage:viewType == RNCamera.Constants.Type.back ? false : true,
+                            skipProcessing: true,
+                            pauseAfterCapture: true,
+                            mirrorImage: viewType == RNCamera.Constants.Type.back ? false : true,
         
                             //Android
-                            fixOrientation:true,
+                            fixOrientation: true,
         
                             //iOS
-                            forceUpOrientation:true
+                            forceUpOrientation: true
                         })
                         
                         source.uri = source.uri.replace('file:///', '/')
                         //alert(RNFetchBlob.fs.dirs.DocumentDir)
-                        let fileStat = await RNFetchBlob.fs.stat(source.uri)
+                        //let fileStat = await RNFetchBlob.fs.stat(source.uri)
         
-                        this.setState({
-                            source:{
-                                ...source,
-                                fileName:fileStat.filename
-                            }
-                        })
+                        this.setState({source})
                     }
                     catch(err) {
                         if(Consts.is_android) {
@@ -101,50 +103,68 @@ class Scrn extends React.Component {
         })
     }
 
-    handleRetake = () => this.setState({source:null})
+    handleRetake = () => {
+        this.setState({
+            hasStarted:false,
+            didCloseEyes:false,
+            hasBlinked:false,
+            source:null
+        })
+    }
 
     handleConfirm = () => this.props.navigation.navigate(this.props.navigation.state.params.sourceRoute,{source:this.state.source})
 
-    handleFaceDetected = async data => {
-        if(this.state.processing) return false
+    handleFaceDetected = async event => {
+        const {faces} = event
+        
+        if(faces.length > 0) {
+            const face = faces[0]
+            const {hasStarted, isTakingPicture, didCloseEyes, hasBlinked} = this.state
 
-        if(data.faces.length > 0) {
-            const leftEye = data.faces[0].leftEyeOpenProbability
-            const rightEye = data.faces[0].rightEyeOpenProbability
-
-            let bothEyes = (leftEye + rightEye) / 2
-            bothEyes = parseFloat(bothEyes.toFixed(2))
-
-            let eyes = this.state.eyes.slice()
-
-            eyes.push(bothEyes)
-
-            let hasClose = false
-
-            for(let e in eyes) {
-                let eye = eyes[e]
-                
-                if(eye <= 0.3) hasClose = true
+            if(!isTakingPicture) {
+                if(!this.isFacingCamera) {
+                    //this.onResetAll()
+                    return
+                }
+                if(!hasStarted && !didCloseEyes && !hasBlinked && this.didBothEyesOpen(face)) {
+                    this.onStartProcess()
+                    return
+                }
+                if(hasStarted && !didCloseEyes && !hasBlinked && this.didBothEyesClose(face)) {
+                    this.setState({didCloseEyes: true})
+                    return
+                }
+                if(hasStarted && didCloseEyes && !hasBlinked && this.didBothEyesOpen(face)) {
+                    this.setState({hasBlinked:true})
+                    this.handleCapture()
+                    return
+                }
             }
-
-            if(hasClose) {
-                eyes = []
-                this.handleCapture()
-            }
-
-            this.setState({eyes})
         }
     }
 
-    handleFaceDetectionError = () => alert('Face Detection Error')
+    handleFaceDetectionError = () => Say.err('Face Detection Error')
+
+    isFacingCamera = face => {
+        const {noseBasePosition} = face
+        const {x, y} = noseBasePosition
+        const isNoseBaseInDesiredPosition = x >= 0.3 && x <= 0.7 && (y >= 0.2 && y <= 0.6)
+        return isNoseBaseInDesiredPosition
+    }
+
+    didBothEyesOpen = face => face.leftEyeOpenProbability >= 0.9 && face.rightEyeOpenProbability >= 0.9
+    
+    onStartProcess = () => this.setState({hasStarted:true})
+    
+    didBothEyesClose = face => face.leftEyeOpenProbability <= 0.1 && face.rightEyeOpenProbability <= 0.1
 
     render() {
         
         const {params = {}} = this.props.navigation.state
         const {source, viewType, processing} = this.state
-        const isLivePhoto = params.title == 'Live Photo'
+        const isLivePhoto = this.mode == 'face'
 
-        const useFaceDetection = false
+        const useFaceDetection = isLivePhoto
 
         return (
             <> 
@@ -157,6 +177,9 @@ class Scrn extends React.Component {
                         style={style.preview}
                         type={viewType}
                         captureAudio={false}
+                        autoFocus={RNCamera.Constants.AutoFocus.on}
+                        flashMode={RNCamera.Constants.FlashMode.off}
+                        pauseAfterCapture={true}
                         androidCameraPermissionOptions={{
                             title: 'Permission to use camera',
                             message: 'We need your permission to use your camera',
@@ -169,7 +192,7 @@ class Scrn extends React.Component {
                         onFacesDetected={useFaceDetection ? this.handleFaceDetected : undefined}
                         onFaceDetectionError={useFaceDetection ? this.handleFaceDetectionError : undefined}
                     >
-                        {!isLivePhoto && <View style={style.guide} />}
+                        <View style={style[isLivePhoto ? 'guideFace' : 'guideID']} />
                     </RNCamera>
                     }
                 </View>
@@ -181,21 +204,36 @@ class Scrn extends React.Component {
                         
                         {!processing &&
                         <>
-                            <Text center sm>{isLivePhoto ? 'Blink once to take a live photo' : 'Place your ID within the frame and take a picture'}</Text>
-                            <Text center sm>Make sure you're in a well-lighted area.</Text>
+                            {!isLivePhoto &&
+                            <>
+                                <Text center sm>Place your ID within the frame and take a picture</Text>
+                                <Text center sm>Make sure you're in a well-lighted area.</Text>
+                            </>
+                            }
+
+                            {isLivePhoto &&
+                            <View style={{alignItems:'flex-start'}}>
+                                <Text brand b u sm>Friendly reminder:</Text>
+                                <Text sm left>Step 1: Make sure you're in a well-lighted area.</Text>
+                                <Text sm left>Step 2: Position your face within the frame.</Text>
+                                <Text sm left>Step 3: Blink both eyes to take a live photo.</Text>
+                            </View>
+                            }
                         </>
                         }
 
-                        {!processing &&
+                        {(!processing && !isLivePhoto) &&
                         <TouchableOpacity onPress={this.handleCapture}>
                             <FoundationIcon name='record' size={Metrics.icon.xl} color={Colors.brand} />
                         </TouchableOpacity>
                         }
 
+                        {!isLivePhoto &&
                         <ButtonIcon
                             icon={<AntDesignIcon name={viewType === RNCamera.Constants.Type.back ? 'camerao' : 'camera'} size={Metrics.icon.sm} />}
                             onPress={this.handleChangeViewType}
                         />
+                        }
                     </View>
                     }
                     
@@ -222,15 +260,20 @@ const style = StyleSheet.create({
         justifyContent: 'center',//'flex-end',
         alignItems: 'center',
     },
-    guide: {
-        width:width * .9,
-        height:height * .4,
+    guideID: {
+        width:FRAME_WIDTH,
+        height:FRAME_HEIGHT,
         borderWidth:2,
-        borderColor:Colors.success
+        borderColor:Colors.brand
+    },
+    guideFace: {
+        width:FRAME_WIDTH,
+        height:FRAME_WIDTH,
+        borderWidth:2,
+        borderRadius:FRAME_WIDTH / 2,
+        borderColor:Colors.brand
     },
     footer: {
         paddingVertical: Metrics.xl
     }
 })
-
-export default Scrn

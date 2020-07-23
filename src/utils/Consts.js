@@ -6,13 +6,12 @@ const IS_ANDROID = Platform.OS === 'android'
 const PLAYSTORE_URL = 'https://play.google.com/store/apps/details?id=com.mlhuillier.mlwallet&hl=en'
 const APPSTORE_URL = 'https://apps.apple.com/ph/app/ml-wallet/id962204987'
 
-const CODEPUSH_ANDROID_DEV = 'Kqa8Z6UvgsdJFruYtR3Mq-rE_nu4rtAjy6-ev'
-const CODEPUSH_IOS_DEV = 'yBJeaL3P77cjjC3pZROSybtcceBSmqCXcOKst'
+const CODEPUSH_ANDROID_DEV = '4fqjYGW3KwXH_fdzzIaebsbvfYFBTEchWq_7i'
+const CODEPUSH_IOS_DEV = 'tBS7rLCqUBKL7wu-0atzZIGDXGWFt83_pWuPk'
 
 export default {
-	is_dev:true,
+	is_dev:false,
 	is_android:IS_ANDROID,
-	//baseURL:'http://192.168.19.30/api/',
 	baseURL:'http://ccv078g234jk.mlhuillier1.com/api/',
 	cipher:{
 		key:'mlinc12345678900',
@@ -33,6 +32,8 @@ export default {
 	user_min_age:16,
 	allowed_idle_time:5 * 60000,
 	checkLocation:true,
+	defaultLatitude:'0.0',
+	defaultLongitude:'0.0',
 	password_criteria: {
 		minLength:8,
 		hasNum:true,
@@ -63,6 +64,7 @@ export default {
 		atl2:'2attempt_left',
 		blk1d:'block_account_1day',
 		blk:'block_account',
+		incompleteMiddlename:'Please provide complete middle name',
 		featureNotAvailable:'Sorry, this is not yet available. We are still updating this feature to make sure we provide the best experience for you'
 	},
 	allowedSpecialChars:{
@@ -97,11 +99,11 @@ export default {
 			value:'smart eload',
 			id:'MLNET16060001'
 		},
-		{
+		/*{
 			label:'Smart Dealer',
 			value:'smart dealer',
 			id:'MLNET17030003'
-		},
+		},*/
 		{
 			label:'Sun Cellular',
 			value:'sun cellular',

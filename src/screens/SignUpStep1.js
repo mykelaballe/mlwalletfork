@@ -1,5 +1,6 @@
 import React from 'react'
 import {Provider, Screen, Headline, Text, Checkbox, Button, Spacer, TextInput, Row, Footer, Radio, DynamicStaticInput, StaticInput, SignUpStepsTracker, Picker, MonthPicker, DayPicker, YearPicker} from '../components'
+import {connect} from 'react-redux'
 import {_, Say, Func, Consts} from '../utils'
 import {RadioButton} from 'react-native-paper'
 import {Metrics} from '../themes'
@@ -13,22 +14,22 @@ class Scrn extends React.Component {
     }
 
     state = {
-        firstname:'TesterOne',
-        middlename:'WAIVED',
-        has_middlename:false,
-        lastname:'Test',
-        suffix:_('51'),
+        firstname:'',
+        middlename:'',
+        has_middlename:true,
+        lastname:'',
+        suffix:'',
         other_suffix:'',
-        has_suffix:false,
+        has_suffix:true,
         suffix_options:Consts.suffixOptions,
-        bday_month:'06',
-        bday_day:'01',
-        bday_year:'1980',
+        bday_month:'',
+        bday_day:'',
+        bday_year:'',
         gender:'Male',
         email:'',
         nationality:'Filipino',
-        source_of_income:'Commission',
-        natureofwork:'Construction',
+        source_of_income:'',
+        natureofwork:'',
         other_natureofwork:'',
         showMonthPicker:false,
         showDayPicker:false,
@@ -122,7 +123,10 @@ class Scrn extends React.Component {
 
     handleFocusMiddlename = () => this.state.has_middlename ? this.refs.middlename.focus() : this.refs.lastname.focus()
     handleFocusLastname = () => this.refs.lastname.focus()
-    handleFocusEmail = () => this.refs.email.focus()
+    handleFocusEmail = () => {
+        if(this.props.isForceUpdate) this.handleSelectSourceOfIncome()
+        else this.refs.email.focus()
+    }
     handleFocusNationality = () => this.refs.nationality.focus()
     handleFocusSourceOfIncome = () => this.refs.source_of_income.focus()
 
@@ -131,6 +135,13 @@ class Scrn extends React.Component {
     handleSelectYear = bday_year => this.setState({bday_year, error_bday_year:false})
 
     handleSubmit = async () => {
+        const {isForceUpdate} = this.props
+
+        if(isForceUpdate) {
+            this.handleSubmitAlt()
+            return false
+        }
+
         let {firstname, middlename, has_middlename, lastname, suffix, other_suffix, has_suffix, suffix_options, bday_month, bday_day, bday_year, gender, email, nationality, source_of_income, natureofwork, other_natureofwork} = this.state
 
         try {
@@ -172,6 +183,10 @@ class Scrn extends React.Component {
                 this.setState({error_middlename:true})
                 Say.warn(Consts.error.onlyLettersInName)
             }
+            else if(middlename.length < 2) {
+                this.setState({error_middlename:true})
+                Say.warn(Consts.error.incompleteMiddlename)
+            } 
             else if(!Func.isLettersOnly(lastname)) {
                 this.setState({error_lastname:true})
                 Say.warn(Consts.error.onlyLettersInName)
@@ -214,22 +229,84 @@ class Scrn extends React.Component {
         }
     }
 
+    handleSubmitAlt = async () => {
+        let {firstname, middlename, has_middlename, lastname, suffix, other_suffix, has_suffix, suffix_options, source_of_income, natureofwork, other_natureofwork} = this.state
+
+        try {
+            firstname = firstname.trim()
+            middlename = middlename.trim()
+            lastname = lastname.trim()
+            suffix = suffix.trim()
+            other_suffix = other_suffix.trim()
+            source_of_income = source_of_income.trim()
+            natureofwork = natureofwork.trim()
+            other_natureofwork = other_natureofwork.trim()
+
+            suffix = other_suffix || suffix
+            natureofwork = other_natureofwork || natureofwork
+
+            if(suffix == 'Others') suffix = ''
+            if(natureofwork == 'Others') natureofwork = ''
+
+            if(!firstname || !middlename || !lastname || !suffix || !source_of_income || !natureofwork) {
+                if(!firstname) this.setState({error_firstname:true})
+                if(!middlename) this.setState({error_middlename:true})
+                if(!lastname) this.setState({error_lastname:true})
+                if(!suffix) this.setState({error_suffix:true})
+                if(!source_of_income) this.setState({error_source_of_income:true})
+                if(!natureofwork) this.setState({error_natureofwork:true})
+
+                Say.some('Fill-out missing fields to proceed')
+            }
+            else if(!Func.isLettersOnly(firstname)) {
+                this.setState({error_firstname:true})
+                Say.warn(Consts.error.onlyLettersInName)
+            }
+            else if(!Func.isLettersOnly(middlename)) {
+                this.setState({error_middlename:true})
+                Say.warn(Consts.error.onlyLettersInName)
+            }
+            else if(middlename.length < 2) {
+                this.setState({error_middlename:true})
+                Say.warn(Consts.error.incompleteMiddlename)
+            } 
+            else if(!Func.isLettersOnly(lastname)) {
+                this.setState({error_lastname:true})
+                Say.warn(Consts.error.onlyLettersInName)
+            }
+            else {
+                this.props.navigation.navigate('SignUpStep3',{
+                    ...this.props.navigation.state.params,
+                    firstname,
+                    middlename,
+                    has_middlename,
+                    lastname,
+                    suffix,
+                    other_suffix,
+                    has_suffix,
+                    suffix_options,
+                    source_of_income,
+                    natureofwork,
+                    other_natureofwork
+                })
+            }
+        }
+        catch(err) {
+            Say.err(err)
+        }
+    }
+
     render() {
 
+        const {isForceUpdate} = this.props
         const {firstname, middlename, has_middlename, lastname, suffix, other_suffix, has_suffix, suffix_options, bday_month, bday_day, bday_year, gender, email, nationality, source_of_income, natureofwork, other_natureofwork, showMonthPicker, showDayPicker, showYearPicker, processing} = this.state
         const {error_firstname, error_middlename, error_lastname, error_suffix, error_bday_month, error_bday_day, error_bday_year, error_email, error_source_of_income, error_natureofwork} = this.state
-        //let ready = false
-        let ready = true
-
-        /*if(firstname && middlename && lastname && suffix && bday_month && bday_day && bday_year && nationality && source_of_income) {
-            ready = true
-        }*/
 
         return (
             <Provider>
                 <Screen>
                     
-                    <SignUpStepsTracker step={1} />
+                    {!isForceUpdate && <SignUpStepsTracker step={1} />}
 
                     <Headline subtext='Enter your complete, personal details below' />
 
@@ -248,7 +325,7 @@ class Scrn extends React.Component {
                         ref='middlename'
                         editable={has_middlename}
                         label={'Middle Name'}
-                        value={middlename}
+                        value={middlename == _('50') ? _('92') : middlename}
                         error={error_middlename}
                         onChangeText={this.handleChangeMiddlename}
                         onSubmitEditing={this.handleFocusLastname}
@@ -279,7 +356,7 @@ class Scrn extends React.Component {
                         selected={suffix}
                         error={error_suffix}
                         items={suffix_options}
-                        placeholder='Suffix'
+                        placeholder='Suffix (e.g. Jr, Sr)'
                         onChoose={this.handleChangeSuffix}
                     />
 
@@ -299,63 +376,67 @@ class Scrn extends React.Component {
                     />
 
                     <Spacer sm />
-
-                    <Text md mute>Birthday*</Text>
-                    <Spacer xs />
-                    <Row bw>
-                        <StaticInput
-                            label='Month'
-                            value={bday_month ? moment(bday_month,'M').format('MMM') : null}
-                            error={error_bday_month}
-                            onPress={this.handleChangeMonth}
-                            style={{flex:2}}
-                        />
-                        <Spacer h xs/>
-                        <StaticInput
-                            label='Day'
-                            value={bday_day}
-                            error={error_bday_day}
-                            onPress={this.handleChangeDay}
-                            style={{flex:1}}
-                        />
-                        <Spacer h xs/>
-                        <StaticInput
-                            label='Year'
-                            value={bday_year}
-                            error={error_bday_year}
-                            onPress={this.handleChangeYear}
-                            style={{flex:1}}
-                        />
-                    </Row>
-
-                    <Spacer />
-
-                    <Text md mute>Gender*</Text>
-                    <RadioButton.Group onValueChange={this.handleSelectGender} value={gender}>
-                        <Row>
-                            <Radio value='Male' label={_('43')} />
-                            <Spacer h lg />
-                            <Radio value='Female' label={_('44')} />
+                    
+                    {!isForceUpdate &&
+                    <>
+                        <Text md mute>Birthday*</Text>
+                        <Spacer xs />
+                        <Row bw>
+                            <StaticInput
+                                label='Month'
+                                value={bday_month ? moment(bday_month,'M').format('MMM') : null}
+                                error={error_bday_month}
+                                onPress={this.handleChangeMonth}
+                                style={{flex:2}}
+                            />
+                            <Spacer h xs/>
+                            <StaticInput
+                                label='Day'
+                                value={bday_day}
+                                error={error_bday_day}
+                                onPress={this.handleChangeDay}
+                                style={{flex:1}}
+                            />
+                            <Spacer h xs/>
+                            <StaticInput
+                                label='Year'
+                                value={bday_year}
+                                error={error_bday_year}
+                                onPress={this.handleChangeYear}
+                                style={{flex:1}}
+                            />
                         </Row>
-                    </RadioButton.Group>
 
-                    <Spacer sm />
+                        <Spacer />
 
-                    <TextInput
-                        ref='email'
-                        label={'Email address'}
-                        value={email}
-                        error={error_email}
-                        onChangeText={this.handleChangeEmail}
-                        autoCapitalize='none'
-                        keyboardType='email-address'
-                    />
+                        <Text md mute>Gender*</Text>
+                        <RadioButton.Group onValueChange={this.handleSelectGender} value={gender}>
+                            <Row>
+                                <Radio value='Male' label={_('43')} />
+                                <Spacer h lg />
+                                <Radio value='Female' label={_('44')} />
+                            </Row>
+                        </RadioButton.Group>
 
-                    <StaticInput
-                        label='Nationality*'
-                        value={nationality}
-                        onPress={this.handleSelectNationality}
-                    />
+                        <Spacer sm />
+
+                        <TextInput
+                            ref='email'
+                            label={'Email address'}
+                            value={email}
+                            error={error_email}
+                            onChangeText={this.handleChangeEmail}
+                            autoCapitalize='none'
+                            keyboardType='email-address'
+                        />
+
+                        <StaticInput
+                            label='Nationality*'
+                            value={nationality}
+                            onPress={this.handleSelectNationality}
+                        />
+                    </>
+                    }
 
                     <StaticInput
                         label='Source of Income*'
@@ -382,7 +463,7 @@ class Scrn extends React.Component {
                 </Screen>
             
                 <Footer>
-                    <Button disabled={!ready || showMonthPicker || showDayPicker || showYearPicker} t='Next' onPress={this.handleSubmit} loading={processing} />
+                    <Button disabled={showMonthPicker || showDayPicker || showYearPicker} t='Next' onPress={this.handleSubmit} loading={processing} />
                 </Footer>
 
                 <MonthPicker visible={showMonthPicker} onSelect={this.handleSelectMonth} onDismiss={this.handleHideMonthPicker} />
@@ -395,4 +476,8 @@ class Scrn extends React.Component {
     }
 }
 
-export default Scrn
+const mapStateToProps = state => ({
+    isForceUpdate: state.auth.isForceUpdate
+})
+
+export default connect(mapStateToProps)(Scrn)

@@ -10,7 +10,7 @@ export default class Scrn extends React.Component {
     }
 
     state = {
-        mobile_no:Consts.mobilePrefixPH + '9326118146',
+        mobile_no:Consts.mobilePrefixPH,
         processing:false
     }
 

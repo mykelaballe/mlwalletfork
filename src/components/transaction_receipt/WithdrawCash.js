@@ -50,17 +50,37 @@ class WithdrawCash extends React.Component {
         }
     }
 
-    handleCancelTransaction = () => {
-        Say.ask(
-            'Are you sure you want to cancel this transaction?',
-            'Cancel Transaction',
-            {
-                onConfirm:this.cancelTransaction
+    handleCancelTransaction = async () => {
+        const {walletno} = this.props.user
+        const {kptn} = this.props.data
+        let latitude = Consts.defaultLatitude, longitude = Consts.defaultLongitude
+
+        if(Func.isCheckLocation('cwdc')) {
+            const locationRes = await Func.getLocation()
+            if(!locationRes.error) {
+                latitude = locationRes.data.latitude
+                longitude = locationRes.data.longitude
+
+                API.attemptWithdrawCashCancel({
+                    walletno,
+                    kptn
+                })
+
+                Say.ask(
+                    'Are you sure you want to cancel this transaction?',
+                    'Cancel Transaction',
+                    {
+                        onConfirm:() => this.cancelTransaction({
+                            latitude,
+                            longitude
+                        })
+                    }
+                )
             }
-        )
+        }
     }
 
-    cancelTransaction = async () => {
+    cancelTransaction = async payload => {
         const {cancelling} = this.state
         const {walletno} = this.props.user
         const {_from, kptn} = this.props.data
@@ -72,7 +92,8 @@ class WithdrawCash extends React.Component {
 
             let res = await API.withdrawCashCancel({
                 walletno,
-                kptn
+                kptn,
+                ...payload
             })
             
             if(res.error) Say.warn(res.message)
@@ -142,8 +163,8 @@ class WithdrawCash extends React.Component {
                     {cancellable &&
                     <>
                         <Button mode='outlined' t='Withdraw using QR Code' onPress={this.handleShowQR} />
-                        <Spacer sm />
-                        <Button mode='outlined' t='Cancel Transaction' onPress={this.handleCancelTransaction} loading={cancelling} />
+                        {/*<Spacer sm />
+                        <Button mode='outlined' t='Cancel Transaction' onPress={this.handleCancelTransaction} loading={cancelling} />*/}
 
                         <Spacer sm />
                     </>

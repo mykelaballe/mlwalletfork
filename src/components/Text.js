@@ -11,6 +11,8 @@ export default props => {
 
     if(props.b) style.fontWeight = 'bold'
 
+    if(props.u) style.textDecorationLine = 'underline'
+
     if(props.center) style.textAlign = 'center'
     else if(props.right) style.textAlign = 'right'
 

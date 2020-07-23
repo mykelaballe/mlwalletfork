@@ -22,6 +22,7 @@ export default {
     SignUpVerificationMobile: Scrn.SignUpVerificationMobileScrn,
     SignUpVerificationOTP: Scrn.SignUpVerificationOTPScrn,
     SignUpSuccess: Scrn.SignUpSuccessScrn,
+    LivePhotoOnBoarding: Scrn.LivePhotoOnBoardingScrn,
 
     Countries: Scrn.CountriesScrn,
     Provinces: Scrn.ProvincesScrn,

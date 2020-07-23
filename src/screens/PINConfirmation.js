@@ -96,17 +96,9 @@ class Scrn extends React.Component {
 
             this.setState({processing:true})
 
-            const checkForGeolocation = [
-                Consts.tcn.stw.code,
-                Consts.tcn.skp.code,
-                Consts.tcn.stb.code,
-                Consts.tcn.wdc.code,
-                Consts.tcn.bul.code,
-                Consts.tcn.bpm.code
-            ]
-            let latitude = '0.0', longitude = '0.0'
+            let latitude = Consts.defaultLatitude, longitude = Consts.defaultLongitude
 
-            if(Consts.checkLocation && checkForGeolocation.indexOf(type) >= 0) {
+            if(Func.isCheckLocation(type)) {
                 const locationRes = await Func.getLocation()
                 if(locationRes.error) {
                     this.setState({processing:false})
@@ -164,7 +156,7 @@ class Scrn extends React.Component {
                         res = await API.payBill({
                             walletno,
                             partnersId:transaction.bank.old_partnersid,
-                            PartnerName:transaction.bank.bankname,
+                            partnerName:transaction.bank.bankname,
                             accountNo:transaction.account_no,
                             accountName:transaction.account_name,
                             amountpaid:transaction.amount,
@@ -184,7 +176,7 @@ class Scrn extends React.Component {
                         res = await API.payBill({
                             walletno,
                             partnersId:transaction.biller.partnersid,
-                            PartnerName:transaction.biller.partner,
+                            partnerName:transaction.biller.partner,
                             accountNo:transaction.account_no,
                             accountName:transaction.account_name,
                             email:transaction.email,
