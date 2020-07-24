@@ -9,7 +9,8 @@ export default {
             location:'',
             deviceid:Consts.deviceId,
             version:Consts.appVersion,
-            isRTA:payload.isRTA
+            isRTA:payload.isRTA,
+            version:Consts.appVersion
         })
 
         if(res.respcode != 1) {
