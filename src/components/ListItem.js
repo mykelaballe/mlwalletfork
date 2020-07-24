@@ -6,14 +6,14 @@ import {Metrics} from '../themes'
 export default ({initial, primaryText, subText, big, onPress}) => {
 
     let baseUI = (
-        <Row>
+        <Row f>
             {initial !== false &&
             <>
                 <Initial text={initial || primaryText} />
                 <Spacer h sm />
             </>
             }
-            <View>
+            <View style={{flex:1}}>
                 {big && <Text mute md>{primaryText}</Text>}
                 {!big && <Text b>{primaryText}</Text>}
 
