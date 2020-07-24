@@ -19,8 +19,8 @@ class Scrn extends React.Component {
         account_name:this.props.navigation.state.params.bank.old_account_name,
         account_no:this.props.navigation.state.params.bank.old_account_no,
         amount:'',
-        fixed_charge:this.props.navigation.state.params.bank.fixed_charge,
-        convenience_fee:this.props.navigation.state.params.bank.convenience_fee,
+        fixed_charge:this.props.navigation.state.params.bank.charge,
+        convenience_fee:this.props.navigation.state.params.bank.convenienceFee,
         total:''
     }
 

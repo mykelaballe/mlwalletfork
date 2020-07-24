@@ -216,8 +216,8 @@ class Scrn extends React.Component {
                         this.setState({done:true})
 
                         replace('TransactionReceipt',{
+                            ...res.data,
                             ...state.params,
-                            ...res.data
                         })
                     }
                 }
