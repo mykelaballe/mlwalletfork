@@ -2,7 +2,7 @@ import React from 'react'
 import {StyleSheet} from 'react-native'
 import {Screen, Footer, Headline, Button, TextInputFlat, Row} from '../components'
 import {Metrics} from '../themes'
-import {_, Say} from '../utils'
+import {_, Say, Func} from '../utils'
 import {API} from '../services'
 
 export default class Scrn extends React.Component {
@@ -122,11 +122,10 @@ export default class Scrn extends React.Component {
     render() {
 
         const {digit1, digit2, digit3, digit4, digit5, digit6, processing} = this.state
+        const pin = `${digit1}${digit2}${digit3}${digit4}${digit5}${digit6}`
         let ready = false
 
-        if(`${digit1}${digit2}${digit3}${digit4}${digit5}${digit6}`.length >= 6) {
-            ready = true
-        }
+        if(Func.isNumbersOnly(pin) && pin.length >= 6) ready = true
 
         return (
             <>

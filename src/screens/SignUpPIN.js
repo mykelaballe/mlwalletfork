@@ -107,9 +107,10 @@ class Scrn extends React.Component {
 
         const {isForceUpdate} = this.props
         const {digit1, digit2, digit3, digit4, digit5, digit6, processing} = this.state
+        const pin = `${digit1}${digit2}${digit3}${digit4}${digit5}${digit6}`
         let ready = false
 
-        if(`${digit1}${digit2}${digit3}${digit4}${digit5}${digit6}`.length >= 6) ready = true
+        if(Func.isNumbersOnly(pin) && pin.length >= 6) ready = true
 
         return (
             <>
