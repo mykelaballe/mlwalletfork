@@ -81,8 +81,11 @@ class Scrn extends React.Component {
                     key
                 }
 
+                if(key === 'lasttransamount' || key === 'balance') {
+                    payload.answer = Func.formatToRealCurrency(payload.answer)
+                }
+
                 let securityRes = await API.validateSecurityQuestion(payload)
-                console.warn(securityRes)
 
                 if(securityRes.error) {
                     Say.attemptLeft(securityRes.message, {
