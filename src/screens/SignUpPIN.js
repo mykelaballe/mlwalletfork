@@ -88,10 +88,8 @@ class Scrn extends React.Component {
             else if(!Func.isNumbersOnly(pin)) Say.warn(Consts.error.onlyNumbers)
             else {
 
-                let payload = params.payload || {}
-
                 this.props.navigation[isForceUpdate ? 'navigate' : 'replace']('SignUpStep1',{
-                    ...payload,
+                    ...params,
                     pincode:pin
                 })
             }
