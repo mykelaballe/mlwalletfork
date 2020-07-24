@@ -67,7 +67,7 @@ export default class Scrn extends React.Component {
                         let source = await this.camera.takePictureAsync({
                             width: 1280,
                             height: 1920,
-                            quality: 1.0,
+                            quality: Consts.is_android ? 1.0 : 0.7,
                             base64: true,
                             orientation: 'portrait',
                             skipProcessing: true,
