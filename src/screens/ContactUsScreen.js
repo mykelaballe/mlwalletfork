@@ -61,11 +61,11 @@ class Scrn extends React.Component {
                     <HR m={Metrics.rg} />
 
                     <RippleItem onPress={this.handleCall} value={'+63 (32) 348-9400-09'} style={style.item}>
-                        <Text b>Tel. No.</Text>
+                        <Text b>Tel. No.:</Text>
                         <Text>+63 (32) 348-9400-09</Text>
                     </RippleItem>
 
-                    <Spacer />
+                    {/*<Spacer />
 
                     <Text b>Mobile no.</Text>
 
@@ -77,7 +77,7 @@ class Scrn extends React.Component {
                     <RippleItem onPress={this.handleCall} value={'09178712973'} style={style.item}>
                         <Text b>Globe</Text>
                         <Text>0917-871-2973</Text>
-                    </RippleItem>
+                    </RippleItem>*/}
 
                     <RippleItem onPress={this.handleEmail} value={'customercare@mlhuillier1.com'} style={style.item}>
                         <Text b>Email us at</Text>
@@ -93,7 +93,7 @@ class Scrn extends React.Component {
                     <HR m={Metrics.rg} />
 
                     <RippleItem onPress={this.handleCall} value={'+63 (32) 415-3977'} style={style.item}>
-                        <Text b>Tel. No.</Text>
+                        <Text b>Tel. No.:</Text>
                         <Text>+63 (32) 415-3977</Text>
                     </RippleItem>
 
