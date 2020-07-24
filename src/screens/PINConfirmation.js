@@ -155,7 +155,7 @@ class Scrn extends React.Component {
                     else if(type == Consts.tcn.stb.code) {
                         res = await API.payBill({
                             walletno,
-                            partnersId:transaction.bank.old_partnersid,
+                            partnersId:'MLBPP130014',//transaction.bank.old_partnersid,
                             partnerName:transaction.bank.bankname,
                             accountNo:transaction.account_no,
                             accountName:transaction.account_name,
