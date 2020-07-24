@@ -63,7 +63,7 @@ class Scrn extends React.Component {
             <>
                 <Screen>
                     <View style={{alignItems:'center',paddingTop:Metrics.lg}}>
-                        <QRCode value={data} size={QR_SIZE} onError={this.handleOnError} />
+                        {(data != '' && data) && <QRCode value={data} size={QR_SIZE} onError={this.handleOnError} />}
                     </View>
                     
                 </Screen>
