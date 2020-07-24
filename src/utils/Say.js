@@ -22,8 +22,8 @@ const ok = (message, title = null, options = {}) => {
     })
 }
 
-const warn = (message, title = null, options = {}) => {
-    if(message && message[message.length - 1] != '.') message = `${message}.`
+const warn = (message, title = null, options = {}, noPeriod = false) => {
+    if(!noPeriod && message && message[message.length - 1] != '.') message = `${message}.`
 
     SomeModal.show({
         message,
@@ -76,7 +76,7 @@ const ask = (message, title = null, options = {}) => {
 }
 
 const attemptLeft = (error,options = {}) => {
-    let frontMsg = options.frontMsg || 'You entered the wrong information.'
+    let frontMsg = options.frontMsg || 'You entered the wrong information'
 
     if(error === Consts.error.atl1) warn(`${frontMsg}. You only have 1 attempt left.`)
     else if(error === Consts.error.atl2) warn(`${frontMsg}. You only have 2 attempts left.`)
@@ -84,9 +84,11 @@ const attemptLeft = (error,options = {}) => {
         warn(
             `Your account will be blocked for 24 hours. Please contact our Customer Care for assistance.
             
-            Smart  :0947-999-0037
+            Smart  :0947-999-0337
             Globe  :0917-871-2973`,
-            null
+            null,
+            null,
+            true
         )
     }
     else {

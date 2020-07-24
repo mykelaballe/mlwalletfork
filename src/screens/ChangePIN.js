@@ -69,7 +69,7 @@ class Scrn extends React.Component {
                     this.setState({error_old:true})
 
                     Say.attemptLeft(res.message,{
-                        frontMsg:'This is not your current PIN'
+                        frontMsg:Consts.error.wrongInfo
                     })
                     
                     if(res.message == Consts.error.blk1d) this.props.logout()

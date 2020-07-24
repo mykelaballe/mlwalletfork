@@ -123,7 +123,7 @@ class Scrn extends React.Component {
     
                 if(pinRes.error) {
                     Say.attemptLeft(pinRes.message,{
-                        frontMsg:'You entered the wrong PIN'
+                        frontMsg:Consts.error.wrongInfo
                     })
 
                     if(pinRes.message == Consts.error.blk1d) this.props.logout()

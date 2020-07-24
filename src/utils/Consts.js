@@ -64,6 +64,7 @@ export default {
 		atl2:'2attempt_left',
 		blk1d:'block_account_1day',
 		blk:'block_account',
+		wrongInfo:'You entered the wrong information',
 		incompleteMiddlename:'Please provide complete middle name',
 		featureNotAvailable:'Sorry, this is not yet available. We are still updating this feature to make sure we provide the best experience for you'
 	},
