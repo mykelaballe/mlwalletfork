@@ -54,9 +54,9 @@ const answer5 = (
         <Spacer sm />
         {
             [
-                'Open the ML Wallet App and log-in.',
-                'Access “My Account” and click the button “GET FULLY VERIFIED NOW”.',
-                'Upload a picture of your government-issued ID to finish full-verification!'
+                'Visit any of the 2500+ M. Lhuillier branches nationwide for the verification process.',
+                'Present your ML Wallet account number to the branch personnel.',
+                'Add a minimum of PHP 100.00 to your ML Wallet account to complete verification process.'
             ]
             .map((item, i) => (
                 <>
@@ -65,8 +65,8 @@ const answer5 = (
                 </>
             ))
         }
-        <Spacer sm />
-        <Text>Note that all users under the age of 18 years old are automatically tagged as semi-verified. Once the user turns 18 years old, he/she can now upgrade to a fully-verified status by uploading a government issued ID.</Text>
+        {/*<Spacer sm />
+        <Text>Note that all users under the age of 18 years old are automatically tagged as semi-verified. Once the user turns 18 years old, he/she can now upgrade to a fully-verified status by uploading a government issued ID.</Text>*/}
     </>
 )
 
