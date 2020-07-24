@@ -7,7 +7,8 @@ export default {
         let res = await Fetch.postc('LoadSIM',{
             ...payload,
             deviceid:Consts.deviceId,
-            location:''
+            location:'',
+            version:Consts.appVersion
         })
 
         if(!res.error) {
