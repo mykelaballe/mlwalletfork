@@ -10,7 +10,7 @@ class PayBill extends React.Component {
     state = {
         amount:Func.formatToCurrency(this.props.data.amount),
         fixed_charge:Func.formatToCurrency(this.props.data.fixed_charge),
-        convenience_fee:Func.formatToCurrency(this.props.data.convenienceFee),
+        convenience_fee:Func.formatToCurrency(this.props.data.convenience_fee),
         total:Func.formatToCurrency(this.props.data.total),
         date:this.props.data.date,
         time:this.props.data.time,
