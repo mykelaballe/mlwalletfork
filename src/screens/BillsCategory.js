@@ -102,7 +102,7 @@ class Scrn extends React.Component {
         refreshing:false
     }
 
-    componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
+    //componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
 
     getData = async () => {
         let favorites = []
