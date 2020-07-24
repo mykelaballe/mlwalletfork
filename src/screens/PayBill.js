@@ -15,7 +15,7 @@ export default class Scrn extends React.Component {
         ...this.props.navigation.state.params.biller,
         amount:'',
         fixed_charge:this.props.navigation.state.params.biller.charge,
-        convenience_fee:'15',
+        convenience_fee:this.props.navigation.state.params.biller.convenience_fee,
         total:'',
         processing:false
     }

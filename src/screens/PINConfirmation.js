@@ -160,7 +160,7 @@ class Scrn extends React.Component {
                             accountNo:transaction.account_no,
                             accountName:transaction.account_name,
                             amountpaid:transaction.amount,
-                            conveniencefee:transaction.convenience_fee,
+                            //conveniencefee:transaction.convenience_fee,
                             isRTA:1
                         })
                     }
@@ -181,7 +181,7 @@ class Scrn extends React.Component {
                             accountName:transaction.account_name,
                             email:transaction.email,
                             amountpaid:transaction.amount,
-                            conveniencefee:transaction.convenience_fee,
+                            //conveniencefee:transaction.convenience_fee,
                             isRTA:0
                         })
                     }
