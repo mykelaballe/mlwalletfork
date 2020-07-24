@@ -81,7 +81,7 @@ class Scrn extends React.Component {
             }
         }
         catch(err) {
-            //Say.err(err)
+
         }
 
         this.setState({
@@ -145,9 +145,11 @@ class Scrn extends React.Component {
 
         return (
             <>
+                {status > 0 &&
                 <TouchableOpacity style={style.topBanner} onPress={this.handleViewVerificationLevels}>
-                    <Text center>You are {status == 0 ? 'semi-verified' : 'fully verified'}. Tap to learn more.</Text>
+                    <Text center>You are {status == 1 ? 'semi-verified' : 'fully verified'}. Tap to learn more.</Text>
                 </TouchableOpacity>
+                }
 
                 <Balance />
 
