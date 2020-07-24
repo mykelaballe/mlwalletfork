@@ -244,7 +244,6 @@ class Scrn extends React.Component {
             }
         }
         catch(err) {
-            alert(err)
             Say.err(err)
         }
 
