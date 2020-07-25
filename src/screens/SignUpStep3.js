@@ -175,17 +175,15 @@ class Scrn extends React.Component {
                     birth_year:true
                 }
 
-                //if(list[selectedIDIndex].value != 'student' && list[selectedIDIndex].value != 'company') {
-                    res = await API.validateID({
-                        type:list[selectedIDIndex].value,
-                        image:validID.base64,
-                        first_name:firstname,
-                        last_name:lastname,
-                        birth_date:bday_day,
-                        birth_month:bday_month,
-                        birth_year:bday_year
-                    })
-                //}
+                res = await API.validateID({
+                    type:list[selectedIDIndex].value,
+                    image:validID.base64,
+                    first_name:firstname,
+                    last_name:lastname,
+                    birth_date:bday_day,
+                    birth_month:bday_month,
+                    birth_year:bday_year
+                })
 
                 if(list[selectedIDIndex].value == 'student' || list[selectedIDIndex].value == 'company') res.valid = true
 
@@ -225,10 +223,17 @@ class Scrn extends React.Component {
                         
                         if(updateRes.error) Say.warn(updateRes.message)
                         else {
-                            this.props.updateUserInfo(updateRes.data)
-                            this.props.setIsForceUpdate(false)
-                            this.props.login()
-                            Say.ok(`Thanks for updating your profile, ${firstname}!\n\nExplore the new ML Wallet now`)
+                            Say.ok(
+                                `Thanks for updating your profile, ${firstname}!\n\nExplore the new ML Wallet now`,
+                                null,
+                                {
+                                    onConfirm:() => {
+                                        this.props.updateUserInfo(updateRes.data)
+                                        this.props.setIsForceUpdate(false)
+                                        this.props.login()
+                                    }
+                                }
+                            )
                         }
                     }
                     else {

@@ -9,15 +9,12 @@ import ForceReenterDataStack from './ForceReenterDataStack'
 const AppIntroContainer = createAppContainer(AppIntroStack)
 const AuthAppContainer = createAppContainer(AuthStack)
 const MainAppContainer = createAppContainer(MainStack)
-const ForceReenterDataContainer = createAppContainer(ForceReenterDataStack)
 
 class Navigation extends React.Component {
 
     render() {
 
-        const {isFirstTime, isLoggedIn, isForceUpdate, user} = this.props
-
-        //if(isForceUpdate) return <ForceReenterDataContainer />
+        const {isFirstTime, isLoggedIn, user} = this.props
 
         if(isFirstTime) return <AppIntroContainer />
 
@@ -29,7 +26,6 @@ class Navigation extends React.Component {
 const mapStateToProps = state => ({
     isFirstTime: state.app.isFirstTime,
     isLoggedIn: state.auth.isLoggedIn,
-    isForceUpdate: state.auth.isForceUpdate,
     user: state.user.data
 })
 

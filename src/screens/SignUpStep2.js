@@ -1,8 +1,11 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import {Creators} from '../actions'
 import {Screen, Button, TextInput, Footer, StaticInput, SignUpStepsTracker} from '../components'
 import {_, Say, Consts, Func} from '../utils'
+import {API} from '../services'
 
-export default class Scrn extends React.Component {
+class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Address'
@@ -63,20 +66,11 @@ export default class Scrn extends React.Component {
 
     handleChangeStreet = street => this.setState({street,error_street:false})
 
-    handleSelectCountry = () => {
-        const {state, navigate} = this.props.navigation
-        navigate('Countries',{sourceRoute:state.routeName})
-    }
+    handleSelectCountry = () => this.props.navigation.navigate('Countries',{sourceRoute:this.props.navigation.state.routeName})
 
-    handleSelectProvince = () => {
-        const {state, navigate} = this.props.navigation
-        navigate('Provinces',{sourceRoute:state.routeName, country:this.state.country})
-    }
+    handleSelectProvince = () => this.props.navigation.navigate('Provinces',{sourceRoute:this.props.navigation.state.routeName, country:this.state.country})
 
-    handleSelectCity = () => {
-        const {state, navigate} = this.props.navigation
-        navigate('Cities',{sourceRoute:state.routeName, province:this.state.province})
-    }
+    handleSelectCity = () => this.props.navigation.navigate('Cities',{sourceRoute:this.props.navigation.state.routeName, province:this.state.province})
 
     handleChangeBarangay = barangay => this.setState({barangay,error_barangay:false})
 
@@ -87,6 +81,7 @@ export default class Scrn extends React.Component {
     handleFocusHouse = () => this.refs.house.focus()
 
     handleSubmit = async () => {
+        const {isForceUpdate, user} = this.props
         let {house, street, country, province, city, barangay, zip_code} = this.state
 
         try {
@@ -109,25 +104,62 @@ export default class Scrn extends React.Component {
             else if(street && !Func.hasAddressSpecialCharsOnly(street)) Say.warn(Consts.error.notAllowedChar + '\n\nStreet')
             else if(house && !Func.hasAddressSpecialCharsOnly(house)) Say.warn(Consts.error.notAllowedChar + '\n\nHouse/Unit/Floor...: ')
             else {
-                this.props.navigation.navigate('SignUpStep3',{
-                    ...this.props.navigation.state.params,
-                    country,
-                    province,
-                    city,
-                    house,
-                    street,
-                    barangay,
-                    zip_code
-                })
+                if(isForceUpdate) {
+                    this.setState({processing:true})
+
+                    let updateRes = await API.updateProfile({
+                        walletno:user.walletno,
+                        country,
+                        province:province.province,
+                        provincecode:province.provCode,
+                        city,
+                        barangay,
+                        houseno:house,
+                        street,
+                        zipcode:zip_code
+                    })
+
+                    console.warn(updateRes)
+                    
+                    if(updateRes.error) Say.warn(updateRes.message)
+                    else {
+                        Say.ok(
+                            `Thanks for updating your profile, ${user.fname}!\n\nExplore the new ML Wallet now`,
+                            null,
+                            {
+                                onConfirm:() => {
+                                    this.props.updateUserInfo(updateRes.data)
+                                    this.props.setIsForceUpdate(false)
+                                    this.props.login()
+                                }
+                            }
+                        )
+                    }
+                }
+                else {
+                    this.props.navigation.navigate('SignUpStep3',{
+                        ...this.props.navigation.state.params,
+                        country,
+                        province,
+                        city,
+                        house,
+                        street,
+                        barangay,
+                        zip_code
+                    })
+                }
             }
         }
         catch(err) {
             Say.err(err)
         }
+
+        this.setState({processing:false})
     }
 
     render() {
 
+        const {isForceUpdate} = this.props
         const {house, street, country, province, city, barangay, zip_code, error_barangay, error_house, error_street, processing} = this.state
         let ready = true
 
@@ -139,7 +171,7 @@ export default class Scrn extends React.Component {
             <>
                 <Screen>
 
-                    <SignUpStepsTracker step={2} />
+                    {!isForceUpdate && <SignUpStepsTracker step={2} />}
 
                     <StaticInput
                         label='Country*'
@@ -202,9 +234,22 @@ export default class Scrn extends React.Component {
                 </Screen>
             
                 <Footer>
-                    <Button disabled={!ready} t={_('62')} onPress={this.handleSubmit} loading={processing} />
+                    <Button disabled={!ready} t={isForceUpdate ? _('10') : _('62')} onPress={this.handleSubmit} loading={processing} />
                 </Footer>
             </>
         )
     }
 }
+
+const mapStateToProps = state => ({
+    isForceUpdate: state.auth.isForceUpdate,
+    user: state.user.data
+})
+
+const mapDispatchToProps = dispatch => ({
+    login:() => dispatch(Creators.login()),
+    updateUserInfo:newInfo => dispatch(Creators.updateUserInfo(newInfo)),
+    setIsForceUpdate:isForceUpdate => dispatch(Creators.setIsForceUpdate(isForceUpdate))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Scrn)
