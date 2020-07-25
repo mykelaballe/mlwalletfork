@@ -160,7 +160,6 @@ class Scrn extends React.Component {
                             accountNo:transaction.account_no,
                             accountName:transaction.account_name,
                             amountpaid:transaction.amount,
-                            //conveniencefee:transaction.convenience_fee,
                             isRTA:1
                         })
                     }
@@ -181,7 +180,6 @@ class Scrn extends React.Component {
                             accountName:transaction.account_name,
                             email:transaction.email,
                             amountpaid:transaction.amount,
-                            //conveniencefee:transaction.convenience_fee,
                             isRTA:0
                         })
                     }
@@ -205,6 +203,16 @@ class Scrn extends React.Component {
 
                     if(res.error) Say.warn(res.message)
                     else {
+
+                        if(type == Consts.tcn.stb.code || type == Consts.tcn.bpm.code) {
+
+                            res.data.balance = res.data.balance - transaction.amount - transaction.convenience_fee
+
+                            if(res.message.indexOf('Free') < 0) {
+                                res.data.balance = res.data.balance - transaction.fixed_charge
+                            }
+                        }
+
                         this.props.updateBalance(res.data.balance)
 
                         if(type == Consts.tcn.stw.code) this.props.refreshWalletRecent(true)
