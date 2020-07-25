@@ -50,8 +50,8 @@ const answer3 = (
 
 const answer5 = (
     <>
-        <Text>To upgrade your verification status, follow the steps below</Text>
-        <Spacer sm />
+        {/*<Text>To upgrade your verification status, follow the steps below</Text>
+        <Spacer sm />*/}
         {
             [
                 'Visit any of the 2500+ M. Lhuillier branches nationwide for the verification process.',
@@ -60,7 +60,7 @@ const answer5 = (
             ]
             .map((item, i) => (
                 <>
-                    <Text key={i}>Step {i+1}: {item}</Text>
+                    <Text key={i}><Text b>Step {i+1}</Text>: {item}</Text>
                     <Spacer xs />
                 </>
             ))

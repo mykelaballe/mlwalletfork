@@ -53,7 +53,7 @@ class Scrn extends React.Component {
         this.setState({processing:false})
     }
 
-    handleOnError = () => Say.err(_('500'))
+    handleOnError = () => {}
 
     render() {
 
@@ -69,7 +69,7 @@ class Scrn extends React.Component {
                 </Screen>
 
                 <Footer>
-                    <Text center>For faster transaction present this QR Code to the branch teller</Text>
+                    {data != '' && <Text center>For faster transaction present this QR Code to the branch teller</Text>}
 
                     <Spacer />
                         

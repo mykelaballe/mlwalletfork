@@ -289,8 +289,8 @@ class Scrn extends React.Component {
                 notes:item.notes,
                 amount:item.amount,
                 charges:item.charge,
-                fixed_charge:item.charge,
-                convenience_fee:item.convenienceFee,
+                fixed_charge:item.fixedcharge,
+                convenience_fee:item.conveniencefee,
                 total:item.totalamount,
                 user:{
                     fname:this.props.user.fname,
