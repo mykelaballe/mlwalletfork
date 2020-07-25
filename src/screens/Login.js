@@ -93,16 +93,6 @@ class Scrn extends React.Component {
         try {
             this.setState({processing:true})
 
-            /*let locationRes = await Func.getLocation()
-            if(locationRes.error) {
-                this.setState({processing:false})
-                return false
-            }
-            else {
-                latitude = locationRes.data.latitude
-                longitude = locationRes.data.longitude
-            }*/
-
             username = username.trim()
             password = password.trim()
 
@@ -135,12 +125,7 @@ class Scrn extends React.Component {
                             }
                         )
                     }
-                    else if(res.message === 'old_user') {
-                        this.props.setUser(res.data)
-                        //this.props.login()
-                        this.props.setIsForceUpdate(true)
-                        this.props.navigation.navigate('SignUpPassword')
-                    }
+                    else if(res.message === 'old_user') this.forceReupdateInfo(res.data)
                     else if(res.message === 'registered_anotherdevice') {
 
                         this.setState({data:res.data})
@@ -158,6 +143,7 @@ class Scrn extends React.Component {
                     else if(res.message === 'server_error') throw {message:res.message}
                     else throw {message:res.message}
                 }
+                else if(res.data && res.data.pincode.length <= 4) this.forceReupdateInfo(res.data)
                 else {
                     
                     res.data.latitude = latitude
@@ -188,6 +174,20 @@ class Scrn extends React.Component {
         }
 
         this.setState({processing:false})
+    }
+
+    forceReupdateInfo = userData => {
+        Say.ok(
+            'For an even better experience with the new and improved ML Wallet App, please update your ML Wallet profile now!',
+            `Hi, ${userData.fname}!`,
+            {
+                onConfirm:() => {
+                    this.props.setUser(userData)
+                    this.props.setIsForceUpdate(true)
+                    this.props.navigation.navigate('SignUpPassword')
+                }
+            }
+        )
     }
 
     handleGoToForgotPassword = () => this.props.navigation.navigate('ForgotPassword')

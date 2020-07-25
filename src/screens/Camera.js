@@ -12,6 +12,9 @@ import FoundationIcon from 'react-native-vector-icons/Foundation'
 const {width, height} = Dimensions.get('window')
 const FRAME_WIDTH = width * .9
 const FRAME_HEIGHT = height * .4
+const BASE_WIDTH = 1280
+const BASE_HEIGHT = 1920
+const QUALITY = 0.7
 
 export default class Scrn extends React.Component {
 
@@ -63,11 +66,10 @@ export default class Scrn extends React.Component {
                     try {
                         this.setState({processing:true})
         
-                        //base64, width, height, pictureOrientation, deviceOrientation
                         let source = await this.camera.takePictureAsync({
-                            width: 1280,
-                            height: 1920,
-                            quality: Consts.is_android ? 1.0 : 0.8,
+                            width: Consts.is_android ? BASE_WIDTH : BASE_WIDTH * QUALITY,
+                            height: Consts.is_android ? BASE_HEIGHT : BASE_HEIGHT * QUALITY,
+                            quality: Consts.is_android ? 0.9 : QUALITY,
                             base64: true,
                             orientation: 'portrait',
                             skipProcessing: true,
@@ -80,10 +82,10 @@ export default class Scrn extends React.Component {
                             //iOS
                             forceUpOrientation: true
                         })
+
+                        
                         
                         if(!Consts.is_android) source.uri = source.uri.replace('file:///', '/')
-                        //alert(RNFetchBlob.fs.dirs.DocumentDir)
-                        //let fileStat = await RNFetchBlob.fs.stat(source.uri)
         
                         this.setState({source})
                     }
