@@ -45,7 +45,7 @@ export default props => {
             <Spacer />
 
             <Text mute sm>Total</Text>
-            <Text md>PHP {Func.formatToRealCurrency(total)}</Text>
+            <Text md>PHP {Func.formatToRealCurrency(parseFloat(amount) + parseFloat(fixed_charge) + parseFloat(convenience_fee))}</Text>
         </ScrollFix>
     )
 }

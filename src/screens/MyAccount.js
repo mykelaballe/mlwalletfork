@@ -21,7 +21,7 @@ class Scrn extends React.Component {
     componentDidMount = () => Say.some(_('88'),'Attention!')
 
     handleGoToVerificationLevels = () => {
-        Say.ask(
+        Say.some(
             'Upgrading of verification status via ML Wallet will be available SOON. Stay tuned!',
             'Hi there!',
             /*{

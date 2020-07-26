@@ -204,18 +204,18 @@ class Scrn extends React.Component {
                     if(res.error) Say.warn(res.message)
                     else {
 
+                        console.warn(res)
+
                         if(type == Consts.tcn.stb.code || type == Consts.tcn.bpm.code) {
 
-                            res.data.balance = res.data.balance - transaction.amount - transaction.convenience_fee
+                            //res.data.balance = res.data.balance - transaction.amount - transaction.convenience_fee
 
-                            if(res.message.indexOf('Free') < 0) {
+                            /*if(res.message.indexOf('Free') < 0) {
                                 res.data.balance = res.data.balance - transaction.fixed_charge
-                            }
+                            }*/
                         }
 
                         this.props.updateBalance(res.data.balance)
-
-                        //console.warn(res)
 
                         if(type == Consts.tcn.stw.code) this.props.refreshWalletRecent(true)
                         else if(type == Consts.tcn.skp.code) this.props.refreshKPRecent(true)

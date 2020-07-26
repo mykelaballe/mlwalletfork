@@ -70,9 +70,9 @@ class Scrn extends React.Component {
             contact_no = Func.formatToPHMobileNumber(contact_no)
 
             if(!firstname || !middlename || !lastname || !suffix || !contact_no) Say.some(_('8'))
-            else if(!Func.isLettersOnly(firstname)) Say.warn(Consts.error.onlyLetters)
-            else if(!Func.isLettersOnly(middlename)) Say.warn(Consts.error.onlyLetters)
-            else if(!Func.isLettersOnly(lastname)) Say.warn(Consts.error.onlyLetters)
+            else if(!Func.isLettersOnly(firstname)) Say.warn(Consts.error.onlyLettersInName)
+            else if(!Func.isLettersOnly(middlename)) Say.warn(Consts.error.onlyLettersInName)
+            else if(!Func.isLettersOnly(lastname)) Say.warn(Consts.error.onlyLettersInName)
             else if(!Func.isLettersOnly(suffix)) Say.warn(Consts.error.onlyLetters)
             else if(!Func.isPHMobileNumber(contact_no)) Say.warn(Consts.error.mobile)
             else {

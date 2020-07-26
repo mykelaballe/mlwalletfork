@@ -10,7 +10,7 @@ class SendBankTransfer extends React.Component {
     state = {
         amount:Func.formatToCurrency(this.props.data.amount),
         fixed_charge:Func.formatToCurrency(this.props.data.fixed_charge),
-        convenience_fee:Func.formatToCurrency(this.props.data.bank.convenience_fee),
+        convenience_fee:Func.formatToCurrency(this.props.data.bank.convenienceFee),
         total:Func.formatToCurrency(this.props.data.total),
         date:this.props.data.date,
         time:this.props.data.time,
@@ -72,7 +72,7 @@ class SendBankTransfer extends React.Component {
         return (
             <>
                 <Screen compact>
-                    <Header tcn={kptn} />
+                    <Header tcn={kptn} status='success' />
                     
                     <ScrollFix style={{padding:Metrics.lg}}>
                         <Text sm mute>Partner's Name</Text>
@@ -106,7 +106,7 @@ class SendBankTransfer extends React.Component {
                         <Spacer />
 
                         <Text sm mute>Total</Text>
-                        <Text>PHP {total}</Text>
+                        <Text>PHP {Func.formatToRealCurrency(parseFloat(amount) + parseFloat(fixed_charge) + parseFloat(convenience_fee))}</Text>
 
                         <Spacer />
 

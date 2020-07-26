@@ -76,7 +76,7 @@ const ask = (message, title = null, options = {}) => {
 }
 
 const attemptLeft = (error,options = {}) => {
-    let frontMsg = options.frontMsg || 'You entered the wrong information'
+    let frontMsg = options.frontMsg || Consts.error.wrongInfo
 
     if(error === Consts.error.atl1) warn(`${frontMsg}. You only have 1 attempt left.`)
     else if(error === Consts.error.atl2) warn(`${frontMsg}. You only have 2 attempts left.`)
@@ -84,8 +84,8 @@ const attemptLeft = (error,options = {}) => {
         warn(
             `Your account will be blocked for 24 hours. Please contact our Customer Care for assistance.
             
-            Smart  :0947-999-0337
-            Globe  :0917-871-2973`,
+            Globe  :0917-871-2973
+            Smart  :0947-999-0337`,
             null,
             null,
             true
