@@ -2,13 +2,15 @@ import React from 'react'
 import Outline from './Outline'
 import Text from './Text'
 import TextInput from './TextInput'
-import {Metrics} from '../themes'
+import {Colors, Metrics} from '../themes'
+
+const DISABLED_COLOR = '#bbb'
 
 export default React.forwardRef((props, ref) => {
 	const InputUI = (
 		<Outline>
-			<Text size={props.value === '' ? Metrics.font.md : 11} mute>{props.label}</Text>
-			{props.value !== '' && <Text md mute>{props.value}</Text>}
+			<Text size={props.value === '' ? Metrics.font.md : 11} color={props.disabled ? DISABLED_COLOR : Colors.mute}>{props.label}</Text>
+			{props.value !== '' && <Text md color={props.disabled ? DISABLED_COLOR : Colors.mute}>{props.value}</Text>}
 		</Outline>
 	)
 
@@ -20,6 +22,7 @@ export default React.forwardRef((props, ref) => {
 				label={props.label}
 				value={props.value}
 				onChangeText={props.onChangeText}
+				disabled={props.disabled}
 			/>
 		)
 	}

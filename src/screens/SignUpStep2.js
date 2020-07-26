@@ -81,7 +81,8 @@ class Scrn extends React.Component {
     handleFocusHouse = () => this.refs.house.focus()
 
     handleSubmit = async () => {
-        const {isForceUpdate, user} = this.props
+        const {params = {}} = this.props.navigation.state
+        const {user} = this.props
         let {house, street, country, province, city, barangay, zip_code} = this.state
 
         try {
@@ -104,7 +105,7 @@ class Scrn extends React.Component {
             else if(street && !Func.hasAddressSpecialCharsOnly(street)) Say.warn(Consts.error.notAllowedChar + '\n\nStreet')
             else if(house && !Func.hasAddressSpecialCharsOnly(house)) Say.warn(Consts.error.notAllowedChar + '\n\nHouse/Unit/Floor...: ')
             else {
-                if(isForceUpdate) {
+                if(params.isForceUpdate) {
                     this.setState({processing:true})
 
                     let updateRes = await API.updateProfile({
@@ -118,8 +119,6 @@ class Scrn extends React.Component {
                         street,
                         zipcode:zip_code
                     })
-
-                    console.warn(updateRes)
                     
                     if(updateRes.error) Say.warn(updateRes.message)
                     else {
@@ -129,7 +128,6 @@ class Scrn extends React.Component {
                             {
                                 onConfirm:() => {
                                     this.props.updateUserInfo(updateRes.data)
-                                    this.props.setIsForceUpdate(false)
                                     this.props.login()
                                 }
                             }
@@ -159,7 +157,7 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {isForceUpdate} = this.props
+        const {params = {}} = this.props.navigation.state
         const {house, street, country, province, city, barangay, zip_code, error_barangay, error_house, error_street, processing} = this.state
         let ready = true
 
@@ -171,7 +169,7 @@ class Scrn extends React.Component {
             <>
                 <Screen>
 
-                    {!isForceUpdate && <SignUpStepsTracker step={2} />}
+                    {!params.isForceUpdate && <SignUpStepsTracker step={2} />}
 
                     <StaticInput
                         label='Country*'
@@ -234,7 +232,7 @@ class Scrn extends React.Component {
                 </Screen>
             
                 <Footer>
-                    <Button disabled={!ready} t={isForceUpdate ? _('10') : _('62')} onPress={this.handleSubmit} loading={processing} />
+                    <Button disabled={!ready} t={params.isForceUpdate ? _('10') : _('62')} onPress={this.handleSubmit} loading={processing} />
                 </Footer>
             </>
         )
@@ -242,14 +240,12 @@ class Scrn extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    isForceUpdate: state.auth.isForceUpdate,
     user: state.user.data
 })
 
 const mapDispatchToProps = dispatch => ({
     login:() => dispatch(Creators.login()),
-    updateUserInfo:newInfo => dispatch(Creators.updateUserInfo(newInfo)),
-    setIsForceUpdate:isForceUpdate => dispatch(Creators.setIsForceUpdate(isForceUpdate))
+    updateUserInfo:newInfo => dispatch(Creators.updateUserInfo(newInfo))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

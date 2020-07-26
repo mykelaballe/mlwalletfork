@@ -204,7 +204,7 @@ class Scrn extends React.Component {
                     if(res.error) Say.warn(res.message)
                     else {
 
-                        console.warn(res)
+                        //console.warn(res)
 
                         if(type == Consts.tcn.stb.code || type == Consts.tcn.bpm.code) {
 

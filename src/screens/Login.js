@@ -175,8 +175,7 @@ class Scrn extends React.Component {
             {
                 onConfirm:() => {
                     this.props.setUser(userData)
-                    this.props.setIsForceUpdate(true)
-                    this.props.navigation.navigate('SignUpPassword')
+                    this.props.navigation.navigate('SignUpPassword',{isForceUpdate:true})
                 }
             }
         )
@@ -189,8 +188,7 @@ class Scrn extends React.Component {
             {
                 onConfirm:() => {
                     this.props.setUser(userData)
-                    this.props.setIsForceUpdate(true)
-                    this.props.navigation.navigate('SignUpStep2')
+                    this.props.navigation.navigate('SignUpStep2',{isForceUpdate:true})
                 }
             }
         )
@@ -334,7 +332,6 @@ const mapDispatchToProps = dispatch => ({
     login:() => dispatch(Creators.login()),
     setUser:user => dispatch(Creators.setUser(user)),
     setIsUsingTouchID:isUsing => dispatch(Creators.setIsUsingTouchID(isUsing)),
-    setIsForceUpdate:isForceUpdate => dispatch(Creators.setIsForceUpdate(isForceUpdate)),
     rememberLoginCredentials:credentials => dispatch(Creators.rememberLoginCredentials(credentials))
 })
 

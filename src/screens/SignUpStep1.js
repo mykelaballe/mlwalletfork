@@ -47,6 +47,19 @@ class Scrn extends React.Component {
         error_natureofwork:false
     }
 
+    componentDidMount = () => {
+        const {params = {}} = this.props.navigation.state
+        const {user} = this.props
+        if(params.isForceUpdate) {
+            this.setState({
+                firstname:user.fname,
+                middlename:user.mname,
+                has_middlename:false,
+                lastname:user.lname
+            })
+        }
+    }
+
     componentDidUpdate = (prevProps, prevState) => {
         const {params = {}} = this.props.navigation.state
         
@@ -124,7 +137,8 @@ class Scrn extends React.Component {
     handleFocusMiddlename = () => this.state.has_middlename ? this.refs.middlename.focus() : this.refs.lastname.focus()
     handleFocusLastname = () => this.refs.lastname.focus()
     handleFocusEmail = () => {
-        if(this.props.isForceUpdate) this.handleSelectSourceOfIncome()
+        const {params = {}} = this.props.navigation.state
+        if(params.isForceUpdate) this.handleSelectSourceOfIncome()
         else this.refs.email.focus()
     }
     handleFocusNationality = () => this.refs.nationality.focus()
@@ -135,9 +149,9 @@ class Scrn extends React.Component {
     handleSelectYear = bday_year => this.setState({bday_year, error_bday_year:false})
 
     handleSubmit = async () => {
-        const {isForceUpdate} = this.props
+        const {params = {}} = this.props.navigation.state
 
-        if(isForceUpdate) {
+        if(params.isForceUpdate) {
             this.handleSubmitAlt()
             return false
         }
@@ -249,11 +263,11 @@ class Scrn extends React.Component {
             if(suffix == 'Others') suffix = ''
             if(natureofwork == 'Others') natureofwork = ''
 
-            if(!firstname || !middlename || !lastname || !suffix || !source_of_income || !natureofwork) {
+            if(!firstname || !middlename || !lastname || !source_of_income || !natureofwork) {
                 if(!firstname) this.setState({error_firstname:true})
                 if(!middlename) this.setState({error_middlename:true})
                 if(!lastname) this.setState({error_lastname:true})
-                if(!suffix) this.setState({error_suffix:true})
+                //if(!suffix) this.setState({error_suffix:true})
                 if(!source_of_income) this.setState({error_source_of_income:true})
                 if(!natureofwork) this.setState({error_natureofwork:true})
 
@@ -305,9 +319,10 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {isForceUpdate} = this.props
+        const {params = {}} = this.props.navigation.state
         const {firstname, middlename, has_middlename, lastname, suffix, other_suffix, has_suffix, suffix_options, bday_month, bday_day, bday_year, gender, email, nationality, source_of_income, natureofwork, other_natureofwork, showMonthPicker, showDayPicker, showYearPicker, processing} = this.state
         const {error_firstname, error_middlename, error_lastname, error_suffix, error_bday_month, error_bday_day, error_bday_year, error_email, error_source_of_income, error_natureofwork} = this.state
+        let isForceUpdate = params.isForceUpdate
 
         return (
             <Provider>
@@ -320,6 +335,7 @@ class Scrn extends React.Component {
                     <TextInput
                         ref='firstname'
                         label={'First Name*'}
+                        disabled={isForceUpdate}
                         value={firstname}
                         error={error_firstname}
                         onChangeText={this.handleChangeFirstname}
@@ -331,6 +347,7 @@ class Scrn extends React.Component {
                     <DynamicStaticInput
                         ref='middlename'
                         editable={has_middlename}
+                        disabled={isForceUpdate}
                         label={'Middle Name'}
                         value={middlename == _('50') ? _('92') : middlename}
                         error={error_middlename}
@@ -340,16 +357,19 @@ class Scrn extends React.Component {
                         returnKeyType='next'
                     />
 
+                    {!isForceUpdate &&
                     <Checkbox
                         status={!has_middlename}
                         onPress={this.handleToggleHasMiddlename}
                         label="I don't have a middle name"
                         labelStyle={{fontSize:Metrics.font.sm}}
                     />
+                    }
 
                     <TextInput
                         ref='lastname'
                         label={'Last Name*'}
+                        disabled={isForceUpdate}
                         value={lastname}
                         error={error_lastname}
                         onChangeText={this.handleChangeLastname}
@@ -358,31 +378,35 @@ class Scrn extends React.Component {
                         returnKeyType='next'
                     />
 
-                    <Picker
-                        editable={has_suffix}
-                        selected={suffix}
-                        error={error_suffix}
-                        items={suffix_options}
-                        placeholder='Suffix (e.g. Jr, Sr)'
-                        onChoose={this.handleChangeSuffix}
-                    />
+                    {!isForceUpdate &&
+                    <>
+                        <Picker
+                            editable={has_suffix}
+                            selected={suffix}
+                            error={error_suffix}
+                            items={suffix_options}
+                            placeholder='Suffix (e.g. Jr, Sr)'
+                            onChoose={this.handleChangeSuffix}
+                        />
 
-                    {suffix === 'Others' &&
-                    <TextInput
-                        label={'Enter custom suffix'}
-                        value={other_suffix}
-                        onChangeText={this.handleChangeSuffixOthers}
-                    />
+                        {suffix === 'Others' &&
+                        <TextInput
+                            label={'Enter custom suffix'}
+                            value={other_suffix}
+                            onChangeText={this.handleChangeSuffixOthers}
+                        />
+                        }
+
+                        <Checkbox
+                            status={!has_suffix}
+                            onPress={this.handleToggleHasSuffix}
+                            label="Not applicable"
+                            labelStyle={{fontSize:Metrics.font.sm}}
+                        />
+
+                        <Spacer sm />
+                    </>
                     }
-
-                    <Checkbox
-                        status={!has_suffix}
-                        onPress={this.handleToggleHasSuffix}
-                        label="Not applicable"
-                        labelStyle={{fontSize:Metrics.font.sm}}
-                    />
-
-                    <Spacer sm />
                     
                     {!isForceUpdate &&
                     <>
@@ -484,8 +508,7 @@ class Scrn extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    user: state.user.data,
-    isForceUpdate: state.auth.isForceUpdate
+    user: state.user.data
 })
 
 export default connect(mapStateToProps)(Scrn)

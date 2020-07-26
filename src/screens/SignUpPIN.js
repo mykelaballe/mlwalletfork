@@ -5,7 +5,7 @@ import {Screen, Footer, Headline, Button, TextInputFlat, Row, Text} from '../com
 import {Metrics} from '../themes'
 import {_, Say, Consts, Func} from '../utils'
 
-class Scrn extends React.Component {
+export default class Scrn extends React.Component {
 
     state = {
         digit1:'',
@@ -73,7 +73,6 @@ class Scrn extends React.Component {
     }
 
     handleSubmit = async () => {
-        const {isForceUpdate} = this.props
         const {params = {}} = this.props.navigation.state
         const {digit1, digit2, digit3, digit4, digit5, digit6, processing} = this.state
 
@@ -88,7 +87,7 @@ class Scrn extends React.Component {
             else if(!Func.isNumbersOnly(pin)) Say.warn(Consts.error.onlyNumbers)
             else {
 
-                this.props.navigation[isForceUpdate ? 'navigate' : 'replace']('SignUpStep1',{
+                this.props.navigation[params.isForceUpdate ? 'navigate' : 'replace']('SignUpStep1',{
                     ...params,
                     pincode:pin
                 })
@@ -103,7 +102,7 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {isForceUpdate} = this.props
+        const {params = {}} = this.props.navigation.state
         const {digit1, digit2, digit3, digit4, digit5, digit6, processing} = this.state
         const pin = `${digit1}${digit2}${digit3}${digit4}${digit5}${digit6}`
         let ready = false
@@ -115,7 +114,7 @@ class Scrn extends React.Component {
                 <Screen>
 
                     <Headline
-                        title={isForceUpdate ? '' : 'Registration'}
+                        title={params.isForceUpdate ? '' : 'Registration'}
                         subtext='Create 6-digit Transaction PIN'
                     />
 
@@ -215,9 +214,3 @@ const style = StyleSheet.create({
         fontWeight:'bold'
     }
 })
-
-const mapStateToProps = state => ({
-    isForceUpdate: state.auth.isForceUpdate
-})
-
-export default connect(mapStateToProps)(Scrn)

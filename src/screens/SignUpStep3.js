@@ -155,8 +155,8 @@ class Scrn extends React.Component {
     }
 
     handleSubmit = async () => {
-        const {isForceUpdate, user} = this.props
-        const {password, pincode, firstname, middlename, lastname, suffix, source_of_income, natureofwork, bday_day, bday_month, bday_year} = this.props.navigation.state.params
+        const {user} = this.props
+        const {isForceUpdate, password, pincode, firstname, middlename, lastname, suffix, source_of_income, natureofwork, bday_day, bday_month, bday_year} = this.props.navigation.state.params
         let {profilepic, validID, list, selectedIDIndex, processing} = this.state
 
         //check if id select is a government ID
@@ -213,10 +213,10 @@ class Scrn extends React.Component {
                             walletno:user.walletno,
                             password,
                             pincode,
-                            fname:firstname,
-                            mname:middlename,
-                            lname:lastname,
-                            suffix,
+                            //fname:firstname,
+                            //mname:middlename,
+                            //lname:lastname,
+                            //suffix,
                             sourceOfIncome:source_of_income,
                             natureofwork,
                             idType:list[selectedIDIndex].value,
@@ -232,7 +232,6 @@ class Scrn extends React.Component {
                                 {
                                     onConfirm:() => {
                                         this.props.updateUserInfo(updateRes.data)
-                                        this.props.setIsForceUpdate(false)
                                         this.props.login()
                                     }
                                 }
@@ -277,7 +276,7 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {isForceUpdate} = this.props
+        const {params} = this.props.navigation.state
         const {list, selectedIDIndex, validID, profilepic, processing} = this.state
         let ready = false
 
@@ -287,7 +286,7 @@ class Scrn extends React.Component {
             <>
                 <Screen ns>
                     
-                    {!isForceUpdate && <SignUpStepsTracker step={3} />}
+                    {!params.isForceUpdate && <SignUpStepsTracker step={3} />}
 
                     <Headline subtext='Choose a valid ID you can provide from the list below' />
 
@@ -334,14 +333,12 @@ const style = StyleSheet.create({
 })
 
 const mapStateToProps = state => ({
-    isForceUpdate: state.auth.isForceUpdate,
     user: state.user.data
 })
 
 const mapDispatchToProps = dispatch => ({
     login:() => dispatch(Creators.login()),
-    updateUserInfo:newInfo => dispatch(Creators.updateUserInfo(newInfo)),
-    setIsForceUpdate:isForceUpdate => dispatch(Creators.setIsForceUpdate(isForceUpdate))
+    updateUserInfo:newInfo => dispatch(Creators.updateUserInfo(newInfo))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

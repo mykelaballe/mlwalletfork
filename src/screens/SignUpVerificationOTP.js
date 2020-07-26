@@ -148,8 +148,6 @@ export default class Scrn extends React.Component {
 
                 if(!otpRes.error) {
 
-                    //let custIDRes = await API.requestCustID()
-
                     let payload = {
                         uname:username,
                         password,
@@ -184,8 +182,7 @@ export default class Scrn extends React.Component {
                         profilepic,
                         latitude,
                         longitude,
-                        location,
-                        //custid:custIDRes.custid || null
+                        location
                     }
 
                     let res = await API.register(payload)
