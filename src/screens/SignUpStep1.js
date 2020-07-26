@@ -230,6 +230,7 @@ class Scrn extends React.Component {
     }
 
     handleSubmitAlt = async () => {
+        const {user} = this.props
         let {firstname, middlename, has_middlename, lastname, suffix, other_suffix, has_suffix, suffix_options, source_of_income, natureofwork, other_natureofwork} = this.state
 
         try {
@@ -275,6 +276,9 @@ class Scrn extends React.Component {
                 Say.warn(Consts.error.onlyLettersInName)
             }
             else {
+                let birthdate_pieces = user.birthdate.split(' ')
+                let birth_date_pieces = birthdate_pieces[0].split('/')
+
                 this.props.navigation.navigate('SignUpStep3',{
                     ...this.props.navigation.state.params,
                     firstname,
@@ -285,6 +289,9 @@ class Scrn extends React.Component {
                     other_suffix,
                     has_suffix,
                     suffix_options,
+                    bday_day:birth_date_pieces[1],
+                    bday_month:birth_date_pieces[0],
+                    bday_year:birth_date_pieces[2],
                     source_of_income,
                     natureofwork,
                     other_natureofwork
@@ -477,6 +484,7 @@ class Scrn extends React.Component {
 }
 
 const mapStateToProps = state => ({
+    user: state.user.data,
     isForceUpdate: state.auth.isForceUpdate
 })
 

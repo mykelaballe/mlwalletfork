@@ -159,12 +159,16 @@ class Scrn extends React.Component {
         const {password, pincode, firstname, middlename, lastname, suffix, source_of_income, natureofwork, bday_day, bday_month, bday_year} = this.props.navigation.state.params
         let {profilepic, validID, list, selectedIDIndex, processing} = this.state
 
+        //check if id select is a government ID
+        const isGovernmentID = list[selectedIDIndex].value != 'student' && list[selectedIDIndex].value != 'company'
+
         if(processing) return false
 
         try {
 
             this.setState({processing:true})
 
+            //if user has not taken a live photo yet, this means the picture taken is an Identification Card
             if(!profilepic) {
                 let res = {
                     valid:true,
@@ -185,15 +189,14 @@ class Scrn extends React.Component {
                     birth_year:bday_year
                 })
 
-                if(list[selectedIDIndex].value == 'student' || list[selectedIDIndex].value == 'company') res.valid = true
+                //if this is not a government ID, bypass AI ID type validation
+                if(!isGovernmentID) res.valid = true
 
                 if(!res.valid) Say.warn('Type of ID submitted does not match with the selected ID type. Please try again or choose another ID.')
                 else {
-                    if(
-                        !res.first_name ||
-                        !res.last_name ||
-                        (list[selectedIDIndex].value != 'student' && list[selectedIDIndex].value != 'company' && (!res.birth_date || !res.birth_month || !res.birth_year))
-                    ) {
+
+                    //if invalid firstname or lastname or if government ID and invalid birthdates
+                    if(!res.first_name || !res.last_name || (isGovernmentID && (!res.birth_date || !res.birth_month || !res.birth_year))) {
                         Say.warn('Details from the ID submitted does not match with the registered ML Wallet information. Please try again or choose another ID.')
                     }
                     else this.takeLivePhoto()
