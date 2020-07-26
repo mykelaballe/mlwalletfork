@@ -357,6 +357,7 @@ export default class Scrn extends React.Component {
                         <TextInput
                             ref='firstname'
                             label={'First Name*'}
+                            disabled
                             value={firstname}
                             onChangeText={this.handleChangeFirstname}
                             onSubmitEditing={this.handleFocusMiddlename}
@@ -367,6 +368,7 @@ export default class Scrn extends React.Component {
                         <DynamicStaticInput
                             ref='middlename'
                             editable={has_middlename}
+                            disabled
                             label={'Middle Name'}
                             value={middlename == _('50') ? _('92') : middlename}
                             onChangeText={this.handleChangeMiddlename}
@@ -375,16 +377,17 @@ export default class Scrn extends React.Component {
                             returnKeyType='next'
                         />
 
-                        <Checkbox
+                        {/*<Checkbox
                             status={!has_middlename}
                             onPress={this.handleToggleHasMiddlename}
                             label="I don't have a middle name"
                             labelStyle={{fontSize:Metrics.font.sm}}
-                        />
+                        />*/}
 
                         <TextInput
                             ref='lastname'
                             label={'Last Name*'}
+                            disabled
                             value={lastname}
                             onChangeText={this.handleChangeLastname}
                             onSubmitEditing={this.handleFocusEmail}
@@ -392,28 +395,29 @@ export default class Scrn extends React.Component {
                             returnKeyType='next'
                         />
 
-                        <Picker
+                        {/*<Picker
                             editable={has_suffix}
                             selected={suffix}
                             items={suffix_options}
                             placeholder='Suffix (e.g. Jr, Sr)'
                             onChoose={this.handleChangeSuffix}
-                        />
+                        />*/}
 
-                        {suffix === 'Others' &&
+                        {(suffix === 'Others' || true) &&
                         <TextInput
-                            label={'Enter custom suffix'}
-                            value={other_suffix}
+                            label={'Suffix'}
+                            disabled
+                            value={other_suffix || suffix}
                             onChangeText={this.handleChangeSuffixOthers}
                         />
                         }
 
-                        <Checkbox
+                        {/*<Checkbox
                             status={!has_suffix}
                             onPress={this.handleToggleHasSuffix}
                             label="Not applicable"
                             labelStyle={{fontSize:Metrics.font.sm}}
-                        />
+                        />*/}
 
                         <Spacer sm />
 
