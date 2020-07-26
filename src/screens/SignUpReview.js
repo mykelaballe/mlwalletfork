@@ -428,6 +428,7 @@ export default class Scrn extends React.Component {
                                 label='Month'
                                 value={bday_month ? moment(bday_month,'M').format('MMM') : null}
                                 onPress={this.handleChangeMonth}
+                                disabled
                                 style={{flex:2}}
                             />
                             <Spacer h xs/>
@@ -435,6 +436,7 @@ export default class Scrn extends React.Component {
                                 label='Day'
                                 value={bday_day}
                                 onPress={this.handleChangeDay}
+                                disabled
                                 style={{flex:1}}
                             />
                             <Spacer h xs/>
@@ -442,6 +444,7 @@ export default class Scrn extends React.Component {
                                 label='Year'
                                 value={bday_year}
                                 onPress={this.handleChangeYear}
+                                disabled
                                 style={{flex:1}}
                             />
                         </Row>

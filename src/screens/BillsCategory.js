@@ -1,175 +1,88 @@
 import React from 'react'
-import {View, StyleSheet, InteractionManager, Dimensions} from 'react-native'
-import {Text, Row, Spacer, FlatList, Ripple, ButtonText, Icon} from '../components'
+import {StyleSheet, Dimensions} from 'react-native'
+import {Text, FlatList, Ripple, Icon} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_, Say} from '../utils'
-import {API} from '../services'
+import {_} from '../utils'
 
 const {width} = Dimensions.get('window')
 const ITEM_WIDTH = (width / 3) - (Metrics.xl)
 const ITEM_HEIGHT = 80
 
-const FavoriteUI = props => (
-    <Ripple onPress={() => props.onPress(props.data)} style={style.pill}>
-        <Text center numberOfLines={1} light>{props.data.partner}</Text>
-    </Ripple>
-)
-
 const CategoryUI = props => (
     <Ripple style={style.item} onPress={() => props.onPress(props.data)}>
-        <Icon name={props.data.icon} style={{width:40}} />
+        <Icon name={props.data.value} style={{width:40}} />
         <Text center sm>{props.data.label}</Text>
     </Ripple>
 )
 
-class Scrn extends React.Component {
-
-    static navigationOptions = {
-        title:'Pay Bills'
-    }
+export default class Scrn extends React.Component {
 
     state = {
-        favorites:[],
         categories:[
             {
-                icon:'airline',
-                label:'Airline',
-                value:'airline'
+                value:'airline',
+                label:'Airline'
             },
             {
-                icon:'electricity',
-                label:'Electricity',
-                value:'electricity'
+                value:'electricity',
+                label:'Electricity'
             },
             {
-                icon:'financing',
-                label:'Financing',
-                value:'financing'
+                value:'financing',
+                label:'Financing'
             },
             {
-                icon:'foundation',
-                label:'Foundations',
-                value:'foundation'
+                value:'foundation',
+                label:'Foundations'
             },
             {
-                icon:'insurance',
-                label:'Insurance',
-                value:'insurance'
+                value:'insurance',
+                label:'Insurance'
             },
             {
-                icon:'loan',
-                label:'Loan',
-                value:'loan'
-            },
-            /*{
-                icon:'memorial',
-                label:'Memorial',
-                value:'memorial'
-            },*/
-            {
-                icon:'online_business',
-                label:'Online Businesses',
-                value:'online_business'
+                value:'loan',
+                label:'Loan'
             },
             {
-                icon:'school',
-                label:'Schools',
-                value:'school'
+                datvaluea:'online_business',
+                label:'Online Businesses'
             },
             {
-                icon:'telco',
-                label:'Telcos',
-                value:'telco'
+                value:'school',
+                label:'Schools'
             },
             {
-                icon:'travel',
-                label:'Travels',
-                value:'travel'
+                value:'telco',
+                label:'Telcos'
             },
             {
-                icon:'water',
-                label:'Water',
-                value:'water'
+                value:'travel',
+                label:'Travels'
             },
             {
-                icon:'other',
-                label:'Others',
-                value:'other'
+                value:'water',
+                label:'Water'
+            },
+            {
+                value:'other',
+                label:'Others'
             }
-        ],
-        showFavorites:false,
-        loading:true,
-        refreshing:false
-    }
-
-    //componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
-
-    getData = async () => {
-        let favorites = []
-
-        try {
-            favorites = await API.getFavoriteBillers()
-        }
-        catch(err) {
-            Say.err(err)
-        }
-
-        this.setState({
-            favorites,
-            loading:false
-        })
+        ]
     }
 
     handleSelectCategory = category => this.props.navigation.navigate('Billers',{category})
 
-    handleAddFavoriteBiller = () => this.props.navigation.navigate('Billers')
-
-    handleSelectFavorite = biller => this.props.navigation.navigate('BillerProfile',{biller})
-
-    handleToggleFavorites = () => this.setState(prevState => ({showFavorites:!prevState.showFavorites}))
-
-    handleViewFavorites = () => this.props.navigation.navigate('FavoriteBillers')
-
-    handleRefresh = () => this.setState({refreshing:true},this.getData)
-
-    renderFavorites = ({item, index}) => <FavoriteUI data={item} onPress={this.handleSelectFavorite} />
-
-    renderCategories = ({item, index}) => <CategoryUI data={item} onPress={this.handleSelectCategory} />
+    renderCategories = ({item}) => <CategoryUI data={item} onPress={this.handleSelectCategory} />
 
     render() {
 
-        const {favorites, categories, showFavorites, loading, refreshing} = this.state
-
-        return (
-            <>
-                {/*<View style={{padding:Metrics.lg}}>
-                    <Row bw>
-                        <Text b lg>Favorites</Text>
-                        <ButtonText color={Colors.brand} icon='plus' t='Add Biller' onPress={this.handleAddFavoriteBiller} />
-                    </Row>
-                    <FlatList
-                        data={favorites.slice(0,3)}
-                        renderItem={this.renderFavorites}
-                        numColumns={3}
-                        style={{paddingTop:Metrics.md}}
-                        columnWrapperStyle={{flexWrap:'wrap'}}
-                    />
-
-                    {favorites.length > 3 &&
-                    <ButtonText color={Colors.brand} t='View All Favorites' onPress={this.handleViewFavorites} />
-                    }
-                </View>*/}
-                
-                <FlatList
-                    data={categories}
-                    renderItem={this.renderCategories}
-                    numColumns={3}
-                    columnWrapperStyle={style.columnWrapper}
-                    refreshing={refreshing}
-                    onRefresh={this.handleRefresh}
-                    placeholder={{text:'No Biller found'}}
-                />
-            </>
+        return (               
+            <FlatList
+                data={this.state.categories}
+                renderItem={this.renderCategories}
+                numColumns={3}
+                columnWrapperStyle={style.columnWrapper}
+            />
         )
     }
 }
@@ -194,5 +107,3 @@ const style = StyleSheet.create({
         marginHorizontal:Metrics.rg
     }
 })
-
-export default Scrn

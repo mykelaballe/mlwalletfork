@@ -208,7 +208,7 @@ class Scrn extends React.Component {
 
                         if(type == Consts.tcn.stb.code || type == Consts.tcn.bpm.code) {
 
-                            //res.data.balance = res.data.balance - transaction.amount - transaction.convenience_fee
+                            res.data.balance = res.data.balance - transaction.amount - transaction.convenience_fee - transaction.fixed_charge
 
                             /*if(res.message.indexOf('Free') < 0) {
                                 res.data.balance = res.data.balance - transaction.fixed_charge
