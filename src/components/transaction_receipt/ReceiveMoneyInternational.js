@@ -8,7 +8,7 @@ import {_, Consts, Func, Say} from '../../utils'
 class ReceiveMoneyInternational extends React.Component {
 
     state = {
-        amount:Func.formatToCurrency(this.props.data.amount),
+        amount:Func.formatToRealCurrency(this.props.data.amount),
         date:this.props.data.date,
         time:this.props.data.time,
         type:Consts.tcn.rmi.long_desc
@@ -36,7 +36,7 @@ class ReceiveMoneyInternational extends React.Component {
                 {
                     customMessage:(
                         <>
-                            <Text mute md>You have successfully received {currency} {Func.formatToCurrency(amount)} from {sender}.</Text>
+                            <Text mute md>You have successfully received {currency} {Func.formatToRealCurrency(amount)} from {sender}.</Text>
                             <Spacer lg />
                             <Text mute>Your new balance is</Text>
                             <Text xl b>Php {Func.formatToRealCurrency(balance)}</Text>

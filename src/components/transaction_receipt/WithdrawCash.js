@@ -11,7 +11,7 @@ import {API} from '../../services'
 class WithdrawCash extends React.Component {
     
     state = {
-        amount:Func.formatToCurrency(this.props.data.amount),
+        amount:Func.formatToRealCurrency(this.props.data.amount),
         date:this.props.data.date,
         time:this.props.data.time,
         status:this.props.data.status,
@@ -42,7 +42,7 @@ class WithdrawCash extends React.Component {
                             <Text mute md>Your transaction is pending. Go to the nearest M Lhuillier branch to complete your withdraw</Text>
                             <Spacer lg />
                             <Text mute>Your new balance is</Text>
-                            <Text xl b>Php {Func.formatToCurrency(balance)}</Text>
+                            <Text xl b>Php {Func.formatToRealCurrency(balance)}</Text>
                         </>
                     )
                 }

@@ -24,10 +24,10 @@ class Scrn extends React.Component {
         Say.ask(
             'Upgrading of verification status via ML Wallet will be available SOON. Stay tuned!',
             'Hi there!',
-            {
+            /*{
                 noBtnLabel:'OK',
                 yesBtnLabel:'Notify Me'
-            }
+            }*/
         )
         //this.props.navigation.navigate('VerificationLevels')
     }
@@ -61,9 +61,7 @@ class Scrn extends React.Component {
 
                         <Spacer />
 
-                        {user.status == 0 &&
-                        <Button t='Get Fully Verified Now' mode='outlined' onPress={this.handleGoToVerificationLevels} />
-                        }
+                        {user.status !== 3 && <Button t='Get Fully Verified Now' mode='outlined' onPress={this.handleGoToVerificationLevels} />}
 
                     </View>
 

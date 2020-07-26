@@ -23,22 +23,22 @@ export default props => {
             <Spacer />
 
             <Text mute sm>Amount</Text>
-            <Text md>PHP {Func.formatToCurrency(amount)}</Text>
+            <Text md>PHP {Func.formatToRealCurrency(amount)}</Text>
 
             <Spacer />
 
             <Text mute sm>Fixed Charge</Text>
-            <Text md>PHP {Func.formatToCurrency(fixed_charge)}</Text>
+            <Text md>PHP {Func.formatToRealCurrency(fixed_charge)}</Text>
 
             <Spacer />
 
             <Text mute sm>Convenience Fee</Text>
-            <Text md>PHP {Func.formatToCurrency(convenience_fee)}</Text>
+            <Text md>PHP {Func.formatToRealCurrency(convenience_fee)}</Text>
 
             <Spacer />
 
             <Text mute sm>Total</Text>
-            <Text md>PHP {Func.formatToCurrency(total)}</Text>
+            <Text md>PHP {Func.formatToRealCurrency(total)}</Text>
         </ScrollFix>
     )
 }

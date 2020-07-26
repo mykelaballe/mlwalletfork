@@ -94,12 +94,12 @@ class Scrn extends React.Component {
                 
                 <Footer>
                     <Text mute>Charges</Text>
-                    <Text md>PHP {Func.formatToCurrency(charges)}</Text>
+                    <Text md>PHP {Func.formatToRealCurrency(charges)}</Text>
 
                     <Spacer />
 
                     <Text mute>Total</Text>
-                    <Text md>PHP {Func.formatToCurrency(total)}</Text>
+                    <Text md>PHP {Func.formatToRealCurrency(total)}</Text>
 
                     <Spacer />
                     

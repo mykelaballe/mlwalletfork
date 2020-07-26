@@ -122,7 +122,7 @@ class Scrn extends React.Component {
                     <Row bw>
                         <View>
                             <Text mute>Fixed Charge</Text>
-                            <Text md>PHP {Func.formatToCurrency(charges)}</Text>
+                            <Text md>PHP {Func.formatToRealCurrency(charges)}</Text>
                         </View>
 
                         {/*<UsePointsCheckbox onChange={this.handleChangePoints} />*/}
@@ -131,7 +131,7 @@ class Scrn extends React.Component {
                     <Spacer />
 
                     <Text mute>Total</Text>
-                    <Text md>PHP {Func.formatToCurrency(total)}</Text>
+                    <Text md>PHP {Func.formatToRealCurrency(total)}</Text>
 
                     <Spacer />
                     

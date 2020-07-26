@@ -155,7 +155,7 @@ class Scrn extends React.Component {
                     else if(type == Consts.tcn.stb.code) {
                         res = await API.payBill({
                             walletno,
-                            partnersId:'MLBPP130014',//transaction.bank.old_partnersid,
+                            partnersId:transaction.bank.old_partnersid,
                             partnerName:transaction.bank.bankname,
                             accountNo:transaction.account_no,
                             accountName:transaction.account_name,
@@ -214,6 +214,8 @@ class Scrn extends React.Component {
                         }
 
                         this.props.updateBalance(res.data.balance)
+
+                        //console.warn(res)
 
                         if(type == Consts.tcn.stw.code) this.props.refreshWalletRecent(true)
                         else if(type == Consts.tcn.skp.code) this.props.refreshKPRecent(true)

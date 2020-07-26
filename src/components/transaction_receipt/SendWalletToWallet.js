@@ -8,9 +8,9 @@ import {_, Consts, Func, Say} from '../../utils'
 class SendWalletToWallet extends React.Component {
 
     state = {
-        amount:Func.formatToCurrency(this.props.data.amount),
-        charges:Func.formatToCurrency(this.props.data.charges),
-        total:Func.formatToCurrency(this.props.data.total),
+        amount:Func.formatToRealCurrency(this.props.data.amount),
+        charges:Func.formatToRealCurrency(this.props.data.charges),
+        total:Func.formatToRealCurrency(this.props.data.total),
         date:this.props.data.date,
         time:this.props.data.time,
         type:Consts.tcn.stw.long_desc
@@ -50,7 +50,7 @@ class SendWalletToWallet extends React.Component {
                             <Text mute md>You successfully sent money worth PHP {amount} to {Func.formatWalletNo(walletno)}</Text>
                             <Spacer lg />
                             <Text mute>Your new balance is</Text>
-                            <Text xl b>Php {Func.formatToCurrency(balance)}</Text>
+                            <Text xl b>Php {Func.formatToRealCurrency(balance)}</Text>
                         </>
                     )
                 }

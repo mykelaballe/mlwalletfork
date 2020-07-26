@@ -8,10 +8,10 @@ import {_, Consts, Func, Say} from '../../utils'
 class PayBill extends React.Component {
 
     state = {
-        amount:Func.formatToCurrency(this.props.data.amount),
-        fixed_charge:Func.formatToCurrency(this.props.data.fixed_charge),
-        convenience_fee:Func.formatToCurrency(this.props.data.convenience_fee),
-        total:Func.formatToCurrency(this.props.data.total),
+        amount:Func.formatToRealCurrency(this.props.data.amount),
+        fixed_charge:Func.formatToRealCurrency(this.props.data.fixed_charge),
+        convenience_fee:Func.formatToRealCurrency(this.props.data.convenience_fee),
+        total:Func.formatToRealCurrency(this.props.data.total),
         date:this.props.data.date,
         time:this.props.data.time,
         type:Consts.tcn.bpm.long_desc

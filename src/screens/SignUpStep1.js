@@ -173,7 +173,7 @@ class Scrn extends React.Component {
                 if(!source_of_income) this.setState({error_source_of_income:true})
                 if(!natureofwork) this.setState({error_natureofwork:true})
 
-                Say.some('Fill-out missing fields to proceed')
+                Say.some(_('8'))
             }
             else if(!Func.isLettersOnly(firstname)) {
                 this.setState({error_firstname:true})
@@ -256,7 +256,7 @@ class Scrn extends React.Component {
                 if(!source_of_income) this.setState({error_source_of_income:true})
                 if(!natureofwork) this.setState({error_natureofwork:true})
 
-                Say.some('Fill-out missing fields to proceed')
+                Say.some(_('8'))
             }
             else if(!Func.isLettersOnly(firstname)) {
                 this.setState({error_firstname:true})
