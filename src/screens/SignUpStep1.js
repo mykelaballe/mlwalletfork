@@ -55,6 +55,7 @@ class Scrn extends React.Component {
                 firstname:user.fname,
                 middlename:user.mname,
                 has_middlename:false,
+                suffix:user.suffix,
                 lastname:user.lname
             })
         }
@@ -248,32 +249,32 @@ class Scrn extends React.Component {
         let {firstname, middlename, has_middlename, lastname, suffix, other_suffix, has_suffix, suffix_options, source_of_income, natureofwork, other_natureofwork} = this.state
 
         try {
-            firstname = firstname.trim()
+            /*firstname = firstname.trim()
             middlename = middlename.trim()
             lastname = lastname.trim()
             suffix = suffix.trim()
-            other_suffix = other_suffix.trim()
+            other_suffix = other_suffix.trim()*/
             source_of_income = source_of_income.trim()
             natureofwork = natureofwork.trim()
             other_natureofwork = other_natureofwork.trim()
 
-            suffix = other_suffix || suffix
+            //suffix = other_suffix || suffix
             natureofwork = other_natureofwork || natureofwork
 
-            if(suffix == 'Others') suffix = ''
+            //if(suffix == 'Others') suffix = ''
             if(natureofwork == 'Others') natureofwork = ''
 
-            if(!firstname || !middlename || !lastname || !source_of_income || !natureofwork) {
-                if(!firstname) this.setState({error_firstname:true})
-                if(!middlename) this.setState({error_middlename:true})
-                if(!lastname) this.setState({error_lastname:true})
+            if(!source_of_income || !natureofwork) {
+                //if(!firstname) this.setState({error_firstname:true})
+                //if(!middlename) this.setState({error_middlename:true})
+                //if(!lastname) this.setState({error_lastname:true})
                 //if(!suffix) this.setState({error_suffix:true})
                 if(!source_of_income) this.setState({error_source_of_income:true})
                 if(!natureofwork) this.setState({error_natureofwork:true})
 
                 Say.some(_('8'))
             }
-            else if(!Func.isLettersOnly(firstname)) {
+            /*else if(!Func.isLettersOnly(firstname)) {
                 this.setState({error_firstname:true})
                 Say.warn(Consts.error.onlyLettersInName)
             }
@@ -288,7 +289,7 @@ class Scrn extends React.Component {
             else if(!Func.isLettersOnly(lastname)) {
                 this.setState({error_lastname:true})
                 Say.warn(Consts.error.onlyLettersInName)
-            }
+            }*/
             else {
                 let birthdate_pieces = user.birthdate.split(' ')
                 let birth_date_pieces = birthdate_pieces[0].split('/')

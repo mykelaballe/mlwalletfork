@@ -40,7 +40,7 @@ export default React.forwardRef((props, ref) => (
                 theme={{
                     colors:{
                         primary:Colors.mute,
-                        text:props.disabled ? Colors.mute : undefined
+                        text:props.disabled ? Colors.mute : Colors.black
                     }
                 }}
                 render={props => props.mask ? <TextInputMask {...props} mask={props.mask} /> : <TextInputDefault {...props} />}
