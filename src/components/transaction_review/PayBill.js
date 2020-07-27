@@ -25,10 +25,14 @@ export default props => {
             <Text mute sm>Amount</Text>
             <Text md>PHP {Func.formatToRealCurrency(amount)}</Text>
 
-            <Spacer />
+            {Func.formatToCurrency(fixed_charge) > 0 &&
+            <>
+                <Spacer />
 
-            <Text mute sm>Fixed Charge</Text>
-            <Text md>PHP {Func.formatToRealCurrency(fixed_charge)}</Text>
+                <Text mute sm>Fixed Charge</Text>
+                <Text md>PHP {Func.formatToRealCurrency(fixed_charge)}</Text>
+            </>
+            }
 
             <Spacer />
 

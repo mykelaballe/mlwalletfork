@@ -21,28 +21,17 @@ class PayBill extends React.Component {
         const {_from, biller, biller_partner_name, account_no, account_name, balance} = this.props.data
         const {amount, fixed_charge, convenience_fee, total} = this.state
 
-        this.props.onExport(`
-            <h4 style="color:#6A6A6A;line-height:0">Biller</h4>
-            <h3>${biller ? biller.partner : biller_partner_name}</h3>
-
-            <h4 style="color:#6A6A6A;line-height:0">Account No.</h4>
-            <h3 style="margin-top:0">PHP ${account_no}</h3>
-
-            <h4 style="color:#6A6A6A;line-height:0">Account Name</h4>
-            <h3 style="margin-top:0">PHP ${account_name}</h3>
-
-            <h4 style="color:#6A6A6A;line-height:0">Amount</h4>
-            <h3 style="margin-top:0">PHP ${amount}</h3>
-
-            <h4 style="color:#6A6A6A;line-height:0">Fixed Charge</h4>
-            <h3 style="margin-top:0">PHP ${fixed_charge}</h3>
-
-            <h4 style="color:#6A6A6A;line-height:0">Convenience Fee</h4>
-            <h3 style="margin-top:0">PHP ${convenience_fee}</h3>
-
-            <h4 style="color:#6A6A6A;line-height:0">Total</h4>
-            <h3 style="margin-top:0">PHP ${total}</h3>
-        `)
+        this.props.onExport(
+            Func.buildReceiptBody({
+                Biller:biller ? biller.partner: biller_partner_name,
+                'Account No.': account_no,
+                'Account Name': account_name,
+                Amount: amount,
+                'Fixed Charge': Func.formatToCurrency(fixed_charge) > 0 ? fixed_charge : false,
+                'Convenience Fee': convenience_fee,
+                Total:total
+            })
+        )
 
         if(_from != 'history') {
             Say.ok(
@@ -96,10 +85,14 @@ class PayBill extends React.Component {
                         <Text sm mute>Amount</Text>
                         <Text>PHP {amount}</Text>
 
-                        <Spacer />
+                        {Func.formatToCurrency(fixed_charge) > 0 &&
+                        <>
+                            <Spacer />
 
-                        <Text sm mute>Fixed Charge</Text>
-                        <Text>PHP {fixed_charge}</Text>
+                            <Text sm mute>Fixed Charge</Text>
+                            <Text>PHP {fixed_charge}</Text>
+                        </>
+                        }
 
                         <Spacer />
 
