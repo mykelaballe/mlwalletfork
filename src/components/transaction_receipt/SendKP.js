@@ -26,28 +26,17 @@ class SendKP extends React.Component {
         const {_from, receiver, balance} = this.props.data
         const {amount, charges, total} = this.state
 
-        this.props.onExport(`
-            <h4 style="color:#6A6A6A;line-height:0">First Name</h4>
-            <h3>${receiver.firstname}</h3>
-
-            <h4 style="color:#6A6A6A;line-height:0">Middle Name</h4>
-            <h3>${receiver.middlename || _('50')}</h3>
-
-            <h4 style="color:#6A6A6A;line-height:0">Last Name</h4>
-            <h3>${receiver.lastname}</h3>
-
-            <h4 style="color:#6A6A6A;line-height:0">Suffix</h4>
-            <h3>${receiver.suffix || _('51')}</h3>
-
-            <h4 style="color:#6A6A6A;line-height:0">Amount</h4>
-            <h3 style="margin-top:0">PHP ${amount}</h3>
-
-            <h4 style="color:#6A6A6A;line-height:0">Charges</h4>
-            <h3 style="margin-top:0">PHP ${charges}</h3>
-
-            <h4 style="color:#6A6A6A;line-height:0">Total</h4>
-            <h3 style="margin-top:0">PHP ${total}</h3>
-        `)
+        this.props.onExport(
+            Func.buildReceiptBody({
+                'First Name': receiver.firstname,
+                'Middle Name': receiver.middlename || _('50'),
+                'Last Name': receiver.lastname,
+                Suffix: receiver.suffix || _('51'),
+                Amount: `PHP ${amount}`,
+                Charges: `PHP ${charges}`,
+                Total: `PHP ${total}`
+            })
+        )
 
         if(_from != 'history') {
             Say.ok(
@@ -56,7 +45,6 @@ class SendKP extends React.Component {
                 {
                     customMessage:(
                         <>
-                            {/*<Text mute md>Share the transaction number to {Func.formatName(receiver)} to complete this transaction.</Text>*/}
                             <Text mute md>You and your receiver will get a text message about this transaction.</Text>
                             <Spacer lg />
                             <Text mute>Your new balance is</Text>

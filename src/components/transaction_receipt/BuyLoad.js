@@ -18,16 +18,13 @@ class BuyLoad extends React.Component {
         const {_from, contact_no, promo, balance} = this.props.data
         const {amount} = this.state
 
-        this.props.onExport(`
-            <h4 style="color:#6A6A6A;line-height:0">Mobile Number</h4>
-            <h3>${Func.formatToPHMobileNumberFull(contact_no)}</h3>
-
-            ${promo && `<h4 style="color:#6A6A6A;line-height:0">Promo Code</h4>`}
-            ${promo && `<h3 style="margin-top:0">PHP ${promo.promoCode}</h3>`}
-
-            <h4 style="color:#6A6A6A;line-height:0">Amount</h4>
-            <h3 style="margin-top:0">PHP ${amount}</h3>
-        `)
+        this.props.onExport(
+            Func.buildReceiptBody({
+                'Mobile Number': Func.formatToPHMobileNumberFull(contact_no),
+                'Promo Code': promo ? promo.promoCode : false,
+                Amount: `PHP ${amount}`
+            })
+        )
 
         if(_from != 'history') {
             Say.ok(

@@ -24,13 +24,12 @@ class WithdrawCash extends React.Component {
         const {_from, user, balance} = this.props.data
         const {amount} = this.state
 
-        this.props.onExport(`
-            <h4 style="color:#6A6A6A;line-height:0">Full Legal Name</h4>
-            <h3>${user.fname} ${user.lname}</h3>
-
-            <h4 style="color:#6A6A6A;line-height:0">Amount</h4>
-            <h3 style="margin-top:0">PHP ${amount}</h3>
-        `)
+        this.props.onExport(
+            Func.buildReceiptBody({
+                'Full Legal Name': `${user.fname} ${user.lname}`,
+                Amount: `PHP ${amount}`
+            })
+        )
 
         if(_from != 'history') {
             Say.ok(

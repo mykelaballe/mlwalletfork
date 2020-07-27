@@ -123,6 +123,7 @@ export default class Scrn extends React.Component {
                     <Row ar style={{paddingHorizontal:Metrics.lg}}>
                         <TextInputFlat
                             ref='digit1'
+                            autoFocus
                             style={style.input}
                             value={digit1}
                             onChangeText={this.handleChangeDigit1}

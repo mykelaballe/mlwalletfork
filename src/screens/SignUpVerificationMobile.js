@@ -68,6 +68,7 @@ export default class Scrn extends React.Component {
                     <Headline subtext='Please enter your mobile number for the verification code.' />
 
                     <TextInput
+                        autoFocus
                         label={'Mobile No.'}
                         value={mobile_no}
                         onChangeText={this.handleChangeMobile}

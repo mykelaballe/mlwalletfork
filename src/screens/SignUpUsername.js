@@ -81,6 +81,7 @@ export default class Scrn extends React.Component {
 
                     <TextInput
                         ref='username'
+                        autoFocus
                         label={_('1')}
                         value={username}
                         error={error}

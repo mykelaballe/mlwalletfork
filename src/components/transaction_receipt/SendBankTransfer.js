@@ -21,28 +21,17 @@ class SendBankTransfer extends React.Component {
         const {_from, bank, account_name, account_no, balance} = this.props.data
         const {amount, fixed_charge, convenience_fee, total} = this.state
 
-        this.props.onExport(`
-            <h4 style="color:#6A6A6A;line-height:0">Partner's Name</h4>
-            <h3>${bank.bankname}</h3>
-
-            <h4 style="color:#6A6A6A;line-height:0">Account Name</h4>
-            <h3 style="margin-top:0">PHP ${account_name}</h3>
-
-            <h4 style="color:#6A6A6A;line-height:0">Account No.</h4>
-            <h3 style="margin-top:0">PHP ${account_no}</h3>
-
-            <h4 style="color:#6A6A6A;line-height:0">Amount</h4>
-            <h3 style="margin-top:0">PHP ${amount}</h3>
-
-            <h4 style="color:#6A6A6A;line-height:0">Fixed Charge</h4>
-            <h3 style="margin-top:0">PHP ${fixed_charge}</h3>
-
-            <h4 style="color:#6A6A6A;line-height:0">Convenience Fee</h4>
-            <h3 style="margin-top:0">PHP ${convenience_fee}</h3>
-
-            <h4 style="color:#6A6A6A;line-height:0">Amount</h4>
-            <h3 style="margin-top:0">PHP ${total}</h3>
-        `)
+        this.props.onExport(
+            Func.buildReceiptBody({
+                "Partner's Name": bank.bankname,
+                'Account Name': account_name,
+                'Account No.': account_no,
+                Amount: `PHP ${amount}`,
+                'Fixed Charge': `PHP ${fixed_charge}`,
+                'Convenience Fee': `PHP ${convenience_fee}`,
+                Amount: `PHP ${total}`
+            })
+        )
 
         if(_from != 'history') {
             Say.ok(

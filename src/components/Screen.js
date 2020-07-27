@@ -28,7 +28,7 @@ export default props => {
     }
 
     return (
-        <KeyboardAwareScrollView style={style} showsVerticalScrollIndicator={false}>
+        <KeyboardAwareScrollView style={style} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps='handled'>
                 {props.children}
                 <Spacer />
         </KeyboardAwareScrollView>

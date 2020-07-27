@@ -81,6 +81,7 @@ class Scrn extends React.Component {
                         ...res.data,
                         transaction: {
                             ...this.state,
+                            ...res.data,
                             sender:`${firstname} ${lastname}`
                         },
                         kptn:transaction_no,

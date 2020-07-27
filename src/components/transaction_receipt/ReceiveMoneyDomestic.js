@@ -9,6 +9,7 @@ class ReceiveMoneyDomestic extends React.Component {
 
     state = {
         amount:Func.formatToRealCurrency(this.props.data.amount),
+        forex:Func.formatToCurrency(this.props.data.forexRate),
         date:this.props.data.date,
         time:this.props.data.time,
         type:Consts.tcn.rmd.long_desc
@@ -16,24 +17,27 @@ class ReceiveMoneyDomestic extends React.Component {
 
     componentDidMount = () => {
         const {_from, balance, sender, currency} = this.props.data
-        const {amount} = this.state
+        const {amount, forex} = this.state
 
-        this.props.onExport(`
-            <h4 style="color:#6A6A6A;line-height:0">Sender</h4>
-            <h3>${Func.cleanName(sender)}</h3>
-
-            <h4 style="color:#6A6A6A;line-height:0">Amount</h4>
-            <h3 style="margin-top:0">${currency} ${amount}</h3>
-        `)
+        this.props.onExport(
+            Func.buildReceiptBody({
+                Sender:Func.cleanName(sender),
+                Amount:`${currency} ${amount}`
+            })
+        )
 
         if(_from != 'history') {
+            let receivedAmount = amount
+
+            if(Func.formatToCurrency(forex) > 0) receivedAmount = amount * Func.formatToCurrency(forex)
+
             Say.ok(
                 null,
-                'Success',
+                null,
                 {
                     customMessage:(
                         <>
-                            <Text mute md>You have successfully received {currency} {Func.formatToRealCurrency(amount)} from {Func.cleanName(`${sender}`)}.</Text>
+                            <Text mute md>You have successfully received {currency} {Func.formatToRealCurrency(receivedAmount)} from {Func.cleanName(`${sender}`)}.</Text>
                             <Spacer lg />
                             <Text mute>Your new balance is</Text>
                             <Text xl b>Php {Func.formatToRealCurrency(balance)}</Text>

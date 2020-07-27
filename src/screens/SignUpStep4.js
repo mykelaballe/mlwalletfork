@@ -45,9 +45,7 @@ class Scrn extends React.Component {
     }
 
     handleChangeAnswer1 = answer1 => this.setState({answer1})
-
     handleChangeAnswer2 = answer2 => this.setState({answer2})
-
     handleChangeAnswer3 = answer3 => this.setState({answer3})
 
     handleSubmit = async () => {
@@ -104,6 +102,8 @@ class Scrn extends React.Component {
                         label={'Answer'}
                         value={answer1}
                         onChangeText={this.handleChangeAnswer1}
+                        onSubmitEditing={this.handleSelectQuestion2}
+                        returnKeyType='next'
                     />
 
                     <StaticInput
@@ -116,6 +116,8 @@ class Scrn extends React.Component {
                         label={'Answer'}
                         value={answer2}
                         onChangeText={this.handleChangeAnswer2}
+                        onSubmitEditing={this.handleSelectQuestion3}
+                        returnKeyType='next'
                     />
 
                     <StaticInput
