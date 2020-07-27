@@ -29,7 +29,7 @@ const ItemUI = ({data, onPress}) => (
             </View>
 
             <View>
-                <Text b md right>PHP {Func.formatToRealCurrency(data.totalamount)}</Text>
+                <Text b md right>PHP {Func.formatToRealCurrency(data.transtype === Consts.tcn.rmd.code ? data.amount : data.totalamount)}</Text>
                 <TouchableOpacity onPress={() => onPress(data)}>
                     <Text brand right>View details</Text>
                 </TouchableOpacity>
@@ -264,6 +264,7 @@ class Scrn extends React.Component {
     handleSelectTypeFilter = (selected_type = {}) => this.setState({selected_type},this.handleRefresh)
 
     handleViewDetails = item => {
+        //console.warn(item)
         let params = {
             _from:'history',
             type:item.transtype,
