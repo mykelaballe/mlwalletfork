@@ -15,6 +15,8 @@ const moment = require('moment')
 const CURRENT_YEAR = parseInt(moment().format('YYYY'))
 const MIN_YEAR = CURRENT_YEAR - 12
 
+//{data.transtype === Consts.tcn.rmd.code || data.transtype === Consts.tcn.rmi.code || data.transtype === Consts.tcn.adm.code ? '' : '-'}
+
 const ItemUI = ({data, onPress}) => (
     <>
         <Row bw style={style.item}>
@@ -27,7 +29,7 @@ const ItemUI = ({data, onPress}) => (
             </View>
 
             <View>
-                <Text b md right>{data.transtype === Consts.tcn.rmd.code || data.transtype === Consts.tcn.rmi.code || data.transtype === Consts.tcn.adm.code ? '' : '-'}PHP {Func.formatToRealCurrency(data.totalamount)}</Text>
+                <Text b md right>PHP {Func.formatToRealCurrency(data.totalamount)}</Text>
                 <TouchableOpacity onPress={() => onPress(data)}>
                     <Text brand right>View details</Text>
                 </TouchableOpacity>
@@ -262,6 +264,7 @@ class Scrn extends React.Component {
     handleSelectTypeFilter = (selected_type = {}) => this.setState({selected_type},this.handleRefresh)
 
     handleViewDetails = item => {
+        console.warn(item)
         let params = {
             _from:'history',
             type:item.transtype,
