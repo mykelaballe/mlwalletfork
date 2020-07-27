@@ -25,7 +25,7 @@ export default {
             message:res.respmessage,
             data: {
                 kptn:res.Kptn,
-                balance:res.balance
+                balance:res.newBalance
             }
         }
     },
