@@ -279,7 +279,8 @@ class Scrn extends React.Component {
                 },
                 biller_partner_name:item.partnername,
                 bank:{
-                    bankname:item.partnername
+                    bankname:item.partnername,
+                    convenienceFee:item.conveniencefee
                 },
                 partner:item.partnername,
                 account_name:item.accountname,
@@ -302,7 +303,11 @@ class Scrn extends React.Component {
         }
 
         if(params.type == Consts.tcn.skp.code || params.type == Consts.tcn.wdc.code) {
-            if(item.status == 1 || item.isclaimed == 1) params.transaction.status == 'success'
+            if(item.status == 1 || item.isclaimed == 1) {
+                params.transaction.status = 'success'
+                params.transaction.cancellable = false
+            }
+
             if(item.isclaimed == 0) {
                 if(item.iscancelled == 0) params.cancellable = true
                 else {

@@ -1,5 +1,6 @@
 import React from 'react'
 import {withNavigation} from 'react-navigation'
+import {connect} from 'react-redux'
 import {Header} from './'
 import {Screen, Footer, Text, Spacer, Button, ScrollFix} from '../'
 import {Metrics} from '../../themes'
@@ -62,6 +63,7 @@ class SendWalletToWallet extends React.Component {
 
     render() {
 
+        const {user} = this.props
         const {_from, kptn, walletno, receiver, notes} = this.props.data
         const {amount, charges, total, date, time, type} = this.state
 
@@ -94,10 +96,14 @@ class SendWalletToWallet extends React.Component {
 
                         <Spacer />
 
-                        <Text sm mute>Charges</Text>
-                        <Text>PHP {charges}</Text>
+                        {user.walletno != walletno &&
+                        <>
+                            <Text sm mute>Charges</Text>
+                            <Text>PHP {charges}</Text>
 
-                        <Spacer />
+                            <Spacer />
+                        </>
+                        }
 
                         <Text sm mute>Total</Text>
                         <Text>PHP {total}</Text>
@@ -127,4 +133,8 @@ class SendWalletToWallet extends React.Component {
     }
 }
 
-export default withNavigation(SendWalletToWallet)
+const mapStateToProps = state => ({
+    user: state.user.data
+})
+
+export default withNavigation(connect(mapStateToProps)(SendWalletToWallet))
