@@ -18,28 +18,20 @@ class SendWalletToWallet extends React.Component {
     }
 
     componentDidMount = () => {
+        const {user} = this.props
         const {_from, walletno, receiver, notes, balance} = this.props.data
         const {amount, charges, total} = this.state
 
-        this.props.onExport(`
-            <h4 style="color:#6A6A6A;line-height:0">${_('90')}</h4>
-            <h3>${Func.formatWalletNo(walletno)}</h3>
-
-            <h4 style="color:#6A6A6A;line-height:0">Receiver</h4>
-            <h3>${receiver.fullname}</h3>
-
-            <h4 style="color:#6A6A6A;line-height:0">Amount</h4>
-            <h3 style="margin-top:0">PHP ${amount}</h3>
-
-            <h4 style="color:#6A6A6A;line-height:0">Notes</h4>
-            <h3 style="margin-top:0">PHP ${notes}</h3>
-
-            <h4 style="color:#6A6A6A;line-height:0">Charges</h4>
-            <h3 style="margin-top:0">PHP ${charges}</h3>
-
-            <h4 style="color:#6A6A6A;line-height:0">Total</h4>
-            <h3 style="margin-top:0">PHP ${total}</h3>
-        `)
+        this.props.onExport(
+            Func.buildReceiptBody({
+                [_('90')]:Func.formatWalletNo(walletno),
+                Receiver:receiver.fullname,
+                Amount:amount,
+                Notes:notes,
+                Charges:user.walletno != walletno ? charges : false,
+                Total:total
+            })
+        )
 
         if(_from != 'history') {
             Say.ok(

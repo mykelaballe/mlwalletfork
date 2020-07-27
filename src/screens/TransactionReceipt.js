@@ -59,9 +59,10 @@ export default class Scrn extends React.Component {
         if(!exportData) return false
 
         let html = `
+        <body style="padding:0;margin:0;">
             <div style="background-color:#323232;padding:3px 15px 3px 15px;margin-top:3px">
-                <h2 style="textAlign:center;color:#fff">Transaction Receipt</h2>
-                <h4 style="color:#fff;line-height:0">${Func.formatKPTN(kptn)}</h4>
+                <h4 style="textAlign:center;color:#fff">Transaction No.</h4>
+                <h3 style="color:#fff;line-height:0">${Func.formatKPTN(kptn)}</h3>
             </div>
             
             <hr />
@@ -76,6 +77,7 @@ export default class Scrn extends React.Component {
 
             <h4 style="color:#6A6A6A;line-height:0">Type</h4>
             <h3 style="margin-top:0">${Consts.tcn[type] ? Consts.tcn[type].long_desc : type}</h3>
+        </body>
         `
       
         let file = await RNHTMLtoPDF.convert({
@@ -93,7 +95,7 @@ export default class Scrn extends React.Component {
                 yesBtnLabel:'View File',
                 noBtnLabel:'Close',
                 onConfirm:() => this.props.navigation.navigate('PDFViewer',{
-                    title:kptn,
+                    title:'Transaction Receipt',
                     source:file.filePath
                 })
             }

@@ -87,6 +87,21 @@ const formatKPTN = str => {
     return str.replace(/^(\w{3})(\d{4})(\d{4})(\d{4})(\d{4})(\d{2}).*/, '$1 $2-$3-$4-$5-$6')
 }
 
+const buildReceiptBody = data => {
+    let output = ''
+
+    for(let d in data) {
+        if(data[d] !== false) {
+            output += `
+                <h5 style="color:#6A6A6A;line-height:0">${d}</h5>
+                <h4>${data[d] == '' || !data[d] ? '---' : data[d]}</h4>
+            `
+        }
+    }
+
+    return output
+}
+
 export default {
     formatToCurrency,
     formatToRealCurrency,
@@ -96,5 +111,6 @@ export default {
     formatToPHMobileNumber,
     formatToPHMobileNumberFull,
     formatWalletNo,
-    formatKPTN
+    formatKPTN,
+    buildReceiptBody
 }

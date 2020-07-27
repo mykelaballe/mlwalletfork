@@ -264,7 +264,6 @@ class Scrn extends React.Component {
     handleSelectTypeFilter = (selected_type = {}) => this.setState({selected_type},this.handleRefresh)
 
     handleViewDetails = item => {
-        console.warn(item)
         let params = {
             _from:'history',
             type:item.transtype,
