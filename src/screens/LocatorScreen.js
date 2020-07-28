@@ -109,11 +109,10 @@ class Scrn extends React.Component {
                     <Marker
                         key={i}
                         coordinate={{
-                            latitude:b.latitude,
-                            longitude:b.longitude
+                            latitude:b.mLat,
+                            longitude:b.mLong
                         }}
-                        title={b.branchname}
-                        description={b.address}
+                        title={b.bName}
                     >
                         <Image source={require('../res/app_icon.png')} style={style.marker} />
                     </Marker>

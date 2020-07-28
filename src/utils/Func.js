@@ -172,7 +172,7 @@ const getNearestBranches = (branches, currentCoords) => {
     if(branches.length > 0 && currentCoords && currentCoords.latitude && currentCoords.longitude) {
         for(let m in branches) {
 
-            let dist = getDistance(currentCoords.latitude, currentCoords.longitude, branches[m].latitude, branches[m].longitude, 'K')
+            let dist = getDistance(currentCoords.latitude, currentCoords.longitude, branches[m].mLat, branches[m].mLong, 'K')
 
             //if this location is within 2KM of the user, add it to the list
             if(dist <= 2) near_branches.push(branches[m])

@@ -109,9 +109,18 @@ export default {
     },
 
     getBranches: async () => {
-        let res = await Fetch.get('ml_branches')
-        if(res.error) return []
-        return res.data || []
+        //let res = await Fetch.get('ml_branches')
+        let data = []
+        let res = await axios({
+            method: 'get',
+            url: 'https://mlmobileweb.mlhuillier1.com/Mobile/Client/6.5/MapService/MapService.svc/getCoordinates'
+        })
+
+        if(res.status == 200 && res.data.getCoordinatesResult && res.data.getCoordinatesResult.mapInfo) {
+            data = res.data.getCoordinatesResult.mapInfo
+        }
+
+        return data
     },
 
     getCountries: async () => {

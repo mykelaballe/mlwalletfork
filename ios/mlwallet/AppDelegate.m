@@ -19,7 +19,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   [FIRApp configure];
-  [GMSServices provideAPIKey:@"AIzaSyCxoT1ORnihAKC1FZe5FHYCXA_56CUjfkM"];
+  [GMSServices provideAPIKey:@"AIzaSyB121lw5hxWkCwyhzFIBspWZEeIAfamBX4"];
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
                                                    moduleName:@"mlwallet"

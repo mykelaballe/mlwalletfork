@@ -1,35 +1,42 @@
 {
   "project_info": {
-    "project_number": "476052892501",
-    "firebase_url": "https://mlwallet.firebaseio.com",
-    "project_id": "mlwallet",
-    "storage_bucket": "mlwallet.appspot.com"
+    "project_number": "332783703043",
+    "firebase_url": "https://mlwallet-59254.firebaseio.com",
+    "project_id": "mlwallet-59254",
+    "storage_bucket": "mlwallet-59254.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:476052892501:android:0e590c2918f62e4b77dddc",
+        "mobilesdk_app_id": "1:332783703043:android:8ab64f277db95b12",
         "android_client_info": {
-          "package_name": "com.mlwallet"
+          "package_name": "com.mlhuillier.mlwallet"
         }
       },
       "oauth_client": [
         {
-          "client_id": "476052892501-eiqrrt4qbo3e7qt1fe54ic59259gh5p4.apps.googleusercontent.com",
+          "client_id": "332783703043-pbncgshvhpvbrqftpdu8frukfg5ngts3.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCZ0lawMs1ZgON5OeSOYknMeie1AkshIKo"
+          "current_key": "AIzaSyApogNv7_YV0RnueRf7mk3c0HPaHcWvg8o"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "476052892501-eiqrrt4qbo3e7qt1fe54ic59259gh5p4.apps.googleusercontent.com",
+              "client_id": "332783703043-pbncgshvhpvbrqftpdu8frukfg5ngts3.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "332783703043-idrt6k0kubhjud87gva8p5g3uu1tsdtl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mlhuillier.mlwallet"
+              }
             }
           ]
         }
