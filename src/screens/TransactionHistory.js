@@ -1,21 +1,19 @@
 import React from 'react'
 import {View, StyleSheet, InteractionManager, TouchableOpacity, Dimensions} from 'react-native'
 import {connect} from 'react-redux'
-import {Provider, FlatList, Text, Row, Modal, Ripple, HeaderRight, ScrollFix, HR, Spacer, Button, ButtonText, ButtonIcon, StaticInput, Picker, MonthPicker, DayPicker, YearPicker} from '../components'
+import {Provider, FlatList, Text, Row, Modal, Ripple, ScrollFix, HR, Spacer, Button, ButtonText, StaticInput, Picker, MonthPicker, DayPicker, YearPicker} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Consts, Say, Func} from '../utils'
 import {API} from '../services'
 import Icon from 'react-native-vector-icons/AntDesign'
-//import RNHTMLtoPDF from 'react-native-html-to-pdf'
+
+const ITEM_HEIGHT = 90
 
 const {height} = Dimensions.get('window')
 const MAX_LIST_HEIGHT = parseInt(height / 3)
 const moment = require('moment')
-//const NOW = moment()
 const CURRENT_YEAR = parseInt(moment().format('YYYY'))
 const MIN_YEAR = CURRENT_YEAR - 12
-
-//{data.transtype === Consts.tcn.rmd.code || data.transtype === Consts.tcn.rmi.code || data.transtype === Consts.tcn.adm.code ? '' : '-'}
 
 const ItemUI = ({data, onPress}) => (
     <>
@@ -42,16 +40,8 @@ const ItemUI = ({data, onPress}) => (
 
 class Scrn extends React.Component {
 
-    static navigationOptions = ({navigation}) => {
-        const {params = {}} = navigation.state
-        return {
-            title:'Transaction History',
-            /*headerRight: (
-                <HeaderRight>
-                    <ButtonIcon icon={<Icon name='download' color={Colors.light} size={Metrics.icon.sm} />} onPress={params.downloadHistory} />
-                </HeaderRight>
-            )*/
-        }
+    static navigationOptions = {
+        title:'Transaction History'
     }
 
     state = {
@@ -155,32 +145,13 @@ class Scrn extends React.Component {
         refreshing:false
     }
 
-    componentDidMount = () => {
-        this.props.navigation.setParams({downloadHistory:this.handleDownload})
-        InteractionManager.runAfterInteractions(this.getData)
-    }
+    componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
 
     componentDidUpdate = (prevProps, prevState) => {
-        /*const {params = {}} = this.props.navigation.state
-        if(params.refresh) {
-            this.props.navigation.setParams({refresh:false})
-            this.handleRefresh()
-        }*/
-
         if(prevProps.user.balance != this.props.user.balance) {
             this.setState({balance:this.props.user.balance})
             this.handleRefresh()
         }
-    }
-
-    handleDownload = async () => {
-        let file = await RNHTMLtoPDF.convert({
-            html: "<img src='' />",
-            fileName: 'ML WALLET PDF',
-            directory: 'Documents'
-        })
-
-        Say.some(file.filePath)
     }
 
     getData = async () => {
@@ -324,39 +295,27 @@ class Scrn extends React.Component {
     }
 
     handleChangeMonthFrom = () => this.setState({showMonthFrom:true})
-
     handleChangeDayFrom = () => this.setState({showDayFrom:true})
-
     handleChangeYearFrom = () => this.setState({showYearFrom:true})
 
     handleSelectMonthFrom = month_from => this.setState({month_from,day_from:1})
-
     handleSelectDayFrom = day_from => this.setState({day_from})
-
     handleSelectYearFrom = year_from => this.setState({year_from})
 
     handleHideMonthFromPicker = () => this.setState({showMonthFrom:false})
-
     handleHideDayFromPicker = () => this.setState({showDayFrom:false})
-
     handleHideYearFromPicker = () => this.setState({showYearFrom:false})
 
     handleChangeMonthTo = () => this.setState({showMonthTo:true})
-
     handleChangeDayTo = () => this.setState({showDayTo:true})
-
     handleChangeYearTo= () => this.setState({showYearTo:true})
 
     handleSelectMonthTo= month_to => this.setState({month_to,day_to:1})
-
     handleSelectDayTo = day_to => this.setState({day_to})
-
     handleSelectYearTo= year_to => this.setState({year_to})
 
     handleHideMonthToPicker = () => this.setState({showMonthTo:false})
-
     handleHideDayToPicker = () => this.setState({showDayTo:false})
-
     handleHideYearToPicker = () => this.setState({showYearTo:false})
 
     handleRefresh = () => this.setState({refreshing:true},this.getData)
@@ -369,6 +328,14 @@ class Scrn extends React.Component {
                 <ItemUI data={item} onPress={this.handleViewDetails} />
             </ScrollFix>
         )
+    }
+
+    getItemLayout = (data, index) => {
+        return {
+            length: ITEM_HEIGHT,
+            offset: ITEM_HEIGHT * index,
+            index
+        }
     }
 
     render() {
@@ -484,12 +451,6 @@ class Scrn extends React.Component {
                 {show_filters &&
                 <>
                     <View style={{paddingHorizontal:Metrics.md,paddingVertical:Metrics.rg}}>
-                        {/*<Picker
-                            selected={selected_timeframe.label}
-                            items={timeframe_filters}
-                            placeholder='Transaction Timeframe'
-                            onChoose={this.handleSelectTimeframeFilter}
-                        />*/}
                         <StaticInput
                             label='Transaction Timeframe'
                             value={selected_timeframe.label}
@@ -505,63 +466,6 @@ class Scrn extends React.Component {
                                 </Text> : null
                             }
                         />
-
-                        {/*selected_timeframe.value === 'custom' &&
-                        <View style={{marginVertical:Metrics.rg}}>
-                            <Text sm mute>From</Text>
-                            <Row bw>
-                                <StaticInput
-                                    label='Month'
-                                    value={month_from ? moment(month_from,'M').format('MMM') : null}
-                                    onPress={this.handleChangeMonthFrom}
-                                    style={{flex:1}}
-                                />
-                                <Spacer h xs />
-                                <StaticInput
-                                    label='Day'
-                                    value={day_from}
-                                    onPress={this.handleChangeDayFrom}
-                                />
-                                <Spacer h xs />
-                                <StaticInput
-                                    label='Year'
-                                    value={year_from}
-                                    onPress={this.handleChangeYearFrom}
-                                    style={{flex:1}}
-                                />
-                            </Row>
-
-                            <Text sm mute>To</Text>
-                            <Row bw>
-                                <StaticInput
-                                    label='Month'
-                                    value={month_to ? moment(month_to,'M').format('MMM') : null}
-                                    onPress={this.handleChangeMonthTo}
-                                    style={{flex:1}}
-                                />
-                                <Spacer h xs />
-                                <StaticInput
-                                    label='Day'
-                                    value={day_to}
-                                    onPress={this.handleChangeDayTo}
-                                />
-                                <Spacer h xs />
-                                <StaticInput
-                                    label='Year'
-                                    value={year_to}
-                                    onPress={this.handleChangeYearTo}
-                                    style={{flex:1}}
-                                />
-                            </Row>
-                        </View>
-                        */}
-
-                        {/*<Picker
-                            selected={selected_type.label}
-                            items={type_filters}
-                            placeholder='Transaction Type'
-                            onChoose={this.handleSelectTypeFilter}
-                        />*/}
 
                         <StaticInput
                             label='Transaction Type'
@@ -585,6 +489,10 @@ class Scrn extends React.Component {
                     loading={loading}
                     refreshing={refreshing}
                     onRefresh={this.handleRefresh}
+                    getItemLayout={this.getItemLayout}
+                    initialNumToRender={12}
+                    maxToRenderPerBatch={10}
+                    windowSize={10}
                     placeholder={{}}
                     skeleton
                 />
@@ -611,6 +519,7 @@ const style = StyleSheet.create({
         padding:Metrics.md
     },
     item: {
+        height:ITEM_HEIGHT,
         paddingHorizontal:Metrics.md,
         paddingVertical:Metrics.md
     }

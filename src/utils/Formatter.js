@@ -84,7 +84,15 @@ const formatWalletNo = str => {
 
 const formatKPTN = str => {
     if(!str) return ''
-    return str.replace(/^(\w{3})(\d{4})(\d{4})(\d{4})(\d{4})(\d{2}).*/, '$1 $2-$3-$4-$5-$6')
+
+    if(str.startsWith('BPW')) {
+        return str.replace(/^(\w{3})(\d{4})(\d{3})(\d{4})(\d{3}).*/, '$1-$2-$3-$4-$5') 
+    }
+    else if(str.startsWith('MWE')) {
+        return str.replace(/^(\w{3})(\d{4})(\d{3})(\d{4})(\d{4})(\d{4}).*/, '$1-$2-$3-$4-$5-$6')
+    }
+    
+    return str.replace(/^(\w{3})(\d{4})(\d{3})(\d{4})(\d{3})(\d{4}).*/, '$1-$2-$3-$4-$5-$6')
 }
 
 const buildReceiptBody = data => {
