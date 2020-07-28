@@ -135,7 +135,7 @@ class Scrn extends React.Component {
                     else throw {message:res.message}
                 }
                 else if(res.data && res.data.pincode.length <= 4) this.force1stReupdateInfo(res.data)
-                else if(res.data && (!res.data.street || !res.data.houseno)) this.force2ndReupdateInfo(res.data)
+                //else if(res.data && (!res.data.street || !res.data.houseno)) this.force2ndReupdateInfo(res.data)
                 else {
                     
                     res.data.latitude = latitude
