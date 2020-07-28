@@ -33,6 +33,7 @@
     "react-native-gesture-handler": "1.4.1",
     "react-native-html-to-pdf": "0.8.0",
     "react-native-keyboard-aware-scroll-view": "0.9.1",
+    "react-native-map-clustering": "3.3.9",
     "react-native-maps": "0.26.1",
     "react-native-paper": "3.5.1",
     "react-native-pdf": "6.1.2",

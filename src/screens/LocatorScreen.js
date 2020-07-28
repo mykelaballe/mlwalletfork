@@ -1,11 +1,16 @@
 import React from 'react'
-import {StyleSheet, Image, InteractionManager} from 'react-native'
+import {StyleSheet, Image, InteractionManager, Dimensions} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Screen, Button, Text, Spacer, ActivityIndicator} from '../components'
 import {_, Say, Consts, Func} from '../utils'
+import {Colors} from '../themes'
 import {API} from '../services'
-import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps'
+import {Marker, PROVIDER_GOOGLE} from 'react-native-maps'
+import MapView from 'react-native-map-clustering'
+
+const {width} = Dimensions.get('window')
+const MARKER_IMG = require('../res/app_icon.png')
 
 class Scrn extends React.Component {
 
@@ -103,7 +108,12 @@ class Scrn extends React.Component {
                 provider={PROVIDER_GOOGLE}
                 initialRegion={initialCoords}
                 style={style.map}
-                showsUserLocation={true}
+                showsUserLocation
+                clusterColor={Colors.brand}
+                animationEnabled={false}
+                radius={width * .15}
+                extent={300}
+                rotateEnabled={false}
             >
                 {branches.map((b, i) => (
                     <Marker
@@ -114,7 +124,7 @@ class Scrn extends React.Component {
                         }}
                         title={b.bName}
                     >
-                        <Image source={require('../res/app_icon.png')} style={style.marker} />
+                        <Image source={MARKER_IMG} style={style.marker} />
                     </Marker>
                 ))}
             </MapView>
