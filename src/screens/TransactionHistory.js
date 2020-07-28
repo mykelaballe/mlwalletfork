@@ -147,12 +147,12 @@ class Scrn extends React.Component {
 
     componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
 
-    componentDidUpdate = (prevProps, prevState) => {
+    /*componentDidUpdate = (prevProps, prevState) => {
         if(prevProps.user.balance != this.props.user.balance) {
             this.setState({balance:this.props.user.balance})
             this.handleRefresh()
         }
-    }
+    }*/
 
     getData = async () => {
         const now = moment()
