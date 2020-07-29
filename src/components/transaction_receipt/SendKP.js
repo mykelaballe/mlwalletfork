@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Creators} from '../../actions'
 import {withNavigation} from 'react-navigation'
 import {Header} from './'
-import {Screen, Footer, Text, Spacer, Button, View, Row, ScrollFix} from '../'
+import {Screen, Footer, Text, Spacer, Button, BackHomeButton, View, Row, ScrollFix} from '../'
 import {Metrics} from '../../themes'
 import {_, Consts, Func, Say} from '../../utils'
 import {API} from '../../services'
@@ -122,8 +122,6 @@ class SendKP extends React.Component {
         this.setState({cancelling:false})
     }
 
-    handleBackToHome = () => this.props.navigation.navigate('Home')
-
     render() {
 
         const {_from, kptn, receiver} = this.props.data
@@ -204,7 +202,7 @@ class SendKP extends React.Component {
                 <Footer>
                     {/*cancellable && <Button mode='outlined' t='Cancel Transaction' onPress={this.handleCancelTransaction} loading={cancelling} />*/}
                     {/*<Spacer sm />*/}
-                    {_from !== 'history' && <Button t='Back to Home' onPress={this.handleBackToHome} />}
+                    {_from !== 'history' && <BackHomeButton />}
                 </Footer>
             </>
         )

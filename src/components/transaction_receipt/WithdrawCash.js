@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Creators} from '../../actions'
 import {withNavigation} from 'react-navigation'
 import {Header} from './'
-import {Screen, Footer, Text, Spacer, Button, View, ScrollFix} from '../'
+import {Screen, Footer, Text, Spacer, BackHomeButton, Button, View, ScrollFix} from '../'
 import {Metrics} from '../../themes'
 import {_, Consts, Func, Say} from '../../utils'
 import {API} from '../../services'
@@ -116,7 +116,7 @@ class WithdrawCash extends React.Component {
 
     handleShowQR = () => this.props.navigation.navigate('TransactionQR',{transaction_no:this.props.data.kptn})
 
-    handleBackToHome = () => this.props.navigation.navigate('Home')
+    //handleBackToHome = () => this.props.navigation.navigate('Home')
 
     render() {
 
@@ -169,7 +169,7 @@ class WithdrawCash extends React.Component {
                     </>
                     }
 
-                    {_from !== 'history' && <Button t='Back to Home' onPress={this.handleBackToHome} />}
+                    {_from !== 'history' && <BackHomeButton />}
                 </Footer>
             </>
         )

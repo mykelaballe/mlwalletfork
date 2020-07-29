@@ -1,6 +1,7 @@
 import ActivityIndicator from './ActivityIndicator'
 import AppIntro from './AppIntro'
 import Avatar from './Avatar'
+import BackHomeButton from './BackHomeButton'
 import Balance from './Balance'
 import Bullet from './Bullet'
 import Button from './Button'
@@ -59,6 +60,7 @@ export {
     ActivityIndicator,
     AppIntro,
     Avatar,
+    BackHomeButton,
     Balance,
     Bullet,
     Button,
