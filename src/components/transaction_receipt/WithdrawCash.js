@@ -116,12 +116,12 @@ class WithdrawCash extends React.Component {
 
     handleShowQR = () => this.props.navigation.navigate('TransactionQR',{transaction_no:this.props.data.kptn})
 
-    //handleBackToHome = () => this.props.navigation.navigate('Home')
-
     render() {
 
         const {_from, kptn, user} = this.props.data
         const {status, cancellable, cancelling, amount, date, time, type} = this.state
+
+        console.warn(this.props.data)
 
         return (
             <>

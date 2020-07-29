@@ -144,7 +144,7 @@ class Scrn extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    user: state.data.user
+    user: state.user.data
 })
 
 export default connect(mapStateToProps)(Scrn)

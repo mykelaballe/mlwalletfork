@@ -273,6 +273,7 @@ class Scrn extends React.Component {
                 }
             },
             cancellable:false,
+            isclaimed:item.isclaimed,
             transdate:item.transdate
         }
 
