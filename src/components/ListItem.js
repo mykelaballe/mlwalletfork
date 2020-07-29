@@ -17,7 +17,7 @@ export default ({initial, primaryText, subText, big, onPress}) => {
                 {big && <Text mute md>{primaryText}</Text>}
                 {!big && <Text b>{primaryText}</Text>}
 
-                {subText && <Text>{subText}</Text>}
+                {(subText != '' && subText) && <Text>{subText}</Text>}
             </View>
         </Row>
     )
