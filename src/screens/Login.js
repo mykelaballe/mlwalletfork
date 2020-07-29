@@ -71,11 +71,10 @@ class Scrn extends React.Component {
         }
     }
 
-    login = async payload => {
+    login = async params => {
         const {processing} = this.state
 
-        let username = payload.username
-        let password = payload.password
+        let {username, password} = params
 
         let latitude = '0.0', longitude = '0.0'
 
