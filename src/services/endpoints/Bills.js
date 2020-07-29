@@ -2,6 +2,8 @@ import Consts from '../../utils/Consts'
 import Fetch from '../../utils/Fetch'
 
 export default {
+    paybillValidate: async payload => await Fetch.postc('paybills/validate',payload),
+
     payBill: async payload => {
         let res = await Fetch.postc('paybills',{
             ...payload,

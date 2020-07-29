@@ -1,8 +1,10 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import {Screen, Footer, Headline, Text, Spacer, Button, TextInput} from '../components'
 import {_, Consts, Func, Say} from '../utils'
+import {API} from '../services'
 
-export default class Scrn extends React.Component {
+class Scrn extends React.Component {
 
     static navigationOptions = {
         title:'Pay Bill'
@@ -49,26 +51,48 @@ export default class Scrn extends React.Component {
     handleFocusEmail = () => this.refs.email.focus()
 
     handlePay = async () => {
-        const {amount} = this.state
+        const {amount, fixed_charge, convenience_fee, processing} = this.state
         const {params} = this.props.navigation.state
 
-        if(Func.formatToCurrency(amount) <= 0) Say.warn(_('89'))
-        else {
-            this.props.navigation.navigate('TransactionReview',{
-                ...params,
-                type:Consts.tcn.bpm.code,
-                transaction: {
-                    ...this.state,
-                    biller:params.biller
-                },
-                status:'success'
-            })
+        if(processing) return false
+
+        try {
+
+            this.setState({processing:true})
+            
+            if(Func.formatToCurrency(amount) <= 0) Say.warn(_('89'))
+            else {
+                let res = await API.paybillValidate({
+                    walletno:this.props.user.walletno,
+                    principal:amount,
+                    fixed_charge,
+                    convenience_fee
+                })
+
+                if(res.error) Say.warn(res.message)
+                else {
+                    this.props.navigation.navigate('TransactionReview',{
+                        ...params,
+                        type:Consts.tcn.bpm.code,
+                        transaction: {
+                            ...this.state,
+                            biller:params.biller
+                        },
+                        status:'success'
+                    })
+                }
+            }
         }
+        catch(err) {
+            Say.err(err)
+        }
+
+        this.setState({processing:false})
     }
 
     render() {
 
-        const {partner, account_no, account_name, amount, email} = this.state
+        const {partner, account_no, account_name, amount, email, processing} = this.state
         let ready = false
 
         if(account_no && account_name && amount) ready = true
@@ -121,9 +145,15 @@ export default class Scrn extends React.Component {
                 <Footer>
                     <Text mute center>Note: Fees and charges may apply.</Text>
                     <Spacer />
-                    <Button disabled={!ready} t={Consts.tcn.bpm.submit_text} onPress={this.handlePay} />
+                    <Button disabled={!ready} t={Consts.tcn.bpm.submit_text} onPress={this.handlePay} loading={processing} />
                 </Footer>
             </>
         )
     }
 }
+
+const mapStateToProps = state => ({
+    user: state.user.data
+})
+
+export default connect(mapStateToProps)(Scrn)

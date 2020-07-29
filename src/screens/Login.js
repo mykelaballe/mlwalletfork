@@ -99,7 +99,15 @@ class Scrn extends React.Component {
                 let res = await API.login(payload)
                 
                 if(res.error) {
-                    if([Consts.error.atl1, Consts.error.atl2, 'reach_maximum_attempts', Consts.error.blk1d].indexOf(res.message) >= 0) {
+                    if(res.message == 'inactive') {
+                        Say.err(`
+                            Your account has been deactivated indefinitely.
+                            Please contact Customer Care for more information
+
+                            GLOBE: 09178712973
+                        `)
+                    } 
+                    else if([Consts.error.atl1, Consts.error.atl2, 'reach_maximum_attempts', Consts.error.blk1d].indexOf(res.message) >= 0) {
                         Say.attemptLeft(res.message)
                     }
                     else if(res.message === Consts.error.blk) Say.warn(res.message)

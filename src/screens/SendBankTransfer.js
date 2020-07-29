@@ -1,7 +1,9 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import {Screen, Footer, Text, Spacer, Button, ButtonText, TextInput, HeaderRight} from '../components'
 import {Colors} from '../themes'
 import {_, Consts, Func, Say} from '../utils'
+import {API} from '../services'
 
 class Scrn extends React.Component {
 
@@ -21,7 +23,8 @@ class Scrn extends React.Component {
         amount:'',
         fixed_charge:this.props.navigation.state.params.bank.charge,
         convenience_fee:this.props.navigation.state.params.bank.convenienceFee,
-        total:''
+        total:'',
+        processing:false
     }
 
     handleChangeAccountName = account_name => this.setState({account_name})
@@ -39,25 +42,48 @@ class Scrn extends React.Component {
     handleSelectPartner = () => this.props.navigation.navigate('SavedBankPartners')
 
     handleSendMoney = async () => {
-        const {amount} = this.state
+        const {amount, fixed_charge, convenience_fee, processing} = this.state
         const {params} = this.props.navigation.state
 
-        if(Func.formatToCurrency(amount) <= 0) Say.warn(_('89'))
-        else {
-            this.props.navigation.navigate('TransactionReview',{
-                type:Consts.tcn.stb.code,
-                ...params,
-                transaction: {
-                    ...this.state
-                },
-                status:'success'
-            })
+        if(processing) return false
+
+        try {
+            
+            this.setState({processing:true})
+
+            if(Func.formatToCurrency(amount) <= 0) Say.warn(_('89'))
+            else {
+
+                let res = await API.paybillValidate({
+                    walletno:this.props.user.walletno,
+                    principal:amount,
+                    fixed_charge,
+                    convenience_fee
+                })
+
+                if(res.error) Say.warn(res.message)
+                else {
+                    this.props.navigation.navigate('TransactionReview',{
+                        type:Consts.tcn.stb.code,
+                        ...params,
+                        transaction: {
+                            ...this.state
+                        },
+                        status:'success'
+                    })
+                }
+            }
         }
+        catch(err) {
+            Say.err(err)
+        }
+
+        this.setState({processing:false})
     }
 
     render() {
 
-        const {bank, account_name, account_no, amount, fixed_charge, convenience_fee, total} = this.state
+        const {bank, account_name, account_no, amount, fixed_charge, convenience_fee, total, processing} = this.state
         let ready = false
 
         if(bank && account_name && account_no && amount) ready = true
@@ -110,11 +136,15 @@ class Scrn extends React.Component {
 
                     <Spacer />
                     
-                    <Button disabled={!ready} t={Consts.tcn.stb.submit_text} onPress={this.handleSendMoney} />
+                    <Button disabled={!ready} t={Consts.tcn.stb.submit_text} onPress={this.handleSendMoney} loading={processing} />
                 </Footer>
             </>
         )
     }
 }
 
-export default Scrn
+const mapStateToProps = state => ({
+    user: state.data.user
+})
+
+export default connect(mapStateToProps)(Scrn)
