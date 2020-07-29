@@ -6061,7 +6061,7 @@ react-native-keyboard-aware-scroll-view@0.9.1:
     prop-types "^15.6.2"
     react-native-iphone-x-helper "^1.0.3"
 
-react-native-map-clustering@^3.3.9:
+react-native-map-clustering@3.3.9:
   version "3.3.9"
   resolved "https://registry.yarnpkg.com/react-native-map-clustering/-/react-native-map-clustering-3.3.9.tgz#f1b7ad8a60dd9da2e794a1ff401f84f88896e80b"
   integrity sha512-47wDpjKARNZ8LrkXEJSWG0rsR3D6AkQbduTlFmQAXxpqJPqk+z/HztJys3diPS5PMvjub9uK9743ltUf9pYD1w==
