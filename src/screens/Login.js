@@ -272,6 +272,7 @@ class Scrn extends React.Component {
                             onSubmitEditing={this.handleFocusPassword}
                             autoCapitalize='none'
                             returnKeyType='next'
+                            maxLength={30}
                         />
 
                         <Spacer sm />

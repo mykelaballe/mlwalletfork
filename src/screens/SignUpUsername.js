@@ -87,6 +87,7 @@ export default class Scrn extends React.Component {
                         error={error}
                         onChangeText={this.handleChangeUsername}
                         autoCapitalize='none'
+                        maxLength={30}
                     />
 
                     <Errors
