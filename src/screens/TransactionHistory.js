@@ -267,19 +267,24 @@ class Scrn extends React.Component {
                 fixed_charge:item.fixedcharge,
                 convenience_fee:item.conveniencefee,
                 total:item.totalamount,
+                isclaimed:item.isclaimed,
                 user:{
                     fname:this.props.user.fname,
                     lname:this.props.user.lname
                 }
             },
             cancellable:false,
-            isclaimed:item.isclaimed,
             transdate:item.transdate
         }
 
         if(params.type == Consts.tcn.skp.code || params.type == Consts.tcn.wdc.code) {
-            if(item.status == 1 || item.isclaimed == 1) {
+            if(item.status == 1) {
                 params.transaction.status = 'success'
+                params.transaction.cancellable = false
+            }
+            
+            if(item.isclaimed == 1) {
+                params.transaction.status = 'claimed'
                 params.transaction.cancellable = false
             }
 

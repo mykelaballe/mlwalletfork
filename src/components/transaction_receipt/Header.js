@@ -23,6 +23,11 @@ export default props => {
             statusColor = Colors.danger
             statusText = `${statusText} Cancelled`
         }
+        else if(status === 'claimed') {
+            statusIcon = 'check'
+            statusColor = Colors.success
+            statusText = `${statusText} Claimed`
+        }
     }
     else {
         statusText = `${statusText} Pending`

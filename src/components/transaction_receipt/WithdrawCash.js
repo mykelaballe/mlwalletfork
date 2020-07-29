@@ -119,9 +119,7 @@ class WithdrawCash extends React.Component {
     render() {
 
         const {_from, kptn, user} = this.props.data
-        const {status, cancellable, cancelling, amount, date, time, type} = this.state
-
-        console.warn(this.props.data)
+        const {status, cancellable, cancelling, isclaimed, amount, date, time, type} = this.state
 
         return (
             <>
