@@ -2,9 +2,10 @@ import React from 'react'
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native'
 import HR from './HR'
 import {Colors, Metrics} from '../themes'
-import {Consts} from '../utils'
+import {Consts, Func} from '../utils'
 
 const ITEM_HEIGHT = 110
+const moment = require('moment')
 
 export default class TransactionHistoryItem extends React.Component {
 
@@ -23,13 +24,13 @@ export default class TransactionHistoryItem extends React.Component {
                     }
                     {data.iscancelled > 0 && <Text style={{color:Colors.mute}}>CANCELLED</Text>}
                     <Text style={{fontWeight:'bold',fontSize:Metrics.font.md}}>{Consts.tcn[data.transtype] ? Consts.tcn[data.transtype].short_desc : data.transtype}</Text>
-                    <Text style={{color:Colors.mute}}>{data.transdate}</Text>
-                    <Text style={{color:Colors.mute}}>Running Balance: {data.runningbalance}</Text>
+                    <Text style={{color:Colors.mute}}>{moment(data.transdate).format('MM/DD/YYYY')}</Text>
+                    <Text style={{color:Colors.mute}}>Running Balance: {Func.formatToRealCurrency(data.runningbalance)}</Text>
                 </View>
 
                 <View>
                     <Text style={{fontWeight:'bold',fontSize:Metrics.font.md}}>
-                        {Consts.currency.PH} {data.transtype === Consts.tcn.rmd.code ? data.amount : data.totalamount}
+                        {Consts.currency.PH} {Func.formatToRealCurrency(data.transtype === Consts.tcn.rmd.code ? data.amount : data.totalamount)}
                     </Text>
                     <TouchableOpacity onPress={() => onPress(data)}>
                         <Text style={{color:Colors.brand}}>View details</Text>
