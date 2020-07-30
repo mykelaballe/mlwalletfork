@@ -26,7 +26,7 @@ class Scrn extends React.Component {
 
     state = {
         data:null,
-        username:this.props.username,
+        username:'',//this.props.username,
         password:'',
         show_password:false,
         processing:false
