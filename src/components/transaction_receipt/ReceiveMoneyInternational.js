@@ -23,7 +23,7 @@ class ReceiveMoneyInternational extends React.Component {
             <h3>${sender}</h3>
 
             <h4 style="color:#6A6A6A;line-height:0">Partner</h4>
-            <h3 style="margin-top:0">PHP ${partner}</h3>
+            <h3 style="margin-top:0">${partner}</h3>
 
             <h4 style="color:#6A6A6A;line-height:0">Amount</h4>
             <h3 style="margin-top:0">${currency} ${amount}</h3>
@@ -39,7 +39,7 @@ class ReceiveMoneyInternational extends React.Component {
                             <Text mute md>You have successfully received {currency} {Func.formatToRealCurrency(amount)} from {sender}.</Text>
                             <Spacer lg />
                             <Text mute>Your new balance is</Text>
-                            <Text xl b>Php {Func.formatToRealCurrency(balance)}</Text>
+                            <Text xl b>{Consts.currency.PH} {Func.formatToRealCurrency(balance)}</Text>
                         </>
                     )
                 }

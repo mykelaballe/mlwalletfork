@@ -2,7 +2,7 @@ import React from 'react'
 import {View, StyleSheet, Dimensions, TouchableOpacity, ScrollView} from 'react-native'
 import {Screen, Footer, Headline, FlatList, Text, Row, Spacer, Button, TextInput, LoadPromo} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_, Func, Say} from '../utils'
+import {_, Consts, Func, Say} from '../utils'
 import {API} from '../services'
 
 const {width} = Dimensions.get('window')
@@ -15,7 +15,7 @@ const ItemRegularUI = props => {
     return (
         <View style={style.itemRegular}>
             <TouchableOpacity onPress={() => props.onPress(props.index)} style={[style.itemInnerRegular,{backgroundColor:bgColor}]}>
-                <Text center color={txtColor}>PHP</Text>
+                <Text center color={txtColor}>{Consts.currency.PH}</Text>
                 <Text center lg color={txtColor}>{props.data.amount}</Text>
             </TouchableOpacity>
         </View>
@@ -201,7 +201,7 @@ class LoadOptions extends React.Component {
                     <Spacer />
 
                     <TextInput
-                        label='Load Amount (PHP)'
+                        label={`Load Amount (${Consts.currency.PH})`}
                         value={amount}
                         onChangeText={this.handleChangeAmount}
                         onSubmitEditing={this.handleSubmitAmount}

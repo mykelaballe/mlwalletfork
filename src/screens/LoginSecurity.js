@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Text, Row, TopBuffer, Switch, HR} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_, Say} from '../utils'
+import {_, Say, Func} from '../utils'
 import {API} from '../services'
 import Icon from 'react-native-vector-icons/Ionicons'
 
@@ -14,36 +14,44 @@ class Scrn extends React.Component {
         title:'Login and Security'
     }
 
+    state = {
+        processing:false
+    }
+
     handlePressChangePassword = () => this.props.navigation.navigate('ChangePassword')
 
     handlePressChangePIN = () => this.props.navigation.navigate('ChangePIN')
 
     handleToggleTouchID = async () => {
         let {isUsingTouchID, setIsUsingTouchID, user} = this.props
+        const {processing} = this.state
         
-        try {
-            if(isUsingTouchID) {
-                setIsUsingTouchID(false)
-                Say.ok("You've successfully deactivated your Touch ID")
+        if(!processing) {
+            try {
+
+                let res = await Func.validateTouchID()
+    
+                if(res) {
+                    this.setState({processing:true})
+
+                    setIsUsingTouchID(!isUsingTouchID)
+                    Say.ok(`You've successfully ${isUsingTouchID ? 'deactivated' : 'activated'} your Touch ID`)
+        
+                    await API.updateTouchIDStatus({walletno:user.walletno,flag:isUsingTouchID ? 0 : 1})
+                }
             }
-            else {
-                setIsUsingTouchID(true)
-                Say.ok("You've successfully activated your Touch ID")
+            catch(err) {
+                Say.err(err)
             }
 
-            API.updateTouchIDStatus({
-               walletno:user.walletno,
-               flag:isUsingTouchID ? 0 : 1
-            })
-        }
-        catch(err) {
-            Say.err(err)
+            this.setState({processing:false})
         }
     }
 
     render() {
 
         const {isUsingTouchID} = this.props
+        const {processing} = this.state
 
         return (
             <View>
@@ -73,7 +81,7 @@ class Scrn extends React.Component {
                 <TouchableOpacity onPress={this.handleToggleTouchID} style={style.item}>
                     <Row bw>
                         <Text md mute>Touch ID</Text>
-                        <Switch value={isUsingTouchID} onValueChange={this.handleToggleTouchID} />
+                        <Switch value={isUsingTouchID} onValueChange={this.handleToggleTouchID} loading={processing} />
                     </Row>
                     <HR m={Metrics.rg} />
                 </TouchableOpacity>

@@ -106,7 +106,7 @@ class Scrn extends React.Component {
                     />
 
                     <TextInput
-                        label='Amount (PHP)'
+                        label={`Amount (${Consts.currency.PH})`}
                         value={amount}
                         onChangeText={this.handleChangeAmount}
                         keyboardType='numeric'
@@ -115,12 +115,12 @@ class Scrn extends React.Component {
                 
                 <Footer>
                     <Text mute>Charge</Text>
-                    <Text md>PHP {Func.formatToRealCurrency(charges)}</Text>
+                    <Text md>{Consts.currency.PH} {Func.formatToRealCurrency(charges)}</Text>
 
                     <Spacer />
 
                     <Text mute>Total</Text>
-                    <Text md>PHP {Func.formatToRealCurrency(total)}</Text>
+                    <Text md>{Consts.currency.PH} {Func.formatToRealCurrency(total)}</Text>
 
                     <Spacer />
                     

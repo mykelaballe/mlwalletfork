@@ -124,7 +124,7 @@ class Scrn extends React.Component {
 
                     <TextInput
                         ref='amount'
-                        label='Amount (PHP)'
+                        label={`Amount (${Consts.currency.PH})`}
                         value={amount}
                         onChangeText={this.handleChangeAmount}
                         onSubmitEditing={this.handleFocusEmail}

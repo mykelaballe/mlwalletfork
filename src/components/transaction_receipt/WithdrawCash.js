@@ -27,7 +27,7 @@ class WithdrawCash extends React.Component {
         this.props.onExport(
             Func.buildReceiptBody({
                 'Full Legal Name': `${user.fname} ${user.lname}`,
-                Amount: `PHP ${amount}`
+                Amount: `${Consts.currency.PH} ${amount}`
             })
         )
 
@@ -41,7 +41,7 @@ class WithdrawCash extends React.Component {
                             <Text mute md>Your transaction is pending. Go to the nearest M Lhuillier branch to complete your withdraw</Text>
                             <Spacer lg />
                             <Text mute>Your new balance is</Text>
-                            <Text xl b>Php {Func.formatToRealCurrency(balance)}</Text>
+                            <Text xl b>{Consts.currency.PH} {Func.formatToRealCurrency(balance)}</Text>
                         </>
                     )
                 }
@@ -137,7 +137,7 @@ class WithdrawCash extends React.Component {
                         <Spacer />
 
                         <Text sm mute>Amount</Text>
-                        <Text>PHP {amount}</Text>
+                        <Text>{Consts.currency.PH} {amount}</Text>
 
                         <Spacer />
 

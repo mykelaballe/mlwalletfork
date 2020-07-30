@@ -19,6 +19,7 @@ import HeaderRight from './HeaderRight'
 import Headline from './Headline'
 import HR from './HR'
 import Icon from './Icon'
+import IconButton from './IconButton'
 import Initial from './Initial'
 import ListItem from './ListItem'
 import ListMenuItem from './ListMenuItem'
@@ -78,6 +79,7 @@ export {
     Headline,
     HR,
     Icon,
+    IconButton,
     Initial,
     ListItem,
     ListMenuItem,

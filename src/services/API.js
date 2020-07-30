@@ -35,7 +35,10 @@ export default {
 
     loginByTouchID: async () => await Fetch.get(`login/touchid?deviceId=${Consts.deviceId}`),
 
-    updateTouchIDStatus: async payload => await Fetch.putc('update/touchid',payload),
+    updateTouchIDStatus: async payload => await Fetch.putc('update/touchid',{
+        ...payload,
+        deviceid:Consts.deviceId
+    }),
 
     register: async payload => {
         return await Fetch.post('wallet/registration',{

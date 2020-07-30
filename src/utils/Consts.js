@@ -44,6 +44,9 @@ export default {
 	country: {
 		PH:'Philippines'
 	},
+	currency: {
+		PH:'PhP'
+	},
 	walletNoMask:'[0000] [0000] [0000] [00]',
 	mobilePrefixPH:'+63',
 	mobileMaskPH:'+63 [000] [000] [0000]',

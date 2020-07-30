@@ -100,7 +100,7 @@ class Scrn extends React.Component {
 
                     <TextInput
                         ref='amount'
-                        label='Amount (PHP)'
+                        label={`Amount (${Consts.currency.PH})`}
                         value={amount}
                         onChangeText={this.handleChangeAmount}
                         onSubmitEditing={this.handleFocusNotes}
@@ -122,7 +122,7 @@ class Scrn extends React.Component {
                     <Row bw>
                         <View>
                             <Text mute>Fixed Charge</Text>
-                            <Text md>PHP {Func.formatToRealCurrency(charges)}</Text>
+                            <Text md>{Consts.currency.PH} {Func.formatToRealCurrency(charges)}</Text>
                         </View>
 
                         {/*<UsePointsCheckbox onChange={this.handleChangePoints} />*/}
@@ -131,7 +131,7 @@ class Scrn extends React.Component {
                     <Spacer />
 
                     <Text mute>Total</Text>
-                    <Text md>PHP {Func.formatToRealCurrency(total)}</Text>
+                    <Text md>{Consts.currency.PH} {Func.formatToRealCurrency(total)}</Text>
 
                     <Spacer />
                     

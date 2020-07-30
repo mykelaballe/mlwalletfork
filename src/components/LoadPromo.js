@@ -2,6 +2,7 @@ import React from 'react'
 import {View, StyleSheet} from 'react-native'
 import {Colors, Metrics} from '../themes'
 import {CollapsibleItem, Text} from './'
+import {Consts} from '../utils'
 
 class LoadPromo extends React.Component {
 
@@ -23,7 +24,7 @@ class LoadPromo extends React.Component {
 					data={data}
 					leftContent={
 						<View style={[style.circle,{borderColor:bgColor}]}>
-							<Text center xs color={txtColor}>PHP</Text>
+							<Text center xs color={txtColor}>{Consts.currency.PH}</Text>
 							<Text center md color={txtColor}>{data.Amount}</Text>
 						</View>
 					}

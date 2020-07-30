@@ -45,7 +45,7 @@ export default props => {
 
             <View style={style.bigBanner}>
                 <Text center light>Transaction No.</Text>
-                <Text b lg center light>{Func.formatKPTN(tcn)}</Text>
+                <Text b md center light>{Func.formatKPTN(tcn)}</Text>
             </View>
         </>
     )

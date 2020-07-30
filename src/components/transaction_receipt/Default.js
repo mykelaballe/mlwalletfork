@@ -3,7 +3,7 @@ import {withNavigation} from 'react-navigation'
 import {Header} from './'
 import {Screen, Footer, Text, Spacer, Button, ScrollFix} from '../'
 import {Metrics} from '../../themes'
-import {_, Func, Say} from '../../utils'
+import {_, Consts, Func, Say} from '../../utils'
 
 class Default extends React.Component {
 
@@ -23,7 +23,7 @@ class Default extends React.Component {
             <h3>${Func.formatWalletNo(walletno)}</h3>
 
             <h4 style="color:#6A6A6A;line-height:0">Total</h4>
-            <h3 style="margin-top:0">PHP ${total}</h3>
+            <h3 style="margin-top:0">${Consts.currency.PH} ${total}</h3>
         `)
 
         if(_from != 'history') {
@@ -34,7 +34,7 @@ class Default extends React.Component {
                     customMessage:(
                         <>
                             <Text mute>Your new balance is</Text>
-                            <Text xl b>Php {Func.formatToCurrency(balance)}</Text>
+                            <Text xl b>{Consts.currency.PH} {Func.formatToCurrency(balance)}</Text>
                         </>
                     )
                 }
@@ -64,7 +64,7 @@ class Default extends React.Component {
                         <Spacer />
 
                         <Text sm mute>Total</Text>
-                        <Text>PHP {total}</Text>
+                        <Text>{Consts.currency.PH} {total}</Text>
 
                         <Spacer />
 

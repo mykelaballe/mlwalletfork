@@ -2,6 +2,7 @@ import {Linking} from 'react-native'
 import Consts from './Consts'
 import _ from './Lang'
 import Say from './Say'
+import Colors from '../themes/Colors'
 
 const moment = require('moment')
 
@@ -10,6 +11,8 @@ import Validator from './Validator'
 
 import {request, PERMISSIONS, RESULTS} from 'react-native-permissions'
 import Geolocation from 'react-native-geolocation-service'
+
+import TouchID from 'react-native-touch-id'
 
 function isCheckLocation(action) {
     if(Consts.checkLocation) {
@@ -188,6 +191,32 @@ const getAge = birthdate => {
     return duration.asYears()
 }
 
+const validateTouchID = () => {
+    const TOUCHID_IGNORED_ERRORS = [
+        'USER_CANCELED',
+        'SYSTEM_CANCELED'
+    ]
+    
+    //config is optional to be passed in on Android
+    const touchIDConfig = {
+        unifiedErrors:true,
+        title: 'Fingerprint', // Android
+        imageColor: Colors.dark, // Android,
+        imageErrorColor: Colors.danger, //Android
+        fallbackLabel: "Show Passcode" // iOS (if empty, then label is hidden)
+    }
+
+    return new Promise((resolve, reject) => {
+        TouchID.authenticate('Place your finger on the fingerprint scanner to verify your identity', touchIDConfig)
+        .then(async success => {
+            resolve(true)
+        })
+        .catch(err => {
+            if(err && TOUCHID_IGNORED_ERRORS.indexOf(err.code) < 0) Say.some(err.message)
+        })
+    })
+}
+
 export default {
     ...Formatter,
     ...Validator,
@@ -199,5 +228,6 @@ export default {
     getLocation,
     getDistance,
     getNearestBranches,
-    getAge
+    getAge,
+    validateTouchID
 }

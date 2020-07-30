@@ -22,7 +22,7 @@ class BuyLoad extends React.Component {
             Func.buildReceiptBody({
                 'Mobile Number': Func.formatToPHMobileNumberFull(contact_no),
                 'Promo Code': promo ? promo.promoCode : false,
-                Amount: `PHP ${amount}`
+                Amount: `${Consts.currency.PH} ${amount}`
             })
         )
 
@@ -33,10 +33,10 @@ class BuyLoad extends React.Component {
                 {
                     customMessage:(
                         <>
-                            <Text mute md>You successfully sent load worth PHP {Func.formatToCurrency(amount)} to {Func.formatToPHMobileNumberFull(contact_no)}</Text>
+                            <Text mute md>You successfully sent load worth {Consts.currency.PH} {Func.formatToCurrency(amount)} to {Func.formatToPHMobileNumberFull(contact_no)}</Text>
                             <Spacer lg />
                             <Text mute>Your new balance is</Text>
-                            <Text xl b>Php {Func.formatToRealCurrency(balance)}</Text>
+                            <Text xl b>{Consts.currency.PH} {Func.formatToRealCurrency(balance)}</Text>
                         </>
                     )
                 }
@@ -76,7 +76,7 @@ class BuyLoad extends React.Component {
                         <Spacer />
 
                         <Text sm mute>Amount</Text>
-                        <Text>PHP {amount}</Text>
+                        <Text>{Consts.currency.PH} {amount}</Text>
 
                         <Spacer />
 

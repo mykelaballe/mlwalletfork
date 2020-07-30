@@ -3,7 +3,7 @@ import {View, StyleSheet, InteractionManager} from 'react-native'
 import {connect} from 'react-redux'
 import {Screen, Text, Row, Spacer, FlatList, Bullet, ScrollFix} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_} from '../utils'
+import {_, Consts} from '../utils'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 class Scrn extends React.Component {
@@ -33,11 +33,11 @@ class Scrn extends React.Component {
                 {
                     feature:'Add Money',
                     semi_verified:{
-                        value:'PHP 40,000'
+                        value:`${Consts.currency.PH} 40,000`
                     },
                     verified:{
-                        value:'PHP 200,000',
-                        note:'PHP 50,000 limit per transaction'
+                        value:`${Consts.currency.PH} 200,000`,
+                        note:`${Consts.currency.PH} 50,000 limit per transaction`
                     },
                     sme:{
                         value:''
@@ -46,11 +46,11 @@ class Scrn extends React.Component {
                 {
                     feature:'Receive Money',
                     semi_verified:{
-                        value:'PHP 40,000'
+                        value:`${Consts.currency.PH} 40,000`
                     },
                     verified:{
-                        value:'PHP 200,000',
-                        note:'PHP 50,000 limit per transaction'
+                        value:`${Consts.currency.PH} 200,000`,
+                        note:`${Consts.currency.PH} 50,000 limit per transaction`
                     },
                     sme:{
                         value:''
@@ -66,11 +66,11 @@ class Scrn extends React.Component {
                 {
                     feature:'Send Money',
                     semi_verified:{
-                        value:'PHP 10,000 Monthly'
+                        value:`${Consts.currency.PH} 10,000 Monthly`
                     },
                     verified:{
-                        value:'PHP 200,000',
-                        note:'PHP 50,000 limit per transaction'
+                        value:`${Consts.currency.PH} 200,000`,
+                        note:`${Consts.currency.PH} 50,000 limit per transaction`
                     },
                     sme:{
                         value:'Coming Soon'
@@ -79,11 +79,11 @@ class Scrn extends React.Component {
                 {
                     feature:'Withdraw Money',
                     semi_verified:{
-                        value:'PHP 5,000 per transaction, per day'
+                        value:`${Consts.currency.PH} 5,000 per transaction, per day`
                     },
                     verified:{
-                        value:'PHP 200,000',
-                        note:'PHP 40,000 limit per transaction, per day'
+                        value:`${Consts.currency.PH} 200,000`,
+                        note:`${Consts.currency.PH} 40,000 limit per transaction, per day`
                     },
                     sme:{
                         value:''
@@ -92,11 +92,11 @@ class Scrn extends React.Component {
                 {
                     feature:'Pay Bills',
                     semi_verified:{
-                        value:'PHP 10,000 Monthly'
+                        value:`${Consts.currency.PH} 10,000 Monthly`
                     },
                     verified:{
-                        value:'PHP 200,000',
-                        note:'PHP 50,000 limit per transaction'
+                        value:`${Consts.currency.PH} 200,000`,
+                        note:`${Consts.currency.PH} 50,000 limit per transaction`
                     },
                     sme:{
                         value:''
@@ -105,11 +105,10 @@ class Scrn extends React.Component {
                 {
                     feature:'Buy eLoad',
                     semi_verified:{
-                        value:'PHP 750 Monthly'
+                        value:`${Consts.currency.PH} 750 Monthly`
                     },
                     verified:{
-                        value:'PHP 1,500 monthly',
-                        //note:'PHP 50,000 limit per transaction'
+                        value:`${Consts.currency.PH} 1,500 monthly`
                     },
                     sme:{
                         value:''
@@ -118,10 +117,10 @@ class Scrn extends React.Component {
                 {
                     feature:'Buy Items',
                     semi_verified:{
-                        value:'PHP 10,000 Monthly'
+                        value:`${Consts.currency.PH} 10,000 Monthly`
                     },
                     verified:{
-                        value:'PHP 200,000',
+                        value:`${Consts.currency.PH} 200,000`,
                         note:'Custom limit'
                     },
                     sme:{

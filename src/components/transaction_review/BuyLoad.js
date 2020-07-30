@@ -1,6 +1,6 @@
 import React from 'react'
 import {ScrollFix, Text, Spacer} from '../'
-import {Func} from '../../utils'
+import {Consts, Func} from '../../utils'
 import {Metrics} from '../../themes'
 
 export default props => {
@@ -10,7 +10,7 @@ export default props => {
         <ScrollFix style={{padding:Metrics.lg}}>
             <Text mute center>You are about to load</Text>
             
-            <Text center xl b>PHP {Func.formatToRealCurrency(amount)}</Text>
+            <Text center xl b>{Consts.currency.PH} {Func.formatToRealCurrency(amount)}</Text>
 
             <Spacer lg />
 
@@ -29,7 +29,7 @@ export default props => {
             <Spacer />
 
             <Text mute sm>Amount</Text>
-            <Text md>PHP {Func.formatToRealCurrency(amount)}</Text>
+            <Text md>{Consts.currency.PH} {Func.formatToRealCurrency(amount)}</Text>
         </ScrollFix>
     )
 }

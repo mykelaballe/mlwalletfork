@@ -40,7 +40,7 @@ class ReceiveMoneyDomestic extends React.Component {
                             <Text mute md>You have successfully received {currency} {Func.formatToRealCurrency(receivedAmount)} from {Func.cleanName(`${sender}`)}.</Text>
                             <Spacer lg />
                             <Text mute>Your new balance is</Text>
-                            <Text xl b>Php {Func.formatToRealCurrency(balance)}</Text>
+                            <Text xl b>{Consts.currency.PH} {Func.formatToRealCurrency(balance)}</Text>
                         </>
                     )
                 }

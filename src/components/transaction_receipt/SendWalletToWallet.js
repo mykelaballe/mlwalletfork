@@ -40,10 +40,10 @@ class SendWalletToWallet extends React.Component {
                 {
                     customMessage:(
                         <>
-                            <Text mute md>You successfully sent money worth PHP {amount} to {Func.formatWalletNo(walletno)}</Text>
+                            <Text mute md>You successfully sent money worth {Consts.currency.PH} {amount} to {Func.formatWalletNo(walletno)}</Text>
                             <Spacer lg />
                             <Text mute>Your new balance is</Text>
-                            <Text xl b>Php {Func.formatToRealCurrency(balance)}</Text>
+                            <Text xl b>{Consts.currency.PH} {Func.formatToRealCurrency(balance)}</Text>
                         </>
                     )
                 }
@@ -79,7 +79,7 @@ class SendWalletToWallet extends React.Component {
                         <Spacer />
 
                         <Text sm mute>Amount</Text>
-                        <Text>PHP {amount}</Text>
+                        <Text>{Consts.currency.PH} {amount}</Text>
 
                         <Spacer />
 
@@ -91,14 +91,14 @@ class SendWalletToWallet extends React.Component {
                         {user.walletno != walletno &&
                         <>
                             <Text sm mute>Charges</Text>
-                            <Text>PHP {charges}</Text>
+                            <Text>{Consts.currency.PH} {charges}</Text>
 
                             <Spacer />
                         </>
                         }
 
                         <Text sm mute>Total</Text>
-                        <Text>PHP {total}</Text>
+                        <Text>{Consts.currency.PH} {total}</Text>
 
                         <Spacer />
 

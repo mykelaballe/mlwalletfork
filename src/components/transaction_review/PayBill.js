@@ -1,6 +1,6 @@
 import React from 'react'
 import {ScrollFix, Text, Spacer} from '../'
-import {Func} from '../../utils'
+import {Consts, Func} from '../../utils'
 import {Metrics} from '../../themes'
 
 export default props => {
@@ -23,26 +23,26 @@ export default props => {
             <Spacer />
 
             <Text mute sm>Amount</Text>
-            <Text md>PHP {Func.formatToRealCurrency(amount)}</Text>
+            <Text md>{Consts.currency.PH} {Func.formatToRealCurrency(amount)}</Text>
 
             {Func.formatToCurrency(fixed_charge) > 0 &&
             <>
                 <Spacer />
 
                 <Text mute sm>Fixed Charge</Text>
-                <Text md>PHP {Func.formatToRealCurrency(fixed_charge)}</Text>
+                <Text md>{Consts.currency.PH} {Func.formatToRealCurrency(fixed_charge)}</Text>
             </>
             }
 
             <Spacer />
 
             <Text mute sm>Convenience Fee</Text>
-            <Text md>PHP {Func.formatToRealCurrency(convenience_fee)}</Text>
+            <Text md>{Consts.currency.PH} {Func.formatToRealCurrency(convenience_fee)}</Text>
 
             <Spacer />
 
             <Text mute sm>Total</Text>
-            <Text md>PHP {Func.formatToRealCurrency(total)}</Text>
+            <Text md>{Consts.currency.PH} {Func.formatToRealCurrency(total)}</Text>
         </ScrollFix>
     )
 }

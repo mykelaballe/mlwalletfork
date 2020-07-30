@@ -20,7 +20,7 @@ class AddMoney extends React.Component {
 
         this.props.onExport(`
             <h4 style="color:#6A6A6A;line-height:0">Total</h4>
-            <h3 style="margin-top:0">PHP ${total}</h3>
+            <h3 style="margin-top:0">${Consts.currency.PH} ${total}</h3>
         `)
 
         if(_from != 'history') {
@@ -31,7 +31,7 @@ class AddMoney extends React.Component {
                     customMessage:(
                         <>
                             <Text mute>Your new balance is</Text>
-                            <Text xl b>Php {Func.formatToCurrency(balance)}</Text>
+                            <Text xl b>{Consts.currency.PH} {Func.formatToCurrency(balance)}</Text>
                         </>
                     )
                 }
@@ -56,7 +56,7 @@ class AddMoney extends React.Component {
 
                     <ScrollFix style={{padding:Metrics.lg}}>
                         <Text sm mute>Total</Text>
-                        <Text>PHP {total}</Text>
+                        <Text>{Consts.currency.PH} {total}</Text>
 
                         <Spacer />
 

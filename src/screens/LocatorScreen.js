@@ -110,6 +110,7 @@ class Scrn extends React.Component {
                 style={style.map}
                 showsUserLocation
                 clusterColor={Colors.brand}
+                clusterTextColor={Colors.brand}
                 animationEnabled={false}
                 radius={width * .15}
                 extent={300}

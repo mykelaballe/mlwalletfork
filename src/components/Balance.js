@@ -5,7 +5,7 @@ import {withNavigation} from 'react-navigation'
 import {Row, Text, Spacer, ButtonText} from './'
 import {Colors, Metrics} from '../themes'
 import Icon from 'react-native-vector-icons/Entypo'
-import {Func} from '../utils'
+import {Consts, Func} from '../utils'
 
 class Balance extends React.Component {
 
@@ -26,7 +26,7 @@ class Balance extends React.Component {
             <View style={style.jumbo}>
                 <Text center light md>Available Balance</Text>
                 <Row>
-                    <Text rg light>Php</Text>
+                    <Text rg light>{Consts.currency.PH}</Text>
                     <Spacer h xs />
                     <Text b h3 light>{show ? Func.formatToRealCurrency(balance) : '******.**'}</Text>
                     <Spacer h sm />

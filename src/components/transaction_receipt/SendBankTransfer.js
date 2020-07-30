@@ -26,10 +26,10 @@ class SendBankTransfer extends React.Component {
                 "Partner's Name": bank.bankname,
                 'Account Name': account_name,
                 'Account No.': account_no,
-                Amount: `PHP ${amount}`,
-                'Fixed Charge': `PHP ${fixed_charge}`,
-                'Convenience Fee': `PHP ${convenience_fee}`,
-                Amount: `PHP ${total}`
+                Amount: `${Consts.currency.PH} ${amount}`,
+                'Fixed Charge': `${Consts.currency.PH} ${fixed_charge}`,
+                'Convenience Fee': `${Consts.currency.PH} ${convenience_fee}`,
+                Amount: `${Consts.currency.PH} ${total}`
             })
         )
 
@@ -43,7 +43,7 @@ class SendBankTransfer extends React.Component {
                             <Text mute md>You successfully transferred money to bank. Expect 2-3 banking days for your new balance to reflect.</Text>
                             <Spacer lg />
                             <Text mute>Your new balance is</Text>
-                            <Text xl b>Php {Func.formatToRealCurrency(balance)}</Text>
+                            <Text xl b>{Consts.currency.PH} {Func.formatToRealCurrency(balance)}</Text>
                         </>
                     )
                 }
@@ -80,22 +80,22 @@ class SendBankTransfer extends React.Component {
                         <Spacer />
 
                         <Text sm mute>Amount</Text>
-                        <Text>PHP {amount}</Text>
+                        <Text>{Consts.currency.PH} {amount}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Fixed Charge</Text>
-                        <Text>PHP {fixed_charge}</Text>
+                        <Text>{Consts.currency.PH} {fixed_charge}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Convenience Fee</Text>
-                        <Text>PHP {convenience_fee}</Text>
+                        <Text>{Consts.currency.PH} {convenience_fee}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Total</Text>
-                        <Text>PHP {Func.formatToRealCurrency(parseFloat(amount) + parseFloat(fixed_charge) + parseFloat(convenience_fee))}</Text>
+                        <Text>{Consts.currency.PH} {Func.formatToRealCurrency(parseFloat(amount) + parseFloat(fixed_charge) + parseFloat(convenience_fee))}</Text>
 
                         <Spacer />
 

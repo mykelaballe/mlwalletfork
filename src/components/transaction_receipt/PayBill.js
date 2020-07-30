@@ -40,10 +40,10 @@ class PayBill extends React.Component {
                 {
                     customMessage:(
                         <>
-                            <Text mute md>You successfully transferred money to bank. Expect 2-3 banking days for your new balance to reflect.</Text>
+                            <Text mute md>You've processed your billspayment transaction.</Text>
                             <Spacer lg />
                             <Text mute>Your new balance is</Text>
-                            <Text xl b>Php {Func.formatToRealCurrency(balance)}</Text>
+                            <Text xl b>{Consts.currency.PH} {Func.formatToRealCurrency(balance)}</Text>
                         </>
                     )
                 }
@@ -83,26 +83,26 @@ class PayBill extends React.Component {
                         <Spacer />
 
                         <Text sm mute>Amount</Text>
-                        <Text>PHP {amount}</Text>
+                        <Text>{Consts.currency.PH} {amount}</Text>
 
                         {Func.formatToCurrency(fixed_charge) > 0 &&
                         <>
                             <Spacer />
 
                             <Text sm mute>Fixed Charge</Text>
-                            <Text>PHP {fixed_charge}</Text>
+                            <Text>{Consts.currency.PH} {fixed_charge}</Text>
                         </>
                         }
 
                         <Spacer />
 
                         <Text sm mute>Convenience Fee</Text>
-                        <Text>PHP {convenience_fee}</Text>
+                        <Text>{Consts.currency.PH} {convenience_fee}</Text>
 
                         <Spacer />
 
                         <Text sm mute>Total</Text>
-                        <Text>PHP {total}</Text>
+                        <Text>{Consts.currency.PH} {total}</Text>
 
                         <Spacer />
 

@@ -6,21 +6,6 @@ import {Text, Button, ButtonText, Spacer, TextInput, Row, Icon, Screen, MLBanner
 import {Colors, Metrics} from '../themes'
 import {_, Say, Consts, Func} from '../utils'
 import {API} from '../services'
-import TouchID from 'react-native-touch-id'
-
-const TOUCHID_IGNORED_ERRORS = [
-    'USER_CANCELED',
-    'SYSTEM_CANCELED'
-]
-
-//config is optional to be passed in on Android
-const touchIDConfig = {
-    unifiedErrors:true,
-    title: 'Fingerprint Login', // Android
-    imageColor: Colors.dark, // Android,
-    imageErrorColor: Colors.danger, //Android
-    fallbackLabel: "Show Passcode" // iOS (if empty, then label is hidden)
-}
 
 class Scrn extends React.Component {
 
@@ -42,7 +27,7 @@ class Scrn extends React.Component {
 
     handleLogin = () => this.login({username: this.state.username, password: this.state.password})
 
-    handleTouchID = () => {
+    handleTouchID_ = () => {
         const {isUsingTouchID} = this.props
 
         if(isUsingTouchID) {
@@ -68,6 +53,29 @@ class Scrn extends React.Component {
         }
         else {
             this.props.navigation.navigate('TouchID')
+        }
+    }
+
+    handleTouchID = async () => {
+        let res1 = await Func.validateTouchID()
+
+        if(res1) {
+            try {
+                let res2 = await API.loginByTouchID()
+
+                if(!res2.error) {
+                    this.login({
+                        username:res2.data.username,
+                        password:res2.data.password
+                    })
+                }
+                else {
+                    Say.warn(res2.message)
+                }
+            }
+            catch(err) {
+                Say.err(err)
+            }
         }
     }
 
@@ -158,7 +166,7 @@ class Scrn extends React.Component {
                     }
                     else {
                         this.props.setUser(res.data)
-                        this.props.setIsUsingTouchID(res.data.fingerprintstat === 1)
+                        //this.props.setIsUsingTouchID(res.data.fingerprintstat === 1)
                         this.props.rememberLoginCredentials({username})
                         this.props.login()
                     }
@@ -292,7 +300,7 @@ class Scrn extends React.Component {
                         />
 
                         <View style={{alignItems:'flex-end'}}>
-                            <ButtonText t={`${_('4')}?`} onPress={this.handleGoToForgotPassword} />
+                            <ButtonText t='Forgot password?' onPress={this.handleGoToForgotPassword} />
                         </View>
 
                         <Spacer />
@@ -303,23 +311,23 @@ class Scrn extends React.Component {
 
                         <Row c>
                             <Text>{_('7')}</Text>
-                            <ButtonText t={_('3')} onPress={this.handleGoToSignUp} />
+                            <ButtonText t={`${_('3')}.`} onPress={this.handleGoToSignUp} />
                         </Row>
                     </View>
 
                     <Spacer sm />
 
-                    <Row c>
+                    {/*<Row c>
                         <Icon name='fingerprint' size={Metrics.icon.rg} />
                         <ButtonText t={isUsingTouchID ? _('46') : _('45')} onPress={this.handleTouchID} />
-                    </Row>
+                    </Row>*/}
 
-                    {/*isUsingTouchID &&
+                    {isUsingTouchID &&
                     <Row c>
                         <Icon name='fingerprint' size={Metrics.icon.rg} />
                         <ButtonText t={_('46')} onPress={this.handleTouchID} />
                     </Row>
-                    */}
+                    }
 
                     <Spacer md />
                 </Screen>
