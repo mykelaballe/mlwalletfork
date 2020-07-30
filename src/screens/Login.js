@@ -99,7 +99,7 @@ class Scrn extends React.Component {
                 
                 if(res.error) {
                     if(res.message == 'inactive') {
-                        Say.warn(`Your account has been deactivated indefinitely. Please contact Customer Care for more information.\n\nGLOBE: 09178712973`)
+                        Say.warn(`Your account has been deactivated. Please contact Customer Care for more information.\n\nGLOBE: 09178712973`)
                     } 
                     else if([Consts.error.atl1, Consts.error.atl2, 'reach_maximum_attempts', Consts.error.blk1d].indexOf(res.message) >= 0) {
                         Say.attemptLeft(res.message)
