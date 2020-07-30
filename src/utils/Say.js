@@ -84,8 +84,8 @@ const attemptLeft = (error,options = {}) => {
         warn(
             `Your account will be blocked for 24 hours. Please contact our Customer Care for assistance.
             
-            Globe  :0917-871-2973
-            Smart  :0947-999-0337`,
+            Globe  :${Consts.hotline2}
+            Smart  :${Consts.hotline1}`,
             null,
             null,
             true
