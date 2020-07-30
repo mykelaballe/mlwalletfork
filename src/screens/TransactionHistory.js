@@ -1,42 +1,19 @@
 import React from 'react'
 import {View, StyleSheet, InteractionManager, TouchableOpacity, Dimensions} from 'react-native'
 import {connect} from 'react-redux'
-import {Provider, FlatList, Text, Row, Modal, Ripple, ScrollFix, HR, Spacer, Button, ButtonText, StaticInput, Picker, MonthPicker, DayPicker, YearPicker} from '../components'
+import {TransactionHistoryItem, Provider, FlatList, Text, Row, Modal, Ripple, ScrollFix, HR, Spacer, Button, ButtonText, StaticInput, Picker, MonthPicker, DayPicker, YearPicker} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Consts, Say, Func} from '../utils'
 import {API} from '../services'
 import Icon from 'react-native-vector-icons/AntDesign'
 
-const ITEM_HEIGHT = 90
+const ITEM_HEIGHT = 110
 
 const {height} = Dimensions.get('window')
 const MAX_LIST_HEIGHT = parseInt(height / 3)
 const moment = require('moment')
 const CURRENT_YEAR = parseInt(moment().format('YYYY'))
 const MIN_YEAR = CURRENT_YEAR - 12
-
-const ItemUI = ({data, onPress}) => (
-    <>
-        <Row bw style={style.item}>
-            <View>
-                {((data.transtype === Consts.tcn.skp.code || data.transtype === Consts.tcn.wdc.code) && (data.isclaimed == 0 && data.iscancelled == 0)) && <Text mute>PENDING</Text>}
-                {((data.transtype === Consts.tcn.skp.code || data.transtype === Consts.tcn.wdc.code) && data.iscancelled > 0) && <Text mute>CANCELLED</Text>}
-                <Text b md>{Consts.tcn[data.transtype] ? Consts.tcn[data.transtype].short_desc : data.transtype}</Text>
-                <Text mute>{moment(data.transdate).format('MM/DD/YYYY')}</Text>
-                {(data.runningbalance != '' && data.runningbalance) && <Text mute>Running Balance: {Func.formatToRealCurrency(data.runningbalance)}</Text>}
-            </View>
-
-            <View>
-                <Text b md right>{Consts.currency.PH} {Func.formatToRealCurrency(data.transtype === Consts.tcn.rmd.code ? data.amount : data.totalamount)}</Text>
-                <TouchableOpacity onPress={() => onPress(data)}>
-                    <Text brand right>View details</Text>
-                </TouchableOpacity>
-            </View>
-        </Row>
-
-        <HR />
-    </>
-)
 
 class Scrn extends React.Component {
 
@@ -146,13 +123,6 @@ class Scrn extends React.Component {
     }
 
     componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
-
-    /*componentDidUpdate = (prevProps, prevState) => {
-        if(prevProps.user.balance != this.props.user.balance) {
-            this.setState({balance:this.props.user.balance})
-            this.handleRefresh()
-        }
-    }*/
 
     getData = async () => {
         const now = moment()
@@ -326,15 +296,11 @@ class Scrn extends React.Component {
 
     handleRefresh = () => this.setState({refreshing:true},this.getData)
 
-    renderItem = ({item}) => {
-        //if(typeof Consts.tcn[item.transtype] === 'undefined') return null
-
-        return (
-            <ScrollFix>
-                <ItemUI data={item} onPress={this.handleViewDetails} />
-            </ScrollFix>
-        )
-    }
+    renderItem = ({item}) => (
+        <ScrollFix>
+            <TransactionHistoryItem data={item} onPress={this.handleViewDetails} />
+        </ScrollFix>
+    )
 
     getItemLayout = (data, index) => {
         return {
@@ -525,6 +491,9 @@ const style = StyleSheet.create({
         padding:Metrics.md
     },
     item: {
+        flexDirection:'row',
+        alignItems:'center',
+        justifyContent:'space-between',
         height:ITEM_HEIGHT,
         paddingHorizontal:Metrics.md,
         paddingVertical:Metrics.md

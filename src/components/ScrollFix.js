@@ -19,6 +19,4 @@ export default props => {
             </View>
         )
     }
-
-    return props.children
 }

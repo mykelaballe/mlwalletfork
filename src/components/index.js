@@ -53,6 +53,7 @@ import Text from './Text'
 import TextInput from './TextInput'
 import TextInputFlat from './TextInputFlat'
 import TopBuffer from './TopBuffer'
+import TransactionHistoryItem from './TransactionHistoryItem'
 import UsePointsCheckbox from './UsePointsCheckbox'
 import View from './View'
 import YearPicker from './YearPicker'
@@ -113,6 +114,7 @@ export {
     TextInput,
     TextInputFlat,
     TopBuffer,
+    TransactionHistoryItem,
     UsePointsCheckbox,
     View,
     YearPicker,
