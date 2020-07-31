@@ -753,7 +753,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 55;
+				CURRENT_PROJECT_VERSION = 56;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 3M956BCSGM;
 				INFOPLIST_FILE = mlwallet/Info.plist;
@@ -766,7 +766,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mlhuillier.cn.mlwallet;
 				PRODUCT_NAME = "New ML Wallet";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development com.mlhuillier.mlwallet";
+				PROVISIONING_PROFILE_SPECIFIER = "Wallet New Development";
 				SWIFT_OBJC_BRIDGING_HEADER = "mlwallet-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -783,7 +783,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 55;
+				CURRENT_PROJECT_VERSION = 56;
 				DEVELOPMENT_TEAM = 3M956BCSGM;
 				INFOPLIST_FILE = mlwallet/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -795,7 +795,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mlhuillier.cn.mlwallet;
 				PRODUCT_NAME = "New ML Wallet";
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.mlhuillier.mlwallet";
+				PROVISIONING_PROFILE_SPECIFIER = "Wallet New Production";
 				SWIFT_OBJC_BRIDGING_HEADER = "mlwallet-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
