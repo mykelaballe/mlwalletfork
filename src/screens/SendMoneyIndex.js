@@ -1,6 +1,6 @@
 import React from 'react'
 import {Screen, Headline, ListMenuItem} from '../components'
-import {_, Consts} from '../utils'
+import {_, Consts, Say} from '../utils'
 
 export default class Scrn extends React.Component {
 
@@ -12,7 +12,7 @@ export default class Scrn extends React.Component {
 
     handleSendToKP = () => this.props.navigation.navigate('SendKPIndex',{type:Consts.tcn.skp.code})
 
-    handleSendToBank = () => this.props.navigation.navigate('SendBankTransferIndex',{type:Consts.tcn.stb.code})
+    handleSendToBank = () => Say.warn(Consts.error.featureNotAvailable)//this.props.navigation.navigate('SendBankTransferIndex',{type:Consts.tcn.stb.code})
 
     render() {
 
