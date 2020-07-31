@@ -8,7 +8,7 @@ export default class Scrn extends React.Component {
         title:'Receive Money'
     }
 
-    handlePressDomestic = () => this.props.navigation.navigate('ReceiveMoneyDomestic',{type:Consts.tcn.rmd.code})
+    handlePressDomestic = () => Say.warn(Consts.error.featureNotAvailable)//this.props.navigation.navigate('ReceiveMoneyDomestic',{type:Consts.tcn.rmd.code})
 
     handlePressInternational = () => Say.warn(Consts.error.featureNotAvailable)//this.props.navigation.navigate('ReceiveMoneyInternational',{type:Consts.tcn.rmi.code})
 

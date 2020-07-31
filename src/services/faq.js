@@ -54,9 +54,9 @@ const answer5 = (
         <Spacer sm />*/}
         {
             [
-                'Visit any of the 2500+ M. Lhuillier branches nationwide for the verification process.',
-                'Present your ML Wallet account number to the branch personnel.',
-                'Add a minimum of PHP 100.00 to your ML Wallet account to complete verification process.'
+                'Log in to your ML Wallet account.',
+                'Click "My Account" and tap "Fully Verify Now".',
+                'Upload one government-issued ID and take a selfie for the Live Photo to complete verification.'
             ]
             .map((item, i) => (
                 <>
