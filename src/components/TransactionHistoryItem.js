@@ -31,11 +31,11 @@ export default class TransactionHistoryItem extends React.Component {
                 </View>
 
                 <View>
-                    <Text style={{fontWeight:'bold',fontSize:Metrics.font.md}}>
+                    <Text style={{fontWeight:'bold',fontSize:Metrics.font.md,textAlign:'right'}}>
                         {Consts.currency.PH} {Func.formatToRealCurrency(amount)}
                     </Text>
                     <TouchableOpacity onPress={() => onPress(data)}>
-                        <Text style={{color:Colors.brand}}>View details</Text>
+                        <Text style={{color:Colors.brand,textAlign:'right'}}>View details</Text>
                     </TouchableOpacity>
                 </View>
             </View>
