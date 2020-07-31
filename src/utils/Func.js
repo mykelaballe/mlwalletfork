@@ -218,6 +218,19 @@ const validateTouchID = () => {
     })
 }
 
+const checkTransAmount = data => {
+    let type = data.transtype || data.type
+    let amount = data.totalamount || data.total
+
+    if([
+        Consts.tcn.rmd.code,
+        'PAYOUT'
+    ].indexOf(type) >= 0
+    ) amount = data.amount
+
+    return amount
+}
+
 export default {
     ...Formatter,
     ...Validator,
@@ -230,5 +243,6 @@ export default {
     getDistance,
     getNearestBranches,
     getAge,
-    validateTouchID
+    validateTouchID,
+    checkTransAmount
 }

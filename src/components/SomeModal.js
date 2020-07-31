@@ -1,6 +1,6 @@
 import React from 'react'
 import {Prompt} from './'
-import {Consts} from '../utils'
+import {_, Consts} from '../utils'
 
 class SomeModal extends React.Component {
  
@@ -35,10 +35,20 @@ class SomeModal extends React.Component {
     }
   
     showModal = options => {
+
+        let message = options.message
+
+        //catch technical errors coming from backend
+        if(options.message) {
+            let matches = options.message.match(/server error|mysql|table|function|column|sql|connection|procedure/gi)
+
+            if(matches) message = _('500')
+        }
+
         this.setState({
             visible:true,
             title:options.title,
-            message:options.message,
+            message,
             moreOptions:options.options
         })
     }

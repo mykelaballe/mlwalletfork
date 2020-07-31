@@ -15,12 +15,7 @@ export default class TransactionHistoryItem extends React.Component {
 
         const {data, onPress} = this.props
 
-        let amount = data.totalamount
-
-        if(
-            data.transtype === Consts.tcn.rmd.code ||
-            data.transtype === 'PAYOUT'
-        ) amount = data.amount
+        let amount = Func.checkTransAmount(data)
 
         return (
         <>
