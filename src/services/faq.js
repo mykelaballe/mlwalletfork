@@ -150,7 +150,7 @@ export default [
         data:[
             {
                 question:'4. What are verification levels?',
-                answer:'Fully verifying your ML Wallet account allows users to increase wallet size, add money, withdraw money and send money limits.'
+                answer:'Fully verifying your ML Wallet account allows you to increase wallet size, add money, withdraw money and send money limits.'
             },
             {
                 question:'5. How can I upgrade from semi-verified user to a fully-verified user?',
