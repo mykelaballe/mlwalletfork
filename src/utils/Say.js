@@ -2,28 +2,35 @@ import SomeModal from '../components/SomeModal'
 import Consts from './Consts'
 import _ from './Lang'
 
-const some = (message, title = null, options = {}) => {
-    if(message && message[message.length - 1] != '.') message = `${message}.`
+const LAST_CHARS = ['.', '!', '?']
 
+const checkLastChar = str => {
+    if(str) {
+        let lastchar = str[str.length - 1]
+        if(LAST_CHARS.indexOf(lastchar) < 0) str = `${str}.`
+    }
+
+    return str
+}
+
+const some = (message, title = null, options = {}) => {
     SomeModal.show({
-        message,
+        message:checkLastChar(message),
         title:title || 'Oops!',
         options
     })
 }
 
 const ok = (message, title = null, options = {}) => {
-    if(message && message[message.length - 1] != '.') message = `${message}.`
-
     SomeModal.show({
-        message,
+        message:checkLastChar(message),
         title:title || 'Success!',
         options
     })
 }
 
 const warn = (message, title = null, options = {}, noPeriod = false) => {
-    if(!noPeriod && message && message[message.length - 1] != '.') message = `${message}.`
+    if(!noPeriod) message = checkLastChar(message)
 
     SomeModal.show({
         message,
@@ -36,37 +43,33 @@ const err = (message, title = null, options = {}) => {
     if(Consts.is_dev) message = message.message || message
     else message = _('500')
 
-    if(message) {
-        /*if(message.toLowerCase() == 'network error') {
+    /*if(message) {
+        if(message.toLowerCase() == 'network error') {
             title = 'Uh-oh!'
             message = Consts.error.network
-        }*/
+        }
     
         if(message[message.length - 1] != '.') message = `${message}.`
-    }
+    }*/
 
     SomeModal.show({
-        message,
+        message:checkLastChar(message),
         title:title || 'Uh-oh!',
         options
     })
 }
 
 const info = (message, title = null, options = {}) => {
-    if(message && message[message.length - 1] != '.') message = `${message}.`
-
     SomeModal.show({
-        message,
+        message:checkLastChar(message),
         title:title || 'Information',
         options
     })
 }
 
 const ask = (message, title = null, options = {}) => {
-    if(message && message[message.length - 1] != '.') message = `${message}.`
-
     SomeModal.show({
-        message,
+        message:checkLastChar(message),
         title:title || 'Are you sure?',
         options: {
             type:'yes_no',
