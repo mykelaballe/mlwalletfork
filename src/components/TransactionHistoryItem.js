@@ -15,6 +15,10 @@ export default class TransactionHistoryItem extends React.Component {
 
         const {data, onPress} = this.props
 
+        let type = Consts.tcn[data.transtype] ? Consts.tcn[data.transtype].short_desc : data.transtype
+
+        if(data.transtype == 'LOAD') type = 'Add Money'
+
         let amount = Func.checkTransAmount(data)
 
         return (
@@ -25,7 +29,7 @@ export default class TransactionHistoryItem extends React.Component {
                     <Text style={{color:Colors.mute}}>PENDING</Text>
                     }
                     {data.iscancelled > 0 && <Text style={{color:Colors.mute}}>CANCELLED</Text>}
-                    <Text style={{fontWeight:'bold',fontSize:Metrics.font.md}}>{Consts.tcn[data.transtype] ? Consts.tcn[data.transtype].short_desc : data.transtype}</Text>
+                    <Text style={{fontWeight:'bold',fontSize:Metrics.font.md}}>{type}</Text>
                     <Text style={{color:Colors.mute}}>{data.transdateformat}</Text>
                     <Text style={{color:Colors.mute}}>Running Balance: {Func.formatToRealCurrency(data.runningbalance)}</Text>
                 </View>
