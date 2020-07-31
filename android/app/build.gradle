@@ -133,7 +133,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.mlhuillier.mlwallet"
+        applicationId "com.mlhuillier.cn.mlwallet"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
