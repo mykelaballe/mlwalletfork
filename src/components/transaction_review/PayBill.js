@@ -25,14 +25,19 @@ export default props => {
             <Text mute sm>Amount</Text>
             <Text md>{Consts.currency.PH} {Func.formatToRealCurrency(amount)}</Text>
 
-            {Func.formatToCurrency(fixed_charge) > 0 &&
+            <Spacer />
+
+            <Text mute sm>Fixed Charge</Text>
+            <Text md>{Consts.currency.PH} {Func.formatToRealCurrency(fixed_charge)}</Text>
+
+            {/*Func.formatToCurrency(fixed_charge) > 0 &&
             <>
                 <Spacer />
 
                 <Text mute sm>Fixed Charge</Text>
                 <Text md>{Consts.currency.PH} {Func.formatToRealCurrency(fixed_charge)}</Text>
             </>
-            }
+            */}
 
             <Spacer />
 

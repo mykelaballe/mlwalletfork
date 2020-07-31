@@ -27,7 +27,7 @@ class PayBill extends React.Component {
                 'Account No.': account_no,
                 'Account Name': account_name,
                 Amount: amount,
-                'Fixed Charge': Func.formatToCurrency(fixed_charge) > 0 ? fixed_charge : false,
+                'Fixed Charge': Func.formatToCurrency(fixed_charge),
                 'Convenience Fee': convenience_fee,
                 Total:total
             })
@@ -85,14 +85,19 @@ class PayBill extends React.Component {
                         <Text sm mute>Amount</Text>
                         <Text>{Consts.currency.PH} {amount}</Text>
 
-                        {Func.formatToCurrency(fixed_charge) > 0 &&
+                        <Spacer />
+
+                        <Text sm mute>Fixed Charge</Text>
+                        <Text>{Consts.currency.PH} {fixed_charge}</Text>
+
+                        {/*Func.formatToCurrency(fixed_charge) > 0 &&
                         <>
                             <Spacer />
 
                             <Text sm mute>Fixed Charge</Text>
                             <Text>{Consts.currency.PH} {fixed_charge}</Text>
                         </>
-                        }
+                        */}
 
                         <Spacer />
 
