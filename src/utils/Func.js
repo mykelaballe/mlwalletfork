@@ -11,6 +11,7 @@ import Validator from './Validator'
 
 import {request, PERMISSIONS, RESULTS} from 'react-native-permissions'
 import Geolocation from 'react-native-geolocation-service'
+import DeviceInfo from 'react-native-device-info'
 
 import TouchID from 'react-native-touch-id'
 

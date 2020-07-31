@@ -37,7 +37,7 @@ class Scrn extends React.Component {
     getData = async () => {
         const {params = {}} = this.props.navigation.state
         let {initialCoords, locationAllowed} = this.state
-        let branches = []
+        let branches = [], newCoords = {...initialCoords}
 
         try {
             branches = await API.getBranches()
@@ -51,7 +51,7 @@ class Scrn extends React.Component {
                 let location = await Func.getCurrentPosition()
 
                 if(!location.error) {
-                    let newCoords = {
+                    newCoords = {
                         latitude:location.data.latitude,
                         longitude:location.data.longitude
                     }
@@ -71,7 +71,7 @@ class Scrn extends React.Component {
             }
 
             if(params.is_nearest) {
-                branches = Func.getNearestBranches(branches, initialCoords)
+                branches = Func.getNearestBranches(branches, newCoords)
             }
         }
         catch(err) {

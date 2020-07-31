@@ -3,7 +3,6 @@ import axios from 'axios'
 import Consts from '../utils/Consts'
 import Fetch from '../utils/Fetch'
 import Storage from '../utils/Storage'
-import Crypt from '../utils/Crypt'
 
 import WalletToWallet from './endpoints/WalletToWallet'
 import KP from './endpoints/KP'
@@ -23,7 +22,7 @@ export default {
             ...payload,
             location:'',
             deviceid:Consts.deviceId,
-            devicetype:Consts.deviceType,
+            devicetype:Consts.is_android ? 'android' : 'ios',
             version:Consts.appVersion,
             grant_type:'password'
         })

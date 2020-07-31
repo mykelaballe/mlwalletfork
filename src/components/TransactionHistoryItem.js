@@ -15,6 +15,13 @@ export default class TransactionHistoryItem extends React.Component {
 
         const {data, onPress} = this.props
 
+        let amount = data.totalamount
+
+        if(
+            data.transtype === Consts.tcn.rmd.code ||
+            data.transtype === 'PAYOUT'
+        ) amount = data.amount
+
         return (
         <>
             <View bw style={style.item}>
@@ -24,13 +31,13 @@ export default class TransactionHistoryItem extends React.Component {
                     }
                     {data.iscancelled > 0 && <Text style={{color:Colors.mute}}>CANCELLED</Text>}
                     <Text style={{fontWeight:'bold',fontSize:Metrics.font.md}}>{Consts.tcn[data.transtype] ? Consts.tcn[data.transtype].short_desc : data.transtype}</Text>
-                    <Text style={{color:Colors.mute}}>{moment(data.transdate).format('MM/DD/YYYY')}</Text>
+                    <Text style={{color:Colors.mute}}>{data.transdateformat}</Text>
                     <Text style={{color:Colors.mute}}>Running Balance: {Func.formatToRealCurrency(data.runningbalance)}</Text>
                 </View>
 
                 <View>
                     <Text style={{fontWeight:'bold',fontSize:Metrics.font.md}}>
-                        {Consts.currency.PH} {Func.formatToRealCurrency(data.transtype === Consts.tcn.rmd.code ? data.amount : data.totalamount)}
+                        {Consts.currency.PH} {Func.formatToRealCurrency(amount)}
                     </Text>
                     <TouchableOpacity onPress={() => onPress(data)}>
                         <Text style={{color:Colors.brand}}>View details</Text>
