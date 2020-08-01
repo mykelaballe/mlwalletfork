@@ -88,7 +88,7 @@ class Scrn extends React.Component {
 
         if(processing) return false
 
-        try {
+        //try {
             this.setState({processing:true})
 
             username = username.trim()
@@ -172,10 +172,10 @@ class Scrn extends React.Component {
                     }
                 }
             }
-        }
+        /*}
         catch(err) {
             Say.err(err)
-        }
+        }*/
 
         this.setState({processing:false})
     }
