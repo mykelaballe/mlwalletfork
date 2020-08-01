@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>$(PRODUCT_NAME) wants to access your location for security validation and to determine the nearest branch on your location</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -27,7 +25,7 @@
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>CodePushDeploymentKey</key>
-	<string>yBJeaL3P77cjjC3pZROSybtcceBSmqCXcOKst</string>
+	<string>tBS7rLCqUBKL7wu-0atzZIGDXGWFt83_pWuPkgit</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSApplicationCategoryType</key>
@@ -59,6 +57,8 @@
 	<string>$(PRODUCT_NAME) wants to access your fingerprint scanner for touch id verifications</string>
 	<key>NSHumanReadableCopyright</key>
 	<string></string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>$(PRODUCT_NAME) wants to access your location for security validation and to determine the nearest branch on your location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>$(PRODUCT_NAME) wants to access your location for security and to determine the nearest branch on your location</string>
 	<key>UIAppFonts</key>
