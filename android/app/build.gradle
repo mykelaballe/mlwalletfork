@@ -136,8 +136,8 @@ android {
         applicationId "com.mlhuillier.cn.mlwallet"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 88
+        versionName "8.0"
         missingDimensionStrategy 'react-native-camera', 'mlkit'
         multiDexEnabled true
     }
