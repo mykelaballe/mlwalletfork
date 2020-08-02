@@ -189,8 +189,8 @@ export default {
 		rtw: {
 			code:'rtw',
 			action:'send',
-			short_desc:'Wallet To Wallet',
-			long_desc:'Send Money - Wallet to Wallet',
+			short_desc:'Add Money',
+			long_desc:'Add Money',
 			submit_text:'Send Money',
 			otp:'Send Money'
 		},

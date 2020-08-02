@@ -204,72 +204,6 @@ class Scrn extends React.Component {
 
     handleSelectTypeFilter = (selected_type = {}) => this.setState({selected_type},this.handleRefresh)
 
-    handleViewDetails = item => {
-        //console.warn(item)
-        let params = {
-            _from:'history',
-            type:item.transtype,
-            //controlno:item.transactionno,
-            kptn:item.transactionno,
-            transaction: {
-                walletno:item.receiverwalletno || item.walletno,
-                contact_no:item.mobileno,
-                receiver: {
-                    fullname:item.receiverfullname,
-                    firstname:item.receiverfname,
-                    lastname:item.receiverlname,
-                    middlename:item.receivermname,
-                    suffix:item.receiversuffix,
-                },
-                biller_partner_name:item.partnername,
-                bank:{
-                    bankname:item.partnername,
-                    convenienceFee:item.conveniencefee
-                },
-                partner:item.partnername,
-                account_name:item.accountname,
-                account_no:item.accountno,
-                sender:item.sendername,
-                currency:item.currency,
-                notes:item.notes,
-                amount:item.amount,
-                charges:item.charge,
-                fixed_charge:item.fixedcharge,
-                convenience_fee:item.conveniencefee,
-                total:item.totalamount,
-                isclaimed:item.isclaimed,
-                user:{
-                    fname:this.props.user.fname,
-                    lname:this.props.user.lname
-                }
-            },
-            cancellable:false,
-            transdate:item.transdate
-        }
-
-        if(params.type == Consts.tcn.skp.code || params.type == Consts.tcn.wdc.code) {
-            if(item.status == 1) {
-                params.transaction.status = 'success'
-                params.transaction.cancellable = false
-            }
-            
-            if(item.isclaimed == 1) {
-                params.transaction.status = 'claimed'
-                params.transaction.cancellable = false
-            }
-
-            if(item.isclaimed == 0) {
-                if(item.iscancelled == 0) params.cancellable = true
-                else {
-                    params.cancellable = false
-                    params.transaction.status = 'cancelled'
-                }
-            }
-        }
-
-        this.props.navigation.navigate('TransactionReceipt',params)
-    }
-
     handleChangeMonthFrom = () => this.setState({showMonthFrom:true})
     handleChangeDayFrom = () => this.setState({showDayFrom:true})
     handleChangeYearFrom = () => this.setState({showYearFrom:true})
@@ -298,7 +232,7 @@ class Scrn extends React.Component {
 
     renderItem = ({item}) => (
         <ScrollFix>
-            <TransactionHistoryItem data={item} onPress={this.handleViewDetails} />
+            <TransactionHistoryItem data={item} />
         </ScrollFix>
     )
 

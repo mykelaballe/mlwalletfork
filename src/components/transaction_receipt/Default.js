@@ -64,7 +64,7 @@ class Default extends React.Component {
                         <Spacer />
 
                         <Text sm mute>Total</Text>
-                        <Text>{Consts.currency.PH} {Func.checkTransAmount(this.props.data)}</Text>
+                        <Text>{Consts.currency.PH} {total}</Text>
 
                         <Spacer />
 

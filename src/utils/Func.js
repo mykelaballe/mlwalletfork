@@ -219,14 +219,14 @@ const validateTouchID = () => {
 }
 
 const checkTransAmount = data => {
-    let type = data.transtype || data.type
-    let amount = data.totalamount || data.total
+    let amount = data.transaction.total
 
     if([
         Consts.tcn.rmd.code,
+        Consts.tcn.rtw.code,
         'PAYOUT'
-    ].indexOf(type) >= 0
-    ) amount = data.amount
+    ].indexOf(data.transtype) >= 0
+    ) amount = data.transaction.amount
 
     return amount
 }

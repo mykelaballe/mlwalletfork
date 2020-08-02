@@ -11,7 +11,7 @@ class Scrn extends React.Component {
 
     state = {
         data:null,
-        username:'',//this.props.username,
+        username:'',
         password:'',
         show_password:false,
         processing:false
@@ -27,35 +27,6 @@ class Scrn extends React.Component {
 
     handleLogin = () => this.login({username: this.state.username, password: this.state.password})
 
-    handleTouchID_ = () => {
-        const {isUsingTouchID} = this.props
-
-        if(isUsingTouchID) {
-            TouchID.authenticate('Place your finger on the fingerprint scanner to verify your identity', touchIDConfig)
-            .then(async success => {
-                let res = await API.loginByTouchID()
-
-                if(!res.error) {
-                    this.login({
-                        username:res.data.username,
-                        password:res.data.password
-                    })
-                }
-                else {
-                    Say.warn(res.message)
-                }
-            })
-            .catch(err => {
-                if(err && TOUCHID_IGNORED_ERRORS.indexOf(err.code) < 0) {
-                    Say.some(err.message)
-                }
-            })
-        }
-        else {
-            this.props.navigation.navigate('TouchID')
-        }
-    }
-
     handleTouchID = async () => {
         let res1 = await Func.validateTouchID()
 
@@ -70,7 +41,8 @@ class Scrn extends React.Component {
                     })
                 }
                 else {
-                    Say.warn(res2.message)
+                    if(!res2.message) throw new error()
+                    else Say.warn(res2.message)
                 }
             }
             catch(err) {
@@ -146,8 +118,6 @@ class Scrn extends React.Component {
                     else if(res.message === 'server_error') throw {message:res.message}
                     else throw {message:res.message}
                 }
-                //else if(res.data && res.data.pincode.length <= 4) this.force1stReupdateInfo(res.data)
-                //else if(res.data && (!res.data.street || !res.data.houseno)) this.force2ndReupdateInfo(res.data)
                 else {
                     
                     res.data.latitude = latitude
@@ -193,19 +163,6 @@ class Scrn extends React.Component {
         )
     }
 
-    force2ndReupdateInfo = userData => {
-        Say.ok(
-            'For an even better experience with the new and improved ML Wallet App, please update your address',
-            `Hi, ${userData.fname}!`,
-            {
-                onConfirm:() => {
-                    this.props.setUser(userData)
-                    this.props.navigation.navigate('SignUpStep2',{isForceUpdate:true})
-                }
-            }
-        )
-    }
-
     handleGoToForgotPassword = () => this.props.navigation.navigate('ForgotPassword')
 
     handleGoToSignUp = async () => {
@@ -216,40 +173,11 @@ class Scrn extends React.Component {
     }
 
     handleChangeUsername = username => this.setState({username})
-
     handleChangePassword = password => this.setState({password})
 
     handleFocusPassword = () => this.refs.password.focus()
 
     handleTogglePassword = () => this.setState(prevState => ({show_password:!prevState.show_password}))
-
-    handleRegisterNewDevice = () => {
-        const {username, data} = this.state
-
-        this.props.navigation.navigate('SecurityQuestion',{
-            walletno:data.walletno,
-            username,
-            questions:[
-                data.secquestion1,
-                data.secquestion2,
-                data.secquestion3
-            ],
-            steps:[
-                'registered',
-                'personal',
-                'transactional'
-            ],
-            func:async () => {
-                let res = await API.updateDevice({username})
-                
-                if(res.error) Say.warn('Error registering new device')
-                else {
-                    Say.ok('Success! You can now access your ML Wallet account in this device')
-                    this.props.navigation.navigate('Login')
-                }
-            }
-        })
-    }
 
     render() {
 
