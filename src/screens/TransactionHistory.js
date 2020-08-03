@@ -228,7 +228,7 @@ class Scrn extends React.Component {
     handleHideDayToPicker = () => this.setState({showDayTo:false})
     handleHideYearToPicker = () => this.setState({showYearTo:false})
 
-    handleRefresh = () => this.setState({refreshing:true},this.getData)
+    handleRefresh = () => this.setState({refreshing:true,list:[]},this.getData)
 
     renderItem = ({item}) => (
         <ScrollFix>
