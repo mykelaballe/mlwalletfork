@@ -14,7 +14,7 @@ class TransactionHistoryItem extends React.Component {
     state = {
         _from:'history',
         type:this.props.data.transtype,
-        transtype:Consts.tcn[this.props.data.transtype] ? Consts.tcn[this.props.data.transtype].short_desc : this.props.data.transtype,
+        //transtype:Consts.tcn[this.props.data.transtype] ? Consts.tcn[this.props.data.transtype].short_desc : this.props.data.transtype,
         kptn:this.props.data.transactionno,
         runningbalance:this.props.data.runningbalance,
         transaction: {
@@ -60,9 +60,8 @@ class TransactionHistoryItem extends React.Component {
         }
         const {data} = this.props
 
-        //console.warn(data)
-
-        if(newState.transtype === 'LOAD') newState.type = 'Add Money'
+        if(newState.type === 'LOAD') newState.type = 'adm'
+        else if(newState.type === 'adm') newState.type = Consts.tcn.stw.code
 
         newState.amount = Func.checkTransAmount(newState)
 
@@ -103,13 +102,15 @@ class TransactionHistoryItem extends React.Component {
         <>
             <View bw style={style.item}>
                 <View style={{flex:1,marginRight:Metrics.sm}}>
-                    {((state.transtype === Consts.tcn.skp.code || state.transtype === Consts.tcn.wdc.code) && (state.isclaimed == 0 && state.iscancelled == 0)) &&
+                    {((state.type === Consts.tcn.skp.code || state.type === Consts.tcn.wdc.code) && (state.isclaimed == 0 && state.iscancelled == 0)) &&
                     <Text style={{color:Colors.mute}}>PENDING</Text>
                     }
 
                     {state.iscancelled > 0 && <Text style={{color:Colors.mute}}>CANCELLED</Text>}
 
-                    <Text style={{fontWeight:'bold',fontSize:Metrics.font.md}}>{state.transtype}</Text>
+                    <Text style={{fontWeight:'bold',fontSize:Metrics.font.md}}>
+                        {Consts.tcn[state.type] ? Consts.tcn[state.type].short_desc : state.type}
+                    </Text>
                     <Text style={{color:Colors.mute}}>{state.dateformat}</Text>
                     <Text style={{color:Colors.mute}}>Running Balance: {Func.formatToRealCurrency(state.runningbalance)}</Text>
                 </View>

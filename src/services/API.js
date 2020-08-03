@@ -103,8 +103,8 @@ export default {
     getTransactionHistory: async payload => {
         let res = await Fetch.getc(`transactionhistory?${JSON.stringify({
             walletno:payload.walletno,
-            dfrom:payload.dfrom,
-            dto:payload.dto,
+            dfrom:payload.from,
+            dto:payload.to,
             type:payload.type
         })}`)
         return res.listTransaction || []

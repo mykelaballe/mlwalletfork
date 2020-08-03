@@ -228,7 +228,7 @@ class Scrn extends React.Component {
                         />
 
                         <View style={{alignItems:'flex-end'}}>
-                            <ButtonText t='Forgot password?' onPress={this.handleGoToForgotPassword} />
+                            <ButtonText disabled={processing} t='Forgot password?' onPress={this.handleGoToForgotPassword} />
                         </View>
 
                         <Spacer />
@@ -239,7 +239,7 @@ class Scrn extends React.Component {
 
                         <Row c>
                             <Text>{_('7')}</Text>
-                            <ButtonText t={`${_('3')}.`} onPress={this.handleGoToSignUp} />
+                            <ButtonText disabled={processing} t={`${_('3')}.`} onPress={this.handleGoToSignUp} />
                         </Row>
                     </View>
 
@@ -253,7 +253,7 @@ class Scrn extends React.Component {
                     {isUsingTouchID &&
                     <Row c>
                         <Icon name='fingerprint' size={Metrics.icon.rg} />
-                        <ButtonText t={_('46')} onPress={this.handleTouchID} />
+                        <ButtonText disabled={processing} t={_('46')} onPress={this.handleTouchID} />
                     </Row>
                     }
 
