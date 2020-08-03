@@ -225,7 +225,7 @@ const checkTransAmount = data => {
         Consts.tcn.rmd.code,
         Consts.tcn.rtw.code,
         'PAYOUT'
-    ].indexOf(data.transtype) >= 0
+    ].indexOf(data.type) >= 0
     ) amount = data.transaction.amount
 
     return amount
