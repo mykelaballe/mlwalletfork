@@ -6,13 +6,13 @@ const IS_ANDROID = Platform.OS === 'android'
 const PLAYSTORE_URL = 'https://play.google.com/store/apps/details?id=com.mlhuillier.mlwallet&hl=en'
 const APPSTORE_URL = 'https://apps.apple.com/ph/app/ml-wallet/id962204987'
 
-const CODEPUSH_ANDROID_DEV = '4fqjYGW3KwXH_fdzzIaebsbvfYFBTEchWq_7i'
-const CODEPUSH_IOS_DEV = 'tBS7rLCqUBKL7wu-0atzZIGDXGWFt83_pWuPk'
+const CODEPUSH_ANDROID_DEV = 'Kqa8Z6UvgsdJFruYtR3Mq-rE_nu4rtAjy6-ev'
+const CODEPUSH_IOS_DEV = 'yBJeaL3P77cjjC3pZROSybtcceBSmqCXcOKst'
 
 export default {
 	is_dev:false,
 	is_android:IS_ANDROID,
-	baseURL:'https://m1w4773tw38.mlhuillier.com/api/',
+	baseURL:'https://ccv078g234jk.mlhuillier1.com/api/',
 	cipher:{
 		key:'mlinc12345678900',
 		iv:'mlinc12345678900'
