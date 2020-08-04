@@ -4,7 +4,7 @@ import DeviceInfo from 'react-native-device-info'
 const IS_ANDROID = Platform.OS === 'android'
 
 const PLAYSTORE_URL = 'https://play.google.com/store/apps/details?id=com.mlhuillier.cn.mlwallet'
-const APPSTORE_URL = 'https://apps.apple.com/ph/app/ml-wallet/id962204987'
+const APPSTORE_URL = 'itms-apps://itunes.apple.com/ph/app/new-ml-wallet/id1525919829?mt=8'
 
 const CODEPUSH_ANDROID_DEV = 'Iep5L0vVKIDO4YH2LDroBuki_BMOdu_lW6tFu'
 const CODEPUSH_IOS_DEV = 'ukOmdBLHumSxxO9NCvAtA5Z3H5D-TtIQN9-MB'
