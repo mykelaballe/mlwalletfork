@@ -201,7 +201,10 @@ class Scrn extends React.Component {
                         res = await API.buyLoad(payload)
                     }
 
-                    if(res.error) Say.warn(res.message)
+                    if(res.error) {
+                        if(!res.message) throw new error()
+                        else Say.warn(res.message)
+                    }
                     else {
 
                         this.props.updateBalance(res.data.balance)
