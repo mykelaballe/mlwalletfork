@@ -55,15 +55,17 @@ class PayBill extends React.Component {
 
     render() {
 
-        const {_from, kptn, biller, biller_partner_name, account_no, account_name, email} = this.props.data
+        const {_from, kptn, biller, biller_partner_name, account_no, account_name, email, iscancelled} = this.props.data
         const {amount, fixed_charge, convenience_fee, total, date, time, type} = this.state
+
+        const status = iscancelled ? 'cancelled' : 'success'
 
         return (
             <>
                 <Screen compact>
                     <Header
                         tcn={kptn}
-                        status='success'
+                        status={status}
                     />
 
                     <ScrollFix style={{padding:Metrics.lg}}>

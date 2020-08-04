@@ -39,11 +39,13 @@ class Scrn extends React.Component {
 
     handleChangeAmount = amount => {
         let charges = Func.calculateKPRate(amount, this.props.rates)
-        this.setState({
-            amount,
-            charges,
-            total:Func.compute(charges, amount)
-        })
+        if(Func.isAmount2Decimal(amount)) {
+            this.setState({
+                amount,
+                charges,
+                total:Func.compute(charges, amount)
+            })
+        }
     }
 
     handleAddNewReceiver = () => this.props.navigation.navigate('SavedKPReceivers')

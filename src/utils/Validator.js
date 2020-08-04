@@ -134,6 +134,21 @@ const isAgeAllowed = birthdate => {
     return years >= Consts.user_min_age && years <= Consts.user_max_age ? true : false
 }
 
+const isAmount2Decimal = value => {
+    if(value.indexOf('.') >= 0) {
+
+        let pieces = value.split('.')
+
+        if(pieces.length > 2) return false
+
+        if(pieces[1].length > 2) {
+            return false
+        }
+    }
+
+    return true
+}
+
 export default {
     validate,
     isLettersOnly,
@@ -145,5 +160,6 @@ export default {
     hasAddressSpecialCharsOnly,
     isEmail,
     isPHMobileNumber,
-    isAgeAllowed
+    isAgeAllowed,
+    isAmount2Decimal
 }

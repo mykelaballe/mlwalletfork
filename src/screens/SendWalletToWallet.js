@@ -30,10 +30,12 @@ class Scrn extends React.Component {
     handleChangeReceiverWalletID = receiver_wallet_id => this.setState({receiver_wallet_id})
 
     handleChangeAmount = amount => {
-        this.setState({
-            amount,
-            total:Func.compute(this.state.charges, amount)
-        })
+        if(Func.isAmount2Decimal(amount)) {
+            this.setState({
+                amount,
+                total:Func.compute(this.state.charges, amount)
+            })
+        }
     }
 
     handleChangeNotes = notes => this.setState({notes})

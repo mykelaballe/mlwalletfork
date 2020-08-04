@@ -18,6 +18,7 @@ class TransactionHistoryItem extends React.Component {
         kptn:this.props.data.transactionno,
         runningbalance:this.props.data.runningbalance,
         transaction: {
+            status:'',
             walletno:this.props.data.receiverwalletno || this.props.data.walletno,
             contact_no:this.props.data.mobileno,
             receiver: {
@@ -43,6 +44,7 @@ class TransactionHistoryItem extends React.Component {
             fixed_charge:this.props.data.fixedcharge,
             convenience_fee:this.props.data.conveniencefee,
             total:this.props.data.totalamount,
+            iscancelled:this.props.data.iscancelled,
             isclaimed:this.props.data.isclaimed,
             user:{
                 fname:this.props.user.fname,
@@ -65,19 +67,19 @@ class TransactionHistoryItem extends React.Component {
 
         newState.amount = Func.checkTransAmount(newState)
 
-        if(data.type == Consts.tcn.skp.code || data.type == Consts.tcn.wdc.code) {
-            if(newState.status == 1) {
+        if(data.transtype == Consts.tcn.skp.code || data.transtype == Consts.tcn.wdc.code) {
+            if(data.status == 1) {
                 newState.transaction.status = 'success'
-                newState.transaction.cancellable = false
+                newState.cancellable = false
             }
             
             if(data.isclaimed == 1) {
                 newState.transaction.status = 'claimed'
-                newState.transaction.cancellable = false
+                newState.cancellable = false
             }
 
             if(data.isclaimed == 0) {
-                if(item.iscancelled == 0) state.cancellable = true
+                if(data.iscancelled == 0) newState.cancellable = true
                 else {
                     newState.cancellable = false
                     newState.transaction.status = 'cancelled'
