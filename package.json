@@ -11,7 +11,7 @@
     "push-android": "code-push release-react MLWallet-Android android --deploymentName prod -t *",
     "push-ios": "code-push release-react MLWallet-iOS ios --deploymentName prod -t *",
     "push": "yarn push-android && yarn push-ios",
-    "build-android": "cd android && react-native run-android --variant=release",
+    "build-android": "react-native run-android --variant=release",
     "bundle-android": "cd android && gradlew bundleRelease"
   },
   "dependencies": {
