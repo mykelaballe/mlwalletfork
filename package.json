@@ -8,8 +8,8 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
-    "push-android": "code-push release-react MLWallet-Android android --deploymentName prod -t *",
-    "push-ios": "code-push release-react MLWallet-iOS ios --deploymentName prod -t *",
+    "push-android": "code-push release-react MLWallet-Android android --deploymentName dev -t *",
+    "push-ios": "code-push release-react MLWallet-iOS ios --deploymentName dev -t *",
     "push": "yarn push-android && yarn push-ios",
     "build-android": "react-native run-android --variant=release",
     "bundle-android": "cd android && gradlew bundleRelease"
