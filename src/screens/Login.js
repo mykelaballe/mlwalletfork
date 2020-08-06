@@ -2,7 +2,7 @@ import React from 'react'
 import {View, StyleSheet, Linking} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Text, Button, ButtonText, Spacer, TextInput, Row, Icon, Screen, MLBanner} from '../components'
+import {Text, Button, ButtonText, Spacer, TextInput, Row, Icon, Screen, MLBanner, Ripple, ButtonTextIcon} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say, Consts, Func} from '../utils'
 import {API} from '../services'
@@ -245,17 +245,19 @@ class Scrn extends React.Component {
 
                     <Spacer sm />
 
-                    {/*<Row c>
-                        <Icon name='fingerprint' size={Metrics.icon.rg} />
-                        <ButtonText t={isUsingTouchID ? _('46') : _('45')} onPress={this.handleTouchID} />
-                    </Row>*/}
+                    <ButtonTextIcon
+                        disabled={processing}
+                        i='fingerprint'
+                        t={_('46')}
+                        onPress={this.handleTouchID}
+                    />
 
-                    {isUsingTouchID &&
+                    {/*isUsingTouchID &&
                     <Row c>
                         <Icon name='fingerprint' size={Metrics.icon.rg} />
-                        <ButtonText disabled={processing} t={_('46')} onPress={this.handleTouchID} />
+                        <ButtonText icon='fingerprint' disabled={processing} t={_('46')} onPress={this.handleTouchID} />
                     </Row>
-                    }
+                    */}
 
                     <Spacer md />
                 </Screen>

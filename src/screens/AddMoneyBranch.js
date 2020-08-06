@@ -1,5 +1,5 @@
 import React from 'react'
-import {Screen, Headline, Spacer, Button, ButtonText, View} from '../components'
+import {Screen, Headline, Spacer, Button, ButtonText, ButtonTextIcon, View} from '../components'
 import {_} from '../utils'
 import {Colors, Metrics} from '../themes'
 import Icon from 'react-native-vector-icons/Feather'
@@ -29,11 +29,13 @@ export default class Scrn extends React.Component {
 
                     <Spacer xl />
 
-                    <View style={{alignItems:'center'}}>
+                    <ButtonTextIcon i='map-marker' t='Locate nearest branch' onPress={this.handleLocateBranch} />
+
+                    {/*<View style={{alignItems:'center'}}>
                         <Icon name='map-pin' color={Colors.brand} size={Metrics.icon.xl} />
                         <Spacer sm />
                         <ButtonText t='Locate nearest branch' onPress={this.handleLocateBranch} />
-                    </View>
+                    </View>*/}
                 </View>
             </Screen>
         )

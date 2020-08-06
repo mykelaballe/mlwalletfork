@@ -7,6 +7,7 @@ import Bullet from './Bullet'
 import Button from './Button'
 import ButtonIcon from './ButtonIcon'
 import ButtonText from './ButtonText'
+import ButtonTextIcon from './ButtonTextIcon'
 import Card from './Card'
 import Checkbox from './Checkbox'
 import CollapsibleItem from './CollapsibleItem'
@@ -68,6 +69,7 @@ export {
     Button,
     ButtonIcon,
     ButtonText,
+    ButtonTextIcon,
     Card,
     Checkbox,
     CollapsibleItem,
