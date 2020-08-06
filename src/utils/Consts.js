@@ -17,7 +17,7 @@ export default {
 		key:'mlinc12345678900',
 		iv:'mlinc12345678900'
 	},
-	deviceId:DeviceInfo.getDeviceId(),
+	deviceId:`${DeviceInfo.getUniqueId()}-${DeviceInfo.getDeviceId()}`,
 	deviceType:'Handset',
 	appName:DeviceInfo.getApplicationName(),
 	appVersion:DeviceInfo.getVersion(),

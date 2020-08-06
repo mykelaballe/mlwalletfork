@@ -1,6 +1,7 @@
 import React from 'react'
-import {Screen, Footer, Headline, FlatList, Button, Checkbox, Spacer} from '../components'
+import {Screen, Footer, Headline, FlatList, Button, Checkbox, Spacer, Row, Radio} from '../components'
 import {_, Say} from '../utils'
+import {RadioButton} from 'react-native-paper'
 
 export default class Scrn extends React.Component {
 
@@ -22,17 +23,21 @@ export default class Scrn extends React.Component {
                 label:'I did not register an email address',
                 checked:false
             }
-        ]
+        ],
+        selected:null
     }
 
     handleProceed = async () => {
         try {
-            let {list} = this.state
+            let {selected} = this.state
+            //let {list} = this.state
             let reasons = []
 
-            list.map(l => {
+            if(selected) reasons.push(selected)
+
+            /*list.map(l => {
                 if(l.checked) reasons.push(l.label)
-            })
+            })*/
 
             if(reasons.length > 0) this.props.navigation.navigate('EditMyEmail',{reasons})
         }
@@ -47,21 +52,33 @@ export default class Scrn extends React.Component {
         this.setState({list})
     }
 
-    renderItem = ({item, index}) => (
+    handleSelectOption = selected => this.setState({selected})
+
+    /*renderItem = ({item, index}) => (
         <>
             <Checkbox status={item.checked} onPress={() => this.handleToggleItem(index)} label={item.label} />
+            <Spacer />
+        </>
+    )*/
+
+    renderItem = ({item, index}) => (
+        <>
+            <Row>
+                <Radio value={item.label} label={item.label} />
+                <Spacer h lg />
+            </Row>
             <Spacer />
         </>
     )
 
     render() {
 
-        const {list} = this.state
-        let ready = false
+        const {list, selected} = this.state
+        let ready = selected || false
 
-        list.map(i => {
+        /*list.map(i => {
             if(i.checked) ready = true
-        })
+        })*/
 
         return (
             <>
@@ -69,10 +86,12 @@ export default class Scrn extends React.Component {
 
                     <Headline subtext='Please help us understand why you want to edit your registered email address' />
                     
-                    <FlatList
-                        data={list}
-                        renderItem={this.renderItem}
-                    />
+                    <RadioButton.Group onValueChange={this.handleSelectOption} value={selected}>
+                        <FlatList
+                            data={list}
+                            renderItem={this.renderItem}
+                        />
+                    </RadioButton.Group>
                 </Screen>
 
                 <Footer>
