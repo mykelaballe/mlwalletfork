@@ -62,7 +62,7 @@ class TransactionHistoryItem extends React.Component {
         }
         const {data} = this.props
 
-        if(newState.type === 'LOAD') newState.type = Consts.tcn.stw.code
+        //if(newState.type === 'LOAD') newState.type = Consts.tcn.stw.code
         //else if(newState.type === 'adm') newState.type = Consts.tcn.stw.code
 
         newState.amount = Func.checkTransAmount(newState)
