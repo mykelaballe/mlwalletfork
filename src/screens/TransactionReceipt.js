@@ -6,6 +6,7 @@ import {Colors, Metrics} from '../themes'
 import {_, Say, Consts, Func} from '../utils'
 import Icon from 'react-native-vector-icons/AntDesign'
 import RNHTMLtoPDF from 'react-native-html-to-pdf'
+import RNFetchBlob from 'rn-fetch-blob'
 
 const moment = require('moment')
 
@@ -19,7 +20,7 @@ export default class Scrn extends React.Component {
             headerLeft:params._from === 'history' ? undefined : <View />,
             headerRight: (
                 <HeaderRight>
-                    <ButtonIcon icon={<Icon name='download' size={Metrics.icon.sm} color={Colors.light} />} onPress={params.handleExport} />
+                    {params.downloading ? <ActivityIndicator color={Colors.light} /> : <ButtonIcon icon={<Icon name='download' size={Metrics.icon.sm} color={Colors.light} />} onPress={params.handleExport} />}
                 </HeaderRight>
             )
         }
@@ -58,6 +59,8 @@ export default class Scrn extends React.Component {
 
         if(!exportData) return false
 
+        this.props.navigation.setParams({downloading:true})
+
         let html = `
         <body style="padding:0;margin:0;">
             <div style="background-color:#323232;padding:3px 15px 3px 15px;margin-top:3px">
@@ -83,23 +86,35 @@ export default class Scrn extends React.Component {
         let file = await RNHTMLtoPDF.convert({
             html,
             fileName: kptn,
-            directory: 'Documents',
-            width:350,
-            height:600
+            directory: Consts.is_android ? 'Downloads' : 'Documents',
+            width: 350,
+            height: 600,
+            base64: true
         })
 
-        Say.ask(
-            `Receipt exported in:\n ${file.filePath}`,
-            'Success!',
-            {
-                yesBtnLabel:'View File',
-                noBtnLabel:'Close',
-                onConfirm:() => this.props.navigation.navigate('PDFViewer',{
-                    title:'Transaction Receipt',
-                    source:file.filePath
-                })
-            }
-        )
+        //const filePath = `${RNFetchBlob.fs.dirs.DownloadDir}/${kptn}.pdf`
+
+        /*RNFetchBlob.fs.createFile(filePath, file.base64, 'base64')
+        .then(res => {*/
+
+            this.props.navigation.setParams({downloading:''})
+
+            Say.ask(
+                `Receipt exported in:\n ${file.filePath}`,
+                'Success!',
+                {
+                    yesBtnLabel:'View File',
+                    noBtnLabel:'Close',
+                    onConfirm:() => this.props.navigation.navigate('PDFViewer',{
+                        title:'Transaction Receipt',
+                        source:file.filePath
+                    })
+                }
+            )
+        /*})
+        .catch(err => {
+            Say.err(err)
+        })*/
     }
 
     render() {
