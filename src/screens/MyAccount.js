@@ -21,15 +21,31 @@ class Scrn extends React.Component {
     componentDidMount = () => Say.some(_('88'),'Attention!')
 
     handleGoToVerificationLevels = () => {
-        Say.some(
+        const {user} = this.props
+
+        let birthdate_pieces = user.birthdate.split('T')
+        let birth_date_pieces = birthdate_pieces[0].split('-')
+
+        let params = {
+            isFullVerification:true,
+            firstname:user.fname,
+            lastname:user.lname,
+            bday_day:birth_date_pieces[2],
+            bday_month:birth_date_pieces[1],
+            bday_year:birth_date_pieces[0],
+        }
+
+        this.props.navigation.navigate('IDValidation',params)
+
+        /*Say.some(
             'Upgrading of verification status via ML Wallet will be available SOON. Stay tuned!',
             'Hi there!',
-            /*{
+            {
                 noBtnLabel:'OK',
                 yesBtnLabel:'Notify Me'
-            }*/
+            }
         )
-        //this.props.navigation.navigate('VerificationLevels')
+        this.props.navigation.navigate('VerificationLevels')*/
     }
 
     handlePressProfile = () => this.props.navigation.navigate('Profile')
@@ -61,7 +77,7 @@ class Scrn extends React.Component {
 
                         <Spacer />
 
-                        {user.status !== 3 && <Button t='Get Fully Verified Now' mode='outlined' onPress={this.handleGoToVerificationLevels} />}
+                        {(user.status !== 3 || true) && <Button t='Get Fully Verified Now' mode='outlined' onPress={this.handleGoToVerificationLevels} />}
 
                     </View>
 
