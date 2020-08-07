@@ -243,14 +243,14 @@ class Scrn extends React.Component {
                         </Row>
                     </View>
 
-                    <Spacer sm />
+                    {/*<Spacer sm />
 
                     <ButtonTextIcon
                         disabled={processing}
                         i='fingerprint'
                         t={_('46')}
                         onPress={this.handleTouchID}
-                    />
+                    />*/}
 
                     {/*isUsingTouchID &&
                     <Row c>

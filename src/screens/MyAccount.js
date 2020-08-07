@@ -21,6 +21,13 @@ class Scrn extends React.Component {
     componentDidMount = () => Say.some(_('88'),'Attention!')
 
     handleGoToVerificationLevels = () => {
+        Say.some(
+            'Upgrading of verification status via ML Wallet will be available SOON. Stay tuned!',
+            'Hi there!'
+        )
+    }
+
+    handleGoToVerificationLevels_ = () => {
         const {user} = this.props
 
         if(Func.getAge(user.birthdate) >= 18) {
@@ -115,7 +122,7 @@ class Scrn extends React.Component {
                         <Row bw>
                             <View>
                                 <Text b md mute>Login and Security</Text>
-                                <Text mute>Update Password, PIN, Enable Touch ID</Text>
+                                <Text mute>Update Password, PIN{/*, Enable Touch ID*/}</Text>
                             </View>
                             <Icon name='ios-arrow-forward' size={Metrics.icon.sm} color={Colors.mute} />
                         </Row>
