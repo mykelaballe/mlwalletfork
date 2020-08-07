@@ -23,29 +23,24 @@ class Scrn extends React.Component {
     handleGoToVerificationLevels = () => {
         const {user} = this.props
 
-        let birthdate_pieces = user.birthdate.split('T')
-        let birth_date_pieces = birthdate_pieces[0].split('-')
+        if(Func.getAge(user.birthdate) >= 18) {
+            let birthdate_pieces = user.birthdate.split('T')
+            let birth_date_pieces = birthdate_pieces[0].split('-')
 
-        let params = {
-            isFullVerification:true,
-            firstname:user.fname,
-            lastname:user.lname,
-            bday_day:birth_date_pieces[2],
-            bday_month:birth_date_pieces[1],
-            bday_year:birth_date_pieces[0],
-        }
-
-        this.props.navigation.navigate('IDValidation',params)
-
-        /*Say.some(
-            'Upgrading of verification status via ML Wallet will be available SOON. Stay tuned!',
-            'Hi there!',
-            {
-                noBtnLabel:'OK',
-                yesBtnLabel:'Notify Me'
+            let params = {
+                isFullVerification:true,
+                firstname:user.fname,
+                lastname:user.lname,
+                bday_day:birth_date_pieces[2],
+                bday_month:birth_date_pieces[1],
+                bday_year:birth_date_pieces[0],
             }
-        )
-        this.props.navigation.navigate('VerificationLevels')*/
+
+            this.props.navigation.navigate('IDValidation',params)
+        }
+        else {
+            Say.warn('You have not reached the minimum age requirement of 18 years old')
+        }
     }
 
     handlePressProfile = () => this.props.navigation.navigate('Profile')
