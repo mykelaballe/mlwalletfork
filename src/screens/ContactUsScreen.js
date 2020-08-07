@@ -79,9 +79,9 @@ class Scrn extends React.Component {
                         <Text>0917-871-2973</Text>
                     </RippleItem>*/}
 
-                    <RippleItem onPress={this.handleEmail} value={'customercare@mlhuillier1.com'} style={style.item}>
+                    <RippleItem onPress={this.handleEmail} value={'customercare@mlhuillier.com'} style={style.item}>
                         <Text b>Email us at</Text>
-                        <Text>customercare@mlhuillier1.com</Text>
+                        <Text>customercare@mlhuillier.com</Text>
                     </RippleItem>
                 </Card>
 

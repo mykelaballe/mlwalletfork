@@ -32,10 +32,10 @@
               "client_type": 3
             },
             {
-              "client_id": "332783703043-idrt6k0kubhjud87gva8p5g3uu1tsdtl.apps.googleusercontent.com",
+              "client_id": "332783703043-rnckid5jb8gn8spla3kkbi0n4edk5o4f.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.mlhuillier.mlwallet"
+                "bundle_id": "com.mlhuillier.cn.mlwallet"
               }
             }
           ]
@@ -68,10 +68,10 @@
               "client_type": 3
             },
             {
-              "client_id": "332783703043-idrt6k0kubhjud87gva8p5g3uu1tsdtl.apps.googleusercontent.com",
+              "client_id": "332783703043-rnckid5jb8gn8spla3kkbi0n4edk5o4f.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.mlhuillier.mlwallet"
+                "bundle_id": "com.mlhuillier.cn.mlwallet"
               }
             }
           ]

@@ -133,10 +133,10 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.mlhuillier.cn.mlwallet"
+        applicationId "com.mlhuillier.mlwallet"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 89
+        versionCode 90
         versionName "8.0"
         missingDimensionStrategy 'react-native-camera', 'mlkit'
         multiDexEnabled true
@@ -157,10 +157,10 @@ android {
             keyPassword 'android'
         }
         release {
-            storeFile file('mlwallet-cn.keystore')
-            storePassword 'mlwallet-cn!...'
-            keyAlias 'mlwallet-cn'
-            keyPassword 'mlwallet-cn!...'
+            storeFile file('release.keystore')
+            storePassword '123456'
+            keyAlias 'mltogo wallet'
+            keyPassword '123456'
         }
     }
     buildTypes {

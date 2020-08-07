@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">New ML Wallet</string>
+    <string name="app_name">ML Wallet</string>
     <string name="reactNativeCodePush_androidDeploymentKey"></string>
 </resources>
