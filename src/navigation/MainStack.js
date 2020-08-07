@@ -6,6 +6,7 @@ import KPStack from './KPStack'
 import BankTransferStack from './BankTransferStack'
 import ELoadStack from './ELoadStack'
 import BillsStack from './BillsStack'
+import SignUpRoutes from './SignUpRoutes'
 import {HeaderRight, ButtonText} from '../components'
 import {AppStyles, Colors} from '../themes'
 import {Consts} from '../utils'
@@ -175,6 +176,9 @@ export default createStackNavigator({
     },
 
     ComingSoon: Scrn.ComingSoonScrn,
+    IDValidation: SignUpRoutes.SignUpStep3,
+    Camera: SignUpRoutes.Camera,
+    LivePhotoOnBoarding: SignUpRoutes.LivePhotoOnBoarding
 },{
     defaultNavigationOptions: AppStyles.defaultNavigationOptions
 })

@@ -5,6 +5,8 @@ export default {
 
     reupdateProfile: async payload => await Fetch.put('updateInfo',payload),
 
+    fullVerification: async payload => await Fetch.putc('wallet/fullyverified',payload),
+
     requestUpdateProfile: async payload => {
         return await Fetch.postc('send_wallet_request',{
             ...payload,

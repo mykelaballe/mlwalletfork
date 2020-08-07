@@ -116,6 +116,16 @@ class Scrn extends React.Component {
         return null
     }
 
+    componentDidMount = () => {
+        const {params = {}} = this.props.navigation.state
+        if(params.isFullVerification) {
+            let list = this.state.list.slice()
+            list.pop()
+            list.pop()
+            this.setState({list})
+        }
+    }
+
     handleSelectValidID = selectedIDIndex => {
         const type = this.state.list[selectedIDIndex].value
         
@@ -156,7 +166,7 @@ class Scrn extends React.Component {
 
     handleSubmit = async () => {
         const {user} = this.props
-        const {isForceUpdate, password, pincode, firstname, middlename, lastname, suffix, source_of_income, natureofwork, bday_day, bday_month, bday_year} = this.props.navigation.state.params
+        const {isForceUpdate, isFullVerification, password, pincode, firstname, middlename, lastname, suffix, source_of_income, natureofwork, bday_day, bday_month, bday_year} = this.props.navigation.state.params
         let {profilepic, validID, list, selectedIDIndex, processing} = this.state
 
         //check if id select is a government ID
@@ -238,6 +248,23 @@ class Scrn extends React.Component {
                             )
                         }
                     }
+                    else if(isFullVerification) {
+                        let verificationRes = await API.fullVerification({
+                            walletno:user.walletno,
+                            validid:validID.base64
+                        })
+                        
+                        if(verificationRes.error) Say.warn(verificationRes.message)
+                        else {
+                            Say.ok(
+                                `Fully Verified`,
+                                null,
+                                {
+                                    onConfirm:() => this.props.updateUserInfo({validID:verificationRes.data.validid})
+                                }
+                            )
+                        }
+                    }
                     else {
                         this.props.navigation.navigate('SignUpStep4',{
                             ...this.props.navigation.state.params,
@@ -286,15 +313,15 @@ class Scrn extends React.Component {
             <>
                 <Screen ns>
                     
-                    {!params.isForceUpdate && <SignUpStepsTracker step={3} />}
+                    {(!params.isForceUpdate && !params.isFullVerification) && <SignUpStepsTracker step={3} />}
 
-                    <Headline subtext='Choose a valid ID you can provide from the list below' />
+                    {!validID && <Headline subtext='Choose a valid ID you can provide from the list below' />}
 
                     {validID &&
                     <Outline>
                         <Row bw>
                             <Text b>{list[selectedIDIndex].name}</Text>
-                            <ButtonText t='Change' onPress={this.handleChangeValidID} />
+                            <ButtonText t='Change' onPress={this.handleChangeValidID} disabled={processing} />
                         </Row>
                     </Outline>
                     }
@@ -303,7 +330,7 @@ class Scrn extends React.Component {
                     <Outline>
                         <Row bw>
                             <Text b>Live Photo</Text>
-                            <ButtonText t='Change' onPress={this.handleChangeProfilePic} />
+                            <ButtonText t='Change' onPress={this.handleChangeProfilePic} disabled={processing} />
                         </Row>
                     </Outline>
                     }
