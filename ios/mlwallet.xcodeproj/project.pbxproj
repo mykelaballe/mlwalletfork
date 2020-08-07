@@ -17,9 +17,9 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* mlwalletTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* mlwalletTests.m */; };
 		459D36CD48B00B24D3C5E90A /* libPods-mlwallet-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A82B97A5721F3F4E60B3DB57 /* libPods-mlwallet-tvOSTests.a */; };
+		494E613F24DD2FD30083742C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 494E613E24DD2FD20083742C /* GoogleService-Info.plist */; };
 		4962FFFD23FE621500ED249F /* Lato.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4962FFFC23FE621400ED249F /* Lato.ttf */; };
 		4965453723FBED88002F795C /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4965453623FBED88002F795C /* File.swift */; };
-		497D89EC24C9955500A47528 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 497D89EB24C9955500A47528 /* GoogleService-Info.plist */; };
 		52119737B495790713779203 /* libPods-mlwallet-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0589122085CA0BD1B4E2A2A7 /* libPods-mlwallet-tvOS.a */; };
 		D251ADD9C0FA4AFCB6D925D7 /* libPods-mlwalletTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72EA61FEFA8AEEEF9E067BCE /* libPods-mlwalletTests.a */; };
 		E51D6CCA66F2E6CB9C502590 /* libPods-mlwallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CF1BDB0A288AA8D34D20B077 /* libPods-mlwallet.a */; };
@@ -51,7 +51,7 @@
 		0589122085CA0BD1B4E2A2A7 /* libPods-mlwallet-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mlwallet-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BF3FA28BE4F4F21932C93F7 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		0E814912D96388CC1FA66F7D /* Pods-mlwalletTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mlwalletTests.debug.xcconfig"; path = "Target Support Files/Pods-mlwalletTests/Pods-mlwalletTests.debug.xcconfig"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* New ML Wallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "New ML Wallet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* ML Wallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ML Wallet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = mlwallet/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = mlwallet/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -61,10 +61,10 @@
 		2D02E47B1E0B4A5D006451C7 /* mlwallet-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mlwallet-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* mlwallet-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mlwallet-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		402B9A1C553C56DEF3F3ABB9 /* Pods-mlwallet-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mlwallet-tvOS.release.xcconfig"; path = "Target Support Files/Pods-mlwallet-tvOS/Pods-mlwallet-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		494E613E24DD2FD20083742C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4962FFFC23FE621400ED249F /* Lato.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Lato.ttf; sourceTree = "<group>"; };
 		4965453523FBED88002F795C /* mlwallet-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "mlwallet-Bridging-Header.h"; sourceTree = "<group>"; };
 		4965453623FBED88002F795C /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
-		497D89EB24C9955500A47528 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4ED324AC921B41CBB7B52079 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		6BD9DF760AD44C939B19F0E7 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		72EA61FEFA8AEEEF9E067BCE /* libPods-mlwalletTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mlwalletTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -197,7 +197,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				497D89EB24C9955500A47528 /* GoogleService-Info.plist */,
+				494E613E24DD2FD20083742C /* GoogleService-Info.plist */,
 				4962FFFC23FE621400ED249F /* Lato.ttf */,
 				4965453623FBED88002F795C /* File.swift */,
 				13B07FAE1A68108700A75B9A /* mlwallet */,
@@ -217,7 +217,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* New ML Wallet.app */,
+				13B07F961A680F5B00A75B9A /* ML Wallet.app */,
 				00E356EE1AD99517003FC87E /* mlwalletTests.xctest */,
 				2D02E47B1E0B4A5D006451C7 /* mlwallet-tvOS.app */,
 				2D02E4901E0B4A5D006451C7 /* mlwallet-tvOSTests.xctest */,
@@ -288,7 +288,7 @@
 			);
 			name = mlwallet;
 			productName = mlwallet;
-			productReference = 13B07F961A680F5B00A75B9A /* New ML Wallet.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* ML Wallet.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2D02E47A1E0B4A5D006451C7 /* mlwallet-tvOS */ = {
@@ -395,7 +395,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4962FFFD23FE621500ED249F /* Lato.ttf in Resources */,
-				497D89EC24C9955500A47528 /* GoogleService-Info.plist in Resources */,
+				494E613F24DD2FD30083742C /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
@@ -753,7 +753,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 62;
+				CURRENT_PROJECT_VERSION = 43;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 3M956BCSGM;
 				INFOPLIST_FILE = mlwallet/Info.plist;
@@ -764,9 +764,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mlhuillier.cn.mlwallet;
-				PRODUCT_NAME = "New ML Wallet";
-				PROVISIONING_PROFILE_SPECIFIER = "Wallet New Development";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mlhuillier.mlwallet;
+				PRODUCT_NAME = "ML Wallet";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.mlhuillier.mlwallet";
 				SWIFT_OBJC_BRIDGING_HEADER = "mlwallet-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -783,7 +783,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 62;
+				CURRENT_PROJECT_VERSION = 43;
 				DEVELOPMENT_TEAM = 3M956BCSGM;
 				INFOPLIST_FILE = mlwallet/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -793,9 +793,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mlhuillier.cn.mlwallet;
-				PRODUCT_NAME = "New ML Wallet";
-				PROVISIONING_PROFILE_SPECIFIER = "Wallet New Production";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mlhuillier.mlwallet;
+				PRODUCT_NAME = "ML Wallet";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.mlhuillier.mlwallet";
 				SWIFT_OBJC_BRIDGING_HEADER = "mlwallet-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>332783703043-rnckid5jb8gn8spla3kkbi0n4edk5o4f.apps.googleusercontent.com</string>
+	<string>332783703043-idrt6k0kubhjud87gva8p5g3uu1tsdtl.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.332783703043-rnckid5jb8gn8spla3kkbi0n4edk5o4f</string>
+	<string>com.googleusercontent.apps.332783703043-idrt6k0kubhjud87gva8p5g3uu1tsdtl</string>
 	<key>API_KEY</key>
 	<string>AIzaSyDx9TfylWDU7Tj_LL7m-XkFK09tFKY5ago</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.mlhuillier.cn.mlwallet</string>
+	<string>com.mlhuillier.mlwallet</string>
 	<key>PROJECT_ID</key>
 	<string>mlwallet-59254</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,7 +29,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:332783703043:ios:f5f8e325fe6d4d6fca2a36</string>
+	<string>1:332783703043:ios:8ab64f277db95b12</string>
 	<key>DATABASE_URL</key>
 	<string>https://mlwallet-59254.firebaseio.com</string>
 </dict>
