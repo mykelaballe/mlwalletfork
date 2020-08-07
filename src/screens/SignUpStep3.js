@@ -256,21 +256,17 @@ class Scrn extends React.Component {
                         
                         if(verificationRes.error) Say.warn(verificationRes.message)
                         else {
-                            Say.ok(
-                                `Congratulations ${firstname}!
-                                You are registered as a Fully -Verified User.
+                            
+                            this.props.updateUserInfo({
+                                validID:verificationRes.data.validid,
+                                status:3
+                            })
 
-                                Please remember your ML Wallet account number
-                                ${user.walletno}
-                                `,
+                            Say.ok(
+                                `Congratulations ${firstname}!\nYou are registered as a Fully -Verified User.\n\nPlease remember your ML Wallet account number\n${user.walletno}`,
                                 null,
                                 {
-                                    onConfirm:() => {
-                                        this.props.updateUserInfo({
-                                            validID:verificationRes.data.validid,
-                                            status:3
-                                        })
-                                    }
+                                    onConfirm:() => this.props.navigation.navigate('MyAccount')
                                 }
                             )
                         }
