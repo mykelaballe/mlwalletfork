@@ -79,7 +79,7 @@ class Scrn extends React.Component {
 
                         <Spacer />
 
-                        {(user.status !== 3 || true) && <Button t='Get Fully Verified Now' mode='outlined' onPress={this.handleGoToVerificationLevels} />}
+                        {user.status !== 3 && <Button t='Get Fully Verified Now' mode='outlined' onPress={this.handleGoToVerificationLevels} />}
 
                     </View>
 
