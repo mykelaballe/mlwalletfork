@@ -24,7 +24,7 @@ export default {
 	storeListingUrl:IS_ANDROID ? PLAYSTORE_URL : APPSTORE_URL,
 	codepush_key:IS_ANDROID ? CODEPUSH_ANDROID_DEV : CODEPUSH_IOS_DEV,
 	companyName:'M Lhuillier',
-	hotline1:'0947-999-0037',
+	hotline1:'0947-999-0337',
 	hotline2:'0917-871-2973',
 	db:{
 		app:'AppDB',
