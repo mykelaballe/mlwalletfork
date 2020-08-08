@@ -11,8 +11,8 @@ class Scrn extends React.Component {
 
     state = {
         data:null,
-        username:'migonetest123',
-        password:'123456q@',
+        username:'',
+        password:'',
         show_password:false,
         processing:false
     }
@@ -123,10 +123,10 @@ class Scrn extends React.Component {
                     res.data.latitude = latitude
                     res.data.longitude = longitude
 
-                    res.data.isnewapp = 1
-                    if(res.data.isnewapp == 1) this.forceReupdateAddress(res.data);return
-
-                    if(res.data.isresetpass === 1) {
+                    if(res.data.isnewapp == 1) {
+                        this.forceReupdateAddress(res.data)
+                    }
+                    else if(res.data.isresetpass === 1) {
                         this.props.navigation.navigate('CreatePassword',{
                             walletno:res.data.walletno,
                             old_password:res.data.password
