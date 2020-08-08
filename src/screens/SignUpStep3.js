@@ -236,12 +236,12 @@ class Scrn extends React.Component {
                         
                         if(updateRes.error) Say.warn(updateRes.message)
                         else {
+                            this.props.updateUserInfo(updateRes.data)
                             Say.ok(
                                 `Thanks for updating your profile, ${firstname}!\n\nExplore the new ML Wallet now`,
                                 null,
                                 {
                                     onConfirm:() => {
-                                        this.props.updateUserInfo(updateRes.data)
                                         this.props.login()
                                     }
                                 }

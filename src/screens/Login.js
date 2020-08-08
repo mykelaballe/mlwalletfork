@@ -11,8 +11,8 @@ class Scrn extends React.Component {
 
     state = {
         data:null,
-        username:'',
-        password:'',
+        username:'migonetest123',
+        password:'123456q@',
         show_password:false,
         processing:false
     }
@@ -123,6 +123,9 @@ class Scrn extends React.Component {
                     res.data.latitude = latitude
                     res.data.longitude = longitude
 
+                    res.data.isnewapp = 1
+                    if(res.data.isnewapp == 1) this.forceReupdateAddress(res.data);return
+
                     if(res.data.isresetpass === 1) {
                         this.props.navigation.navigate('CreatePassword',{
                             walletno:res.data.walletno,
@@ -158,6 +161,19 @@ class Scrn extends React.Component {
                 onConfirm:() => {
                     this.props.setUser(userData)
                     this.props.navigation.navigate('SignUpPassword',{isForceUpdate:true})
+                }
+            }
+        )
+    }
+
+    forceReupdateAddress = userData => {
+        Say.ok(
+            'For an even better experience with the new and improved ML Wallet App, please update your address!',
+            `Hi, ${userData.fname}!`,
+            {
+                onConfirm:() => {
+                    this.props.setUser(userData)
+                    this.props.navigation.navigate('SignUpStep2',{isForceUpdate:true})
                 }
             }
         )

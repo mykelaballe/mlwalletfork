@@ -63,21 +63,16 @@ class Scrn extends React.Component {
     }
 
     handleChangeHouse = house => this.setState({house,error_house:false})
-
     handleChangeStreet = street => this.setState({street,error_street:false})
 
     handleSelectCountry = () => this.props.navigation.navigate('Countries',{sourceRoute:this.props.navigation.state.routeName})
-
     handleSelectProvince = () => this.props.navigation.navigate('Provinces',{sourceRoute:this.props.navigation.state.routeName, country:this.state.country})
-
     handleSelectCity = () => this.props.navigation.navigate('Cities',{sourceRoute:this.props.navigation.state.routeName, province:this.state.province})
 
     handleChangeBarangay = barangay => this.setState({barangay,error_barangay:false})
 
     handleFocusBarangay = () => this.refs.barangay.focus()
-
     handleFocusStreet = () => this.refs.street.focus()
-
     handleFocusHouse = () => this.refs.house.focus()
 
     handleSubmit = async () => {
@@ -105,7 +100,7 @@ class Scrn extends React.Component {
             else if(street && !Func.hasAddressSpecialCharsOnly(street)) Say.warn(Consts.error.notAllowedChar + '\n\nStreet')
             else if(house && !Func.hasAddressSpecialCharsOnly(house)) Say.warn(Consts.error.notAllowedChar + '\n\nHouse/Unit/Floor...: ')
             else {
-                if(params.isForceUpdate) {
+                if(user.isnewapp == 1) {
                     this.setState({processing:true})
 
                     let updateRes = await API.updateProfile({
@@ -122,14 +117,12 @@ class Scrn extends React.Component {
                     
                     if(updateRes.error) Say.warn(updateRes.message)
                     else {
+                        this.props.updateUserInfo(updateRes.data)
                         Say.ok(
-                            `Thanks for updating your profile, ${user.fname}!\n\nExplore the new ML Wallet now`,
+                            `Thanks for updating your address, ${user.fname}!\n\nExplore the new ML Wallet now`,
                             null,
                             {
-                                onConfirm:() => {
-                                    this.props.updateUserInfo(updateRes.data)
-                                    this.props.login()
-                                }
+                                onConfirm:() => this.props.login()
                             }
                         )
                     }
