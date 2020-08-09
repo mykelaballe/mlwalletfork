@@ -80,6 +80,8 @@ const getCurrentPosition = () => {
             err => {
                 resolve({
                     error:true,
+                    latitude:Consts.defaultLatitude,
+                    longitude:Consts.defaultLongitude,
                     ...err
                 })
             },
@@ -110,8 +112,11 @@ const getLocation = () => {
                     return (
                         getCurrentPosition()
                         .then(res => {
-                            if(res.error) Say.warn(message)
-                            resolve(res)
+                            //if(res.error) Say.warn(message)
+                            resolve({
+                                ...res,
+                                error:false
+                            })
                         })
                     )
                 }
