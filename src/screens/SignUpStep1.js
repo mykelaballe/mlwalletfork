@@ -267,7 +267,7 @@ class Scrn extends React.Component {
                 let birthdate_pieces = user.birthdate.split(' ')
                 let birth_date_pieces = birthdate_pieces[0].split('/')
 
-                this.props.navigation.navigate('SignUpStep3',{
+                this.props.navigation.navigate('SignUpStep2',{
                     ...this.props.navigation.state.params,
                     firstname,
                     middlename,
