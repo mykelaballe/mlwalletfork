@@ -124,6 +124,7 @@ class Scrn extends React.Component {
                             longitude:b.mLong
                         }}
                         title={b.bName}
+                        description={b.bName}
                     >
                         <Image source={MARKER_IMG} style={style.marker} />
                     </Marker>

@@ -20,14 +20,14 @@ class Scrn extends React.Component {
 
     componentDidMount = () => Say.some(_('88'),'Attention!')
 
-    handleGoToVerificationLevels = () => {
+    handleGoToVerificationLevels_ = () => {
         Say.some(
             'Upgrading of verification status via ML Wallet will be available SOON. Stay tuned!',
             'Hi there!'
         )
     }
 
-    handleGoToVerificationLevels_ = () => {
+    handleGoToVerificationLevels = () => {
         const {user} = this.props
 
         if(Func.getAge(user.birthdate) >= 18) {

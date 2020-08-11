@@ -123,8 +123,11 @@ class Scrn extends React.Component {
                     res.data.latitude = latitude
                     res.data.longitude = longitude
 
-                    if(res.data.isnewapp == 1) {
-                        this.forceReupdateAddress(res.data)
+                    if(!res.data.barangay || !res.data.street || !res.data.houseno) {
+                        this.forceReupdateAddress({
+                            ...res.data,
+                            isnewapp:1
+                        })
                     }
                     else if(res.data.isresetpass === 1) {
                         this.props.navigation.navigate('CreatePassword',{
@@ -259,14 +262,18 @@ class Scrn extends React.Component {
                         </Row>
                     </View>
 
-                    {/*<Spacer sm />
+                    {isUsingTouchID &&
+                    <>
+                        <Spacer sm />
 
-                    <ButtonTextIcon
-                        disabled={processing}
-                        i='fingerprint'
-                        t={_('46')}
-                        onPress={this.handleTouchID}
-                    />*/}
+                        <ButtonTextIcon
+                            disabled={processing}
+                            i='fingerprint'
+                            t={_('46')}
+                            onPress={this.handleTouchID}
+                        />
+                    </>
+                    }
 
                     {/*isUsingTouchID &&
                     <Row c>

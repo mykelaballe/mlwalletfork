@@ -78,13 +78,13 @@ class Scrn extends React.Component {
                     <HR m={Metrics.rg} />
                 </TouchableOpacity>
 
-                {/*<TouchableOpacity onPress={this.handleToggleTouchID} style={style.item}>
+                <TouchableOpacity onPress={this.handleToggleTouchID} style={style.item}>
                     <Row bw>
                         <Text md mute>Touch ID</Text>
                         <Switch value={isUsingTouchID} onValueChange={this.handleToggleTouchID} loading={processing} />
                     </Row>
                     <HR m={Metrics.rg} />
-                </TouchableOpacity>*/}
+                </TouchableOpacity>
             </View>
         )
     }

@@ -13,7 +13,8 @@ class Scrn extends React.Component {
 
     state = {
         partners:[
-            {label:'CHINABANK RTA',value:'CHINABANK RTA'}
+            {label:'CHINABANK RTA',value:'CHINABANK RTA'},
+            {label:'METROBANK REMIT TO ACCOUNT',value:'METROBANK REMIT TO ACCOUNT'}
         ],
         name:'',
         account_name:'',

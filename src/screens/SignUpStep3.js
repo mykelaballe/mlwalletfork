@@ -166,7 +166,7 @@ class Scrn extends React.Component {
 
     handleSubmit = async () => {
         const {user} = this.props
-        const {isForceUpdate, isFullVerification, password, pincode, firstname, middlename, lastname, suffix, source_of_income, natureofwork, bday_day, bday_month, bday_year} = this.props.navigation.state.params
+        const {isForceUpdate, isFullVerification, password, pincode, firstname, middlename, lastname, suffix, source_of_income, natureofwork, bday_day, bday_month, bday_year, country, province, city, house, street, barangay, zip_code} = this.props.navigation.state.params
         let {profilepic, validID, list, selectedIDIndex, processing} = this.state
 
         //check if id select is a government ID
@@ -217,6 +217,7 @@ class Scrn extends React.Component {
                     id:validID.base64,
                     face:profilepic.base64
                 })
+
                 if(res.match || res.valid) {
                     if(isForceUpdate) {
                         let updateRes = await API.reupdateProfile({
@@ -229,9 +230,18 @@ class Scrn extends React.Component {
                             suffix,
                             sourceOfIncome:source_of_income,
                             natureofwork,
+                            country,
+                            province:province.province,
+                            provincecode:province.provCode,
+                            city,
+                            barangay,
+                            houseno:house,
+                            street,
+                            zipcode:zip_code,
                             idType:list[selectedIDIndex].value,
                             validID:validID.base64,
-                            profilepic:profilepic.base64
+                            profilepic:profilepic.base64,
+
                         })
                         
                         if(updateRes.error) Say.warn(updateRes.message)

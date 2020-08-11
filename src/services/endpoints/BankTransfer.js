@@ -11,7 +11,7 @@ export default {
 
     getPartners: async () => {
         let data = {}
-        let res = await Fetch.get('banks')
+        let res = await Fetch.getc('banks/corporate')
 
         if(res.data) {
             for(let d in res.data) {

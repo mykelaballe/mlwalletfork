@@ -105,6 +105,9 @@ class Scrn extends React.Component {
 
                     let updateRes = await API.updateProfile({
                         walletno:user.walletno,
+                        nationality:user.nationality,
+                        sourceofincome:user.sourceofincome,
+                        natureofwork:user.natureofwork,
                         country,
                         province:province.province,
                         provincecode:province.provCode,

@@ -11,7 +11,8 @@ export default class Scrn extends React.Component {
 
     handlePressDomestic = () => this.props.navigation.navigate('ReceiveMoneyDomestic',{type:Consts.tcn.rmd.code})
 
-    handlePressInternational = () => this.props.navigation.navigate('ComingSoon',{title:'Receive Money International',icon:<Icon name='receive_money' style={{width:120,height:120}} />})//Say.warn(Consts.error.featureNotAvailable)//this.props.navigation.navigate('ReceiveMoneyInternational',{type:Consts.tcn.rmi.code})
+    handlePressInternational = () => this.props.navigation.navigate('ReceiveMoneyInternational',{type:Consts.tcn.rmi.code})
+    //handlePressInternational = () => this.props.navigation.navigate('ComingSoon',{title:'Receive Money International',icon:<Icon name='receive_money' style={{width:120,height:120}} />})
 
     render() {
 
