@@ -175,7 +175,7 @@ class Scrn extends React.Component {
                     <Spacer lg />
 
                     {(!params.questions || params.questions.length > 1) &&
-                    <ButtonText t='Answer a different question' onPress={this.handleChangeQuestion} />
+                    <ButtonText disabled={processing} t='Answer a different question' onPress={this.handleChangeQuestion} />
                     }
                 </Screen>
 
