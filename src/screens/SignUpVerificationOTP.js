@@ -309,7 +309,7 @@ export default class Scrn extends React.Component {
 
                     <Spacer lg />
 
-                    <ButtonText t='Resend Verification Code' onPress={this.handleResend} loading={reprocessing} />
+                    <ButtonText disabled={processing} t='Resend Verification Code' onPress={this.handleResend} loading={reprocessing} />
                 </Screen>
             
                 <Footer>
