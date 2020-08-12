@@ -12,12 +12,13 @@ export default props => {
             uncheckedColor={Colors.brand}
             status={props.status ? 'checked' : 'unchecked'}
             onPress={props.onPress}
+            disabled={props.disabled}
         />
     )
     
     if(props.label) {
         return (
-            <TouchableOpacity onPress={props.onPress}>
+            <TouchableOpacity onPress={props.disabled ? null : props.onPress}>
                 <Row>
                     {checkboxUI}
     

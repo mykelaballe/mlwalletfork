@@ -78,9 +78,9 @@ export default class Scrn extends React.Component {
                         subtext='We are about to send a temporary password. Please choose among the options below:'
                     />
                     
-                    <Checkbox status={email} onPress={this.handleToggleEmail} label='Email' />
+                    <Checkbox disabled={processing} status={email} onPress={this.handleToggleEmail} label='Email' />
                     <Spacer />
-                    <Checkbox status={sms} onPress={this.handleToggleSMS} label='SMS' />
+                    <Checkbox disabled={processing} status={sms} onPress={this.handleToggleSMS} label='SMS' />
                 </Screen>
 
                 <Footer>
