@@ -355,7 +355,7 @@ class Scrn extends React.Component {
 
                 <Footer>
                     <View style={{alignItems:'flex-end'}}>
-                        <ButtonText t='Forgot PIN?' onPress={this.handleForgotPIN} />
+                        <ButtonText disabled={processing} t='Forgot PIN?' onPress={this.handleForgotPIN} />
                     </View>
 
                     <Spacer />
