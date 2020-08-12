@@ -6,7 +6,7 @@ import {Colors} from '../themes'
 export default props => (
     <Row>
         <Switch
-            disabled={props.loading ? true : false}
+            disabled={(props.loading || props.disabled) ? true : false}
             value={props.value}
             onValueChange={props.onValueChange}
             thumbColor={props.value ? Colors.brand : Colors.gray}

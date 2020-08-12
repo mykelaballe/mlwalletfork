@@ -173,7 +173,7 @@ class Scrn extends React.Component {
                     <Outline>
                         <Row bw>
                             <Text>{isFavorite ? 'Remove from' : 'Add to'} favorite</Text>
-                            <Switch value={isFavorite} onValueChange={this.handleToggleFavorite} loading={favoriting} />
+                            <Switch disabled={deleting} value={isFavorite} onValueChange={this.handleToggleFavorite} loading={favoriting} />
                         </Row>
                     </Outline>
                 </Screen>
