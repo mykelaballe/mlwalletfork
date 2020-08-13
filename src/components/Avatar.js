@@ -40,7 +40,7 @@ export default props => {
 			}
 			source={source}
 			indicator={ActivityIndicator}
-			renderError={() => <Text>There is an issue with your profile photo</Text>}
+			renderError={() => <Text center>There is an issue with your profile photo</Text>}
 		/>
 	)
 }
