@@ -1,5 +1,5 @@
 import React from 'react'
-//import {Image} from 'react-native'
+import {Image as RNImage} from 'react-native'
 import ActivityIndicator from './ActivityIndicator'
 import Text from './Text'
 import {Metrics, Res} from '../themes'
@@ -15,6 +15,20 @@ export default props => {
 	if(props.source) source = {uri:props.source}
 
 	borderRadius = (height > width) ? height / 2 : width / 2
+
+	if(!props.source) {
+		return(
+			<RNImage
+				style={
+					[
+						{width, height, borderRadius},
+						props.style
+					]
+				}
+				source={source}
+			/>
+		)
+	}
 	
 	return (
 		<Image

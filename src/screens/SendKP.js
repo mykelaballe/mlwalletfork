@@ -72,7 +72,8 @@ class Scrn extends React.Component {
                         type:Consts.tcn.skp.code,
                         ...params,
                         transaction: {
-                            ...this.state
+                            ...this.state,
+                            sender:Func.formatName(this.props.user)
                         },
                         cancellable:true
                     })

@@ -11,6 +11,8 @@ class Scrn extends React.Component {
     }
 
     state = {
+        fname:'',
+        lname:'',
         account_name:'',
         account_no:'',
         email:'',
@@ -35,6 +37,8 @@ class Scrn extends React.Component {
         }
     }
 
+    handleChangeFName = fname => this.setState({fname})
+    handleChangeLName = lname => this.setState({lname})
     handleChangeAccountNo = account_no => this.setState({account_no})
     handleChangeAccountName = account_name => this.setState({account_name})
     handleChangeEmail = email => this.setState({email})
@@ -46,27 +50,35 @@ class Scrn extends React.Component {
         })
     }
 
+    handleFocusLName = () => this.refs.lname.focus()
+    handleFocusAccountNo = () => this.refs.account_no.focus()
     handleFocusAccountName = () => this.refs.account_name.focus()
     handleFocusAmount = () => this.refs.amount.focus()
     handleFocusEmail = () => this.refs.email.focus()
 
     handlePay = async () => {
-        const {amount, fixed_charge, convenience_fee, processing} = this.state
+        let {fname, lname, amount, fixed_charge, convenience_fee, processing} = this.state
         const {params} = this.props.navigation.state
 
         if(processing) return false
 
         try {
 
+            fname = fname.trim()
+            lname = lname.trim()
+
             this.setState({processing:true})
             
-            if(Func.formatToCurrency(amount) <= 0) Say.warn(_('89'))
+            if(!fname || !lname) Say.warn('Please enter customer name')
+            else if(Func.formatToCurrency(amount) <= 0) Say.warn(_('89'))
             else {
                 let res = await API.paybillValidate({
                     walletno:this.props.user.walletno,
                     principal:amount,
                     fixed_charge,
-                    convenience_fee
+                    convenience_fee,
+                    //fname,
+                    //lname
                 })
 
                 if(res.error) Say.warn(res.message)
@@ -76,7 +88,10 @@ class Scrn extends React.Component {
                         type:Consts.tcn.bpm.code,
                         transaction: {
                             ...this.state,
-                            biller:params.biller
+                            fname,
+                            lname,
+                            biller:params.biller,
+                            sender:Func.formatName(this.props.user)
                         },
                         status:'success'
                     })
@@ -92,15 +107,35 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {partner, account_no, account_name, amount, email, processing} = this.state
+        const {partner, account_no, fname, lname, account_name, amount, email, processing} = this.state
         let ready = false
 
-        if(account_no && account_name && amount) ready = true
+        if(fname && lname && account_no && account_name && amount) ready = true
 
         return (
             <>
                 <Screen>
                     <Headline subtext={partner} />
+
+                    <TextInput
+                        ref='fname'
+                        label='Customer First Name'
+                        value={fname}
+                        onChangeText={this.handleChangeFName}
+                        onSubmitEditing={this.handleFocusLName}
+                        autoCapitalize='words'
+                        returnKeyType='next'
+                    />
+
+                    <TextInput
+                        ref='lname'
+                        label='Customer Last Name'
+                        value={lname}
+                        onChangeText={this.handleChangeLName}
+                        onSubmitEditing={this.handleFocusAccountNo}
+                        autoCapitalize='words'
+                        returnKeyType='next'
+                    />
 
                     <TextInput
                         ref='account_no'

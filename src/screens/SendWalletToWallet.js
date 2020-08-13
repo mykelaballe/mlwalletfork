@@ -67,7 +67,8 @@ class Scrn extends React.Component {
                         ...params,
                         type:Consts.tcn.stw.code,
                         transaction: {
-                            ...this.state
+                            ...this.state,
+                            sender:Func.formatName(this.props.user)
                         },
                         status:'success'
                     })

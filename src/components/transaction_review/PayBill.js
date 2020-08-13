@@ -4,13 +4,18 @@ import {Consts, Func} from '../../utils'
 import {Metrics} from '../../themes'
 
 export default props => {
-    const {partner, account_no, account_name, amount, email, fixed_charge, convenience_fee, total} = props.data
+    const {partner, account_no, fname, lname, account_name, amount, email, fixed_charge, convenience_fee, total} = props.data
 
     return (
         <ScrollFix style={{padding:Metrics.lg}}>
             <Text center lg b>{partner}</Text>
 
             <Spacer lg />
+
+            <Text mute sm>Customer Name</Text>
+            <Text md>{fname} {lname}</Text>
+
+            <Spacer />
 
             <Text mute sm>Account Number</Text>
             <Text md>{account_no}</Text>
