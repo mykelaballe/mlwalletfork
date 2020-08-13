@@ -168,6 +168,8 @@ PODS:
     - RNPermissions
   - Permission-LocationWhenInUse (2.0.10):
     - RNPermissions
+  - Permission-PhotoLibrary (2.0.10):
+    - RNPermissions
   - PromisesObjC (1.2.9)
   - Protobuf (3.11.4)
   - RCTRequired (0.61.2)
@@ -435,6 +437,7 @@ DEPENDENCIES:
   - GoogleMaps
   - Permission-Camera (from `../node_modules/react-native-permissions/ios/Camera.podspec`)
   - Permission-LocationWhenInUse (from `../node_modules/react-native-permissions/ios/LocationWhenInUse.podspec`)
+  - Permission-PhotoLibrary (from `../node_modules/react-native-permissions/ios/PhotoLibrary.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
   - React (from `../node_modules/react-native/`)
@@ -481,10 +484,6 @@ DEPENDENCIES:
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
-    - Google-Maps-iOS-Utils
-    - GoogleMaps
-    - SSZipArchive
   trunk:
     - Base64
     - boost-for-react-native
@@ -511,6 +510,7 @@ SPEC REPOS:
     - nanopb
     - PromisesObjC
     - Protobuf
+    - SSZipArchive
 
 EXTERNAL SOURCES:
   CodePush:
@@ -529,6 +529,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-permissions/ios/Camera.podspec"
   Permission-LocationWhenInUse:
     :path: "../node_modules/react-native-permissions/ios/LocationWhenInUse.podspec"
+  Permission-PhotoLibrary:
+    :path: "../node_modules/react-native-permissions/ios/PhotoLibrary.podspec"
   RCTRequired:
     :path: "../node_modules/react-native/Libraries/RCTRequired"
   RCTTypeSafety:
@@ -644,6 +646,7 @@ SPEC CHECKSUMS:
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   Permission-Camera: a8f6007d17b02ed8a2d6bac1c37c2fd5df9b4e8a
   Permission-LocationWhenInUse: 4a2764d2efe09a1f6c7a00dfbbb863149240311a
+  Permission-PhotoLibrary: e59a7a687e002e8c8c46946c26520934ba85a688
   PromisesObjC: b48e0338dbbac2207e611750777895f7a5811b75
   Protobuf: 176220c526ad8bd09ab1fb40a978eac3fef665f7
   RCTRequired: c639d59ed389cfb1f1203f65c2ea946d8ec586e2
@@ -689,6 +692,6 @@ SPEC CHECKSUMS:
   TouchID: ba4c656d849cceabc2e4eef722dea5e55959ecf4
   Yoga: 14927e37bd25376d216b150ab2a561773d57911f
 
-PODFILE CHECKSUM: c4c612b2f8a3e7b551080dd33d138b579a454835
+PODFILE CHECKSUM: d92e18a0f66a30ab5c363a843c88e2c17f346171
 
 COCOAPODS: 1.8.0.beta.1
