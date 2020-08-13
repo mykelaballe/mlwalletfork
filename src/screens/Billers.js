@@ -35,7 +35,7 @@ export default class Scrn extends React.Component {
         let list = []
 
         try {
-            list = await API.getAllBillers(params.category ? params.category.value : '')
+            list = await API.getAllBillers(params.category ? params.category.label : '')
 
             this.listHolder = list
         }

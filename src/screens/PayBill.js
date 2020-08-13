@@ -69,8 +69,8 @@ class Scrn extends React.Component {
 
             this.setState({processing:true})
             
-            if(!fname || !lname) Say.warn('Please enter customer name')
-            else if(Func.formatToCurrency(amount) <= 0) Say.warn(_('89'))
+            //if(!fname || !lname) Say.warn('Please enter customer name')
+            if(Func.formatToCurrency(amount) <= 0) Say.warn(_('89'))
             else {
                 let res = await API.paybillValidate({
                     walletno:this.props.user.walletno,
