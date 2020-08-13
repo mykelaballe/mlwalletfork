@@ -24,6 +24,14 @@ export default class Scrn extends React.Component {
                 label:'Airline'
             },
             {
+                value:'application_fees',
+                label:'Application Fees'
+            },
+            {
+                value:'collection',
+                label:'Collection'
+            },
+            {
                 value:'electricity',
                 label:'Electricity'
             },
@@ -36,12 +44,20 @@ export default class Scrn extends React.Component {
                 label:'Foundations'
             },
             {
+                value:'government',
+                label:'Government'
+            },
+            {
                 value:'insurance',
                 label:'Insurance'
             },
             {
                 value:'loan',
                 label:'Loan'
+            },
+            {
+                value:'memorial',
+                label:'Memorial'
             },
             {
                 value:'online_business',

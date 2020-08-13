@@ -16,20 +16,19 @@ class ReceiveMoneyDomestic extends React.Component {
     }
 
     componentDidMount = () => {
-        const {_from, balance, sender, currency} = this.props.data
-        const {amount, forex} = this.state
+        const {_from, balance, sender, currency, amount} = this.props.data
+        const {forex} = this.state
+
+        let receivedAmount = amount
 
         this.props.onExport(
             Func.buildReceiptBody({
                 Sender:Func.cleanName(sender),
-                Amount:`${currency} ${amount}`
+                Amount:`${currency} ${receivedAmount}`
             })
         )
 
         if(_from != 'history') {
-            let receivedAmount = amount
-
-            if(Func.formatToCurrency(forex) > 0) receivedAmount = amount * Func.formatToCurrency(forex)
 
             Say.ok(
                 null,

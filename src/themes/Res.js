@@ -33,9 +33,12 @@ export default {
         phonebook:require('../res/icon/phonebook.png'),
 
         airline:require('../res/icon/airline.png'),
+        application_fees:require('../res/icon/application_fees.png'),
+        collection:require('../res/icon/collection.png'),
         electricity:require('../res/icon/electricity.png'),
         financing:require('../res/icon/financing.png'),
         foundation:require('../res/icon/foundation.png'),
+        government:require('../res/icon/government.png'),
         insurance:require('../res/icon/insurance.png'),
         loan:require('../res/icon/loan.png'),
         memorial:require('../res/icon/memorial.png'),

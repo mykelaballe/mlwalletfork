@@ -75,6 +75,9 @@ class Scrn extends React.Component {
                     if(res.message == Consts.error.blk1d) this.props.logout()
                 }
                 else {
+
+                    if(parseFloat(res.data.forexRate) > 0) amount = amount * res.data.forexRate
+
                     this.props.updateBalance(res.data.balance)
                     this.props.navigation.navigate('TransactionReceipt',{
                         ...params,
@@ -82,6 +85,7 @@ class Scrn extends React.Component {
                         transaction: {
                             ...this.state,
                             ...res.data,
+                            amount,
                             sender:`${firstname} ${lastname}`
                         },
                         kptn:transaction_no,

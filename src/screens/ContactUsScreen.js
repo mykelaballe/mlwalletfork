@@ -60,9 +60,9 @@ class Scrn extends React.Component {
 
                     <HR m={Metrics.rg} />
 
-                    <RippleItem onPress={this.handleCall} value={'+63 (32) 348-9400-09'} style={style.item}>
+                    <RippleItem onPress={this.handleCall} value={'+63 (32) 348-9400'} style={style.item}>
                         <Text b>Tel. No.:</Text>
-                        <Text>+63 (32) 348-9400-09</Text>
+                        <Text>+63 32 348 9400</Text>
                     </RippleItem>
 
                     {/*<Spacer />
@@ -94,7 +94,7 @@ class Scrn extends React.Component {
 
                     <RippleItem onPress={this.handleCall} value={'+63 (32) 415-3977'} style={style.item}>
                         <Text b>Tel. No.:</Text>
-                        <Text>+63 (32) 415-3977</Text>
+                        <Text>+63 32 415 3977</Text>
                     </RippleItem>
 
                     <RippleItem onPress={this.handleEmail} value={'mldpo@mlhuillier.com'} style={style.item}>
@@ -103,12 +103,12 @@ class Scrn extends React.Component {
                     </RippleItem>
                 </Card>
 
-                <Spacer />
+                {/*<Spacer />
 
                 <Text b lg>TO KNOW MORE ABOUT R.A. 10173 or DPA and its RIRR, please visit the website of the National Privacy Commission</Text>
                 <TouchableOpacity onPress={this.handleGovPrivacy}>
                     <Text md>(https://www.privacy.gov.ph)</Text>
-                </TouchableOpacity>
+                </TouchableOpacity>*/}
 
                 <Spacer xl />
             </ScrollView>
