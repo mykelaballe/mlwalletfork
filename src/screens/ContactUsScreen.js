@@ -51,7 +51,6 @@ class Scrn extends React.Component {
 
     render() {
 
-        //const {contact, showModal} = this.state
 
         return (
             <ScrollView style={style.container}>
@@ -60,27 +59,37 @@ class Scrn extends React.Component {
 
                     <HR m={Metrics.rg} />
 
+                    <Text>Call us at</Text>
+
+                    <Spacer sm />
+
+                    <RippleItem onPress={this.handleCall} value={'1800105723252'} style={style.item}>
+                        <Text b>Customer Hotline Toll Free:</Text>
+                        <Text>1 800 105 723 252</Text>
+                    </RippleItem>
+
+                    <Spacer />
+
+                    <Text b>Telephone numbers:</Text>
                     <RippleItem onPress={this.handleCall} value={'+63 (32) 348-9400'} style={style.item}>
-                        <Text b>Tel. No.:</Text>
                         <Text>+63 32 348 9400</Text>
                     </RippleItem>
-
-                    {/*<Spacer />
-
-                    <Text b>Mobile no.</Text>
-
-                    <RippleItem onPress={this.handleCall} value={'09479990337'} style={style.item}>
-                        <Text b>Smart</Text>
-                        <Text>0947-999-0337</Text>
+                    <RippleItem onPress={this.handleCall} value={'+63 (28) 898-1888'} style={style.item}>
+                        <Text>+63 28 898 1888</Text>
                     </RippleItem>
 
-                    <RippleItem onPress={this.handleCall} value={'09178712973'} style={style.item}>
-                        <Text b>Globe</Text>
-                        <Text>0917-871-2973</Text>
-                    </RippleItem>*/}
+                    <Spacer />
+
+                    <Text b>Mobile numbers:</Text>
+                    <RippleItem onPress={this.handleCall} value={'+639479990337'} style={style.item}>
+                        <Text>+63 947 999 0337</Text>
+                    </RippleItem>
+                    <RippleItem onPress={this.handleCall} value={'+639178712973'} style={style.item}>
+                        <Text>+63 917 871 2973</Text>
+                    </RippleItem>
 
                     <RippleItem onPress={this.handleEmail} value={'customercare@mlhuillier.com'} style={style.item}>
-                        <Text b>Email us at</Text>
+                        <Text b>Email us at:</Text>
                         <Text>customercare@mlhuillier.com</Text>
                     </RippleItem>
                 </Card>
@@ -92,13 +101,17 @@ class Scrn extends React.Component {
 
                     <HR m={Metrics.rg} />
 
-                    <RippleItem onPress={this.handleCall} value={'+63 (32) 415-3977'} style={style.item}>
-                        <Text b>Tel. No.:</Text>
+                    <Text>Call us at</Text>
+
+                    <Spacer sm />
+
+                    <RippleItem onPress={this.handleCall} value={'+63 32 415 3977'} style={style.item}>
+                        <Text b>Telephone number:</Text>
                         <Text>+63 32 415 3977</Text>
                     </RippleItem>
 
                     <RippleItem onPress={this.handleEmail} value={'mldpo@mlhuillier.com'} style={style.item}>
-                        <Text b>Email us</Text>
+                        <Text b>Email us at:</Text>
                         <Text>mldpo@mlhuillier.com</Text>
                     </RippleItem>
                 </Card>
