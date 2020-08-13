@@ -89,7 +89,7 @@ export default class Scrn extends React.Component {
             directory: Consts.is_android ? 'Downloads' : 'Documents',
             width: 350,
             height: 600,
-            base64: true
+            //base64: true
         })
 
         //const filePath = `${RNFetchBlob.fs.dirs.DownloadDir}/${kptn}.pdf`

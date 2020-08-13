@@ -19,11 +19,12 @@ class SendWalletToWallet extends React.Component {
 
     componentDidMount = () => {
         const {user} = this.props
-        const {_from, walletno, receiver, notes, balance} = this.props.data
+        const {_from, walletno, receiver, sender, notes, balance} = this.props.data
         const {amount, charges, total} = this.state
 
         this.props.onExport(
             Func.buildReceiptBody({
+                Sender: sender,
                 [_('90')]:Func.formatWalletNo(walletno),
                 Receiver:receiver.fullname,
                 Amount:amount,
@@ -56,7 +57,7 @@ class SendWalletToWallet extends React.Component {
     render() {
 
         const {user} = this.props
-        const {_from, kptn, walletno, receiver, notes} = this.props.data
+        const {_from, kptn, walletno, receiver, sender, notes} = this.props.data
         const {amount, charges, total, date, time, type} = this.state
 
         return (
@@ -70,6 +71,11 @@ class SendWalletToWallet extends React.Component {
                     <ScrollFix style={{padding:Metrics.lg}}>
                         <Text sm mute>{_('90')}</Text>
                         <Text>{Func.formatWalletNo(walletno)}</Text>
+
+                        <Spacer />
+
+                        <Text sm mute>Sender</Text>
+                        <Text>{sender}</Text>
 
                         <Spacer />
 

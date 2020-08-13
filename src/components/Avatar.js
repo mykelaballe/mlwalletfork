@@ -1,6 +1,9 @@
 import React from 'react'
-import {Image} from 'react-native'
+//import {Image} from 'react-native'
+import ActivityIndicator from './ActivityIndicator'
+import Text from './Text'
 import {Metrics, Res} from '../themes'
+import Image from 'react-native-image-progress'
 
 export default props => {
 	let wh = Metrics.image.rg,
@@ -22,6 +25,8 @@ export default props => {
 				]
 			}
 			source={source}
-			/>
+			indicator={ActivityIndicator}
+			renderError={() => <Text>There is an issue with your profile photo</Text>}
+		/>
 	)
 }

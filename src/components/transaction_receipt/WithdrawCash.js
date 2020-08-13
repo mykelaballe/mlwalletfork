@@ -38,7 +38,7 @@ class WithdrawCash extends React.Component {
                 {
                     customMessage:(
                         <>
-                            <Text mute md>Your transaction is pending. Go to the nearest M Lhuillier branch to complete your withdraw</Text>
+                            <Text mute md>Your transaction is pending. Go to the nearest M Lhuillier branch to complete your withdrawal</Text>
                             <Spacer lg />
                             <Text mute>Your new balance is</Text>
                             <Text xl b>{Consts.currency.PH} {Func.formatToRealCurrency(balance)}</Text>

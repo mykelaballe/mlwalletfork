@@ -102,6 +102,8 @@ const attemptLeft = (error,options = {}) => {
 
 const logout = () => SomeModal.sayLogout()
 
+const hide = () => SomeModal.hide()
+
 export default {
     some,
     ok,
@@ -110,5 +112,6 @@ export default {
     info,
     ask,
     attemptLeft,
-    logout
+    logout,
+    hide
 }

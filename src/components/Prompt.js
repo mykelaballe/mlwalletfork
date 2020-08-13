@@ -58,7 +58,7 @@ export default class Prompt extends React.Component {
 
 				{props.type === 'input' && <TextInput {...props.inputProps} />}
 
-				{btns}
+				{(props.noBtn === undefined || props.noBtn === false) && btns}
 			</>
 		)
 

@@ -149,6 +149,13 @@ const isAmount2Decimal = value => {
     return true
 }
 
+const isImage = filename => {
+    const ALLOWED_IMAGES = ['jpg', 'jpeg', 'png', 'bmp']
+
+    const split = filename.split('.')
+    return ALLOWED_IMAGES.indexOf((split.pop()).toLowerCase()) >= 0
+}
+
 export default {
     validate,
     isLettersOnly,
@@ -161,5 +168,6 @@ export default {
     isEmail,
     isPHMobileNumber,
     isAgeAllowed,
-    isAmount2Decimal
+    isAmount2Decimal,
+    isImage
 }

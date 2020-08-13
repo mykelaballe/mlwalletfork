@@ -2,7 +2,7 @@ import React from 'react'
 import {View, StyleSheet, Linking} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Text, Button, ButtonText, Spacer, TextInput, Row, Icon, Screen, MLBanner, Ripple, ButtonTextIcon} from '../components'
+import {Text, Button, ButtonText, Spacer, TextInput, Row, Icon, Screen, MLBanner, ButtonTextIcon} from '../components'
 import {Colors, Metrics} from '../themes'
 import {_, Say, Consts, Func} from '../utils'
 import {API} from '../services'
@@ -11,7 +11,8 @@ class Scrn extends React.Component {
 
     state = {
         data:null,
-        username:'',
+        username:this.props.username,
+        rememberedUsername:Func.maskUsername(this.props.username),
         password:'',
         show_password:false,
         processing:false
@@ -56,7 +57,7 @@ class Scrn extends React.Component {
 
         let {username, password} = params
 
-        let latitude = '0.0', longitude = '0.0'
+        let latitude = Consts.defaultLatitude, longitude = Consts.defaultLongitude
 
         if(processing) return false
 
@@ -141,6 +142,8 @@ class Scrn extends React.Component {
                         })
                     }
                     else {
+                        res.data.remotePhoto = `${Consts.baseURL}wallet/image?walletno=${res.data.walletno}`
+                        res.data.localPhoto = this.props.localPhotos[res.data.walletno] || null
                         this.props.setUser(res.data)
                         //this.props.setIsUsingTouchID(res.data.fingerprintstat === 1)
                         this.props.rememberLoginCredentials({username})
@@ -191,9 +194,12 @@ class Scrn extends React.Component {
         }
     }
 
-    handleChangeUsername = username => this.setState({username})
+    handleChangeUsername = username => this.setState({username, rememberedUsername:username})
     handleChangePassword = password => this.setState({password})
 
+    handleFocusUsername = () => {
+        if(this.props.username === this.state.username) this.setState({username:'', rememberedUsername:''})
+    }
     handleFocusPassword = () => this.refs.password.focus()
 
     handleTogglePassword = () => this.setState(prevState => ({show_password:!prevState.show_password}))
@@ -201,8 +207,10 @@ class Scrn extends React.Component {
     render() {
 
         const {isUsingTouchID} = this.props
-        let {username, password, show_password, processing} = this.state
+        let {username, rememberedUsername, password, show_password, processing} = this.state
         let ready = false
+
+        username = rememberedUsername || username
 
         if(username && password) ready = true
 
@@ -227,6 +235,7 @@ class Scrn extends React.Component {
                             value={username}
                             onChangeText={this.handleChangeUsername}
                             onSubmitEditing={this.handleFocusPassword}
+                            onFocus={this.handleFocusUsername}
                             autoCapitalize='none'
                             returnKeyType='next'
                             maxLength={30}
@@ -298,7 +307,8 @@ const style = StyleSheet.create({
 
 const mapStateToProps = state => ({
     isUsingTouchID: state.app.isUsingTouchID,
-    username: state.app.rememberedUsername
+    username: state.app.rememberedUsername,
+    localPhotos: state.app.localPhotos
 })
 
 const mapDispatchToProps = dispatch => ({

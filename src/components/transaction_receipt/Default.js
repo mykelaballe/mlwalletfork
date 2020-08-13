@@ -8,7 +8,7 @@ import {_, Consts, Func, Say} from '../../utils'
 class Default extends React.Component {
 
     state = {
-        total:Func.formatToCurrency(this.props.data.total),
+        total:Func.formatToRealCurrency(this.props.data.total),
         date:this.props.data.date,
         time:this.props.data.time,
         type:this.props.data.type
@@ -18,13 +18,12 @@ class Default extends React.Component {
         const {_from, walletno, balance} = this.props.data
         const {total} = this.state
 
-        this.props.onExport(`
-            <h4 style="color:#6A6A6A;line-height:0">${_('90')}</h4>
-            <h3>${Func.formatWalletNo(walletno)}</h3>
-
-            <h4 style="color:#6A6A6A;line-height:0">Total</h4>
-            <h3 style="margin-top:0">${Consts.currency.PH} ${total}</h3>
-        `)
+        this.props.onExport(
+            Func.buildReceiptBody({
+                [_('90')]: Func.formatWalletNo(walletno),
+                Total: `${Consts.currency.PH} ${total}`
+            })
+        )
 
         if(_from != 'history') {
             Say.ok(

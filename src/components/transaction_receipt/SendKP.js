@@ -23,11 +23,12 @@ class SendKP extends React.Component {
     }
 
     componentDidMount = () => {
-        const {_from, receiver, balance} = this.props.data
+        const {_from, receiver, sender, balance} = this.props.data
         const {amount, charges, total} = this.state
 
         this.props.onExport(
             Func.buildReceiptBody({
+                Sender: sender,
                 'First Name': receiver.firstname,
                 'Middle Name': receiver.middlename || _('50'),
                 'Last Name': receiver.lastname,
@@ -124,7 +125,7 @@ class SendKP extends React.Component {
 
     render() {
 
-        const {_from, kptn, receiver} = this.props.data
+        const {_from, kptn, receiver, sender} = this.props.data
         const {amount, charges, total, date, time, status, cancellable, cancelling, type} = this.state
 
         return (
@@ -137,6 +138,11 @@ class SendKP extends React.Component {
                     />
 
                     <ScrollFix style={{padding:Metrics.lg}}>
+                        <Text sm mute>Sender</Text>
+                        <Text>{sender}</Text>
+
+                        <Spacer />
+
                         <Row>
                             <View style={{flex:1}}>
                                 <Text mute sm>First Name</Text>

@@ -4,7 +4,6 @@ import {ButtonText, ButtonIcon, Row, ActivityIndicator, Text} from '../component
 import {Colors, Metrics} from '../themes'
 import {_, Say, Consts} from '../utils'
 import {RNCamera, Face} from 'react-native-camera'
-import RNFetchBlob from 'rn-fetch-blob'
 import {request, PERMISSIONS, RESULTS} from 'react-native-permissions'
 import AntDesignIcon from 'react-native-vector-icons/AntDesign'
 import FoundationIcon from 'react-native-vector-icons/Foundation'

@@ -1,7 +1,7 @@
 import React from 'react'
 import {withNavigation} from 'react-navigation'
 import {Header} from './'
-import {Screen, Footer, View, Text, Spacer, Button, ScrollFix} from '../'
+import {Screen, Footer, Text, Spacer, Button, ScrollFix} from '../'
 import {Metrics} from '../../themes'
 import {_, Consts, Func, Say} from '../../utils'
 
@@ -18,16 +18,13 @@ class ReceiveMoneyInternational extends React.Component {
         const {_from, sender, partner, currency} = this.props.data
         const {amount} = this.state
 
-        this.props.onExport(`
-            <h4 style="color:#6A6A6A;line-height:0">Sender</h4>
-            <h3>${sender}</h3>
-
-            <h4 style="color:#6A6A6A;line-height:0">Partner</h4>
-            <h3 style="margin-top:0">${partner}</h3>
-
-            <h4 style="color:#6A6A6A;line-height:0">Amount</h4>
-            <h3 style="margin-top:0">${currency} ${amount}</h3>
-        `)
+        this.props.onExport(
+            Func.buildReceiptBody({
+               Sender: sender,
+               Partner: partner,
+               Amount:`${currency} ${amount}`
+            })
+        )
 
         if(_from != 'history') {
             Say.ok(

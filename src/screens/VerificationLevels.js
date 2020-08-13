@@ -73,7 +73,7 @@ class Scrn extends React.Component {
                         note:`${Consts.currency.PH} 50,000 limit per transaction`
                     },
                     sme:{
-                        value:'Coming Soon'
+                        value:'COMING SOON'
                     }
                 },
                 {
@@ -120,8 +120,7 @@ class Scrn extends React.Component {
                         value:`${Consts.currency.PH} 10,000 Monthly`
                     },
                     verified:{
-                        value:`${Consts.currency.PH} 200,000`,
-                        note:'Custom limit'
+                        value:`${Consts.currency.PH} 200,000`
                     },
                     sme:{
                         value:''
@@ -196,7 +195,7 @@ class Scrn extends React.Component {
 
                 <Row ar style={style.tableHeader}>
                     <View style={[style.cell,{alignItems:'flex-start'}]}>
-                        <Text center b sm>FEATURES</Text>
+                        <Text center b xs>FEATURES</Text>
                     </View>
 
                     <View style={style.cell}>

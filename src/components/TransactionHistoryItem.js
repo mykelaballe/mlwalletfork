@@ -65,6 +65,10 @@ class TransactionHistoryItem extends React.Component {
         //if(newState.type === 'LOAD') newState.type = Consts.tcn.stw.code
         //else if(newState.type === 'adm') newState.type = Consts.tcn.stw.code
 
+        if(data.transtype == Consts.tcn.bpm.code) {
+            newState.transaction.total = newState.transaction.amount + newState.transaction.fixed_charge + newState.transaction.convenience_fee
+        }
+
         newState.amount = Func.checkTransAmount(newState)
 
         if(data.transtype == Consts.tcn.skp.code || data.transtype == Consts.tcn.wdc.code) {

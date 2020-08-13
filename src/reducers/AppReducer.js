@@ -12,7 +12,8 @@ export const INITIAL_STATE = Immutable({
   hasSeenPayBillsOnboarding: false,
   hasSeenBuyLoadOnboarding: false,
   isLocationEnabled: false,
-  rememberedUsername: ''
+  rememberedUsername: '',
+  localPhotos:{}
 })
 
 const setIsFirstTime = (state, action) => state.merge({ isFirstTime:action.isFirstTime })
@@ -35,6 +36,15 @@ const setIsLocationEnabled = (state, action) => state.merge({ isLocationEnabled:
 
 const rememberLoginCredentials = (state, action) => state.merge({ rememberedUsername:action.credentials.username })
 
+const saveLocalPhoto = (state, action) => (
+  state.merge({
+    localPhotos:{
+      ...state.localPhotos,
+      [action.walletno]:action.file
+    } 
+  })
+)
+
 const ACTION_HANDLERS = {
   [Types.SET_IS_FIRST_TIME]: setIsFirstTime,
   [Types.SET_IS_TOUCH_ID_SUPPORTED]: setIsTouchIDSupported,
@@ -45,7 +55,8 @@ const ACTION_HANDLERS = {
   [Types.SET_HAS_SEEN_PAYBILLS_ONBOARDING]: setHasSeenPayBillsOnboarding,
   [Types.SET_HAS_SEEN_BUYLOAD_ONBOARDING]: setHasSeenBuyLoadOnboarding,
   [Types.SET_IS_LOCATION_ENABLED]: setIsLocationEnabled,
-  [Types.REMEMBER_LOGIN_CREDENTIALS]: rememberLoginCredentials
+  [Types.REMEMBER_LOGIN_CREDENTIALS]: rememberLoginCredentials,
+  [Types.SAVE_LOCAL_PHOTO]: saveLocalPhoto
 }
 
 export default createReducer(INITIAL_STATE, ACTION_HANDLERS)

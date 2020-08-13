@@ -18,10 +18,11 @@ class AddMoney extends React.Component {
         const {_from, walletno, balance} = this.props.data
         const {total} = this.state
 
-        this.props.onExport(`
-            <h4 style="color:#6A6A6A;line-height:0">Total</h4>
-            <h3 style="margin-top:0">${Consts.currency.PH} ${total}</h3>
-        `)
+        this.props.onExport(
+            Func.buildReceiptBody({
+                Total: `${Consts.currency.PH} ${total}`
+            })
+        )
 
         if(_from != 'history') {
             Say.ok(

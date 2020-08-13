@@ -69,7 +69,7 @@ class Scrn extends React.Component {
                     <TopBuffer sm />
 
                     <View style={style.topContainer}>
-                        <Avatar source={user.profilepic ? `${Consts.baseURL}wallet/image?walletno=${user.walletno}` : null} size={Metrics.image.lg} />
+                        <Avatar source={user.localPhoto || user.remotePhoto} size={Metrics.image.lg} />
 
                         <Text b lg center mute>{Func.formatName(user)}</Text>
                         <Text center mute>{_('90')}: {Func.formatWalletNo(user.walletno)}</Text>

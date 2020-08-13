@@ -110,6 +110,27 @@ const buildReceiptBody = data => {
     return output
 }
 
+strReplaceAt = (str, index, replacement) => str.substr(0, index) + replacement + str.substr(index + replacement.length)
+
+const maskUsername = str => {
+    let newStr = ''
+
+    if(str) {
+        let firstVisibleIndex = 0, lastVisibleIndex = str.length - 2
+        
+        for(let s in str) {
+            if(s > firstVisibleIndex && s < lastVisibleIndex) {
+                newStr = strReplaceAt(newStr, s, '*')
+            }
+            else {
+                newStr += str[s]
+            }
+        }
+    }
+
+    return newStr
+}
+
 export default {
     formatToCurrency,
     formatToRealCurrency,
@@ -120,5 +141,6 @@ export default {
     formatToPHMobileNumberFull,
     formatWalletNo,
     formatKPTN,
-    buildReceiptBody
+    buildReceiptBody,
+    maskUsername
 }

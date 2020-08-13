@@ -21,6 +21,7 @@ import Types from './Types'
  const setHasSeenBuyLoadOnboarding = hasSeen => ({ type: Types.SET_HAS_SEEN_BUYLOAD_ONBOARDING, hasSeen })
  const setIsLocationEnabled = isEnabled => ({ type: Types.SET_IS_LOCATION_ENABLED, isEnabled })
  const rememberLoginCredentials = credentials => ({ type: Types.REMEMBER_LOGIN_CREDENTIALS, credentials })
+ const saveLocalPhoto = (walletno, file) => ({ type: Types.SAVE_LOCAL_PHOTO, walletno, file })
 
  /*----------------------------------------------------------------------
  AUTHENTICATION
@@ -127,6 +128,7 @@ export default {
   setHasSeenBuyLoadOnboarding,
   setIsLocationEnabled,
   rememberLoginCredentials,
+  saveLocalPhoto,
 
   addWalletReceiver,
   updateWalletReceiver,
