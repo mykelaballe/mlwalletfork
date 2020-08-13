@@ -351,6 +351,8 @@ PODS:
     - React
   - react-native-html-to-pdf (0.8.0):
     - React
+  - react-native-image-picker (2.3.3):
+    - React
   - react-native-maps (0.26.1):
     - React
   - react-native-netinfo (4.4.0):
@@ -448,6 +450,7 @@ DEPENDENCIES:
   - "react-native-geolocation (from `../node_modules/@react-native-community/geolocation`)"
   - react-native-google-maps (from `../node_modules/react-native-maps`)
   - react-native-html-to-pdf (from `../node_modules/react-native-html-to-pdf`)
+  - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-maps (from `../node_modules/react-native-maps`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-pdf (from `../node_modules/react-native-pdf`)
@@ -552,6 +555,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-maps"
   react-native-html-to-pdf:
     :path: "../node_modules/react-native-html-to-pdf"
+  react-native-image-picker:
+    :path: "../node_modules/react-native-image-picker"
   react-native-maps:
     :path: "../node_modules/react-native-maps"
   react-native-netinfo:
@@ -654,6 +659,7 @@ SPEC CHECKSUMS:
   react-native-geolocation: a7b94614afbd5fd8350e0233a2025c8228fc8041
   react-native-google-maps: 2e2e697dab576abd5809d78cd74e775865b62bf7
   react-native-html-to-pdf: 1d1199917f56a98377d431bce84c2f275e48eb71
+  react-native-image-picker: 3d3f85baabca60a00b75fb8facc1376db7bbdafa
   react-native-maps: 6e499eee4eabf422ba8b6f94e993cc768bf35153
   react-native-netinfo: 6bb847e64f45a2d69c6173741111cfd95c669301
   react-native-pdf: 7d76a6619f76a6ebfb2f82a4f2feeb17826ba8b4
