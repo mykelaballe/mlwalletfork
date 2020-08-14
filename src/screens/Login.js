@@ -42,7 +42,7 @@ class Scrn extends React.Component {
                     })
                 }
                 else {
-                    if(!res2.message) throw new error()
+                    if(!res2.message) throw new Error()
                     else Say.warn(res2.message)
                 }
             }
@@ -230,6 +230,7 @@ class Scrn extends React.Component {
 
                     <View style={style.midContainer}>
                         <TextInput
+                            editable={!processing}
                             ref='username'
                             label={_('1')}
                             value={username}
@@ -244,6 +245,7 @@ class Scrn extends React.Component {
                         <Spacer sm />
 
                         <TextInput
+                            editable={!processing}
                             ref='password'
                             label={_('2')}
                             value={password}

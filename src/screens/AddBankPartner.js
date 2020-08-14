@@ -49,7 +49,8 @@ class Scrn extends React.Component {
                     walletno,
                     bankname:name,
                     account_name,
-                    account_no
+                    account_no,
+                    isRTA:1
                 }
     
                 let res = await API.addBankPartner(payload)

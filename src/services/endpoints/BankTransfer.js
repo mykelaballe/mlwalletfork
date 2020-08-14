@@ -31,19 +31,19 @@ export default {
         return Object.values(data)
     },
 
-    getBankPartners: async walletno => {
-        let res = await Fetch.getc(`bankAccount/all?walletno=${walletno}`)
-        return res.data || []
+    getBankPartners: async payload => {
+        let res = await Fetch.getc(`bankAccount/all?walletno=${payload.walletno}&isRTA=${payload.isRTA}`)
+        return !res.error ? res.data : []
     },
 
-    getFavoriteBankPartners: async walletno => {
-        let res = await Fetch.get(`bankFavorites/${walletno}`)
-        return res.data || []
+    getFavoriteBankPartners: async payload => {
+        let res = await Fetch.getc(`bankFavorites?walletno=${payload.walletno}&isRTA=${payload.isRTA}`)
+        return !res.error ? res.data : []
     },
 
     getRecentBankPartners: async walletno => {
         let res = await Fetch.getc(`recent?${JSON.stringify({type:Consts.tcn.stb.code, walletno})}`)
-        return res.data || []
+        return !res.error ? res.data : []
     },
 
     addBankPartner: async payload => await Fetch.postc('bankAccount/add',payload),
@@ -52,7 +52,7 @@ export default {
 
     deleteBankPartner: async payload => await Fetch.deletec('bankAccount/delete',payload),
 
-    addFavoriteBankPartner: async payload => await Fetch.post(`bankFavorites`,payload),
+    addFavoriteBankPartner: async payload => await Fetch.postc(`bankFavorites/add`,payload),
 
-    removeFavoriteBankPartner: async payload => await Fetch.delete(`bankFavorites`,payload)
+    removeFavoriteBankPartner: async payload => await Fetch.deletec(`bankFavorites/delete`,payload)
 }

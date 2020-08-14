@@ -43,7 +43,7 @@ class Scrn extends React.Component {
         let list = []
 
         try {
-            list = await API.getBankPartners(walletno)
+            list = await API.getBankPartners({walletno, isRTA:1})
 
             this.listHolder = list
         }

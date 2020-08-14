@@ -174,12 +174,14 @@ class Scrn extends React.Component {
                     else if(type == Consts.tcn.bpm.code) {
                         res = await API.payBill({
                             walletno,
-                            partnersId:transaction.biller.partnersid,
-                            partnerName:transaction.biller.partner,
+                            partnersId:transaction.biller.old_partnersid,
+                            partnerName:transaction.biller.bankname,
                             accountNo:transaction.account_no,
                             accountName:transaction.account_name,
                             email:transaction.email,
                             amountpaid:transaction.amount,
+                            fname:transaction.cAccountFname,
+                            lname:transaction.cAccountLname,
                             isRTA:0
                         })
                     }
@@ -215,11 +217,14 @@ class Scrn extends React.Component {
                         else if(type == Consts.tcn.bpm.code) this.props.refreshBillersRecent(true)
                         else if(type == Consts.tcn.bul.code) this.props.refreshELoadRecent(true)
 
+                        let transRes = await API.getTransaction(res.data.kptn)
+
                         this.setState({done:true})
 
                         replace('TransactionReceipt',{
                             ...res.data,
                             ...state.params,
+                            transdate:transRes.data.transdate
                         })
                     }
                 }

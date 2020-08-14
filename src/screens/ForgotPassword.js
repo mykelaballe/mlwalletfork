@@ -71,6 +71,7 @@ export default class Scrn extends React.Component {
                     />
 
                     <TextInput
+                        editable={!processing}
                         label='Username'
                         value={username}
                         onChangeText={this.handleChangeUsername}

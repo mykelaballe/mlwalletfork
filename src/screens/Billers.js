@@ -50,7 +50,13 @@ export default class Scrn extends React.Component {
         })
     }
 
-    handleSelectBiller = biller => this.props.navigation.navigate('AddBiller',{biller})
+    handleSelectBiller = biller => this.props.navigation.navigate('AddBiller',{
+        biller: {
+            ...biller,
+            old_partnersid:biller.bill_partner_accountid,
+            bankname:biller.bill_partner_name
+        }
+    })
 
     handleChangeSearch = search => this.setState({search:this.search(search)})
 

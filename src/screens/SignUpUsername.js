@@ -80,6 +80,7 @@ export default class Scrn extends React.Component {
                     />
 
                     <TextInput
+                        editable={!processing}
                         ref='username'
                         autoFocus
                         label={_('1')}

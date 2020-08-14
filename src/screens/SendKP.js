@@ -109,6 +109,7 @@ class Scrn extends React.Component {
                     />
 
                     <TextInput
+                        editable={!processing}
                         label={`Amount (${Consts.currency.PH})`}
                         value={amount}
                         onChangeText={this.handleChangeAmount}

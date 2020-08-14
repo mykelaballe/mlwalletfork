@@ -19,15 +19,20 @@ class Scrn extends React.Component {
 
     handleChangeAccountName = account_name => this.setState({account_name})
     handleChangeAccountNo = account_no => this.setState({account_no})
+    handleChangeFName = cAccountFname => this.setState({cAccountFname})
+    handleChangeLName = cAccountLname => this.setState({cAccountLname})
     handleChangeEmail = email => this.setState({email, error_email:false})
 
+    handleFocusAccountName = () => this.refs.account_name.focus()
     handleFocusAccountNo = () => this.refs.account_no.focus()
+    handleFocusFName = () => this.refs.cAccountFname.focus()
+    handleFocusLName = () => this.refs.cAccountLname.focus()
     handleFocusEmail = () => this.refs.email.focus()
 
     handleSubmit = async () => {
         try {
             const {walletno} = this.props.user
-            let {partnersid, id, account_name, account_no, email, processing} = this.state
+            let {bankname, old_partnersid, old_account_no, old_account_name, account_name, account_no, cAccountFname, cAccountLname, email, processing} = this.state
 
             if(processing) return false
 
@@ -35,6 +40,8 @@ class Scrn extends React.Component {
 
             account_name = account_name.trim()
             account_no = account_no.trim()
+            cAccountFname = cAccountFname.trim()
+            cAccountLname = cAccountLname.trim()
             email = email.trim()
 
             if(!account_name || !account_no) Say.some(_('8'))
@@ -50,20 +57,26 @@ class Scrn extends React.Component {
 
                 let payload = {
                     walletno,
-                    partnersid,
-                    id,
+                    bankname,
                     account_name,
                     account_no,
+                    old_partnersid,
+                    old_account_no,
+                    old_account_name,
+                    cAccountFname,
+                    cAccountLname,
                     email
                 }
     
-                let res = await API.updateBiller(payload)
+                let res = await API.updateBankPartner(payload)
 
                 if(res.error) Say.warn(res.message)
                 else {
                     this.props.updateBiller({
                         account_name,
                         account_no,
+                        cAccountFname,
+                        cAccountLname,
                         email
                     })
                     this.props.refreshAll(true)
@@ -83,17 +96,17 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {partner, account_name, account_no, email, error_email, processing} = this.state
+        const {bankname, account_name, account_no, cAccountFname, cAccountLname, email, error_email, processing} = this.state
         let ready = false
 
-        if(account_name && account_no) ready = true
+        if(cAccountFname && cAccountLname && account_name && account_no) ready = true
 
         return (
             <>
                 <Screen>
                     <StaticInput
                         label='Biller'
-                        value={partner}
+                        value={bankname}
                     />
 
                     <TextInput
@@ -108,11 +121,31 @@ class Scrn extends React.Component {
 
                     <TextInput
                         ref='account_no'
-                        label='Account No.'
+                        label='Account Number'
                         value={account_no}
                         onChangeText={this.handleChangeAccountNo}
-                        onSubmitEditing={this.handleFocusEmail}
+                        onSubmitEditing={this.handleFocusFName}
                         keyboardType='numeric'
+                        returnKeyType='next'
+                    />
+
+                    <TextInput
+                        ref='cAccountFname'
+                        label='Customer First Name'
+                        value={cAccountFname}
+                        onChangeText={this.handleChangeFName}
+                        onSubmitEditing={this.handleFocusLName}
+                        autoCapitalize='words'
+                        returnKeyType='next'
+                    />
+
+                    <TextInput
+                        ref='cAccountLname'
+                        label='Customer Last Name'
+                        value={cAccountLname}
+                        onChangeText={this.handleChangeLName}
+                        onSubmitEditing={this.handleFocusEmail}
+                        autoCapitalize='words'
                         returnKeyType='next'
                     />
 

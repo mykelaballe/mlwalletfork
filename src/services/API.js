@@ -110,6 +110,8 @@ export default {
         return res.listTransaction || []
     },
 
+    getTransaction: async kptn => await Fetch.get(`transactiondate?ktpn=${kptn}`),
+
     getBranches: async () => {
         //let res = await Fetch.get('ml_branches')
         let data = []

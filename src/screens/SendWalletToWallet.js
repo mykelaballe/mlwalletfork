@@ -102,6 +102,7 @@ class Scrn extends React.Component {
                     />
 
                     <TextInput
+                        editable={!processing}
                         ref='amount'
                         label={`Amount (${Consts.currency.PH})`}
                         value={amount}
@@ -112,6 +113,7 @@ class Scrn extends React.Component {
                     />
 
                     <TextInput
+                        editable={!processing}
                         ref='notes'
                         label='Notes'
                         placeholder='Type an optional message to your receiver here'

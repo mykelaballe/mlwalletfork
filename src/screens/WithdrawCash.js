@@ -85,6 +85,7 @@ class Scrn extends React.Component {
                     <Headline subtext='Enter amount to be withdrawn' />
 
                     <TextInput
+                        editable={!processing}
                         label={`Amount (${Consts.currency.PH})`}
                         value={amount}
                         onChangeText={this.handleChangeAmount}

@@ -79,6 +79,9 @@ class Scrn extends React.Component {
                     if(parseFloat(res.data.forexRate) > 0) amount = amount * res.data.forexRate
 
                     this.props.updateBalance(res.data.balance)
+
+                    let transRes = await API.getTransaction(res.data.kptn)
+
                     this.props.navigation.navigate('TransactionReceipt',{
                         ...params,
                         ...res.data,
@@ -86,9 +89,10 @@ class Scrn extends React.Component {
                             ...this.state,
                             ...res.data,
                             amount,
-                            sender:`${firstname} ${lastname}`
+                            sender:`${firstname} ${lastname}`,
+                            transdate:transRes.data.transdate
                         },
-                        kptn:transaction_no,
+                        kptn:res.data.kptn,
                         status:'success'
                     })
                 }
@@ -113,6 +117,7 @@ class Scrn extends React.Component {
             <>
                 <Screen>
                     <TextInput
+                        editable={!processing}
                         ref='transaction_no'
                         label='Transaction No.'
                         value={transaction_no}
@@ -123,6 +128,7 @@ class Scrn extends React.Component {
                     />
 
                     <TextInput
+                        editable={!processing}
                         ref='amount'
                         label={`Amount (${Consts.currency.PH}/USD)`}
                         value={amount}
@@ -133,6 +139,7 @@ class Scrn extends React.Component {
                     />
 
                     <TextInput
+                        editable={!processing}
                         ref='firstname'
                         label="Sender's First Name"
                         value={firstname}
@@ -143,6 +150,7 @@ class Scrn extends React.Component {
                     />
 
                     <TextInput
+                        editable={!processing}
                         ref='lastname'
                         label="Sender's Last Name"
                         value={lastname}

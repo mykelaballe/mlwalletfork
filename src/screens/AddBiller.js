@@ -13,6 +13,8 @@ class Scrn extends React.Component {
 
     state = {
         ...this.props.navigation.state.params.biller,
+        cAccountFname:'',
+        cAccountLname:'',
         account_name:'',
         account_no:'',
         email:'',
@@ -22,10 +24,14 @@ class Scrn extends React.Component {
 
     handleChangeAccountNo = account_no => this.setState({account_no})
     handleChangeAccountName = account_name => this.setState({account_name})
+    handleChangeFName = cAccountFname => this.setState({cAccountFname})
+    handleChangeLName = cAccountLname => this.setState({cAccountLname})
     handleChangeEmail = email => this.setState({email, error_email:false})
 
     handleFocusAccountName = () => this.refs.account_name.focus()
     handleFocusAccountNo = () => this.refs.account_no.focus()
+    handleFocusFName = () => this.refs.cAccountFname.focus()
+    handleFocusLName = () => this.refs.cAccountLname.focus()
     handleFocusEmail = () => this.refs.email.focus()
 
     handlePay = () => {
@@ -45,9 +51,9 @@ class Scrn extends React.Component {
             this.props.navigation.navigate('PayBill',{
                 biller:{
                     ...this.state,
-                    email,
-                    partner:bill_partner_name,
-                    partnersid:bill_partner_accountid
+                    //email,
+                    //bankname:bill_partner_name,
+                    //old_partnersid:bill_partner_accountid
                 }
             })
         }
@@ -56,12 +62,14 @@ class Scrn extends React.Component {
     handleSubmit = async () => {
         try {
             const {walletno} = this.props.user
-            let {bill_partner_accountid, $id, account_name, account_no, email, processing} = this.state
+            let {bill_partner_accountid, cAccountFname, cAccountLname, account_name, account_no, email, processing} = this.state
 
             if(processing) return false
 
             this.setState({processing:true})
 
+            cAccountFname = cAccountFname.trim()
+            cAccountLname = cAccountLname.trim()
             account_name = account_name.trim()
             account_no = account_no.trim()
             email = email.trim()
@@ -79,20 +87,21 @@ class Scrn extends React.Component {
 
                 let payload = {
                     walletno,
+                    cAccountFname,
+                    cAccountLname,
                     partnersid:bill_partner_accountid,
-                    id:$id,
                     account_no,
                     account_name,
-                    email
+                    email,
+                    isRTA:0
                 }
     
-                let res = await API.addBiller(payload)
+                let res = await API.addBankPartner(payload)
 
                 if(res.error) Say.warn(res.message)
                 else {
                     this.props.refreshAll(true)
                     Say.ok('Biller successfully added')
-                    //this.props.navigation.pop()
                     this.props.navigation.navigate('AllBillsPartners')
                 }
             }
@@ -106,10 +115,10 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {bill_partner_name, account_name, account_no, email, error_email, processing} = this.state
+        const {bankname, cAccountFname, cAccountLname, account_name, account_no, email, error_email, processing} = this.state
         let ready = false
 
-        if(account_name && account_no) ready = true
+        if(cAccountFname && cAccountLname && account_name && account_no) ready = true
 
         return (
             <>
@@ -118,7 +127,7 @@ class Scrn extends React.Component {
 
                     <StaticInput
                         label='Biller'
-                        value={bill_partner_name}
+                        value={bankname}
                     />
 
                     <TextInput
@@ -133,11 +142,31 @@ class Scrn extends React.Component {
 
                     <TextInput
                         ref='account_no'
-                        label='Account No.'
+                        label='Account Number'
                         value={account_no}
                         onChangeText={this.handleChangeAccountNo}
-                        onSubmitEditing={this.handleFocusEmail}
+                        onSubmitEditing={this.handleFocusFName}
                         keyboardType='numeric'
+                        returnKeyType='next'
+                    />
+
+                    <TextInput
+                        ref='cAccountFname'
+                        label='Customer First Name'
+                        value={cAccountFname}
+                        onChangeText={this.handleChangeFName}
+                        onSubmitEditing={this.handleFocusLName}
+                        autoCapitalize='words'
+                        returnKeyType='next'
+                    />
+
+                    <TextInput
+                        ref='cAccountLname'
+                        label='Customer Last Name'
+                        value={cAccountLname}
+                        onChangeText={this.handleChangeLName}
+                        onSubmitEditing={this.handleFocusEmail}
+                        autoCapitalize='words'
                         returnKeyType='next'
                     />
 

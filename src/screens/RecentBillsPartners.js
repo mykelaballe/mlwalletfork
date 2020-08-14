@@ -57,7 +57,11 @@ class Scrn extends React.Component {
     }
 
     handleViewReceiver = index => {
-        const {list} = this.state
+        let {list} = this.state
+        list[index].bankname = list[index].partner
+        list[index].old_partnersid = list[index].partnersid
+        list[index].old_account_no = list[index].account_no
+        list[index].old_account_name = list[index].account_name
         this.props.navigation.navigate('BillerProfile',{index, biller:list[index]})
     }
 
@@ -68,7 +72,7 @@ class Scrn extends React.Component {
     handleChangeSearch = search => this.setState({search:this.search(search)})
 
     search = searchText => {
-        const list = this.listHolder.filter(item => item.fullname.toUpperCase().indexOf(searchText.toUpperCase()) > -1)
+        const list = this.listHolder.filter(item => item.partner.toUpperCase().indexOf(searchText.toUpperCase()) > -1)
         this.setState({list})
     }
 

@@ -37,6 +37,8 @@ class Scrn extends React.Component {
 
     state = {
         ...this.props.navigation.state.params.biller,
+        account_no:this.props.navigation.state.params.biller.old_account_no,
+        account_name:this.props.navigation.state.params.biller.old_account_name,
         deleting:false,
         favoriting:false
     }
@@ -87,16 +89,18 @@ class Scrn extends React.Component {
 
     handleConfirmDelete = async () => {
         const {walletno} = this.props.user
-        const {id, deleting} = this.state
+        const {old_partnersid, old_account_no, old_account_name, deleting} = this.state
 
         if(deleting) return false
 
         try {
             this.setState({deleting:true})
 
-            await API.deleteBiller({
+            await API.deleteBankPartner({
                 walletno,
-                id
+                partnersid:old_partnersid,
+                accountid:old_account_no,
+                account_name:old_account_name
             })
             this.props.refreshAll(true)
             this.props.refreshFavorites(true)
@@ -115,7 +119,7 @@ class Scrn extends React.Component {
 
     handleToggleFavorite = async () => {
         const {walletno} = this.props.user
-        const {id, isFavorite, favoriting} = this.state
+        const {bankname, old_partnersid, old_account_no, isFavorite, favoriting} = this.state
 
         if(favoriting) return false
         
@@ -124,11 +128,17 @@ class Scrn extends React.Component {
 
             let payload = {
                 walletno,
-                id
+                partnersname:bankname,
+                partnersid:old_partnersid,
+                accountid:old_account_no
             }
 
-            if(isFavorite) await API.removeFavoriteBiller(payload)
-            else await API.addFavoriteBiller(payload)
+            let res = {}
+
+            if(isFavorite) res = await API.removeFavoriteBankPartner(payload)
+            else res = await API.addFavoriteBankPartner(payload)
+
+            if(res.error) throw new Error()
 
             this.props.refreshAll(true)
             this.props.refreshFavorites(true)
@@ -145,14 +155,14 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {partner, account_name, account_no, email, isFavorite, deleting, favoriting} = this.state
+        const {bankname, account_name, account_no, cAccountFname, cAccountLname, email, isFavorite, deleting, favoriting} = this.state
 
         return (
             <>
                 <Screen>
                     <StaticInput
                         label='Biller'
-                        value={partner}
+                        value={bankname}
                     />
 
                     <StaticInput
@@ -163,6 +173,16 @@ class Scrn extends React.Component {
                     <StaticInput
                         label='Account No.'
                         value={account_no}
+                    />
+
+                    <StaticInput
+                        label='Customer First Name'
+                        value={cAccountFname}
+                    />
+
+                    <StaticInput
+                        label='Customer Last Name'
+                        value={cAccountLname}
                     />
 
                     <StaticInput

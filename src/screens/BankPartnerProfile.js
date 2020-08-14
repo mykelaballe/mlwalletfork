@@ -132,8 +132,12 @@ class Scrn extends React.Component {
                 accountid:old_account_no
             }
 
-            if(isFavorite) await API.removeFavoriteBankPartner(payload)
-            else await API.addFavoriteBankPartner(payload)
+            let res = {}
+
+            if(isFavorite) res = await API.removeFavoriteBankPartner(payload)
+            else res = await API.addFavoriteBankPartner(payload)
+
+            if(res.error) throw new Error()
 
             this.props.refreshAll(true)
             this.props.refreshFavorites(true)

@@ -15,11 +15,13 @@ class AddMoney extends React.Component {
     }
 
     componentDidMount = () => {
-        const {_from, walletno, balance} = this.props.data
+        const {_from, sender, branchname, balance} = this.props.data
         const {total} = this.state
 
         this.props.onExport(
             Func.buildReceiptBody({
+                Sender: sender,
+                Branch: branchname,
                 Total: `${Consts.currency.PH} ${total}`
             })
         )
@@ -44,7 +46,7 @@ class AddMoney extends React.Component {
 
     render() {
 
-        const {_from, kptn, walletno} = this.props.data
+        const {_from, kptn, sender, branchname} = this.props.data
         const {total, date, time, type} = this.state
 
         return (
@@ -56,6 +58,16 @@ class AddMoney extends React.Component {
                     />
 
                     <ScrollFix style={{padding:Metrics.lg}}>
+                        {/*<Text sm mute>Sender</Text>
+                        <Text>{sender}</Text>
+
+                        <Spacer />
+
+                        <Text sm mute>Branch</Text>
+                        <Text>{branchname}</Text>
+
+                        <Spacer />*/}
+
                         <Text sm mute>Total</Text>
                         <Text>{Consts.currency.PH} {total}</Text>
 

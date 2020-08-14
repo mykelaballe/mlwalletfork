@@ -165,6 +165,7 @@ class Scrn extends React.Component {
                     />
 
                     <TextInput
+                        editable={!processing}
                         label='Answer'
                         value={answer}
                         onChangeText={this.handleChangeAnswer}

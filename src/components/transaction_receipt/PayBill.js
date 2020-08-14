@@ -24,6 +24,7 @@ class PayBill extends React.Component {
         this.props.onExport(
             Func.buildReceiptBody({
                 Sender: sender,
+                'Customer Name': '',
                 Biller:biller ? biller.partner: biller_partner_name,
                 'Account No.': account_no,
                 'Account Name': account_name,
@@ -56,7 +57,7 @@ class PayBill extends React.Component {
 
     render() {
 
-        const {_from, kptn, sender, biller, biller_partner_name, account_no, account_name, email, iscancelled} = this.props.data
+        const {_from, kptn, sender, biller, bankname, cAccountFname, cAccountLname, account_no, account_name, email, iscancelled} = this.props.data
         const {amount, fixed_charge, convenience_fee, total, date, time, type} = this.state
 
         const status = iscancelled ? 'cancelled' : 'success'
@@ -75,12 +76,17 @@ class PayBill extends React.Component {
 
                         <Spacer />
 
-                        <Text sm mute>Biller</Text>
-                        <Text>{biller ? biller.partner : biller_partner_name}</Text>
+                        <Text sm mute>Customer Name</Text>
+                        <Text>{cAccountFname} {cAccountLname}</Text>
 
                         <Spacer />
 
-                        <Text sm mute>Account No.</Text>
+                        <Text sm mute>Biller</Text>
+                        <Text>{biller ? biller.bankname : bankname}</Text>
+
+                        <Spacer />
+
+                        <Text sm mute>Account Number</Text>
                         <Text>{account_no}</Text>
 
                         <Spacer />

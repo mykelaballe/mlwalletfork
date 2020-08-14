@@ -8,8 +8,8 @@ import {API} from '../services'
 
 const ItemUI = props => (
     <ListItem
-        primaryText={props.data.partner}
-        subText={props.data.account_no}
+        primaryText={props.data.bankname}
+        subText={props.data.old_account_no}
         onPress={() => props.onPress(props.index)}
     />
 )
@@ -41,7 +41,7 @@ class Scrn extends React.Component {
         let list = []
 
         try {
-            list = await API.getFavoriteBillers(walletno)
+            list = await API.getFavoriteBankPartners({walletno, isRTA:0})
 
             this.listHolder = list
         }
@@ -68,7 +68,7 @@ class Scrn extends React.Component {
     handleChangeSearch = search => this.setState({search:this.search(search)})
 
     search = searchText => {
-        const list = this.listHolder.filter(item => item.partner.toUpperCase().indexOf(searchText.toUpperCase()) > -1)
+        const list = this.listHolder.filter(item => item.bankname.toUpperCase().indexOf(searchText.toUpperCase()) > -1)
         this.setState({list})
     }
 
