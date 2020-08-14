@@ -77,6 +77,7 @@ class Scrn extends React.Component {
                     principal:amount,
                     fixed_charge,
                     convenience_fee,
+                    partnersId:params.biller.partnersid,
                     //fname,
                     //lname
                 })
@@ -91,6 +92,7 @@ class Scrn extends React.Component {
                             fname,
                             lname,
                             biller:params.biller,
+                            fixed_charge:res.data.fixedCharge,
                             sender:Func.formatName(this.props.user)
                         },
                         status:'success'
@@ -110,7 +112,7 @@ class Scrn extends React.Component {
         const {partner, account_no, fname, lname, account_name, amount, email, processing} = this.state
         let ready = false
 
-        if(fname && lname && account_no && account_name && amount) ready = true
+        if(account_no && account_name && amount) ready = true
 
         return (
             <>
