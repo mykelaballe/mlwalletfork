@@ -1,11 +1,10 @@
 import React from 'react'
-import {withNavigation} from 'react-navigation'
 import {Header} from './'
-import {Screen, Footer, View, Text, Spacer, Button, ScrollFix} from '../'
+import {Screen, Footer, Text, Spacer, ScrollFix, BackHomeButton} from '../'
 import {Metrics} from '../../themes'
 import {Consts, Func, Say} from '../../utils'
 
-class BuyLoad extends React.Component {
+export default class BuyLoad extends React.Component {
 
     state = {
         amount:Func.formatToCurrency(this.props.data.amount),
@@ -43,8 +42,6 @@ class BuyLoad extends React.Component {
             )
         }
     }
-
-    handleBackToHome = () => this.props.navigation.navigate('Home')
 
     render() {
 
@@ -96,11 +93,9 @@ class BuyLoad extends React.Component {
                 </Screen>
 
                 <Footer>
-                {_from !== 'history' && <Button t='Back to Home' onPress={this.handleBackToHome} />}
+                    {_from !== 'history' && <BackHomeButton />}
                 </Footer>
             </>
         )
     }
 }
-
-export default withNavigation(BuyLoad)

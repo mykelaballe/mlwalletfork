@@ -1,11 +1,10 @@
 import React from 'react'
-import {withNavigation} from 'react-navigation'
 import {Header} from './'
-import {Screen, Footer, Text, Spacer, Button, ScrollFix} from '../'
+import {Screen, Text, Spacer, ScrollFix} from '../'
 import {Metrics} from '../../themes'
-import {_, Func, Say, Consts} from '../../utils'
+import {_, Func, Consts} from '../../utils'
 
-class AddMoney extends React.Component {
+export default class AddMoney extends React.Component {
 
     state = {
         total:Func.formatToCurrency(this.props.data.total),
@@ -15,7 +14,7 @@ class AddMoney extends React.Component {
     }
 
     componentDidMount = () => {
-        const {_from, sender, branchname, balance} = this.props.data
+        const {sender, branchname} = this.props.data
         const {total} = this.state
 
         this.props.onExport(
@@ -25,28 +24,11 @@ class AddMoney extends React.Component {
                 Total: `${Consts.currency.PH} ${total}`
             })
         )
-
-        if(_from != 'history') {
-            Say.ok(
-                null,
-                'Success',
-                {
-                    customMessage:(
-                        <>
-                            <Text mute>Your new balance is</Text>
-                            <Text xl b>{Consts.currency.PH} {Func.formatToCurrency(balance)}</Text>
-                        </>
-                    )
-                }
-            )
-        }
     }
-
-    handleBackToHome = () => this.props.navigation.navigate('Home')
 
     render() {
 
-        const {_from, kptn, sender, branchname} = this.props.data
+        const {kptn, sender, branchname} = this.props.data
         const {total, date, time, type} = this.state
 
         return (
@@ -87,13 +69,7 @@ class AddMoney extends React.Component {
                         <Text>{type}</Text>
                     </ScrollFix>
                 </Screen>
-
-                <Footer>
-                    {_from !== 'history' && <Button t='Back to Home' onPress={this.handleBackToHome} />}
-                </Footer>
             </>
         )
     }
 }
-
-export default withNavigation(AddMoney)

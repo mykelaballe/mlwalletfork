@@ -1,11 +1,10 @@
 import React from 'react'
-import {withNavigation} from 'react-navigation'
 import {Header} from './'
-import {Screen, Footer, Text, Spacer, Button, ScrollFix} from '../'
+import {Screen, Footer, Text, Spacer, ScrollFix, BackHomeButton} from '../'
 import {Metrics} from '../../themes'
 import {_, Consts, Func, Say} from '../../utils'
 
-class PayBill extends React.Component {
+export default class PayBill extends React.Component {
 
     state = {
         amount:Func.formatToRealCurrency(this.props.data.amount),
@@ -52,8 +51,6 @@ class PayBill extends React.Component {
             )
         }
     }
-
-    handleBackToHome = () => this.props.navigation.navigate('Home')
 
     render() {
 
@@ -104,15 +101,6 @@ class PayBill extends React.Component {
                         <Text sm mute>Fixed Charge</Text>
                         <Text>{Consts.currency.PH} {fixed_charge}</Text>
 
-                        {/*Func.formatToCurrency(fixed_charge) > 0 &&
-                        <>
-                            <Spacer />
-
-                            <Text sm mute>Fixed Charge</Text>
-                            <Text>{Consts.currency.PH} {fixed_charge}</Text>
-                        </>
-                        */}
-
                         <Spacer />
 
                         <Text sm mute>Convenience Fee</Text>
@@ -141,11 +129,9 @@ class PayBill extends React.Component {
                 </Screen>
 
                 <Footer>
-                    {_from !== 'history' && <Button t='Back to Home' onPress={this.handleBackToHome} />}
+                    {_from !== 'history' && <BackHomeButton />}
                 </Footer>
             </>
         )
     }
 }
-
-export default withNavigation(PayBill)

@@ -1,11 +1,10 @@
 import React from 'react'
-import {withNavigation} from 'react-navigation'
 import {Header} from './'
-import {Screen, Footer, Text, Spacer, Button, View, ScrollFix} from '../'
+import {Screen, Footer, Text, Spacer, Button, ScrollFix, BackHomeButton} from '../'
 import {Metrics} from '../../themes'
 import {_, Consts, Func, Say} from '../../utils'
 
-class SendBankTransfer extends React.Component {
+export default class SendBankTransfer extends React.Component {
 
     state = {
         amount:Func.formatToCurrency(this.props.data.amount),
@@ -50,8 +49,6 @@ class SendBankTransfer extends React.Component {
             )
         }
     }
-
-    handleBackToHome = () => this.props.navigation.navigate('Home')
 
     render() {
 
@@ -115,11 +112,9 @@ class SendBankTransfer extends React.Component {
                 </Screen>
 
                 <Footer>
-                    {_from !== 'history' && <Button t='Back to Home' onPress={this.handleBackToHome} />}
+                    {_from !== 'history' && <BackHomeButton />}
                 </Footer>
             </>
         )
     }
 }
-
-export default withNavigation(SendBankTransfer)

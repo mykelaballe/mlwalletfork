@@ -1,11 +1,10 @@
 import React from 'react'
-import {withNavigation} from 'react-navigation'
 import {Header} from './'
-import {Screen, Footer, Text, Spacer, Button, ScrollFix} from '../'
+import {Screen, Footer, Text, Spacer, ScrollFix, BackHomeButton} from '../'
 import {Metrics} from '../../themes'
 import {_, Consts, Func, Say} from '../../utils'
 
-class ReceiveMoneyInternational extends React.Component {
+export default class ReceiveMoneyInternational extends React.Component {
 
     state = {
         amount:Func.formatToRealCurrency(this.props.data.amount),
@@ -33,7 +32,7 @@ class ReceiveMoneyInternational extends React.Component {
                 {
                     customMessage:(
                         <>
-                            <Text mute md>You have successfully received {currency} {Func.formatToRealCurrency(amount)} from {sender}.</Text>
+                            <Text mute md>You have successfully received {currency} {amount} from {sender}.</Text>
                             <Spacer lg />
                             <Text mute>Your new balance is</Text>
                             <Text xl b>{Consts.currency.PH} {Func.formatToRealCurrency(balance)}</Text>
@@ -43,8 +42,6 @@ class ReceiveMoneyInternational extends React.Component {
             )
         }
     }
-
-    handleBackToHome = () => this.props.navigation.navigate('Home')
 
     render() {
 
@@ -91,11 +88,9 @@ class ReceiveMoneyInternational extends React.Component {
                 </Screen>
 
                 <Footer>
-                    {_from !== 'history' && <Button t='Back to Home' onPress={this.handleBackToHome} />}
+                    {_from !== 'history' && <BackHomeButton />}
                 </Footer>
             </>
         )
     }
 }
-
-export default withNavigation(ReceiveMoneyInternational)

@@ -1,8 +1,7 @@
 import React from 'react'
-import {withNavigation} from 'react-navigation'
 import {connect} from 'react-redux'
 import {Header} from './'
-import {Screen, Footer, Text, Spacer, Button, ScrollFix} from '../'
+import {Screen, Footer, Text, Spacer, ScrollFix, BackHomeButton} from '../'
 import {Metrics} from '../../themes'
 import {_, Consts, Func, Say} from '../../utils'
 
@@ -51,8 +50,6 @@ class SendWalletToWallet extends React.Component {
             )
         }
     }
-
-    handleBackToHome = () => this.props.navigation.navigate('Home')
 
     render() {
 
@@ -124,7 +121,7 @@ class SendWalletToWallet extends React.Component {
                 </Screen>
 
                 <Footer>
-                    {_from !== 'history' && <Button t='Back to Home' onPress={this.handleBackToHome} />}
+                    {_from !== 'history' && <BackHomeButton />}
                 </Footer>
             </>
         )
@@ -135,4 +132,4 @@ const mapStateToProps = state => ({
     user: state.user.data
 })
 
-export default withNavigation(connect(mapStateToProps)(SendWalletToWallet))
+export default connect(mapStateToProps)(SendWalletToWallet)
