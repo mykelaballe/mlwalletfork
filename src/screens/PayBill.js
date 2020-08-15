@@ -39,10 +39,12 @@ class Scrn extends React.Component {
     handleChangeEmail = email => this.setState({email})
     handleChangeAmount = amount => {
         const {fixed_charge, convenience_fee} = this.state
-        this.setState({
-            amount,
-            total:Func.compute(fixed_charge, convenience_fee, amount)
-        })
+        if(Func.isAmount2Decimal(amount)) {
+            this.setState({
+                amount,
+                total:Func.compute(fixed_charge, convenience_fee, amount)
+            })
+        }
     }
 
     handleFocusFName = () => this.refs.cAccountFname.focus()
