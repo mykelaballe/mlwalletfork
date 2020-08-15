@@ -90,7 +90,7 @@ class Scrn extends React.Component {
                             biller:params.biller,
                             fixed_charge:res.data.fixedCharge,
                             total:Func.compute(res.data.fixedCharge, convenience_fee, amount),
-                            sender:Func.formatName(this.props.user)
+                            sender:`${this.props.user.fname} ${this.props.user.lname}`
                         },
                         status:'success'
                     })
