@@ -100,7 +100,7 @@ class Scrn extends React.Component {
             else if(street && !Func.hasAddressSpecialCharsOnly(street)) Say.warn(Consts.error.notAllowedChar + '\n\nStreet')
             else if(house && !Func.hasAddressSpecialCharsOnly(house)) Say.warn(Consts.error.notAllowedChar + '\n\nHouse/Unit/Floor...: ')
             else {
-                if(user.isnewapp == 1) {
+                if(user && user.isnewapp == 1) {
                     this.setState({processing:true})
 
                     let updateRes = await API.updateProfile({
