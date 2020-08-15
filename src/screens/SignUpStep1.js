@@ -50,7 +50,7 @@ class Scrn extends React.Component {
     componentDidMount = () => {
         const {params = {}} = this.props.navigation.state
         const {user} = this.props
-        if(params.isForceUpdate) {
+        if(params.isForceUpdate && user) {
             this.setState({
                 firstname:user.fname,
                 middlename:user.mname,
