@@ -63,7 +63,7 @@ class Scrn extends React.Component {
             else {
                 let res = await API.sendKPValidate({
                     walletno:this.props.user.walletno,
-                    principal:total
+                    principal:amount
                 })
     
                 if(!res.error) {
