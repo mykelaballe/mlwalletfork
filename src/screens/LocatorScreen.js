@@ -123,8 +123,7 @@ class Scrn extends React.Component {
                             latitude:b.mLat,
                             longitude:b.mLong
                         }}
-                        title={b.bName}
-                        description={b.bName}
+                        onPress={() => Say.warn(`${b.bName}`, 'Branch')}
                     >
                         <Image source={MARKER_IMG} style={style.marker} />
                     </Marker>
