@@ -1,8 +1,10 @@
 import React from 'react'
+import {View} from 'react-native'
 import {Header} from './'
 import {Screen, Footer, Text, Spacer, ScrollFix, BackHomeButton} from '../'
-import {Metrics} from '../../themes'
+import {Colors, Metrics} from '../../themes'
 import {_, Consts, Func, Say} from '../../utils'
+import ViewShot from 'react-native-view-shot'
 
 export default class PayBill extends React.Component {
 
@@ -16,11 +18,11 @@ export default class PayBill extends React.Component {
         type:Consts.tcn.bpm.long_desc
     }
 
-    componentDidMount = () => {
+    componentDidMount = async () => {
         const {_from, sender, biller, biller_partner_name, account_no, account_name, balance} = this.props.data
         const {amount, fixed_charge, convenience_fee, total} = this.state
 
-        this.props.onExport(
+        /*this.props.onExport(
             Func.buildReceiptBody({
                 Sender: sender,
                 'Customer Name': '',
@@ -32,7 +34,9 @@ export default class PayBill extends React.Component {
                 'Convenience Fee': convenience_fee,
                 Total:total
             })
-        )
+        )*/
+
+        this.props.onExport(this.refs.viewShot)
 
         if(_from != 'history') {
             Say.ok(
@@ -62,12 +66,13 @@ export default class PayBill extends React.Component {
         return (
             <>
                 <Screen compact>
+                    <ViewShot ref="viewShot" options={{ format:'jpg', quality: 0.9 }}>
                     <Header
                         tcn={kptn}
                         status={status}
                     />
 
-                    <ScrollFix style={{padding:Metrics.lg}}>
+                    <ScrollFix style={{padding:Metrics.lg,backgroundColor:Colors.light}}>
                         <Text sm mute>Sender</Text>
                         <Text>{sender}</Text>
 
@@ -126,6 +131,7 @@ export default class PayBill extends React.Component {
                         <Text sm mute>Type</Text>
                         <Text>{type}</Text>
                     </ScrollFix>
+                    </ViewShot>
                 </Screen>
 
                 <Footer>

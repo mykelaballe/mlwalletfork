@@ -7,6 +7,9 @@ import {_, Say, Consts, Func} from '../utils'
 import Icon from 'react-native-vector-icons/AntDesign'
 import RNHTMLtoPDF from 'react-native-html-to-pdf'
 import RNFetchBlob from 'rn-fetch-blob'
+import ViewShot from "react-native-view-shot"
+import CameraRoll from "@react-native-community/cameraroll"
+import {request, PERMISSIONS, RESULTS} from 'react-native-permissions'
 
 const moment = require('moment')
 
@@ -53,7 +56,23 @@ export default class Scrn extends React.Component {
 
     handleSetExportData = exportData => this.setState({exportData})
 
-    handleExport = async () => {
+    handleExport = () => {
+        const PERMISSION = Consts.is_android ? PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE : PERMISSIONS.IOS.PHOTO_LIBRARY
+        request(PERMISSION)
+        .then(res => {
+            if(res == RESULTS.GRANTED) {
+                this.state.exportData.capture()
+                .then(uri => {
+                    CameraRoll.save(uri, {type:'photo'})
+                    Say.ok('Receipt saved in gallery')
+                })
+                .catch(err => Say.warn('Cannot download receipt'))
+            }
+            else Say.warn('Please allow the app to access your gallery')
+        })
+    }
+
+    handleExport_ = async () => {
         const {type, kptn} = this.props.navigation.state.params
         const {date, time, exportData} = this.state
 
