@@ -16,7 +16,7 @@ class Scrn extends React.Component {
         data:null,
         username:this.props.username,
         rememberedUsername:Func.maskUsername(this.props.username),
-        password:'123456q@',
+        password:'',
         show_password:false,
         processing:false
     }
