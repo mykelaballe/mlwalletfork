@@ -18,11 +18,11 @@ export default class Scrn extends React.Component {
         return {
             title:'Transaction Receipt',
             headerLeft:params._from === 'history' ? undefined : <View />,
-            /*headerRight: (
+            headerRight: (
                 <HeaderRight>
                     {params.downloading ? <ActivityIndicator color={Colors.light} /> : <ButtonIcon icon={<Icon name='download' size={Metrics.icon.sm} color={Colors.light} />} onPress={params.handleExport} />}
                 </HeaderRight>
-            )*/
+            )
         }
     }
 

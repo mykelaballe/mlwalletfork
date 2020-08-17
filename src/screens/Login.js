@@ -16,7 +16,7 @@ class Scrn extends React.Component {
         data:null,
         username:this.props.username,
         rememberedUsername:Func.maskUsername(this.props.username),
-        password:'',
+        password:'123456q@',
         show_password:false,
         processing:false
     }
@@ -167,7 +167,8 @@ class Scrn extends React.Component {
     }
 
     checkExistingLogin = res => {
-        return new Promise((resolve, reject) => {
+        this.wrapUpLogin(res)
+        /*return new Promise((resolve, reject) => {
             database()
             .ref(`users/${res.data.walletno}`)
             .once('value', snapshot => {
@@ -216,7 +217,7 @@ class Scrn extends React.Component {
                 }
             })
             .catch(err => alert('error checking'))
-        })
+        })*/
     }
 
     force1stReupdateInfo = userData => {

@@ -49,7 +49,7 @@ class App extends React.Component {
     SplashScreen.hide()
   }
 
-  componentDidUpdate = (prevProps, prevState) => {
+  componentDidUpdate_ = (prevProps, prevState) => {
     if(this.props.isLoggedIn !== prevProps.isLoggedIn) {
       if(this.props.isLoggedIn && this.props.user) {
         database()
