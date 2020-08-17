@@ -6,11 +6,12 @@ import Navigation from './src/navigation'
 import {Colors} from './src/themes'
 import {Responder} from './src/components'
 import SomeModal from './src/components/SomeModal'
-import {Consts, Storage} from './src/utils'
+import {Consts, Firebase, Storage} from './src/utils'
 import NetInfo from '@react-native-community/netinfo'
 import SplashScreen from 'react-native-splash-screen'
 import {Provider} from 'react-native-paper'
 import codePush from 'react-native-code-push'
+import database from '@react-native-firebase/database'
 
 const moment = require('moment')
 
@@ -48,10 +49,30 @@ class App extends React.Component {
     SplashScreen.hide()
   }
 
+  componentDidUpdate = (prevProps, prevState) => {
+    if(this.props.isLoggedIn !== prevProps.isLoggedIn) {
+      if(this.props.isLoggedIn && this.props.user) {
+        database()
+          .ref(`users/${this.props.user.walletno}`)
+          .on('value', snapshot => {
+              if(snapshot.exists()) {
+                  if(this.props.user.walletno == snapshot.key && Consts.deviceId != snapshot.val().deviceid) {
+                      this.props.logout()
+                      SomeModal.show({
+                        message:'You are forced logout',
+                        title:'Force Logout'
+                      })
+                  }
+              }
+          })
+      }
+    }
+  }
+
   componentWillUnmount = () => {
     this.updateLastActiveTimestamp()
-    this.networkSubscribe()
     this.props.logout()
+    this.networkSubscribe()
     AppState.removeEventListener('change', this.handleAppStateChange)
   }
 

@@ -6,6 +6,9 @@ import {Text, Button, ButtonText, Spacer, TextInput, Row, Icon, Screen, MLBanner
 import {Colors, Metrics} from '../themes'
 import {_, Say, Consts, Func} from '../utils'
 import {API} from '../services'
+import database from '@react-native-firebase/database'
+
+const moment = require('moment')
 
 class Scrn extends React.Component {
 
@@ -13,7 +16,7 @@ class Scrn extends React.Component {
         data:null,
         username:this.props.username,
         rememberedUsername:Func.maskUsername(this.props.username),
-        password:'',
+        password:'123456q@',
         show_password:false,
         processing:false
     }
@@ -124,31 +127,7 @@ class Scrn extends React.Component {
                     res.data.latitude = latitude
                     res.data.longitude = longitude
 
-                    if(!res.data.barangay || !res.data.street || !res.data.houseno) {
-                        this.forceReupdateAddress({
-                            ...res.data,
-                            isnewapp:1
-                        })
-                    }
-                    else if(res.data.isresetpass === 1) {
-                        this.props.navigation.navigate('CreatePassword',{
-                            walletno:res.data.walletno,
-                            old_password:res.data.password
-                        })
-                    }
-                    else if(res.data.isresetpin === 1) {
-                        this.props.navigation.navigate('ValidatePIN',{
-                            data:res.data
-                        })
-                    }
-                    else {
-                        res.data.remotePhoto = `${Consts.baseURL}wallet/image?walletno=${res.data.walletno}`
-                        res.data.localPhoto = this.props.localPhotos[res.data.walletno] || null
-                        this.props.setUser(res.data)
-                        //this.props.setIsUsingTouchID(res.data.fingerprintstat === 1)
-                        this.props.rememberLoginCredentials({username})
-                        this.props.login()
-                    }
+                    await this.checkExistingLogin(res)
                 }
             }
         }
@@ -157,6 +136,87 @@ class Scrn extends React.Component {
         }
 
         this.setState({processing:false})
+    }
+
+    wrapUpLogin = res => {
+        if(!res.data.barangay || !res.data.street || !res.data.houseno) {
+            this.forceReupdateAddress({
+                ...res.data,
+                isnewapp:1
+            })
+        }
+        else if(res.data.isresetpass === 1) {
+            this.props.navigation.navigate('CreatePassword',{
+                walletno:res.data.walletno,
+                old_password:res.data.password
+            })
+        }
+        else if(res.data.isresetpin === 1) {
+            this.props.navigation.navigate('ValidatePIN',{
+                data:res.data
+            })
+        }
+        else {
+            res.data.remotePhoto = `${Consts.baseURL}wallet/image?walletno=${res.data.walletno}`
+            res.data.localPhoto = this.props.localPhotos[res.data.walletno] || null
+            this.props.setUser(res.data)
+            //this.props.setIsUsingTouchID(res.data.fingerprintstat === 1)
+            this.props.rememberLoginCredentials({username:res.data.username})
+            this.props.login()
+        }
+    }
+
+    checkExistingLogin = res => {
+        return new Promise((resolve, reject) => {
+            database()
+            .ref(`users/${res.data.walletno}`)
+            .once('value', snapshot => {
+                if(snapshot.exists()) {
+                    if(snapshot.val().deviceid != Consts.deviceId) {
+                        Say.ask(
+                            'You have not logged out from other device(s)',
+                            'Existing Login',
+                            {
+                                onConfirm:() => {
+                                    database()
+                                    .ref(`users/${res.data.walletno}`)
+                                    .remove()
+                                    .then(() => {
+                                        database()
+                                        .ref(`users/${res.data.walletno}`)
+                                        .set({
+                                            deviceid:Consts.deviceId
+                                        })
+                                        .then(() => this.wrapUpLogin(res))
+                                        .catch(err => alert('inserting again'))
+                                    })
+                                    .catch(err => alert('error removing'))
+                                },
+                            }
+                        )
+
+                        resolve({error:true})
+                    }
+                    else {
+                        this.wrapUpLogin(res)
+                        resolve({error:false})
+                    }
+                }
+                else {
+                    database()
+                    .ref(`users/${res.data.walletno}`)
+                    .set({
+                        deviceid:Consts.deviceId,
+                        timestamp:moment().format('YYYY-MM-DD HH:mm:ss')
+                    })
+                    .then(() => this.wrapUpLogin(res))
+                    .catch(err => alert('error insertion'))
+
+                    resolve({error:false})
+                }
+            })
+            .catch(err => alert('error checking'))
+        })
     }
 
     force1stReupdateInfo = userData => {
