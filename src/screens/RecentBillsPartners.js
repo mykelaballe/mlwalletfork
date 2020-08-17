@@ -62,7 +62,7 @@ class Scrn extends React.Component {
         list[index].old_partnersid = list[index].partnersid
         list[index].old_account_no = list[index].account_no
         list[index].old_account_name = list[index].account_name
-        this.props.navigation.navigate('BillerProfile',{index, biller:list[index]})
+        this.props.navigation.navigate('BillerProfile',{index, biller:list[index], from:'recent'})
     }
 
     handleRefresh = () => this.setState({refreshing:true},this.getData)

@@ -16,7 +16,7 @@ class Scrn extends React.Component {
 
         return {
             title:'Saved Receiver',
-            headerRight:(
+            headerRight:params.from !== 'recent' ? (
                 <Menu
                     visible={params.menuOpen}
                     onDismiss={params.handleToggleMenu}
@@ -30,7 +30,7 @@ class Scrn extends React.Component {
                 >
                     <Menu.Item onPress={params.handleDelete} title="Delete Receiver" />
                 </Menu>
-            )
+            ) : null
         }
     }
 
@@ -128,7 +128,8 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {walletno, fullname} = this.props.navigation.state.params.receiver
+        const {params = {}} = this.props.navigation.state
+        const {walletno, fullname} = params.receiver
         const {is_favorite, deleting, favoriting} = this.state
 
         return (
@@ -144,12 +145,14 @@ class Scrn extends React.Component {
                         value={Func.cleanName(fullname)}
                     />
 
+                    {params.from !== 'recent' &&
                     <Outline>
                         <Row bw>
                             <Text>{is_favorite ? 'Remove from' : 'Add to'} favorite</Text>
                             <Switch disabled={deleting} value={is_favorite} onValueChange={this.handleToggleFavorite} loading={favoriting} />
                         </Row>
                     </Outline>
+                    }
                 </Screen>
 
                 <Footer>

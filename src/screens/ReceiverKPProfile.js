@@ -16,7 +16,7 @@ class Scrn extends React.Component {
 
         return {
             title:'Saved Receiver',
-            headerRight:(
+            headerRight:params.from !== 'recent' ? (
                 <Menu
                     visible={params.menuOpen}
                     onDismiss={params.handleToggleMenu}
@@ -31,7 +31,7 @@ class Scrn extends React.Component {
                     <Menu.Item onPress={params.handleEdit} title='Edit Receiver' />
                     <Menu.Item onPress={params.handleDelete} title="Delete Receiver" />
                 </Menu>
-            )
+            ) : null
         }
     }
 
@@ -144,6 +144,7 @@ class Scrn extends React.Component {
 
     render() {
 
+        const {params = {}} = this.props.navigation.state
         const {firstname, middlename, lastname, suffix, ContactNo, isFavorite, deleting, favoriting} = this.state
 
         return (
@@ -174,12 +175,14 @@ class Scrn extends React.Component {
                         value={Func.formatToPHMobileNumberFull(ContactNo)}
                     />
 
+                    {params.from !== 'recent' &&
                     <Outline>
                         <Row bw>
                             <Text>{isFavorite ? 'Remove from' : 'Add to'} favorite</Text>
                             <Switch disabled={deleting} value={isFavorite} onValueChange={this.handleToggleFavorite} loading={favoriting} />
                         </Row>
                     </Outline>
+                    }
                 </Screen>
 
                 <Footer>

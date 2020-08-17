@@ -16,7 +16,7 @@ class Scrn extends React.Component {
 
         return {
             title:'Saved Bank Account',
-            headerRight:(
+            headerRight:params.from !== 'recent' ? (
                 <Menu
                     visible={params.menuOpen}
                     onDismiss={params.handleToggleMenu}
@@ -31,7 +31,7 @@ class Scrn extends React.Component {
                     <Menu.Item onPress={params.handleEdit} title='Edit Bank Account' />
                     <Menu.Item onPress={params.handleDelete} title="Delete Bank Account" />
                 </Menu>
-            )
+            ) : null
         }
     }
 
@@ -154,6 +154,7 @@ class Scrn extends React.Component {
 
     render() {
 
+        const {params = {}} = this.props.navigation.state
         const {bankname, old_account_name, old_account_no, isFavorite, deleting, favoriting} = this.state
 
         return (
@@ -174,12 +175,14 @@ class Scrn extends React.Component {
                         value={old_account_no}
                     />
                     
+                    {params.from !== 'recent' &&
                     <Outline>
                         <Row bw>
                             <Text>{isFavorite ? 'Remove from' : 'Add to'} favorite</Text>
                             <Switch disabled={deleting} value={isFavorite} onValueChange={this.handleToggleFavorite} loading={favoriting} />
                         </Row>
                     </Outline>
+                    }
                 </Screen>
 
                 <Footer>
