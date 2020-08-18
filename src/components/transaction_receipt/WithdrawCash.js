@@ -4,7 +4,7 @@ import {Creators} from '../../actions'
 import {withNavigation} from 'react-navigation'
 import {Header} from './'
 import {Screen, Footer, Text, Spacer, BackHomeButton, Button, ScrollFix} from '../'
-import {Metrics} from '../../themes'
+import {Colors, Metrics} from '../../themes'
 import {_, Consts, Func, Say} from '../../utils'
 import {API} from '../../services'
 
@@ -17,19 +17,52 @@ class WithdrawCash extends React.Component {
         status:this.props.data.status,
         cancellable:this.props.data.cancellable,
         cancelling:false,
-        type:Consts.tcn.wdc.long_desc
+        type:Consts.tcn.wdc.long_desc,
+        receipt:null
     }
 
     componentDidMount = () => {
-        const {_from, user, balance} = this.props.data
-        const {amount} = this.state
+        const {_from, kptn, user, balance} = this.props.data
+        const {amount, status, cancellable, isclaimed, date, time, type} = this.state
 
-        this.props.onExport(
-            Func.buildReceiptBody({
-                'Full Legal Name': `${user.fname} ${user.lname}`,
-                Amount: `${Consts.currency.PH} ${amount}`
-            })
+        const receipt = (
+            <>
+                <Header
+                    status={status}
+                    cancellable={cancellable}
+                    tcn={kptn}
+                />
+
+                <ScrollFix style={{padding:Metrics.lg,backgroundColor:Colors.light}}>
+                    <Text sm mute>Full Legal Name</Text>
+                    <Text>{user.fname} {user.lname}</Text>
+
+                    <Spacer />
+
+                    <Text sm mute>Amount</Text>
+                    <Text>{Consts.currency.PH} {amount}</Text>
+
+                    <Spacer />
+
+                    <Text sm mute>Date</Text>
+                    <Text>{date}</Text>
+
+                    <Spacer />
+
+                    <Text sm mute>Time</Text>
+                    <Text>{time}</Text>
+
+                    <Spacer />
+
+                    <Text sm mute>Type</Text>
+                    <Text>{type}</Text>
+                </ScrollFix>
+            </>
         )
+
+        this.props.onExport(receipt)
+
+        this.setState({receipt})
 
         if(_from != 'history') {
             Say.ok(
@@ -118,42 +151,13 @@ class WithdrawCash extends React.Component {
 
     render() {
 
-        const {_from, kptn, user} = this.props.data
-        const {status, cancellable, cancelling, isclaimed, amount, date, time, type} = this.state
+        const {_from} = this.props.data
+        const {receipt, cancellable, cancelling} = this.state
 
         return (
             <>
                 <Screen compact>
-                    <Header
-                        status={status}
-                        cancellable={cancellable}
-                        tcn={kptn}
-                    />
-
-                    <ScrollFix style={{padding:Metrics.lg}}>
-                        <Text sm mute>Full Legal Name</Text>
-                        <Text>{user.fname} {user.lname}</Text>
-
-                        <Spacer />
-
-                        <Text sm mute>Amount</Text>
-                        <Text>{Consts.currency.PH} {amount}</Text>
-
-                        <Spacer />
-
-                        <Text sm mute>Date</Text>
-                        <Text>{date}</Text>
-
-                        <Spacer />
-
-                        <Text sm mute>Time</Text>
-                        <Text>{time}</Text>
-
-                        <Spacer />
-
-                        <Text sm mute>Type</Text>
-                        <Text>{type}</Text>
-                    </ScrollFix>
+                    {receipt}
                 </Screen>
 
                 <Footer>

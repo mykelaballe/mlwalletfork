@@ -1,7 +1,7 @@
 import React from 'react'
 import {Header} from './'
 import {Screen, Footer, Text, Spacer, ScrollFix, BackHomeButton} from '../'
-import {Metrics} from '../../themes'
+import {Colors, Metrics} from '../../themes'
 import {Consts, Func, Say} from '../../utils'
 
 export default class BuyLoad extends React.Component {
@@ -10,20 +10,61 @@ export default class BuyLoad extends React.Component {
         amount:Func.formatToCurrency(this.props.data.amount),
         date:this.props.data.date,
         time:this.props.data.time,
-        type:Consts.tcn.bul.long_desc
+        type:Consts.tcn.bul.long_desc,
+        receipt:null
     }
 
     componentDidMount = () => {
-        const {_from, contact_no, promo, balance} = this.props.data
-        const {amount} = this.state
+        const {_from, kptn, contact_no, promo, balance} = this.props.data
+        const {amount, date, time, type} = this.state
 
-        this.props.onExport(
-            Func.buildReceiptBody({
-                'Mobile Number': Func.formatToPHMobileNumberFull(contact_no),
-                'Promo Code': promo ? promo.promoCode : false,
-                Amount: `${Consts.currency.PH} ${amount}`
-            })
+        const receipt = (
+            <>
+                <Header
+                    tcn={kptn}
+                    status='success'
+                />
+
+                <ScrollFix style={{padding:Metrics.lg,backgroundColor:Colors.light}}>
+                    <Text sm mute>Mobile Number</Text>
+                    <Text>{Func.formatToPHMobileNumberFull(contact_no)}</Text>
+
+                    
+                    {promo &&
+                    <>
+                        <Spacer />
+
+                        <Text sm mute>Promo Code</Text>
+                        <Text>{promo.promoCode}</Text>
+                    </>
+                    }
+
+                    <Spacer />
+
+                    <Text sm mute>Amount</Text>
+                    <Text>{Consts.currency.PH} {amount}</Text>
+
+                    <Spacer />
+
+                    <Text sm mute>Date</Text>
+                    <Text>{date}</Text>
+
+                    <Spacer />
+
+                    <Text sm mute>Time</Text>
+                    <Text>{time}</Text>
+
+                    <Spacer />
+
+                    <Text sm mute>Type</Text>
+                    <Text>{type}</Text>
+                </ScrollFix>
+            </>
         )
+
+        this.props.onExport(receipt)
+
+        this.setState({receipt})
 
         if(_from != 'history') {
             Say.ok(
@@ -45,51 +86,13 @@ export default class BuyLoad extends React.Component {
 
     render() {
 
-        const {_from, kptn, contact_no, promo} = this.props.data
-        const {amount, date, time, type} = this.state
+        const {_from} = this.props.data
+        const {receipt} = this.state
 
         return (
             <>
                 <Screen compact>
-                    <Header
-                        tcn={kptn}
-                        status='success'
-                    />
-
-                    <ScrollFix style={{padding:Metrics.lg}}>
-                        <Text sm mute>Mobile Number</Text>
-                        <Text>{Func.formatToPHMobileNumberFull(contact_no)}</Text>
-
-                        
-                        {promo &&
-                        <>
-                            <Spacer />
-
-                            <Text sm mute>Promo Code</Text>
-                            <Text>{promo.promoCode}</Text>
-                        </>
-                        }
-
-                        <Spacer />
-
-                        <Text sm mute>Amount</Text>
-                        <Text>{Consts.currency.PH} {amount}</Text>
-
-                        <Spacer />
-
-                        <Text sm mute>Date</Text>
-                        <Text>{date}</Text>
-
-                        <Spacer />
-
-                        <Text sm mute>Time</Text>
-                        <Text>{time}</Text>
-
-                        <Spacer />
-
-                        <Text sm mute>Type</Text>
-                        <Text>{type}</Text>
-                    </ScrollFix>
+                    {receipt}
                 </Screen>
 
                 <Footer>

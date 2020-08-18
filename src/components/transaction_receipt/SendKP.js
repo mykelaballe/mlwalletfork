@@ -4,7 +4,7 @@ import {Creators} from '../../actions'
 import {withNavigation} from 'react-navigation'
 import {Header} from './'
 import {Screen, Footer, Text, Spacer, Button, BackHomeButton, View, Row, ScrollFix} from '../'
-import {Metrics} from '../../themes'
+import {Colors, Metrics} from '../../themes'
 import {_, Consts, Func, Say} from '../../utils'
 import {API} from '../../services'
 
@@ -19,25 +19,94 @@ class SendKP extends React.Component {
         status:this.props.data.status,
         cancellable:this.props.data.cancellable,
         cancelling:false,
-        type:Consts.tcn.skp.long_desc
+        type:Consts.tcn.skp.long_desc,
+        receipt:null
     }
 
     componentDidMount = () => {
-        const {_from, receiver, sender, balance} = this.props.data
-        const {amount, charges, total} = this.state
+        const {_from, kptn, receiver, sender, balance} = this.props.data
+        const {amount, charges, total, date, time, status, cancellable, cancelling, type} = this.state
 
-        this.props.onExport(
-            Func.buildReceiptBody({
-                Sender: sender,
-                'First Name': receiver.firstname,
-                'Middle Name': receiver.middlename || _('50'),
-                'Last Name': receiver.lastname,
-                Suffix: receiver.suffix || _('51'),
-                Amount: `${Consts.currency.PH} ${amount}`,
-                Charges: `${Consts.currency.PH} ${charges}`,
-                Total: `${Consts.currency.PH} ${total}`
-            })
+        const receipt = (
+            <>
+                <Header
+                    tcn={kptn}
+                    status={status}
+                    cancellable={cancellable}
+                />
+
+                <ScrollFix style={{padding:Metrics.lg,backgroundColor:Colors.light}}>
+                    <Text sm mute>Sender</Text>
+                    <Text>{sender}</Text>
+
+                    <Spacer />
+
+                    <Row>
+                        <View style={{flex:1}}>
+                            <Text mute sm>First Name</Text>
+                            <Text md>{receiver.firstname}</Text>
+                        </View>
+
+                        <Spacer h xl />
+
+                        <View style={{flex:1}}>
+                            <Text mute sm>Middle Name</Text>
+                            <Text md>{receiver.middlename || _('50')}</Text>
+                        </View>
+                    </Row>
+
+                    <Spacer />
+
+                    <Row>
+                        <View style={{flex:1}}>
+                            <Text mute sm>Last Name</Text>
+                            <Text md>{receiver.lastname}</Text>
+                        </View>
+
+                        <Spacer h xl />
+
+                        <View style={{flex:1}}>
+                            <Text mute sm>Suffix</Text>
+                            <Text md>{receiver.suffix || _('51')}</Text>
+                        </View>
+                    </Row>
+
+                    <Spacer />
+
+                    <Text sm mute>Amount</Text>
+                    <Text>{Consts.currency.PH} {amount}</Text>
+
+                    <Spacer />
+
+                    <Text sm mute>Charges</Text>
+                    <Text>{Consts.currency.PH} {charges}</Text>
+
+                    <Spacer />
+
+                    <Text sm mute>Total</Text>
+                    <Text>{Consts.currency.PH} {total}</Text>
+
+                    <Spacer />
+
+                    <Text sm mute>Date</Text>
+                    <Text>{date}</Text>
+
+                    <Spacer />
+
+                    <Text sm mute>Time</Text>
+                    <Text>{time}</Text>
+
+                    <Spacer />
+
+                    <Text sm mute>Type</Text>
+                    <Text>{type}</Text>
+                </ScrollFix>
+            </>
         )
+
+        this.props.onExport(receipt)
+
+        this.setState({receipt})
 
         if(_from != 'history') {
             Say.ok(
@@ -125,84 +194,13 @@ class SendKP extends React.Component {
 
     render() {
 
-        const {_from, kptn, receiver, sender} = this.props.data
-        const {amount, charges, total, date, time, status, cancellable, cancelling, type} = this.state
+        const {_from} = this.props.data
+        const {receipt} = this.state
 
         return (
             <>
                 <Screen compact>
-                    <Header
-                        tcn={kptn}
-                        status={status}
-                        cancellable={cancellable}
-                    />
-
-                    <ScrollFix style={{padding:Metrics.lg}}>
-                        <Text sm mute>Sender</Text>
-                        <Text>{sender}</Text>
-
-                        <Spacer />
-
-                        <Row>
-                            <View style={{flex:1}}>
-                                <Text mute sm>First Name</Text>
-                                <Text md>{receiver.firstname}</Text>
-                            </View>
-
-                            <Spacer h xl />
-
-                            <View style={{flex:1}}>
-                                <Text mute sm>Middle Name</Text>
-                                <Text md>{receiver.middlename || _('50')}</Text>
-                            </View>
-                        </Row>
-
-                        <Spacer />
-
-                        <Row>
-                            <View style={{flex:1}}>
-                                <Text mute sm>Last Name</Text>
-                                <Text md>{receiver.lastname}</Text>
-                            </View>
-
-                            <Spacer h xl />
-
-                            <View style={{flex:1}}>
-                                <Text mute sm>Suffix</Text>
-                                <Text md>{receiver.suffix || _('51')}</Text>
-                            </View>
-                        </Row>
-
-                        <Spacer />
-
-                        <Text sm mute>Amount</Text>
-                        <Text>{Consts.currency.PH} {amount}</Text>
-
-                        <Spacer />
-
-                        <Text sm mute>Charges</Text>
-                        <Text>{Consts.currency.PH} {charges}</Text>
-
-                        <Spacer />
-
-                        <Text sm mute>Total</Text>
-                        <Text>{Consts.currency.PH} {total}</Text>
-
-                        <Spacer />
-
-                        <Text sm mute>Date</Text>
-                        <Text>{date}</Text>
-
-                        <Spacer />
-
-                        <Text sm mute>Time</Text>
-                        <Text>{time}</Text>
-
-                        <Spacer />
-
-                        <Text sm mute>Type</Text>
-                        <Text>{type}</Text>
-                    </ScrollFix>
+                    {receipt}
                 </Screen>
 
                 <Footer>

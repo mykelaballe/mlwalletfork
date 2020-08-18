@@ -20,29 +20,10 @@ export default class PayBill extends React.Component {
     }
 
     componentDidMount = async () => {
-        //const {_from, sender, biller, biller_partner_name, account_no, account_name, balance} = this.props.data
-        //const {amount, fixed_charge, convenience_fee, total} = this.state
-
         const {_from, kptn, sender, biller, bankname, cAccountFname, cAccountLname, account_no, account_name, email, iscancelled, balance} = this.props.data
         const {amount, fixed_charge, convenience_fee, total, date, time, type} = this.state
 
         const status = iscancelled ? 'cancelled' : 'success'
-
-        /*this.props.onExport(
-            Func.buildReceiptBody({
-                Sender: sender,
-                'Customer Name': '',
-                Biller:biller ? biller.partner: biller_partner_name,
-                'Account No.': account_no,
-                'Account Name': account_name,
-                Amount: amount,
-                'Fixed Charge': Func.formatToCurrency(fixed_charge),
-                'Convenience Fee': convenience_fee,
-                Total:total
-            })
-        )*/
-
-        //this.props.onExport(this.refs.viewShot)
 
         const receipt = (
             <>
@@ -136,11 +117,6 @@ export default class PayBill extends React.Component {
     }
 
     render() {
-
-        //const {_from, kptn, sender, biller, bankname, cAccountFname, cAccountLname, account_no, account_name, email, iscancelled} = this.props.data
-        //const {amount, fixed_charge, convenience_fee, total, date, time, type} = this.state
-
-        //const status = iscancelled ? 'cancelled' : 'success'
 
         const {_from} = this.props.data
         const {receipt} = this.state
