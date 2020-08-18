@@ -130,6 +130,7 @@ export default createStackNavigator({
 
     TransactionReview: Scrn.TransactionReviewScrn,
     TransactionReceipt: Scrn.TransactionReceiptScrn,
+    DownloadedReceipt: Scrn.DownloadedReceiptScrn,
     OTPConfirmation: Scrn.OTPConfirmationScrn,
     PINConfirmation: Scrn.PINConfirmationScrn,
     TransactionQR: Scrn.TransactionQRScrn,
