@@ -33,17 +33,20 @@ export default {
 
     getBankPartners: async payload => {
         let res = await Fetch.getc(`bankAccount/all?walletno=${payload.walletno}&isRTA=${payload.isRTA}`)
-        return !res.error ? res.data : []
+        if(res.error) throw new Error(res.message)
+        return res.data || []
     },
 
     getFavoriteBankPartners: async payload => {
         let res = await Fetch.getc(`bankFavorites?walletno=${payload.walletno}&isRTA=${payload.isRTA}`)
-        return !res.error ? res.data : []
+        if(res.error) throw new Error(res.message)
+        return res.data || []
     },
 
     getRecentBankPartners: async walletno => {
         let res = await Fetch.getc(`recent?${JSON.stringify({type:Consts.tcn.stb.code, walletno})}`)
-        return !res.error ? res.data : []
+        if(res.error) throw new Error(res.message)
+        return res.data || []
     },
 
     addBankPartner: async payload => await Fetch.postc('bankAccount/add',payload),
