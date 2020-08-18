@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@react-native-community/async-storage": "1.6.2",
+    "@react-native-community/cameraroll": "4.0.0",
     "@react-native-community/netinfo": "4.4.0",
     "@react-native-firebase/app": "8.3.1",
     "@react-native-firebase/database": "7.4.2",
@@ -51,6 +52,7 @@
     "react-native-text-input-mask": "2.0.0",
     "react-native-touch-id": "4.4.1",
     "react-native-vector-icons": "6.6.0",
+    "react-native-view-shot": "3.1.2",
     "react-navigation": "4.0.10",
     "react-navigation-stack": "1.10.2",
     "react-navigation-tabs": "2.5.6",

@@ -1,7 +1,7 @@
 import React from 'react'
 import {Header} from './'
 import {Screen, Footer, Text, Spacer, Button, ScrollFix, BackHomeButton} from '../'
-import {Metrics} from '../../themes'
+import {Colors, Metrics} from '../../themes'
 import {_, Consts, Func, Say} from '../../utils'
 
 export default class SendBankTransfer extends React.Component {
@@ -13,24 +13,73 @@ export default class SendBankTransfer extends React.Component {
         total:Func.formatToCurrency(this.props.data.total),
         date:this.props.data.date,
         time:this.props.data.time,
-        type:Consts.tcn.stb.long_desc
+        type:Consts.tcn.stb.long_desc,
+        receipt:null
     }
 
     componentDidMount = () => {
-        const {_from, bank, account_name, account_no, balance} = this.props.data
-        const {amount, fixed_charge, convenience_fee, total} = this.state
+        const {_from, kptn, bank, account_name, account_no, balance} = this.props.data
+        const {amount, fixed_charge, convenience_fee, total, date, time, type} = this.state
 
-        this.props.onExport(
-            Func.buildReceiptBody({
-                "Partner's Name": bank.bankname,
-                'Account Name': account_name,
-                'Account No.': account_no,
-                Amount: `${Consts.currency.PH} ${amount}`,
-                'Fixed Charge': `${Consts.currency.PH} ${fixed_charge}`,
-                'Convenience Fee': `${Consts.currency.PH} ${convenience_fee}`,
-                Amount: `${Consts.currency.PH} ${total}`
-            })
+        const receipt = (
+            <>
+                <Header tcn={kptn} status='success' />
+                    
+                <ScrollFix style={{padding:Metrics.lg,backgroundColor:Colors.light}}>
+                    <Text sm mute>Partner's Name</Text>
+                    <Text>{bank.bankname}</Text>
+
+                    <Spacer />
+
+                    <Text sm mute>Account Name</Text>
+                    <Text>{account_name}</Text>
+
+                    <Spacer />
+
+                    <Text sm mute>Account No.</Text>
+                    <Text>{account_no}</Text>
+
+                    <Spacer />
+
+                    <Text sm mute>Amount</Text>
+                    <Text>{Consts.currency.PH} {amount}</Text>
+
+                    <Spacer />
+
+                    <Text sm mute>Fixed Charge</Text>
+                    <Text>{Consts.currency.PH} {fixed_charge}</Text>
+
+                    <Spacer />
+
+                    <Text sm mute>Convenience Fee</Text>
+                    <Text>{Consts.currency.PH} {convenience_fee}</Text>
+
+                    <Spacer />
+
+                    <Text sm mute>Total</Text>
+                    <Text>{Consts.currency.PH} {Func.formatToRealCurrency(parseFloat(amount) + parseFloat(fixed_charge) + parseFloat(convenience_fee))}</Text>
+
+                    <Spacer />
+
+                    <Text sm mute>Date</Text>
+                    <Text>{date}</Text>
+
+                    <Spacer />
+
+                    <Text sm mute>Time</Text>
+                    <Text>{time}</Text>
+
+                    <Spacer />
+
+                    <Text sm mute>Type</Text>
+                    <Text>{type}</Text>
+                </ScrollFix>
+            </>
         )
+
+        this.props.onExport(receipt)
+
+        this.setState({receipt})
 
         if(_from != 'history') {
             Say.ok(
@@ -52,63 +101,13 @@ export default class SendBankTransfer extends React.Component {
 
     render() {
 
-        const {_from, kptn, bank, account_name, account_no} = this.props.data
-        const {amount, fixed_charge, convenience_fee, total, date, time, type} = this.state
+        const {_from} = this.props.data
+        const {receipt} = this.state
 
         return (
             <>
                 <Screen compact>
-                    <Header tcn={kptn} status='success' />
-                    
-                    <ScrollFix style={{padding:Metrics.lg}}>
-                        <Text sm mute>Partner's Name</Text>
-                        <Text>{bank.bankname}</Text>
-
-                        <Spacer />
-
-                        <Text sm mute>Account Name</Text>
-                        <Text>{account_name}</Text>
-
-                        <Spacer />
-
-                        <Text sm mute>Account No.</Text>
-                        <Text>{account_no}</Text>
-
-                        <Spacer />
-
-                        <Text sm mute>Amount</Text>
-                        <Text>{Consts.currency.PH} {amount}</Text>
-
-                        <Spacer />
-
-                        <Text sm mute>Fixed Charge</Text>
-                        <Text>{Consts.currency.PH} {fixed_charge}</Text>
-
-                        <Spacer />
-
-                        <Text sm mute>Convenience Fee</Text>
-                        <Text>{Consts.currency.PH} {convenience_fee}</Text>
-
-                        <Spacer />
-
-                        <Text sm mute>Total</Text>
-                        <Text>{Consts.currency.PH} {Func.formatToRealCurrency(parseFloat(amount) + parseFloat(fixed_charge) + parseFloat(convenience_fee))}</Text>
-
-                        <Spacer />
-
-                        <Text sm mute>Date</Text>
-                        <Text>{date}</Text>
-
-                        <Spacer />
-
-                        <Text sm mute>Time</Text>
-                        <Text>{time}</Text>
-
-                        <Spacer />
-
-                        <Text sm mute>Type</Text>
-                        <Text>{type}</Text>
-                    </ScrollFix>
+                    {receipt}
                 </Screen>
 
                 <Footer>

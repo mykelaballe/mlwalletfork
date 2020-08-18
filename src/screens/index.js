@@ -106,6 +106,7 @@ import TransactionReceiptScrn from './TransactionReceipt'
 import OTPConfirmationScrn from './OTPConfirmation'
 import PINConfirmationScrn from './PINConfirmation'
 import TransactionQRScrn from './TransactionQR'
+import DownloadedReceiptScrn from './DownloadedReceipt'
 
 import CurrenciesScrn from './Currencies'
 import RemindersScrn from './Reminders'
@@ -254,6 +255,7 @@ export {
     OTPConfirmationScrn,
     PINConfirmationScrn,
     TransactionQRScrn,
+    DownloadedReceiptScrn,
 
     CurrenciesScrn,
     RemindersScrn,

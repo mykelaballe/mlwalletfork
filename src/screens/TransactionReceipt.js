@@ -6,7 +6,7 @@ import {Colors, Metrics} from '../themes'
 import {_, Say, Consts, Func} from '../utils'
 import Icon from 'react-native-vector-icons/AntDesign'
 import RNHTMLtoPDF from 'react-native-html-to-pdf'
-import RNFetchBlob from 'rn-fetch-blob'
+import {request, PERMISSIONS, RESULTS} from 'react-native-permissions'
 
 const moment = require('moment')
 
@@ -53,7 +53,18 @@ export default class Scrn extends React.Component {
 
     handleSetExportData = exportData => this.setState({exportData})
 
-    handleExport = async () => {
+    handleExport = () => {
+        const PERMISSION = Consts.is_android ? PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE : PERMISSIONS.IOS.PHOTO_LIBRARY
+        request(PERMISSION)
+        .then(res => {
+            if(res == RESULTS.GRANTED) {
+                this.props.navigation.navigate('DownloadedReceipt',{receipt:this.state.exportData})
+            }
+            else Say.warn('Please allow the app to access your gallery')
+        })
+    }
+
+    /*handleExport_ = async () => {
         const {type, kptn} = this.props.navigation.state.params
         const {date, time, exportData} = this.state
 
@@ -88,34 +99,24 @@ export default class Scrn extends React.Component {
             fileName: kptn,
             directory: Consts.is_android ? 'Downloads' : 'Documents',
             width: 350,
-            height: 600,
-            //base64: true
+            height: 600
         })
 
-        //const filePath = `${RNFetchBlob.fs.dirs.DownloadDir}/${kptn}.pdf`
+        this.props.navigation.setParams({downloading:''})
 
-        /*RNFetchBlob.fs.createFile(filePath, file.base64, 'base64')
-        .then(res => {*/
-
-            this.props.navigation.setParams({downloading:''})
-
-            Say.ask(
-                `Receipt exported in:\n ${file.filePath}`,
-                'Success!',
-                {
-                    yesBtnLabel:'View File',
-                    noBtnLabel:'Close',
-                    onConfirm:() => this.props.navigation.navigate('PDFViewer',{
-                        title:'Transaction Receipt',
-                        source:file.filePath
-                    })
-                }
-            )
-        /*})
-        .catch(err => {
-            Say.err(err)
-        })*/
-    }
+        Say.ask(
+            `Receipt exported in:\n ${file.filePath}`,
+            'Success!',
+            {
+                yesBtnLabel:'View File',
+                noBtnLabel:'Close',
+                onConfirm:() => this.props.navigation.navigate('PDFViewer',{
+                    title:'Transaction Receipt',
+                    source:file.filePath
+                })
+            }
+        )
+    }*/
 
     render() {
         const {type, _from, cancellable, transaction, kptn, controlno, balance} = this.props.navigation.state.params
