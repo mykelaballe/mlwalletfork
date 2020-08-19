@@ -92,7 +92,7 @@ class Scrn extends React.Component {
                             sender:`${firstname} ${lastname}`,
                             transdate:transRes.data.transdate
                         },
-                        kptn:res.data.kptn,
+                        kptn:transaction_no,
                         status:'success'
                     })
                 }
