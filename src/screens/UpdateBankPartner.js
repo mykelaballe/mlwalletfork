@@ -118,7 +118,6 @@ class Scrn extends React.Component {
                         label='Account No.'
                         value={account_no}
                         onChangeText={this.handleChangeAccountNo}
-                        keyboardType='numeric'
                     />
                 </Screen>
             

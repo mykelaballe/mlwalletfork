@@ -55,7 +55,7 @@ class Scrn extends React.Component {
     handleFocusEmail = () => this.refs.email.focus()
 
     handlePay = async () => {
-        let {cAccountFname, cAccountLname, amount, fixed_charge, convenience_fee, processing} = this.state
+        let {account_no, cAccountFname, cAccountLname, amount, fixed_charge, convenience_fee, processing} = this.state
         const {params} = this.props.navigation.state
 
         if(processing) return false
@@ -68,6 +68,7 @@ class Scrn extends React.Component {
             this.setState({processing:true})
             
             if(!cAccountFname || !cAccountLname) Say.warn('Please enter customer name')
+            else if(!Func.isAlphaNumOnly(account_no)) Say.warn(Consts.error.onlyAlphaNum)
             else if(Func.formatToCurrency(amount) <= 0) Say.warn(_('89'))
             else {
                 let res = await API.paybillValidate({
@@ -123,7 +124,6 @@ class Scrn extends React.Component {
                         value={account_no}
                         onChangeText={this.handleChangeAccountNo}
                         onSubmitEditing={this.handleFocusAccountName}
-                        keyboardType='numeric'
                         returnKeyType='next'
                     />
 

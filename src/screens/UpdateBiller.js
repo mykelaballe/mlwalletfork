@@ -126,7 +126,6 @@ class Scrn extends React.Component {
                         value={account_no}
                         onChangeText={this.handleChangeAccountNo}
                         onSubmitEditing={this.handleFocusFName}
-                        keyboardType='numeric'
                         returnKeyType='next'
                     />
 
