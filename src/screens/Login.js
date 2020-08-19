@@ -84,7 +84,7 @@ class Scrn extends React.Component {
                 if(res.error) {
                     if(res.message == 'inactive') {
                         Say.warn(
-                            `Your account has been deactivated. Please contact Customer Care for more information\n\n.Globe: ${Consts.hotline2}\nSmart: ${Consts.hotline1}`
+                            `Your account has been deactivated. Please contact Customer Care for more information.\n\nGlobe: ${Consts.hotline2}\nSmart: ${Consts.hotline1}`
                         )
                     } 
                     else if([Consts.error.atl1, Consts.error.atl2, 'reach_maximum_attempts', Consts.error.blk1d].indexOf(res.message) >= 0) {
