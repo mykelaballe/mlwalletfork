@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Screen, Footer, Headline, TextInput, Button, Picker} from '../components'
-import {_, Say} from '../utils'
+import {_, Consts, Say, Func} from '../utils'
 import {API} from '../services'
 
 class Scrn extends React.Component {
@@ -43,6 +43,7 @@ class Scrn extends React.Component {
             account_no = account_no.trim()
 
             if(!name || !account_name || !account_no) Say.some(_('8'))
+            else if(!Func.isAlphaNumOnly(account_no)) Say.warn(Consts.error.onlyAlphaNum)
             else {
 
                 let payload = {
@@ -113,7 +114,6 @@ class Scrn extends React.Component {
                         label='Account No.'
                         value={account_no}
                         onChangeText={this.handleChangeAccountNo}
-                        keyboardType='numeric'
                     />
                 </Screen>
 

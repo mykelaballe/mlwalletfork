@@ -45,6 +45,7 @@ class Scrn extends React.Component {
             email = email.trim()
 
             if(!account_name || !account_no) Say.some(_('8'))
+            else if(!Func.isAlphaNumOnly(account_no)) Say.warn(Consts.error.onlyAlphaNum)
             else if(email && !Func.hasEmailSpecialCharsOnly(email)) {
                 this.setState({error_email:true})
                 Say.warn(Consts.error.notAllowedChar)

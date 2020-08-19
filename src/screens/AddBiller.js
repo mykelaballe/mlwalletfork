@@ -35,11 +35,15 @@ class Scrn extends React.Component {
     handleFocusEmail = () => this.refs.email.focus()
 
     handlePay = () => {
-        let {bill_partner_name, bill_partner_accountid, email} = this.state
+        let {account_name, account_no, email} = this.state
 
+        account_name = account_name.trim()
+        account_no = account_no.trim()
         email = email.trim()
 
-        if(email && !Func.hasEmailSpecialCharsOnly(email)) {
+        if(!account_name || !account_no) Say.some(_('8'))
+        else if(!Func.isAlphaNumOnly(account_no)) Say.warn(Consts.error.onlyAlphaNum)
+        else if(email && !Func.hasEmailSpecialCharsOnly(email)) {
             this.setState({error_email:true})
             Say.warn(Consts.error.notAllowedChar)
         }
@@ -50,10 +54,7 @@ class Scrn extends React.Component {
         else {
             this.props.navigation.navigate('PayBill',{
                 biller:{
-                    ...this.state,
-                    //email,
-                    //bankname:bill_partner_name,
-                    //old_partnersid:bill_partner_accountid
+                    ...this.state
                 }
             })
         }
@@ -75,6 +76,7 @@ class Scrn extends React.Component {
             email = email.trim()
 
             if(!account_name || !account_no) Say.some(_('8'))
+            else if(!Func.isAlphaNumOnly(account_no)) Say.warn(Consts.error.onlyAlphaNum)
             else if(email && !Func.hasEmailSpecialCharsOnly(email)) {
                 this.setState({error_email:true})
                 Say.warn(Consts.error.notAllowedChar)

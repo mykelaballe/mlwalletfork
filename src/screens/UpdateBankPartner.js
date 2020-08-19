@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Screen, Button, TextInput, Footer} from '../components'
-import {_, Say} from '../utils'
+import {_, Say, Consts, Func} from '../utils'
 import {API} from '../services'
 
 class Scrn extends React.Component {
@@ -19,13 +19,10 @@ class Scrn extends React.Component {
     }
 
     handleChangeName = bankname => this.setState({bankname})
-
     handleChangeAccountName = account_name => this.setState({account_name})
-
     handleChangeAccountNo = account_no => this.setState({account_no})
 
     handleFocusAccountName = () => this.refs.account_name.focus()
-
     handleFocusAccountNo = () => this.refs.account_no.focus()
 
     handleSubmit = async () => {
@@ -42,6 +39,7 @@ class Scrn extends React.Component {
             account_no = account_no.trim()
 
             if(!bankname || !account_name || !account_no) Say.some(_('8'))
+            else if(!Func.isAlphaNumOnly(account_no)) Say.warn(Consts.error.onlyAlphaNum)
             else {
 
                 let payload = {
