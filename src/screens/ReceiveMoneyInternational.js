@@ -16,7 +16,7 @@ class Scrn extends React.Component {
 
     state = {
         transaction_no:'',
-        currency:'PHP',
+        currency:Consts.currency.PH,
         amount:'',
         partner:null,
         sender:'',

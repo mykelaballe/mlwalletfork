@@ -2,7 +2,7 @@ import React from 'react'
 import {StyleSheet, InteractionManager} from 'react-native'
 import {FlatList, Text, Row, HR, Ripple} from '../components'
 import {Metrics} from '../themes'
-import {_, Say} from '../utils'
+import {_, Say, Consts} from '../utils'
 
 const ItemUI = props => (
     <>
@@ -37,7 +37,7 @@ class Currencies extends React.Component {
             list = [
                 {
                     name:'Philippine Peso',
-                    abbr:'PHP',
+                    abbr:Consts.currency.PH,
                 },
                 {
                     name:'Australian Dollar',
