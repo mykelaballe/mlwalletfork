@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>$(PRODUCT_NAME) wants to access your gallery for changing your profile photo</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en_CA</string>
 	<key>CFBundleDisplayName</key>
@@ -63,6 +61,8 @@
 	<string>$(PRODUCT_NAME) wants to access your location for security validation and to determine the nearest branch on your location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>$(PRODUCT_NAME) wants to access your location for security and to determine the nearest branch on your location</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>$(PRODUCT_NAME) wants to access your gallery for changing your profile photo</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
