@@ -20,7 +20,8 @@
       android:allowBackup="false"
       android:theme="@style/AppTheme"
       android:largeHeap="true"
-      android:usesCleartextTraffic="true">
+      android:usesCleartextTraffic="true"
+      android:requestLegacyExternalStorage="true">
       <meta-data
         android:name="com.google.firebase.ml.vision.DEPENDENCIES"
         android:value="face"
