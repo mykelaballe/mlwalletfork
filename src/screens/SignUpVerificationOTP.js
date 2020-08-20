@@ -197,7 +197,10 @@ export default class Scrn extends React.Component {
                     else {
                         if(res.message == 'account_exists') {
                             Say.warn(
-                                `You already have an existing ML Wallet Account. Please contact Customer Care for assistance.\n\nGlobe: ${Consts.hotline2}\nSmart: ${Consts.hotline1}`
+                                `You already have an existing ML Wallet Account. Please contact Customer Care for assistance.\n\nGlobe: ${Consts.hotline2}\nSmart: ${Consts.hotline1}`,
+                                null,
+                                null,
+                                true
                             )
                         }
                         else Say.warn(res.message)
