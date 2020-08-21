@@ -77,11 +77,15 @@ class SendKP extends React.Component {
                     <Text>{Consts.currency.PH} {amount}</Text>
 
                     <Spacer />
+                    
+                    {true &&
+                    <>
+                        <Text sm mute>Charges</Text>
+                        <Text>{Consts.currency.PH} {charges}</Text>
 
-                    <Text sm mute>Charges</Text>
-                    <Text>{Consts.currency.PH} {charges}</Text>
-
-                    <Spacer />
+                        <Spacer />
+                    </>
+                    }
 
                     <Text sm mute>Total</Text>
                     <Text>{Consts.currency.PH} {total}</Text>
