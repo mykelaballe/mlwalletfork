@@ -13,8 +13,8 @@ class Scrn extends React.Component {
 
     state = {
         partners:[
-            {label:'CHINABANK RTA',value:'CHINABANK RTA'},
-            {label:'METROBANK REMIT TO ACCOUNT',value:'METROBANK REMIT TO ACCOUNT'}
+            {label:'CHINABANK RTA',value:'MLBPP170374'},
+            {label:'METROBANK REMIT TO ACCOUNT',value:'MLBPP160278'}
         ],
         name:'',
         account_name:'',
@@ -48,7 +48,7 @@ class Scrn extends React.Component {
 
                 let payload = {
                     walletno,
-                    bankname:name,
+                    partnersid:name,
                     account_name,
                     account_no,
                     isRTA:1
