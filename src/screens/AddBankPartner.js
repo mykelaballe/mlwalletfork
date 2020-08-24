@@ -17,12 +17,13 @@ class Scrn extends React.Component {
             {label:'METROBANK REMIT TO ACCOUNT',value:'MLBPP160278'}
         ],
         name:'',
+        partnerid:'',
         account_name:'',
         account_no:'',
         processing:false
     }
 
-    handleChangeName = (name = {}) => this.setState({name:name.value})
+    handleChangeName = (bank = {}) => this.setState({name:bank.label, partnerid:bank.value})
     handleChangeAccountName = account_name => this.setState({account_name})
     handleChangeAccountNo = account_no => this.setState({account_no})
 
@@ -32,7 +33,7 @@ class Scrn extends React.Component {
     handleSubmit = async () => {
         try {
             const {walletno} = this.props.user
-            let {name, account_name, account_no, processing} = this.state
+            let {name, partnerid, account_name, account_no, processing} = this.state
 
             if(processing) return false
 
@@ -48,7 +49,7 @@ class Scrn extends React.Component {
 
                 let payload = {
                     walletno,
-                    partnersid:name,
+                    partnersid:partnerid,
                     account_name,
                     account_no,
                     isRTA:1
