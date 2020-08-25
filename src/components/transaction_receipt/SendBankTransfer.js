@@ -18,7 +18,7 @@ export default class SendBankTransfer extends React.Component {
     }
 
     componentDidMount = () => {
-        const {_from, kptn, bank, account_name, account_no, balance} = this.props.data
+        const {_from, kptn, bank, account_name, account_no, cAccountFname, cAccountLname, balance} = this.props.data
         const {amount, fixed_charge, convenience_fee, total, date, time, type} = this.state
 
         const receipt = (
@@ -26,6 +26,11 @@ export default class SendBankTransfer extends React.Component {
                 <Header tcn={kptn} status='success' />
                     
                 <ScrollFix style={{padding:Metrics.lg,backgroundColor:Colors.light}}>
+                    <Text sm mute>Customer Name</Text>
+                    <Text>{cAccountFname} {cAccountLname}</Text>
+
+                    <Spacer />
+                    
                     <Text sm mute>Partner's Name</Text>
                     <Text>{bank.bankname}</Text>
 
