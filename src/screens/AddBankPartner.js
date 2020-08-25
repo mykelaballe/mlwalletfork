@@ -18,6 +18,8 @@ class Scrn extends React.Component {
         ],
         name:'',
         partnerid:'',
+        cAccountFname:'',
+        cAccountLname:'',
         account_name:'',
         account_no:'',
         processing:false
@@ -26,14 +28,18 @@ class Scrn extends React.Component {
     handleChangeName = (bank = {}) => this.setState({name:bank.label, partnerid:bank.value})
     handleChangeAccountName = account_name => this.setState({account_name})
     handleChangeAccountNo = account_no => this.setState({account_no})
+    handleChangeFName = cAccountFname => this.setState({cAccountFname})
+    handleChangeLName = cAccountLname => this.setState({cAccountLname})
 
     handleFocusAccountName = () => this.refs.account_name.focus()
     handleFocusAccountNo = () => this.refs.account_no.focus()
+    handleFocusFName = () => this.refs.cAccountFname.focus()
+    handleFocusLName = () => this.refs.cAccountLname.focus()
 
     handleSubmit = async () => {
         try {
             const {walletno} = this.props.user
-            let {name, partnerid, account_name, account_no, processing} = this.state
+            let {name, partnerid, account_name, account_no, cAccountFname, cAccountLname, processing} = this.state
 
             if(processing) return false
 
@@ -42,8 +48,10 @@ class Scrn extends React.Component {
             name = name.trim()
             account_name = account_name.trim()
             account_no = account_no.trim()
+            cAccountFname = cAccountFname.trim()
+            cAccountLname = cAccountLname.trim()
 
-            if(!name || !account_name || !account_no) Say.some(_('8'))
+            if(!name || !account_name || !account_no || !cAccountFname || !cAccountLname) Say.some(_('8'))
             else if(!Func.isAlphaNumOnly(account_no)) Say.warn(Consts.error.onlyAlphaNum)
             else {
 
@@ -52,6 +60,8 @@ class Scrn extends React.Component {
                     partnersid:partnerid,
                     account_name,
                     account_no,
+                    cAccountFname,
+                    cAccountLname,
                     isRTA:1
                 }
     
@@ -74,10 +84,10 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {partners, name, account_name, account_no, processing} = this.state
+        const {partners, name, account_name, account_no, cAccountFname, cAccountLname, processing} = this.state
         let ready = false
 
-        if(name && account_name && account_no) ready = true
+        if(name && account_name && account_no && cAccountFname && cAccountLname) ready = true
 
         return (
             <>
@@ -115,6 +125,26 @@ class Scrn extends React.Component {
                         label='Account No.'
                         value={account_no}
                         onChangeText={this.handleChangeAccountNo}
+                        onSubmitEditing={this.handleFocusFName}
+                        returnKeyType='next'
+                    />
+
+                    <TextInput
+                        ref='cAccountFname'
+                        label='Customer First Name'
+                        value={cAccountFname}
+                        onChangeText={this.handleChangeFName}
+                        onSubmitEditing={this.handleFocusLName}
+                        autoCapitalize='words'
+                        returnKeyType='next'
+                    />
+
+                    <TextInput
+                        ref='cAccountLname'
+                        label='Customer Last Name'
+                        value={cAccountLname}
+                        onChangeText={this.handleChangeLName}
+                        autoCapitalize='words'
                     />
                 </Screen>
 
@@ -131,7 +161,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    //addPartner:newPartner => dispatch(Creators.addBankPartner(newPartner)),
     refreshAll:refresh => dispatch(Creators.refreshBankAllPartners(refresh)),
 })
 

@@ -160,6 +160,8 @@ class Scrn extends React.Component {
                             accountNo:transaction.account_no,
                             accountName:transaction.account_name,
                             amountpaid:transaction.amount,
+                            fname:transaction.cAccountFname,
+                            lname:transaction.cAccountLname,
                             isRTA:1
                         })
                     }

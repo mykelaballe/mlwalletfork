@@ -15,20 +15,26 @@ class Scrn extends React.Component {
         ...this.props.navigation.state.params.bank,
         account_name:this.props.navigation.state.params.bank.old_account_name,
         account_no:this.props.navigation.state.params.bank.old_account_no,
+        cAccountFname:this.props.navigation.state.params.bank.cAccountFname,
+        cAccountLname:this.props.navigation.state.params.bank.cAccountLname,
         processing:false
     }
 
     handleChangeName = bankname => this.setState({bankname})
     handleChangeAccountName = account_name => this.setState({account_name})
     handleChangeAccountNo = account_no => this.setState({account_no})
+    handleChangeFName = cAccountFname => this.setState({cAccountFname})
+    handleChangeLName = cAccountLname => this.setState({cAccountLname})
 
     handleFocusAccountName = () => this.refs.account_name.focus()
     handleFocusAccountNo = () => this.refs.account_no.focus()
+    handleFocusFName = () => this.refs.cAccountFname.focus()
+    handleFocusLName = () => this.refs.cAccountLname.focus()
 
     handleSubmit = async () => {
         try {
             const {walletno} = this.props.user
-            let {bankname, account_name, account_no, old_partnersid, old_account_no, old_account_name, processing} = this.state
+            let {bankname, account_name, account_no, old_partnersid, old_account_no, old_account_name, cAccountFname, cAccountLname, processing} = this.state
 
             if(processing) return false
 
@@ -37,8 +43,10 @@ class Scrn extends React.Component {
             bankname = bankname.trim()
             account_name = account_name.trim()
             account_no = account_no.trim()
+            cAccountFname = cAccountFname.trim()
+            cAccountLname = cAccountLname.trim()
 
-            if(!bankname || !account_name || !account_no) Say.some(_('8'))
+            if(!bankname || !account_name || !account_no || !cAccountFname || !cAccountLname) Say.some(_('8'))
             else if(!Func.isAlphaNumOnly(account_no)) Say.warn(Consts.error.onlyAlphaNum)
             else {
 
@@ -49,7 +57,9 @@ class Scrn extends React.Component {
                     account_no,
                     old_partnersid,
                     old_account_no,
-                    old_account_name
+                    old_account_name,
+                    cAccountFname,
+                    cAccountLname
                 }
     
                 let res = await API.updateBankPartner(payload)
@@ -61,7 +71,9 @@ class Scrn extends React.Component {
                         account_name,
                         account_no,
                         old_account_name:account_name,
-                        old_account_no:account_no
+                        old_account_no:account_no,
+                        cAccountFname,
+                        cAccountLname
                     })
                     this.props.refreshAll(true)
                     this.props.refreshFavorites(true)
@@ -80,10 +92,10 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {bankname, account_name, account_no, processing} = this.state
+        const {bankname, account_name, account_no, cAccountFname, cAccountLname, processing} = this.state
         let ready = false
 
-        if(bankname && account_name && account_no) ready = true
+        if(bankname && account_name && account_no && cAccountFname && cAccountLname) ready = true
 
         return (
             <>
@@ -118,6 +130,26 @@ class Scrn extends React.Component {
                         label='Account No.'
                         value={account_no}
                         onChangeText={this.handleChangeAccountNo}
+                        onSubmitEditing={this.handleFocusFName}
+                        returnKeyType='next'
+                    />
+
+                    <TextInput
+                        ref='cAccountFname'
+                        label='Customer First Name'
+                        value={cAccountFname}
+                        onChangeText={this.handleChangeFName}
+                        onSubmitEditing={this.handleFocusLName}
+                        autoCapitalize='words'
+                        returnKeyType='next'
+                    />
+
+                    <TextInput
+                        ref='cAccountLname'
+                        label='Customer Last Name'
+                        value={cAccountLname}
+                        onChangeText={this.handleChangeLName}
+                        autoCapitalize='words'
                     />
                 </Screen>
             

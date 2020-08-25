@@ -20,6 +20,8 @@ class Scrn extends React.Component {
         bank:this.props.navigation.state.params.bank,
         account_name:this.props.navigation.state.params.bank.old_account_name,
         account_no:this.props.navigation.state.params.bank.old_account_no,
+        cAccountFname:this.props.navigation.state.params.bank.cAccountFname,
+        cAccountLname:this.props.navigation.state.params.bank.cAccountLname,
         amount:'',
         fixed_charge:this.props.navigation.state.params.bank.charge,
         convenience_fee:this.props.navigation.state.params.bank.convenienceFee,
@@ -28,9 +30,9 @@ class Scrn extends React.Component {
     }
 
     handleChangeAccountName = account_name => this.setState({account_name})
-
     handleChangeAccountNumber = account_no => this.setState({account_no})
-
+    handleChangeFName = cAccountFname => this.setState({cAccountFname})
+    handleChangeLName = cAccountLname => this.setState({cAccountLname})
     handleChangeAmount = amount => {
         const {fixed_charge, convenience_fee} = this.state
         this.setState({
@@ -42,16 +44,20 @@ class Scrn extends React.Component {
     handleSelectPartner = () => this.props.navigation.navigate('SavedBankPartners')
 
     handleSendMoney = async () => {
-        const {amount, fixed_charge, convenience_fee, processing} = this.state
+        let {cAccountFname, cAccountLname, amount, fixed_charge, convenience_fee, processing} = this.state
         const {params} = this.props.navigation.state
 
         if(processing) return false
 
         try {
+
+            cAccountFname = cAccountFname.trim()
+            cAccountLname = cAccountLname.trim()
             
             this.setState({processing:true})
 
-            if(Func.formatToCurrency(amount) <= 0) Say.warn(_('89'))
+            if(!cAccountFname || !cAccountLname) Say.warn('Please enter customer name')
+            else if(Func.formatToCurrency(amount) <= 0) Say.warn(_('89'))
             else {
 
                 let res = await API.paybillValidate({
@@ -67,6 +73,8 @@ class Scrn extends React.Component {
                         type:Consts.tcn.stb.code,
                         ...params,
                         transaction: {
+                            cAccountFname,
+                            cAccountLname,
                             ...this.state
                         },
                         status:'success'
@@ -83,10 +91,10 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {bank, account_name, account_no, amount, fixed_charge, convenience_fee, total, processing} = this.state
+        const {bank, account_name, account_no, cAccountFname, cAccountLname, amount, fixed_charge, convenience_fee, total, processing} = this.state
         let ready = false
 
-        if(bank && account_name && account_no && amount) ready = true
+        if(bank && cAccountFname && cAccountLname && account_name && account_no && amount) ready = true
 
         return (
             <>

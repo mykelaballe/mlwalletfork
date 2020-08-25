@@ -4,7 +4,7 @@ import {Consts, Func} from '../../utils'
 import {Metrics} from '../../themes'
 
 export default props => {
-    const {bank, account_name, account_no, amount, fixed_charge, convenience_fee, total} = props.data
+    const {bank, account_name, account_no, cAccountFname, cAccountLname, amount, fixed_charge, convenience_fee, total} = props.data
 
     return (
         <ScrollFix style={{padding:Metrics.lg}}>
@@ -13,6 +13,11 @@ export default props => {
             <Text center xl b>{Consts.currency.PH} {Func.formatToRealCurrency(amount)}</Text>
 
             <Spacer lg />
+
+            <Text mute sm>Customer Name</Text>
+            <Text md>{cAccountFname} {cAccountLname}</Text>
+
+            <Spacer />
 
             <Text mute sm>Partner Bank</Text>
             <Text md>{bank.bankname}</Text>
