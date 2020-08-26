@@ -40,23 +40,26 @@ const warn = (message, title = null, options = {}, noPeriod = false) => {
 }
 
 const err = (message, title = null, options = {}) => {
-    if(Consts.is_dev) message = message.message || message
-    else message = _('500')
+    if(message === 'unauthorize') SomeModal.forceLogout()
+    else {
+        if(Consts.is_dev) message = message.message || message
+        else message = _('500')
 
-    /*if(message) {
-        if(message.toLowerCase() == 'network error') {
-            title = 'Uh-oh!'
-            message = Consts.error.network
-        }
-    
-        if(message[message.length - 1] != '.') message = `${message}.`
-    }*/
+        /*if(message) {
+            if(message.toLowerCase() == 'network error') {
+                title = 'Uh-oh!'
+                message = Consts.error.network
+            }
+        
+            if(message[message.length - 1] != '.') message = `${message}.`
+        }*/
 
-    SomeModal.show({
-        message:checkLastChar(message),
-        title:title || 'Uh-oh!',
-        options
-    })
+        SomeModal.show({
+            message:checkLastChar(message),
+            title:title || 'Uh-oh!',
+            options
+        })
+    }
 }
 
 const info = (message, title = null, options = {}) => {

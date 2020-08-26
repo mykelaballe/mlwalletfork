@@ -8,7 +8,7 @@ let headers = {
   'Content-Type': 'application/json'
 }
 
-const callAPI = async (method, url, data = null, crypt = false) => {
+const callAPI = async (method, url, data = null, crypt = false, verifyToken = false) => {
   let user = await Storage.doLoad(Consts.db.user)
   if(user) {
     headers.Authorization = `Bearer ${user.access_token}`
@@ -33,26 +33,54 @@ const callAPI = async (method, url, data = null, crypt = false) => {
     config.data = crypt ? JSON.stringify({ciphertext:Crypt.en(data)}) : JSON.stringify(data)
   }
 
+  //FORCE LOGOUT
+  if(user) {
+    const payload = {
+      username:user.username,
+      deviceid:Consts.deviceId,
+      token:user.access_token
+    }
+
+    let verifyTokenRes = await axios({
+      method:'post',
+      url:`${Consts.baseURL}wallet/verify_login`,
+      headers,
+      data:JSON.stringify({ciphertext:Crypt.en(payload)})
+    })
+
+    let verifyTokenData = Crypt.de(verifyTokenRes.data.ciphertext)
+
+    if(verifyTokenData.error) {
+      await axios({
+        method:'post',
+        url:`${Consts.baseURL}wallet/logout`,
+        headers,
+        data:JSON.stringify({ciphertext:Crypt.en(payload)})
+      })
+      throw 'unauthorize'
+    }
+  }
+
   let response = await axios(config)
 
   return response.data.ciphertext ? Crypt.de(response.data.ciphertext) : response.data
 }
 
 export default {
-  post: async (url, data = null) => callAPI('post', url, data),
+  post: async (url, data = null, verifyToken = false) => callAPI('post', url, data, false, verifyToken),
 
-  put: async(url, data = null) => callAPI('put', url, data),
+  put: async(url, data = null, verifyToken = false) => callAPI('put', url, data, false, verifyToken),
 
-  delete: async (url, data = null) => callAPI('delete', url, data),
+  delete: async (url, data = null, verifyToken = false) => callAPI('delete', url, data, false, verifyToken),
 
-  get: async url => callAPI('get', url),
+  get: async (url, verifyToken = false) => callAPI('get', url, null, false, verifyToken),
 
   //Crypt enabled
-  postc: async (url, data = null) => callAPI('post', url, data, true),
+  postc: async (url, data = null, verifyToken = false) => callAPI('post', url, data, true, verifyToken),
 
-  putc: async(url, data = null) => callAPI('put', url, data, true),
+  putc: async(url, data = null, verifyToken = false) => callAPI('put', url, data, true, verifyToken),
 
-  deletec: async (url, data = null) => callAPI('delete', url, data, true),
+  deletec: async (url, data = null, verifyToken = false) => callAPI('delete', url, data, true, verifyToken),
 
-  getc: async url => callAPI('get', url, null, true)
+  getc: async (url, verifyToken = false) => callAPI('get', url, null, true, verifyToken)
 }

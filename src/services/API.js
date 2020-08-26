@@ -47,6 +47,30 @@ export default {
         })
     },
 
+    checkExistingSession: async payload => {
+        return await Fetch.postc('wallet/verify_login', {
+            username: payload.username,
+            deviceid: Consts.deviceId,
+            token: ''
+        })
+    },
+
+    logout: async (payload = {}) => {
+        let user = await Storage.doLoad(Consts.db.user)
+        let username = payload.username || (user ? user.username : '')
+        let token = payload.token || (user ? user.access_token : '')
+
+        if(username && token) {
+            await Fetch.postc('wallet/logout', {
+                username,
+                deviceid: Consts.deviceId,
+                token
+            })
+        }
+
+        if(user) await Storage.doSave(Consts.db.user)
+    },
+
     requestCustID: async () => {
         return {
             custid:'123'

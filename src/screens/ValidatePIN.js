@@ -1,11 +1,13 @@
 import React from 'react'
 import {StyleSheet} from 'react-native'
+import {connect} from 'react-redux'
+import {Creators} from '../actions'
 import {Screen, Footer, Headline, Button, TextInputFlat, Row} from '../components'
 import {Metrics} from '../themes'
-import {_, Say, Func} from '../utils'
+import {_, Say, Func, Consts} from '../utils'
 import {API} from '../services'
 
-export default class Scrn extends React.Component {
+class Scrn extends React.Component {
 
     state = {
         digit1:'',
@@ -83,7 +85,7 @@ export default class Scrn extends React.Component {
     handleFocusDigit6 = () => this.refs.digit6.focus()
 
     handleSubmit = async () => {
-        const {data} = this.props.navigation.state.params
+        const {data, isVerificationOnly, func} = this.props.navigation.state.params
         const {digit1, digit2, digit3, digit4, digit5, digit6, processing} = this.state
 
         if(processing) return false
@@ -105,10 +107,13 @@ export default class Scrn extends React.Component {
                     Say.attemptLeft(res.message)
                 }
                 else {
-                    this.props.navigation.replace('CreatePIN',{
-                        old_pin:pin,
-                        data
-                    })
+                    if(isVerificationOnly) await func()
+                    else {
+                        this.props.navigation.replace('CreatePIN',{
+                            old_pin:pin,
+                            data
+                        })
+                    }
                 }
             }
         }
@@ -121,6 +126,7 @@ export default class Scrn extends React.Component {
 
     render() {
 
+        const {params = {}} = this.props.navigation.state
         const {digit1, digit2, digit3, digit4, digit5, digit6, processing} = this.state
         const pin = `${digit1}${digit2}${digit3}${digit4}${digit5}${digit6}`
         let ready = false
@@ -131,10 +137,14 @@ export default class Scrn extends React.Component {
             <>
                 <Screen>
 
+                    {!params.isVerificationOnly &&
                     <Headline
                         title='You have reset your PIN'
                         subtext='Please enter the temporary PIN sent to your mobile number or email address'
                     />
+                    }
+
+                    {params.isVerificationOnly && <Headline title='Enter your 6-digit PIN' />}
 
                     <Row ar style={{paddingHorizontal:Metrics.lg}}>
                         <TextInputFlat
@@ -222,7 +232,7 @@ export default class Scrn extends React.Component {
                 </Screen>
             
                 <Footer>
-                    <Button disabled={!ready} t={_('62')} onPress={this.handleSubmit} loading={processing} />
+                    <Button disabled={!ready} t={params.isVerificationOnly ? 'Validate' : _('62')} onPress={this.handleSubmit} loading={processing} />
                 </Footer>
             </>
         )
@@ -236,3 +246,15 @@ const style = StyleSheet.create({
         fontWeight:'bold'
     }
 })
+
+const mapStateToProps = state => ({
+    localPhotos: state.app.localPhotos
+})
+
+const mapDispatchToProps = dispatch => ({
+    login:() => dispatch(Creators.login()),
+    setUser:user => dispatch(Creators.setUser(user)),
+    rememberLoginCredentials:credentials => dispatch(Creators.rememberLoginCredentials(credentials))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Scrn)

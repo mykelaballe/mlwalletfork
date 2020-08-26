@@ -6,7 +6,6 @@ import {Text, Button, ButtonText, Spacer, TextInput, Row, Icon, Screen, MLBanner
 import {Colors, Metrics} from '../themes'
 import {_, Say, Consts, Func} from '../utils'
 import {API} from '../services'
-import database from '@react-native-firebase/database'
 
 const moment = require('moment')
 
@@ -29,7 +28,56 @@ class Scrn extends React.Component {
         }
     }
 
-    handleLogin = () => this.login({username: this.state.username, password: this.state.password})
+    handleLogin = async () => {
+        let {username, password, processing} = this.state
+
+        if(!processing) {
+            try {
+                this.setState({processing:true})
+
+                username = username.trim()
+                password = password.trim()
+
+                if(!username || !password) Say.some(_('8'))
+                else {
+                    let res = await API.checkExistingSession({username})
+
+                    this.setState({processing:false})
+
+                    if(res.error) {
+                        Say.ask(
+                            'You have not logged out from other device(s). Do you want to force logout those device(s)?',
+                            'Existing Login',
+                            {
+                                onConfirm:async () => {
+                                    API.logout({
+                                        username,
+                                        token:res.data.token
+                                    })
+
+                                    this.props.navigation.navigate('ValidatePIN',{
+                                        data:{
+                                            walletno:res.data.walletno,
+                                            username,
+                                            token:res.data.token
+                                        },
+                                        isVerificationOnly:true,
+                                        func:() => this.login({username, password})
+                                    })
+                                }
+                            }
+                        )
+                    }
+                    else await this.login({username, password})
+                }
+            }
+            catch(err) {
+                Say.warn(err)
+            }
+
+            this.setState({processing:false})
+        }
+    }
 
     handleTouchID = async () => {
         let res1 = await Func.validateTouchID()
@@ -58,11 +106,11 @@ class Scrn extends React.Component {
     login = async params => {
         const {processing} = this.state
 
+        if(processing) return false
+
         let {username, password} = params
 
         let latitude = Consts.defaultLatitude, longitude = Consts.defaultLongitude
-
-        if(processing) return false
 
         try {
             this.setState({processing:true})
@@ -129,8 +177,33 @@ class Scrn extends React.Component {
                     
                     res.data.latitude = latitude
                     res.data.longitude = longitude
+                    
+                    if(!res.data.barangay || !res.data.street || !res.data.houseno) {
+                        this.forceReupdateAddress({
+                            ...res.data,
+                            isnewapp:1
+                        })
+                    }
+                    else if(res.data.isresetpass === 1) {
+                        this.props.navigation.navigate('CreatePassword',{
+                            walletno:res.data.walletno,
+                            old_password:res.data.password
+                        })
+                    }
+                    else if(res.data.isresetpin === 1) {
+                        this.props.navigation.navigate('ValidatePIN',{
+                            data:res.data
+                        })
+                    }
+                    else {
+                        res.data.remotePhoto = `${Consts.baseURL}wallet/image?walletno=${res.data.walletno}`
+                        res.data.localPhoto = this.props.localPhotos[res.data.walletno] || null
 
-                    await this.checkExistingLogin(res)
+                        this.props.setUser(res.data)
+                        //this.props.setIsUsingTouchID(res.data.fingerprintstat === 1)
+                        this.props.rememberLoginCredentials({username:res.data.username})
+                        this.props.login()
+                    }
                 }
             }
         }
@@ -139,88 +212,6 @@ class Scrn extends React.Component {
         }
 
         this.setState({processing:false})
-    }
-
-    wrapUpLogin = res => {
-        if(!res.data.barangay || !res.data.street || !res.data.houseno) {
-            this.forceReupdateAddress({
-                ...res.data,
-                isnewapp:1
-            })
-        }
-        else if(res.data.isresetpass === 1) {
-            this.props.navigation.navigate('CreatePassword',{
-                walletno:res.data.walletno,
-                old_password:res.data.password
-            })
-        }
-        else if(res.data.isresetpin === 1) {
-            this.props.navigation.navigate('ValidatePIN',{
-                data:res.data
-            })
-        }
-        else {
-            res.data.remotePhoto = `${Consts.baseURL}wallet/image?walletno=${res.data.walletno}`
-            res.data.localPhoto = this.props.localPhotos[res.data.walletno] || null
-            this.props.setUser(res.data)
-            //this.props.setIsUsingTouchID(res.data.fingerprintstat === 1)
-            this.props.rememberLoginCredentials({username:res.data.username})
-            this.props.login()
-        }
-    }
-
-    checkExistingLogin = res => {
-        this.wrapUpLogin(res)
-        /*return new Promise((resolve, reject) => {
-            database()
-            .ref(`users/${res.data.walletno}`)
-            .once('value', snapshot => {
-                if(snapshot.exists()) {
-                    if(snapshot.val().deviceid != Consts.deviceId) {
-                        Say.ask(
-                            'You have not logged out from other device(s)',
-                            'Existing Login',
-                            {
-                                onConfirm:() => {
-                                    database()
-                                    .ref(`users/${res.data.walletno}`)
-                                    .remove()
-                                    .then(() => {
-                                        database()
-                                        .ref(`users/${res.data.walletno}`)
-                                        .set({
-                                            deviceid:Consts.deviceId
-                                        })
-                                        .then(() => this.wrapUpLogin(res))
-                                        .catch(err => alert('inserting again'))
-                                    })
-                                    .catch(err => alert('error removing'))
-                                },
-                            }
-                        )
-
-                        resolve({error:true})
-                    }
-                    else {
-                        this.wrapUpLogin(res)
-                        resolve({error:false})
-                    }
-                }
-                else {
-                    database()
-                    .ref(`users/${res.data.walletno}`)
-                    .set({
-                        deviceid:Consts.deviceId,
-                        timestamp:moment().format('YYYY-MM-DD HH:mm:ss')
-                    })
-                    .then(() => this.wrapUpLogin(res))
-                    .catch(err => alert('error insertion'))
-
-                    resolve({error:false})
-                }
-            })
-            .catch(err => alert('error checking'))
-        })*/
     }
 
     force1stReupdateInfo = userData => {
@@ -349,13 +340,6 @@ class Scrn extends React.Component {
                         />
                     </>
                     }
-
-                    {/*isUsingTouchID &&
-                    <Row c>
-                        <Icon name='fingerprint' size={Metrics.icon.rg} />
-                        <ButtonText icon='fingerprint' disabled={processing} t={_('46')} onPress={this.handleTouchID} />
-                    </Row>
-                    */}
 
                     <Spacer md />
                 </Screen>

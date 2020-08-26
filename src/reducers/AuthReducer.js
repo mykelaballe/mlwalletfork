@@ -1,7 +1,7 @@
 import Types from '../actions/Types'
 import Immutable from 'seamless-immutable'
 import {createReducer} from 'reduxsauce'
-import {Consts, Firebase, Storage} from '../utils'
+import {API} from '../services'
 
 export const INITIAL_STATE = Immutable({
   isLoggedIn: false,
@@ -11,8 +11,7 @@ export const INITIAL_STATE = Immutable({
 const login = state => state.merge({ isLoggedIn:true })
 
 const logout = state => {
-  Firebase.clearExistingLogins().then(() => Storage.doSave(Consts.db.user))
-
+  API.logout()
   return state.merge({ isLoggedIn:false })
 }
 

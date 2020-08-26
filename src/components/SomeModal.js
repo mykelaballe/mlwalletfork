@@ -1,6 +1,8 @@
 import React from 'react'
 import {Prompt} from './'
-import {_, Consts} from '../utils'
+import {_} from '../utils'
+import {connect} from 'react-redux'
+import {Creators} from '../actions'
 
 class SomeModal extends React.Component {
  
@@ -25,7 +27,6 @@ class SomeModal extends React.Component {
 
     static sayLogout() {
         SomeModal.__singletonRef.showModal({
-            //message:`We are logging you out because you were idle for more than ${Consts.allowed_idle_time / 60000} minutes`,
             message:"You have been away for five minutes. Please re-login to your account",
             title:'Uh-oh!',
             options:{
@@ -53,6 +54,8 @@ class SomeModal extends React.Component {
         })
     }
 
+    static forceLogout = () => SomeModal.__singletonRef.props.logout()
+
     hideModal = () => this.setState({visible:false})
 
      render() {
@@ -71,4 +74,8 @@ class SomeModal extends React.Component {
      }
   }
 
-  export default SomeModal
+  const mapDispatchToProps = dispatch => ({
+      logout:() => dispatch(Creators.logout())
+  })
+
+  export default connect(null, mapDispatchToProps)(SomeModal)
