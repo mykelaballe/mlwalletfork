@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {withNavigationFocus} from 'react-navigation'
 import {ScrollView, Text, Row, Spacer, HR, Avatar, TopBuffer, Button} from '../components'
 import {Colors, Metrics} from '../themes'
-import {_, Say, Func, Consts} from '../utils'
+import {_, Say, Func} from '../utils'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 class Scrn extends React.Component {
