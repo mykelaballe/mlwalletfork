@@ -81,7 +81,7 @@ class Scrn extends React.Component {
             }
         }
         catch(err) {
-
+            Say.err(err)
         }
 
         this.setState({

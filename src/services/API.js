@@ -61,14 +61,13 @@ export default {
         let token = payload.token || (user ? user.access_token : '')
 
         if(username && token) {
+            await Storage.doSave(Consts.db.user)
             await Fetch.postc('wallet/logout', {
                 username,
                 deviceid: Consts.deviceId,
                 token
             })
         }
-
-        if(user) await Storage.doSave(Consts.db.user)
     },
 
     requestCustID: async () => {

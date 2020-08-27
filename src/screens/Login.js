@@ -7,8 +7,6 @@ import {Colors, Metrics} from '../themes'
 import {_, Say, Consts, Func} from '../utils'
 import {API} from '../services'
 
-const moment = require('moment')
-
 class Scrn extends React.Component {
 
     state = {
