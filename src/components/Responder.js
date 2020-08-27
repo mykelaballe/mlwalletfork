@@ -3,6 +3,7 @@ import {PanResponder, View} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Consts, Say} from '../utils'
+import {API} from '../services'
 
 class Responder extends React.Component {
 
@@ -31,6 +32,7 @@ class Responder extends React.Component {
       },
       //onMoveShouldSetPanResponder: () => true,
       onStartShouldSetPanResponderCapture: () => {
+        this.validateToken()
         this.resetTimer()
         return false
     },
@@ -42,6 +44,17 @@ class Responder extends React.Component {
     this.startTimer()
   }
 
+  validateToken = async () => {
+    if(this.props.user && this.props.isLoggedIn) {
+      try {
+        await API.getAccountInfo(this.props.user.walletno)
+      }
+      catch(err) {
+        Say.err(err)
+      }
+    }
+  }
+
   startTimer() {
     //return false
     if(this.state.isLoggedIn) {
@@ -50,6 +63,12 @@ class Responder extends React.Component {
   }
 
   resetTimer(){
+    /*try {
+      this.validateToken()
+    }
+    catch(err) {
+      Say.err(err)
+    }*/
     clearTimeout(this.timer)
     this.startTimer()
   }
@@ -72,7 +91,8 @@ class Responder extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    isLoggedIn: state.auth.isLoggedIn
+  user: state.user.data,
+  isLoggedIn: state.auth.isLoggedIn
 })
 
 const mapDispatchToProps = dispatch => ({
