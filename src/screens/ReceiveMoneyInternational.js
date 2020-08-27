@@ -169,6 +169,7 @@ class Scrn extends React.Component {
                     <TextInput
                         ref='sender'
                         label="Sender's Name"
+                        placeholder="Lastname, Firstname Middlename"
                         value={sender}
                         onChangeText={this.handleChangeSender}
                         autoCapitalize='words'
