@@ -15,7 +15,7 @@ export default class ReceiveMoneyInternational extends React.Component {
     }
 
     componentDidMount = () => {
-        const {_from, kptn, sender, partner, currency} = this.props.data
+        const {_from, kptn, sender, partner, currency, balance} = this.props.data
         const {amount, date, time, type} = this.state
 
         const receipt = (
