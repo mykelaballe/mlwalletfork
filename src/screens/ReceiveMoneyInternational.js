@@ -96,13 +96,17 @@ class Scrn extends React.Component {
                 }
                 else {
                     this.props.updateBalance(res.data.balance)
+
+                    let transRes = await API.getTransaction(transaction_no)
+
                     this.props.navigation.navigate('TransactionReceipt',{
                         ...params,
                         ...res.data,
                         kptn:transaction_no,
                         transaction: {
                             ...this.state,
-                            partner:partner.PartnersName
+                            partner:partner.PartnersName,
+                            transdate:transRes.data.transdate
                         },
                         kptn:transaction_no,
                         status:'success'

@@ -80,7 +80,7 @@ class Scrn extends React.Component {
 
                     this.props.updateBalance(res.data.balance)
 
-                    let transRes = await API.getTransaction(res.data.kptn)
+                    let transRes = await API.getTransaction(transaction_no)
 
                     this.props.navigation.navigate('TransactionReceipt',{
                         ...params,
