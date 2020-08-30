@@ -68,8 +68,8 @@ class Scrn extends React.Component {
         const {walletno} = this.props.user
 
         try {
-            let rates = await API.getRates()
-            this.props.setRates(rates)
+            //let rates = await API.getRates()
+            //this.props.setRates(rates)
 
             let res = await API.getAccountInfo(walletno)
             if(!res.error && res.data) {
