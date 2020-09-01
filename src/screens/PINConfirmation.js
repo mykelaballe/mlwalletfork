@@ -162,7 +162,9 @@ class Scrn extends React.Component {
                             amountpaid:transaction.amount,
                             fname:transaction.cAccountFname,
                             lname:transaction.cAccountLname,
-                            isRTA:1
+                            isRTA:1,
+                            latitude,
+                            longitude
                         })
                     }
                     else if(type == Consts.tcn.wdc.code) {
@@ -184,7 +186,9 @@ class Scrn extends React.Component {
                             amountpaid:transaction.amount,
                             fname:transaction.cAccountFname,
                             lname:transaction.cAccountLname,
-                            isRTA:0
+                            isRTA:0,
+                            latitude,
+                            longitude
                         })
                     }
                     else if(type == Consts.tcn.bul.code) {
