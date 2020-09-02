@@ -44,9 +44,11 @@ class Scrn extends React.Component {
 
                     if(res.error) {
                         Say.ask(
-                            'You have not logged out from other device(s). Do you want to force logout those device(s)?',
+                            "You're currently logged in on another device. To force logout, click OK",
                             'Existing Login',
                             {
+                                noBtnLabel:'Maybe Later',
+                                yesBtnLabel:'OK',
                                 onConfirm:async () => {
                                     API.logout({
                                         username,

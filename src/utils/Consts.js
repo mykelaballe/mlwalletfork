@@ -1,7 +1,8 @@
 import {Platform} from 'react-native'
 import DeviceInfo from 'react-native-device-info'
 
-const IS_ANDROID = Platform.OS === 'android'
+let platform = Platform.OS
+const IS_ANDROID = platform === 'android'
 
 const PLAYSTORE_URL = 'https://play.google.com/store/apps/details?id=com.mlhuillier.mlwallet&hl=en'
 const APPSTORE_URL = 'itms-apps://itunes.apple.com/ph/app/ml-wallet/id962204987?mt=8'
@@ -10,6 +11,7 @@ const CODEPUSH_ANDROID_DEV = 'Kqa8Z6UvgsdJFruYtR3Mq-rE_nu4rtAjy6-ev'
 const CODEPUSH_IOS_DEV = 'yBJeaL3P77cjjC3pZROSybtcceBSmqCXcOKst'
 
 export default {
+	platform,
 	is_dev:false,
 	is_android:IS_ANDROID,
 	baseURL:'https://m1w4ll377q4.mlhuillier.com/api/',

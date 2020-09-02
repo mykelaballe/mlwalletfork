@@ -22,7 +22,7 @@ export default {
             ...payload,
             location:'',
             deviceid:Consts.deviceId,
-            devicetype:Consts.is_android ? 'android' : 'ios',
+            devicetype:Consts.platform,
             version:Consts.appVersion,
             grant_type:'password'
         })
