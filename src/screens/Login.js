@@ -341,6 +341,8 @@ class Scrn extends React.Component {
                     </>
                     }
 
+                    <Text sm mute center>version {Consts.appVersion}</Text>
+
                     <Spacer md />
                 </Screen>
             </>
