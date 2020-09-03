@@ -9,6 +9,7 @@ export default {
 
     receiveMoneyInternational: async payload => await Fetch.post('corporate/payout',{
         ...payload,
-        deviceID:Consts.deviceId
+        deviceID:Consts.deviceId,
+        location:''
     })
 }
