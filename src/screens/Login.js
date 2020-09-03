@@ -59,6 +59,8 @@ class Scrn extends React.Component {
                                         <Spacer xs />
 
                                         <Button t='OK' onPress={() => {
+                                            Say.hide()
+                                            
                                             API.logout({
                                                 username,
                                                 token:res.data.token
