@@ -43,28 +43,39 @@ class Scrn extends React.Component {
                     this.setState({processing:false})
 
                     if(res.error) {
-                        Say.ask(
-                            "You're currently logged in on another device. To force logout, click OK",
+                        Say.some(
+                            null,
                             'Existing Login',
                             {
-                                noBtnLabel:'Maybe Later',
-                                yesBtnLabel:'OK',
-                                onConfirm:async () => {
-                                    API.logout({
-                                        username,
-                                        token:res.data.token
-                                    })
+                                noBtn:true,
+                                customMessage: (
+                                    <>
+                                        <Text mute md>You're currently logged in on another device. To force logout, click OK</Text>
+                                        
+                                        <Spacer />
 
-                                    this.props.navigation.navigate('ValidatePIN',{
-                                        data:{
-                                            walletno:res.data.walletno,
-                                            username,
-                                            token:res.data.token
-                                        },
-                                        isVerificationOnly:true,
-                                        func:() => this.login({username, password})
-                                    })
-                                }
+                                        <Button mode='outlined' t='Maybe Later' onPress={() => Say.hide()} />
+
+                                        <Spacer xs />
+
+                                        <Button t='OK' onPress={() => {
+                                            API.logout({
+                                                username,
+                                                token:res.data.token
+                                            })
+        
+                                            this.props.navigation.navigate('ValidatePIN',{
+                                                data:{
+                                                    walletno:res.data.walletno,
+                                                    username,
+                                                    token:res.data.token
+                                                },
+                                                isVerificationOnly:true,
+                                                func:() => this.login({username, password})
+                                            })
+                                        }}/>
+                                    </>
+                                )
                             }
                         )
                     }
