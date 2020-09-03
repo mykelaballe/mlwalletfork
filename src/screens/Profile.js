@@ -62,13 +62,13 @@ class Scrn extends React.Component {
             if(res == RESULTS.GRANTED) {
                 ImagePicker[`launch${type}`](IMG_PICKER_CONFIG, res => {
                     if(res.uri) {
-                        if(Func.isImage(res.fileName || res.uri)) {
+                        //if(Func.isImage(res.fileName || res.uri)) {
                             Say.hide()
                             this.props.updateInfo({localPhoto:res.uri})
                             this.props.saveLocalPhoto(this.props.user.walletno, res.uri)
                             this.setState({localPhoto:res.uri})
                         }
-                        else Say.warn('File not allowed')
+                        //else Say.warn('File not allowed')
                     }
                 })
             }
