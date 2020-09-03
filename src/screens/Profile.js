@@ -67,7 +67,7 @@ class Scrn extends React.Component {
                             this.props.updateInfo({localPhoto:res.uri})
                             this.props.saveLocalPhoto(this.props.user.walletno, res.uri)
                             this.setState({localPhoto:res.uri})
-                        }
+                        //}
                         //else Say.warn('File not allowed')
                     }
                 })
