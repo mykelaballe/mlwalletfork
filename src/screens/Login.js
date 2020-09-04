@@ -26,8 +26,11 @@ class Scrn extends React.Component {
         }
     }
 
-    handleLogin = async () => {
-        let {username, password, processing} = this.state
+    handleLogin = () => this.attemptLogin({username: this.state.username, password: this.state.password})
+
+    attemptLogin = async payload => {
+        let {username, password} = payload
+        let {processing} = this.state
 
         if(!processing) {
             try {
@@ -43,41 +46,28 @@ class Scrn extends React.Component {
                     this.setState({processing:false})
 
                     if(res.error) {
-                        Say.some(
-                            null,
+                        Say.ask(
+                            "You're currently logged in on another device. To force logout, click OK",
                             'Existing Login',
                             {
-                                noBtn:true,
-                                customMessage: (
-                                    <>
-                                        <Text mute md>You're currently logged in on another device. To force logout, click OK</Text>
-                                        
-                                        <Spacer />
+                                noBtnLabel:'Later',
+                                yesBtnLabel:'OK',
+                                onConfirm:() => {
+                                    API.logout({
+                                        username,
+                                        token:res.data.token
+                                    })
 
-                                        <Button mode='outlined' t='Maybe Later' onPress={() => Say.hide()} />
-
-                                        <Spacer xs />
-
-                                        <Button t='OK' onPress={() => {
-                                            Say.hide()
-                                            
-                                            API.logout({
-                                                username,
-                                                token:res.data.token
-                                            })
-        
-                                            this.props.navigation.navigate('ValidatePIN',{
-                                                data:{
-                                                    walletno:res.data.walletno,
-                                                    username,
-                                                    token:res.data.token
-                                                },
-                                                isVerificationOnly:true,
-                                                func:() => this.login({username, password})
-                                            })
-                                        }}/>
-                                    </>
-                                )
+                                    this.props.navigation.navigate('ValidatePIN',{
+                                        data:{
+                                            walletno:res.data.walletno,
+                                            username,
+                                            token:res.data.token
+                                        },
+                                        isVerificationOnly:true,
+                                        func:() => this.login({username, password})
+                                    })
+                                }
                             }
                         )
                     }
@@ -100,7 +90,7 @@ class Scrn extends React.Component {
                 let res2 = await API.loginByTouchID()
 
                 if(!res2.error) {
-                    this.login({
+                    this.attemptLogin({
                         username:res2.data.username,
                         password:res2.data.password
                     })
@@ -354,7 +344,7 @@ class Scrn extends React.Component {
                     </>
                     }
 
-                    <Text sm mute center>v {Consts.appVersion}</Text>
+                    <Text sm mute center>v{Consts.appVersion}</Text>
 
                     <Spacer md />
                 </Screen>
