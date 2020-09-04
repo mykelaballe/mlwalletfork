@@ -53,8 +53,8 @@ class Scrn extends React.Component {
                 this.setState({error_new:true})
                 Say.warn(Consts.error.onlyNumbers)
             }
-            else if(new_pin.length < 6) Say.warn('PIN too short')
-            else if(new_pin.length > 6) Say.warn('PIN too long')
+            else if(new_pin.length < Consts.max_pin_length) Say.warn('PIN too short')
+            else if(new_pin.length > Consts.max_pin_length) Say.warn('PIN too long')
             else if(new_pin != confirm_pin) Say.warn('PIN do not match')
             else {
 
@@ -99,7 +99,7 @@ class Scrn extends React.Component {
         const {old_pin, new_pin, confirm_pin, show_old_pin, show_new_pin, show_confirm_pin, error_old, error_new, processing} = this.state
         let ready = false
 
-        if(old_pin && new_pin && confirm_pin) ready = true
+        if(old_pin && new_pin && confirm_pin && old_pin.length == Consts.max_pin_length) ready = true
 
         return (
             <>

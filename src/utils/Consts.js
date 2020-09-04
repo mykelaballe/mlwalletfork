@@ -34,6 +34,7 @@ export default {
 	},
 	user_max_age:100,
 	user_min_age:16,
+	max_pin_length:6,
 	allowed_idle_time:5 * 60000,
 	checkLocation:true,
 	defaultLatitude:'0.0',
