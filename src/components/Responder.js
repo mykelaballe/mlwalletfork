@@ -3,7 +3,7 @@ import {PanResponder, View} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Consts, Say} from '../utils'
-import {API} from '../services'
+import {API, VerifyToken} from '../services'
 
 class Responder extends React.Component {
 
@@ -47,7 +47,8 @@ class Responder extends React.Component {
   validateToken = async () => {
     if(this.props.user && this.props.isLoggedIn) {
       try {
-        await API.getAccountInfo(this.props.user.walletno)
+        //await API.getAccountInfo(this.props.user.walletno)
+        await VerifyToken(this.props.user)
       }
       catch(err) {
         Say.err(err)

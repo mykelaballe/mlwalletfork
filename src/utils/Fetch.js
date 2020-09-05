@@ -2,6 +2,7 @@ import axios from 'axios'
 import Consts from './Consts'
 import Storage from './Storage'
 import Crypt from './Crypt'
+import VerifyToken from '../services/VerifyToken'
 
 let headers = {
   'Accept': 'application/json',
@@ -34,31 +35,11 @@ const callAPI = async (method, url, data = null, crypt = false, verifyToken = fa
   }
 
   //FORCE LOGOUT
-  if(user) {
-    const payload = {
-      username:user.username,
-      deviceid:Consts.deviceId,
-      token:user.access_token
-    }
-
-    let verifyTokenRes = await axios({
-      method:'post',
-      url:`${Consts.baseURL}wallet/verify_login`,
-      headers,
-      data:JSON.stringify({ciphertext:Crypt.en(payload)})
-    })
-
-    let verifyTokenData = Crypt.de(verifyTokenRes.data.ciphertext)
-
-    if(verifyTokenData.error) {
-      await axios({
-        method:'post',
-        url:`${Consts.baseURL}wallet/logout`,
-        headers,
-        data:JSON.stringify({ciphertext:Crypt.en(payload)})
-      })
-      throw 'unauthorize'
-    }
+  try {
+    if(user) await VerifyToken(user)
+  }
+  catch(err) {
+   
   }
 
   let response = await axios(config)
