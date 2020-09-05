@@ -86,7 +86,8 @@ class Scrn extends React.Component {
                     partnersname:partner.PartnersName,
                     sendername:sender,
                     latitude,
-                    longitude
+                    longitude,
+                    integrationType:partner.integrationType
                 })
 
                 if(res.error) {
