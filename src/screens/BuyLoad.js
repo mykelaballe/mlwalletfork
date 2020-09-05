@@ -35,6 +35,12 @@ export default class Scrn extends React.Component {
         else if(network.value == 'pldt') {
             Say.info('Coming Soon!')
         }
+        else if(network.value == 'smart eload') {
+            Say.info('Coming Soon!')
+        }
+        else if(network.value == 'sun cellular') {
+            Say.info('Coming Soon!')
+        }
         else if(!Func.isPHMobileNumber(contact_no)) Say.warn(Consts.error.mobile)
         else {
             this.props.navigation.navigate('LoadOptions',{
