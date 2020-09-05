@@ -43,7 +43,10 @@ class SomeModal extends React.Component {
         if(options.message) {
             let matches = options.message.match(/server error|mysql|table|function|column|sql|connection|procedure/gi)
 
+            let timeout_matches = options.message.match(/timeoutexception|timeout/gi)
+
             if(matches) message = _('500')
+            else if(timeout_matches) message = 'Request time out'
         }
 
         this.setState({
