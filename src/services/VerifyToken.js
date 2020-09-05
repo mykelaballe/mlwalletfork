@@ -5,7 +5,8 @@ import axios from 'axios'
 export default async user => {
     let headers = {
         'Accept':'application/json',
-        'Content-Type':'application/json'
+        'Content-Type':'application/json',
+        Authorization:`Bearer ${user.access_token}`
     }
 
     const payload = {
