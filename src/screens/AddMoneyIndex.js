@@ -14,7 +14,7 @@ export default class Scrn extends React.Component {
 
     handleViewBankToWallet = () => this.props.navigation.navigate('ComingSoon',{
         title:'Add Money',
-        icon:<Icon name='bank' size={150} color={Colors.brand} />
+        icon:<Icon name='bank' size={150} color={Colors.brand} style={{opacity:.5}} />
     })
 
     render() {
