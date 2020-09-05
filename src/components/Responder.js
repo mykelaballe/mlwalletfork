@@ -51,7 +51,8 @@ class Responder extends React.Component {
         await VerifyToken(this.props.user)
       }
       catch(err) {
-        Say.err(err)
+        this.props.logout()
+        //Say.err(err)
       }
     }
   }
