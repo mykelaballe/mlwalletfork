@@ -22,10 +22,10 @@ class App extends React.Component {
 
   componentDidMount() {
 
-    /*codePush.sync({
+    codePush.sync({
       deploymentKey: Consts.codepush_key,
       installMode: codePush.InstallMode.IMMEDIATE
-    })*/
+    })
 
     const {networkSuccess, networkFailure} = this.props
 
