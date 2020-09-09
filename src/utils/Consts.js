@@ -22,7 +22,7 @@ export default {
 	deviceId:`${DeviceInfo.getUniqueId()}-${DeviceInfo.getDeviceId()}`,
 	deviceType:'Handset',
 	appName:DeviceInfo.getApplicationName(),
-	appVersion:8.3,//DeviceInfo.getVersion(),
+	appVersion:DeviceInfo.getVersion(),
 	storeListingUrl:IS_ANDROID ? PLAYSTORE_URL : APPSTORE_URL,
 	codepush_key:IS_ANDROID ? CODEPUSH_ANDROID_DEV : CODEPUSH_IOS_DEV,
 	companyName:'M Lhuillier',
