@@ -133,11 +133,11 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.mlhuillier.mlwallet"
+        applicationId "com.mlhuillier.cn.mlwallet"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 92
-        versionName "8.0"
+        versionName "8.3"
         missingDimensionStrategy 'react-native-camera', 'mlkit'
         multiDexEnabled true
     }
