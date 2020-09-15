@@ -16,6 +16,8 @@ import OTP from './endpoints/OTP'
 import PIN from './endpoints/PIN'
 import User from './endpoints/User'
 
+import crashlytics from '@react-native-firebase/crashlytics'
+
 export default {
     login: async payload => {
         let res = await Fetch.postc('wallet/login', {
@@ -27,7 +29,12 @@ export default {
             grant_type:'password'
         })
 
-        if(!res.error) await Storage.doSave(Consts.db.user, res.data)
+        if(!res.error) {
+            crashlytics().setAttributes({
+                walletno: res.data.walletno
+            })
+            await Storage.doSave(Consts.db.user, res.data)
+        }
 
         return res
     },
