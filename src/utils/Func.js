@@ -128,6 +128,14 @@ const getLocation = () => {
             getCurrentPosition()
             .then(res => {
                 if(res.error) {
+
+                    const latlong = {
+                        data: {
+                            latitude: res.latitude,
+                            longitude: res.longitude
+                        }
+                    }
+
                     if(res.code == 1 || res.code == 5) {
                         request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
                         .then(reqRes => {
@@ -138,13 +146,15 @@ const getLocation = () => {
                     }
                     else if(res.code == 3) {
                         return {
-                            error:false
+                            error:false,
+                            ...latlong
                         }
                         //Say.warn('Location request timed out')
                     }
                     else if(res.code == 4) {
                         return {
-                            error:false
+                            error:false,
+                            ...latlong
                         }
                         //Say.warn('Google play service is not installed or has an older version')
                     }
