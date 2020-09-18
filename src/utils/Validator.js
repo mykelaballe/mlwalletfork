@@ -1,5 +1,6 @@
 import Consts from './Consts'
 import _ from './Lang'
+import Say from './Say'
 
 const moment = require('moment')
 
@@ -156,6 +157,145 @@ const isImage = filename => {
     return ALLOWED_IMAGES.indexOf((split.pop()).toLowerCase()) >= 0
 }
 
+const validateBillerDetails = payload => {
+    return new Promise((resolve, reject) => {
+        
+        let {cAccountFname, cAccountLname, business_name, account_name, account_no, email, mobile, is_business} = payload
+
+        try {
+            cAccountFname = cAccountFname.trim()
+            cAccountLname = cAccountLname.trim()
+            business_name = business_name.trim()
+            account_no = account_no.trim()
+            email = email.trim()
+            mobile = mobile.trim()
+
+            if(((is_business && !business_name) || (!is_business && (!cAccountFname || !cAccountLname))) || (!account_no || !email || !mobile)) {
+                Say.some(_('8'))
+                resolve({ok:false})
+            }
+            else if(!isAlphaNumOnly(account_no)) {
+                Say.warn(Consts.error.onlyAlphaNum)
+                resolve({ok:false})
+            }
+            else if(email && !hasEmailSpecialCharsOnly(email)) {
+                Say.warn(Consts.error.notAllowedChar)
+                resolve({
+                    ok:false,
+                    errors:{
+                        error_email:true
+                    }
+                })
+            }
+            else if(email && !isEmail(email)) {
+                Say.warn(Consts.error.email)
+                resolve({
+                    ok:false,
+                    errors:{
+                        error_email:true
+                    }
+                })
+            }
+            else if(!isPHMobileNumber(mobile)) {
+                Say.warn(Consts.error.mobile)
+                resolve({
+                    ok:false,
+                    errors:{
+                        error_mobile:true
+                    }
+                })
+            }
+            else {
+
+                if(is_business) {
+                    cAccountFname = business_name
+                    cAccountLname = business_name
+                    account_name = business_name
+                }
+                else {
+                    account_name = `${cAccountFname} ${cAccountLname}`
+                }
+
+                resolve({
+                    ok:true,
+                    data:{
+                        cAccountFname,
+                        cAccountLname,
+                        //business_name,
+                        account_name,
+                        account_no,
+                        email,
+                        mobile
+                    }
+                })
+            }
+        }
+        catch(err) {
+            Say.err(err)
+        }
+    })
+}
+
+const validateBankDetails = payload => {
+    return new Promise((resolve, reject) => {
+        
+        let {name, cAccountFname, cAccountLname, business_name, account_name, account_no, mobile, is_business} = payload
+
+        try {
+            name = name.trim()
+            cAccountFname = cAccountFname.trim()
+            cAccountLname = cAccountLname.trim()
+            business_name = business_name.trim()
+            account_no = account_no.trim()
+            mobile = mobile.trim()
+
+            if(((is_business && !business_name) || (!is_business && (!cAccountFname || !cAccountLname))) || (!name || !account_no || !mobile)) {
+                Say.some(_('8'))
+                resolve({ok:false})
+            }
+            else if(!isAlphaNumOnly(account_no)) {
+                Say.warn(Consts.error.onlyAlphaNum)
+                resolve({ok:false})
+            }
+            else if(!isPHMobileNumber(mobile)) {
+                Say.warn(Consts.error.mobile)
+                resolve({
+                    ok:false,
+                    errors:{
+                        error_mobile:true
+                    }
+                })
+            }
+            else {
+
+                if(is_business) {
+                    cAccountFname = business_name
+                    cAccountLname = business_name
+                    account_name = business_name
+                }
+                else {
+                    account_name = `${cAccountFname} ${cAccountLname}`
+                }
+
+                resolve({
+                    ok:true,
+                    data:{
+                        name,
+                        cAccountFname,
+                        cAccountLname,
+                        account_name,
+                        account_no,
+                        mobile
+                    }
+                })
+            }
+        }
+        catch(err) {
+            Say.err(err)
+        }
+    })
+}
+
 export default {
     validate,
     isLettersOnly,
@@ -169,5 +309,7 @@ export default {
     isPHMobileNumber,
     isAgeAllowed,
     isAmount2Decimal,
-    isImage
+    isImage,
+    validateBillerDetails,
+    validateBankDetails
 }

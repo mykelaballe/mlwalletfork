@@ -1,10 +1,8 @@
 import React from 'react'
-import {View} from 'react-native'
 import {Header} from './'
 import {Screen, Footer, Text, Spacer, ScrollFix, BackHomeButton} from '../'
 import {Colors, Metrics} from '../../themes'
 import {_, Consts, Func, Say} from '../../utils'
-import ViewShot from 'react-native-view-shot'
 
 export default class PayBill extends React.Component {
 
@@ -36,10 +34,10 @@ export default class PayBill extends React.Component {
                     <Text sm mute>Sender</Text>
                     <Text>{sender}</Text>
 
-                    <Spacer />
+                    {/*<Spacer />
 
                     <Text sm mute>Customer Name</Text>
-                    <Text>{cAccountFname} {cAccountLname}</Text>
+                    <Text>{cAccountFname} {cAccountLname}</Text>*/}
 
                     <Spacer />
 

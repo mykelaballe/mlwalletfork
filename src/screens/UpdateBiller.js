@@ -1,8 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Screen, Button, TextInput, Footer, StaticInput} from '../components'
-import {_, Say, Func, Consts} from '../utils'
+import {Screen, Button, TextInput, Footer, StaticInput, Checkbox, Text} from '../components'
+import {_, Say, Func} from '../utils'
+import {Metrics} from '../themes'
 import {API} from '../services'
 
 class Scrn extends React.Component {
@@ -13,7 +14,11 @@ class Scrn extends React.Component {
 
     state = {
         ...this.props.navigation.state.params.biller,
+        cAccountFname:!this.props.navigation.state.params.biller.is_business ? this.props.navigation.state.params.biller.cAccountFname : '',
+        cAccountLname:!this.props.navigation.state.params.biller.is_business ? this.props.navigation.state.params.biller.cAccountLname : '',
+        business_name:this.props.navigation.state.params.biller.is_business ? this.props.navigation.state.params.biller.account_name : '',
         error_email:false,
+        error_mobile:false,
         processing:false
     }
 
@@ -21,117 +26,83 @@ class Scrn extends React.Component {
     handleChangeAccountNo = account_no => this.setState({account_no})
     handleChangeFName = cAccountFname => this.setState({cAccountFname})
     handleChangeLName = cAccountLname => this.setState({cAccountLname})
+    handleChangeBusinessName = business_name => this.setState({business_name})
     handleChangeEmail = email => this.setState({email, error_email:false})
+    handleChangeMobile = mobile => this.setState({mobile, error_mobile:false})
 
     handleFocusAccountName = () => this.refs.account_name.focus()
     handleFocusAccountNo = () => this.refs.account_no.focus()
     handleFocusFName = () => this.refs.cAccountFname.focus()
     handleFocusLName = () => this.refs.cAccountLname.focus()
     handleFocusEmail = () => this.refs.email.focus()
+    handleFocusMobile = () => this.refs.mobile.focus()
+
+    handleToggleIsBusiness = () => this.setState(prevState => ({is_business:!prevState.is_business}))
 
     handleSubmit = async () => {
-        try {
-            const {walletno} = this.props.user
-            let {bankname, old_partnersid, old_account_no, old_account_name, account_name, account_no, cAccountFname, cAccountLname, email, processing} = this.state
+        let {bankname, old_partnersid, old_account_no, old_account_name, is_business, processing} = this.state
 
-            if(processing) return false
+        if(!processing) {
+            try {
+                const {walletno} = this.props.user
 
-            this.setState({processing:true})
+                this.setState({processing:true})
 
-            account_name = account_name.trim()
-            account_no = account_no.trim()
-            cAccountFname = cAccountFname.trim()
-            cAccountLname = cAccountLname.trim()
-            email = email.trim()
+                let validateRes = await Func.validateBillerDetails(this.state)
 
-            if(!account_name || !account_no) Say.some(_('8'))
-            else if(!Func.isAlphaNumOnly(account_no)) Say.warn(Consts.error.onlyAlphaNum)
-            else if(email && !Func.hasEmailSpecialCharsOnly(email)) {
-                this.setState({error_email:true})
-                Say.warn(Consts.error.notAllowedChar)
-            }
-            else if(email && !Func.isEmail(email)) {
-                this.setState({error_email:true})
-                Say.warn(Consts.error.email)
-            }
-            else {
-
-                let payload = {
-                    walletno,
-                    bankname,
-                    account_name,
-                    account_no,
-                    old_partnersid,
-                    old_account_no,
-                    old_account_name,
-                    cAccountFname,
-                    cAccountLname,
-                    email
-                }
+                if(validateRes.ok) {
+                    let payload = {
+                        walletno,
+                        bankname,
+                        old_partnersid,
+                        old_account_no,
+                        old_account_name,
+                        ...validateRes.data
+                    }
+        
+                    let res = await API.updateBankPartner(payload)
     
-                let res = await API.updateBankPartner(payload)
-
-                if(res.error) Say.warn(res.message)
+                    if(res.error) Say.warn(res.message)
+                    else {
+                        this.props.updateBiller({
+                            ...validateRes.data,
+                            is_business
+                        })
+                        this.props.refreshAll(true)
+                        this.props.refreshFavorites(true)
+                        this.props.refreshRecent(true)
+                        Say.ok('Biller successfully updated')
+                        this.props.navigation.pop()
+                    }
+                }
                 else {
-                    this.props.updateBiller({
-                        account_name,
-                        account_no,
-                        cAccountFname,
-                        cAccountLname,
-                        email
-                    })
-                    this.props.refreshAll(true)
-                    this.props.refreshFavorites(true)
-                    this.props.refreshRecent(true)
-                    Say.ok('Biller successfully updated')
-                    this.props.navigation.pop()
+                    if(validateRes.errors) this.setState(validateRes.errors)
                 }
             }
+            catch(err) {
+                Say.err(err)
+            }
+    
+            this.setState({processing:false})
         }
-        catch(err) {
-            Say.err(err)
-        }
-
-        this.setState({processing:false})
     }
 
     render() {
 
-        const {bankname, account_name, account_no, cAccountFname, cAccountLname, email, error_email, processing} = this.state
+        const {bankname, account_name, account_no, cAccountFname, cAccountLname, business_name, email, error_email, mobile, error_mobile, is_business, processing} = this.state
         let ready = false
 
-        if(cAccountFname && cAccountLname && account_name && account_no) ready = true
+        if(((is_business && business_name) || (!is_business && cAccountFname && cAccountLname)) && (account_no && email && mobile)) ready = true
 
         return (
             <>
                 <Screen>
-                    <StaticInput
-                        label='Biller'
-                        value={bankname}
-                    />
-
-                    <TextInput
-                        ref='account_name'
-                        label='Account Name'
-                        value={account_name}
-                        onChangeText={this.handleChangeAccountName}
-                        onSubmitEditing={this.handleFocusAccountNo}
-                        autoCapitalize='words'
-                        returnKeyType='next'
-                    />
-
-                    <TextInput
-                        ref='account_no'
-                        label='Account Number'
-                        value={account_no}
-                        onChangeText={this.handleChangeAccountNo}
-                        onSubmitEditing={this.handleFocusFName}
-                        returnKeyType='next'
-                    />
+                    <StaticInput label='Biller' value={bankname} />
 
                     <TextInput
                         ref='cAccountFname'
-                        label='Customer First Name'
+                        frozen={is_business}
+                        label={_('93')}
                         value={cAccountFname}
                         onChangeText={this.handleChangeFName}
                         onSubmitEditing={this.handleFocusLName}
@@ -141,22 +112,61 @@ class Scrn extends React.Component {
 
                     <TextInput
                         ref='cAccountLname'
-                        label='Customer Last Name'
+                        frozen={is_business}
+                        label={_('94')}
                         value={cAccountLname}
                         onChangeText={this.handleChangeLName}
-                        onSubmitEditing={this.handleFocusEmail}
+                        onSubmitEditing={this.handleFocusAccountNo}
+                        autoCapitalize='words'
+                        returnKeyType='next'
+                    />
+
+                    <Checkbox
+                        status={is_business}
+                        onPress={this.handleToggleIsBusiness}
+                        label={<Text>{_('99')}<Text b> {_('100',3)}</Text></Text>}
+                        labelStyle={{fontSize:Metrics.font.sm}}
+                    />
+
+                    <TextInput
+                        ref='business_name'
+                        editable={is_business}
+                        frozen={!is_business}
+                        label={_('98')}
+                        value={business_name}
+                        onChangeText={this.handleChangeBusinessName}
+                        onSubmitEditing={this.handleFocusAccountNo}
                         autoCapitalize='words'
                         returnKeyType='next'
                     />
 
                     <TextInput
+                        ref='account_no'
+                        label={_('95')}
+                        value={account_no}
+                        onChangeText={this.handleChangeAccountNo}
+                        onSubmitEditing={this.handleFocusEmail}
+                        returnKeyType='next'
+                    />
+
+                    <TextInput
                         ref='email'
-                        label='Email'
+                        label={_('96')}
                         value={email}
                         error={error_email}
                         onChangeText={this.handleChangeEmail}
+                        onSubmitEditing={this.handleFocusMobile}
                         keyboardType='email-address'
                         autoCapitalize='none'
+                    />
+
+                    <TextInput
+                        ref='mobile'
+                        label={_('97')}
+                        value={mobile}
+                        error={error_mobile}
+                        onChangeText={this.handleChangeMobile}
+                        keyboardType='numeric'
                     />
                 </Screen>
             

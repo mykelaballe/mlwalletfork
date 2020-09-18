@@ -27,7 +27,7 @@ export default React.forwardRef((props, ref) => (
                 mode='flat'
                 style={[{
                     flex:1,
-                    backgroundColor:'transparent',
+                    backgroundColor:props.frozen ? Colors.gray : 'transparent',
                     height:props.multiline ? 130 : undefined,
                     ...props.style
                 }]}

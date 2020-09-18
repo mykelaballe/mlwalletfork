@@ -1,7 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Screen, Footer, Headline, Text, Spacer, Button, TextInput} from '../components'
+import {Screen, Footer, Headline, Text, Spacer, Button, TextInput, Checkbox} from '../components'
 import {_, Consts, Func, Say} from '../utils'
+import {Metrics} from '../themes'
 import {API} from '../services'
 
 class Scrn extends React.Component {
@@ -12,10 +13,15 @@ class Scrn extends React.Component {
 
     state = {
         ...this.props.navigation.state.params.biller,
+        cAccountFname:!this.props.navigation.state.params.biller.is_business ? this.props.navigation.state.params.biller.cAccountFname : '',
+        cAccountLname:!this.props.navigation.state.params.biller.is_business ? this.props.navigation.state.params.biller.cAccountLname : '',
+        business_name:this.props.navigation.state.params.biller.is_business ? this.props.navigation.state.params.biller.account_name : '',
         amount:'',
         fixed_charge:this.props.navigation.state.params.biller.charge,
         convenience_fee:this.props.navigation.state.params.biller.convenienceFee,
         total:'',
+        error_email:false,
+        error_mobile:false,
         processing:false
     }
 
@@ -34,9 +40,11 @@ class Scrn extends React.Component {
 
     handleChangeFName = cAccountFname => this.setState({cAccountFname})
     handleChangeLName = cAccountLname => this.setState({cAccountLname})
+    handleChangeBusinessName = business_name => this.setState({business_name})
     handleChangeAccountNo = account_no => this.setState({account_no})
     handleChangeAccountName = account_name => this.setState({account_name})
-    handleChangeEmail = email => this.setState({email})
+    handleChangeEmail = email => this.setState({email, error_email:false})
+    handleChangeMobile = mobile => this.setState({mobile, error_mobile:false})
     handleChangeAmount = amount => {
         const {fixed_charge, convenience_fee} = this.state
         if(Func.isAmount2Decimal(amount)) {
@@ -53,106 +61,81 @@ class Scrn extends React.Component {
     handleFocusAccountName = () => this.refs.account_name.focus()
     handleFocusAmount = () => this.refs.amount.focus()
     handleFocusEmail = () => this.refs.email.focus()
+    handleFocusMobile = () => this.refs.mobile.focus()
+
+    handleToggleIsBusiness = () => this.setState(prevState => ({is_business:!prevState.is_business}))
 
     handlePay = async () => {
-        let {account_no, cAccountFname, cAccountLname, amount, fixed_charge, convenience_fee, processing} = this.state
+        let {amount, fixed_charge, convenience_fee, processing} = this.state
         const {params} = this.props.navigation.state
 
         if(processing) return false
 
-        try {
+        if(!processing) {
+            try {
+    
+                this.setState({processing:true})
 
-            cAccountFname = cAccountFname.trim()
-            cAccountLname = cAccountLname.trim()
+                let validateRes = await Func.validateBillerDetails(this.state)
 
-            this.setState({processing:true})
-            
-            if(!cAccountFname || !cAccountLname) Say.warn('Please enter customer name')
-            else if(!Func.isAlphaNumOnly(account_no)) Say.warn(Consts.error.onlyAlphaNum)
-            else if(Func.formatToCurrency(amount) <= 0) Say.warn(_('89'))
-            else {
-                let res = await API.paybillValidate({
-                    walletno:this.props.user.walletno,
-                    principal:amount,
-                    partnersId:params.biller.old_partnersid,
-                    fixed_charge,
-                    convenience_fee
-                })
-
-                if(res.error) Say.warn(res.message)
+                if(Func.formatToCurrency(amount) <= 0) Say.warn(_('89'))
                 else {
-                    this.props.navigation.navigate('TransactionReview',{
-                        ...params,
-                        type:Consts.tcn.bpm.code,
-                        transaction: {
-                            ...this.state,
-                            cAccountFname,
-                            cAccountLname,
-                            biller:params.biller,
-                            fixed_charge:res.data.fixedCharge,
-                            total:Func.compute(res.data.fixedCharge, convenience_fee, amount),
-                            sender:`${this.props.user.fname} ${this.props.user.lname}`
-                        },
-                        status:'success'
-                    })
+                    if(validateRes.ok) {
+                        let res = await API.paybillValidate({
+                            walletno:this.props.user.walletno,
+                            principal:amount,
+                            partnersId:params.biller.old_partnersid,
+                            fixed_charge,
+                            convenience_fee
+                        })
+
+                        if(res.error) Say.warn(res.message)
+                        else {
+                            this.props.navigation.navigate('TransactionReview',{
+                                ...params,
+                                type:Consts.tcn.bpm.code,
+                                transaction: {
+                                    ...this.state,
+                                    ...validateRes.data,
+                                    biller:params.biller,
+                                    fixed_charge:res.data.fixedCharge,
+                                    total:Func.compute(res.data.fixedCharge, convenience_fee, amount),
+                                    sender:`${this.props.user.fname} ${this.props.user.lname}`
+                                },
+                                status:'success'
+                            })
+                        }
+                    }
+                    else {
+                        if(validateRes.errors) this.setState(validateRes.errors)
+                    }
                 }
             }
+            catch(err) {
+                Say.err(err)
+            }
+    
+            this.setState({processing:false})
         }
-        catch(err) {
-            Say.err(err)
-        }
-
-        this.setState({processing:false})
     }
 
     render() {
 
-        const {bankname, account_no, cAccountFname, cAccountLname, account_name, amount, email, processing} = this.state
+        const {bankname, account_no, cAccountFname, cAccountLname, business_name, account_name, amount, email, error_email, mobile, error_mobile, is_business, processing} = this.state
         let ready = false
 
-        if(cAccountFname && cAccountLname && account_no && account_name && amount) ready = true
+        if(((is_business && business_name) || (!is_business && cAccountFname && cAccountLname)) && (account_no && email && mobile && amount)) ready = true
 
         return (
             <>
                 <Screen>
-                    <Headline subtext={bankname} />
-
-                    <TextInput
-                        editable={!processing}
-                        ref='account_no'
-                        label='Account Number'
-                        value={account_no}
-                        onChangeText={this.handleChangeAccountNo}
-                        onSubmitEditing={this.handleFocusAccountName}
-                        returnKeyType='next'
-                    />
-
-                    <TextInput
-                        editable={!processing}
-                        ref='account_name'
-                        label='Account Name'
-                        value={account_name}
-                        onChangeText={this.handleChangeAccountName}
-                        onSubmitEditing={this.handleFocusAmount}
-                        autoCapitalize='words'
-                        returnKeyType='next'
-                    />
-
-                    <TextInput
-                        editable={!processing}
-                        ref='amount'
-                        label={`Amount (${Consts.currency.PH})`}
-                        value={amount}
-                        onChangeText={this.handleChangeAmount}
-                        onSubmitEditing={this.handleFocusFName}
-                        keyboardType='numeric'
-                        returnKeyType='next'
-                    />
+                    <Headline title={bankname} />
 
                     <TextInput
                         editable={!processing}
                         ref='cAccountFname'
-                        label='Customer First Name'
+                        frozen={is_business}
+                        label={_('93')}
                         value={cAccountFname}
                         onChangeText={this.handleChangeFName}
                         onSubmitEditing={this.handleFocusLName}
@@ -163,22 +146,75 @@ class Scrn extends React.Component {
                     <TextInput
                         editable={!processing}
                         ref='cAccountLname'
-                        label='Customer Last Name'
+                        frozen={is_business}
+                        label={_('94')}
                         value={cAccountLname}
                         onChangeText={this.handleChangeLName}
-                        onSubmitEditing={this.handleFocusEmail}
+                        onSubmitEditing={this.handleFocusAccountNo}
+                        autoCapitalize='words'
+                        returnKeyType='next'
+                    />
+
+                    <Checkbox
+                        status={is_business}
+                        onPress={this.handleToggleIsBusiness}
+                        label={<Text>{_('99')}<Text b> {_('100',3)}</Text></Text>}
+                        labelStyle={{fontSize:Metrics.font.sm}}
+                    />
+
+                    <TextInput
+                        ref='business_name'
+                        editable={is_business}
+                        frozen={!is_business}
+                        label={_('98')}
+                        value={business_name}
+                        onChangeText={this.handleChangeBusinessName}
+                        onSubmitEditing={this.handleFocusAccountNo}
                         autoCapitalize='words'
                         returnKeyType='next'
                     />
 
                     <TextInput
                         editable={!processing}
+                        ref='account_no'
+                        label={_('95')}
+                        value={account_no}
+                        onChangeText={this.handleChangeAccountNo}
+                        onSubmitEditing={this.handleFocusAmount}
+                        returnKeyType='next'
+                    />
+
+                    <TextInput
+                        editable={!processing}
+                        ref='amount'
+                        label={`Amount (${Consts.currency.PH})`}
+                        value={amount}
+                        onChangeText={this.handleChangeAmount}
+                        onSubmitEditing={this.handleFocusEmail}
+                        keyboardType='numeric'
+                        returnKeyType='next'
+                    />
+
+                    <TextInput
+                        editable={!processing}
                         ref='email'
-                        label='Email address'
+                        label={_('96')}
                         value={email}
+                        error={error_email}
                         onChangeText={this.handleChangeEmail}
+                        onSubmitEditing={this.handleFocusMobile}
                         autoCapitalize='none'
                         keyboardType='email-address'
+                    />
+
+                    <TextInput
+                        editable={!processing}
+                        ref='mobile'
+                        label={_('97')}
+                        value={mobile}
+                        error={error_mobile}
+                        onChangeText={this.handleChangeMobile}
+                        keyboardType='numeric'
                     />
                 </Screen>
                 

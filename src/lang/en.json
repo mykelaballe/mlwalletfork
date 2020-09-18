@@ -91,5 +91,13 @@
     "90":"ML Wallet number",
     "91":"deleting",
     "92":"NO MIDDLE NAME",
+    "93":"Account Holder's First Name",
+    "94":"Account Holder's Last Name",
+    "95":"Account Number",
+    "96":"Account Holder's Email Address",
+    "97":"Account Holder's Mobile Number",
+    "98":"Business Name",
+    "99":"I am paying for a",
+    "100":"business entity",
     "500":"Something went wrong. Sorry for the inconvenience. We're working on it"
 }

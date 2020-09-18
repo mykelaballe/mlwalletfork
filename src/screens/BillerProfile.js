@@ -156,7 +156,7 @@ class Scrn extends React.Component {
     render() {
 
         const {params = {}} = this.props.navigation.state
-        const {bankname, account_name, account_no, cAccountFname, cAccountLname, email, isFavorite, deleting, favoriting} = this.state
+        const {bankname, account_name, account_no, email, mobile, isFavorite, deleting, favoriting} = this.state
 
         return (
             <>
@@ -177,19 +177,14 @@ class Scrn extends React.Component {
                     />
 
                     <StaticInput
-                        label='Customer First Name'
-                        value={cAccountFname}
-                    />
-
-                    <StaticInput
-                        label='Customer Last Name'
-                        value={cAccountLname}
-                    />
-
-                    <StaticInput
                         label='Email'
                         value={email}
                     />
+
+                    {/*<StaticInput
+                        label='Mobile'
+                        value={mobile}
+                    />*/}
                     
                     {params.from !== 'recent' &&
                     <Outline>

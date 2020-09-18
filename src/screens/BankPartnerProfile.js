@@ -72,7 +72,7 @@ class Scrn extends React.Component {
         const {navigate, state} = this.props.navigation
         const {index, receiver} = state.params
         this.handleToggleMenu()
-        navigate('UpdateBankPartner',{index, bank:receiver})
+        navigate('UpdateBankPartner',{index, bank:this.state})
     }
 
     handleDelete = () => {
@@ -175,7 +175,7 @@ class Scrn extends React.Component {
                         value={old_account_no}
                     />
 
-                    <StaticInput
+                    {/*<StaticInput
                         label='Customer First Name'
                         value={cAccountFname}
                     />
@@ -183,7 +183,7 @@ class Scrn extends React.Component {
                     <StaticInput
                         label='Customer Last Name'
                         value={cAccountLname}
-                    />
+                    />*/}
                     
                     {params.from !== 'recent' &&
                     <Outline>
