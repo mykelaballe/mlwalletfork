@@ -37,10 +37,10 @@ class Scrn extends React.Component {
                 value:'past_month',
                 label:'This Past Month'
             },
-            {
+            /*{
                 value:'past_year',
                 label:'This Past Year'
-            },
+            },*/
             {
                 value:'custom',
                 label:'Custom'
@@ -407,7 +407,7 @@ class Scrn extends React.Component {
 
                 <DayPicker month={month_from} visible={showDayFrom} onSelect={this.handleSelectDayFrom} onDismiss={this.handleHideDayFromPicker} />
 
-                <YearPicker visible={showYearFrom} max={CURRENT_YEAR} min={MIN_YEAR} onSelect={this.handleSelectYearFrom} onDismiss={this.handleHideYearFromPicker} />
+                <YearPicker visible={showYearFrom} max={CURRENT_YEAR} min={2019} onSelect={this.handleSelectYearFrom} onDismiss={this.handleHideYearFromPicker} />
 
                 <MonthPicker visible={showMonthTo} onSelect={this.handleSelectMonthTo} onDismiss={this.handleHideMonthToPicker} />
 
