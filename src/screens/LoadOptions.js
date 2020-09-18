@@ -88,7 +88,7 @@ class LoadOptions extends React.Component {
             promo_codes = await API.getLoadPromoCodes(network.value)
         }
         catch(err) {
-            Say.err(err)
+            //Say.err(err)
         }
 
         this.setState({
