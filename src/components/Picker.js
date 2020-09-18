@@ -1,6 +1,6 @@
 import React from 'react'
 import {StyleSheet, TouchableOpacity, Dimensions} from 'react-native'
-import {Text, ButtonText, Row} from './'
+import {Text, ButtonText, Row, ActivityIndicator} from './'
 import {Colors, Metrics} from '../themes'
 import {Menu} from 'react-native-paper'
 import Icon from 'react-native-vector-icons/AntDesign'
@@ -23,9 +23,11 @@ export default class Picker extends React.Component {
     
     render() {
 
-        const {selected, items, placeholder, editable, error} = this.props
+        const {selected, items, placeholder, editable, error, loading} = this.props
         const {visible} = this.state
         const value = selected && selected !== '' ? selected : null
+
+        if(loading) return <ActivityIndicator />
 
         let pickerStyle = {
             borderWidth:error ? 2 : StyleSheet.hairlineWidth,

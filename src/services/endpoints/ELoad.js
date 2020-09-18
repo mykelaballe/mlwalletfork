@@ -52,6 +52,17 @@ export default {
         return res.data || []
     },
 
+    getLoadNetworks: async () => {
+        let data = []
+        let res = await Fetch.getc(`geteloadnetworks`)
+
+        if(res.data) {
+            res.data.map(d => data.push({label:d.networkName, value:d.networkId}))
+        }
+        
+        return data
+    },
+
     getLoadPromoCodes: async network => {
         let res = await Fetch.getc(`getPromos?network=${network}`)
         return res.data || []
