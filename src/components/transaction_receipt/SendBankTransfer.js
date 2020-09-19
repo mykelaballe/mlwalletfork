@@ -26,10 +26,10 @@ export default class SendBankTransfer extends React.Component {
                 <Header tcn={kptn} status='success' />
                     
                 <ScrollFix style={{padding:Metrics.lg,backgroundColor:Colors.light}}>
-                    <Text sm mute>Customer Name</Text>
+                    {/*<Text sm mute>Customer Name</Text>
                     <Text>{cAccountFname} {cAccountLname}</Text>
 
-                    <Spacer />
+                    <Spacer />*/}
                     
                     <Text sm mute>Partner's Name</Text>
                     <Text>{bank.bankname}</Text>

@@ -162,6 +162,7 @@ class Scrn extends React.Component {
                             amountpaid:transaction.amount,
                             fname:transaction.cAccountFname,
                             lname:transaction.cAccountLname,
+                            isBusiness:transaction.isBusiness,
                             isRTA:1,
                             latitude,
                             longitude
@@ -186,6 +187,7 @@ class Scrn extends React.Component {
                             amountpaid:transaction.amount,
                             fname:transaction.cAccountFname,
                             lname:transaction.cAccountLname,
+                            isBusiness:transaction.isBusiness,
                             isRTA:0,
                             latitude,
                             longitude

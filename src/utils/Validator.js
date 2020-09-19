@@ -225,7 +225,8 @@ const validateBillerDetails = payload => {
                         account_name,
                         account_no,
                         email,
-                        mobile
+                        mobileno:mobile,
+                        isBusiness:is_business
                     }
                 })
             }
@@ -285,7 +286,8 @@ const validateBankDetails = payload => {
                         cAccountLname,
                         account_name,
                         account_no,
-                        mobile
+                        mobileno:mobile,
+                        isBusiness:is_business
                     }
                 })
             }

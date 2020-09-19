@@ -14,10 +14,10 @@ export default props => {
 
             <Spacer lg />
 
-            <Text mute sm>Customer Name</Text>
+            {/*<Text mute sm>Customer Name</Text>
             <Text md>{cAccountFname} {cAccountLname}</Text>
 
-            <Spacer />
+            <Spacer />*/}
 
             <Text mute sm>Partner Bank</Text>
             <Text md>{bank.bankname}</Text>
