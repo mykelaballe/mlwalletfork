@@ -27,14 +27,14 @@ export default class Scrn extends React.Component {
         let networks = []
 
         try {
-            //networks = await API.getLoadNetworks()
+            networks = await API.getLoadNetworks()
         }
         catch(err) {
             Say.err(err)
         }
 
         this.setState({
-            //networks,
+            networks,
             loading:false
         })
     }
@@ -48,7 +48,7 @@ export default class Scrn extends React.Component {
         const {params} = this.props.navigation.state
         const {network, contact_no} = this.state
         
-        if(network.value == 'globe') {
+        /*if(network.value == 'globe') {
             Say.info('Sorry! We are currently fixing some supplier issues.')
         }
         else if(network.value == 'pldt') {
@@ -59,8 +59,8 @@ export default class Scrn extends React.Component {
         }
         else if(network.value == 'sun cellular') {
             Say.info('Coming Soon!')
-        }
-        else if(!Func.isPHMobileNumber(contact_no)) Say.warn(Consts.error.mobile)
+        }*/
+        if(!Func.isPHMobileNumber(contact_no)) Say.warn(Consts.error.mobile)
         else {
             this.props.navigation.navigate('LoadOptions',{
                 ...params,

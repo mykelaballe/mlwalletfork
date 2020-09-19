@@ -53,14 +53,61 @@ export default {
     },
 
     getLoadNetworks: async () => {
-        let data = []
-        let res = await Fetch.getc(`geteloadnetworks`)
+        let data = {}
+        //let res = await Fetch.getc(`https://192.168.12.16/Eload/EloadSaving/EloadSaving.svc/getNetworkListv2`)
+        let res = {
+            getNetworkListV2Result: {
+                respMessage: 'Success',
+                NetworkList:[
+                    {
+                        loadType:'CUU10',
+                        network:'GLOBE',
+                        networkID:'MLNET170300007',
+                        promoCode:'CUU10',
+                        Amount:10.00,
+                        promoName:'CUU10'
+                    },
+                    {
+                        loadType:'CUU20',
+                        network:'GLOBE',
+                        networkID:'MLNET170300007',
+                        promoCode:'CUU20',
+                        Amount:20.00,
+                        promoName:'CUU20'
+                    },
+                    {
+                        loadType:'SUN10',
+                        network:'Sun Cellular',
+                        networkID:'MLNET170300007',
+                        promoCode:'SUN10',
+                        Amount:10.00,
+                        promoName:'SUN10'
+                    }
+                ]
+            }
+        }
 
-        if(res.data) {
-            res.data.map(d => data.push({label:d.networkName, value:d.networkId}))
+        if(res.getNetworkListV2Result && res.getNetworkListV2Result.respMessage == 'Success') {
+            res.getNetworkListV2Result.NetworkList.map(d => {
+                if(data[d.network] === undefined) {
+                    data[d.network] = {
+                        id: d.networkID,
+                        label: d.network,
+                        value: d.networkID,
+                        promos: []
+                    }
+                }
+
+                data[d.network].promos.push({
+                    loadType: d.loadType,
+                    promoCode: d.promoCode,
+                    promoName: d.promoName,
+                    Amount: d.Amount
+                })
+            })
         }
         
-        return data
+        return Object.values(data)
     },
 
     getLoadPromoCodes: async network => {

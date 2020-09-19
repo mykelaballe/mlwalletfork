@@ -85,7 +85,7 @@ class LoadOptions extends React.Component {
         let promo_codes = []
 
         try {
-            promo_codes = await API.getLoadPromoCodes(network.value)
+            promo_codes = network.promos//await API.getLoadPromoCodes(network.value)
         }
         catch(err) {
             //Say.err(err)
