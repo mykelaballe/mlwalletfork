@@ -24,8 +24,8 @@ class Scrn extends React.Component {
         business_name:'',
         account_name:'',
         account_no:'',
-        mobile:'',
-        is_business:false,
+        mobileno:'',
+        isBusiness:false,
         error_mobile:false,
         processing:false
     }
@@ -36,15 +36,15 @@ class Scrn extends React.Component {
     handleChangeFName = cAccountFname => this.setState({cAccountFname})
     handleChangeLName = cAccountLname => this.setState({cAccountLname})
     handleChangeBusinessName = business_name => this.setState({business_name})
-    handleChangeMobile = mobile => this.setState({mobile, error_mobile:false})
+    handleChangeMobile = mobileno => this.setState({mobileno, error_mobile:false})
 
     handleFocusAccountName = () => this.refs.account_name.focus()
     handleFocusAccountNo = () => this.refs.account_no.focus()
     handleFocusFName = () => this.refs.cAccountFname.focus()
     handleFocusLName = () => this.refs.cAccountLname.focus()
-    handleFocusMobile = () => this.refs.mobile.focus()
+    handleFocusMobile = () => this.refs.mobileno.focus()
 
-    handleToggleIsBusiness = () => this.setState(prevState => ({is_business:!prevState.is_business}))
+    handleToggleIsBusiness = () => this.setState(prevState => ({isBusiness:!prevState.isBusiness}))
 
     handleSubmit = async () => {
         let {partnerid, processing} = this.state
@@ -86,10 +86,10 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {partners, name, account_name, account_no, cAccountFname, cAccountLname, business_name, mobile, error_mobile, is_business, processing} = this.state
+        const {partners, name, account_name, account_no, cAccountFname, cAccountLname, business_name, mobileno, error_mobile, isBusiness, processing} = this.state
         let ready = false
 
-        if(((is_business && business_name) || (!is_business && cAccountFname && cAccountLname)) && (name && account_no && mobile)) ready = true
+        if(((isBusiness && business_name) || (!isBusiness && cAccountFname && cAccountLname)) && (name && account_no)) ready = true
 
         return (
             <>
@@ -105,7 +105,8 @@ class Scrn extends React.Component {
 
                     <TextInput
                         ref='cAccountFname'
-                        frozen={is_business}
+                        editable={!isBusiness}
+                        frozen={isBusiness}
                         label={_('93')}
                         value={cAccountFname}
                         onChangeText={this.handleChangeFName}
@@ -116,7 +117,8 @@ class Scrn extends React.Component {
 
                     <TextInput
                         ref='cAccountLname'
-                        frozen={is_business}
+                        editable={!isBusiness}
+                        frozen={isBusiness}
                         label={_('94')}
                         value={cAccountLname}
                         onChangeText={this.handleChangeLName}
@@ -126,7 +128,7 @@ class Scrn extends React.Component {
                     />
 
                     <Checkbox
-                        status={is_business}
+                        status={isBusiness}
                         onPress={this.handleToggleIsBusiness}
                         label={<Text>{_('99')}<Text b> {_('100',3)}</Text></Text>}
                         labelStyle={{fontSize:Metrics.font.sm}}
@@ -134,8 +136,8 @@ class Scrn extends React.Component {
 
                     <TextInput
                         ref='business_name'
-                        editable={is_business}
-                        frozen={!is_business}
+                        editable={isBusiness}
+                        frozen={!isBusiness}
                         label={_('98')}
                         value={business_name}
                         onChangeText={this.handleChangeBusinessName}
@@ -154,9 +156,9 @@ class Scrn extends React.Component {
                     />
 
                     <TextInput
-                        ref='mobile'
+                        ref='mobileno'
                         label={_('97')}
-                        value={mobile}
+                        value={mobileno}
                         error={error_mobile}
                         onChangeText={this.handleChangeMobile}
                         keyboardType='numeric'

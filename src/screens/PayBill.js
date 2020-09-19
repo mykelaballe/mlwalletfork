@@ -13,9 +13,9 @@ class Scrn extends React.Component {
 
     state = {
         ...this.props.navigation.state.params.biller,
-        cAccountFname:!this.props.navigation.state.params.biller.is_business ? this.props.navigation.state.params.biller.cAccountFname : '',
-        cAccountLname:!this.props.navigation.state.params.biller.is_business ? this.props.navigation.state.params.biller.cAccountLname : '',
-        business_name:this.props.navigation.state.params.biller.is_business ? this.props.navigation.state.params.biller.account_name : '',
+        cAccountFname:!this.props.navigation.state.params.biller.isBusiness ? this.props.navigation.state.params.biller.cAccountFname : '',
+        cAccountLname:!this.props.navigation.state.params.biller.isBusiness ? this.props.navigation.state.params.biller.cAccountLname : '',
+        business_name:this.props.navigation.state.params.biller.isBusiness ? this.props.navigation.state.params.biller.account_name : '',
         amount:'',
         fixed_charge:this.props.navigation.state.params.biller.charge,
         convenience_fee:this.props.navigation.state.params.biller.convenienceFee,
@@ -44,7 +44,7 @@ class Scrn extends React.Component {
     handleChangeAccountNo = account_no => this.setState({account_no})
     handleChangeAccountName = account_name => this.setState({account_name})
     handleChangeEmail = email => this.setState({email, error_email:false})
-    handleChangeMobile = mobile => this.setState({mobile, error_mobile:false})
+    handleChangeMobile = mobileno => this.setState({mobileno, error_mobile:false})
     handleChangeAmount = amount => {
         const {fixed_charge, convenience_fee} = this.state
         if(Func.isAmount2Decimal(amount)) {
@@ -61,9 +61,9 @@ class Scrn extends React.Component {
     handleFocusAccountName = () => this.refs.account_name.focus()
     handleFocusAmount = () => this.refs.amount.focus()
     handleFocusEmail = () => this.refs.email.focus()
-    handleFocusMobile = () => this.refs.mobile.focus()
+    handleFocusMobile = () => this.refs.mobileno.focus()
 
-    handleToggleIsBusiness = () => this.setState(prevState => ({is_business:!prevState.is_business}))
+    handleToggleIsBusiness = () => this.setState(prevState => ({isBusiness:!prevState.isBusiness}))
 
     handlePay = async () => {
         let {amount, fixed_charge, convenience_fee, processing} = this.state
@@ -121,10 +121,10 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {bankname, account_no, cAccountFname, cAccountLname, business_name, account_name, amount, email, error_email, mobile, error_mobile, is_business, processing} = this.state
+        const {bankname, account_no, cAccountFname, cAccountLname, business_name, account_name, amount, email, error_email, mobileno, error_mobile, isBusiness, processing} = this.state
         let ready = false
 
-        if(((is_business && business_name) || (!is_business && cAccountFname && cAccountLname)) && (account_no && email && mobile && amount)) ready = true
+        if(((isBusiness && business_name) || (!isBusiness && cAccountFname && cAccountLname)) && (account_no && amount)) ready = true
 
         return (
             <>
@@ -132,9 +132,9 @@ class Scrn extends React.Component {
                     <Headline title={bankname} />
 
                     <TextInput
-                        editable={!processing}
+                        editable={!processing && !isBusiness}
                         ref='cAccountFname'
-                        frozen={is_business}
+                        frozen={isBusiness}
                         label={_('93')}
                         value={cAccountFname}
                         onChangeText={this.handleChangeFName}
@@ -144,9 +144,9 @@ class Scrn extends React.Component {
                     />
 
                     <TextInput
-                        editable={!processing}
+                        editable={!processing && !isBusiness}
                         ref='cAccountLname'
-                        frozen={is_business}
+                        frozen={isBusiness}
                         label={_('94')}
                         value={cAccountLname}
                         onChangeText={this.handleChangeLName}
@@ -156,7 +156,7 @@ class Scrn extends React.Component {
                     />
 
                     <Checkbox
-                        status={is_business}
+                        status={isBusiness}
                         onPress={this.handleToggleIsBusiness}
                         label={<Text>{_('99')}<Text b> {_('100',3)}</Text></Text>}
                         labelStyle={{fontSize:Metrics.font.sm}}
@@ -164,8 +164,8 @@ class Scrn extends React.Component {
 
                     <TextInput
                         ref='business_name'
-                        editable={is_business}
-                        frozen={!is_business}
+                        editable={isBusiness}
+                        frozen={!isBusiness}
                         label={_('98')}
                         value={business_name}
                         onChangeText={this.handleChangeBusinessName}
@@ -205,13 +205,14 @@ class Scrn extends React.Component {
                         onSubmitEditing={this.handleFocusMobile}
                         autoCapitalize='none'
                         keyboardType='email-address'
+                        returnKeyType='next'
                     />
 
                     <TextInput
                         editable={!processing}
-                        ref='mobile'
+                        ref='mobileno'
                         label={_('97')}
-                        value={mobile}
+                        value={mobileno}
                         error={error_mobile}
                         onChangeText={this.handleChangeMobile}
                         keyboardType='numeric'

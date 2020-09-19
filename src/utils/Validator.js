@@ -160,7 +160,7 @@ const isImage = filename => {
 const validateBillerDetails = payload => {
     return new Promise((resolve, reject) => {
         
-        let {cAccountFname, cAccountLname, business_name, account_name, account_no, email, mobile, is_business} = payload
+        let {cAccountFname, cAccountLname, business_name, account_name, account_no, email, mobileno, isBusiness} = payload
 
         try {
             cAccountFname = cAccountFname.trim()
@@ -168,9 +168,9 @@ const validateBillerDetails = payload => {
             business_name = business_name.trim()
             account_no = account_no.trim()
             email = email.trim()
-            mobile = mobile.trim()
+            mobileno = mobileno.trim()
 
-            if(((is_business && !business_name) || (!is_business && (!cAccountFname || !cAccountLname))) || (!account_no || !email || !mobile)) {
+            if(((isBusiness && !business_name) || (!isBusiness && (!cAccountFname || !cAccountLname))) || (!account_no)) {
                 Say.some(_('8'))
                 resolve({ok:false})
             }
@@ -196,7 +196,7 @@ const validateBillerDetails = payload => {
                     }
                 })
             }
-            else if(!isPHMobileNumber(mobile)) {
+            else if(mobileno && !isPHMobileNumber(mobileno)) {
                 Say.warn(Consts.error.mobile)
                 resolve({
                     ok:false,
@@ -207,7 +207,7 @@ const validateBillerDetails = payload => {
             }
             else {
 
-                if(is_business) {
+                if(isBusiness) {
                     cAccountFname = business_name
                     cAccountLname = business_name
                     account_name = business_name
@@ -225,8 +225,8 @@ const validateBillerDetails = payload => {
                         account_name,
                         account_no,
                         email,
-                        mobileno:mobile,
-                        isBusiness:is_business ? 1 : 0
+                        mobileno,
+                        isBusiness:isBusiness ? 1 : 0
                     }
                 })
             }
@@ -240,7 +240,7 @@ const validateBillerDetails = payload => {
 const validateBankDetails = payload => {
     return new Promise((resolve, reject) => {
         
-        let {name, cAccountFname, cAccountLname, business_name, account_name, account_no, mobile, is_business} = payload
+        let {name, cAccountFname, cAccountLname, business_name, account_name, account_no, mobileno, isBusiness} = payload
 
         try {
             name = name.trim()
@@ -248,9 +248,9 @@ const validateBankDetails = payload => {
             cAccountLname = cAccountLname.trim()
             business_name = business_name.trim()
             account_no = account_no.trim()
-            mobile = mobile.trim()
+            mobileno = mobileno.trim()
 
-            if(((is_business && !business_name) || (!is_business && (!cAccountFname || !cAccountLname))) || (!name || !account_no || !mobile)) {
+            if(((isBusiness && !business_name) || (!isBusiness && (!cAccountFname || !cAccountLname))) || (!name)) {
                 Say.some(_('8'))
                 resolve({ok:false})
             }
@@ -258,7 +258,7 @@ const validateBankDetails = payload => {
                 Say.warn(Consts.error.onlyAlphaNum)
                 resolve({ok:false})
             }
-            else if(!isPHMobileNumber(mobile)) {
+            else if(mobileno && !isPHMobileNumber(mobileno)) {
                 Say.warn(Consts.error.mobile)
                 resolve({
                     ok:false,
@@ -269,7 +269,7 @@ const validateBankDetails = payload => {
             }
             else {
 
-                if(is_business) {
+                if(isBusiness) {
                     cAccountFname = business_name
                     cAccountLname = business_name
                     account_name = business_name
@@ -286,8 +286,8 @@ const validateBankDetails = payload => {
                         cAccountLname,
                         account_name,
                         account_no,
-                        mobileno:mobile,
-                        isBusiness:is_business ? 1 : 0
+                        mobileno,
+                        isBusiness:isBusiness ? 1 : 0
                     }
                 })
             }

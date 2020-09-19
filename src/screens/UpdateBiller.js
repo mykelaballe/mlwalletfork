@@ -28,14 +28,14 @@ class Scrn extends React.Component {
     handleChangeLName = cAccountLname => this.setState({cAccountLname})
     handleChangeBusinessName = business_name => this.setState({business_name})
     handleChangeEmail = email => this.setState({email, error_email:false})
-    handleChangeMobile = mobile => this.setState({mobile, error_mobile:false})
+    handleChangeMobile = mobileno => this.setState({mobileno, error_mobile:false})
 
     handleFocusAccountName = () => this.refs.account_name.focus()
     handleFocusAccountNo = () => this.refs.account_no.focus()
     handleFocusFName = () => this.refs.cAccountFname.focus()
     handleFocusLName = () => this.refs.cAccountLname.focus()
     handleFocusEmail = () => this.refs.email.focus()
-    handleFocusMobile = () => this.refs.mobile.focus()
+    handleFocusMobile = () => this.refs.mobileno.focus()
 
     handleToggleIsBusiness = () => this.setState(prevState => ({isBusiness:!prevState.isBusiness}))
 
@@ -50,21 +50,22 @@ class Scrn extends React.Component {
 
                 let validateRes = await Func.validateBillerDetails(this.state)
 
-                if(validateRes.ok) {
-                    let payload = {
+                if(validateRes.ok) {        
+                    let res = await API.updateBankPartner({
                         walletno,
                         bankname,
                         old_partnersid,
                         old_account_no,
                         old_account_name,
                         ...validateRes.data
-                    }
-        
-                    let res = await API.updateBankPartner(payload)
+                    })
     
                     if(res.error) Say.warn(res.message)
                     else {
-                        this.props.updateBiller(validateRes.data)
+                        this.props.updateBiller({
+                            ...validateRes.data,
+                            isBusiness: validateRes.data.isBusiness ? true : false
+                        })
                         this.props.refreshAll(true)
                         this.props.refreshFavorites(true)
                         this.props.refreshRecent(true)
@@ -86,10 +87,10 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {bankname, account_name, account_no, cAccountFname, cAccountLname, business_name, email, error_email, mobile, error_mobile, isBusiness, processing} = this.state
+        const {bankname, account_name, account_no, cAccountFname, cAccountLname, business_name, email, error_email, mobileno, error_mobile, isBusiness, processing} = this.state
         let ready = false
 
-        if(((isBusiness && business_name) || (!isBusiness && cAccountFname && cAccountLname)) && (account_no && email && mobile)) ready = true
+        if(((isBusiness && business_name) || (!isBusiness && cAccountFname && cAccountLname)) && (account_no)) ready = true
 
         return (
             <>
@@ -98,6 +99,7 @@ class Scrn extends React.Component {
 
                     <TextInput
                         ref='cAccountFname'
+                        editable={!isBusiness}
                         frozen={isBusiness}
                         label={_('93')}
                         value={cAccountFname}
@@ -109,6 +111,7 @@ class Scrn extends React.Component {
 
                     <TextInput
                         ref='cAccountLname'
+                        editable={!isBusiness}
                         frozen={isBusiness}
                         label={_('94')}
                         value={cAccountLname}
@@ -155,12 +158,13 @@ class Scrn extends React.Component {
                         onSubmitEditing={this.handleFocusMobile}
                         keyboardType='email-address'
                         autoCapitalize='none'
+                        returnKeyType='next'
                     />
 
                     <TextInput
-                        ref='mobile'
+                        ref='mobileno'
                         label={_('97')}
-                        value={mobile}
+                        value={mobileno}
                         error={error_mobile}
                         onChangeText={this.handleChangeMobile}
                         keyboardType='numeric'

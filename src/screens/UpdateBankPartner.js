@@ -29,13 +29,13 @@ class Scrn extends React.Component {
     handleChangeFName = cAccountFname => this.setState({cAccountFname})
     handleChangeLName = cAccountLname => this.setState({cAccountLname})
     handleChangeBusinessName = business_name => this.setState({business_name})
-    handleChangeMobile = mobile => this.setState({mobile, error_mobile:false})
+    handleChangeMobile = mobileno => this.setState({mobileno, error_mobile:false})
 
     handleFocusAccountName = () => this.refs.account_name.focus()
     handleFocusAccountNo = () => this.refs.account_no.focus()
     handleFocusFName = () => this.refs.cAccountFname.focus()
     handleFocusLName = () => this.refs.cAccountLname.focus()
-    handleFocusMobile = () => this.refs.mobile.focus()
+    handleFocusMobile = () => this.refs.mobileno.focus()
 
     handleToggleIsBusiness = () => this.setState(prevState => ({isBusiness:!prevState.isBusiness}))
 
@@ -69,7 +69,8 @@ class Scrn extends React.Component {
                             ...validateRes.data,
                             bankname:validateRes.data.name,
                             old_account_name:validateRes.data.account_name,
-                            old_account_no:validateRes.data.account_no
+                            old_account_no:validateRes.data.account_no,
+                            isBusiness: validateRes.data.isBusiness ? true : false
                         })
                         this.props.refreshAll(true)
                         this.props.refreshFavorites(true)
@@ -92,10 +93,10 @@ class Scrn extends React.Component {
 
     render() {
 
-        const {bankname, account_name, account_no, cAccountFname, cAccountLname, business_name, mobile, error_mobile, isBusiness, processing} = this.state
+        const {bankname, account_name, account_no, cAccountFname, cAccountLname, business_name, mobileno, error_mobile, isBusiness, processing} = this.state
         let ready = false
 
-        if(((isBusiness && business_name) || (!isBusiness && cAccountFname && cAccountLname)) && (bankname && account_no && mobile)) ready = true
+        if(((isBusiness && business_name) || (!isBusiness && cAccountFname && cAccountLname)) && (bankname && account_no)) ready = true
 
         return (
             <>
@@ -108,6 +109,7 @@ class Scrn extends React.Component {
 
                     <TextInput
                         ref='cAccountFname'
+                        editable={!isBusiness}
                         frozen={isBusiness}
                         label={_('93')}
                         value={cAccountFname}
@@ -119,6 +121,7 @@ class Scrn extends React.Component {
 
                     <TextInput
                         ref='cAccountLname'
+                        editable={!isBusiness}
                         frozen={isBusiness}
                         label={_('94')}
                         value={cAccountLname}
@@ -157,9 +160,9 @@ class Scrn extends React.Component {
                     />
 
                     <TextInput
-                        ref='mobile'
+                        ref='mobileno'
                         label={_('97')}
-                        value={mobile}
+                        value={mobileno}
                         error={error_mobile}
                         onChangeText={this.handleChangeMobile}
                         keyboardType='numeric'

@@ -1,6 +1,7 @@
 import Consts from '../../utils/Consts'
 import Fetch from '../../utils/Fetch'
 import Crypt from '../../utils/Crypt'
+import axios from 'axios'
 
 export default {
     buyLoad: async payload => {
@@ -54,41 +55,13 @@ export default {
 
     getLoadNetworks: async () => {
         let data = {}
-        //let res = await Fetch.getc(`https://192.168.12.16/Eload/EloadSaving/EloadSaving.svc/getNetworkListv2`)
-        let res = {
-            getNetworkListV2Result: {
-                respMessage: 'Success',
-                NetworkList:[
-                    {
-                        loadType:'CUU10',
-                        network:'GLOBE',
-                        networkID:'MLNET170300007',
-                        promoCode:'CUU10',
-                        Amount:10.00,
-                        promoName:'CUU10'
-                    },
-                    {
-                        loadType:'CUU20',
-                        network:'GLOBE',
-                        networkID:'MLNET170300007',
-                        promoCode:'CUU20',
-                        Amount:20.00,
-                        promoName:'CUU20'
-                    },
-                    {
-                        loadType:'SUN10',
-                        network:'Sun Cellular',
-                        networkID:'MLNET170300007',
-                        promoCode:'SUN10',
-                        Amount:10.00,
-                        promoName:'SUN10'
-                    }
-                ]
-            }
-        }
+        let res = await axios({
+            method: 'get',
+            url: 'https://mluatservice.mlhuillier1.com:4444/Partners/Eload/EloadSaving/EloadSaving.svc/getNetworkListv2'
+        })
 
-        if(res.getNetworkListV2Result && res.getNetworkListV2Result.respMessage == 'Success') {
-            res.getNetworkListV2Result.NetworkList.map(d => {
+        if(res.status == 200 && res.data.getNetworkListV2Result && res.data.getNetworkListV2Result.respMsg == 'Success') {
+            res.data.getNetworkListV2Result.NetworkList.map(d => {
                 if(data[d.network] === undefined) {
                     data[d.network] = {
                         id: d.networkID,
