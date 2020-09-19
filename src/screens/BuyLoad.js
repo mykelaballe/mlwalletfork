@@ -1,6 +1,6 @@
 import React from 'react'
 import {View, InteractionManager} from 'react-native'
-import {Screen, Footer, Headline, Spacer, Button, TextInput, StaticInput, Icon, Picker} from '../components'
+import {Screen, Footer, Headline, Spacer, Button, TextInput, StaticInput, Icon, Picker, Text} from '../components'
 import {Metrics} from '../themes'
 import {_, Consts, Func, Say} from '../utils'
 import {API} from '../services'
@@ -87,13 +87,15 @@ export default class Scrn extends React.Component {
 
                     <Headline subtext='Enter the mobile number that you will load or select from your contact list.' />
 
+                    {networks.length > 0 ?
                     <Picker
                         loading={loading}
                         selected={network && network.label}
                         items={networks}
                         placeholder='Choose network'
                         onChoose={this.handleSelectNetwork}
-                    />
+                    /> : <Text center b md>No network available</Text>
+                    }
 
                     <TextInput
                         editable={false}
