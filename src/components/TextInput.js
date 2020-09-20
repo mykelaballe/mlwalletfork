@@ -24,6 +24,7 @@ export default React.forwardRef((props, ref) => (
             <TxtInput
                 {...props}
                 ref={ref}
+                editable={props.editable !== undefined ? (props.editable == true || props.editable == 1 ? true : false) : true}
                 mode='flat'
                 style={[{
                     flex:1,
