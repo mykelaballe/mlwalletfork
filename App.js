@@ -49,7 +49,7 @@ class App extends React.Component {
   }
 
   componentWillUnmount = () => {
-    this.updateLastActiveTimestamp()
+    //this.updateLastActiveTimestamp()
     this.props.logout()
     this.networkSubscribe()
     AppState.removeEventListener('change', this.handleAppStateChange)

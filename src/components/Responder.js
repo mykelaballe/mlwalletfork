@@ -3,15 +3,16 @@ import {PanResponder, View} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
 import {Consts, Say} from '../utils'
-import {API, VerifyToken} from '../services'
+import {VerifyToken} from '../services'
 
 class Responder extends React.Component {
 
   _panResponder = {}
-  timer = 0
 
   state = {
-    isLoggedIn:this.props.isLoggedIn
+    isLoggedIn:this.props.isLoggedIn,
+    //timerId: null,
+    idle_time_remaining:Consts.allowed_idle_time
   }
 
   componentDidUpdate = (prevProps, prevState) => {
@@ -20,15 +21,16 @@ class Responder extends React.Component {
       this.setState({isLoggedIn})
 
       if(isLoggedIn) this.startTimer()
-      else clearTimeout(this.timer)
+      else this.clearTimer()
     }
   }
 
   componentDidMount() {
     this._panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => {
-        this.resetTimer()
-        return true
+        //this.resetTimer()
+        //return true
+        return false
       },
       //onMoveShouldSetPanResponder: () => true,
       onStartShouldSetPanResponderCapture: () => {
@@ -41,44 +43,52 @@ class Responder extends React.Component {
       onShouldBlockNativeResponder: () => false,
     })
     
-    this.startTimer()
+    //this.startTimer()
   }
 
   validateToken = async () => {
     if(this.props.user && this.props.isLoggedIn) {
       try {
-        //await API.getAccountInfo(this.props.user.walletno)
         await VerifyToken(this.props.user)
       }
       catch(err) {
         this.props.logout()
-        //Say.err(err)
       }
     }
   }
 
-  startTimer() {
-    //return false
+  startTimer = () => {
     if(this.state.isLoggedIn) {
-      this.timer = setTimeout(this.showPrompt,Consts.allowed_idle_time)
+      this.timer = setInterval(() => {
+        this.setState(prevState => {
+
+          if(prevState.idle_time_remaining <= 0) this.showPrompt()
+          
+          return {
+            idle_time_remaining: prevState.idle_time_remaining - 1000
+          }
+        })
+      }, 1000)
     }
   }
 
-  resetTimer(){
-    /*try {
-      this.validateToken()
+  resetTimer() {
+    if(this.props.user && this.props.isLoggedIn) {
+      this.clearTimer()
+      this.startTimer()
     }
-    catch(err) {
-      Say.err(err)
-    }*/
-    clearTimeout(this.timer)
-    this.startTimer()
   }
 
-  showPrompt = () => {
-    if(this.state.isLoggedIn) {
-        this.props.logout()
-        Say.logout()
+  clearTimer() {
+    clearInterval(this.timer)
+    this.setState({idle_time_remaining:Consts.allowed_idle_time})
+  }
+
+  showPrompt() {
+    if(this.state.isLoggedIn && this.timer !== undefined) {
+      this.props.logout()
+      this.clearTimer()
+      Say.logout()
     }
   }
 
