@@ -143,16 +143,10 @@ export default {
     getTransaction: async kptn => await Fetch.get(`transactiondate?ktpn=${kptn}`),
 
     getBranches: async () => {
-        //let res = await Fetch.get('ml_branches')
         let data = []
-        let res = await axios({
-            method: 'get',
-            url: 'https://mlmobileweb.mlhuillier1.com/Mobile/Client/6.5/MapService/MapService.svc/getCoordinates'
-        })
+        let res = await Fetch.getc('getBranches')
 
-        if(res.status == 200 && res.data.getCoordinatesResult && res.data.getCoordinatesResult.mapInfo) {
-            data = res.data.getCoordinatesResult.mapInfo
-        }
+        if(!res.error) data = res.data.filter(d => d.mStatus == 1)
 
         return data
     },

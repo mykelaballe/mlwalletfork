@@ -55,13 +55,10 @@ export default {
 
     getLoadNetworks: async () => {
         let data = {}
-        let res = await axios({
-            method: 'get',
-            url: 'https://mluatservice.mlhuillier1.com:4444/Partners/Eload/EloadSaving/EloadSaving.svc/getNetworkListv2'
-        })
-
-        if(res.status == 200 && res.data.getNetworkListV2Result && res.data.getNetworkListV2Result.respMsg == 'Success') {
-            res.data.getNetworkListV2Result.NetworkList.map(d => {
+        let res = await Fetch.getc('getNetworks')
+        
+        if(!res.error) {
+            res.data.map(d => {
                 if(data[d.network] === undefined) {
                     data[d.network] = {
                         id: d.networkID,
