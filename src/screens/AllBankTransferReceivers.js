@@ -10,7 +10,7 @@ import {API} from '../services'
 const ItemUI = props => (
     <ListItem
         primaryText={props.data.bankname}
-        subText={props.data.old_account_no}
+        subText={props.data.old_account_name}
         onPress={() => props.onPress(props.index)}
     />
 )
