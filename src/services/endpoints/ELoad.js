@@ -57,7 +57,7 @@ export default {
         let data = {}
         let res = await Fetch.getc('getNetworks')
         
-        if(!res.error) {
+        if(!res.error && res.data) {
             res.data.map(d => {
                 if(data[d.network] === undefined) {
                     data[d.network] = {
