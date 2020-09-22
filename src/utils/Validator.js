@@ -240,17 +240,18 @@ const validateBillerDetails = payload => {
 const validateBankDetails = payload => {
     return new Promise((resolve, reject) => {
         
-        let {name, cAccountFname, cAccountLname, business_name, account_name, account_no, mobileno, isBusiness} = payload
+        let {name, cAccountFname, cAccountLname, cAccountMname, business_name, account_name, account_no, mobileno, isBusiness} = payload
 
         try {
             name = name.trim()
             cAccountFname = cAccountFname.trim()
             cAccountLname = cAccountLname.trim()
+            cAccountMname = cAccountMname.trim()
             business_name = business_name.trim()
             account_no = account_no.trim()
             mobileno = mobileno.trim()
 
-            if(((isBusiness && !business_name) || (!isBusiness && (!cAccountFname || !cAccountLname))) || (!name)) {
+            if(((isBusiness && !business_name) || (!isBusiness && (!cAccountFname || !cAccountLname || !cAccountMname))) || (!name)) {
                 Say.some(_('8'))
                 resolve({ok:false})
             }
@@ -272,10 +273,11 @@ const validateBankDetails = payload => {
                 if(isBusiness) {
                     cAccountFname = business_name
                     cAccountLname = business_name
+                    cAccountMname = business_name
                     account_name = business_name
                 }
                 else {
-                    account_name = `${cAccountFname} ${cAccountLname}`
+                    account_name = `${cAccountFname} ${cAccountMname} ${cAccountLname}`
                 }
 
                 resolve({
@@ -284,6 +286,7 @@ const validateBankDetails = payload => {
                         name,
                         cAccountFname,
                         cAccountLname,
+                        cAccountMname,
                         account_name,
                         account_no,
                         mobileno,
