@@ -22,6 +22,7 @@ class Scrn extends React.Component {
         account_no:this.props.navigation.state.params.bank.old_account_no,
         cAccountFname:this.props.navigation.state.params.bank.cAccountFname,
         cAccountLname:this.props.navigation.state.params.bank.cAccountLname,
+        cAccountMname:this.props.navigation.state.params.bank.cAccountMname,
         mobileno:this.props.navigation.state.params.bank.mobileno,
         amount:'',
         fixed_charge:this.props.navigation.state.params.bank.charge,
@@ -45,7 +46,7 @@ class Scrn extends React.Component {
     handleSelectPartner = () => this.props.navigation.navigate('SavedBankPartners')
 
     handleSendMoney = async () => {
-        let {cAccountFname, cAccountLname, amount, fixed_charge, convenience_fee, processing} = this.state
+        let {cAccountFname, cAccountLname, cAccountMname, amount, fixed_charge, convenience_fee, processing} = this.state
         const {params} = this.props.navigation.state
 
         if(processing) return false
@@ -76,6 +77,7 @@ class Scrn extends React.Component {
                         transaction: {
                             cAccountFname,
                             cAccountLname,
+                            cAccountMname,
                             ...this.state
                         },
                         status:'success'
