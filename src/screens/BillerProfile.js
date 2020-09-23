@@ -89,7 +89,7 @@ class Scrn extends React.Component {
 
     handleConfirmDelete = async () => {
         const {walletno} = this.props.user
-        const {old_partnersid, old_account_no, old_account_name, deleting} = this.state
+        const {old_partnersid, account_no, account_name, deleting} = this.state
 
         if(deleting) return false
 
@@ -99,8 +99,8 @@ class Scrn extends React.Component {
             await API.deleteBankPartner({
                 walletno,
                 partnersid:old_partnersid,
-                accountid:old_account_no,
-                account_name:old_account_name
+                accountid:account_no,
+                account_name
             })
             this.props.refreshAll(true)
             this.props.refreshFavorites(true)
