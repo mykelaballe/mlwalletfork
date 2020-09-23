@@ -146,7 +146,9 @@ export default {
         let data = []
         let res = await Fetch.getc('getBranches')
 
-        if(!res.error && res.data) data = res.data.filter(d => d.mStatus == 1)
+        if(!res.error && res.data) data = res.data.filter(d => {
+            return d.mStatus == 1 && d.mLat > 0 && d.mLong > 0 ? true : false
+        })
 
         return data
     },
