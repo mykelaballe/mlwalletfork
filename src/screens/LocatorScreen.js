@@ -123,7 +123,29 @@ class Scrn extends React.Component {
                             latitude:b.mLat,
                             longitude:b.mLong
                         }}
-                        onPress={() => Say.warn(`${b.bName}\nLatitude: ${b.mLat}\nLongitude: ${b.mLong}`, 'Branch')}
+                        onPress={() => {
+                            Say.some(
+                                '',
+                                b.bName,
+                                {
+                                    customMessage: (
+                                        <>
+                                            <Text>24 hours: {b.is24hours == 1 ? 'Yes' : 'No'}</Text>
+
+                                            <Spacer sm />
+
+                                            <Text mute>Store hours</Text>
+                                            <Text b>{b.timefrom} - {b.timeto}</Text>
+
+                                            <Spacer sm />
+
+                                            <Text mute>Contact number</Text>
+                                            <Text b>{b.celno}</Text>
+                                        </>
+                                    )
+                                }
+                            )
+                        }}
                     >
                         <Image source={MARKER_IMG} style={style.marker} />
                     </Marker>
