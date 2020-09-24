@@ -87,6 +87,7 @@ class Scrn extends React.Component {
             <>
                 <Screen ns>
                     <SearchInput
+                        editable={!loading}
                         onChangeText={this.handleChangeSearch}
                         value={search}
                     />

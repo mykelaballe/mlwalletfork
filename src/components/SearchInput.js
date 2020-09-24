@@ -8,5 +8,6 @@ export default props => (
         onChangeText={props.onChangeText}
         value={props.value}
         autoCorrect={false}
+        {...props}
     />
 )

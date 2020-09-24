@@ -82,6 +82,7 @@ export default class Scrn extends React.Component {
         return (
             <View style={style.container}>
                 <SearchInput
+                    editable={!loading}
                     placeholder='Search Province'
                     onChangeText={this.handleChangeSearch}
                     value={search}
