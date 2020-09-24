@@ -19,7 +19,7 @@ class TransactionHistoryItem extends React.Component {
         runningbalance:this.props.data.runningbalance,
         transaction: {
             status:'',
-            walletno:this.props.data.receiverwalletno || this.props.data.walletno,
+            walletno:this.props.user.walletno == this.props.data.walletno ? this.props.data.receiverwalletno : this.props.data.walletno,
             contact_no:this.props.data.mobileno,
             receiver: {
                 fullname:this.props.data.receiverfullname,
