@@ -1,7 +1,8 @@
 import React from 'react'
 import {View, StyleSheet, Image} from 'react-native'
-import {Text, Spacer} from '../components'
+import {Text, Spacer, ActivityIndicator} from '../components'
 import {Metrics, Res} from '../themes'
+import {WebView} from 'react-native-webview'
 
 export default class Scrn extends React.Component {
 
@@ -15,6 +16,8 @@ export default class Scrn extends React.Component {
     render() {
 
         const {params = {}} = this.props.navigation.state
+
+        if(params.uri) return <WebView source={{uri:params.uri}} />
 
         return (
             <View style={style.container}>
