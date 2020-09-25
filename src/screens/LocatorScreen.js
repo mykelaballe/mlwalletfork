@@ -130,12 +130,16 @@ class Scrn extends React.Component {
                                 {
                                     customMessage: (
                                         <>
-                                            <Text>24 hours: {b.is24hours == 1 ? 'Yes' : 'No'}</Text>
+                                            {b.is24hours == 1 ?
+                                            <Text>24 hours</Text>
+                                            :
+                                            <>
+                                                <Spacer sm />
 
-                                            <Spacer sm />
-
-                                            <Text mute>Store hours</Text>
-                                            <Text b>{b.timefrom} - {b.timeto}</Text>
+                                                <Text mute>Store hours</Text>
+                                                <Text b>{b.timefrom} - {b.timeto}</Text>
+                                            </>
+                                            }
 
                                             <Spacer sm />
 
