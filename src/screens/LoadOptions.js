@@ -200,7 +200,7 @@ class LoadOptions extends React.Component {
 
                 {show_regulars &&
                 <>
-                    <Text center mute md>Enter load amount value or choose the load amount below.</Text>
+                    <Text center mute md>Choose the load amount below.</Text>
 
                     {/*<Spacer />
 
