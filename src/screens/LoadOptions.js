@@ -31,7 +31,7 @@ class LoadOptions extends React.Component {
     state = {
         amount:'',
         promo:null,
-        regulars:[
+        /*regulars:[
             {
                 amount:'1000',
                 selected:false
@@ -72,7 +72,7 @@ class LoadOptions extends React.Component {
                 amount:'5',
                 selected:false
             }
-        ],
+        ],*/
         promo_codes:[],
         show_regulars:true,
         loading:true
@@ -82,16 +82,20 @@ class LoadOptions extends React.Component {
 
     getData = async () => {
         const {network} = this.props.navigation.state.params
-        let promo_codes = []
+        let regulars = [], promo_codes = []
 
         try {
-            promo_codes = network.promos//await API.getLoadPromoCodes(network.value)
+            let res = await API.getLoadOptions(network.value)
+            //promo_codes = network.promos
+            regulars = res.regulars
+            promo_codes = res.promos
         }
         catch(err) {
-            //Say.err(err)
+            Say.err(err)
         }
 
         this.setState({
+            regulars,
             promo_codes,
             loading:false
         })
@@ -198,7 +202,7 @@ class LoadOptions extends React.Component {
                 <>
                     <Text center mute md>Enter load amount value or choose the load amount below.</Text>
 
-                    <Spacer />
+                    {/*<Spacer />
 
                     <TextInput
                         label={`Load Amount (${Consts.currency.PH})`}
@@ -206,7 +210,7 @@ class LoadOptions extends React.Component {
                         onChangeText={this.handleChangeAmount}
                         onSubmitEditing={this.handleSubmitAmount}
                         keyboardType='numeric'
-                    />
+                    />*/}
 
                     <Spacer />
                     
@@ -214,7 +218,8 @@ class LoadOptions extends React.Component {
                         data={regulars}
                         renderItem={this.renderRegulars}
                         numColumns={3}
-                        contentContainerStyle={{alignItems:'center'}}
+                        loading={loading}
+                        //contentContainerStyle={{alignItems:'center'}}
                     />
                 </>
                 }

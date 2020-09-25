@@ -54,12 +54,20 @@ export default {
     },
 
     getLoadNetworks: async () => {
-        let data = {}
+        let data = []
         let res = await Fetch.getc('getNetworks')
+
+        if(res.error) return res
         
         if(!res.error && res.data) {
             res.data.map(d => {
-                if(data[d.network] === undefined) {
+                data.push({
+                    id: d.networkID,
+                    label: d.network,
+                    value: d.networkID
+                })
+
+                /*if(data[d.network] === undefined) {
                     data[d.network] = {
                         id: d.networkID,
                         label: d.network,
@@ -73,11 +81,34 @@ export default {
                     promoCode: d.promoCode,
                     promoName: d.promoName,
                     Amount: d.Amount
-                })
+                })*/
             })
         }
         
-        return Object.values(data)
+        return data
+    },
+
+    getLoadOptions: async network => {
+        let data = {
+            regulars:[],
+            promos:[]
+        }
+        let res = await Fetch.getc(`getRegularPromoLoad?${JSON.stringify({networkID:network})}`)
+
+        if(res.error) return res
+
+        if(!res.error && res.data) {
+            res.data.regular.map(d => {
+                data.regulars.push({
+                    amount:d.Amount.toString(),
+                    selected:false
+                })
+            })
+
+            res.data.promo.map(d => data.promos.push(d))
+        }
+
+        return data
     },
 
     getLoadPromoCodes: async network => {
