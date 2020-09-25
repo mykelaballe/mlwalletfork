@@ -1,4 +1,4 @@
-package com.mlhuillier.cn.mlwallet;
+package com.mlhuillier.mlwallet;
 
 import android.app.Application;
 import android.content.Context;

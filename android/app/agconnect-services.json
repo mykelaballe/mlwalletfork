@@ -1,0 +1,12 @@
+{
+	"client":{
+		"cp_id":"2640063000002461025",
+		"product_id":"736430079244451915",
+		"client_id":"362732181165966528",
+		"client_secret":"2E093D584981339F4B9DC63730C013F4929EFA219ED1C1B2621AC244FC890206",
+		"app_id":"102221791",
+		"package_name":"com.mlhuillier.mlwallet",
+		"api_key":"CV7lmXI7CAbfLBqWJTce0qG6qrw+XgBtyY0yWB3Ya5/Uq/4GHeGEX0GBadVLj+qYhqrN4MHv7bTB43vV2oi0bgf375FH"
+	},
+	"configuration_version":"1.0"
+}
