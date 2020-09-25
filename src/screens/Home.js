@@ -60,8 +60,8 @@ const Scrn = props => {
 
     const handleGoToBuyLoad = () => props.navigation.navigate(props.hasSeenBuyLoadOnboarding ? 'BuyLoadIndex' : 'BuyLoadOnBoarding')
 
-    //const handleGoToBuyItems = () => props.navigation.navigate('ComingSoon',{title:'Buy Items',phrase:"We're working on our store.\nStay tuned for updates."})
-    const handleGoToBuyItems = () => props.navigation.navigate('ComingSoon',{title:'Buy Items',uri:'https://mlhuillier1.github.io/ML-Wallet-Online-Shop'})
+    const handleGoToBuyItems = () => props.navigation.navigate('ComingSoon',{title:'Buy Items',phrase:"We're working on our store.\nStay tuned for updates."})
+    //const handleGoToBuyItems = () => props.navigation.navigate('ComingSoon',{title:'Buy Items',uri:'https://mlhuillier1.github.io/ML-Wallet-Online-Shop'})
 
     const   handleViewVerificationLevels = () => props.navigation.navigate('VerificationLevels')
 
