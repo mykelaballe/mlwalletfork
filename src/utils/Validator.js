@@ -163,12 +163,12 @@ const validateBillerDetails = payload => {
         let {cAccountFname, cAccountLname, business_name, account_name, account_no, email, mobileno, isBusiness} = payload
 
         try {
-            cAccountFname = cAccountFname.trim()
-            cAccountLname = cAccountLname.trim()
-            business_name = business_name.trim()
-            account_no = account_no.trim()
-            email = email.trim()
-            mobileno = mobileno.trim()
+            cAccountFname = cAccountFname === null ? '' : cAccountFname.trim()
+            cAccountLname = cAccountLname === null ? '' : cAccountLname.trim()
+            business_name = business_name === null ? '' : business_name.trim()
+            account_no = account_no === null ? '' : account_no.trim()
+            email = email === null ? '' : email.trim()
+            mobileno = mobileno === null ? '' : mobileno.trim()
 
             if(((isBusiness && !business_name) || (!isBusiness && (!cAccountFname || !cAccountLname))) || (!account_no)) {
                 Say.some(_('8'))
@@ -243,13 +243,13 @@ const validateBankDetails = payload => {
         let {name, cAccountFname, cAccountLname, cAccountMname, business_name, account_name, account_no, mobileno, isBusiness} = payload
 
         try {
-            name = name.trim()
-            cAccountFname = cAccountFname.trim()
-            cAccountLname = cAccountLname.trim()
-            cAccountMname = cAccountMname.trim()
-            business_name = business_name.trim()
-            account_no = account_no.trim()
-            mobileno = mobileno.trim()
+            name = name === null ? '' : name.trim()
+            cAccountFname = cAccountFname === null ? '' : cAccountFname.trim()
+            cAccountLname = cAccountLname === null ? '' : cAccountLname.trim()
+            cAccountMname = cAccountMname === null ? '' : cAccountMname.trim()
+            business_name = business_name === null ? '' : business_name.trim()
+            account_no = account_no === null ? '' : account_no.trim()
+            mobileno = mobileno === null ? '' : mobileno.trim()
 
             if(((isBusiness && !business_name) || (!isBusiness && (!cAccountFname || !cAccountLname || !cAccountMname))) || (!name)) {
                 Say.some(_('8'))
