@@ -140,7 +140,7 @@ class LoadOptions extends React.Component {
         this.setState({
             regulars,
             promo_codes,
-            promo:null,
+            promo:regulars[index],
             amount:Func.formatToCurrency(regulars[index].amount)
         })
     }

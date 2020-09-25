@@ -101,6 +101,7 @@ export default {
             res.data.regular.map(d => {
                 data.regulars.push({
                     amount:d.Amount.toString(),
+                    promoCode:d.promoCode,
                     selected:false
                 })
             })
