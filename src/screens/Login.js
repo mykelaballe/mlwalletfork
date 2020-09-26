@@ -144,7 +144,6 @@ class Scrn extends React.Component {
                     else if([Consts.error.atl1, Consts.error.atl2, 'reach_maximum_attempts', Consts.error.blk1d].indexOf(res.message) >= 0) {
                         Say.attemptLeft(res.message)
                     }
-                    else if(res.message === Consts.error.blk) Say.warn(res.message)
                     else if(res.message === 'invalid_grant' || res.message === 'username_notexists' || res.message === 'wrong_password') {
                         Say.warn('You entered the wrong information')
                     }
@@ -174,7 +173,7 @@ class Scrn extends React.Component {
                         )
                     }
                     else if(res.message === 'server_error') throw {message:res.message}
-                    else throw {message:res.message}
+                    else Say.warn(res.message)
                 }
                 else {
                     
