@@ -59,6 +59,10 @@ import UsePointsCheckbox from './UsePointsCheckbox'
 import View from './View'
 import YearPicker from './YearPicker'
 
+import GoogleMap from './GoogleMap'
+import HuaweiMap from './HuaweiMap'
+import MapMarker from './MapMarker'
+
 export {
     ActivityIndicator,
     AppIntro,
@@ -120,4 +124,8 @@ export {
     UsePointsCheckbox,
     View,
     YearPicker,
+    
+    GoogleMap,
+    HuaweiMap,
+    MapMarker
 }

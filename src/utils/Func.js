@@ -14,6 +14,7 @@ import Geolocation from 'react-native-geolocation-service'
 import DeviceInfo from 'react-native-device-info'
 
 import TouchID from 'react-native-touch-id'
+import HasHms from 'react-native-has-hms'
 
 function isCheckLocation(action) {
     if(Consts.checkLocation) {
@@ -246,6 +247,20 @@ const checkTransAmount = data => {
     return amount
 }
 
+const getDeviceMobileService = async () => {
+    const hasGMS = await HasHms.isGMSAvailable()
+
+    if(hasGMS) return 'gms'
+
+    if(Consts.is_android) {
+        const hasHMS = await HasHms.isHMSAvailable()
+
+        if(hasHMS) return 'hms'
+    }
+
+    return 'gms'
+}
+
 export default {
     ...Formatter,
     ...Validator,
@@ -259,5 +274,6 @@ export default {
     getNearestBranches,
     getAge,
     validateTouchID,
-    checkTransAmount
+    checkTransAmount,
+    getDeviceMobileService
 }

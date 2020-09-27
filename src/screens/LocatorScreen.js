@@ -1,52 +1,41 @@
-import React from 'react'
-import {StyleSheet, Image, InteractionManager, Dimensions} from 'react-native'
+import React, {useState, useEffect} from 'react'
+import {View, InteractionManager} from 'react-native'
 import {connect} from 'react-redux'
 import {Creators} from '../actions'
-import {Screen, Button, Text, Spacer, ActivityIndicator} from '../components'
+import {Screen, Button, Text, Spacer, ActivityIndicator, GoogleMap, HuaweiMap} from '../components'
 import {_, Say, Consts, Func} from '../utils'
-import {Colors} from '../themes'
 import {API} from '../services'
-import {Marker, PROVIDER_GOOGLE} from 'react-native-maps'
-import MapView from 'react-native-map-clustering'
+import {Metrics} from '../themes'
 
-const {width} = Dimensions.get('window')
-const MARKER_IMG = require('../res/app_icon.png')
+const Scrn = ({navigation, user, updateInfo}) => {
 
-class Scrn extends React.Component {
+    const [initialCoords, setInitialCoords] = useState({
+        latitude: user.latitude,
+        longitude: user.longitude,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421
+    })
+    const [branches, setBranches] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [locationAllowed, setLocationAllowed] = useState(false)
+    const [service, setService] = useState('')
 
-    static navigationOptions = {
-        title:`${Consts.companyName} Branches`
-    }
-
-    state = {
-        initialCoords: {
-            latitude: this.props.user.latitude,
-            longitude: this.props.user.longitude,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-        },
-        branches:[],
-        loading:true,
-        refreshing:false,
-        error:false,
-        locationAllowed:false
-    }
-
-    componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
-
-    getData = async () => {
-        const {params = {}} = this.props.navigation.state
-        let {initialCoords, locationAllowed} = this.state
-        let branches = [], newCoords = {...initialCoords}
+    const getData = async () => {
+        const {params = {}} = navigation.state
+        newCoords = {...initialCoords}
+        let _locationAllowed = false
 
         try {
-            branches = await API.getBranches()
+
+            setService(await Func.getDeviceMobileService())
 
             const locationRes = await Func.getLocation()
 
             if(!locationRes.error) {
 
-                locationAllowed = true
+                _locationAllowed = true
+
+                setLocationAllowed(true)
                 
                 let location = await Func.getCurrentPosition()
 
@@ -56,124 +45,71 @@ class Scrn extends React.Component {
                         longitude:location.data.longitude
                     }
 
-                    this.props.updateInfo(newCoords)
-                    this.setState({
-                        initialCoords: {
-                            ...initialCoords,
-                            latitude:newCoords.latitude,
-                            longitude:newCoords.longitude
-                        }
+                    updateInfo(newCoords)
+                    setInitialCoords({
+                        ...initialCoords,
+                        latitude:newCoords.latitude,
+                        longitude:newCoords.longitude
                     })
                 }
             }
             else {
-                locationAllowed = false
+                _locationAllowed = false
+                setLocationAllowed(false)
             }
 
-            if(params.is_nearest) {
-                branches = Func.getNearestBranches(branches, newCoords)
+            if(_locationAllowed) {
+                let data = await API.getBranches()
+
+                setBranches(data)
+
+                if(params.is_nearest) {
+                    data = Func.getNearestBranches(data, newCoords)
+                }
             }
         }
         catch(err) {
             Say.err(err)
         }
 
-        this.setState({
-            branches,
-            locationAllowed,
-            loading:false
-        })
+        setLoading(false)
     }
 
-    handleRefresh = () => this.setState({loading:true},this.getData)
+    useEffect(() => {
+        InteractionManager.runAfterInteractions(getData)
+    },[])
 
-    render() {
+    const handleRefresh = () => {
+        setLoading(true)
+        getData()
+    }
 
-        const {initialCoords, branches, loading, locationAllowed} = this.state
+    if(loading) return <ActivityIndicator />
 
-        if(loading) return <ActivityIndicator />
-
-        if(!locationAllowed) {
-            return (
-                <Screen>
-                    <Text center lg>Please turn on location</Text>
-                    <Spacer />
-                    <Button t='Reload' onPress={this.handleRefresh} />
-                </Screen>
-            )
-        }
-
+    if(!locationAllowed) {
         return (
-            <MapView
-                provider={PROVIDER_GOOGLE}
-                initialRegion={initialCoords}
-                style={style.map}
-                showsUserLocation
-                clusterColor={Colors.brand}
-                clusterTextColor={Colors.brand}
-                animationEnabled={false}
-                radius={width * .15}
-                extent={300}
-                rotateEnabled={false}
-            >
-                {branches.map((b, i) => (
-                    <Marker
-                        key={i}
-                        coordinate={{
-                            latitude:b.mLat,
-                            longitude:b.mLong
-                        }}
-                        onPress={() => {
-                            Say.some(
-                                '',
-                                b.bName,
-                                {
-                                    customMessage: (
-                                        <>
-                                            {b.is24hours == 1 ?
-                                            <Text>24 hours</Text>
-                                            :
-                                            <>
-                                                <Spacer sm />
-
-                                                <Text mute>Store hours</Text>
-                                                <Text b>{b.timefrom} - {b.timeto}</Text>
-                                            </>
-                                            }
-
-                                            <Spacer sm />
-
-                                            <Text mute>Contact number</Text>
-                                            <Text b>{b.celno}</Text>
-                                        </>
-                                    )
-                                }
-                            )
-                        }}
-                    >
-                        <Image source={MARKER_IMG} style={style.marker} />
-                    </Marker>
-                ))}
-            </MapView>
+            <Screen>
+                <Text center lg>Please turn on location</Text>
+                <Spacer />
+                <Button t='Reload' onPress={handleRefresh} />
+            </Screen>
         )
     }
+
+    if(service == 'gms') return <GoogleMap initialCoords={initialCoords} markers={branches} />
+
+    else if(service == 'hms') return <HuaweiMap initialCoords={initialCoords} markers={branches} />
+
+    return (
+        <View style={{flex:1,alignItems:'center',justifyContent:'center',padding:Metrics.md}}>
+            <Text center>Sorry we are unable to find Google Play Services or Huawei Mobile Services installed on the device</Text>
+        </View>
+    )
 }
 
-const style = StyleSheet.create({
-    map: {
-        flex:1,
-        left:0,
-        right:0,
-        top:0,
-        bottom:0,
-        position:'absolute'
-    },
-    marker: {
-        width:20,
-        height:20,
-        borderRadius:20
-    }
-})
+Scrn.navigationOptions = {
+    title:`${Consts.companyName} Branches`
+}
 
 const mapStateToProps = state => ({
     user: state.user.data

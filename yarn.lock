@@ -6115,6 +6115,11 @@ react-native-gesture-handler@1.4.1:
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
+react-native-has-hms@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-has-hms/-/react-native-has-hms-0.0.2.tgz#c8203309a29f049a4e6f3da8cb27a01840c82d92"
+  integrity sha512-qI+LuHi6a+lfXjyPKCoF6dMotMvb98EvShmfhU7Pr0H9VtNFaCjGhGwoMXnMZMk5+yPiddy9nwewliIi3FP6sA==
+
 "react-native-html-to-pdf@https://github.com/jdaoliveira/react-native-html-to-pdf.git":
   version "0.8.0"
   resolved "https://github.com/jdaoliveira/react-native-html-to-pdf.git#66def910e618d5782e90862ee16a57dd13dd30e2"
