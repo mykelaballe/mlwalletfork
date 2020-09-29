@@ -1,5 +1,5 @@
 import React from 'react'
-import {StyleSheet} from 'react-native'
+import {StyleSheet, Clipboard, TouchableWithoutFeedback} from 'react-native'
 import {View, Row, Text, Spacer} from '../'
 import {Colors, Metrics} from '../../themes'
 import {Func} from '../../utils'
@@ -7,6 +7,8 @@ import Icon from 'react-native-vector-icons/AntDesign'
 
 export default props => {
     const {tcn, status, statusMessage} = props
+
+    const handleCopyKPTN = () => Clipboard.setString(tcn)
 
     let statusIcon = 'clockcircleo',
         statusColor = Colors.gray,
@@ -45,7 +47,9 @@ export default props => {
 
             <View style={style.bigBanner}>
                 <Text center light>Transaction No.</Text>
-                <Text b md center light>{Func.formatKPTN(tcn)}</Text>
+                <TouchableWithoutFeedback onPress={handleCopyKPTN}>
+                    <Text b md center light>{Func.formatKPTN(tcn)}</Text>
+                </TouchableWithoutFeedback>
             </View>
         </>
     )
