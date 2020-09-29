@@ -5,8 +5,6 @@ import {_, Say} from '../utils'
 import {Colors} from '../themes'
 import MapView, {Marker} from 'react-native-hms-map'
 
-//const MARKER_IMG = require('../res/app_icon.png')
-
 export default ({initialCoords, markers}) => {
 
     return (
@@ -36,6 +34,9 @@ export default ({initialCoords, markers}) => {
                         coordinate={{
                             latitude:b.mLat,
                             longitude:b.mLong
+                        }}
+                        icon={{
+                            asset:'ic_launcher.png'
                         }}
                         pinColor={Colors.brand}
                         anchor={{x: 1, y: 1}}
