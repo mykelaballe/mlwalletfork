@@ -62,10 +62,11 @@ const Scrn = ({navigation, user, updateInfo}) => {
             if(_locationAllowed) {
                 let data = await API.getBranches()
 
-                setBranches(data)
-
                 if(params.is_nearest) {
-                    data = Func.getNearestBranches(data, newCoords)
+                    setBranches(Func.getNearestBranches(data, newCoords))
+                }
+                else {
+                    setBranches(data)
                 }
             }
         }
