@@ -8,13 +8,12 @@ const moment = require('moment')
 
 import Formatter from './Formatter'
 import Validator from './Validator'
+import HMS from './HMS'
 
 import {request, PERMISSIONS, RESULTS} from 'react-native-permissions'
 import Geolocation from 'react-native-geolocation-service'
-import DeviceInfo from 'react-native-device-info'
 
 import TouchID from 'react-native-touch-id'
-import HasHms from 'react-native-has-hms'
 
 function isCheckLocation(action) {
     if(Consts.checkLocation) {
@@ -126,42 +125,78 @@ const getLocation = () => {
     }
     else {
         return (
-            getCurrentPosition()
-            .then(res => {
-                if(res.error) {
+            HMS.getDeviceMobileService()
+            .then(service => {
+                if(service == 'gms') {
+                    return (
+                        getCurrentPosition()
+                        .then(res => {
+                            if(res.error) {
 
-                    const latlong = {
-                        data: {
-                            latitude: res.latitude,
-                            longitude: res.longitude
-                        }
-                    }
+                                const latlong = {
+                                    data: {
+                                        latitude: res.latitude,
+                                        longitude: res.longitude
+                                    }
+                                }
 
-                    if(res.code == 1 || res.code == 5) {
-                        request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
-                        .then(reqRes => {
-                            if(reqRes === RESULTS.UNAVAILABLE || reqRes === RESULTS.DENIED) {
-                                Say.warn(message)
+                                if(res.code == 1 || res.code == 5) {
+                                    request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
+                                    .then(reqRes => {
+                                        if(reqRes === RESULTS.UNAVAILABLE || reqRes === RESULTS.DENIED) {
+                                            Say.warn(message)
+                                        }
+                                    })
+                                }
+                                else if(res.code == 3) {
+                                    return {
+                                        error:false,
+                                        ...latlong
+                                    }
+                                }
+                                else if(res.code == 4) {
+                                    return {
+                                        error:false,
+                                        ...latlong
+                                    }
+                                }
+                                else Say.warn(message)
+                            }
+                            return res
+                        })
+                    )
+                }
+                else if(service == 'hms') {
+                    return (
+                        HMS.getHMSLocation()
+                        .then(hmsLoc => {
+                            if(hmsLoc) {
+                                return {
+                                    error:false,
+                                    data:hmsLoc.data
+                                }
+                            }
+                            else {
+                                return {
+                                    error:false,
+                                    data:{
+                                        latitude:Consts.defaultLatitude,
+                                        longitude:Consts.defaultLongitude
+                                    }
+                                }
                             }
                         })
-                    }
-                    else if(res.code == 3) {
-                        return {
-                            error:false,
-                            ...latlong
-                        }
-                        //Say.warn('Location request timed out')
-                    }
-                    else if(res.code == 4) {
-                        return {
-                            error:false,
-                            ...latlong
-                        }
-                        //Say.warn('Google play service is not installed or has an older version')
-                    }
-                    else Say.warn(message)
+                    )
                 }
-                return res
+                else {
+                    return {
+                        error:false,
+                        data:{
+                            latitude:Consts.defaultLatitude,
+                            longitude:Consts.defaultLongitude
+                        }
+                    }
+                }
             })
         )
     }
@@ -247,23 +282,10 @@ const checkTransAmount = data => {
     return amount
 }
 
-const getDeviceMobileService = async () => {
-    const hasGMS = await HasHms.isGMSAvailable()
-
-    if(hasGMS) return 'gms'
-
-    if(Consts.is_android) {
-        const hasHMS = await HasHms.isHMSAvailable()
-
-        if(hasHMS) return 'hms'
-    }
-
-    return 'gms'
-}
-
 export default {
     ...Formatter,
     ...Validator,
+    ...HMS,
     isCheckLocation,
     compute,
     calculateKPRate,
@@ -274,6 +296,5 @@ export default {
     getNearestBranches,
     getAge,
     validateTouchID,
-    checkTransAmount,
-    getDeviceMobileService
+    checkTransAmount
 }

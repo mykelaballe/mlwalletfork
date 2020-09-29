@@ -1,12 +1,11 @@
 import React from 'react'
-import {StyleSheet, Image, Dimensions, View} from 'react-native'
+import {StyleSheet, View} from 'react-native'
 import {Text, Spacer} from '../components'
 import {_, Say} from '../utils'
 import {Colors} from '../themes'
 import MapView, {Marker} from 'react-native-hms-map'
 
-const {width} = Dimensions.get('window')
-const MARKER_IMG = require('../res/app_icon.png')
+//const MARKER_IMG = require('../res/app_icon.png')
 
 export default ({initialCoords, markers}) => {
 
@@ -14,7 +13,22 @@ export default ({initialCoords, markers}) => {
         <View style={style.container}>
             <MapView
                 style={style.map}
-                initialRegion={initialCoords}
+                visibleRegion={{
+                    latLngBounds:{
+                        latitude:initialCoords.latitude,
+                        longitude:initialCoords.longitude
+                    }
+                }}
+                compassEnabled={false}
+                camera={{
+                    target:{
+                        latitude:initialCoords.latitude,
+                        longitude:initialCoords.longitude
+                    },
+                    zoom:15
+                }}
+                myLocationEnabled
+                markerClustering
             >
                 {markers.map((b, i) => (
                     <Marker
@@ -22,11 +36,12 @@ export default ({initialCoords, markers}) => {
                         coordinate={{
                             latitude:b.mLat,
                             longitude:b.mLong
-                        }}  
+                        }}
                         pinColor={Colors.brand}
                         anchor={{x: 1, y: 1}}
                         opacity={1}
-                        onPress={() => {
+                        clusterable={true}
+                        onClick={() => {
                             Say.some(
                                 '',
                                 b.bName,
@@ -53,9 +68,7 @@ export default ({initialCoords, markers}) => {
                                 }
                             )
                         }}
-                    >
-                        <Image source={MARKER_IMG} style={style.marker} />
-                    </Marker>
+                    />
                 ))}
             </MapView>  
         </View>

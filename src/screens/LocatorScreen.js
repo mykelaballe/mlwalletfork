@@ -27,7 +27,8 @@ const Scrn = ({navigation, user, updateInfo}) => {
 
         try {
 
-            setService(await Func.getDeviceMobileService())
+            let _service = await Func.getDeviceMobileService()
+            setService(_service)
 
             const locationRes = await Func.getLocation()
 
@@ -37,7 +38,7 @@ const Scrn = ({navigation, user, updateInfo}) => {
 
                 setLocationAllowed(true)
                 
-                let location = await Func.getCurrentPosition()
+                let location = _service == 'gms' ? await Func.getCurrentPosition() : await Func.getHMSLocation()
 
                 if(!location.error) {
                     newCoords = {

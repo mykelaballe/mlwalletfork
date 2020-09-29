@@ -6,6 +6,8 @@ import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
 import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
+import com.huawei.hms.rn.location.RNHMSLocationPackage;
+import com.huawei.hms.rn.location.helpers.HMSBroadcastReceiver;
 
 import org.devio.rn.splashscreen.SplashScreen;
 
@@ -14,6 +16,7 @@ public class MainActivity extends ReactActivity {
    @Override
     protected void onCreate(Bundle savedInstanceState) {
         SplashScreen.show(this);
+        HMSBroadcastReceiver.init(this, getReactNativeHost().getReactInstanceManager());
         super.onCreate(savedInstanceState);
     }
 
