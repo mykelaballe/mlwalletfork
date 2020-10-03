@@ -504,9 +504,6 @@ DEPENDENCIES:
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
-    - Google-Maps-iOS-Utils
-    - GoogleMaps
   trunk:
     - Base64
     - boost-for-react-native
