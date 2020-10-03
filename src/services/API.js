@@ -219,6 +219,8 @@ export default {
         return Object.values(data)
     },
 
+    log: payload => Fetch.postc('frontend/logs',{payload:JSON.stringify(payload)}),
+
     validateID: async payload => {
         let data = new FormData()
         data.append('id_type',payload.type)

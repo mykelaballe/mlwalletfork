@@ -1,6 +1,10 @@
 import SomeModal from '../components/SomeModal'
 import Consts from './Consts'
 import _ from './Lang'
+import Storage from './Storage'
+import API from '../services/API'
+import moment from 'moment'
+import DeviceInfo from 'react-native-device-info'
 
 const LAST_CHARS = ['.', '!', '?']
 
@@ -39,11 +43,37 @@ const warn = (message, title = null, options = {}, noPeriod = false) => {
     })
 }
 
-const err = (message, title = null, options = {}) => {
+const err = (message, title = null, options = {}, extraLogsData = {}) => {
     if(message === 'unauthorize') SomeModal.forceLogout()
     else {
-        if(Consts.is_dev) message = message.message || message
-        else message = _('500')
+
+        let errorMsg = ''
+
+        try {
+            Storage.doLoad(Consts.db.user)
+            .then(user => {
+                let logsPayload = {
+                    env: Consts.env,
+                    os: Consts.platform,
+                    osVersion: DeviceInfo.getSystemVersion(),
+                    appVersion: Consts.appVersion,
+                    ...extraLogsData,
+                    datetime: moment().format('YYYY-MM-DD HH:mm:ss'),
+                    message: message.message || message
+                }
+
+                if(user) {
+                    logsPayload.username = user.username
+                    logsPayload.walletno = user.walletno
+                }
+
+                API.log(logsPayload)
+            })
+        }
+        catch(err) {}
+
+        if(Consts.is_dev) errorMsg = message.message || message
+        else errorMsg = _('500')
 
         /*if(message) {
             if(message.toLowerCase() == 'network error') {
@@ -55,7 +85,7 @@ const err = (message, title = null, options = {}) => {
         }*/
 
         SomeModal.show({
-            message:checkLastChar(message),
+            message:checkLastChar(errorMsg),
             title:title || 'Uh-oh!',
             options
         })
