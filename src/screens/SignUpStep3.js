@@ -294,7 +294,24 @@ class Scrn extends React.Component {
             }
         }
         catch(err) {
-            Say.err(err)
+            Say.err(
+                err,
+                null,
+                null,
+                {
+                    isSignUp: !isForceUpdate && !isFullVerification ? true : false,
+                    isForceUpdate: isForceUpdate || false,
+                    isFullVerification: isFullVerification || false,
+                    action: profilepic ? 'face compare' : 'id validation',
+                    idType: selectedIDIndex ? list[selectedIDIndex].value : '',
+                    validID_filesize: validID ? `${validID.filesize} kb` : '',
+                    face_filesize: profilepic ? `${profilepic.filesize} kb` : '',
+                    walletno: user ? user.walletno : '',
+                    firstname: firstname || '',
+                    middlename: middlename || '',
+                    lastname: lastname || ''
+                }
+            )
         }
 
         this.setState({processing:false})

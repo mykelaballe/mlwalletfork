@@ -7,6 +7,7 @@ import {RNCamera, Face} from 'react-native-camera'
 import {request, PERMISSIONS, RESULTS} from 'react-native-permissions'
 import AntDesignIcon from 'react-native-vector-icons/AntDesign'
 import FoundationIcon from 'react-native-vector-icons/Foundation'
+import RNFetchBlob from 'rn-fetch-blob'
 
 const {width, height} = Dimensions.get('window')
 const FRAME_WIDTH = width * .9
@@ -81,10 +82,12 @@ export default class Scrn extends React.Component {
                             //iOS
                             forceUpOrientation: true
                         })
-
-                        
                         
                         if(!Consts.is_android) source.uri = source.uri.replace('file:///', '/')
+
+                        let filestat = await RNFetchBlob.fs.stat(source.uri)
+
+                        if(filestat.size) source.filesize = filestat.size / 1000 //bytes to kb
         
                         this.setState({source})
                     }
