@@ -11,6 +11,7 @@ const CODEPUSH_ANDROID_DEV = 'Kqa8Z6UvgsdJFruYtR3Mq-rE_nu4rtAjy6-ev'
 const CODEPUSH_IOS_DEV = 'yBJeaL3P77cjjC3pZROSybtcceBSmqCXcOKst'
 
 export default {
+	env: 'tqa',
 	platform,
 	is_dev:false,
 	is_android:IS_ANDROID,
