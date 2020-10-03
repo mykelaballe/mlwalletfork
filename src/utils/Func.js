@@ -91,13 +91,13 @@ const getCurrentPosition = () => {
 }
 
 const getLocation = () => {
-    const message = 'Please turn on your location'
+    const message = 'Please turn on your location and make sure the app is allowed to use it'
 
     if(!Consts.is_android) {
         return new Promise(resolve => {
             request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE)
             .then(res => {
-                if(res === RESULTS.UNAVAILABLE || res === RESULTS.DENIED) {
+                if(res === RESULTS.UNAVAILABLE || res === RESULTS.DENIED || res === RESULTS.BLOCKED) {
                     Say.warn(
                         message,
                         null,
