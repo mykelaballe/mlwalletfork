@@ -120,7 +120,10 @@ class Scrn extends React.Component {
                     
                     if(updateRes.error) Say.warn(updateRes.message)
                     else {
-                        this.props.updateUserInfo(updateRes.data)
+                        this.props.updateUserInfo({
+                            ...updateRes.data,
+                            remotePhoto:API.getRemotePhoto(user.walletno)
+                        })
                         Say.ok(
                             `Thanks for updating your address, ${user.fname}!\n\nExplore the new ML Wallet now`,
                             null,

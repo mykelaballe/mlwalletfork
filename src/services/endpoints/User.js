@@ -1,3 +1,4 @@
+import Consts from '../../utils/Consts'
 import Fetch from '../../utils/Fetch'
 
 export default {
@@ -18,5 +19,7 @@ export default {
 
     getAccountInfo: async walletno => await Fetch.get(`wallet/info?walletno=${walletno}`),
 
-    updateQR: async payload => await Fetch.putc('update/qrcode',payload)
+    updateQR: async payload => await Fetch.putc('update/qrcode',payload),
+
+    getRemotePhoto: walletno => `${Consts.baseURL}wallet/image?walletno=${walletno}`
 }
