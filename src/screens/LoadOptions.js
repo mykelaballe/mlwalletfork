@@ -31,48 +31,7 @@ class LoadOptions extends React.Component {
     state = {
         amount:'',
         promo:null,
-        /*regulars:[
-            {
-                amount:'1000',
-                selected:false
-            },
-            {
-                amount:'500',
-                selected:false
-            },
-            {
-                amount:'300',
-                selected:false
-            },
-            {
-                amount:'200',
-                selected:false
-            },
-            {
-                amount:'100',
-                selected:false
-            },
-            {
-                amount:'50',
-                selected:false
-            },
-            {
-                amount:'30',
-                selected:false
-            },
-            {
-                amount:'20',
-                selected:false
-            },
-            {
-                amount:'10',
-                selected:false
-            },
-            {
-                amount:'5',
-                selected:false
-            }
-        ],*/
+        regulars:[],
         promo_codes:[],
         show_regulars:true,
         loading:true
@@ -81,11 +40,11 @@ class LoadOptions extends React.Component {
     componentDidMount = () => this.getData()
 
     getData = async () => {
-        const {network} = this.props.navigation.state.params
+        const {network, contact_no} = this.props.navigation.state.params
         let regulars = [], promo_codes = []
 
         try {
-            let res = await API.getLoadOptions(network.value)
+            let res = await API.getLoadOptions(network.value, contact_no)
             //promo_codes = network.promos
             regulars = res.regulars
             promo_codes = res.promos
@@ -200,7 +159,7 @@ class LoadOptions extends React.Component {
 
                 {show_regulars &&
                 <>
-                    <Text center mute md>Choose the load amount below.</Text>
+                    {regulars.length > 0 && <Text center mute md>Choose the load amount below.</Text>}
 
                     {/*<Spacer />
 
@@ -219,6 +178,7 @@ class LoadOptions extends React.Component {
                         renderItem={this.renderRegulars}
                         numColumns={3}
                         loading={loading}
+                        placeholder={{text:'No options available'}}
                         //contentContainerStyle={{alignItems:'center'}}
                     />
                 </>

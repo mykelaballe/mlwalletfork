@@ -18,7 +18,8 @@ export default class Scrn extends React.Component {
         receiverno:this.props.navigation.state.params.receiver.receiverno,
         name:this.props.navigation.state.params.receiver.fullname,
         contact_no:this.props.navigation.state.params.receiver.mobileno,
-        loading:true
+        loading:true,
+        processing:false
     }
 
     componentDidMount = () => InteractionManager.runAfterInteractions(this.getData)
@@ -46,20 +47,36 @@ export default class Scrn extends React.Component {
 
     handleNext = async () => {
         const {params} = this.props.navigation.state
-        const {contact_no} = this.state
+        const {network, contact_no, processing} = this.state
         
-        if(!Func.isPHMobileNumber(contact_no)) Say.warn(Consts.error.mobile)
-        else {
-            this.props.navigation.navigate('LoadOptions',{
-                ...params,
-                ...this.state
-            })
+        if(!processing) {
+            try {
+                this.setState({processing:true})
+
+                if(!Func.isPHMobileNumber(contact_no)) Say.warn(Consts.error.mobile)
+                else {
+                    let res = await API.getLoadOptions(network.value, contact_no)
+                    
+                    if(res.error) Say.warn(res.message)
+                    else {
+                        this.props.navigation.navigate('LoadOptions',{
+                            ...params,
+                            ...this.state
+                        })
+                    }
+                }
+            }
+            catch(err) {
+                Say.err(err)
+            }
+
+            this.setState({processing:false})
         }
     }
 
     render() {
 
-        const {networks, network, contact_no, name, loading} = this.state
+        const {networks, network, contact_no, name, loading, processing} = this.state
         let ready = false
 
         if(network && contact_no && name) ready = true
@@ -100,7 +117,7 @@ export default class Scrn extends React.Component {
                 </Screen>
 
                 <Footer>
-                    <Button disabled={!ready || loading} t={_('62')} onPress={this.handleNext} />
+                    <Button disabled={!ready || loading} t={_('62')} onPress={this.handleNext} loading={processing} />
                 </Footer>
             </>
         )

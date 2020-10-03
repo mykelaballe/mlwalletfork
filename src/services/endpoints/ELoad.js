@@ -88,12 +88,12 @@ export default {
         return data
     },
 
-    getLoadOptions: async network => {
+    getLoadOptions: async (networkID, mobileno) => {
         let data = {
             regulars:[],
             promos:[]
         }
-        let res = await Fetch.getc(`getRegularPromoLoad?${JSON.stringify({networkID:network})}`)
+        let res = await Fetch.getc(`getRegularPromoLoad?${JSON.stringify({networkID, mobileno})}`)
 
         if(res.error) return res
 
