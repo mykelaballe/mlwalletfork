@@ -12,8 +12,8 @@ import RNFetchBlob from 'rn-fetch-blob'
 const {width, height} = Dimensions.get('window')
 const FRAME_WIDTH = width * .9
 const FRAME_HEIGHT = height * .4
-const BASE_WIDTH = 1280
-const BASE_HEIGHT = 1920
+const BASE_WIDTH = 640
+const BASE_HEIGHT = 1136
 const QUALITY = 0.7
 
 export default class Scrn extends React.Component {
@@ -67,14 +67,15 @@ export default class Scrn extends React.Component {
                         this.setState({processing:true})
         
                         let source = await this.camera.takePictureAsync({
-                            width: Consts.is_android ? BASE_WIDTH : BASE_WIDTH * QUALITY,
-                            height: Consts.is_android ? BASE_HEIGHT : BASE_HEIGHT * QUALITY,
+                            width: BASE_WIDTH,//Consts.is_android ? BASE_WIDTH : BASE_WIDTH * QUALITY,
+                            height: BASE_HEIGHT,//Consts.is_android ? BASE_HEIGHT : BASE_HEIGHT * QUALITY,
                             quality: Consts.is_android ? 0.9 : QUALITY,
                             base64: true,
                             orientation: 'portrait',
                             skipProcessing: true,
                             pauseAfterCapture: true,
                             mirrorImage: viewType == RNCamera.Constants.Type.back ? false : true,
+                            exif:false,
         
                             //Android
                             fixOrientation: true,
