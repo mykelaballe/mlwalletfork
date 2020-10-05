@@ -46,6 +46,11 @@ function compute() {
 }
 
 const calculateKPRate = (amount, rates) => {
+
+    if(rates.length > 0 && amount > rates[rates.length - 1].maxAmount) {
+        return rates[rates.length - 1].chargeValue
+    }
+
     for(let r in rates) {
         if(amount >= rates[r].minAmount && amount <= rates[r].maxAmount) {
             return rates[r].chargeValue
