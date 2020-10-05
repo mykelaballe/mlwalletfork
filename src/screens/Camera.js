@@ -8,6 +8,7 @@ import {request, PERMISSIONS, RESULTS} from 'react-native-permissions'
 import AntDesignIcon from 'react-native-vector-icons/AntDesign'
 import FoundationIcon from 'react-native-vector-icons/Foundation'
 import RNFetchBlob from 'rn-fetch-blob'
+//import ImageResizer from 'react-native-image-resizer'
 
 const {width, height} = Dimensions.get('window')
 const FRAME_WIDTH = width * .9
@@ -15,6 +16,8 @@ const FRAME_HEIGHT = height * .4
 const BASE_WIDTH = 640
 const BASE_HEIGHT = 1136
 const QUALITY = 0.7
+const FILESIZE_LIMIT = 200 //kb
+const RESIZE_AMOUNT = 10 //kb
 
 export default class Scrn extends React.Component {
 
@@ -49,6 +52,43 @@ export default class Scrn extends React.Component {
         this.setState(prevState => ({
             viewType:prevState.viewType === RNCamera.Constants.Type.back ? RNCamera.Constants.Type.front : RNCamera.Constants.Type.back
         }))
+    }
+
+    resizeImage = async imgObj => {
+        let newWidth = imgObj.width 
+        let newHeight = imgObj.height
+        let newUri = imgObj.uri
+        let newFileSize = imgObj.filesize
+
+        try {
+            do {
+                let res = await ImageResizer.createResizedImage(newUri, newWidth - RESIZE_AMOUNT, newHeight - RESIZE_AMOUNT, 'JPEG', 100)
+
+                newWidth = res.width
+                newHeight = res.height
+                newUri = res.uri
+                newFileSize = res.size / 1000
+
+                /*console.warn({
+                    newWidth,
+                    newHeight,
+                    newFileSize
+                })*/
+
+            } while(newFileSize > FILESIZE_LIMIT) //2mb
+        }
+        catch(err) {
+            console.warn(err)
+            return imgObj
+        }
+
+        return {
+            ...imgObj,
+            width: newWidth,
+            height: newHeight,
+            uri: newUri,
+            filesize: newFileSize
+        }
     }
 
     handleCapture = () => {
@@ -89,6 +129,9 @@ export default class Scrn extends React.Component {
                         let filestat = await RNFetchBlob.fs.stat(source.uri)
 
                         if(filestat.size) source.filesize = filestat.size / 1000 //bytes to kb
+
+                        //if more than 2mb
+                        //if(source.filesize > FILESIZE_LIMIT) source = await this.resizeImage(source)
         
                         this.setState({source})
                     }
