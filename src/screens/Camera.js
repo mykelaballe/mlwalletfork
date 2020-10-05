@@ -8,13 +8,13 @@ import {request, PERMISSIONS, RESULTS} from 'react-native-permissions'
 import AntDesignIcon from 'react-native-vector-icons/AntDesign'
 import FoundationIcon from 'react-native-vector-icons/Foundation'
 import RNFetchBlob from 'rn-fetch-blob'
-import ImageResizer from 'react-native-image-resizer'
+//import ImageResizer from 'react-native-image-resizer'
 
 const {width, height} = Dimensions.get('window')
 const FRAME_WIDTH = width * .9
 const FRAME_HEIGHT = height * .4
-const BASE_WIDTH = 640
-const BASE_HEIGHT = 1136
+const BASE_WIDTH = 1280//640
+const BASE_HEIGHT = 1920//1136
 const QUALITY = 0.7
 const FILESIZE_LIMIT = 2000 //kb
 const RESIZE_AMOUNT = 100 //pixel
@@ -101,8 +101,8 @@ export default class Scrn extends React.Component {
                         this.setState({processing:true})
         
                         let source = await this.camera.takePictureAsync({
-                            //width: BASE_WIDTH,//Consts.is_android ? BASE_WIDTH : BASE_WIDTH * QUALITY,
-                            //height: BASE_HEIGHT,//Consts.is_android ? BASE_HEIGHT : BASE_HEIGHT * QUALITY,
+                            width: BASE_WIDTH,//Consts.is_android ? BASE_WIDTH : BASE_WIDTH * QUALITY,
+                            height: BASE_HEIGHT,//Consts.is_android ? BASE_HEIGHT : BASE_HEIGHT * QUALITY,
                             quality: Consts.is_android ? 0.9 : QUALITY,
                             base64: true,
                             orientation: 'portrait',
@@ -125,7 +125,10 @@ export default class Scrn extends React.Component {
                         if(filestat.size) source.filesize = filestat.size / 1000 //bytes to kb
 
                         //if more than 2mb
-                        if(source.filesize > FILESIZE_LIMIT) source = await this.resizeImage(source)
+                        /*if(source.filesize > FILESIZE_LIMIT) {
+                            source = await this.resizeImage(source)
+                            if(!Consts.is_android) source.uri = source.uri.replace('file:///', '/')
+                        }*/
         
                         this.setState({source})
                     }
