@@ -94,6 +94,8 @@ class Scrn extends React.Component {
 
         try {
 
+            this.props.startTransaction()
+
             this.setState({processing:true})
 
             let latitude = Consts.defaultLatitude, longitude = Consts.defaultLongitude
@@ -101,6 +103,7 @@ class Scrn extends React.Component {
             if(Func.isCheckLocation(type)) {
                 const locationRes = await Func.getLocation()
                 if(locationRes.error) {
+                    this.props.endTransaction()
                     this.setState({processing:false})
                     return false
                 }
@@ -244,6 +247,8 @@ class Scrn extends React.Component {
         catch(err) {
             Say.err(err)
         }
+
+        this.props.endTransaction()
 
         this.setState({
             processing:false,
@@ -401,6 +406,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+    startTransaction: () => dispatch(Creators.startTransaction()),
+    endTransaction: () => dispatch(Creators.endTransaction()),
     updateBalance: newBalance => dispatch(Creators.updateBalance(newBalance)),
     logout: () => dispatch(Creators.logout()),
     refreshWalletRecent:refresh => dispatch(Creators.refreshWalletRecent(refresh)),

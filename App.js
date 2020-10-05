@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {Creators} from './src/actions'
 import Navigation from './src/navigation'
 import {Colors} from './src/themes'
-import {Responder} from './src/components'
+import {Responder, Veil} from './src/components'
 import SomeModal from './src/components/SomeModal'
 import {Consts, Storage} from './src/utils'
 import NetInfo from '@react-native-community/netinfo'
@@ -136,6 +136,7 @@ class App extends React.Component {
           {!loading &&
           <>
             <StatusBar backgroundColor={Colors.brand} />
+            <Veil />
             <Navigation />
             <SomeModal />
           </>

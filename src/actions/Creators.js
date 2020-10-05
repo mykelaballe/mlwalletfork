@@ -114,6 +114,9 @@ import Types from './Types'
  const refreshELoadFavorites = refresh => ({ type: Types.REFRESH_ELOAD_FAVORITES, refresh })
  const refreshELoadRecent = refresh => ({ type: Types.REFRESH_ELOAD_RECENT, refresh })
 
+ const startTransaction = () => ({ type: Types.START_TRANSACTION })
+ const endTransaction = () => ({ type: Types.END_TRANSACTION })
+
 export default {
   startup,
 
@@ -180,4 +183,7 @@ export default {
 
   setNotifications,
   clearNotifications,
+
+  startTransaction,
+  endTransaction
 }

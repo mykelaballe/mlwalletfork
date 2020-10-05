@@ -56,6 +56,7 @@ import TextInputFlat from './TextInputFlat'
 import TopBuffer from './TopBuffer'
 import TransactionHistoryItem from './TransactionHistoryItem'
 import UsePointsCheckbox from './UsePointsCheckbox'
+import Veil from './Veil'
 import View from './View'
 import YearPicker from './YearPicker'
 
@@ -122,6 +123,7 @@ export {
     TopBuffer,
     TransactionHistoryItem,
     UsePointsCheckbox,
+    Veil,
     View,
     YearPicker,
     

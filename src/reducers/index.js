@@ -10,6 +10,7 @@ import KPReducer from './KPReducer'
 import BankTransferReducer from './BankTransferReducer'
 import BillsPaymentReducer from './BillsPaymentReducer'
 import ELoadReducer from './ELoadReducer'
+import TransactionReducer from './TransactionReducer'
 
 export default combineReducers({
     app: AppReducer,
@@ -22,7 +23,8 @@ export default combineReducers({
     kp: KPReducer,
     bankTransfer: BankTransferReducer,
     billsPayment: BillsPaymentReducer,
-    eLoad: ELoadReducer
+    eLoad: ELoadReducer,
+    transaction: TransactionReducer
 })
 
 export const persistentStoreBlacklist = []

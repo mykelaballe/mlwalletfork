@@ -59,6 +59,8 @@ class Scrn extends React.Component {
             if(!transaction_no || !amount || !firstname || !lastname) Say.some(_('8'))
             else if(Func.formatToCurrency(amount) <= 0) Say.warn(_('89'))
             else {
+                this.props.startTransaction()
+
                 let res = await API.receiveMoneyDomestic({
                     walletno,
                     kptn:transaction_no,
@@ -101,6 +103,8 @@ class Scrn extends React.Component {
         catch(err) {
             Say.err(err)
         }
+
+        this.props.endTransaction()
 
         this.setState({processing:false})
     }
@@ -174,6 +178,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+    startTransaction: () => dispatch(Creators.startTransaction()),
+    endTransaction: () => dispatch(Creators.endTransaction()),
     updateBalance: newBalance => dispatch(Creators.updateBalance(newBalance)),
     logout: () => dispatch(Creators.logout())
 })
