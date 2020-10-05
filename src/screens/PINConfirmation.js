@@ -218,7 +218,7 @@ class Scrn extends React.Component {
                     }
 
                     if(res.error) {
-                        if(!res.message) throw new error()
+                        if(!res.message) throw new Error()
                         else Say.warn(res.message)
                     }
                     else {
