@@ -142,6 +142,7 @@ android {
         versionName "8.8"
         missingDimensionStrategy 'react-native-camera', 'mlkit'
         multiDexEnabled true
+        resConfigs "en", "US"
     }
     splits {
         abi {
